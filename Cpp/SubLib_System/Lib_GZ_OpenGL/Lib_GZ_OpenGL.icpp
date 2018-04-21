@@ -1,0 +1,5 @@
+﻿
+extern "C" int IniLib_Lib_GZ_OpenGL(){
+
+return 1;
+}

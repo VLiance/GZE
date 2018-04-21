@@ -1,0 +1,233 @@
+//This file is part of "GZE - GroundZero Engine"
+
+//The permisive licence allow to use GZE for free or commercial project (Apache License, Version 2.0).
+//For conditions of distribution and use, see copyright notice in Licence.txt, this license must be included with any distribution of the code.
+
+//Though not required by the license agreement, please consider the following will be greatly appreciated:
+//- We would like to hear about projects where GZE is used.
+//- Include an attribution statement somewhere in your project.
+//- If you want to see GZE evolve please help us with a donation.
+
+#ifndef GZ_tLib_GZ
+	#error Please Include <GZE.h> before <Main>
+#endif
+
+#ifdef GZ_tMainInclued
+	#error Please include <Main> only once, in your "main" .cpp
+#endif
+#define GZ_tMainInclued
+
+//////// Include base of GZE //////////
+#ifndef tLib_GZ
+//#include "MinGZE.gcpp"
+#endif
+#ifndef tLib_NoGPU
+//#include "GPU.gcpp"
+#endif
+//////////////////////////////////
+
+gzInt nMainIsAlive = 1;
+gzInt nMainUpdateMs = 16; // (60 fps if available)
+gzInt Main(gzText8 _sArg, gzUIntX _nId = 0, gzInt _nCmd = 0);
+gzInt Update(gzFloat _nDelta = 0);
+gzInt Close(gzInt _nExitCode);
+
+#define endl_cr "\r"
+
+#ifdef GZ_tJit
+
+	extern "C" int Jit_Main(void* _dTest) {
+		nMainIsAlive = Main("");
+		return nMainIsAlive;
+	}
+
+	extern "C" int Jit_Update() {
+		if( nMainIsAlive){
+			nMainIsAlive = Update(0);
+		}
+		return nMainIsAlive;
+	}
+
+//#elif defined wPlatform__Windows
+#elif defined wPlatform__Windows
+
+	#define UNICODE
+	#define _UNICODE
+
+#include <io.h>
+#include <fcntl.h>
+
+	#include <Windows.h>
+	#include <locale.h> //Console
+
+LRESULT CALLBACK MainHwndProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam){
+ //printf("\nmsg: 0x%03x\n",message );
+  switch (message) {
+    case WM_CLOSE:
+            DestroyWindow(hwnd);
+        break;
+        case WM_DESTROY:
+            PostQuitMessage(0);
+			nMainIsAlive = 0;
+        break;
+
+		case WM_QUIT:
+		case WM_QUERYENDSESSION:
+			nMainIsAlive = 0;
+            break;
+
+        default:
+            return DefWindowProc(hwnd, message, wParam, lParam);
+    }
+    return 0;
+}
+
+	#ifdef tPlatform_CpcDos
+//////////////////////////////////////////////////////////
+#include "Lib_GZ/SysUtils/CpcDos/CPC_WPR.cpp"
+extern bool bOnCpcDos;
+int main( int argc, const char* argv[] ){
+	if(bOnCpcDos){
+		nMainIsAlive = Main("");
+		while(nMainIsAlive){
+			nMainIsAlive = Update(0);
+		}
+		return nMainIsAlive;
+	}
+
+HINSTANCE hThisInstance = GetModuleHandle(NULL);
+int nCmdShow = 10;//SW_SHOWDEFAULT
+//////////////////////////////////////////////////////////
+	#else
+//////////////////////////////////////////////////////////
+int WINAPI WinMain (HINSTANCE hThisInstance,  HINSTANCE hPrevInstance,  LPSTR lpszArgument, int nCmdShow){
+SetConsoleOutputCP(CP_UTF8);
+//////////////////////////////////////////////////////////
+	#endif
+	
+	GZ_nArrayTotalAlloc = 0;
+	
+	HWND MainEventHwnd = {0}; //Create a Dummy Windows to handle main events
+	MSG messages = {0};
+	static const TCHAR* class_name = TEXT("LibRT_Class");
+	WNDCLASSEX wx = {0};
+	//WNDCLASSEXA wx = {0};
+	wx.cbSize = sizeof(WNDCLASSEX);
+//	wx.cbSize = sizeof(WNDCLASSEXA);
+	wx.lpfnWndProc = MainHwndProcedure;        // function which will handle messages
+	wx.hInstance = hThisInstance;
+	wx.lpszClassName = class_name;
+	if ( RegisterClassEx(&wx) ) {
+	  MainEventHwnd = CreateWindowEx( WS_EX_TOOLWINDOW, class_name,  TEXT("MainHwnd"), 0, 0, 0, 0, 0, HWND_DESKTOP, NULL, hThisInstance, NULL );
+	}
+	ShowWindow(MainEventHwnd, SW_SHOWNOACTIVATE); //Necessary to handle windows events
+	
+	Lib_GZ::Lib::fLoadAllLib();
+	nMainIsAlive = Main("", (gzUIntX)hThisInstance, (gzInt)nCmdShow );
+
+	while(nMainIsAlive){
+
+		Sleep(nMainUpdateMs);
+		nMainIsAlive = Update(0);
+
+		while(PeekMessage(&messages, NULL, 0, 0, PM_REMOVE)) {
+
+			TranslateMessage(&messages);
+			DispatchMessage(&messages);
+
+			if(messages.message == WM_QUIT){
+				 nMainIsAlive = 0;
+			}
+		}
+
+
+	}
+
+	return Close(messages.wParam);
+    //return messages.wParam;   //The program return-value is 0 - The value that PostQuitMessage() gave
+}
+
+
+#elif defined wPlatform__Web_Emsc ////////////////////// Web //////////////////////////////////////
+
+	#include "Lib_GZ_Platform/EmscHeader.h"
+
+
+//	#include <emscripten/emscripten.h>
+	//#include <emscripten/bind.h>
+
+	#undef endl_cr
+	#define endl_cr "\n"
+
+	void Emsc_Update(){
+		if(nMainIsAlive){
+
+			val FPSMeter = val::global("meter");
+			if(!FPSMeter.isUndefined()){
+				 FPSMeter.call<void>("tickStart");
+			}
+
+			nMainIsAlive = Update(0);
+
+			if(!FPSMeter.isUndefined()){
+				FPSMeter.call<void>("tick");
+			}
+
+
+		}
+	}
+
+	gzInt main(){
+		GZ_nArrayTotalAlloc = 0;
+		
+		Lib_GZ::Lib::fLoadAllLib();
+		nMainIsAlive = Main("");
+		if(nMainIsAlive){
+			emscripten_set_main_loop(Emsc_Update, 0, 1);
+		}
+		return nMainIsAlive;
+	}
+
+
+
+#elif defined GZ_tCpcDos
+
+	#include "Cpcdos/CPC_WPR.cpp"
+
+	extern "C" int cpc__gze_main() {
+		Lib_GZ::Lib::fLoadAllLib();
+		Main();
+		while( nMainIsAlive){
+			nMainIsAlive = Update(0);
+		}
+		return nMainIsAlive;
+	}
+
+
+
+#else ////// Others //////
+
+	int main() {
+		Lib_GZ::Lib::fLoadAllLib();
+		nMainIsAlive = Main("");
+		while(nMainIsAlive){
+			Update(0);
+		}
+		return nMainIsAlive;
+	}
+
+#endif
+
+/*
+struct End { //Place before any global strurt to be sure it was called after everything, note this may not be called at the every end, this can be a false negative
+  ~End(){
+	  	printf("\nTotal: Alloc / Free   ---  %d / %d ", GZ_nArrayTotalAlloc, GZ_nArrayTotalFree);
+		if(GZ_nArrayTotalAlloc == GZ_nArrayTotalFree){
+			printf("\nP: *-- No memory leak --* \n");
+		}else{
+			printf("\n\nE:---!!! MEMORY BROKEN !!!---\n\n");
+		}
+	  printf("\n--- End! ---");
+  }
+};End oEnd;
+*/

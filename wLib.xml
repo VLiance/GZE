@@ -1,0 +1,23 @@
+﻿<Lib>
+
+
+	<cmd>@{wPath}wLib.cwc</cmd>
+
+
+	<arguments>
+
+		<Compiler>-I{wPath}Cpp/</Compiler>
+		<Compiler>-I{wPath}Cpp/SubLib_System/</Compiler>
+		
+		<CWift>-L "{wPath}Cw/Engine_(GZ)/"  -I "{wPath}Cw/Wrapper_(GZ)/"</CWift> 
+		
+		
+	</arguments>
+
+
+	<If_Platform name="Windows">
+
+		<Linker>-lgdi32 -lopengl32 </Linker>
+		
+	</If_Platform>
+</Lib>
