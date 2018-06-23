@@ -162,7 +162,7 @@
 		inline void fResetLastError(){
 			gzUInt _nErr = GetLastError();
 			if(_nErr){
-				GZ_Debug_fError(gzStrL("Previous Win GetLastError detected (") +  gzStrUI(_nErr)  + gzStrL("): ") +  System::fGetLastErrorString(_nErr) );
+				GZ_Debug_fError(gzU8("Previous Win GetLastError detected (") +  gzStrUI(_nErr)  + gzU8("): ") +  System::fGetLastErrorString(_nErr) );
 			}
 			SetLastError(0);
 		}

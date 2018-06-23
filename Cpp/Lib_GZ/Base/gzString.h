@@ -23,6 +23,10 @@
 //#RULE #3 DataCow never have weak_ptr
 
 
+//Not sure?
+#define gzPStr const _gzeStr8&//Not sure? //TODO _gzStr
+
+
 #define _gzStr const _gzeStr8&
 #define _gzStr8 const _gzeStr8&
 #define _gzStr16 const _gzeStr16&
@@ -35,6 +39,7 @@
 	
 	
 typedef  gzStr8 gzStr;
+extern gzStr8 gzNullStr;
 
 /////////////////////////////////////////////////////////
 /////////////////////   UTF8  ///////////////////////////
@@ -52,6 +57,12 @@ typedef  gzStr8 gzStr;
 	public:
 		#undef gzp_DataType
 		#define gzp_DataType gzStr8
+		
+		
+		gzp_DataType(){ //To test
+			*this = gzNullStr;
+		}
+		
 		
 		 gzp_DataType(const _gzeStr8& _sReturn){
 			m = ((gzStr8*)(&_sReturn))->m;
@@ -210,6 +221,8 @@ gzStr8 gzStrC(const char* _Array);
 gzStr8 gzStrC(gzInt* _Array);
 gzStr8 gzStrC(const char* _Array, gzUInt _nCount);
 gzStr8 gzStrUI(gzUInt64 _nEntier);
+
+
 
 
 #undef gzp_nS

@@ -111,9 +111,9 @@ package  {
 				
 				 const char* aGLContextName[] = {"webgl2", "webgl", "experimental-webgl", "moz-webgl"};
 				if(_nGpuId >= 0){
-				   Lib_GZ::Sys::Debug::Get(thread)->fTrace1(  gzStrL("--Test GPU Context:") + gzStrC(aGLContextName[_nGpuId]));
+				   Lib_GZ::Sys::Debug::Get(thread)->fTrace1(  gzU8("--Test GPU Context:") + gzStrC(aGLContextName[_nGpuId]));
 				}else{
-				  Lib_GZ::Sys::Debug::Get(thread)->fError( gzStrL("--Gpu not supported"));
+				  Lib_GZ::Sys::Debug::Get(thread)->fError( gzU8("--Gpu not supported"));
 				  _bContext2d = true;
 				}
 				
@@ -132,7 +132,7 @@ package  {
 					gzStr _sVersion = gzStrC(((char*)((std::string)(gl.call<std::string>("getParameter", gl["VERSION"]))).c_str()));
 					
 					
-					Lib_GZ::Sys::Debug::Get(thread)->fPass( gzStrL("OpenGL avalaible: ") + _sVersion);
+					Lib_GZ::Sys::Debug::Get(thread)->fPass( gzU8("OpenGL avalaible: ") + _sVersion);
 					
 					gl.call<Void>("clearColor",  0.5, val(0.7), val(0.2), val(1.0));
 				//	gl.call<Void>("clear",  gl["COLOR_BUFFER_BIT"]  );

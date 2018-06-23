@@ -20,7 +20,7 @@ package  {
 		
 		public pure function fConsole(_sValue:String):Void { //Pure function Cannot be overplaced
 			<cpp>
-			 printf("c:%s\n", (char*)_sValue.fcStr());
+			 printf("c:%s\n", (char*)_sValue.fToChar());
 		  //  printf("%s\n",_sValue.fcStr());
 			</cpp>
 		}

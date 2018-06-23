@@ -281,7 +281,7 @@ package  {
 			_oFileWriteCpp.fWriteString("\ngzSp<GZ::cRcImg> _o" + _sFileName + " = GZ::RcImg::New(GZ::Global::fAddLoadRc(fRc" + _sFileName + "));");
 			_oFileWriteCpp.fWriteString("\nGZ::cRcImg* " + _sFileName  + " = _o" + _sFileName + ".get();");
 			_oFileWriteCpp.fWriteString("\nGZ::cResource* fRc" + _sFileName + "(){");
-			_oFileWriteCpp.fWriteString("\n  " + _sFileName + "->fLoadFromDrive( GZ::Global::sDirRcEmbed, gzStrL(\""+ _sRelativePath + _sFile +"\"));");
+			_oFileWriteCpp.fWriteString("\n  " + _sFileName + "->fLoadFromDrive( GZ::Global::sDirRcEmbed, gzU8(\""+ _sRelativePath + _sFile +"\"));");
 			_oFileWriteCpp.fWriteString("\n   return Rc::" +_sFileName + ";");
 			_oFileWriteCpp.fWriteString("\n}");
 			_oFileWriteCpp.fWriteString("\n}");

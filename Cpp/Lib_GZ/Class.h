@@ -14,9 +14,9 @@ namespace Lib_GZ{class cClass;}
 //- Include an attribution statement somewhere in your project.
 //- If you want to see GZE evolve please help us with a donation.
 //#include "Delegate.h"
-#include "Lib_GZ/Lib_GZ.h"
-	#include "SmartPtr/gzSp.h"
-	#include "SmartPtr/gzWp.h"
+//#include "Lib_GZ/Lib_GZ.h"
+//	#include "SmartPtr/gzSp.h"
+//	#include "SmartPtr/gzWp.h"
 
 //#include "Lib_GZ/Thread.h"
 //#include "Lib_GZ/GZ.h"
@@ -72,7 +72,9 @@ class tApi_Lib_GZ cClass  {
 
 	public:
 		
-
+        inline virtual void ThreadLoop(){};
+        inline virtual void ThreadEnd(){};
+		
 		
 		inline virtual gzAny MemCopy(){return 0;};
 		inline virtual gzAny DeepCopy(){return 0;};
@@ -84,7 +86,13 @@ class tApi_Lib_GZ cClass  {
 			cThread* GzThread;
 			cThread* thread;
 		};
+		
+		  inline cClass():GzThread(0),parent(0){}; //Sure?
 
+		  
+		  
+
+	  
         inline cClass(cClass* _parent):GzThread(0) {
            if(_parent != 0){
               //  parent = _parent->SpFromThis();
@@ -94,8 +102,16 @@ class tApi_Lib_GZ cClass  {
                 //Only new thread can have parent to zero (cThread) TODO aAssert
            }
         }
-		
-		
+		/*
+		inline cClass(cClass* _parent, gzBool _bDeepCopy):GzThread(0) { //Useless?
+		   if(_parent != 0){
+              //  parent = _parent->SpFromThis();
+                parent = _parent;
+                GzThread = _parent->thread;
+          }else{
+                //Only new thread can have parent to zero (cThread) TODO aAssert
+           }
+	   }*/
 		
 	
 		//Var
@@ -121,9 +137,11 @@ class tApi_Lib_GZ cClass  {
 		//Var
 
 };
+/*
 class tApi_Lib_GZ csClass   { //cStThread
 
 	public:
+	
 		//Object Creation Wrapper
 		inline virtual gzSp<cClass> New(Lib_GZ::cClass* _parent){
 			gzSp<cClass>_oTemp = gzSp<cClass>(new cClass(_parent));
@@ -140,7 +158,7 @@ class tApi_Lib_GZ csClass   { //cStThread
 		inline csClass(Lib_GZ::cClass* _parent){};
 		inline ~csClass(){};
 };
-GZ_mStaticClass(Class)
+GZ_mStaticClass(Class)*/
 namespace Class{
 }}
 #undef tHDef_IN_Lib_GZ_Class

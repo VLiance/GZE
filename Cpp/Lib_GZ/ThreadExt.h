@@ -12,10 +12,10 @@ namespace Lib_GZ{class cThreadExt;}
 #if !( defined tHDef_GZ_ThreadExt)
 
 #define tHDef_GZ_ThreadExt
-#include "Lib_GZ/GzTypes.h"
-#include "Lib_GZ/Delegate.h"
+#include "Lib_GZ/Base/GzTypes.h"
 
-#include "Lib_GZ/QArray.h"
+
+#include "Lib_GZ/Base/gzQArray.h"
 
 
 

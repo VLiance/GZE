@@ -74,6 +74,7 @@ typedef const wchar_t* gzText16;
 typedef void* gzPtr;
 
 
+
 #ifdef _WIN64
 #define GZ_tSys64
 #endif
@@ -163,8 +164,11 @@ typedef gzUInt32 gzUTF32;
 
 ////////////////////////////////
 
-namespace Lib_GZ{class cDelegate;};
-typedef Lib_GZ::cDelegate* gzAny;
+//namespace Lib_GZ{class cDelegate;};
+//typedef Lib_GZ::cDelegate* gzAny;
+
+namespace Lib_GZ{class cClass;};
+typedef Lib_GZ::cClass* gzAny;
 
 //struct gzDelegateClass { Lib_GZ::Delegate* oClass;};
 //typedef void* gzDlgWrap;
@@ -293,7 +297,6 @@ extern Lib_GZ_OpenGL::csOpenGL* oMainOGL;
 #define Pragma_Unroll_16 _Pragma("unroll 16")
 
 
-
-
+typedef void* ArrayPtr;//Temp?
 
 #endif

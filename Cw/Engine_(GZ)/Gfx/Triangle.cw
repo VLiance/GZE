@@ -34,7 +34,7 @@ package  {
 		public var nLimitSourceHeight : Int = 0;
 
 		public var nDrawDir : Int = 1;
-
+/*
 		public var aPtA : CArray<Float, 1>;
 		public var aPtB : CArray<Float, 1>;
 		public var aPtC : CArray<Float, 1>;
@@ -50,7 +50,7 @@ package  {
 		public var aPtST : CArray<Float, 1>;
 		public var aPtSM : CArray<Float, 1>;
 		public var aPtSL : CArray<Float, 1>;
-
+*/
 
 
 
@@ -158,7 +158,7 @@ package  {
 
 	//	public static function fDraw(_oPtA:Mapped<uPoint3D>,_oPtB:Mapped<uPoint3D>,_oPtC:Mapped<uPoint3D>,  _aPtSA:Mapped<uPoint3D>,_aPtSB:Mapped<uPoint3D>,_aPtSC:Mapped<uPoint3D>,   _nPosX : Int, _nPosY : Int, _aPixelArray : CArray<Int32, 2>,  _nSWidth : UInt,  _nSHeight : UInt, _oSource : Object, _nX_Start : Int, _nX_End : Int, _nY_Start : Int, _nY_End : Int,  _nRsAlpha: UInt , _nRsBrRed: UInt , _nRsBrGreen: UInt   , _nRsBrBlue: UInt , _nRsRevRed: UInt , _nRsRevBlue: UInt , _nRsRevGreen: UInt , _nOfRevRed: UInt , _nOfRevBlue: UInt , _nOfRevGreen: UInt, _bNothingRight : Bool = false ):Void  {
 		public static function fDraw(_oPtA:Pt,_oPtB:Pt,_oPtC:Pt,  _aPtSA:Mapped<uPoint3D>,_aPtSB:Mapped<uPoint3D>,_aPtSC:Mapped<uPoint3D>,   _nPosX : Int, _nPosY : Int, _aPixelArray : CArray<Int32, 2>,  _nSWidth : UInt,  _nSHeight : UInt, _oSource : Object, _nX_Start : Int, _nX_End : Int, _nY_Start : Int, _nY_End : Int,  _nRsAlpha: UInt , _nRsBrRed: UInt , _nRsBrGreen: UInt   , _nRsBrBlue: UInt , _nRsRevRed: UInt , _nRsRevBlue: UInt , _nRsRevGreen: UInt , _nOfRevRed: UInt , _nOfRevBlue: UInt , _nOfRevGreen: UInt, _bNothingRight : Bool = false ):Void  {
-
+/*
 
 			 var _oPtT :Pt;
 			 var _oPtM :Pt;
@@ -238,7 +238,7 @@ package  {
 			Pixel.fDrawSegTri(_nDrawDir,  _oPtT, _oPtL,  _aPtST, _aPtSL,  _oPtT,_oPtM,_aPtST,_aPtSM, _oSource.aPixelArray, _aPixelArray, _nPosX, _nPosY, _nX_Start, _nX_End, _nY_Start, _nY_End, _nSWidth , _nSHeight,0, _nRsAlpha, _nRsBrRed, _nRsBrGreen  , _nRsBrBlue, _nRsRevRed, _nRsRevBlue, _nRsRevGreen, _nOfRevRed, _nOfRevBlue, _nOfRevGreen, _nFirst, _bNothingRight);
 			_nFirst = Math.nPrec;
 			Pixel.fDrawSegTri(_nDrawDir,  _oPtT, _oPtL,  _aPtST, _aPtSL,  _oPtM,_oPtL,_aPtSM,_aPtSL, _oSource.aPixelArray, _aPixelArray, _nPosX, _nPosY, _nX_Start, _nX_End, _nY_Start, _nY_End, _nSWidth , _nSHeight,0, _nRsAlpha, _nRsBrRed, _nRsBrGreen  , _nRsBrBlue, _nRsRevRed, _nRsRevBlue, _nRsRevGreen, _nOfRevRed, _nOfRevBlue, _nOfRevGreen, _nFirst, _bNothingRight);
-		}
+		*/}
 
 
 

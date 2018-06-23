@@ -51,25 +51,25 @@ uCharData* rInvalidChar;
 gzInt fOpen(cRcFont* _oRc) {
 oRcFont = _oRc;
 
-    Debug::fError(gzStrL("------Open Font--"));
+    Debug::fError(gzU8("------Open Font--"));
 	
 	
     FT_Library ft;
     if (FT_Init_FreeType(&ft)){
-        Debug::fError(gzStrL("ERROR::FREETYPE: Could not init FreeType Library"));
+        Debug::fError(gzU8("ERROR::FREETYPE: Could not init FreeType Library"));
     }
 
     FT_Face face;
  //   if (FT_New_Face(ft, "c:/windows/fonts/consola.ttf", 0, &face)){
     if (FT_New_Face(ft, "c:/windows/fonts/arial.ttf", 0, &face)){
-        Debug::fError(gzStrL("ERROR::FREETYPE: Failed to load font"));
+        Debug::fError(gzU8("ERROR::FREETYPE: Failed to load font"));
     }
 
     //FT_Set_Pixel_Sizes(face, 0, 9.5);
     FT_Set_Pixel_Sizes(face, 0, 24.5);
 
     if (FT_Load_Char(face, ' ', FT_LOAD_RENDER)){
-        Debug::fError(gzStrL("ERROR::FREETYPE: Failed to load char"));
+        Debug::fError(gzU8("ERROR::FREETYPE: Failed to load char"));
     }
     rInvalidChar  = (uCharData*)GZ_fMalloc(1, sizeof(uCharData));
     FT_Glyph_Metrics_* metrics = &face->glyph->metrics;
@@ -81,7 +81,7 @@ oRcFont = _oRc;
 
 
 
-   Debug::fError(gzStrL("OK"));
+   Debug::fError(gzU8("OK"));
     oFace = face;
     fLoadFont(face);
 
@@ -234,7 +234,7 @@ int fPackFontRanges(uPackContext *spc, uFontRange *_aRanges, int _nNbRange){
    }
 
     if (FT_Load_Char(oFace, 'e', FT_LOAD_RENDER)){
-        Debug::fError(gzStrL("ERROR::FREETYPE: Failed to load char"));
+        Debug::fError(gzU8("ERROR::FREETYPE: Failed to load char"));
     }
 
    k=0;
@@ -245,7 +245,7 @@ int fPackFontRanges(uPackContext *spc, uFontRange *_aRanges, int _nNbRange){
 
        if (FT_Load_Char(oFace,  _aRanges[i].nFirstChar + j,FT_LOAD_DEFAULT)){
       //  if (FT_Load_Char(oFace,  ranges[i].first_unicode_char_in_range + j,FT_LOAD_RENDER)){
-            Debug::fError(gzStrL("ERROR::FREETYPE: Failed to load char"));
+            Debug::fError(gzU8("ERROR::FREETYPE: Failed to load char"));
         }
 
         FT_Glyph_Metrics_* metrics = &oFace->glyph->metrics;
@@ -269,7 +269,7 @@ int fPackFontRanges(uPackContext *spc, uFontRange *_aRanges, int _nNbRange){
             uCharData* _rChar = _aRanges[i].aData[j];
 
             if (FT_Load_Char(oFace,  _aRanges[i].nFirstChar + j,FT_LOAD_RENDER )){
-                Debug::fError(gzStrL("ERROR::FREETYPE: Failed to load char"));
+                Debug::fError(gzU8("ERROR::FREETYPE: Failed to load char"));
             }
 
             unsigned char* aGlyph = oFace->glyph->bitmap.buffer;

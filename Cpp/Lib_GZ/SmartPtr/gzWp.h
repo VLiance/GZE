@@ -22,16 +22,30 @@ template <class T> class gzWp;
 template <class T>
 class gzWp {
     public:
-    T val;
+   T* obj;
    // inline gzWp() {};
-    inline gzWp(Lib_GZ::cClass* _parent):val(_parent)  {};
+    inline gzWp(Lib_GZ::cClass* _objPtr):obj(_objPtr)  {};
 
-    inline gzWp(T _val):val(_val){};
+	   inline gzWp():obj(0)  {};
+
+    inline gzWp(T _obj):obj(_obj){};
 
    // inline gzWp( gzWp<T> _oOther):val(*_oOther.get()){};
 
 //  inline gzWp(gzWp<T> _oOther):val(*_oOther.get()){}; //Copy
 
+
+   inline gzWp& operator = (gzSp<T> _oOther){
+      // GZ_fSpAssert(_oOther.get() == 0);
+   //    if(_oOther.get() != 0){
+            obj = _oOther.get(); //Copy
+    //   }else{
+            //obj = T( (Lib_GZ::cClass*)(obj->parent.get()) ); //Reset if null
+     //  }
+        return *this;
+    }
+
+/*
    inline gzWp& operator = (gzWp<T> _oOther){
       // GZ_fSpAssert(_oOther.get() == 0);
        if(_oOther.get() != 0){
@@ -40,16 +54,16 @@ class gzWp {
             val = T( (Lib_GZ::cClass*)(val.parent.get()) ); //Reset if null
        }
         return *this;
-    }
+    }*/
 
 
     inline T* operator->() const
-    { return const_cast<T*>(&val);}
+    { return const_cast<T*>(obj);}
 
 
 
     inline  T* get(){
-        return &val;
+        return obj;
      }
 
     gzWp<T> SpFromThis(){

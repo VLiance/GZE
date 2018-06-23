@@ -29,7 +29,7 @@
 			}
 			///////
 			gzStr _sPath((gzUInt16*)result);
-			_sPath.fReplaceAll(gzStrL("\\"), gzStrL("/"));
+			_sPath.fReplaceAll(gzU8("\\"), gzU8("/"));
 			_sPath.fBegin();
 			return _sPath;  //Call GZ_fUnSet(_sVal);
 			//return "E:/FlashDev/_MyProject/Simacode/LDK/LinxDemo/_out/_MainDemo/Windows/Debug/bin/";
@@ -70,12 +70,12 @@
 					
 					_oRc->fSetDynamicMemData(_aData, _nSize); //Will be auto free
 					
-					Lib_GZ::Sys::pDebug::fConsole(gzStrL("---File Open!-- ") + _sFullPath);
+					Lib_GZ::Sys::pDebug::fConsole(gzU8("---File Open!-- ") + _sFullPath);
 					 return true;
 					 
 				}else{
 
-					Lib_GZ::Sys::pDebug::fConsole(gzStrL("Error, can't open file : ") + _sFullPath);
+					Lib_GZ::Sys::pDebug::fConsole(gzU8("Error, can't open file : ") + _sFullPath);
 				}
 
 				 fclose(f);

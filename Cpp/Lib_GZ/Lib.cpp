@@ -113,10 +113,10 @@ void csLib::fStaticIni(){
 /////////
 	Lib::sExeName = _sPath.fPathGetFileName();
 	Lib::sExeExt = _sPath.fPathGetFileExtention();
-	Lib::sExe = Lib::sExeName + gzStrL(".") + Lib::sExeExt;
+	Lib::sExe = Lib::sExeName + gzU8(".") + Lib::sExeExt;
 
 
-	     Lib_GZ::Sys::pDebug::fConsole(gzStrL("*********************--- PATH: ") +  Lib::sDirExe);
+	     Lib_GZ::Sys::pDebug::fConsole(gzU8("*********************--- PATH: ") +  Lib::sDirExe);
 }
 */
 /*
@@ -202,7 +202,7 @@ void fLoadAllLib(){
 */
 
 /*
-     Lib_GZ::Sys::pDebug::fConsole(gzStrL("\n ---fLoadAllLib - "));
+     Lib_GZ::Sys::pDebug::fConsole(gzU8("\n ---fLoadAllLib - "));
      printf("\n -----_rLasLib : %d \n", rLastLib);
      printf("\n -----nNumWindows : %d \n", nNumWindows);
 */
@@ -220,7 +220,7 @@ void fLoadAllLib(){
 	 
     while (_rLib != 0){
 		
-		//Lib_GZ::Sys::pDebug::fConsole(gzStrL("\n----Lib: ") + gzStrC(_rLib->sName) );
+		//Lib_GZ::Sys::pDebug::fConsole(gzU8("\n----Lib: ") + gzStrC(_rLib->sName) );
 		_rLib->dIni(); //IniLib
 		
         printf("\n--Lib :"  );   _rLib->sName.fPrint();  
@@ -236,13 +236,13 @@ void fLoadAllLib(){
     gzStr _sLib = gzStrC(GZ_tOverplace);
     _sLib.fEnd();
     _sLib.fPrev();
-    _sLib = _sLib.fRevSubStr(gzStrL("["), true); //TODOStr
+    _sLib = _sLib.fRevSubStr(gzU8("["), true); //TODOStr
     _sLib.fBegin();
-    aLib = _sLib.fSplit(gzStrL(","));
+    aLib = _sLib.fSplit(gzU8(","));
     _sLib.fBegin();
 
     fCheckOverPlace(aLib);
-        Lib_GZ::Sys::pDebug::fConsole(gzStrL("\n ----- End -------------- ") );
+        Lib_GZ::Sys::pDebug::fConsole(gzU8("\n ----- End -------------- ") );
 
 */
 }
@@ -266,15 +266,15 @@ void Lib::fCheckOverPlace(gzPArray(gzStr) _aLib){
 
     printf("\n--- Check OverPlace %d \n", _aLib.GnSize());
     for(gzInt i = 0; i < _aLib.GnSize(); i++ ){
-       Lib_GZ::fConsole(gzStrL("Sel") + gzStrI(i) + gzStrL(":")  +_aLib[i]);
+       Lib_GZ::fConsole(gzU8("Sel") + gzStrI(i) + gzU8(":")  +_aLib[i]);
 		if(dValidateIniOverpace != 0 && dValidateIniOverpace( (void*)_aLib[i].fcStr() ) ){	
 			gzStr _sLibName = _aLib[i];
 			gzBool _bFound = false;
 			uLib* _rLib = rLastLib;
 			while (_rLib != 0){
-				  //   Lib_GZ::fConsole(gzStrL("Test ") + _rLib->sName);
+				  //   Lib_GZ::fConsole(gzU8("Test ") + _rLib->sName);
 				if(_sLibName == gzStrC(_rLib->sName) ){
-						Lib_GZ::fConsole(gzStrL("Lib OverPlace: ") + _sLibName);
+						Lib_GZ::fConsole(gzU8("Lib OverPlace: ") + _sLibName);
 					   fDoOverPlace(*_rLib->_rLastClass);
 					  _bFound = true;
 					  break;
@@ -282,7 +282,7 @@ void Lib::fCheckOverPlace(gzPArray(gzStr) _aLib){
 				_rLib = _rLib->rPrec;
 			}
 			if(!_bFound){
-				Lib_GZ::fConsole(gzStrL("Warning Lib Not found: ") + _sLibName);
+				Lib_GZ::fConsole(gzU8("Warning Lib Not found: ") + _sLibName);
 			}
 		}
 		
@@ -339,8 +339,8 @@ cLib::cLib(gzUIntX _nInstanceId, gzStr _sArg, gzUIntX _nCmd): Lib_GZ::cThread(0)
 
 
     //GZ_NullPtr
-         //oWinLib = new SysWindow(0, gzStrL("OpenGL"), 5, 5, false, 0xFFFFFFFF,_SysWindow::eWinBorder::Normal,true,true,true,false);
-    oWinLib =  Lib_GZ::Sys::Context::Get(thread)->New(thread, 0, gzStrL("OpenGL"), 5, 5, false, 0xFFFFFFFF);
+         //oWinLib = new SysWindow(0, gzU8("OpenGL"), 5, 5, false, 0xFFFFFFFF,_SysWindow::eWinBorder::Normal,true,true,true,false);
+    oWinLib =  Lib_GZ::Sys::Context::Get(thread)->New(thread, 0, gzU8("OpenGL"), 5, 5, false, 0xFFFFFFFF);
 	//,Sys::Window::eWinBorder::Normal,true,true,true,false);
     oWinLib->bLibSharedContext = true;
 
@@ -375,13 +375,13 @@ void cLib::fIni(){
 void cLib::fSetDirRcFiles(gzPStr _sDirRcFiles){
     using namespace Lib;
     sDirRcFiles  = sDirExe.fPathGetRelative( _sDirRcFiles);
-    Lib_GZ::Sys::pDebug::fConsole(gzStrL("RC PATH:    ") +  sDirRcFiles);
+    Lib_GZ::Sys::pDebug::fConsole(gzU8("RC PATH:    ") +  sDirRcFiles);
 }
 
 void cLib::fSetDirRcEmbed(gzPStr _sDirRcEmbed){
     using namespace Lib;
     sDirRcEmbed = sDirExe.fPathGetRelative( _sDirRcEmbed);
-     Lib_GZ::Sys::pDebug::fConsole(gzStrL("EMBED PATH: ") +  sDirRcEmbed);
+     Lib_GZ::Sys::pDebug::fConsole(gzU8("EMBED PATH: ") +  sDirRcEmbed);
 }
 */
 /*
@@ -412,7 +412,7 @@ gzBool cLib::fMainUpdate(gzInt _nSleepTime){
 	
 	//int _nVal = ThreadMsg::fGetMasterMsg();
 	//if(_nVal){
-	//	Lib_GZ::Sys::Debug::Get(thread)->fTrace1(gzStrL("fGetMasterMsg: ") +  gzStrI(_nVal));
+	//	Lib_GZ::Sys::Debug::Get(thread)->fTrace1(gzU8("fGetMasterMsg: ") +  gzStrI(_nVal));
 	//}
 
 

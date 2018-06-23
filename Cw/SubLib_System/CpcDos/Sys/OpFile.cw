@@ -32,7 +32,7 @@
 			<cpp>
 			_sPath = gzStrC(oCpcdos->Get_Path(0));
 			
-			 _sPath.fReplaceAll(gzStrL("\\"), gzStrL("/"));
+			 _sPath.fReplaceAll(gzU8("\\"), gzU8("/"));
 			_sPath.fBegin();
 			
 			</cpp>
@@ -48,7 +48,7 @@
 			
 			<cpp>
 				_sFullPath.fBegin();
-				 _sFullPath.fReplaceAll(gzStrL("/"), gzStrL("\\")); //todo  _sFullPath = _sFullPath.fReplaceAll
+				 _sFullPath.fReplaceAll(gzU8("/"), gzU8("\\")); //todo  _sFullPath = _sFullPath.fReplaceAll
 			
 			</cpp>	
 			

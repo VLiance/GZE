@@ -26,28 +26,28 @@ namespace _SysGpuInfo{
 		gzStr fGetErrorString(gzUInt _nError){
 			switch (_nError) {
 				case GL_NO_ERROR :
-					return gzStrL("GL_NO_ERROR");
+					return gzU8("GL_NO_ERROR");
 				break;
 				case GL_INVALID_ENUM :
-					return gzStrL("GL_INVALID_ENUM");
+					return gzU8("GL_INVALID_ENUM");
 				break;
 				case GL_INVALID_VALUE :
-					return gzStrL("GL_INVALID_VALUE");
+					return gzU8("GL_INVALID_VALUE");
 				break;
 				case GL_INVALID_OPERATION :
-					return gzStrL("GL_INVALID_OPERATION");
+					return gzU8("GL_INVALID_OPERATION");
 				break;
 				case GL_STACK_OVERFLOW :
-					return gzStrL("GL_STACK_OVERFLOW");
+					return gzU8("GL_STACK_OVERFLOW");
 				break;
 				case GL_STACK_UNDERFLOW :
-					return gzStrL("GL_STACK_UNDERFLOW");
+					return gzU8("GL_STACK_UNDERFLOW");
 				break;
 				case GL_OUT_OF_MEMORY :
-					return gzStrL("GL_OUT_OF_MEMORY");
+					return gzU8("GL_OUT_OF_MEMORY");
 				break;
 				default :
-					return gzStrL("GL_UNKNOW(") + gzStrUI(_nError) + gzStrL(")");
+					return gzU8("GL_UNKNOW(") + gzStrUI(_nError) + gzU8(")");
 				break;
 			}
 		}
@@ -55,7 +55,7 @@ namespace _SysGpuInfo{
 
 	gzStr fGetFile(const char *_cFile){
 		gzStr _sFile = gzStrC(_cFile);
-	//	_sFile.fReplaceAll(gzStrL("\\"), gzStrL("/"));
+	//	_sFile.fReplaceAll(gzU8("\\"), gzU8("/"));
 		return _sFile;
 	}
 
@@ -95,7 +95,7 @@ namespace _SysGpuInfo{
 			  return gzU8("TODO");
 			}
 		  }
-		  return gzStrL("Unknow");
+		  return gzU8("Unknow");
 		}
 	}
 
@@ -110,12 +110,12 @@ namespace _SysGpuInfo{
 			HMODULE _pModule = LoadLibraryA("opengl32.dll");
 			p = (void *)GetProcAddress(_pModule, _cName);
 			if(p == 0 && _bRequired){
-				GZ_Debug_fError(gzStrL("Error OGL function Missing: ") + gzStrC(_cName));
+				GZ_Debug_fError(gzU8("Error OGL function Missing: ") + gzStrC(_cName));
 			}
 		}else{
 			if(_nErr){ 
 				SetLastError(0);
-				GZ_Debug_fError(gzStrL("Error loading OGL function (")  + gzStrUI(_nErr)  + gzStrL("): ") +  System::fGetLastErrorString(_nErr) + gzStrC(_cName));
+				GZ_Debug_fError(gzU8("Error loading OGL function (")  + gzStrUI(_nErr)  + gzU8("): ") +  System::fGetLastErrorString(_nErr) + gzStrC(_cName));
 			}
 		}
 		return p;

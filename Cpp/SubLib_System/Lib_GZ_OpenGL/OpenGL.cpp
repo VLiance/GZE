@@ -154,7 +154,7 @@ gzVal csOpenGL::fCreateBuffer(){ gz_(25)
 	//Tag cpp
 	#ifdef wPlatform__Web_Emsc
 	return oGL.call<val>("createBuffer");
-	//return ::GZ::fConsole(gzStrL("ScreateBuffer"));
+	//return ::GZ::fConsole(gzU8("ScreateBuffer"));
 	#else
 	gzVal _nVal;
 	GL_fGenBuffers(1, &_nVal);
@@ -199,7 +199,7 @@ gzStr csOpenGL::fGetShaderInfoLog(gzVal _nShaderId){ gz_(30)
 	//nLineError = strtol( &logBuf[2] , GZ_Null, 10) - 1;
 	return gzStrC(logBuf, _nLength);
 	#endif
-	return gzStrL("");
+	return gzU8("");
 }
 
 void csOpenGL::fGetShaderInfoLog(gzVal _nShaderId, gzInt _nMaxLength, gzInt* _aLength, gzUInt8* _cLogInfo){ gz_(31)
@@ -966,133 +966,133 @@ void  glDbg_fFlush(const char* _file , gzUInt _line){
 	glCall_fFlush();
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glFlush( ") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glFlush( ") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fEnable(gzUInt _eCapability, const char* _file , gzUInt _line){
 	glCall_fEnable(_eCapability);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glEnable( ") + gzStrL("_eCapability|") + gzStrUI(_eCapability) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glEnable( ") + gzU8("_eCapability|") + gzStrUI(_eCapability) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fDisable(gzUInt _eCapability, const char* _file , gzUInt _line){
 	glCall_fDisable(_eCapability);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glDisable( ") + gzStrL("_eCapability|") + gzStrUI(_eCapability) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glDisable( ") + gzU8("_eCapability|") + gzStrUI(_eCapability) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fDepthMask(gzBool _bEnable, const char* _file , gzUInt _line){
 	glCall_fDepthMask(_bEnable);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glDepthMask( ") + gzStrL("_bEnable|") + gzStrB(_bEnable) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glDepthMask( ") + gzU8("_bEnable|") + gzStrB(_bEnable) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fDepthFunc(gzUInt _eFunc, const char* _file , gzUInt _line){
 	glCall_fDepthFunc(_eFunc);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glDepthFunc( ") + gzStrL("_eFunc|") + gzStrUI(_eFunc) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glDepthFunc( ") + gzU8("_eFunc|") + gzStrUI(_eFunc) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fGetBooleanv(Lib_GZ_OpenGL::OpenGL::eGetName _hName, gzBool* _pData, const char* _file , gzUInt _line){
 	glCall_fGetBooleanv(_hName, _pData);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glGetBooleanv( ") + gzStrL("_hName|") + gzStrUI(_hName) + gzStrL("|, ") + gzStrL("_pData|") + gzStrB(*_pData) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glGetBooleanv( ") + gzU8("_hName|") + gzStrUI(_hName) + gzU8("|, ") + gzU8("_pData|") + gzStrB(*_pData) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fGetDoublev(Lib_GZ_OpenGL::OpenGL::eGetName _hName, gzFloat64* _pData, const char* _file , gzUInt _line){
 	glCall_fGetDoublev(_hName, _pData);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glGetDoublev( ") + gzStrL("_hName|") + gzStrUI(_hName) + gzStrL("|, ") + gzStrL("_pData|") + gzStrF(*_pData) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glGetDoublev( ") + gzU8("_hName|") + gzStrUI(_hName) + gzU8("|, ") + gzU8("_pData|") + gzStrF(*_pData) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fGetFloatv(Lib_GZ_OpenGL::OpenGL::eGetName _hName, gzFloat32* _pData, const char* _file , gzUInt _line){
 	glCall_fGetFloatv(_hName, _pData);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glGetFloatv( ") + gzStrL("_hName|") + gzStrUI(_hName) + gzStrL("|, ") + gzStrL("_pData|") + gzStrF(*_pData) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glGetFloatv( ") + gzU8("_hName|") + gzStrUI(_hName) + gzU8("|, ") + gzU8("_pData|") + gzStrF(*_pData) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fGetIntegerv(Lib_GZ_OpenGL::OpenGL::eGetName _hName, gzInt32* _pData, const char* _file , gzUInt _line){
 	glCall_fGetIntegerv(_hName, _pData);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glGetIntegerv( ") + gzStrL("_hName|") + gzStrUI(_hName) + gzStrL("|, ") + gzStrL("_pData|") + gzStrI(*_pData) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glGetIntegerv( ") + gzU8("_hName|") + gzStrUI(_hName) + gzU8("|, ") + gzU8("_pData|") + gzStrI(*_pData) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fGetInteger64v(Lib_GZ_OpenGL::OpenGL::eGetName _hName, gzInt64* _pData, const char* _file , gzUInt _line){
 	glCall_fGetInteger64v(_hName, _pData);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glGetInteger64v( ") + gzStrL("_hName|") + gzStrUI(_hName) + gzStrL("|, ") + gzStrL("_pData|") + gzStrI(*_pData) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glGetInteger64v( ") + gzU8("_hName|") + gzStrUI(_hName) + gzU8("|, ") + gzU8("_pData|") + gzStrI(*_pData) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fGetBooleani_v(gzUInt _hTarget, gzUInt _nIndex, gzBool* _pData, const char* _file , gzUInt _line){
 	glCall_fGetBooleani_v(_hTarget, _nIndex, _pData);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glGetBooleani_v( ") + gzStrL("_hTarget|") + gzStrUI(_hTarget) + gzStrL("|, ") + gzStrL("_nIndex|") + gzStrI(_nIndex) + gzStrL("|, ") + gzStrL("_pData|") + gzStrB(*_pData) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glGetBooleani_v( ") + gzU8("_hTarget|") + gzStrUI(_hTarget) + gzU8("|, ") + gzU8("_nIndex|") + gzStrI(_nIndex) + gzU8("|, ") + gzU8("_pData|") + gzStrB(*_pData) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fGetIntegeri_v(gzUInt _hTarget, gzUInt _nIndex, gzFloat64* _pData, const char* _file , gzUInt _line){
 	glCall_fGetIntegeri_v(_hTarget, _nIndex, _pData);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glGetIntegeri_v( ") + gzStrL("_hTarget|") + gzStrUI(_hTarget) + gzStrL("|, ") + gzStrL("_nIndex|") + gzStrI(_nIndex) + gzStrL("|, ") + gzStrL("_pData|") + gzStrF(*_pData) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glGetIntegeri_v( ") + gzU8("_hTarget|") + gzStrUI(_hTarget) + gzU8("|, ") + gzU8("_nIndex|") + gzStrI(_nIndex) + gzU8("|, ") + gzU8("_pData|") + gzStrF(*_pData) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fGetFloati_v(gzUInt _hTarget, gzUInt _nIndex, gzFloat32* _pData, const char* _file , gzUInt _line){
 	glCall_fGetFloati_v(_hTarget, _nIndex, _pData);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glGetFloati_v( ") + gzStrL("_hTarget|") + gzStrUI(_hTarget) + gzStrL("|, ") + gzStrL("_nIndex|") + gzStrI(_nIndex) + gzStrL("|, ") + gzStrL("_pData|") + gzStrF(*_pData) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glGetFloati_v( ") + gzU8("_hTarget|") + gzStrUI(_hTarget) + gzU8("|, ") + gzU8("_nIndex|") + gzStrI(_nIndex) + gzU8("|, ") + gzU8("_pData|") + gzStrF(*_pData) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fGetDoublei_v(gzUInt _hTarget, gzUInt _nIndex, gzInt32* _pData, const char* _file , gzUInt _line){
 	glCall_fGetDoublei_v(_hTarget, _nIndex, _pData);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glGetDoublei_v( ") + gzStrL("_hTarget|") + gzStrUI(_hTarget) + gzStrL("|, ") + gzStrL("_nIndex|") + gzStrI(_nIndex) + gzStrL("|, ") + gzStrL("_pData|") + gzStrI(*_pData) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glGetDoublei_v( ") + gzU8("_hTarget|") + gzStrUI(_hTarget) + gzU8("|, ") + gzU8("_nIndex|") + gzStrI(_nIndex) + gzU8("|, ") + gzU8("_pData|") + gzStrI(*_pData) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fGetInteger64i_v(gzUInt _hTarget, gzUInt _nIndex, gzInt64* _pData, const char* _file , gzUInt _line){
 	glCall_fGetInteger64i_v(_hTarget, _nIndex, _pData);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glGetInteger64i_v( ") + gzStrL("_hTarget|") + gzStrUI(_hTarget) + gzStrL("|, ") + gzStrL("_nIndex|") + gzStrI(_nIndex) + gzStrL("|, ") + gzStrL("_pData|") + gzStrI(*_pData) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glGetInteger64i_v( ") + gzU8("_hTarget|") + gzStrUI(_hTarget) + gzU8("|, ") + gzU8("_nIndex|") + gzStrI(_nIndex) + gzU8("|, ") + gzU8("_pData|") + gzStrI(*_pData) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fVertexAttribPointer(gzVal _nIndex, Lib_GZ_OpenGL::OpenGL::eVecLength _hLength, Lib_GZ_OpenGL::OpenGL::eVarType _hType, gzBool _bNormalized, gzInt _nStride, gzUInt _nPointer, const char* _file , gzUInt _line){
 	glCall_fVertexAttribPointer(_nIndex, _hLength, _hType, _bNormalized, _nStride, _nPointer);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glVertexAttribPointer( ") + gzStrL("_nIndex|") + gzStrI(_nIndex) + gzStrL("|, ") + gzStrL("_hLength|") + gzStrUI(_hLength) + gzStrL("|, ") + gzStrL("_hType|") + gzStrUI(_hType) + gzStrL("|, ") + gzStrL("_bNormalized|") + gzStrB(_bNormalized) + gzStrL("|, ") + gzStrL("_nStride|") + gzStrI(_nStride) + gzStrL("|, ") + gzStrL("_nPointer|") + gzStrI(_nPointer) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glVertexAttribPointer( ") + gzU8("_nIndex|") + gzStrI(_nIndex) + gzU8("|, ") + gzU8("_hLength|") + gzStrUI(_hLength) + gzU8("|, ") + gzU8("_hType|") + gzStrUI(_hType) + gzU8("|, ") + gzU8("_bNormalized|") + gzStrB(_bNormalized) + gzU8("|, ") + gzU8("_nStride|") + gzStrI(_nStride) + gzU8("|, ") + gzU8("_nPointer|") + gzStrI(_nPointer) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fVertexAttribDivisor(gzVal _nIndex, gzUInt _nDivisor, const char* _file , gzUInt _line){
 	glCall_fVertexAttribDivisor(_nIndex, _nDivisor);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glVertexAttribDivisor( ") + gzStrL("_nIndex|") + gzStrI(_nIndex) + gzStrL("|, ") + gzStrL("_nDivisor|") + gzStrI(_nDivisor) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glVertexAttribDivisor( ") + gzU8("_nIndex|") + gzStrI(_nIndex) + gzU8("|, ") + gzU8("_nDivisor|") + gzStrI(_nDivisor) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fEnableVertexAttribArray(gzVal _nIndex, const char* _file , gzUInt _line){
 	glCall_fEnableVertexAttribArray(_nIndex);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glEnableVertexAttribArray( ") + gzStrL("_nIndex|") + gzStrI(_nIndex) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glEnableVertexAttribArray( ") + gzU8("_nIndex|") + gzStrI(_nIndex) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fDisableVertexAttribArray(gzUInt _nIndex, const char* _file , gzUInt _line){
 	glCall_fDisableVertexAttribArray(_nIndex);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glDisableVertexAttribArray( ") + gzStrL("_nIndex|") + gzStrI(_nIndex) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glDisableVertexAttribArray( ") + gzU8("_nIndex|") + gzStrI(_nIndex) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 gzBool  glDbg_fSwapIntervalEXT(gzInt _nInterval, const char* _file , gzUInt _line){
@@ -1101,11 +1101,11 @@ gzBool  glDbg_fSwapIntervalEXT(gzInt _nInterval, const char* _file , gzUInt _lin
 	gzBool _Ret = glCall_fSwapIntervalEXT(_nInterval);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glSwapIntervalEXT( ") + gzStrL("_nInterval|") + gzStrI(_nInterval) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glSwapIntervalEXT( ") + gzU8("_nInterval|") + gzStrI(_nInterval) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 	nErr = GetLastError();
 	if(nErr){
-	GZ_Debug_fError(System::fGetLastErrorString(nErr) + gzStrL(": glSwapIntervalEXT( ") + gzStrL("_nInterval|") + gzStrI(_nInterval) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(System::fGetLastErrorString(nErr) + gzU8(": glSwapIntervalEXT( ") + gzU8("_nInterval|") + gzStrI(_nInterval) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 	return _Ret;
 	 #endif
@@ -1115,70 +1115,70 @@ void  glDbg_fBlendEquation(gzUInt _eMode, const char* _file , gzUInt _line){
 	glCall_fBlendEquation(_eMode);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glBlendEquation( ") + gzStrL("_eMode|") + gzStrUI(_eMode) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glBlendEquation( ") + gzU8("_eMode|") + gzStrUI(_eMode) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fBlendFuncSeparate(gzUInt _eSFactorRGB, gzUInt _eDFactorRGB, gzUInt _eSFactorAlpha, gzUInt _eDFactorAlpha, const char* _file , gzUInt _line){
 	glCall_fBlendFuncSeparate(_eSFactorRGB, _eDFactorRGB, _eSFactorAlpha, _eDFactorAlpha);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glBlendFuncSeparate( ") + gzStrL("_eSFactorRGB|") + gzStrUI(_eSFactorRGB) + gzStrL("|, ") + gzStrL("_eDFactorRGB|") + gzStrUI(_eDFactorRGB) + gzStrL("|, ") + gzStrL("_eSFactorAlpha|") + gzStrUI(_eSFactorAlpha) + gzStrL("|, ") + gzStrL("_eDFactorAlpha|") + gzStrUI(_eDFactorAlpha) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glBlendFuncSeparate( ") + gzU8("_eSFactorRGB|") + gzStrUI(_eSFactorRGB) + gzU8("|, ") + gzU8("_eDFactorRGB|") + gzStrUI(_eDFactorRGB) + gzU8("|, ") + gzU8("_eSFactorAlpha|") + gzStrUI(_eSFactorAlpha) + gzU8("|, ") + gzU8("_eDFactorAlpha|") + gzStrUI(_eDFactorAlpha) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fBlendFunc(gzUInt _eSrcFactor, gzUInt _eDstFactor, const char* _file , gzUInt _line){
 	glCall_fBlendFunc(_eSrcFactor, _eDstFactor);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glBlendFunc( ") + gzStrL("_eSrcFactor|") + gzStrUI(_eSrcFactor) + gzStrL("|, ") + gzStrL("_eDstFactor|") + gzStrUI(_eDstFactor) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glBlendFunc( ") + gzU8("_eSrcFactor|") + gzStrUI(_eSrcFactor) + gzU8("|, ") + gzU8("_eDstFactor|") + gzStrUI(_eDstFactor) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fGenVertexArrays(gzInt _nNb, gzUInt* _aArrays, const char* _file , gzUInt _line){
 	glCall_fGenVertexArrays(_nNb, _aArrays);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glGenVertexArrays( ") + gzStrL("_nNb|") + gzStrI(_nNb) + gzStrL("|, ") + gzStrL("_aArrays|") + gzStrI(*_aArrays)+ gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glGenVertexArrays( ") + gzU8("_nNb|") + gzStrI(_nNb) + gzU8("|, ") + gzU8("_aArrays|") + gzStrI(*_aArrays)+ gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fGenBuffers(gzInt _nNb, gzUInt* _aBuffers, const char* _file , gzUInt _line){
 	glCall_fGenBuffers(_nNb, _aBuffers);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glGenBuffers( ") + gzStrL("_nNb|") + gzStrI(_nNb) + gzStrL("|, ") + gzStrL("_aBuffers|") + gzStrI(*_aBuffers)+ gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glGenBuffers( ") + gzU8("_nNb|") + gzStrI(_nNb) + gzU8("|, ") + gzU8("_aBuffers|") + gzStrI(*_aBuffers)+ gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fBindVertexArray(gzUInt _nVAO, const char* _file , gzUInt _line){
 	glCall_fBindVertexArray(_nVAO);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glBindVertexArray( ") + gzStrL("_nVAO|") + gzStrI(_nVAO) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glBindVertexArray( ") + gzU8("_nVAO|") + gzStrI(_nVAO) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fBindBuffer(Lib_GZ_OpenGL::OpenGL::eBufferTarget _hTarget, gzVal _nBuffer, const char* _file , gzUInt _line){
 	glCall_fBindBuffer(_hTarget, _nBuffer);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glBindBuffer( ") + gzStrL("_hTarget|") + gzStrUI(_hTarget) + gzStrL("|, ") + gzStrL("_nBuffer|") + gzStrI(_nBuffer) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glBindBuffer( ") + gzU8("_hTarget|") + gzStrUI(_hTarget) + gzU8("|, ") + gzU8("_nBuffer|") + gzStrI(_nBuffer) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fBufferSubData(Lib_GZ_OpenGL::OpenGL::eBufferTarget _hTarget, gzIntX _nOffset, gzIntX _nSize, void* _pData, const char* _file , gzUInt _line){
 	glCall_fBufferSubData(_hTarget, _nOffset, _nSize, _pData);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glBufferSubData( ") + gzStrL("_hTarget|") + gzStrUI(_hTarget) + gzStrL("|, ") + gzStrL("_nOffset|") + gzStrI(_nOffset) + gzStrL("|, ") + gzStrL("_nSize|") + gzStrI(_nSize) + gzStrL("|, ") + gzStrL("_pData|") + gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glBufferSubData( ") + gzU8("_hTarget|") + gzStrUI(_hTarget) + gzU8("|, ") + gzU8("_nOffset|") + gzStrI(_nOffset) + gzU8("|, ") + gzU8("_nSize|") + gzStrI(_nSize) + gzU8("|, ") + gzU8("_pData|") + gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fGetShaderInfoLog(gzVal _nShaderId, gzInt _nMaxLength, gzInt* _aLength, gzUInt8* _cLogInfo, const char* _file , gzUInt _line){
 	glCall_fGetShaderInfoLog(_nShaderId, _nMaxLength, _aLength, _cLogInfo);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glGetShaderInfoLog( ") + gzStrL("_nShaderId|") + gzStrI(_nShaderId) + gzStrL("|, ") + gzStrL("_nMaxLength|") + gzStrI(_nMaxLength) + gzStrL("|, ") + gzStrL("_aLength|") + gzStrI(*_aLength)+ gzStrL("*") + gzStrL("|, ") + gzStrL("_cLogInfo|") + gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glGetShaderInfoLog( ") + gzU8("_nShaderId|") + gzStrI(_nShaderId) + gzU8("|, ") + gzU8("_nMaxLength|") + gzStrI(_nMaxLength) + gzU8("|, ") + gzU8("_aLength|") + gzStrI(*_aLength)+ gzU8("*") + gzU8("|, ") + gzU8("_cLogInfo|") + gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 gzVal  glDbg_fCreateProgram(const char* _file , gzUInt _line){
 	gzVal _Ret = glCall_fCreateProgram();
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glCreateProgram( ") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glCreateProgram( ") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 	return _Ret;
 }
@@ -1186,42 +1186,42 @@ void  glDbg_fLinkProgram(gzVal _nIdProgram, const char* _file , gzUInt _line){
 	glCall_fLinkProgram(_nIdProgram);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glLinkProgram( ") + gzStrL("_nIdProgram|") + gzStrI(_nIdProgram) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glLinkProgram( ") + gzU8("_nIdProgram|") + gzStrI(_nIdProgram) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fGetProgramiv(gzVal _nIdProgram, Lib_GZ_OpenGL::OpenGL::eProgramInfo _hInfo, gzInt* _aParams, const char* _file , gzUInt _line){
 	glCall_fGetProgramiv(_nIdProgram, _hInfo, _aParams);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glGetProgramiv( ") + gzStrL("_nIdProgram|") + gzStrI(_nIdProgram) + gzStrL("|, ") + gzStrL("_hInfo|") + gzStrUI(_hInfo) + gzStrL("|, ") + gzStrL("_aParams|") + gzStrI(*_aParams)+ gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glGetProgramiv( ") + gzU8("_nIdProgram|") + gzStrI(_nIdProgram) + gzU8("|, ") + gzU8("_hInfo|") + gzStrUI(_hInfo) + gzU8("|, ") + gzU8("_aParams|") + gzStrI(*_aParams)+ gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fUseProgram(gzVal _nIdProgram, const char* _file , gzUInt _line){
 	glCall_fUseProgram(_nIdProgram);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glUseProgram( ") + gzStrL("_nIdProgram|") + gzStrI(_nIdProgram) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glUseProgram( ") + gzU8("_nIdProgram|") + gzStrI(_nIdProgram) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fDeleteProgram(gzVal _nIdProgram, const char* _file , gzUInt _line){
 	glCall_fDeleteProgram(_nIdProgram);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glDeleteProgram( ") + gzStrL("_nIdProgram|") + gzStrI(_nIdProgram) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glDeleteProgram( ") + gzU8("_nIdProgram|") + gzStrI(_nIdProgram) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fGetProgramInfoLog(gzVal _nProgramId, gzInt _nMaxLength, gzInt* _aLength, gzUInt8* _cLogInfo, const char* _file , gzUInt _line){
 	glCall_fGetProgramInfoLog(_nProgramId, _nMaxLength, _aLength, _cLogInfo);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glGetProgramInfoLog( ") + gzStrL("_nProgramId|") + gzStrI(_nProgramId) + gzStrL("|, ") + gzStrL("_nMaxLength|") + gzStrI(_nMaxLength) + gzStrL("|, ") + gzStrL("_aLength|") + gzStrI(*_aLength)+ gzStrL("*") + gzStrL("|, ") + gzStrL("_cLogInfo|") + gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glGetProgramInfoLog( ") + gzU8("_nProgramId|") + gzStrI(_nProgramId) + gzU8("|, ") + gzU8("_nMaxLength|") + gzStrI(_nMaxLength) + gzU8("|, ") + gzU8("_aLength|") + gzStrI(*_aLength)+ gzU8("*") + gzU8("|, ") + gzU8("_cLogInfo|") + gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 gzVal  glDbg_fGetUniformLocation(gzVal _nIdProgram, gzUInt8* _cName, const char* _file , gzUInt _line){
 	gzVal _Ret = glCall_fGetUniformLocation(_nIdProgram, _cName);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glGetUniformLocation( ") + gzStrL("_nIdProgram|") + gzStrI(_nIdProgram) + gzStrL("|, ") + gzStrL("_cName|") + gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glGetUniformLocation( ") + gzU8("_nIdProgram|") + gzStrI(_nIdProgram) + gzU8("|, ") + gzU8("_cName|") + gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 	return _Ret;
 }
@@ -1229,7 +1229,7 @@ gzVal  glDbg_fGetAttribLocation(gzVal _nIdProgram, gzUInt8* _cName, const char* 
 	gzVal _Ret = glCall_fGetAttribLocation(_nIdProgram, _cName);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glGetAttribLocation( ") + gzStrL("_nIdProgram|") + gzStrI(_nIdProgram) + gzStrL("|, ") + gzStrL("_cName|") + gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glGetAttribLocation( ") + gzU8("_nIdProgram|") + gzStrI(_nIdProgram) + gzU8("|, ") + gzU8("_cName|") + gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 	return _Ret;
 }
@@ -1237,14 +1237,14 @@ void  glDbg_fBindAttribLocation(gzVal _nIdProgram, gzUInt _nIndex, gzUInt8* _cNa
 	glCall_fBindAttribLocation(_nIdProgram, _nIndex, _cName);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glBindAttribLocation( ") + gzStrL("_nIdProgram|") + gzStrI(_nIdProgram) + gzStrL("|, ") + gzStrL("_nIndex|") + gzStrI(_nIndex) + gzStrL("|, ") + gzStrL("_cName|") + gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glBindAttribLocation( ") + gzU8("_nIdProgram|") + gzStrI(_nIdProgram) + gzU8("|, ") + gzU8("_nIndex|") + gzStrI(_nIndex) + gzU8("|, ") + gzU8("_cName|") + gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 gzVal  glDbg_fCreateShader(Lib_GZ_OpenGL::OpenGL::eShader _hType, const char* _file , gzUInt _line){
 	gzVal _Ret = glCall_fCreateShader(_hType);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glCreateShader( ") + gzStrL("_hType|") + gzStrUI(_hType) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glCreateShader( ") + gzU8("_hType|") + gzStrUI(_hType) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 	return _Ret;
 }
@@ -1252,182 +1252,182 @@ void  glDbg_fShaderSource(gzVal _nShaderId, gzInt _nCount, gzUInt8** _cSourceCod
 	glCall_fShaderSource(_nShaderId, _nCount, _cSourceCode, _pLength);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glShaderSource( ") + gzStrL("_nShaderId|") + gzStrI(_nShaderId) + gzStrL("|, ") + gzStrL("_nCount|") + gzStrI(_nCount) + gzStrL("|, ") + gzStrL("_cSourceCode|") + gzStrL("*") + gzStrL("|, ") + gzStrL("_pLength|") + gzStrI(*_pLength) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glShaderSource( ") + gzU8("_nShaderId|") + gzStrI(_nShaderId) + gzU8("|, ") + gzU8("_nCount|") + gzStrI(_nCount) + gzU8("|, ") + gzU8("_cSourceCode|") + gzU8("*") + gzU8("|, ") + gzU8("_pLength|") + gzStrI(*_pLength) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fCompileShader(gzVal _nShaderId, const char* _file , gzUInt _line){
 	glCall_fCompileShader(_nShaderId);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glCompileShader( ") + gzStrL("_nShaderId|") + gzStrI(_nShaderId) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glCompileShader( ") + gzU8("_nShaderId|") + gzStrI(_nShaderId) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fGetShaderiv(gzVal _nShaderId, Lib_GZ_OpenGL::OpenGL::eShaderInfo _hInfo, gzInt* _aParams, const char* _file , gzUInt _line){
 	glCall_fGetShaderiv(_nShaderId, _hInfo, _aParams);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glGetShaderiv( ") + gzStrL("_nShaderId|") + gzStrI(_nShaderId) + gzStrL("|, ") + gzStrL("_hInfo|") + gzStrUI(_hInfo) + gzStrL("|, ") + gzStrL("_aParams|") + gzStrI(*_aParams)+ gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glGetShaderiv( ") + gzU8("_nShaderId|") + gzStrI(_nShaderId) + gzU8("|, ") + gzU8("_hInfo|") + gzStrUI(_hInfo) + gzU8("|, ") + gzU8("_aParams|") + gzStrI(*_aParams)+ gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fDeleteShader(gzVal _nShaderId, const char* _file , gzUInt _line){
 	glCall_fDeleteShader(_nShaderId);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glDeleteShader( ") + gzStrL("_nShaderId|") + gzStrI(_nShaderId) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glDeleteShader( ") + gzU8("_nShaderId|") + gzStrI(_nShaderId) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fAttachShader(gzVal _nIdProgram, gzVal _nShaderId, const char* _file , gzUInt _line){
 	glCall_fAttachShader(_nIdProgram, _nShaderId);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glAttachShader( ") + gzStrL("_nIdProgram|") + gzStrI(_nIdProgram) + gzStrL("|, ") + gzStrL("_nShaderId|") + gzStrI(_nShaderId) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glAttachShader( ") + gzU8("_nIdProgram|") + gzStrI(_nIdProgram) + gzU8("|, ") + gzU8("_nShaderId|") + gzStrI(_nShaderId) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fActiveTexture(gzUInt _eTexture, const char* _file , gzUInt _line){
 	glCall_fActiveTexture(_eTexture);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glActiveTexture( ") + gzStrL("_eTexture|") + gzStrUI(_eTexture) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glActiveTexture( ") + gzU8("_eTexture|") + gzStrUI(_eTexture) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fTexImage2D(gzUInt _eTarget, gzInt _nLevel, gzInt _nInternalformat, gzInt _nWidth, gzInt _nHeight, gzInt _nBorder, gzUInt _eFormat, gzUInt _eType, void* _pPixel, const char* _file , gzUInt _line){
 	glCall_fTexImage2D(_eTarget, _nLevel, _nInternalformat, _nWidth, _nHeight, _nBorder, _eFormat, _eType, _pPixel);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glTexImage2D( ") + gzStrL("_eTarget|") + gzStrUI(_eTarget) + gzStrL("|, ") + gzStrL("_nLevel|") + gzStrI(_nLevel) + gzStrL("|, ") + gzStrL("_nInternalformat|") + gzStrI(_nInternalformat) + gzStrL("|, ") + gzStrL("_nWidth|") + gzStrI(_nWidth) + gzStrL("|, ") + gzStrL("_nHeight|") + gzStrI(_nHeight) + gzStrL("|, ") + gzStrL("_nBorder|") + gzStrI(_nBorder) + gzStrL("|, ") + gzStrL("_eFormat|") + gzStrUI(_eFormat) + gzStrL("|, ") + gzStrL("_eType|") + gzStrUI(_eType) + gzStrL("|, ") + gzStrL("_pPixel|") + gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glTexImage2D( ") + gzU8("_eTarget|") + gzStrUI(_eTarget) + gzU8("|, ") + gzU8("_nLevel|") + gzStrI(_nLevel) + gzU8("|, ") + gzU8("_nInternalformat|") + gzStrI(_nInternalformat) + gzU8("|, ") + gzU8("_nWidth|") + gzStrI(_nWidth) + gzU8("|, ") + gzU8("_nHeight|") + gzStrI(_nHeight) + gzU8("|, ") + gzU8("_nBorder|") + gzStrI(_nBorder) + gzU8("|, ") + gzU8("_eFormat|") + gzStrUI(_eFormat) + gzU8("|, ") + gzU8("_eType|") + gzStrUI(_eType) + gzU8("|, ") + gzU8("_pPixel|") + gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fTexImage3D(gzUInt _eTarget, gzInt _nLevel, gzInt _nInternalformat, gzInt _nWidth, gzInt _nHeight, gzInt _nDepth, gzInt _nBorder, gzUInt _eFormat, gzUInt _eType, void* _pPixel, const char* _file , gzUInt _line){
 	glCall_fTexImage3D(_eTarget, _nLevel, _nInternalformat, _nWidth, _nHeight, _nDepth, _nBorder, _eFormat, _eType, _pPixel);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glTexImage3D( ") + gzStrL("_eTarget|") + gzStrUI(_eTarget) + gzStrL("|, ") + gzStrL("_nLevel|") + gzStrI(_nLevel) + gzStrL("|, ") + gzStrL("_nInternalformat|") + gzStrI(_nInternalformat) + gzStrL("|, ") + gzStrL("_nWidth|") + gzStrI(_nWidth) + gzStrL("|, ") + gzStrL("_nHeight|") + gzStrI(_nHeight) + gzStrL("|, ") + gzStrL("_nDepth|") + gzStrI(_nDepth) + gzStrL("|, ") + gzStrL("_nBorder|") + gzStrI(_nBorder) + gzStrL("|, ") + gzStrL("_eFormat|") + gzStrUI(_eFormat) + gzStrL("|, ") + gzStrL("_eType|") + gzStrUI(_eType) + gzStrL("|, ") + gzStrL("_pPixel|") + gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glTexImage3D( ") + gzU8("_eTarget|") + gzStrUI(_eTarget) + gzU8("|, ") + gzU8("_nLevel|") + gzStrI(_nLevel) + gzU8("|, ") + gzU8("_nInternalformat|") + gzStrI(_nInternalformat) + gzU8("|, ") + gzU8("_nWidth|") + gzStrI(_nWidth) + gzU8("|, ") + gzU8("_nHeight|") + gzStrI(_nHeight) + gzU8("|, ") + gzU8("_nDepth|") + gzStrI(_nDepth) + gzU8("|, ") + gzU8("_nBorder|") + gzStrI(_nBorder) + gzU8("|, ") + gzU8("_eFormat|") + gzStrUI(_eFormat) + gzU8("|, ") + gzU8("_eType|") + gzStrUI(_eType) + gzU8("|, ") + gzU8("_pPixel|") + gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fTexSubImage3D(gzUInt _eTarget, gzInt _nLevel, gzInt _nOffsetX, gzInt _nOffsetY, gzInt _nOffsetZ, gzInt _nWidth, gzInt _nHeight, gzInt _nDepth, gzUInt _eFormat, gzUInt _eType, void* _pPixel, const char* _file , gzUInt _line){
 	glCall_fTexSubImage3D(_eTarget, _nLevel, _nOffsetX, _nOffsetY, _nOffsetZ, _nWidth, _nHeight, _nDepth, _eFormat, _eType, _pPixel);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glTexSubImage3D( ") + gzStrL("_eTarget|") + gzStrUI(_eTarget) + gzStrL("|, ") + gzStrL("_nLevel|") + gzStrI(_nLevel) + gzStrL("|, ") + gzStrL("_nOffsetX|") + gzStrI(_nOffsetX) + gzStrL("|, ") + gzStrL("_nOffsetY|") + gzStrI(_nOffsetY) + gzStrL("|, ") + gzStrL("_nOffsetZ|") + gzStrI(_nOffsetZ) + gzStrL("|, ") + gzStrL("_nWidth|") + gzStrI(_nWidth) + gzStrL("|, ") + gzStrL("_nHeight|") + gzStrI(_nHeight) + gzStrL("|, ") + gzStrL("_nDepth|") + gzStrI(_nDepth) + gzStrL("|, ") + gzStrL("_eFormat|") + gzStrUI(_eFormat) + gzStrL("|, ") + gzStrL("_eType|") + gzStrUI(_eType) + gzStrL("|, ") + gzStrL("_pPixel|") + gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glTexSubImage3D( ") + gzU8("_eTarget|") + gzStrUI(_eTarget) + gzU8("|, ") + gzU8("_nLevel|") + gzStrI(_nLevel) + gzU8("|, ") + gzU8("_nOffsetX|") + gzStrI(_nOffsetX) + gzU8("|, ") + gzU8("_nOffsetY|") + gzStrI(_nOffsetY) + gzU8("|, ") + gzU8("_nOffsetZ|") + gzStrI(_nOffsetZ) + gzU8("|, ") + gzU8("_nWidth|") + gzStrI(_nWidth) + gzU8("|, ") + gzU8("_nHeight|") + gzStrI(_nHeight) + gzU8("|, ") + gzU8("_nDepth|") + gzStrI(_nDepth) + gzU8("|, ") + gzU8("_eFormat|") + gzStrUI(_eFormat) + gzU8("|, ") + gzU8("_eType|") + gzStrUI(_eType) + gzU8("|, ") + gzU8("_pPixel|") + gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fBindTexture(gzUInt _eTarget, gzUInt _nTextureId, const char* _file , gzUInt _line){
 	glCall_fBindTexture(_eTarget, _nTextureId);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glBindTexture( ") + gzStrL("_eTarget|") + gzStrUI(_eTarget) + gzStrL("|, ") + gzStrL("_nTextureId|") + gzStrI(_nTextureId) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glBindTexture( ") + gzU8("_eTarget|") + gzStrUI(_eTarget) + gzU8("|, ") + gzU8("_nTextureId|") + gzStrI(_nTextureId) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fTexParameterf(gzUInt _eTarget, gzUInt _eName, gzFloat32 _nParam, const char* _file , gzUInt _line){
 	glCall_fTexParameterf(_eTarget, _eName, _nParam);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glTexParameterf( ") + gzStrL("_eTarget|") + gzStrUI(_eTarget) + gzStrL("|, ") + gzStrL("_eName|") + gzStrUI(_eName) + gzStrL("|, ") + gzStrL("_nParam|") + gzStrF(_nParam) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glTexParameterf( ") + gzU8("_eTarget|") + gzStrUI(_eTarget) + gzU8("|, ") + gzU8("_eName|") + gzStrUI(_eName) + gzU8("|, ") + gzU8("_nParam|") + gzStrF(_nParam) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fTexParameteri(gzUInt _eTarget, gzUInt _eName, gzInt _nParam, const char* _file , gzUInt _line){
 	glCall_fTexParameteri(_eTarget, _eName, _nParam);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glTexParameteri( ") + gzStrL("_eTarget|") + gzStrUI(_eTarget) + gzStrL("|, ") + gzStrL("_eName|") + gzStrUI(_eName) + gzStrL("|, ") + gzStrL("_nParam|") + gzStrI(_nParam) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glTexParameteri( ") + gzU8("_eTarget|") + gzStrUI(_eTarget) + gzU8("|, ") + gzU8("_eName|") + gzStrUI(_eName) + gzU8("|, ") + gzU8("_nParam|") + gzStrI(_nParam) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fGenTextures(gzInt _nNb, gzUInt* _aTextures, const char* _file , gzUInt _line){
 	glCall_fGenTextures(_nNb, _aTextures);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glGenTextures( ") + gzStrL("_nNb|") + gzStrI(_nNb) + gzStrL("|, ") + gzStrL("_aTextures|") + gzStrI(*_aTextures)+ gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glGenTextures( ") + gzU8("_nNb|") + gzStrI(_nNb) + gzU8("|, ") + gzU8("_aTextures|") + gzStrI(*_aTextures)+ gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fClear(Lib_GZ_OpenGL::OpenGL::eClearBuffer _hMask, const char* _file , gzUInt _line){
 	glCall_fClear(_hMask);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glClear( ") + gzStrL("_hMask|") + gzStrUI(_hMask) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glClear( ") + gzU8("_hMask|") + gzStrUI(_hMask) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fClearColor(gzFloat32 _nRed, gzFloat32 _nGreen, gzFloat32 _nBlue, gzFloat32 _nAlpha, const char* _file , gzUInt _line){
 	glCall_fClearColor(_nRed, _nGreen, _nBlue, _nAlpha);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glClearColor( ") + gzStrL("_nRed|") + gzStrF(_nRed) + gzStrL("|, ") + gzStrL("_nGreen|") + gzStrF(_nGreen) + gzStrL("|, ") + gzStrL("_nBlue|") + gzStrF(_nBlue) + gzStrL("|, ") + gzStrL("_nAlpha|") + gzStrF(_nAlpha) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glClearColor( ") + gzU8("_nRed|") + gzStrF(_nRed) + gzU8("|, ") + gzU8("_nGreen|") + gzStrF(_nGreen) + gzU8("|, ") + gzU8("_nBlue|") + gzStrF(_nBlue) + gzU8("|, ") + gzU8("_nAlpha|") + gzStrF(_nAlpha) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fBufferData(Lib_GZ_OpenGL::OpenGL::eBufferTarget _hTarget, gzIntX _nSize, void* _pData, Lib_GZ_OpenGL::OpenGL::eDrawFlow _hUsage, const char* _file , gzUInt _line){
 	glCall_fBufferData(_hTarget, _nSize, _pData, _hUsage);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glBufferData( ") + gzStrL("_hTarget|") + gzStrUI(_hTarget) + gzStrL("|, ") + gzStrL("_nSize|") + gzStrI(_nSize) + gzStrL("|, ") + gzStrL("_pData|") + gzStrL("*") + gzStrL("|, ") + gzStrL("_hUsage|") + gzStrUI(_hUsage) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glBufferData( ") + gzU8("_hTarget|") + gzStrUI(_hTarget) + gzU8("|, ") + gzU8("_nSize|") + gzStrI(_nSize) + gzU8("|, ") + gzU8("_pData|") + gzU8("*") + gzU8("|, ") + gzU8("_hUsage|") + gzStrUI(_hUsage) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fDrawElements(Lib_GZ_OpenGL::OpenGL::eDrawMode _hMode, gzInt _nCount, Lib_GZ_OpenGL::OpenGL::eVarType _hVarType, void* _pOffset, const char* _file , gzUInt _line){
 	glCall_fDrawElements(_hMode, _nCount, _hVarType, _pOffset);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glDrawElements( ") + gzStrL("_hMode|") + gzStrUI(_hMode) + gzStrL("|, ") + gzStrL("_nCount|") + gzStrI(_nCount) + gzStrL("|, ") + gzStrL("_hVarType|") + gzStrUI(_hVarType) + gzStrL("|, ") + gzStrL("_pOffset|") + gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glDrawElements( ") + gzU8("_hMode|") + gzStrUI(_hMode) + gzU8("|, ") + gzU8("_nCount|") + gzStrI(_nCount) + gzU8("|, ") + gzU8("_hVarType|") + gzStrUI(_hVarType) + gzU8("|, ") + gzU8("_pOffset|") + gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fDrawElementsInstanced(Lib_GZ_OpenGL::OpenGL::eDrawMode _hMode, gzInt _nCount, Lib_GZ_OpenGL::OpenGL::eVarType _hVarType, void* _pIndicesLocation, gzInt _nInstanceCount, const char* _file , gzUInt _line){
 	glCall_fDrawElementsInstanced(_hMode, _nCount, _hVarType, _pIndicesLocation, _nInstanceCount);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glDrawElementsInstanced( ") + gzStrL("_hMode|") + gzStrUI(_hMode) + gzStrL("|, ") + gzStrL("_nCount|") + gzStrI(_nCount) + gzStrL("|, ") + gzStrL("_hVarType|") + gzStrUI(_hVarType) + gzStrL("|, ") + gzStrL("_pIndicesLocation|") + gzStrL("*") + gzStrL("|, ") + gzStrL("_nInstanceCount|") + gzStrI(_nInstanceCount) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glDrawElementsInstanced( ") + gzU8("_hMode|") + gzStrUI(_hMode) + gzU8("|, ") + gzU8("_nCount|") + gzStrI(_nCount) + gzU8("|, ") + gzU8("_hVarType|") + gzStrUI(_hVarType) + gzU8("|, ") + gzU8("_pIndicesLocation|") + gzU8("*") + gzU8("|, ") + gzU8("_nInstanceCount|") + gzStrI(_nInstanceCount) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fGenFramebuffers(gzInt _nNb, gzUInt* _aFrameBuffers, const char* _file , gzUInt _line){
 	glCall_fGenFramebuffers(_nNb, _aFrameBuffers);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glGenFramebuffers( ") + gzStrL("_nNb|") + gzStrI(_nNb) + gzStrL("|, ") + gzStrL("_aFrameBuffers|") + gzStrI(*_aFrameBuffers)+ gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glGenFramebuffers( ") + gzU8("_nNb|") + gzStrI(_nNb) + gzU8("|, ") + gzU8("_aFrameBuffers|") + gzStrI(*_aFrameBuffers)+ gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fBindFramebuffer(gzUInt _eTarget, gzUInt _nFrameBufferId, const char* _file , gzUInt _line){
 	glCall_fBindFramebuffer(_eTarget, _nFrameBufferId);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glBindFramebuffer( ") + gzStrL("_eTarget|") + gzStrUI(_eTarget) + gzStrL("|, ") + gzStrL("_nFrameBufferId|") + gzStrI(_nFrameBufferId) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glBindFramebuffer( ") + gzU8("_eTarget|") + gzStrUI(_eTarget) + gzU8("|, ") + gzU8("_nFrameBufferId|") + gzStrI(_nFrameBufferId) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fGenRenderbuffers(gzInt _nNb, gzUInt* _aRenderBuffers, const char* _file , gzUInt _line){
 	glCall_fGenRenderbuffers(_nNb, _aRenderBuffers);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glGenRenderbuffers( ") + gzStrL("_nNb|") + gzStrI(_nNb) + gzStrL("|, ") + gzStrL("_aRenderBuffers|") + gzStrI(*_aRenderBuffers)+ gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glGenRenderbuffers( ") + gzU8("_nNb|") + gzStrI(_nNb) + gzU8("|, ") + gzU8("_aRenderBuffers|") + gzStrI(*_aRenderBuffers)+ gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fBindRenderbuffer(gzUInt _eTarget, gzUInt _nRenderBufferId, const char* _file , gzUInt _line){
 	glCall_fBindRenderbuffer(_eTarget, _nRenderBufferId);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glBindRenderbuffer( ") + gzStrL("_eTarget|") + gzStrUI(_eTarget) + gzStrL("|, ") + gzStrL("_nRenderBufferId|") + gzStrI(_nRenderBufferId) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glBindRenderbuffer( ") + gzU8("_eTarget|") + gzStrUI(_eTarget) + gzU8("|, ") + gzU8("_nRenderBufferId|") + gzStrI(_nRenderBufferId) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fRenderbufferStorage(gzUInt _eTarget, gzUInt _eInternalFormat, gzInt _nWidth, gzInt _nHeight, const char* _file , gzUInt _line){
 	glCall_fRenderbufferStorage(_eTarget, _eInternalFormat, _nWidth, _nHeight);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glRenderbufferStorage( ") + gzStrL("_eTarget|") + gzStrUI(_eTarget) + gzStrL("|, ") + gzStrL("_eInternalFormat|") + gzStrUI(_eInternalFormat) + gzStrL("|, ") + gzStrL("_nWidth|") + gzStrI(_nWidth) + gzStrL("|, ") + gzStrL("_nHeight|") + gzStrI(_nHeight) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glRenderbufferStorage( ") + gzU8("_eTarget|") + gzStrUI(_eTarget) + gzU8("|, ") + gzU8("_eInternalFormat|") + gzStrUI(_eInternalFormat) + gzU8("|, ") + gzU8("_nWidth|") + gzStrI(_nWidth) + gzU8("|, ") + gzU8("_nHeight|") + gzStrI(_nHeight) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fFramebufferTexture2D(gzUInt _eTarget, gzUInt _eAttachement, gzUInt _eTextureTarget, gzUInt _nTexture, gzInt _nLevel, const char* _file , gzUInt _line){
 	glCall_fFramebufferTexture2D(_eTarget, _eAttachement, _eTextureTarget, _nTexture, _nLevel);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glFramebufferTexture2D( ") + gzStrL("_eTarget|") + gzStrUI(_eTarget) + gzStrL("|, ") + gzStrL("_eAttachement|") + gzStrUI(_eAttachement) + gzStrL("|, ") + gzStrL("_eTextureTarget|") + gzStrUI(_eTextureTarget) + gzStrL("|, ") + gzStrL("_nTexture|") + gzStrI(_nTexture) + gzStrL("|, ") + gzStrL("_nLevel|") + gzStrI(_nLevel) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glFramebufferTexture2D( ") + gzU8("_eTarget|") + gzStrUI(_eTarget) + gzU8("|, ") + gzU8("_eAttachement|") + gzStrUI(_eAttachement) + gzU8("|, ") + gzU8("_eTextureTarget|") + gzStrUI(_eTextureTarget) + gzU8("|, ") + gzU8("_nTexture|") + gzStrI(_nTexture) + gzU8("|, ") + gzU8("_nLevel|") + gzStrI(_nLevel) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fFramebufferRenderbuffer(gzUInt _eTarget, gzUInt _eAttachement, gzUInt _eRenderBufferTarget, gzUInt _nRenderBufferId, const char* _file , gzUInt _line){
 	glCall_fFramebufferRenderbuffer(_eTarget, _eAttachement, _eRenderBufferTarget, _nRenderBufferId);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glFramebufferRenderbuffer( ") + gzStrL("_eTarget|") + gzStrUI(_eTarget) + gzStrL("|, ") + gzStrL("_eAttachement|") + gzStrUI(_eAttachement) + gzStrL("|, ") + gzStrL("_eRenderBufferTarget|") + gzStrUI(_eRenderBufferTarget) + gzStrL("|, ") + gzStrL("_nRenderBufferId|") + gzStrI(_nRenderBufferId) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glFramebufferRenderbuffer( ") + gzU8("_eTarget|") + gzStrUI(_eTarget) + gzU8("|, ") + gzU8("_eAttachement|") + gzStrUI(_eAttachement) + gzU8("|, ") + gzU8("_eRenderBufferTarget|") + gzStrUI(_eRenderBufferTarget) + gzU8("|, ") + gzU8("_nRenderBufferId|") + gzStrI(_nRenderBufferId) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 gzUInt  glDbg_fCheckFramebufferStatus(gzUInt _eTarget, const char* _file , gzUInt _line){
 	gzUInt _Ret = glCall_fCheckFramebufferStatus(_eTarget);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glCheckFramebufferStatus( ") + gzStrL("_eTarget|") + gzStrUI(_eTarget) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glCheckFramebufferStatus( ") + gzU8("_eTarget|") + gzStrUI(_eTarget) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 	return _Ret;
 }
@@ -1435,322 +1435,322 @@ void  glDbg_fDeleteBuffers(gzInt _nNb, gzUInt* _aBuffers, const char* _file , gz
 	glCall_fDeleteBuffers(_nNb, _aBuffers);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glDeleteBuffers( ") + gzStrL("_nNb|") + gzStrI(_nNb) + gzStrL("|, ") + gzStrL("_aBuffers|") + gzStrI(*_aBuffers)+ gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glDeleteBuffers( ") + gzU8("_nNb|") + gzStrI(_nNb) + gzU8("|, ") + gzU8("_aBuffers|") + gzStrI(*_aBuffers)+ gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fUniform1f(gzVal _nLocation, gzFloat32 _n0, const char* _file , gzUInt _line){
 	glCall_fUniform1f(_nLocation, _n0);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glUniform1f( ") + gzStrL("_nLocation|") + gzStrI(_nLocation) + gzStrL("|, ") + gzStrL("_n0|") + gzStrF(_n0) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glUniform1f( ") + gzU8("_nLocation|") + gzStrI(_nLocation) + gzU8("|, ") + gzU8("_n0|") + gzStrF(_n0) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fUniform2f(gzVal _nLocation, gzFloat32 _n0, gzFloat32 _n1, const char* _file , gzUInt _line){
 	glCall_fUniform2f(_nLocation, _n0, _n1);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glUniform2f( ") + gzStrL("_nLocation|") + gzStrI(_nLocation) + gzStrL("|, ") + gzStrL("_n0|") + gzStrF(_n0) + gzStrL("|, ") + gzStrL("_n1|") + gzStrF(_n1) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glUniform2f( ") + gzU8("_nLocation|") + gzStrI(_nLocation) + gzU8("|, ") + gzU8("_n0|") + gzStrF(_n0) + gzU8("|, ") + gzU8("_n1|") + gzStrF(_n1) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fUniform3f(gzVal _nLocation, gzFloat32 _n0, gzFloat32 _n1, gzFloat32 _n2, const char* _file , gzUInt _line){
 	glCall_fUniform3f(_nLocation, _n0, _n1, _n2);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glUniform3f( ") + gzStrL("_nLocation|") + gzStrI(_nLocation) + gzStrL("|, ") + gzStrL("_n0|") + gzStrF(_n0) + gzStrL("|, ") + gzStrL("_n1|") + gzStrF(_n1) + gzStrL("|, ") + gzStrL("_n2|") + gzStrF(_n2) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glUniform3f( ") + gzU8("_nLocation|") + gzStrI(_nLocation) + gzU8("|, ") + gzU8("_n0|") + gzStrF(_n0) + gzU8("|, ") + gzU8("_n1|") + gzStrF(_n1) + gzU8("|, ") + gzU8("_n2|") + gzStrF(_n2) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fUniform4f(gzVal _nLocation, gzFloat32 _n0, gzFloat32 _n1, gzFloat32 _n2, gzFloat32 _n3, const char* _file , gzUInt _line){
 	glCall_fUniform4f(_nLocation, _n0, _n1, _n2, _n3);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glUniform4f( ") + gzStrL("_nLocation|") + gzStrI(_nLocation) + gzStrL("|, ") + gzStrL("_n0|") + gzStrF(_n0) + gzStrL("|, ") + gzStrL("_n1|") + gzStrF(_n1) + gzStrL("|, ") + gzStrL("_n2|") + gzStrF(_n2) + gzStrL("|, ") + gzStrL("_n3|") + gzStrF(_n3) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glUniform4f( ") + gzU8("_nLocation|") + gzStrI(_nLocation) + gzU8("|, ") + gzU8("_n0|") + gzStrF(_n0) + gzU8("|, ") + gzU8("_n1|") + gzStrF(_n1) + gzU8("|, ") + gzU8("_n2|") + gzStrF(_n2) + gzU8("|, ") + gzU8("_n3|") + gzStrF(_n3) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fUniform1i(gzVal _nLocation, gzInt32 _n0, const char* _file , gzUInt _line){
 	glCall_fUniform1i(_nLocation, _n0);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glUniform1i( ") + gzStrL("_nLocation|") + gzStrI(_nLocation) + gzStrL("|, ") + gzStrL("_n0|") + gzStrI(_n0) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glUniform1i( ") + gzU8("_nLocation|") + gzStrI(_nLocation) + gzU8("|, ") + gzU8("_n0|") + gzStrI(_n0) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fUniform2i(gzVal _nLocation, gzInt32 _n0, gzInt32 _n1, const char* _file , gzUInt _line){
 	glCall_fUniform2i(_nLocation, _n0, _n1);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glUniform2i( ") + gzStrL("_nLocation|") + gzStrI(_nLocation) + gzStrL("|, ") + gzStrL("_n0|") + gzStrI(_n0) + gzStrL("|, ") + gzStrL("_n1|") + gzStrI(_n1) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glUniform2i( ") + gzU8("_nLocation|") + gzStrI(_nLocation) + gzU8("|, ") + gzU8("_n0|") + gzStrI(_n0) + gzU8("|, ") + gzU8("_n1|") + gzStrI(_n1) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fUniform3i(gzVal _nLocation, gzInt32 _n0, gzInt32 _n1, gzInt32 _n2, const char* _file , gzUInt _line){
 	glCall_fUniform3i(_nLocation, _n0, _n1, _n2);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glUniform3i( ") + gzStrL("_nLocation|") + gzStrI(_nLocation) + gzStrL("|, ") + gzStrL("_n0|") + gzStrI(_n0) + gzStrL("|, ") + gzStrL("_n1|") + gzStrI(_n1) + gzStrL("|, ") + gzStrL("_n2|") + gzStrI(_n2) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glUniform3i( ") + gzU8("_nLocation|") + gzStrI(_nLocation) + gzU8("|, ") + gzU8("_n0|") + gzStrI(_n0) + gzU8("|, ") + gzU8("_n1|") + gzStrI(_n1) + gzU8("|, ") + gzU8("_n2|") + gzStrI(_n2) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fUniform4i(gzVal _nLocation, gzInt32 _n0, gzInt32 _n1, gzInt32 _n2, gzInt32 _n3, const char* _file , gzUInt _line){
 	glCall_fUniform4i(_nLocation, _n0, _n1, _n2, _n3);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glUniform4i( ") + gzStrL("_nLocation|") + gzStrI(_nLocation) + gzStrL("|, ") + gzStrL("_n0|") + gzStrI(_n0) + gzStrL("|, ") + gzStrL("_n1|") + gzStrI(_n1) + gzStrL("|, ") + gzStrL("_n2|") + gzStrI(_n2) + gzStrL("|, ") + gzStrL("_n3|") + gzStrI(_n3) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glUniform4i( ") + gzU8("_nLocation|") + gzStrI(_nLocation) + gzU8("|, ") + gzU8("_n0|") + gzStrI(_n0) + gzU8("|, ") + gzU8("_n1|") + gzStrI(_n1) + gzU8("|, ") + gzU8("_n2|") + gzStrI(_n2) + gzU8("|, ") + gzU8("_n3|") + gzStrI(_n3) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fUniform1fv(gzVal _nLocation, gzInt _nCount, gzFloat32* _aValue, const char* _file , gzUInt _line){
 	glCall_fUniform1fv(_nLocation, _nCount, _aValue);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glUniform1fv( ") + gzStrL("_nLocation|") + gzStrI(_nLocation) + gzStrL("|, ") + gzStrL("_nCount|") + gzStrI(_nCount) + gzStrL("|, ") + gzStrL("_aValue|") + gzStrF(*_aValue)+ gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glUniform1fv( ") + gzU8("_nLocation|") + gzStrI(_nLocation) + gzU8("|, ") + gzU8("_nCount|") + gzStrI(_nCount) + gzU8("|, ") + gzU8("_aValue|") + gzStrF(*_aValue)+ gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fUniform2fv(gzVal _nLocation, gzInt _nCount, gzFloat32* _aValue, const char* _file , gzUInt _line){
 	glCall_fUniform2fv(_nLocation, _nCount, _aValue);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glUniform2fv( ") + gzStrL("_nLocation|") + gzStrI(_nLocation) + gzStrL("|, ") + gzStrL("_nCount|") + gzStrI(_nCount) + gzStrL("|, ") + gzStrL("_aValue|") + gzStrF(*_aValue)+ gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glUniform2fv( ") + gzU8("_nLocation|") + gzStrI(_nLocation) + gzU8("|, ") + gzU8("_nCount|") + gzStrI(_nCount) + gzU8("|, ") + gzU8("_aValue|") + gzStrF(*_aValue)+ gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fUniform3fv(gzVal _nLocation, gzInt _nCount, gzFloat32* _aValue, const char* _file , gzUInt _line){
 	glCall_fUniform3fv(_nLocation, _nCount, _aValue);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glUniform3fv( ") + gzStrL("_nLocation|") + gzStrI(_nLocation) + gzStrL("|, ") + gzStrL("_nCount|") + gzStrI(_nCount) + gzStrL("|, ") + gzStrL("_aValue|") + gzStrF(*_aValue)+ gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glUniform3fv( ") + gzU8("_nLocation|") + gzStrI(_nLocation) + gzU8("|, ") + gzU8("_nCount|") + gzStrI(_nCount) + gzU8("|, ") + gzU8("_aValue|") + gzStrF(*_aValue)+ gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fUniform4fv(gzVal _nLocation, gzInt _nCount, gzFloat32* _aValue, const char* _file , gzUInt _line){
 	glCall_fUniform4fv(_nLocation, _nCount, _aValue);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glUniform4fv( ") + gzStrL("_nLocation|") + gzStrI(_nLocation) + gzStrL("|, ") + gzStrL("_nCount|") + gzStrI(_nCount) + gzStrL("|, ") + gzStrL("_aValue|") + gzStrF(*_aValue)+ gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glUniform4fv( ") + gzU8("_nLocation|") + gzStrI(_nLocation) + gzU8("|, ") + gzU8("_nCount|") + gzStrI(_nCount) + gzU8("|, ") + gzU8("_aValue|") + gzStrF(*_aValue)+ gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fUniform1iv(gzVal _nLocation, gzInt _nCount, gzInt32* _aValue, const char* _file , gzUInt _line){
 	glCall_fUniform1iv(_nLocation, _nCount, _aValue);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glUniform1iv( ") + gzStrL("_nLocation|") + gzStrI(_nLocation) + gzStrL("|, ") + gzStrL("_nCount|") + gzStrI(_nCount) + gzStrL("|, ") + gzStrL("_aValue|") + gzStrI(*_aValue)+ gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glUniform1iv( ") + gzU8("_nLocation|") + gzStrI(_nLocation) + gzU8("|, ") + gzU8("_nCount|") + gzStrI(_nCount) + gzU8("|, ") + gzU8("_aValue|") + gzStrI(*_aValue)+ gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fUniform2iv(gzVal _nLocation, gzInt _nCount, gzInt32* _aValue, const char* _file , gzUInt _line){
 	glCall_fUniform2iv(_nLocation, _nCount, _aValue);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glUniform2iv( ") + gzStrL("_nLocation|") + gzStrI(_nLocation) + gzStrL("|, ") + gzStrL("_nCount|") + gzStrI(_nCount) + gzStrL("|, ") + gzStrL("_aValue|") + gzStrI(*_aValue)+ gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glUniform2iv( ") + gzU8("_nLocation|") + gzStrI(_nLocation) + gzU8("|, ") + gzU8("_nCount|") + gzStrI(_nCount) + gzU8("|, ") + gzU8("_aValue|") + gzStrI(*_aValue)+ gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fUniform3iv(gzVal _nLocation, gzInt _nCount, gzInt32* _aValue, const char* _file , gzUInt _line){
 	glCall_fUniform3iv(_nLocation, _nCount, _aValue);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glUniform3iv( ") + gzStrL("_nLocation|") + gzStrI(_nLocation) + gzStrL("|, ") + gzStrL("_nCount|") + gzStrI(_nCount) + gzStrL("|, ") + gzStrL("_aValue|") + gzStrI(*_aValue)+ gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glUniform3iv( ") + gzU8("_nLocation|") + gzStrI(_nLocation) + gzU8("|, ") + gzU8("_nCount|") + gzStrI(_nCount) + gzU8("|, ") + gzU8("_aValue|") + gzStrI(*_aValue)+ gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fUniform4iv(gzVal _nLocation, gzInt _nCount, gzInt32* _aValue, const char* _file , gzUInt _line){
 	glCall_fUniform4iv(_nLocation, _nCount, _aValue);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glUniform4iv( ") + gzStrL("_nLocation|") + gzStrI(_nLocation) + gzStrL("|, ") + gzStrL("_nCount|") + gzStrI(_nCount) + gzStrL("|, ") + gzStrL("_aValue|") + gzStrI(*_aValue)+ gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glUniform4iv( ") + gzU8("_nLocation|") + gzStrI(_nLocation) + gzU8("|, ") + gzU8("_nCount|") + gzStrI(_nCount) + gzU8("|, ") + gzU8("_aValue|") + gzStrI(*_aValue)+ gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fUniformMatrix2fv(gzVal _nLocation, gzInt _nCount, gzBool _bTranspose, gzFloat32* _aValue, const char* _file , gzUInt _line){
 	glCall_fUniformMatrix2fv(_nLocation, _nCount, _bTranspose, _aValue);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glUniformMatrix2fv( ") + gzStrL("_nLocation|") + gzStrI(_nLocation) + gzStrL("|, ") + gzStrL("_nCount|") + gzStrI(_nCount) + gzStrL("|, ") + gzStrL("_bTranspose|") + gzStrB(_bTranspose) + gzStrL("|, ") + gzStrL("_aValue|") + gzStrF(*_aValue)+ gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glUniformMatrix2fv( ") + gzU8("_nLocation|") + gzStrI(_nLocation) + gzU8("|, ") + gzU8("_nCount|") + gzStrI(_nCount) + gzU8("|, ") + gzU8("_bTranspose|") + gzStrB(_bTranspose) + gzU8("|, ") + gzU8("_aValue|") + gzStrF(*_aValue)+ gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fUniformMatrix3fv(gzVal _nLocation, gzInt _nCount, gzBool _bTranspose, gzFloat32* _aValue, const char* _file , gzUInt _line){
 	glCall_fUniformMatrix3fv(_nLocation, _nCount, _bTranspose, _aValue);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glUniformMatrix3fv( ") + gzStrL("_nLocation|") + gzStrI(_nLocation) + gzStrL("|, ") + gzStrL("_nCount|") + gzStrI(_nCount) + gzStrL("|, ") + gzStrL("_bTranspose|") + gzStrB(_bTranspose) + gzStrL("|, ") + gzStrL("_aValue|") + gzStrF(*_aValue)+ gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glUniformMatrix3fv( ") + gzU8("_nLocation|") + gzStrI(_nLocation) + gzU8("|, ") + gzU8("_nCount|") + gzStrI(_nCount) + gzU8("|, ") + gzU8("_bTranspose|") + gzStrB(_bTranspose) + gzU8("|, ") + gzU8("_aValue|") + gzStrF(*_aValue)+ gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fUniformMatrix4fv(gzVal _nLocation, gzInt _nCount, gzBool _bTranspose, gzFloat32* _aValue, const char* _file , gzUInt _line){
 	glCall_fUniformMatrix4fv(_nLocation, _nCount, _bTranspose, _aValue);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glUniformMatrix4fv( ") + gzStrL("_nLocation|") + gzStrI(_nLocation) + gzStrL("|, ") + gzStrL("_nCount|") + gzStrI(_nCount) + gzStrL("|, ") + gzStrL("_bTranspose|") + gzStrB(_bTranspose) + gzStrL("|, ") + gzStrL("_aValue|") + gzStrF(*_aValue)+ gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glUniformMatrix4fv( ") + gzU8("_nLocation|") + gzStrI(_nLocation) + gzU8("|, ") + gzU8("_nCount|") + gzStrI(_nCount) + gzU8("|, ") + gzU8("_bTranspose|") + gzStrB(_bTranspose) + gzU8("|, ") + gzU8("_aValue|") + gzStrF(*_aValue)+ gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fUniform1d(gzVal _nLocation, gzFloat64 _nX, const char* _file , gzUInt _line){
 	glCall_fUniform1d(_nLocation, _nX);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glUniform1d( ") + gzStrL("_nLocation|") + gzStrI(_nLocation) + gzStrL("|, ") + gzStrL("_nX|") + gzStrF(_nX) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glUniform1d( ") + gzU8("_nLocation|") + gzStrI(_nLocation) + gzU8("|, ") + gzU8("_nX|") + gzStrF(_nX) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fUniform2d(gzVal _nLocation, gzFloat64 _nX, gzFloat64 _nY, const char* _file , gzUInt _line){
 	glCall_fUniform2d(_nLocation, _nX, _nY);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glUniform2d( ") + gzStrL("_nLocation|") + gzStrI(_nLocation) + gzStrL("|, ") + gzStrL("_nX|") + gzStrF(_nX) + gzStrL("|, ") + gzStrL("_nY|") + gzStrF(_nY) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glUniform2d( ") + gzU8("_nLocation|") + gzStrI(_nLocation) + gzU8("|, ") + gzU8("_nX|") + gzStrF(_nX) + gzU8("|, ") + gzU8("_nY|") + gzStrF(_nY) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fUniform3d(gzVal _nLocation, gzFloat64 _nX, gzFloat64 _nY, gzFloat64 _nZ, const char* _file , gzUInt _line){
 	glCall_fUniform3d(_nLocation, _nX, _nY, _nZ);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glUniform3d( ") + gzStrL("_nLocation|") + gzStrI(_nLocation) + gzStrL("|, ") + gzStrL("_nX|") + gzStrF(_nX) + gzStrL("|, ") + gzStrL("_nY|") + gzStrF(_nY) + gzStrL("|, ") + gzStrL("_nZ|") + gzStrF(_nZ) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glUniform3d( ") + gzU8("_nLocation|") + gzStrI(_nLocation) + gzU8("|, ") + gzU8("_nX|") + gzStrF(_nX) + gzU8("|, ") + gzU8("_nY|") + gzStrF(_nY) + gzU8("|, ") + gzU8("_nZ|") + gzStrF(_nZ) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fUniform4d(gzVal _nLocation, gzFloat64 _nX, gzFloat64 _nY, gzFloat64 _nZ, gzFloat64 _nW, const char* _file , gzUInt _line){
 	glCall_fUniform4d(_nLocation, _nX, _nY, _nZ, _nW);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glUniform4d( ") + gzStrL("_nLocation|") + gzStrI(_nLocation) + gzStrL("|, ") + gzStrL("_nX|") + gzStrF(_nX) + gzStrL("|, ") + gzStrL("_nY|") + gzStrF(_nY) + gzStrL("|, ") + gzStrL("_nZ|") + gzStrF(_nZ) + gzStrL("|, ") + gzStrL("_nW|") + gzStrF(_nW) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glUniform4d( ") + gzU8("_nLocation|") + gzStrI(_nLocation) + gzU8("|, ") + gzU8("_nX|") + gzStrF(_nX) + gzU8("|, ") + gzU8("_nY|") + gzStrF(_nY) + gzU8("|, ") + gzU8("_nZ|") + gzStrF(_nZ) + gzU8("|, ") + gzU8("_nW|") + gzStrF(_nW) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fUniform1dv(gzVal _nLocation, gzInt _nCount, gzFloat64* _aValue, const char* _file , gzUInt _line){
 	glCall_fUniform1dv(_nLocation, _nCount, _aValue);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glUniform1dv( ") + gzStrL("_nLocation|") + gzStrI(_nLocation) + gzStrL("|, ") + gzStrL("_nCount|") + gzStrI(_nCount) + gzStrL("|, ") + gzStrL("_aValue|") + gzStrF(*_aValue)+ gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glUniform1dv( ") + gzU8("_nLocation|") + gzStrI(_nLocation) + gzU8("|, ") + gzU8("_nCount|") + gzStrI(_nCount) + gzU8("|, ") + gzU8("_aValue|") + gzStrF(*_aValue)+ gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fUniform2dv(gzVal _nLocation, gzInt _nCount, gzFloat64* _aValue, const char* _file , gzUInt _line){
 	glCall_fUniform2dv(_nLocation, _nCount, _aValue);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glUniform2dv( ") + gzStrL("_nLocation|") + gzStrI(_nLocation) + gzStrL("|, ") + gzStrL("_nCount|") + gzStrI(_nCount) + gzStrL("|, ") + gzStrL("_aValue|") + gzStrF(*_aValue)+ gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glUniform2dv( ") + gzU8("_nLocation|") + gzStrI(_nLocation) + gzU8("|, ") + gzU8("_nCount|") + gzStrI(_nCount) + gzU8("|, ") + gzU8("_aValue|") + gzStrF(*_aValue)+ gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fUniform3dv(gzVal _nLocation, gzInt _nCount, gzFloat64* _aValue, const char* _file , gzUInt _line){
 	glCall_fUniform3dv(_nLocation, _nCount, _aValue);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glUniform3dv( ") + gzStrL("_nLocation|") + gzStrI(_nLocation) + gzStrL("|, ") + gzStrL("_nCount|") + gzStrI(_nCount) + gzStrL("|, ") + gzStrL("_aValue|") + gzStrF(*_aValue)+ gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glUniform3dv( ") + gzU8("_nLocation|") + gzStrI(_nLocation) + gzU8("|, ") + gzU8("_nCount|") + gzStrI(_nCount) + gzU8("|, ") + gzU8("_aValue|") + gzStrF(*_aValue)+ gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fUniform4dv(gzVal _nLocation, gzInt _nCount, gzFloat64* _aValue, const char* _file , gzUInt _line){
 	glCall_fUniform4dv(_nLocation, _nCount, _aValue);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glUniform4dv( ") + gzStrL("_nLocation|") + gzStrI(_nLocation) + gzStrL("|, ") + gzStrL("_nCount|") + gzStrI(_nCount) + gzStrL("|, ") + gzStrL("_aValue|") + gzStrF(*_aValue)+ gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glUniform4dv( ") + gzU8("_nLocation|") + gzStrI(_nLocation) + gzU8("|, ") + gzU8("_nCount|") + gzStrI(_nCount) + gzU8("|, ") + gzU8("_aValue|") + gzStrF(*_aValue)+ gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fUniformMatrix2dv(gzVal _nLocation, gzInt _nCount, gzBool _bTranspose, gzFloat64* _aValue, const char* _file , gzUInt _line){
 	glCall_fUniformMatrix2dv(_nLocation, _nCount, _bTranspose, _aValue);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glUniformMatrix2dv( ") + gzStrL("_nLocation|") + gzStrI(_nLocation) + gzStrL("|, ") + gzStrL("_nCount|") + gzStrI(_nCount) + gzStrL("|, ") + gzStrL("_bTranspose|") + gzStrB(_bTranspose) + gzStrL("|, ") + gzStrL("_aValue|") + gzStrF(*_aValue)+ gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glUniformMatrix2dv( ") + gzU8("_nLocation|") + gzStrI(_nLocation) + gzU8("|, ") + gzU8("_nCount|") + gzStrI(_nCount) + gzU8("|, ") + gzU8("_bTranspose|") + gzStrB(_bTranspose) + gzU8("|, ") + gzU8("_aValue|") + gzStrF(*_aValue)+ gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fUniformMatrix3dv(gzVal _nLocation, gzInt _nCount, gzBool _bTranspose, gzFloat64* _aValue, const char* _file , gzUInt _line){
 	glCall_fUniformMatrix3dv(_nLocation, _nCount, _bTranspose, _aValue);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glUniformMatrix3dv( ") + gzStrL("_nLocation|") + gzStrI(_nLocation) + gzStrL("|, ") + gzStrL("_nCount|") + gzStrI(_nCount) + gzStrL("|, ") + gzStrL("_bTranspose|") + gzStrB(_bTranspose) + gzStrL("|, ") + gzStrL("_aValue|") + gzStrF(*_aValue)+ gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glUniformMatrix3dv( ") + gzU8("_nLocation|") + gzStrI(_nLocation) + gzU8("|, ") + gzU8("_nCount|") + gzStrI(_nCount) + gzU8("|, ") + gzU8("_bTranspose|") + gzStrB(_bTranspose) + gzU8("|, ") + gzU8("_aValue|") + gzStrF(*_aValue)+ gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fUniformMatrix4dv(gzVal _nLocation, gzInt _nCount, gzBool _bTranspose, gzFloat64* _aValue, const char* _file , gzUInt _line){
 	glCall_fUniformMatrix4dv(_nLocation, _nCount, _bTranspose, _aValue);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glUniformMatrix4dv( ") + gzStrL("_nLocation|") + gzStrI(_nLocation) + gzStrL("|, ") + gzStrL("_nCount|") + gzStrI(_nCount) + gzStrL("|, ") + gzStrL("_bTranspose|") + gzStrB(_bTranspose) + gzStrL("|, ") + gzStrL("_aValue|") + gzStrF(*_aValue)+ gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glUniformMatrix4dv( ") + gzU8("_nLocation|") + gzStrI(_nLocation) + gzU8("|, ") + gzU8("_nCount|") + gzStrI(_nCount) + gzU8("|, ") + gzU8("_bTranspose|") + gzStrB(_bTranspose) + gzU8("|, ") + gzU8("_aValue|") + gzStrF(*_aValue)+ gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fUniformMatrix2x3dv(gzVal _nLocation, gzInt _nCount, gzBool _bTranspose, gzFloat64* _aValue, const char* _file , gzUInt _line){
 	glCall_fUniformMatrix2x3dv(_nLocation, _nCount, _bTranspose, _aValue);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glUniformMatrix2x3dv( ") + gzStrL("_nLocation|") + gzStrI(_nLocation) + gzStrL("|, ") + gzStrL("_nCount|") + gzStrI(_nCount) + gzStrL("|, ") + gzStrL("_bTranspose|") + gzStrB(_bTranspose) + gzStrL("|, ") + gzStrL("_aValue|") + gzStrF(*_aValue)+ gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glUniformMatrix2x3dv( ") + gzU8("_nLocation|") + gzStrI(_nLocation) + gzU8("|, ") + gzU8("_nCount|") + gzStrI(_nCount) + gzU8("|, ") + gzU8("_bTranspose|") + gzStrB(_bTranspose) + gzU8("|, ") + gzU8("_aValue|") + gzStrF(*_aValue)+ gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fUniformMatrix2x4dv(gzVal _nLocation, gzInt _nCount, gzBool _bTranspose, gzFloat64* _aValue, const char* _file , gzUInt _line){
 	glCall_fUniformMatrix2x4dv(_nLocation, _nCount, _bTranspose, _aValue);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glUniformMatrix2x4dv( ") + gzStrL("_nLocation|") + gzStrI(_nLocation) + gzStrL("|, ") + gzStrL("_nCount|") + gzStrI(_nCount) + gzStrL("|, ") + gzStrL("_bTranspose|") + gzStrB(_bTranspose) + gzStrL("|, ") + gzStrL("_aValue|") + gzStrF(*_aValue)+ gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glUniformMatrix2x4dv( ") + gzU8("_nLocation|") + gzStrI(_nLocation) + gzU8("|, ") + gzU8("_nCount|") + gzStrI(_nCount) + gzU8("|, ") + gzU8("_bTranspose|") + gzStrB(_bTranspose) + gzU8("|, ") + gzU8("_aValue|") + gzStrF(*_aValue)+ gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fUniformMatrix3x2dv(gzVal _nLocation, gzInt _nCount, gzBool _bTranspose, gzFloat64* _aValue, const char* _file , gzUInt _line){
 	glCall_fUniformMatrix3x2dv(_nLocation, _nCount, _bTranspose, _aValue);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glUniformMatrix3x2dv( ") + gzStrL("_nLocation|") + gzStrI(_nLocation) + gzStrL("|, ") + gzStrL("_nCount|") + gzStrI(_nCount) + gzStrL("|, ") + gzStrL("_bTranspose|") + gzStrB(_bTranspose) + gzStrL("|, ") + gzStrL("_aValue|") + gzStrF(*_aValue)+ gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glUniformMatrix3x2dv( ") + gzU8("_nLocation|") + gzStrI(_nLocation) + gzU8("|, ") + gzU8("_nCount|") + gzStrI(_nCount) + gzU8("|, ") + gzU8("_bTranspose|") + gzStrB(_bTranspose) + gzU8("|, ") + gzU8("_aValue|") + gzStrF(*_aValue)+ gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fUniformMatrix3x4dv(gzVal _nLocation, gzInt _nCount, gzBool _bTranspose, gzFloat64* _aValue, const char* _file , gzUInt _line){
 	glCall_fUniformMatrix3x4dv(_nLocation, _nCount, _bTranspose, _aValue);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glUniformMatrix3x4dv( ") + gzStrL("_nLocation|") + gzStrI(_nLocation) + gzStrL("|, ") + gzStrL("_nCount|") + gzStrI(_nCount) + gzStrL("|, ") + gzStrL("_bTranspose|") + gzStrB(_bTranspose) + gzStrL("|, ") + gzStrL("_aValue|") + gzStrF(*_aValue)+ gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glUniformMatrix3x4dv( ") + gzU8("_nLocation|") + gzStrI(_nLocation) + gzU8("|, ") + gzU8("_nCount|") + gzStrI(_nCount) + gzU8("|, ") + gzU8("_bTranspose|") + gzStrB(_bTranspose) + gzU8("|, ") + gzU8("_aValue|") + gzStrF(*_aValue)+ gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fUniformMatrix4x2dv(gzVal _nLocation, gzInt _nCount, gzBool _bTranspose, gzFloat64* _aValue, const char* _file , gzUInt _line){
 	glCall_fUniformMatrix4x2dv(_nLocation, _nCount, _bTranspose, _aValue);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glUniformMatrix4x2dv( ") + gzStrL("_nLocation|") + gzStrI(_nLocation) + gzStrL("|, ") + gzStrL("_nCount|") + gzStrI(_nCount) + gzStrL("|, ") + gzStrL("_bTranspose|") + gzStrB(_bTranspose) + gzStrL("|, ") + gzStrL("_aValue|") + gzStrF(*_aValue)+ gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glUniformMatrix4x2dv( ") + gzU8("_nLocation|") + gzStrI(_nLocation) + gzU8("|, ") + gzU8("_nCount|") + gzStrI(_nCount) + gzU8("|, ") + gzU8("_bTranspose|") + gzStrB(_bTranspose) + gzU8("|, ") + gzU8("_aValue|") + gzStrF(*_aValue)+ gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fUniformMatrix4x3dv(gzVal _nLocation, gzInt _nCount, gzBool _bTranspose, gzFloat64* _aValue, const char* _file , gzUInt _line){
 	glCall_fUniformMatrix4x3dv(_nLocation, _nCount, _bTranspose, _aValue);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glUniformMatrix4x3dv( ") + gzStrL("_nLocation|") + gzStrI(_nLocation) + gzStrL("|, ") + gzStrL("_nCount|") + gzStrI(_nCount) + gzStrL("|, ") + gzStrL("_bTranspose|") + gzStrB(_bTranspose) + gzStrL("|, ") + gzStrL("_aValue|") + gzStrF(*_aValue)+ gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glUniformMatrix4x3dv( ") + gzU8("_nLocation|") + gzStrI(_nLocation) + gzU8("|, ") + gzU8("_nCount|") + gzStrI(_nCount) + gzU8("|, ") + gzU8("_bTranspose|") + gzStrB(_bTranspose) + gzU8("|, ") + gzU8("_aValue|") + gzStrF(*_aValue)+ gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fUniform1ui(gzVal _nLocation, gzUInt32 _n0, const char* _file , gzUInt _line){
 	glCall_fUniform1ui(_nLocation, _n0);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glUniform1ui( ") + gzStrL("_nLocation|") + gzStrI(_nLocation) + gzStrL("|, ") + gzStrL("_n0|") + gzStrI(_n0) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glUniform1ui( ") + gzU8("_nLocation|") + gzStrI(_nLocation) + gzU8("|, ") + gzU8("_n0|") + gzStrI(_n0) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fUniform2ui(gzVal _nLocation, gzUInt32 _n0, gzUInt32 _n1, const char* _file , gzUInt _line){
 	glCall_fUniform2ui(_nLocation, _n0, _n1);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glUniform2ui( ") + gzStrL("_nLocation|") + gzStrI(_nLocation) + gzStrL("|, ") + gzStrL("_n0|") + gzStrI(_n0) + gzStrL("|, ") + gzStrL("_n1|") + gzStrI(_n1) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glUniform2ui( ") + gzU8("_nLocation|") + gzStrI(_nLocation) + gzU8("|, ") + gzU8("_n0|") + gzStrI(_n0) + gzU8("|, ") + gzU8("_n1|") + gzStrI(_n1) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fUniform3ui(gzVal _nLocation, gzUInt32 _n0, gzUInt32 _n1, gzUInt32 _n2, const char* _file , gzUInt _line){
 	glCall_fUniform3ui(_nLocation, _n0, _n1, _n2);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glUniform3ui( ") + gzStrL("_nLocation|") + gzStrI(_nLocation) + gzStrL("|, ") + gzStrL("_n0|") + gzStrI(_n0) + gzStrL("|, ") + gzStrL("_n1|") + gzStrI(_n1) + gzStrL("|, ") + gzStrL("_n2|") + gzStrI(_n2) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glUniform3ui( ") + gzU8("_nLocation|") + gzStrI(_nLocation) + gzU8("|, ") + gzU8("_n0|") + gzStrI(_n0) + gzU8("|, ") + gzU8("_n1|") + gzStrI(_n1) + gzU8("|, ") + gzU8("_n2|") + gzStrI(_n2) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fUniform4ui(gzVal _nLocation, gzUInt32 _n0, gzUInt32 _n1, gzUInt32 _n2, gzUInt32 _n3, const char* _file , gzUInt _line){
 	glCall_fUniform4ui(_nLocation, _n0, _n1, _n2, _n3);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glUniform4ui( ") + gzStrL("_nLocation|") + gzStrI(_nLocation) + gzStrL("|, ") + gzStrL("_n0|") + gzStrI(_n0) + gzStrL("|, ") + gzStrL("_n1|") + gzStrI(_n1) + gzStrL("|, ") + gzStrL("_n2|") + gzStrI(_n2) + gzStrL("|, ") + gzStrL("_n3|") + gzStrI(_n3) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glUniform4ui( ") + gzU8("_nLocation|") + gzStrI(_nLocation) + gzU8("|, ") + gzU8("_n0|") + gzStrI(_n0) + gzU8("|, ") + gzU8("_n1|") + gzStrI(_n1) + gzU8("|, ") + gzU8("_n2|") + gzStrI(_n2) + gzU8("|, ") + gzU8("_n3|") + gzStrI(_n3) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fUniform1uiv(gzVal _nLocation, gzInt _nCount, gzUInt32* _aValue, const char* _file , gzUInt _line){
 	glCall_fUniform1uiv(_nLocation, _nCount, _aValue);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glUniform1uiv( ") + gzStrL("_nLocation|") + gzStrI(_nLocation) + gzStrL("|, ") + gzStrL("_nCount|") + gzStrI(_nCount) + gzStrL("|, ") + gzStrL("_aValue|") + gzStrI(*_aValue)+ gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glUniform1uiv( ") + gzU8("_nLocation|") + gzStrI(_nLocation) + gzU8("|, ") + gzU8("_nCount|") + gzStrI(_nCount) + gzU8("|, ") + gzU8("_aValue|") + gzStrI(*_aValue)+ gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fUniform2uiv(gzVal _nLocation, gzInt _nCount, gzUInt32* _aValue, const char* _file , gzUInt _line){
 	glCall_fUniform2uiv(_nLocation, _nCount, _aValue);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glUniform2uiv( ") + gzStrL("_nLocation|") + gzStrI(_nLocation) + gzStrL("|, ") + gzStrL("_nCount|") + gzStrI(_nCount) + gzStrL("|, ") + gzStrL("_aValue|") + gzStrI(*_aValue)+ gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glUniform2uiv( ") + gzU8("_nLocation|") + gzStrI(_nLocation) + gzU8("|, ") + gzU8("_nCount|") + gzStrI(_nCount) + gzU8("|, ") + gzU8("_aValue|") + gzStrI(*_aValue)+ gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fUniform3uiv(gzVal _nLocation, gzInt _nCount, gzUInt32* _aValue, const char* _file , gzUInt _line){
 	glCall_fUniform3uiv(_nLocation, _nCount, _aValue);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glUniform3uiv( ") + gzStrL("_nLocation|") + gzStrI(_nLocation) + gzStrL("|, ") + gzStrL("_nCount|") + gzStrI(_nCount) + gzStrL("|, ") + gzStrL("_aValue|") + gzStrI(*_aValue)+ gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glUniform3uiv( ") + gzU8("_nLocation|") + gzStrI(_nLocation) + gzU8("|, ") + gzU8("_nCount|") + gzStrI(_nCount) + gzU8("|, ") + gzU8("_aValue|") + gzStrI(*_aValue)+ gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fUniform4uiv(gzVal _nLocation, gzInt _nCount, gzUInt32* _aValue, const char* _file , gzUInt _line){
 	glCall_fUniform4uiv(_nLocation, _nCount, _aValue);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glUniform4uiv( ") + gzStrL("_nLocation|") + gzStrI(_nLocation) + gzStrL("|, ") + gzStrL("_nCount|") + gzStrI(_nCount) + gzStrL("|, ") + gzStrL("_aValue|") + gzStrI(*_aValue)+ gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glUniform4uiv( ") + gzU8("_nLocation|") + gzStrI(_nLocation) + gzU8("|, ") + gzU8("_nCount|") + gzStrI(_nCount) + gzU8("|, ") + gzU8("_aValue|") + gzStrI(*_aValue)+ gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 gzUInt  glDbg_fGetUniformBlockIndex(gzUInt _nPorgramId, gzUInt8* _cUboName, const char* _file , gzUInt _line){
 	gzUInt _Ret = glCall_fGetUniformBlockIndex(_nPorgramId, _cUboName);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glGetUniformBlockIndex( ") + gzStrL("_nPorgramId|") + gzStrI(_nPorgramId) + gzStrL("|, ") + gzStrL("_cUboName|") + gzStrL("*") + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glGetUniformBlockIndex( ") + gzU8("_nPorgramId|") + gzStrI(_nPorgramId) + gzU8("|, ") + gzU8("_cUboName|") + gzU8("*") + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 	return _Ret;
 }
@@ -1758,14 +1758,14 @@ void  glDbg_fBindBufferBase(gzUInt _eTarget, gzUInt _nIndex, gzUInt _nBuffer, co
 	glCall_fBindBufferBase(_eTarget, _nIndex, _nBuffer);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glBindBufferBase( ") + gzStrL("_eTarget|") + gzStrUI(_eTarget) + gzStrL("|, ") + gzStrL("_nIndex|") + gzStrI(_nIndex) + gzStrL("|, ") + gzStrL("_nBuffer|") + gzStrI(_nBuffer) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glBindBufferBase( ") + gzU8("_eTarget|") + gzStrUI(_eTarget) + gzU8("|, ") + gzU8("_nIndex|") + gzStrI(_nIndex) + gzU8("|, ") + gzU8("_nBuffer|") + gzStrI(_nBuffer) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 void  glDbg_fUniformBlockBinding(gzUInt _nPorgramId, gzUInt _nUniformBlickId, gzUInt _nBindPoint, const char* _file , gzUInt _line){
 	glCall_fUniformBlockBinding(_nPorgramId, _nUniformBlickId, _nBindPoint);
 	gzInt nErr = GL_fGetError();
 	if(nErr){
-	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzStrL(": glUniformBlockBinding( ") + gzStrL("_nPorgramId|") + gzStrI(_nPorgramId) + gzStrL("|, ") + gzStrL("_nUniformBlickId|") + gzStrI(_nUniformBlickId) + gzStrL("|, ") + gzStrL("_nBindPoint|") + gzStrI(_nBindPoint) + gzStrL("| ") + gzStrL(") ") + gzStrL(" File: ") + fGetFile(_file) + gzStrL(" Line: ") + gzStrUI(_line) );
+	GZ_Debug_fError(_SysGpuInfo::fGetErrorString(nErr) + gzU8(": glUniformBlockBinding( ") + gzU8("_nPorgramId|") + gzStrI(_nPorgramId) + gzU8("|, ") + gzU8("_nUniformBlickId|") + gzStrI(_nUniformBlickId) + gzU8("|, ") + gzU8("_nBindPoint|") + gzStrI(_nBindPoint) + gzU8("| ") + gzU8(") ") + gzU8(" File: ") + fGetFile(_file) + gzU8(" Line: ") + gzStrUI(_line) );
 	}
 }
 

@@ -65,20 +65,20 @@
 			//////////////////////////////////////////////////////////// 
 			 ////////////// OPENGL 2 Compatibility context //////////////
 			if (!(PixelFormat = ChoosePixelFormat(hDC,&pfd))){
-				return fFatal(gzStrL("Can't find a suitable PixelFormat or valid handle"));
+				return fFatal(gzU8("Can't find a suitable PixelFormat or valid handle"));
 			}
 
 			if(!SetPixelFormat(hDC,PixelFormat,&pfd)){
-				return fFatal(gzStrL("Can't Set The PixelFormat"));
+				return fFatal(gzU8("Can't Set The PixelFormat"));
 			}
 			DescribePixelFormat(hDC, PixelFormat, sizeof(PIXELFORMATDESCRIPTOR), &pfd);
 
 			if (!(hRC=wglCreateContext(hDC))){  //ReqOgl
-				return fFatal(gzStrL("Can't get A Rendering Context"));
+				return fFatal(gzU8("Can't get A Rendering Context"));
 			}
 
 			if(!wglMakeCurrent(hDC,hRC)) { //ReqOgl
-				return fFatal(gzStrL("Can't Activate The GL Rendering Context"));
+				return fFatal(gzU8("Can't Activate The GL Rendering Context"));
 			}
 			///////////////////////////////////////////////////////////
 			//////////////////////////////////////////////////////////// 
@@ -100,7 +100,7 @@
 			PFNWGLCREATECONTEXTATTRIBSARBPROC glCreateContextAttribs = (PFNWGLCREATECONTEXTATTRIBSARBPROC)wglGetProcAddress("wglCreateContextAttribsARB");
 			
 			if(!(glChoosePixelFormat && glCreateContextAttribs)){
-                return fFatal(gzStrL("Can't get A Rendering Context >= 3.3"));
+                return fFatal(gzU8("Can't get A Rendering Context >= 3.3"));
             }
 			//Delete OGL 2 Context
             wglMakeCurrent(0, 0);
@@ -133,13 +133,13 @@
               glChoosePixelFormat(hDC, iPixelFormatAttribList, NULL, 1, &iPixelFormat, (gzUInt*)&iNumFormats);
 
               if(!SetPixelFormat(hDC, iPixelFormat, &pfd)){
-                    return fFatal(gzStrL("Can't Set The Pixel Format On Context >= 3.3"));
+                    return fFatal(gzU8("Can't Set The Pixel Format On Context >= 3.3"));
               }
 
               hRC = glCreateContextAttribs(hDC, 0, iContextAttribs);
 
             if(!wglMakeCurrent(hDC,hRC)) {
-                return fFatal(gzStrL("Can't Activate The GL Rendering Context >= 3.3"));
+                return fFatal(gzU8("Can't Activate The GL Rendering Context >= 3.3"));
             }
 			
 			</cpp>

@@ -185,7 +185,7 @@ for (gzInt y = 0;  y < BITMAP_H;  y++){
 /*
 using namespace File;
 
-	oFontBitmap = csRcImg::New(gzStrL(""));
+	oFontBitmap = csRcImg::New(gzU8(""));
 	//oFontBitmap->fLoadFromMemory((gzInt8*)temp_bitmap, BITMAP_W*BITMAP_H);
 	oFontBitmap->fLoadFromMemory((gzInt8*)temp_bitmap, (BITMAP_W*BITMAP_H) / 4);
 	//char **_test =  temp_bitmap;
@@ -195,7 +195,7 @@ using namespace File;
 
 
 
-    Debug::fTrace1(gzStrL("Font laoded"));
+    Debug::fTrace1(gzU8("Font laoded"));
 	*/
 
 }

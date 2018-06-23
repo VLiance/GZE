@@ -59,9 +59,12 @@ package  {
 
 
 		public function Rectangle( _oParent : Root, _nX: Float, _nY:Float, _nW: Float, _nH:Float, _nColor1:UInt, _nColor2:UInt = 0):Void {
-			//Object(_oParent, _nX , _nY);
+		
+
+		//Object(_oParent, _nX , _nY);
 			Shape(_oParent, _nX , _nY, 4, false);
 
+			/*
 			nGAttType = 2.0; //No texture form
 
 			var _nCenterX :Int = 0;
@@ -133,7 +136,7 @@ package  {
 			nG1Blue = nS1Blue;
 			nG1Green = nS1Green;
 
-
+*/
 
 		}
 
@@ -155,6 +158,7 @@ package  {
 
 
 		override public function fGpuDraw():Bool {
+			/*
 			var _nRed : Float = ((nGoColor1 >> 16) & 0xFF)/255.0;
 			var _nGreen : Float = ((nGoColor1 >> 8) & 0xFF)/255.0;
 			var _nBlue : Float = (nGoColor1 & 0xFF)/255.0;
@@ -163,7 +167,7 @@ package  {
 			nGAttGreen += _nGreen;
 			nGAttBlue += _nBlue;
 
-			oFace.fGpuDraw();
+			oFace.fGpuDraw();*/
 		}
 
 

@@ -12,6 +12,9 @@
 #include "Lib_GZ/Base/gzString.h"
 
 
+//#define gzStaticU8(_sName, _aData)  static gzStr8(  gzData8(_aData)  ) _sName;
+gzStaticU8(gzNullStr,"");
+
 gzStr8 gzStr16::fToUTF8() const{
 	gzStr8 _oNew((gzStr8*)this);
 	_oNew.f_UTF16_2_UTF8();

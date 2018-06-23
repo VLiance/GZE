@@ -116,6 +116,11 @@
 			_oNew.fPrintData();
 		#endif
 	}
+	
+	
+	unsigned char* fToChar() const { //TODO copy to be safe?
+		return gzp_DataArray;
+	}
 
 	/*gzUIntX nPos;
 	gzUIntX nIndex;

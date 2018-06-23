@@ -148,7 +148,7 @@ generate "OpenGL" {
 				#ifdef GZ_tWeb_Emsc
 
 					return oGL.call<val>("createBuffer");
-					//return ::GZ::fConsole(gzStrL("ScreateBuffer"));
+					//return ::GZ::fConsole(gzU8("ScreateBuffer"));
 
 				#else
 					gzVal _nVal;

@@ -32,6 +32,7 @@ package  {
 		}
 		
 		public function fAdd(_sText : String = ""):Void {
+			/*
 			var i : UInt = 0;
 			_sText.fBegin();
 			var _nPrevChar : UInt = 0;
@@ -50,7 +51,7 @@ package  {
 				 
 				 
 				i++;
-			}
+			}*/
 		}
 		
 		public function fClear():Void {

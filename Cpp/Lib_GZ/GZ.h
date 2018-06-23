@@ -3,7 +3,8 @@
 #ifndef tHDef_GZ
 #define tHDef_GZ
 
-
+	#include "Lib_GZ/Class.h"
+	
 	#include "SmartPtr/gzSp.h"
 	#include "SmartPtr/gzWp.h"
 
@@ -52,10 +53,15 @@
 	#include "Macro.h"
 	#include "Lib_GZ/Lib_GZ.h"
 	
+	
+	
+#include "Lib_GZ/Base/GzBase.h"
+#include "Lib_GZ/Thread.h"
+#include "Class.h"
+#include "StThread.h"
+		
 
-		#include "Class.h"
-		#include "StThread.h"
-
+#include "Lib_GZ/ThreadExt.h"
 
 
 

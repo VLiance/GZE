@@ -39,7 +39,7 @@ package  {
 
 			/*
 			 if(nId == -1){
-			   Debug::fError(gzStrL("Warning, Uniform not found/used : ") + _sAttrib );
+			   Debug::fError(gzU8("Warning, Uniform not found/used : ") + _sAttrib );
 				if(_bBindIfNotFound){
 					_nLoc = 15;
 					GL_fBindAttribLocation(nId, _nLoc, (gzUInt8*)(_sAttrib.sStr->array + 1)); // Todo set to last possible value
