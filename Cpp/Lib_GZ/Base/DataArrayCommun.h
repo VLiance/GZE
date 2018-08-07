@@ -19,6 +19,7 @@
 
 	}
 	inline void fAssign(gzDataRC* _pOther) const {
+
 		gzDataRC* _pTemp = gzp_Data; //Protect from self assign/destroy
 		gzDtThis->gzp_Data = _pOther;
 		_pOther->fAddInstance();
@@ -82,6 +83,7 @@
 
 
 	gzp_DataType& operator=(const gzp_DataType& _oOther) {
+		
 	
 		fAssign(_oOther.gzp_Data);
 		gzp_Additional_fAssignType

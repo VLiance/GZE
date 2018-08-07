@@ -13,9 +13,32 @@
 
 
 //#define gzStaticU8(_sName, _aData)  static gzStr8(  gzData8(_aData)  ) _sName;
-gzStaticU8(gzNullStr,"");
+//gzStaticU8(gzNullStr,"");
+//gzData8( "aaa" );
+
+//static gzStr8(  gzData8( "aaa" )  ) gzNullStr;
+
+	// static gzStr8( gzDataRC{(gzUInt8*)( "aaa"),(gzUIntX)(sizeof( "aaa")-1), (gzUIntX)(sizeof( "aaa")-1)  ,0,0,0,0}  ) gzNullStr;
+
+//gzConstData(gzUInt8*, gzNullStr_Data "aa");
+
+//const char* gzNullStr_Data[] = {"aaa"};
+//gzDataRC  gzNullStr_RC = GzToDataRC_const(gzNullStr_Data);
+
+//gzDataRC  gzNullStr_RC = GzToDataRC_const("aaa");
+//gzStr8 gzNullStr(&gzNullStr_RC) ;
+//gzData_U8(gzNullStr, "");
+gzConst_U8(gzNullStr_Data, "");
+
+
+//#define gzNullStr_dat = ((gzDataRC){(gzUInt8*)(""),(gzUIntX)sizeof(""),     (gzUIntX)sizeof(""),0,0,0,0})
+//gzStr8 gzNullStr(&gzNullStr_dat);
+//#define gzData_U8(_sName, _aData)   gzDataRC _sName##_dat = GzToDataRC_const(gzConcat(gzS8 ,_aData));  gzStr8 _sName(&_sName##_dat);
+
 
 gzStr8 gzStr16::fToUTF8() const{
+
+
 	gzStr8 _oNew((gzStr8*)this);
 	_oNew.f_UTF16_2_UTF8();
 	return _oNew;
@@ -128,7 +151,7 @@ gzStr8 gzStrUI(gzUInt64 _nEntier){
 //Todo Test
 gzStr8 gzStrC(const char* _Array){
     if(_Array == 0){
-        return gzU8("");
+        return gzU8("");//gzNullStr?
     }
     gzUInt _nCount = 0;
 
@@ -147,7 +170,7 @@ gzStr8 gzStrC(const char* _Array){
 //Todo Test
 gzStr8 gzStrC(const char* _Array, gzUInt _nCount){
     if(_Array == 0){
-        return gzU8("");
+        return gzU8("");//gzNullStr?
     }
 
 	gzStr8 _sNewStr( ::GZ::fDataAlloc(_nCount, _nCount));

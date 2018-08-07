@@ -23,7 +23,7 @@
 #define gzConcat(a, b) gzConcat_(a, b)
 
 #define gzStringize_(A) #A
-#define gzStringize(A) gzStringize(A)
+#define gzStringize(A) gzStringize_(A)
 
 
 
@@ -191,8 +191,9 @@ namespace Lib_GZ{ struct uLib; namespace Lib{extern gzUInt nClass;  extern  uLib
 #define GZ_FuncWrapM gzDlgWrapM* _w
 #define GZ_PARAM
 
-#define zNull 0
-
+#ifndef zNull
+	#define zNull ((void *)0)
+#endif
 
 #define tApi_GZ
 #ifdef tLibExport_GZ

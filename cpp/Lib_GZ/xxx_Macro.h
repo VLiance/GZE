@@ -97,6 +97,7 @@ namespace _Class{\
 
 #define GZ_mHLib(_LibName)\
 namespace _LibName{ \
+	extern IniLib_#_LibName();\
     void fIniLib();\
     extern Lib_GZ::uLib zpLib;\
     extern Lib_GZ::uOverplace* rLastClass;\

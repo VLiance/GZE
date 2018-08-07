@@ -78,6 +78,14 @@
 #define gzU16(_aData) gzStr16(  gzNewData16(_aData) )
 #define gzU32(_aData) gzStr32(  gzNewData32(_aData) )
 
+
+
+#define gzConst_U8(_sName, _sStr)  gzConstData(gzUInt8*, _sName, (gzUInt8*)"");
+#define gzConst_U16(_sName, _sStr) gzConstData(gzUInt8*, _sName, (gzUInt8*)"");
+#define gzConst_U32(_sName, _sStr) gzConstData(gzUInt8*, _sName, (gzUInt8*)"");
+
+
+
 /*
 #define gzNewData(_sType, _sName, ...)  \
 _sType _sName##_dat[] = {__VA_ARGS__};\

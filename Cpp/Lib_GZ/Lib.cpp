@@ -37,6 +37,7 @@ namespace Lib {
        gzUInt nClass = 0; //SpecialVar
 	   
 	   
+	   
 	/*
 		gzUInt _nId = Lib_GZ::Lib::nClass++;
 
@@ -170,12 +171,20 @@ extern "C" int IniLib_Lib_Demo();
 //extern "C" int IniLib_Lib_GZ();
 
 
-
-
+#include "Lib_GZ.h"
 
 void fLoadAllLib(){
-	//printf("\nLoadAll_Libs!!");
+	printf("\nLoadAll_Libs!!");
 	
+
+	uLib* _rLib = IniLib_Lib_GZ();//Default lib
+		
+    printf("\n--IniLib :"  );   _rLib->sName.fPrint();  
+	if(_rLib != NULL){
+		fAllClass(*_rLib->_rLastClass);
+	}
+		 
+	return; //Test
 	
 	
 /*
@@ -206,9 +215,14 @@ void fLoadAllLib(){
      printf("\n -----_rLasLib : %d \n", rLastLib);
      printf("\n -----nNumWindows : %d \n", nNumWindows);
 */
+    printf("\n -----_rLasLib : %d \n", (int)rLastLib);
+   //  printf("\n -----nNumWindows : %d \n", nNumWindows);
 
-
-     uLib* _rLib = rLastLib;
+   
+   
+   
+   
+  //   uLib* _rLib = rLastLib;
 /*
      if(_rLib->rPrec == _rLib){  //If we have only one lib
         _rLib->rPrec = 0;
@@ -217,7 +231,7 @@ void fLoadAllLib(){
  */
  
 	 
-	 
+	 /*
     while (_rLib != 0){
 		
 		//Lib_GZ::Sys::pDebug::fConsole(gzU8("\n----Lib: ") + gzStrC(_rLib->sName) );
@@ -227,7 +241,7 @@ void fLoadAllLib(){
 		
          fAllClass(*_rLib->_rLastClass);
         _rLib = _rLib->rPrec;
-    }
+    }*/
 	
 	/*
    //  GZ_fFree(_rLastPtrFunc);// Keep in meomry for now
@@ -249,15 +263,18 @@ void fLoadAllLib(){
 
 void fAllClass(uOverplace* _rLastClass){ 
 
+
+printf("fALLCLASS: %d ", (int)_rLastClass );
     while (_rLastClass != 0){
 		
 		( gzU8("\n --Class :") + _rLastClass->sName + gzU8(" id:") +  gzStrUI( _rLastClass->nId)).fPrint();
+	//	( gzU8("\n --Class :")  + gzU8(" id:") +  gzStrUI( _rLastClass->nId)).fPrint();
 		
         _rLastClass = _rLastClass->rPrec;
     }
 }
 
-
+}//////////////////////////////////////// LIB::
 
 
 //gzPtrFuncRBoolPAny dValidateIniOverpace = 0;
@@ -318,18 +335,22 @@ void Lib::fDoOverPlace(uOverplace* _rClass){
 
 /////////////////////////////////////////////////////////
 
-/*
-cLib::cLib(gzUIntX _nInstanceId, gzStr _sArg, gzUIntX _nCmd): Lib_GZ::cThread(0){
 
+cLib::cLib(gzUIntX _nInstanceId, gzStr _sArg, gzUIntX _nCmd): Lib_GZ::cThread(0){
+	
+	
+	
+/*
 	const gzInt32 nNum = 1;
 	if(*(char *)&nNum == 1){
 		Lib::bLittleEndian = true;
 	}else{
 		Lib::bLittleEndian = false;
 	}
-
+	
   //  GZ_NullObj = GZ_SpNullObj.get(); TODO
     Lib_GZ::Lib::fLoadAllLib();
+	
     Lib_GZ::Sys::Debug::Get(thread)->New(this);
 
     bIsAlive = true;
@@ -364,14 +385,16 @@ cLib::cLib(gzUIntX _nInstanceId, gzStr _sArg, gzUIntX _nCmd): Lib_GZ::cThread(0)
 	Lib_GZ::Sys::System::Get(thread)->fIni(_nInstanceId, _sArg, _nCmd);
 	fIni();
 	Lib_GZ::Lib::Get(thread)->fStaticIni();
+	*/
 }
 
+/*
 void cLib::fIni(){
 
-   fLoadAllRc();
-   Lib::bIsIni = true;
-}
-
+ //  fLoadAllRc();
+//   Lib::bIsIni = true;
+}*/
+/*
 void cLib::fSetDirRcFiles(gzPStr _sDirRcFiles){
     using namespace Lib;
     sDirRcFiles  = sDirExe.fPathGetRelative( _sDirRcFiles);
@@ -424,8 +447,9 @@ gzBool cLib::fMainUpdate(gzInt _nSleepTime){
 */
 
 
-	/*
+	
 	cLib::~cLib(){
+		/*
 		 Lib_GZ::Sys::System::Get(this)->fExit();
 
 		uRcList* _nCurrent = rFirstRc;
@@ -435,10 +459,10 @@ gzBool cLib::fMainUpdate(gzInt _nSleepTime){
 			//delete _nLast->_oRc;
 			GZ_fFree(_nLast);
 		}
-
+		*/
 	
-	}*/
-}
+	}
+
 
 }
 

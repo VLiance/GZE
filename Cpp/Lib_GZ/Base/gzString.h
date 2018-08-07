@@ -39,7 +39,8 @@
 	
 	
 typedef  gzStr8 gzStr;
-extern gzStr8 gzNullStr;
+//extern gzStr8 gzNullStr;
+extern const gzDataRC gzNullStr_Data;
 
 /////////////////////////////////////////////////////////
 /////////////////////   UTF8  ///////////////////////////
@@ -60,7 +61,16 @@ extern gzStr8 gzNullStr;
 		
 		
 		gzp_DataType(){ //To test
-			*this = gzNullStr;
+		
+		 //   static gzDataRC _gzNullStr_dat = GzToDataRC_const(gzConcat(gzS8 ,""));  
+			//static gzStr8 _gzNullStr(&_gzNullStr_dat); 
+			gzStr8 _gzNullStr(gzNullStr_Data);
+			
+			//TODO TODO TEST gzNullStr
+		//	printf("\n4\n");
+			//*this = gzNullStr;
+			*this = _gzNullStr;
+	
 		}
 		
 		

@@ -18,15 +18,18 @@
 
 namespace Lib_GZ{
 
-   // struct uOverplace {uOverplace* rPrec; gzUInt nId; gzPtrFuncRPAny cfOri; gzPtrFuncRPAny cfOver; gzPtrFuncRPAny cfExt;  gzPtrFuncRAny cfExtAdr; gzStr8 sName;};
-    struct uOverplace {uOverplace* rPrec; gzUInt nId; gzPtrFuncRPAny cfOri; gzPtrFuncRPAny cfOver; gzPtrFuncRPAny cfExt;  gzPtrFuncRAny cfExtAdr;};
+//TODO Atomic vars for thread safety --> keep sName?
+    struct uOverplace {uOverplace* rPrec; gzUInt nId; gzPtrFuncRPAny cfOri; gzPtrFuncRPAny cfOver; gzPtrFuncRPAny cfExt;  gzPtrFuncRAny cfExtAdr; gzStr8 sName;};
+	
+    //struct uOverplace {uOverplace* rPrec; gzUInt nId; gzPtrFuncRPAny cfOri; gzPtrFuncRPAny cfOver; gzPtrFuncRPAny cfExt;  gzPtrFuncRAny cfExtAdr;};
   //  struct uLib { uLib* rPrec; const char* sName; uOverplace** _rLastClass; gzPtrFuncRInt dIni; };
-    struct uLib { uLib* rPrec; gzStr8 sName; uOverplace** _rLastClass; gzPtrFuncRInt dIni; };
+    struct uLib { Lib_GZ::uLib* rPrec; gzStr8 sName; uOverplace** _rLastClass; gzPtrFuncRAny dIni; };
     extern uLib zpLib;
     inline  uLib* fSetLib(uLib* _rLib){
        uLib* rTemp =  Lib::rLastLib;
        Lib::rLastLib = _rLib;
 	  // printf("\n uLibName: %s", _rLib->sName);
+	 //  printf("\n uLibName: aaaaa");
        return rTemp;
   //return 0;
     }

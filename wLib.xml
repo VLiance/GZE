@@ -6,8 +6,8 @@
 
 	<arguments>
 
-		<Compiler>-I{wPath}cpp/</Compiler>
-		<Compiler>-I{wPath}cpp/SubLib_System/</Compiler>
+		<Compiler>-I "{wPath}cpp/"</Compiler>
+		<Compiler>-I "{wPath}cpp/SubLib_System/"</Compiler>
 		
 		<CWayv>-L "{wPath}cw/Engine_(GZ)/"  -I "{wPath}cw/Wrapper_(GZ)/"</CWayv> 
 

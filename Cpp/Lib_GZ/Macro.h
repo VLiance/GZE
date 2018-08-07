@@ -294,8 +294,12 @@ GZ_mStaticClassThread(_Class,_Op)
 #define GZ_mStaticClass(_Class)  GZ_mStaticClassThread(_Class,  0, 0)}
 #define GZ_mStaticClassOp(_Class, _Op)  GZ_mStaticClassThread(_Class, &_Op::Create, &_Op::Adr)}
 
+
+//    struct uOverplace {uOverplace* rPrec; gzUInt nId; gzPtrFuncRPAny cfOri; gzPtrFuncRPAny cfOver; gzPtrFuncRPAny cfExt;  gzPtrFuncRAny cfExtAdr; gzStr8 sName;};
+ 
 #define GZ_mStaticClassThread(_Class, _OpCreate, _OpAdr)\
 namespace _Class{\
+	gzConst_U8(sClassName, #_Class);\
     extern Lib_GZ::uOverplace zDefault;\
     extern gzPtrFuncRPAny cfDefault;\
     extern void Ini_Class();\
@@ -305,12 +309,22 @@ namespace _Class{\
     inline void* Adr(){\
         return &zDefault;\
     }\
-    inline Lib_GZ::uOverplace NewClass(){ zDefault = {Lib::SetClass(&zDefault), 0, &Create,  &Create, _OpCreate, _OpAdr}; Ini_Class(); return zDefault;}\
+    inline Lib_GZ::uOverplace AddClass(){ zDefault = {Lib::SetClass(&zDefault), 0, &Create,  &Create, _OpCreate, _OpAdr, sClassName}; return zDefault;}\
     \
+	/* TODO Check if a shared ptr is required */ \
     inline gzSp<cs##_Class> Get(Lib_GZ::cThread* _oCurrThread){\
-	  return gzSCastSelf<cs##_Class>( gzSp<Lib_GZ::cStThread>((cs##_Class*)zDefault.cfOver(_oCurrThread) ) );\
-    }
-	/*
+        if(_oCurrThread->st(zDefault.nId) == 0){\
+               _oCurrThread->st[zDefault.nId] = gzSp<Lib_GZ::cStThread>((cs##_Class*)zDefault.cfOver(_oCurrThread) ); /* cfOver=Create() create new static class */ \
+        }\
+        return gzSCastSelf<cs##_Class>(_oCurrThread->st(zDefault.nId)->get());\
+    } //
+	
+	//*/
+	  //return gzSCastSelf<cs##_Class>( gzSp<Lib_GZ::cStThread>((cs##_Class*)zDefault.cfOver(_oCurrThread) ) ); /* create new static class */ \
+   // }
+
+	
+		/*
         if(_oCurrThread->st(zDefault.nId) == 0){\
             if(_oCurrThread->func(zDefault.nId) != 0){\
                 gzPtrFuncRPAny cfCall = *_oCurrThread->func(zDefault.nId);\
@@ -322,7 +336,15 @@ namespace _Class{\
         return gzSCastSelf<cs##_Class>((_oCurrThread->st(zDefault.nId)->get()));\
     }
 	*/
+	
+	
 
+		 //cfOver(void* _oCurrThread) == Create function
+	 
+	 //  inline Lib_GZ::uOverplace NewClass(){ zDefault = {0, 0, &Create,  &Create, _OpCreate, _OpAdr}; Ini_Class(); return zDefault;}\
+	// inline Lib_GZ::uOverplace NewClass(){ zDefault = {Lib::SetClass(&zDefault), 0, &Create,  &Create, _OpCreate, _OpAdr}; Ini_Class(); return zDefault;}\
+    
+	
            //     _oCurrThread->st[_nId] = gzSp<Lib_GZ::cStThread>((cs##_Class*)cfDefault(_oCurrThread) );\
 
 
@@ -331,7 +353,7 @@ namespace _Class{\
     gzPtrFuncRPAny cfDefault = (gzPtrFuncRPAny)&_Over::Create;\
 }
 
-
+//, gzStringize(_Class)
 /*
 #define GZ_mCppClass(_LibNameSpace, _Class)\
 namespace _Class{\
@@ -345,18 +367,36 @@ namespace _Class{\
 }
 */
 
+#define GZ_mCppLib(_LibName)\
+GZ_mCppLibVar(_LibName)
 
+//    struct uLib { Lib_GZ::uLib* rPrec; gzStr8 sName; uOverplace** _rLastClass; gzPtrFuncRAny dIni; };
 #define GZ_mCppLibVar(_LibName)\
 namespace _LibName{\
+	gzConst_U8(sLibName, #_LibName);\
     Lib_GZ::uOverplace* rLastClass = 0; \
-    Lib_GZ::uLib zpLib =  {Lib_GZ::fSetLib(&zpLib), #_LibName, &rLastClass, &IniLib_##_LibName };\
+	Lib_GZ::uLib zpLib = {0};\
 }
+//inline void SetLibVar(){zpLib.rPrec = Lib_GZ::fSetLib(&zpLib);  zpLib.sName = sLibName; zpLib._rLastClass =  &rLastClass; } \
+	//inline void SetLibVar(){Lib_GZ::uLib zpLib1 =  {Lib_GZ::fSetLib(&zpLib), sLibName, &rLastClass, 0 };  } \
+	
+//inline void SetLibVar(){Lib_GZ::uLib zpLib1 =  {Lib_GZ::fSetLib(&zpLib), sLibName, &rLastClass, &IniLib_##_LibName };  } \
+//Lib_GZ::uLib zpLib =  {0, sLibName, &rLastClass, 0 };\
+
+
+#define GZ_mCppSetLib(_LibName)\
+		_LibName::zpLib.rPrec = Lib_GZ::fSetLib(&_LibName::zpLib);  _LibName::zpLib.sName = _LibName::sLibName; _LibName::zpLib._rLastClass =  &_LibName::rLastClass; 
+		
+//	Lib_GZ::uLib zpLib =  {Lib_GZ::fSetLib(&zpLib), _LibName##::sLibName, &rLastClass, &IniLib_##_LibName }
+
+//Lib_GZ::uLib zpLib =  {Lib_GZ::fSetLib(&zpLib), sLibName, &rLastClass, 0 };\
+//Lib_GZ::uLib zpLib =  {Lib_GZ::fSetLib(&zpLib), sLibName, &rLastClass, &IniLib_##_LibName };\
 
 
 //#ifndef GZ_tAutoIni
      //zero-initialization -> before dynamic -> ini order ok
-	#define GZ_mCppLib(_LibName)\
-	GZ_mCppLibVar(_LibName)
+	//#define GZ_mCppLib(_LibName)\
+	//GZ_mCppLibVar(_LibName)
 
 /*
 #else
@@ -375,6 +415,7 @@ namespace _LibName{\
 //}
 
 #define GZ_mHLib(_LibName)\
+extern "C" Lib_GZ::uLib* IniLib_##_LibName();\
 namespace _LibName{ \
     void fIniLib();\
     extern Lib_GZ::uLib zpLib;\

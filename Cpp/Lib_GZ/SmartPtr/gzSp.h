@@ -119,7 +119,10 @@ class gzSp {
     inline T* operator->() const
     { return const_cast<T*>(obj);}
 
-
+	inline bool operator==(int _nVal) { //Test if is == 0 (null) by example
+		return obj == _nVal;
+	}
+	
     inline  T* get() const{
         return obj;
      }

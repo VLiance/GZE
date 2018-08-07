@@ -19,10 +19,17 @@
 #include "Lib_GZ/Base/GzTypes.h"
 #include "Lib_GZ/Base/GzMem.h"
 
+
+
+#ifndef DwPlatform
+ #warning GZE require an defined platform, for exemple which sytem is used (Windows, Linux, ...)
+#endif
+
+/*
 #ifndef GZ_tOverplace
  #warning GZE require an Overplace list, for exemple which sytem is used (Windows, Linux, ...) on this form: GZ_tOverplace="[Lib_GZ,Windows,Demo]"
 #endif
-
+*/
 
 
 //32bit by default

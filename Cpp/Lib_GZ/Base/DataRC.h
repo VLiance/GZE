@@ -69,14 +69,29 @@
 #define gzData8(_aData)   ((gzDataRC){(gzUInt8*)(gzConcat(gzS8 ,_aData)),(gzUIntX)(sizeof(gzConcat(gzS8 ,_aData))-1), (gzUIntX)sizeof(gzConcat(gzS8 ,_aData))-1  ,0,0,0,0})
 #define gzData16(_aData)  ((gzDataRC){(gzUInt8*)(gzConcat(gzS16,_aData)),(gzUIntX)(sizeof(gzConcat(gzS16,_aData))-2), (gzUIntX)sizeof(gzConcat(gzS16,_aData))-2 ,0,0,0,0})
 #define gzData32(_aData)  ((gzDataRC){(gzUInt8*)(gzConcat(gzS32,_aData)),(gzUIntX)(sizeof(gzConcat(gzS32,_aData))-4), (gzUIntX)sizeof(gzConcat(gzS32,_aData))-4 ,0,0,0,0})
-
+/*
 #define gzStaticU8(_sName, _aData)  static gzStr8(  gzData8(_aData)  ) _sName;
 #define gzStaticU16(_sName, _aData) static gzStr16(  gzData16(_aData) ) _sName;
 #define gzStaticU32(_sName, _aData) static gzStr32(  gzData32(_aData) ) _sName;
-
+*/
 #define gzU8(_aData)  gzStr8(  gzNewData8(_aData)  )
 #define gzU16(_aData) gzStr16(  gzNewData16(_aData) )
 #define gzU32(_aData) gzStr32(  gzNewData32(_aData) )
+
+/*
+#define gzData_U8(_sName, _aData)   gzDataRC _sName##_dat = GzToDataRC_const(gzConcat(gzS8 ,_aData));  gzStr8 _sName(&_sName##_dat);
+#define gzData_U16(_sName, _aData)  gzDataRC _sName##_dat = GzToDataRC_const(gzConcat(gzS16 ,_aData)); gzStr8 _sName(&_sName##_dat);
+#define gzData_U32(_sName, _aData)  gzDataRC _sName##_dat = GzToDataRC_const(gzConcat(gzS32 ,_aData)); gzStr8 _sName(&_sName##_dat);
+*/
+
+
+#define gzConst_U8(_sName, _sStr)  const gzDataRC _sName = gzData8(_sStr);
+#define gzConst_U16(_sName, _sStr) const gzDataRC _sName = gzData16(_sStr);
+#define gzConst_U32(_sName, _sStr) const gzDataRC _sName = gzData32(_sStr);
+
+
+
+
 
 /*
 #define gzNewData(_sType, _sName, ...)  \
@@ -89,14 +104,15 @@ gzDataRC  _sName = GzToDataRC(_sName##_dat);
 
 #define gzConstData(_sType, _sName, ...)  \
 const _sType _sName##_dat[] = {__VA_ARGS__};\
-gzDataRC  _sName = GzToDataRC_const(_sName##_dat);
+const gzDataRC  _sName = GzToDataRC_const(_sName##_dat);
+//zDataRC  _sName = GzToDataRC_const(_sName##_dat);
 
 #define gzStaticData(_sType, _sName, ...)  \
 static _sType _sName##_dat[] = {__VA_ARGS__};\
 static gzDataRC  _sName = GzToDataRC(_sName##_dat);
 
 
-#define gzU8(_aData)  gzStr8(  gzNewData8(_aData)  )
+//#define gzU8(_aData)  gzStr8(  gzNewData8(_aData)  )
 
 
 
@@ -134,6 +150,7 @@ public:
 	gzUInt nInst; //If not readonly
 	gzUInt nWeakInst; //If not readonly
 
+	
 	inline void fPrint() const {
 		//for(gzUInt i = 0; i < nSize >>  nStride; i++){
 		for(gzUInt i = 0; i < nSize; i++){
@@ -145,8 +162,8 @@ public:
 
 
 	inline void fAddInstance() {
+		//printf("\nAdd: %d  ", nInst);
 		nInst++;
-		//printf("\nAdd: %d  ", nInst);fPrint();
 	}
 	
 	inline ~gzDataRC(){
@@ -177,7 +194,7 @@ inline static gzDataRC* fEmptyArray(gzUInt _nSize ) {
 
 inline static gzDataRC*  fDataAlloc(  gzUIntX _nSize,  gzUIntX _nLimit ){
 	gzDataRC* _oRc =  (gzDataRC*)GZ_fAnyMalloc(sizeof(gzDataRC)); GZ_nArrayTotalAlloc++;  //Can be optimised with malloc if we be sure that all data are memcpy
-	_oRc->aTab = (gzUInt8*)GZ_fAnyCalloc( _nLimit ); GZ_nArrayTotalAlloc++;
+	_oRc->aTab = (gzUInt8*)GZ_fAnyCalloc( _nLimit ); GZ_nArrayTotalAlloc++; //Malloc?
 
 	memset( &_oRc->aTab[_nSize], 0, _nLimit - _nSize);//Zero all other
 	

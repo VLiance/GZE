@@ -21,7 +21,7 @@ namespace Lib_GZ{class cClass;}
 //#include "Lib_GZ/Thread.h"
 //#include "Lib_GZ/GZ.h"
 // ------  Cpp section  ------ //
-//#include "Lib_GZ/Lib_GZ.h"
+#include "Lib_GZ/Lib_GZ.h"
 //#include "Lib_GZ/GzBase.h"
 // --------------------------- //
 //namespace Lib_GZ{class cStThread;}

@@ -12,14 +12,17 @@ namespace Lib_GZ{class cThread;}
 #if !( defined tHDef_GZ_Thread )
 #define tHDef_GZ_Thread
 
+
+#include "Lib_GZ/GZ.h"
+
 //#include "Lib_GZ/DArray.h"
 //#include "Lib_GZ/Delegate.h"
 #include "Lib_GZ/Class.h"
 
-//#include "Lib_GZ/GZ.h"
+
 
 //#include "Lib_GZ/Sys/System.h"
-//#include "Lib_GZ/ThreadExt.h"
+#include "Lib_GZ/ThreadExt.h"
 //#include "Lib_GZ/GFX/Dispacher.h"
 
 namespace Lib_GZ{namespace Thread{
@@ -51,10 +54,12 @@ class cThread : public cClass {
 		gzUInt nId = 0;
 		
 		
-     //  gzArray<gzSp<cStThread>> st;
+       gzArray<gzSp<cStThread>> st;
+     //  gzArray<cStThread*> st;
+	   
     //   gzArray<gzPtrFuncRPAny> func;
 
-    //   gzSp<cClass> oObj;
+       gzSp<cClass> oObj;
 
        gzBool bRun;
 	   gzUInt nSleepTime;

@@ -27,6 +27,10 @@ public:
 	gzDataRC* aData;
 	gzUInt nLock;
 	
+	inline gzArray_(){//TODO TODO Default construction!!!!!!
+		
+	}
+	
 	#undef gzp_TestLock 
 	#ifdef GZ_tDebug
 		#define gzp_TestLock GzAssert(nLock == 0, "Array is locked, no modification are allowed");
@@ -276,12 +280,21 @@ class gzArray {
 	gzArray_ array;
 	
 	
-	//READING
-	inline T& operator()(gzUIntX _nIndex) {
+	inline gzArray(){//TODO TODO Default construction!!!!!!
 		
-		return  *((T*)(&array.aData->aTab[_nIndex * GzS]));
 	}
 	
+	/*
+	//READING
+	inline T& operator()(gzUIntX _nIndex) {
+		return  *((T*)(&array.aData->aTab[_nIndex * GzS]));
+	}
+	*/
+	
+	//READING 
+	inline T* operator()(gzUIntX _nIndex) {
+		return  ((T*)(&array.aData->aTab[_nIndex * GzS]));
+	}
 		
 	//WRITING 
 	inline T&  operator[](gzUIntX _nIndex) {
