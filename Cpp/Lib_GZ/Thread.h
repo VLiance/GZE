@@ -54,7 +54,9 @@ class cThread : public cClass {
 		gzUInt nId = 0;
 		
 		
-       gzArray<gzSp<cStThread>> st;
+     //  gzArray<gzSp<cStThread>> st;
+	      gzArray<cStThread*> st;
+		  
      //  gzArray<cStThread*> st;
 	   
     //   gzArray<gzPtrFuncRPAny> func;
@@ -66,18 +68,24 @@ class cThread : public cClass {
        cThreadExt* pThreadExt;
        void fStart(Lib_GZ::cClass* _poObj);
 
-        cThread(cClass* _parent);
+
 		/*
 		//COPY
 		inline cThread(const cClass& _o, gzBool _b):cClass(_o,_b)  {
 			//TODO ?
 		}
 		*/
-/*
-		inline cThread(cClass _parent):cClass(_parent),bRun(true){
+
+		
+		inline cThread(Lib_GZ::cClass* _parent):cClass(_parent),bRun(true),nSleepTime(1){
             thread = this;
-            Lib_GZ::Sys::Debug::New(this,0,0,0,0); //DebugOnly
-		};*/
+			nId = nCurrId;
+			nCurrId++;
+			printf("\n okay!\n");  
+           // Lib_GZ::Sys::Debug::New(this,0,0,0,0); //DebugOnly
+		};
+		
+		
 		void fLinkThreadExt(cThreadExt* _pThreadExt);
 		void fLoop();
 		virtual ~cThread();

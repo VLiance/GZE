@@ -42,7 +42,7 @@ typedef File::cResource* (*gzPtrFuncRc)(void);
 namespace Lib {
 
    extern void fLoadAllLib();
-	
+   extern void fAllClass(uOverplace* _rLastClass);
 	
 /*
 	namespace Sys{

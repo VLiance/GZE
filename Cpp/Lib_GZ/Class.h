@@ -100,6 +100,7 @@ class tApi_Lib_GZ cClass  {
                 GzThread = _parent->thread;
           }else{
                 //Only new thread can have parent to zero (cThread) TODO aAssert
+				
            }
         }
 		/*

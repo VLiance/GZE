@@ -64,7 +64,7 @@
 #include "Lib_GZ/ThreadExt.h"
 
 
-
+#include "Lib_GZ/Lib.h"
 	/*
 	//#ifndef tGZ_Use_Pch
 		#include "Lib_GZ/Lib_GZ.h"
@@ -85,5 +85,11 @@
 
 	//#endif
 	*/
+	
+	
+	
+
+	
+	
 	
 #endif

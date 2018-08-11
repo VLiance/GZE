@@ -90,7 +90,8 @@
 
 	inline void fRemoveInstance(gzDataRC* _oRC) const{
 	//	printf("\nSub: %d  ", _oRC->nInst);fPrint();
-		_oRC->nInst--;
+	printf("\_oRC: %d ", _oRC->nType);
+		_oRC->fRemoveInstance();
 		if( _oRC->nInst == 0 ){//nType > 2 Heap data -> must be freed
 			//Delete(_oRC);
 			//if(_oRC->nWeakInst == 0){ //DataCow Never have weak_ptr
@@ -176,9 +177,16 @@
 	  return  GZ::fDataCopyAlloc( m.aSubTab, gzp_DataSize , _nNewSize, _nNewSize* GZ_Array_Expand_Factor );
 	}
 
+	
+	 inline void fDetachReadOnly(gzUInt _nNewSize ) const {
+        gzDataRC* _aData = fNewArray(_nNewSize);
+        fAssignArray(_aData);
+    }
+    
+	
 	//Rule #1 always nInst > 1
 	inline void fDetach(gzUInt _nNewSize ) const {
-		m.aData->nInst--; //fRemoveInstance(m.aData); //Will never be freed
+		m.aData->fRemoveInstance(); //fRemoveInstance(m.aData); //Will never be freed
 		gzDataRC* _aData = fNewArray(_nNewSize);
 		fAssignArray(_aData);
 
@@ -198,9 +206,9 @@
 			}
 			gzDtThis->m.nSubSize = _nNewSize;
 		//	printf("\nONE");
-		}else{  // nInst > 1
+		}else{   // READONLY
 			//Make new instance and detach
-			fDetach(_nNewSize);
+			fDetachReadOnly(_nNewSize);
 		//	printf("\nDETACH");
 		}
 		/////Now array is WRITABLE ///////

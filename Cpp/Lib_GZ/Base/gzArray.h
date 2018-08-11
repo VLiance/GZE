@@ -19,6 +19,9 @@
 //#define gzDataObj(_aData) ((gzDataRoot){ (gzDataRC*)&_aData,0,0 })
 
 
+//extern const gzDataRC gzNullStr_Data;
+
+
 
 //template <class T>
 class gzArray_ {
@@ -27,10 +30,7 @@ public:
 	gzDataRC* aData;
 	gzUInt nLock;
 	
-	inline gzArray_(){//TODO TODO Default construction!!!!!!
-		
-	}
-	
+
 	#undef gzp_TestLock 
 	#ifdef GZ_tDebug
 		#define gzp_TestLock GzAssert(nLock == 0, "Array is locked, no modification are allowed");
@@ -92,12 +92,24 @@ public:
 	#define gzp_ReturnType gzUInt8
 	
 	
+	inline gzArray_(){//TODO TODO Default construction!!!!!!
+		gzConst_Data(gzUInt, gzNull_Data);
+		
+		 aData = (gzDataRC *)&gzNull_Data;
+	}
+	
 	/////Clone array
-	gzp_DataType(gzp_DataType* _oOther, gzBool _bClone){
+	inline gzp_DataType(gzp_DataType* _oOther, gzBool _bClone){
 		aData =  GZ::fDataCopyAlloc(_oOther->aData->aTab, _oOther->aData->nSize, _oOther->aData->nSize,  _oOther->aData->nLimit );
 		aData->nInst = 1;
 	}
 	/////////
+	/*
+	gzp_DataType operator=(const gzp_DataType& _oOther) {
+		aData = _oOther.aData;
+		nLock = _oOther.nLock;
+	   return *this;
+	}*/
 
 	inline void Delete(gzDataRC* _oRC) const {
 		if(_oRC->nType == 3){ //Cond before func? Remove all sub instances & sub free
@@ -121,31 +133,34 @@ public:
 
 	inline void fRemoveInstance(gzDataRC* _oRC) const{
 		//printf("\nSub: %d  ", _oRC->nInst);fPrint();
-		_oRC->nInst--;
+		_oRC->fRemoveInstance();
 		if( _oRC->nInst == 0 ){//nType >= 0 Heap data -> must be freed
 			Delete(_oRC);
-			if(_oRC->nWeakInst == 0){
+			//if(_oRC->nWeakInst == 0){
 				Free(_oRC);
-			}
+			//}
 		}
 	}
 	
 
-	inline gzUInt8* fArrayNewAlloc( gzUInt _nSize) const {
+	inline gzUInt8* fArrayNewAlloc( gzUIntX _nSize) const {
 		GZ_nArrayTotalAlloc++;
 		return (gzUInt8*)GZ_fMalloc(_nSize, sizeof(gzUInt8)); 
 	}	
 
 	
 	
-	inline gzUInt8* fArrayAlloc( gzUInt _nSize) const {
+	inline gzUInt8* fArrayAlloc( gzUIntX _nSize) const {
 		GZ_nArrayTotalAlloc++;
 		return (gzUInt8*)GZ_fCalloc(_nSize, sizeof(gzUInt8)); 
 	}	
 
 
 	
-	inline void fArrayRealloc( gzUInt _nSize) const { //Only new array for now
+	
+	
+	//inline void fArrayRealloc( gzUIntX _nSize, bool _bOldReadonly) const { //Only new array for now
+	inline void fArrayRealloc( gzUIntX _nSize) const { //Only new array for now
 		gzUInt8* _aOldTab = aData->aTab ;
 		gzUInt _nOldSize = aData->nSize;
 		
@@ -153,41 +168,74 @@ public:
 		memcpy( aData->aTab , _aOldTab, _nOldSize );
 	//	if(!_bOldReadonly){ //Old nLimit-> read only   /*// Never read Only?????
 			GZ_fFree(_aOldTab);	GZ_nArrayTotalFree++;
-	//	}
+		//}
 	}
 	 
-	inline void fResizeMem( gzUInt _nToSize) const {
+	inline void fResizeMem( gzUIntX _nToSize) const {
 
 		int _nToLimitSize = _nToSize * GZ_Array_Expand_Factor;
 		//fMalloc(_nToLimitSize);
-		
-		/*// Never read Only?????
-		if(aData->nType == 0 ){ //read only var  || new array -> Malloc 
-			aData->nType = 2; //Always PureData?
-			gzp_DataArray = fArrayMalloc(_nToLimitSize);
+		/*
+		// Never read Only?????
+		if(aData->nType <= 1 ){ //read only var  || new array -> Malloc 
+			aData->nType = 2; //Always PureData? //Or Is Ptr? TODO
+			//aData->nType = 3; //Is Ptr? TODO
+			fArrayRealloc(_nToLimitSize, true);
 			
 		}else{ //Realloc, free?*/
 		//Array Allow write 
 			fArrayRealloc(_nToLimitSize);
-		//}
+	//	}
 		
 		//printf("\nResize2 : %d",_nToLimitSize );
 		gzp_DataLimit = _nToLimitSize; //Double factor
 	}
 	
 	
-	
-	
-	
-	inline void fSetArrayAndSize( gzUInt _nNewSize) const {
-
-		if(_nNewSize > gzp_DataSize){
-			if(_nNewSize > gzp_DataLimit){
-				fResizeMem(_nNewSize );
+	inline void fSetArrayAndSizeExtFunc( gzUIntX _nNewSize) const {
+		
+		printf("\naData->nType %d",  aData->nType );
+		printf("\n_*nNewSize!! %d", _nNewSize );
+		if( aData->nType == 0){//Clone if readonly -> become writable
+				printf("\n_*CONSTANT!! %d", _nNewSize );
+		//	this = gzp_DataType((gzp_DataType*)this, true);
+			gzDtThis->aData  =  (gzDataRC*)GZ::fDataCopyAlloc(aData->aTab, aData->nSize, _nNewSize, _nNewSize * GZ_Array_Expand_Factor);
+			aData->nInst = 1;
+			//gzp_DataSize = GZ_fMax(_nNewSize,gzp_DataSize);
+		}else{
+		 
+			gzp_DataSize = GZ_fMax(_nNewSize,gzp_DataSize);
+			if( aData->nType == 1 || _nNewSize > gzp_DataLimit){ //If is readOnly create new array of writable data //TODO aData->nType == 1 used??
+				fResizeMem(gzp_DataSize);
 			}
-			gzp_DataSize = _nNewSize;	
 		}
 	}
+	
+	
+	
+	inline void fSetArrayAndSize( gzUIntX _nNewSize) const {
+		//maybe ... 
+		if(aData->nType <= 1 || _nNewSize > gzp_DataSize){  
+			fSetArrayAndSizeExtFunc(_nNewSize);   ///TODO make external function to optimize
+		} 
+		
+		/*
+		if( aData->nType == 0){ //If is readOnly create new array of writable data
+			fResizeMem(GZ_fMax(_nNewSize,gzp_DataSize));
+		}else{
+			if(_nNewSize > gzp_DataSize ){
+				/// Call function? = 1 cond ////
+				if(_nNewSize > gzp_DataLimit){
+					fResizeMem(_nNewSize );
+				}
+				gzp_DataSize = _nNewSize;	
+				///////////////////////////////
+			}
+		}*/
+	}
+	
+	
+	
 	
 	 inline void fPrint() const {
 		// fPrintData();
@@ -273,7 +321,8 @@ class gzPodLock{
 
 
 
-
+		//	static const gzUIntX* _nZero = 0;
+			
 template <class T>
 class gzArray {
 	public:
@@ -291,14 +340,33 @@ class gzArray {
 	}
 	*/
 	
-	//READING 
-	inline T* operator()(gzUIntX _nIndex) {
-		return  ((T*)(&array.aData->aTab[_nIndex * GzS]));
+	//const gzUInt GZ_ZERO;
+
+	
+	//READING :: return RVO
+	inline T operator()(gzUIntX _nIndex) { 
+		//	printf("\n!!!!!!!!!_nIndex !! %d", _nIndex);  
+		//	printf("\n!!!!!!!!! nSize !! %d", gzp_length);  
+		if(_nIndex >= gzp_length){
+			//	printf("\n!Return !! %d", _nZero);  
+			return 0;
+		}
+				printf("\nGetPtr !! %p", array.aData->aTab[_nIndex * GzS]);  
+				printf("\nGetPtr !! %p",((T*)(&array.aData->aTab[_nIndex * GzS])));  
+	//	GzUnAssert(_nIndex >= array.aData->nSize, "Reading array Out of bound");
+	//		printf("\n!!!!!!!!! return !! %d",((T*)(&array.aData->aTab[_nIndex * GzS]))->get());
+		return  *((T*)(&array.aData->aTab[_nIndex * GzS]));
 	}
 		
 	//WRITING 
 	inline T&  operator[](gzUIntX _nIndex) {
-		GzAssert(array.aData->nType != 0, "DataArray is readOnly, use () instead if you reading only values");
+		printf("\nWriting!! %d",_nIndex );
+		printf("\nWritingType!! %d", array.aData->nType );
+		printf("\nWritingLength!! %d", gzp_length);
+	//	GzAssert(array.aData->nType != 0, "DataArray is readOnly, use () instead if you reading only values");
+		
+	//	GzUnAssert(_nIndex >=  gzp_length , "Writing array Out of bound");
+		array.fSetArrayAndSize( (_nIndex+1) * (sizeof(T))  );
 		return  *((T*)(&array.aData->aTab[_nIndex * GzS]));
 	}
 	
@@ -345,7 +413,8 @@ class gzArray {
 	
 	inline void fPrint() const {
 		for(gzUInt i = 0; i < gzp_length; i++){
-			printf("[%d] ", i);((T*)(&array.aData->aTab[i * GzS]))->fPrint();printf("\n");
+			//printf("[%d] ", i);((T*)(&array.aData->aTab[i * GzS]))->fPrint();printf("\n");
+			printf("[%d] ", i); printf( "%p", array.aData->aTab[i * GzS]  );printf("\n");
 		}
 
 	 }
@@ -365,9 +434,8 @@ class gzArray {
 	}
 	
 
-	/////// Repeat all function 
-	
-	
+
+
 	
 	
 

@@ -313,11 +313,19 @@ namespace _Class{\
     \
 	/* TODO Check if a shared ptr is required */ \
     inline gzSp<cs##_Class> Get(Lib_GZ::cThread* _oCurrThread){\
+	printf("\n---GET  %d "#_Class , _oCurrThread->st(zDefault.nId));\
+	printf("\n---ID ##_Class %d " ,zDefault.nId);\
         if(_oCurrThread->st(zDefault.nId) == 0){\
-               _oCurrThread->st[zDefault.nId] = gzSp<Lib_GZ::cStThread>((cs##_Class*)zDefault.cfOver(_oCurrThread) ); /* cfOver=Create() create new static class */ \
+		printf("\n---Create "#_Class);\
+			_oCurrThread->st.fPrint(); \
+               _oCurrThread->st[zDefault.nId] = (cs##_Class*)zDefault.cfOver(_oCurrThread); /* cfOver=Create() create new static class */ \
+			  		printf("\n---Created***-------- "#_Class);\
+						  _oCurrThread->st.fPrint(); \
         }\
-        return gzSCastSelf<cs##_Class>(_oCurrThread->st(zDefault.nId)->get());\
+        return gzSCastSelf<cs##_Class>(_oCurrThread->st(zDefault.nId));\
     } //
+	
+	//  _oCurrThread->st[zDefault.nId] = gzSp<Lib_GZ::cStThread>((cs##_Class*)zDefault.cfOver(_oCurrThread) ); /* cfOver=Create() create new static class */ \
 	
 	//*/
 	  //return gzSCastSelf<cs##_Class>( gzSp<Lib_GZ::cStThread>((cs##_Class*)zDefault.cfOver(_oCurrThread) ) ); /* create new static class */ \

@@ -52,7 +52,8 @@
 
 #define Gz_fMalloc(_type, _size) ((_type*)malloc(sizeof(_type) * _size));
 #define GZ_fAnyMalloc(_size) (malloc(_size)) ;
-#define GZ_fAnyCalloc(_size) (malloc(_size)) ;
+//#define GZ_fAnyCalloc(_size) (malloc(_size)) ;
+#define GZ_fAnyCalloc(_size) (calloc(_size,sizeof(char))) ;
 //#define GZ_fFree(_ptr) (free(_ptr)) ;
 
 
@@ -66,9 +67,9 @@
 #define gzS32 U
 
 
-#define gzData8(_aData)   ((gzDataRC){(gzUInt8*)(gzConcat(gzS8 ,_aData)),(gzUIntX)(sizeof(gzConcat(gzS8 ,_aData))-1), (gzUIntX)sizeof(gzConcat(gzS8 ,_aData))-1  ,0,0,0,0})
-#define gzData16(_aData)  ((gzDataRC){(gzUInt8*)(gzConcat(gzS16,_aData)),(gzUIntX)(sizeof(gzConcat(gzS16,_aData))-2), (gzUIntX)sizeof(gzConcat(gzS16,_aData))-2 ,0,0,0,0})
-#define gzData32(_aData)  ((gzDataRC){(gzUInt8*)(gzConcat(gzS32,_aData)),(gzUIntX)(sizeof(gzConcat(gzS32,_aData))-4), (gzUIntX)sizeof(gzConcat(gzS32,_aData))-4 ,0,0,0,0})
+#define gzData8(_aData)   ((gzDataRC){(gzUInt8*)(gzConcat(gzS8 ,_aData)),(gzUIntX)(sizeof(gzConcat(gzS8 ,_aData))-1), (gzUIntX)sizeof(gzConcat(gzS8 ,_aData))-1 ,0,0,(gzUInt)-1})
+#define gzData16(_aData)  ((gzDataRC){(gzUInt8*)(gzConcat(gzS16,_aData)),(gzUIntX)(sizeof(gzConcat(gzS16,_aData))-2), (gzUIntX)sizeof(gzConcat(gzS16,_aData))-2 ,0,0,(gzUInt)-1})
+#define gzData32(_aData)  ((gzDataRC){(gzUInt8*)(gzConcat(gzS32,_aData)),(gzUIntX)(sizeof(gzConcat(gzS32,_aData))-4), (gzUIntX)sizeof(gzConcat(gzS32,_aData))-4 ,0,0,(gzUInt)-1})
 /*
 #define gzStaticU8(_sName, _aData)  static gzStr8(  gzData8(_aData)  ) _sName;
 #define gzStaticU16(_sName, _aData) static gzStr16(  gzData16(_aData) ) _sName;
@@ -85,13 +86,14 @@
 */
 
 
-#define gzConst_U8(_sName, _sStr)  const gzDataRC _sName = gzData8(_sStr);
-#define gzConst_U16(_sName, _sStr) const gzDataRC _sName = gzData16(_sStr);
-#define gzConst_U32(_sName, _sStr) const gzDataRC _sName = gzData32(_sStr);
+#define gzConst_U8(_sName, _sStr)  static const gzDataRC _sName = gzData8(_sStr);
+#define gzConst_U16(_sName, _sStr) static const gzDataRC _sName = gzData16(_sStr);
+#define gzConst_U32(_sName, _sStr) static const gzDataRC _sName = gzData32(_sStr);
 
 
 
-
+#define GzToDataRC_const(_aData) ((gzDataRC){(gzUInt8*)(_aData),(gzUIntX)sizeof(_aData),     (gzUIntX)sizeof(_aData),0,0,(gzUInt)-1})
+#define GzToDataRC(_aData)       ((gzDataRC){(gzUInt8*)(_aData),(gzUIntX)sizeof(_aData),     (gzUIntX)sizeof(_aData),0,1,0})
 
 /*
 #define gzNewData(_sType, _sName, ...)  \
@@ -102,15 +104,16 @@ gzDataRC  _sName = GzToDataRC(_sName##_dat);
 _sType _sName##_dat[] = {__VA_ARGS__};\
 gzDataRC  _sName = GzToDataRC(_sName##_dat);
 
-#define gzConstData(_sType, _sName, ...)  \
-const _sType _sName##_dat[] = {__VA_ARGS__};\
-const gzDataRC  _sName = GzToDataRC_const(_sName##_dat);
-//zDataRC  _sName = GzToDataRC_const(_sName##_dat);
+#define gzConst_Data(_sType, _sName, ...)  \
+static const _sType _sName##_dat[] = {__VA_ARGS__};\
+static const gzDataRC  _sName = GzToDataRC_const(_sName##_dat);
 
+
+/*
 #define gzStaticData(_sType, _sName, ...)  \
 static _sType _sName##_dat[] = {__VA_ARGS__};\
 static gzDataRC  _sName = GzToDataRC(_sName##_dat);
-
+*/
 
 //#define gzU8(_aData)  gzStr8(  gzNewData8(_aData)  )
 
@@ -128,8 +131,7 @@ static gzDataRC  _sName = GzToDataRC(_sName##_dat);
 #define gzLStr16(_aData) gzString16(  gzData16(_aData) )
 #define gzLStr32(_aData) gzString32(  gzData32(_aData) )
 */
-#define GzToDataRC_const(_aData) ((gzDataRC){(gzUInt8*)(_aData),(gzUIntX)sizeof(_aData),     (gzUIntX)sizeof(_aData),0,0,0,0})
-#define GzToDataRC(_aData) ((gzDataRC){(gzUInt8*)(_aData),(gzUIntX)sizeof(_aData),     (gzUIntX)sizeof(_aData),0,1,0,0})
+
 
 class gzDataRC;
 namespace GZ {
@@ -143,12 +145,12 @@ class gzDataRC {
 public:
 	gzUInt8* aTab;
 	gzUIntX nSize;
-	gzUIntX nLimit;
-	gzUIntX nSpaceBef;
-	gzUInt8 nType; //0 = const / readOnly  (never free)  // 1 =  modifiable (never free)   / 2 = volatile, must free of pure data / 3 =  volatile, must free of sub struct/ptr
-	//gzUInt8 nStride;
-	gzUInt nInst; //If not readonly
-	gzUInt nWeakInst; //If not readonly
+	gzUIntX nLimit; //!!ReadOnly? Ok, only readed
+	gzUInt8 nSpaceBef; //!!ReadOnly? ->  only for dynamic allocation (add to prec optimisation) (never rewrited)  //md+
+	gzUInt8 nType; //0 = const / readOnly  (never free)  // 1 =  modifiable (never free) (not used?)   / 2 = volatile, must free of pure data / 3 =  volatile, must free of sub struct/ptr (not used?)
+
+	gzUInt nInst;  //If not readonly ... Test if not const before write
+	//gzUInt nWeakInst;  //If not readonly ... only for array?
 
 	
 	inline void fPrint() const {
@@ -163,7 +165,15 @@ public:
 
 	inline void fAddInstance() {
 		//printf("\nAdd: %d  ", nInst);
-		nInst++;
+		if(nType != 0){ //Not ReadOnly
+			nInst++;
+		}
+	}
+	inline void fRemoveInstance() {
+		//printf("\nAdd: %d  ", nInst);
+		if(nType != 0){ //Not ReadOnly
+			nInst--;
+		}
 	}
 	
 	inline ~gzDataRC(){
@@ -192,13 +202,13 @@ inline static gzDataRC* fEmptyArray(gzUInt _nSize ) {
 	return fDataAlloc( _nSize, _nSize * GZ_Array_Expand_Factor );
 }*/
 
-inline static gzDataRC*  fDataAlloc(  gzUIntX _nSize,  gzUIntX _nLimit ){
+inline static gzDataRC*  fDataAlloc(  gzUIntX _nSize,  gzUIntX _nLimit ){  //TODO inline?
 	gzDataRC* _oRc =  (gzDataRC*)GZ_fAnyMalloc(sizeof(gzDataRC)); GZ_nArrayTotalAlloc++;  //Can be optimised with malloc if we be sure that all data are memcpy
 	_oRc->aTab = (gzUInt8*)GZ_fAnyCalloc( _nLimit ); GZ_nArrayTotalAlloc++; //Malloc?
 
 	memset( &_oRc->aTab[_nSize], 0, _nLimit - _nSize);//Zero all other
 	
-
+	printf("GZ_fAnyCalloc %d ",  _nLimit );
 	
 	_oRc->nSize = _nSize;
 	_oRc->nType = 2; //Heap type
@@ -206,7 +216,7 @@ inline static gzDataRC*  fDataAlloc(  gzUIntX _nSize,  gzUIntX _nLimit ){
 	_oRc->nSpaceBef = 0;
 
 	_oRc->nInst = 0;
-	_oRc->nWeakInst = 0;
+//	_oRc->nWeakInst = 0;
 	//_oRc->nStride = 0;
 	return _oRc;
 }
@@ -214,13 +224,13 @@ inline static gzDataRC*  fDataAlloc(  gzUIntX _nSize,  gzUIntX _nLimit ){
 
 
 
-inline gzDataRC* fDataCopyAlloc( gzUInt8* _aData, gzUIntX _nCopySize, gzUIntX _nNewSize,  gzUIntX _nLimit ){
+inline gzDataRC* fDataCopyAlloc( gzUInt8* _aData, gzUIntX _nCopySize, gzUIntX _nNewSize,  gzUIntX _nLimit ){ //TODO inline?
 
 	gzDataRC* _oRc  = fDataAlloc(_nNewSize,_nLimit );
-
+	printf("fDataAlloc :%d  : %d", _nNewSize, _nLimit);
 
 	memcpy( _oRc->aTab, _aData, _nCopySize);
-
+	printf("_nCopySize :%d", _nCopySize);
 
 	return _oRc;
 	// new Gz_fMalloc

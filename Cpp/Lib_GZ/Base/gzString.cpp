@@ -28,7 +28,7 @@
 //gzDataRC  gzNullStr_RC = GzToDataRC_const("aaa");
 //gzStr8 gzNullStr(&gzNullStr_RC) ;
 //gzData_U8(gzNullStr, "");
-gzConst_U8(gzNullStr_Data, "");
+
 
 
 //#define gzNullStr_dat = ((gzDataRC){(gzUInt8*)(""),(gzUIntX)sizeof(""),     (gzUIntX)sizeof(""),0,0,0,0})

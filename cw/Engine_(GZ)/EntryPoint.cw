@@ -12,13 +12,17 @@ package  {
 		extern Lib_GZ::cEntryPoint* GZ_CreateEntryPointClass();
 		
 		gzSp<Lib_GZ::cLib> oGzLib;
+		gzSp<Lib_GZ::cEntryPoint> oMain;
 		
 		gzInt Main( gzText8 _sArg, gzUIntX _nId, gzInt _nCmd){
 			printf("\n Platform: "   gzStringize(DwPlatform)   );
 			oGzLib = Lib_GZ::Lib::New( _nId, gzStrC( _sArg), _nCmd);
 			
 			
-			Lib_GZ::cEntryPoint*  _oMain =  GZ_CreateEntryPointClass();
+			//	oTest = gzSCast<Lib_Demo::cTest>(Lib_Demo::Test::Get(thread)->New(this));
+			//Lib_GZ::cEntryPoint*  _oMain =  gzSp<Lib_Demo::cTest>( GZ_CreateEntryPointClass());
+			oMain =  gzSp<Lib_GZ::cEntryPoint>( GZ_CreateEntryPointClass() );
+			oMain->fMain();
 			
 		//_oMain
 			
@@ -49,9 +53,12 @@ package  {
 	
 	public extension EntryPoint extends Thread {
 		public function EntryPoint():Void {
-			
-			
-			
 		}
+		
+		
+		public function fMain():Void {}
+		
+		
+		
 	}
 }

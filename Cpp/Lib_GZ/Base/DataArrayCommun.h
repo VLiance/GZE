@@ -10,6 +10,8 @@
 
 #ifndef	gzp_OWNER
 
+#include "Lib_GZ/MathBit.h"
+
 	///////////////////////////////////////
 	////////////////////////////////////////
 	inline void fFirstAssign(const gzDataRC* _pOther) const {
@@ -119,11 +121,13 @@
 
 	inline void fIsFit(  gzUIntX _nNewSize) const {
 		//gzp_Additional_fAssign2 //Because we will do modification Str must reset saved index, to be accurate with different index size
-
-		if(_nNewSize < gzp_DataSize){
+		/*
+		if(_nNewSize < gzp_DataSize){//Utils for array?
 			_nNewSize = gzp_DataSize;
 		}
 		fSetArrayAndSize(_nNewSize);
+		*/
+		fSetArrayAndSize(GZ_fMax(_nNewSize,gzp_DataSize));
 	}
 
 	inline void fCopyData(  gzUInt8* _aCopySrc, gzUIntX _nCopySize, gzInt _nDestIndex) const{

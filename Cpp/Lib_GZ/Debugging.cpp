@@ -27,7 +27,8 @@ namespace Lib_GZ{
 
 	void DbgCrash(){
 		//while(1){};
-	  exit(EXIT_FAILURE);
+	  printf("\nGZ FAILURE!\n"); //GDB must set a breakpoint here!
+	  exit(EXIT_FAILURE); 
 	  
 	}
 

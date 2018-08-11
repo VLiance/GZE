@@ -40,7 +40,8 @@
 	
 typedef  gzStr8 gzStr;
 //extern gzStr8 gzNullStr;
-extern const gzDataRC gzNullStr_Data;
+//extern static const gzDataRC gzNullStr_Data;
+gzConst_U8(gzNullStr_Data, "");
 
 /////////////////////////////////////////////////////////
 /////////////////////   UTF8  ///////////////////////////
@@ -62,6 +63,12 @@ extern const gzDataRC gzNullStr_Data;
 		
 		gzp_DataType(){ //To test
 		
+		//TODO optimise
+			  	  	m.aData = 0;
+			 	m.aSubTab =	0;
+				m.nSubSize =	0;
+				m.nSubLimit =	0;
+				
 		 //   static gzDataRC _gzNullStr_dat = GzToDataRC_const(gzConcat(gzS8 ,""));  
 			//static gzStr8 _gzNullStr(&_gzNullStr_dat); 
 			gzStr8 _gzNullStr(gzNullStr_Data);

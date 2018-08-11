@@ -15,6 +15,7 @@
 #ifdef GZ_tDebug
    // #define GzAssert(expr)   if( !(expr )){ Lib_GZ::fAssertError(__LINE__); }
     #define GzAssert(expr, msg)   if( !(expr )){ Lib_GZ::fAssertError(gzU8(msg),__FILE__, __func__ , __LINE__); }
+    #define GzUnAssert(expr, msg)   if( (expr )){ Lib_GZ::fAssertError(gzU8(msg),__FILE__, __func__ , __LINE__); }
 			
 			/*
     #define GZ_fSpAssertMsg(expr, msg) assert((expr)&&(msg))\

@@ -90,11 +90,8 @@ namespace pMath {
 #define GZ_M_fMax(x, y) (signed(x) ^ ((signed(x) ^ signed(y)) & -(signed(x) < signed(y))))
 
 
-//you know that INT_MIN <= x - y <= INT_MAX
-//r = y + ((x - y) & ((x - y) >> (sizeof(int) * CHAR_BIT - 1))); // min(x, y)
-//r = x - ((x - y) & ((x - y) >> (sizeof(int) * CHAR_BIT - 1))); // max(x, y)
-//#define GZ_M_fmin(x, y) (y + ((x - y) & ((x - y) >> (sizeof(int) * 8 - 1))))
-//#define GZ_M_fmax(x, y) (x - ((x - y) & ((x - y) >> (sizeof(int) * 8 - 1))))
+
+
 
 
 ////////////////////////////////////////////////

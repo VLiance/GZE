@@ -180,9 +180,7 @@ void fLoadAllLib(){
 	uLib* _rLib = IniLib_Lib_GZ();//Default lib
 		
     printf("\n--IniLib :"  );   _rLib->sName.fPrint();  
-	if(_rLib != NULL){
-		fAllClass(*_rLib->_rLastClass);
-	}
+	if(_rLib != NULL){fAllClass(*_rLib->_rLastClass);}
 		 
 	return; //Test
 	
@@ -263,13 +261,13 @@ void fLoadAllLib(){
 
 void fAllClass(uOverplace* _rLastClass){ 
 
-
+	static int _nId = 0;
 printf("fALLCLASS: %d ", (int)_rLastClass );
     while (_rLastClass != 0){
-		
+		_rLastClass->nId = _nId;
 		( gzU8("\n --Class :") + _rLastClass->sName + gzU8(" id:") +  gzStrUI( _rLastClass->nId)).fPrint();
 	//	( gzU8("\n --Class :")  + gzU8(" id:") +  gzStrUI( _rLastClass->nId)).fPrint();
-		
+		_nId++;
         _rLastClass = _rLastClass->rPrec;
     }
 }

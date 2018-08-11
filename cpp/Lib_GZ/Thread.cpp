@@ -17,13 +17,14 @@
 namespace Lib_GZ{
 
 	
-gzUInt	cThread::nCurrId = 0;
+gzUInt	cThread::nCurrId = 0; //TODO MAKE IT ATOMIC
+
+/*
 cThread::cThread(cClass* _parent):cClass(_parent),bRun(true){
     thread = this;
-	nId = nCurrId;
-	nCurrId++;
+
 	nSleepTime = 1;
-};
+};*/
 
 
 void cThread::fLinkThreadExt(cThreadExt* _pThreadExt){

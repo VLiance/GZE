@@ -47,7 +47,11 @@ template<class T, class U> gzSp<T> gzSCastSelf( gzSp<U> const & r )
 
 template<class T> gzSp<T> gzSCastSelf( gzAny _ptr) {
 
-    if(_ptr == 0){return  gzSp<T>();}
+    if(_ptr == 0){
+		//printf("\nNull gzSCastSelf!");
+		return  gzSp<T>();
+	
+	}
 
 
 		return gzSp<T>(_ptr ); //Add Count ??!!!
@@ -86,7 +90,7 @@ class gzSp {
     inline gzSp(Lib_GZ::cClass* _objPtr): obj((T*)_objPtr)  {};
 
 	
-	   inline gzSp():obj(0)  {};
+	inline gzSp():obj(0)  {};
 
     inline gzSp(T _obj):obj(_obj){};
 
@@ -116,6 +120,11 @@ class gzSp {
     inline T* operator->() const
     { return const_cast<T*>(&obj);}
 */
+
+	//TEST
+   // inline bool operator==(int _other) const{ printf("Test op");return obj == _other;}
+
+
     inline T* operator->() const
     { return const_cast<T*>(obj);}
 
