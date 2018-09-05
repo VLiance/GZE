@@ -1,3 +1,7 @@
+
+#skipContent
+
+
 package  { 
 
 	import GZ.Gpu.ShaderBase.ProgramShader;
@@ -7,7 +11,7 @@ package  {
 		//public var aData : CArray<Float32, 1, 50>;
 		//public var aData : DArray<Float32, 1, 50>;
 		
-		public var aData : DArray<Float, 1, 50>;
+	//public var aData : DArray<Float, 1, 50>;
 				
 		public enum eVecType : UInt {
 			Vec1;
@@ -32,7 +36,7 @@ package  {
 		
 		public function Vbo(_oProgram : ProgramShader):Void {
 			oProgram = _oProgram;
-			Debug.fTrace1("--- Vbo Created!! ---");
+			Debug.fTrace("--- Vbo Created!! ---");
 			oProgram.aVbo.fPush(this);
 			
 			fLoad();
@@ -47,7 +51,7 @@ package  {
 
 		
 		public function fSendData():Void {
-			Debug.fTrace1("---fSendData not implemented ---");
+			Debug.fTrace("---fSendData not implemented ---");
 		}
 
 	}

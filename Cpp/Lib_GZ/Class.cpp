@@ -17,7 +17,7 @@
 /////MasterThread//
  Lib_GZ::cThread* GzThread = 0;
 ////////////////////
-
+#include "Lib_GZ/Thread.h"
 
 namespace Lib_GZ{namespace Class{
 ////// Current Lib Access  ////

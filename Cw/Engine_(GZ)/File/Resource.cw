@@ -1,3 +1,6 @@
+
+#skipContent
+
 package  {
 
 	/**
@@ -49,7 +52,7 @@ package  {
 			hLocation = _hLocation;
 			//oFileHandle = new File();
 			
-			Debug.fConsole("AAAAAA Path string: " + _sPath);
+			Debug.fTrace("AAAAAA Path string: " + _sPath);
 	
 			
 			
@@ -62,8 +65,8 @@ package  {
 			sPath.fNext(); //Remove first slash drive
 			sPath = sPath.fSubStr();
 			
-			Debug.fTrace1("***sVDrive Path : " + sVDrive);
-			Debug.fTrace1("***sVDrive Path : " + sPath);
+			Debug.fTrace("***sVDrive Path : " + sVDrive);
+			Debug.fTrace("***sVDrive Path : " + sPath);
 			
 		//	sVDrive = ""; //Temp
 	

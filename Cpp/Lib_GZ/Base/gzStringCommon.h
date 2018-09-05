@@ -118,7 +118,10 @@
 	}
 	
 	
-	unsigned char* fToChar() const { //TODO copy to be safe?
+	//unsigned char* fToChar(gzUInt &_nSize) const { //TODO copy to be safe?
+	//}
+	unsigned char* fGetChar(gzUInt &_nSize) const { //TODO copy to be safe?
+		_nSize = gzp_DataSize;
 		return gzp_DataArray;
 	}
 

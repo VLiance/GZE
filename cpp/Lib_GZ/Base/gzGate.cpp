@@ -10,10 +10,10 @@
 
 
 
-#include "Lib_GZ/Gate.h"
+#include "Lib_GZ/Base/gzGate.h"
 
 
-#include "Lib_GZ/AtomicQueue.h"
+#include "Lib_GZ/Base/Atomic/AtomicQueue.h"
 
 
 namespace Lib_GZ{
@@ -44,14 +44,14 @@ namespace Gate{
 
 	 int cHoldGate::fSend(Lib_GZ::cThreadMsg* _oMsg){
 
-		Lib_GZ::cThreadMsg* _oCpyMsg =  (Lib_GZ::cThreadMsg*) ((Lib_GZ::cDelegate*)_oMsg)->DeepCopy();
+		Lib_GZ::cThreadMsg* _oCpyMsg =  (Lib_GZ::cThreadMsg*) ((Lib_GZ::cClass*)_oMsg)->DeepCopy();
 		
 		oQueue->fSend(_oCpyMsg);
 		return 0;
 	 }
 
 
-	Lib_GZ::cThreadMsg* cHoldGate::fReceive(cBase* _oReceivingClass) {
+	Lib_GZ::cThreadMsg* cHoldGate::fReceive(cClass* _oReceivingClass) {
         Lib_GZ::cThreadMsg* _oMsg = (Lib_GZ::cThreadMsg*)oQueue->fReceive();
         if(_oMsg){
 			_oMsg->parent = _oReceivingClass->SpFromThis();

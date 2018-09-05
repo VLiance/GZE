@@ -8,7 +8,7 @@
 //- Include an attribution statement somewhere in your project.
 //- If you want to see GZE evolve please help us with a donation.
 
-#include "Lib_GZ/QArray.h"
+#include "Lib_GZ/Base/gzQArray.h"
 
 
 

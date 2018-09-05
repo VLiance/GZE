@@ -13,12 +13,12 @@
 
 //#include "Lib_GZ/Sys/Window.h"
 //#include "Lib_GZ/Sys/Context.h"
-#include "Lib_GZ/Thread.h"
-#include "Lib_GZ/SmartPtr/gzSp.h"
 
+#include "Lib_GZ/SmartPtr/gzSp.h"
+#include "Lib_GZ/Thread.h"
 /*
 #include "Lib_GZ/Sys/Context.h"
-#include "Lib_GZ/Thread.h"
+
 #include "Lib_GZ/QArray.h"
 */
 namespace Lib_GZ{
@@ -49,13 +49,13 @@ namespace Lib {
 	class cContext;
 	class cWindow;
 	}*/
-
+ extern gzInt32 nThreadCount; //Atomic
 /*
 	extern gzBool bLittleEndian;
     extern gzQArray<uLib> zqaLibList;
    // uLib* fAddLib( gzPStr _sName, gzQArray<uOverplace>* _qaClass);
 
-    extern gzInt32 nThreadCount; //Atomic
+
 
     extern gzBool bIniFinish;
     extern gzInt32 nNumWindows;
@@ -97,7 +97,7 @@ namespace Lib {
 }
 
 
-
+/*
 class cLib : public Lib_GZ::cThread  {
 
 	public:
@@ -107,7 +107,7 @@ class cLib : public Lib_GZ::cThread  {
 		cLib(gzUIntX _nInstanceId, gzStr _sArg, gzUIntX _nCmd);
  
  
-/*
+
         gzSp<Sys::cContext> oWinLib;
 
         gzBool bIsAlive;
@@ -122,12 +122,12 @@ class cLib : public Lib_GZ::cThread  {
         void fSetDirRcEmbed(gzPStr _sDirRcEmbed);
 
         void fLoadAllRc();
-*/
+
         ~cLib();
 
 	private:
 
-};
+};*/
 
 /*
 class tApi_GZ csLib: public Lib_GZ::cStThread {
@@ -165,11 +165,12 @@ class tApi_GZ csLib: public Lib_GZ::cStThread {
 GZ_mStaticClass(Lib)
 */
 namespace Lib {
+/*
 	inline gzSp<cLib> New(gzUIntX _nInstanceId, gzStr _sArg, gzUIntX _nCmd){
 		gzSp<cLib>_oTemp = gzSp<cLib>(new cLib(_nInstanceId, _sArg, _nCmd));
 		_oTemp->Ini_cLib();
 		return _oTemp;
-	}
+	}*/
 }
 
 

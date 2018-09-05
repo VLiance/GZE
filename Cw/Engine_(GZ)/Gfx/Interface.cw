@@ -53,7 +53,8 @@ package  {
 		//public function Interface(_oThreadItf : ThreadItf, _sWindowName : String, _nWeakWidth : UInt, _nWeakHeight : UInt, _bTransparent : Bool = false, _nBgColor : Int = 0xFFFFFFFF, _hBorder : eWinBorder = eWinBorder.Normal,  _bMinimizeBox : Bool = true, _bMaximizeBox : Bool  = true, _bCloseBox : Bool = true, _bCpuOnly : Bool = false):Void {
 		public function Interface(_oThreadItf : ThreadItf, _sWindowName : String, _nWeakWidth : UInt, _nWeakHeight : UInt, _bTransparent : Bool = false, _nBgColor : Int = 0xFFFFFFFF):Void {
 		
-			Debug.fTrace1("IntefaceCreate");
+			Debug.fTrace("IntefaceCreate");
+			
 		//, _hBorder : eWinBorder = eWinBorder.Normal,  _bMinimizeBox : Bool = true, _bMaximizeBox : Bool  = true, _bCloseBox : Bool = true, _bCpuOnly : Bool = false):Void {
 				
 			oItf = this;

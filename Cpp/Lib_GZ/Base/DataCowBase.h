@@ -84,13 +84,19 @@
 		if(_oRC->nType > 1){ //If Not read only
 			//printf("\nFree---xxxxxxxxxxxxxxxxx|%d|:",_oRC->nType  );fPrintData();
 			GZ_fFree(_oRC->aTab ); 	GZ_nArrayTotalFree++; //Combined array
+			#ifdef GZ_tDebug
+				_oRC->aTab = 0;
+				_oRC->nType = -1;
+				_oRC->nInst = -1;
+			#endif
 			GZ_fFree(_oRC); 	GZ_nArrayTotalFree++; //Combined array
+	
+
 		}
 	}
 
 	inline void fRemoveInstance(gzDataRC* _oRC) const{
 	//	printf("\nSub: %d  ", _oRC->nInst);fPrint();
-	printf("\_oRC: %d ", _oRC->nType);
 		_oRC->fRemoveInstance();
 		if( _oRC->nInst == 0 ){//nType > 2 Heap data -> must be freed
 			//Delete(_oRC);

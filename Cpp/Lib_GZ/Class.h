@@ -15,7 +15,7 @@ namespace Lib_GZ{class cClass;}
 //- If you want to see GZE evolve please help us with a donation.
 //#include "Delegate.h"
 //#include "Lib_GZ/Lib_GZ.h"
-//	#include "SmartPtr/gzSp.h"
+#include "Lib_GZ/SmartPtr/gzSp.h"
 //	#include "SmartPtr/gzWp.h"
 
 //#include "Lib_GZ/Thread.h"
@@ -79,8 +79,11 @@ class tApi_Lib_GZ cClass  {
 		inline virtual gzAny MemCopy(){return 0;};
 		inline virtual gzAny DeepCopy(){return 0;};
 		
+	//	inline gzSp<Lib_GZ::cClass> SpFromThis(){return gzSp<Lib_GZ::cClass>(this);};
+		inline cClass* SpFromThis(){return this;}; //TODO
 		
-	    cClass* parent;//temps
+		
+	    cClass* parent;//temps //TODO gzWp
 		
 		union {
 			cThread* GzThread;
@@ -138,29 +141,9 @@ class tApi_Lib_GZ cClass  {
 		//Var
 
 };
-/*
-class tApi_Lib_GZ csClass   { //cStThread
 
-	public:
-	
-		//Object Creation Wrapper
-		inline virtual gzSp<cClass> New(Lib_GZ::cClass* _parent){
-			gzSp<cClass>_oTemp = gzSp<cClass>(new cClass(_parent));
-			//_oTemp->Ini_cClass();
-			return _oTemp;
-		}
-		//Public static
-		gzInt nClassId;
-	
+//*csClass in Thread.h*
 
-		//Static function
-
-	//	inline csClass(Lib_GZ::cClass* _parent): Lib_GZ::cStThread(_parent){};
-		inline csClass(Lib_GZ::cClass* _parent){};
-		inline ~csClass(){};
-};
-GZ_mStaticClass(Class)*/
-namespace Class{
-}}
+}
 #undef tHDef_IN_Lib_GZ_Class
 #endif

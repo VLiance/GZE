@@ -17,7 +17,7 @@ package  {
 		public var nDefaultAttribDivisor : UInt = 0;
 
 		public function ProgramShader():Void {
-			Debug.fTrace1("--- ProgramShader Created!! ---");
+			Debug.fTrace("--- ProgramShader Created!! ---");
 			fLoad();
 		}
 		

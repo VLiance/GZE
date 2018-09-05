@@ -10,16 +10,16 @@ package  {
 		
 		
 		public function GpuInfo():Void {
-			Debug.fTrace1("--- GpuInfo Created!! ---");
+			Debug.fTrace("--- GpuInfo Created!! ---");
 		}
 		
 				
 		public function fIniFunctions():Bool{
-			Debug.fTrace1("fIniFunctions: - fGetVersion Not Implemented -");
+			Debug.fTrace("fIniFunctions: - fGetVersion Not Implemented -");
 		}
 
 		public function fGetVersion():Bool{
-			Debug.fTrace1("Gpu: - fGetVersion Not Implemented -");
+			Debug.fTrace("Gpu: - fGetVersion Not Implemented -");
 		}
 		
 

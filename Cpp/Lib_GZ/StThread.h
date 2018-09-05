@@ -31,7 +31,10 @@ namespace StThread{
 class cStThread : public ::Lib_GZ::cClass  {  //Extend cClass!?
 
 	public:
-		inline cStThread(cClass* _parent): cClass(_parent){};
+		//Auto Singleton
+		gzSp<cClass> zInst;
+
+		inline cStThread(cClass* _parent): cClass(_parent), zInst(0) {};
 		virtual ~cStThread(){};
 
 	private:

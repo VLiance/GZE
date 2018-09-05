@@ -1,7 +1,10 @@
+
+#skipContent
+
 package  { 
 
 	
-	import GZ.Wrap.Image;
+//	import GZ.Wrap.Image;
 	import GZ.Sys.System;
 	import GZ.File.Resource;
 	import GZ.Gpu.GpuObj.GpuObject;
@@ -11,8 +14,8 @@ package  {
 	 * @author Maeiky
 	 */	
 
-	public atomic RcImg extends Resource {
-		
+	//public atomic RcImg extends Resource {
+	public class RcImg extends Resource {	
 	
 		public var nGpuTexId : UInt32 = 0;
 		public var nWidth : UInt = 0;
@@ -28,7 +31,7 @@ package  {
 		}
 		
 		//Embed
-
+		
 		/*
 		
 			RcImg( _sPath : String) {
@@ -41,6 +44,7 @@ package  {
 				//Debug.fConsole("RcImg");
 			}
 		*/
+		
 			<cpp_class_h>
 			
 				cRcImg(gzBool _bStartRc = false):cResource(0) {
@@ -71,13 +75,13 @@ package  {
 		
 		override public function fCpuLoad():Bool {
 		
-			Debug.fConsole("LoadRessource");
+			Debug.fTrace("LoadRessource");
 			if(bRcLoaded == false){
 				bRcLoaded = true;
 				fLoadFile();
 				
 				Image.fOpen(this);
-				Debug.fConsole("Finish");
+				Debug.fTrace("Finish");
 			}
 			return true;
 		}

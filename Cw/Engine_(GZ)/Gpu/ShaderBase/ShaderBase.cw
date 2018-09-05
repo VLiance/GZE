@@ -1,3 +1,6 @@
+
+#skipContent
+
 package  { 
 
 	
@@ -33,7 +36,7 @@ package  {
 		
 		
 		public function ShaderBase(_hGlsl_ES_Version : eGlsl_ES_Version = eGlsl_ES_Version.Auto):Void { 
-			Debug.fTrace1("--- BaseShader Created!! ---");
+			Debug.fTrace("--- BaseShader Created!! ---");
 			hGlsl_ES_Version = _hGlsl_ES_Version;
 		}
 		

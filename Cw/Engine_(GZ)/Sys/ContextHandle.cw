@@ -1,3 +1,4 @@
+#skipContent
 package  { 
 
 	import GZ.Sys.Message.ContextLink;
@@ -35,7 +36,7 @@ package  {
 			
 			
 			if(oLink.bGpuDraw){
-				Debug.fTrace1("--- bGpuDraw--");
+				Debug.fTrace("--- bGpuDraw--");
 				oGpu = new Gpu(nHandleId, false);
 			
 			}	

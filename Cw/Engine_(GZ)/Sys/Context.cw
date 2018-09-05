@@ -1,4 +1,8 @@
+
+
+#skipContent
 package  { 
+
 
 	import GZ.Gpu.Gpu;
 	import GZ.Sys.Window;
@@ -56,7 +60,7 @@ package  {
 		}
 
 		public function fCreateNow():Void {
-			Debug.fTrace1("Create Now Not implemented");
+			Debug.fTrace("Create Now Not implemented");
 		}
 
 		private function fReceiveMessage( _sMessage : String):Void; //Dummy for dInterProcessMessage
@@ -66,7 +70,7 @@ package  {
 			
 			var  _oMsg  : ThreadMsg = gContextGate.fReceive();
 			if(_oMsg){
-				  //Debug.fTrace1("---Have class mesg ");
+				  //Debug.fTrace("---Have class mesg ");
 				_oMsg.fRun();
 			}
 		}

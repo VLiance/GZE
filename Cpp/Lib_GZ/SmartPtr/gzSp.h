@@ -46,6 +46,7 @@ template<class T, class U> gzSp<T> gzSCastSelf( gzSp<U> const & r )
 
 
 template<class T> gzSp<T> gzSCastSelf( gzAny _ptr) {
+//template<class T> gzSp<T> gzSCastSelf( void* _ptr) {
 
     if(_ptr == 0){
 		//printf("\nNull gzSCastSelf!");
@@ -54,7 +55,8 @@ template<class T> gzSp<T> gzSCastSelf( gzAny _ptr) {
 	}
 
 
-		return gzSp<T>(_ptr ); //Add Count ??!!!
+	return gzSp<T>((T*)_ptr ); //Add Count ??!!!
+	
 			 
 	/* TODO !!!!!!!!
     if( _ptr->weak_this_.px != 0){
@@ -87,12 +89,19 @@ class gzSp {
    // T obj;
     T* obj;
    // inline gzSp() {};
-    inline gzSp(Lib_GZ::cClass* _objPtr): obj((T*)_objPtr)  {};
+   
+   // inline gzSp(Lib_GZ::cClass* _objPtr): obj((T*)_objPtr)  {};
+    inline gzSp(Lib_GZ::cClass* _objPtr): obj((T*)_objPtr)  {
+		//printf("\n  **obj %p \n",obj );
+	};
+
 
 	
 	inline gzSp():obj(0)  {};
 
-    inline gzSp(T _obj):obj(_obj){};
+    inline gzSp(T _obj):obj(&_obj){
+		//printf("\n  &bj %p \n",obj );
+	};
 
  //   inline gzSp( gzSp<T> _oOther):obj(*_oOther.get()){};
 
@@ -100,12 +109,14 @@ class gzSp {
 
  
    inline gzSp& operator = (gzSp<T> _oOther){
+		//printf("other %p",_oOther.get() );
       // GZ_fSpAssert(_oOther.get() == 0);
    //    if(_oOther.get() != 0){
             obj = _oOther.get(); //Copy
     //   }else{
             //obj = T( (Lib_GZ::cClass*)(obj->parent.get()) ); //Reset if null
      //  }
+	 //		printf("obj %p",obj );
         return *this;
     }
 
@@ -128,8 +139,11 @@ class gzSp {
     inline T* operator->() const
     { return const_cast<T*>(obj);}
 
-	inline bool operator==(int _nVal) { //Test if is == 0 (null) by example
-		return obj == _nVal;
+	inline bool operator==(gzPtr _nVal) { //Test if is == 0 (null) by example
+		return obj == (T*)_nVal;
+	}
+	inline bool operator!=(gzPtr _nVal) { //Test if is == 0 (null) by example
+		return obj != (T*)_nVal;
 	}
 	
     inline  T* get() const{
@@ -173,6 +187,7 @@ template<class T, class U> gzSp<T> gzSCast( gzWp<U> const & r ) //GZ_NoExcept
 
 
 template<class T> gzSp<T> gzSCast( gzAny _ptr ) //GZ_NoExcept
+//template<class T> gzSp<T> gzSCast( void* _ptr ) //GZ_NoExcept
 {
    // (void) static_cast< T* >( static_cast< U* >( 0 ) );
 

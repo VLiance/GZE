@@ -194,10 +194,7 @@ public:
 	
 	inline void fSetArrayAndSizeExtFunc( gzUIntX _nNewSize) const {
 		
-		printf("\naData->nType %d",  aData->nType );
-		printf("\n_*nNewSize!! %d", _nNewSize );
 		if( aData->nType == 0){//Clone if readonly -> become writable
-				printf("\n_*CONSTANT!! %d", _nNewSize );
 		//	this = gzp_DataType((gzp_DataType*)this, true);
 			gzDtThis->aData  =  (gzDataRC*)GZ::fDataCopyAlloc(aData->aTab, aData->nSize, _nNewSize, _nNewSize * GZ_Array_Expand_Factor);
 			aData->nInst = 1;
@@ -351,8 +348,6 @@ class gzArray {
 			//	printf("\n!Return !! %d", _nZero);  
 			return 0;
 		}
-				printf("\nGetPtr !! %p", array.aData->aTab[_nIndex * GzS]);  
-				printf("\nGetPtr !! %p",((T*)(&array.aData->aTab[_nIndex * GzS])));  
 	//	GzUnAssert(_nIndex >= array.aData->nSize, "Reading array Out of bound");
 	//		printf("\n!!!!!!!!! return !! %d",((T*)(&array.aData->aTab[_nIndex * GzS]))->get());
 		return  *((T*)(&array.aData->aTab[_nIndex * GzS]));
@@ -360,9 +355,6 @@ class gzArray {
 		
 	//WRITING 
 	inline T&  operator[](gzUIntX _nIndex) {
-		printf("\nWriting!! %d",_nIndex );
-		printf("\nWritingType!! %d", array.aData->nType );
-		printf("\nWritingLength!! %d", gzp_length);
 	//	GzAssert(array.aData->nType != 0, "DataArray is readOnly, use () instead if you reading only values");
 		
 	//	GzUnAssert(_nIndex >=  gzp_length , "Writing array Out of bound");
@@ -413,8 +405,8 @@ class gzArray {
 	
 	inline void fPrint() const {
 		for(gzUInt i = 0; i < gzp_length; i++){
-			//printf("[%d] ", i);((T*)(&array.aData->aTab[i * GzS]))->fPrint();printf("\n");
-			printf("[%d] ", i); printf( "%p", array.aData->aTab[i * GzS]  );printf("\n");
+			printf("[%d] ", i);((T*)(&array.aData->aTab[i * GzS]))->fPrint();printf("\n");
+			//printf("[%d] ", i); printf( "%p", array.aData->aTab[i * GzS]  );printf("\n");
 		}
 
 	 }

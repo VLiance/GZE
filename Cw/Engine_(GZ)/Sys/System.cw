@@ -1,4 +1,7 @@
-﻿package  { 
+﻿
+#skipContent
+
+package  { 
 
 	public overclass System  {
 
@@ -24,15 +27,15 @@
 		
 		static function fIni(_nInstance:UIntX, _sCommandLine:String, _nShowCmd : UInt):Void{
 			
-			Debug.fTrace1("nInstance-: " + _nInstance);
-			Debug.fTrace1("Tread-: " + thread);
+			Debug.fTrace("nInstance-: " + _nInstance);
+			Debug.fTrace("Tread-: " + thread);
 			nInstance = _nInstance;
 		}
 		
 
 		static public function fDetectGpu():Bool;
 
-		public function fSleep(_nMilliseconds : UInt = 1):Void;
+		//public function fSleep(_nMilliseconds : UInt = 1):Void;
 
 		static function fExit():Void;
 		

@@ -4,4 +4,10 @@
 //#include "Lib_GZ/Lib_GZ.cpp"
 #include "Lib_GZ/Lib.cpp"
 #include "Lib_GZ/Thread.cpp"
-
+#include "Lib_GZ/Base/gzGate.cpp"
+#include "Lib_GZ/Base/gzQArray.cpp"
+#include "Lib_GZ/ThreadMsg.cpp"
+#include "Lib_GZ/ThreadExt.cpp"
+#include "Lib_GZ/ThreadList.cpp"
+#include "Lib_GZ/Sys/ThreadObj.cpp"
+#include "Lib_GZ/Sys/Debug.cpp"

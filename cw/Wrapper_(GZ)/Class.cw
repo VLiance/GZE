@@ -5,7 +5,7 @@
 package  {
 
 	
-	import GZ.ThreadMsg;
+	//import GZ.ThreadMsg;
 	
 
 	public extension Class   {

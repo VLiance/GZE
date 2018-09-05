@@ -1,3 +1,4 @@
+#skipContent
 package  { 
 
 	import GZ.Gpu.ShaderBase.ShaderBase;
@@ -23,7 +24,7 @@ package  {
 			sName = _sName;
 			oProgram = _oProgram;
 			oProgram.aUniform.fPush(this);
-			Debug.fTrace1("--- Unifrom Created!! ---");
+			Debug.fTrace("--- Unifrom Created!! ---");
 			fLoad();
 		}
 		

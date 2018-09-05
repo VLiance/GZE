@@ -116,9 +116,10 @@ gzStr8 gzStrUI(gzUInt64 _nEntier){
             _nEntier /= 10;
             _nSize ++;
         }
-		
+	
 		gzStr8 _sNewStr( ::GZ::fDataAlloc(_nSize, _nSize));
-			
+		//_sNewStr.m.aData->nInst = 1;
+		
       //  _aArray  = GZ_fSafeMalloc( (_nSize + 2) ,gzUInt8);
         _aArray  = _sNewStr.m.aData->aTab;
 
@@ -137,6 +138,8 @@ gzStr8 gzStrUI(gzUInt64 _nEntier){
         //Value is 0 then  set "0" string
       //  _aArray = GZ_fSafeMalloc( 3 , gzUInt8);
 		gzStr8 _sNewStr( ::GZ::fDataAlloc(1, 1));
+	//	_sNewStr.m.aData->nInst = 1;
+		
 		_aArray  = _sNewStr.m.aData->aTab;
 		
         //_aArray[0] = 0;
@@ -145,6 +148,73 @@ gzStr8 gzStrUI(gzUInt64 _nEntier){
         _nSize = 1;
 		return _sNewStr;
     }
+  //  return gzStr(_aArray, _nSize, false);
+}
+gzStr8 gzStrI(gzInt64 _nEntier) {
+
+    gzUInt _nSize = 0;
+    gzUInt8* _aArray;
+
+    if(_nEntier != 0){
+
+        gzInt i;
+
+        //Check if negative
+        if(_nEntier > 0){
+            i = 0;
+            _nSize = 0;
+        }else{
+            i = 1;
+            _nSize = 1;
+            _nEntier *= -1;
+        }
+
+        //TSTR intBuff[10]; // uint range	0 to 4,294,967,295  --> 10char
+        gzUInt8 intBuff[11]; // uint range	–2 147 483 648 to 2 147 483 647  --> 11char
+
+        while (_nEntier != 0){
+            intBuff[_nSize] = _nEntier % 10 + 0x30; //Get dizaine
+            _nEntier /= 10;
+            _nSize ++;
+        }
+
+        //_aArray = GZ_fSafeMalloc( (_nSize + 2) , gzUInt8);
+		gzStr8 _sNewStr( ::GZ::fDataAlloc(_nSize, _nSize));
+		_aArray  = _sNewStr.m.aData->aTab;
+		
+      //  _aArray[0] = 0;
+      //  gzUInt8* _aNumbers = &_aArray[1];
+        gzUInt8* _aNumbers = &_aArray[0];
+
+        //Negative
+        if(i == 1){
+            _aNumbers[0] = 0x2D; // -
+        }
+
+        //Reverse order
+        gzInt j = _nSize;
+        while ( i < _nSize){
+            j --;
+            _aNumbers[i] = intBuff[j];
+            i++;
+        }
+
+		return _sNewStr;
+    }else{
+        //Value is 0 then  set "0" string
+       //  _aArray = GZ_fSafeMalloc( 3 , gzUInt8);
+		gzStr8 _sNewStr( ::GZ::fDataAlloc(1, 1));
+		_aArray  = _sNewStr.m.aData->aTab;
+		
+
+      //  _aArray[0] = 0;
+       // _aArray[1] = 0x30;
+        _aArray[0] = 0x30;
+      //  _aArray[2] = 0;
+        _nSize = 1;
+		return _sNewStr;
+    }
+
   //  return gzStr(_aArray, _nSize, false);
 }
 

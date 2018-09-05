@@ -36,6 +36,7 @@ namespace Lib_GZ{class cDispacher;}
 namespace Lib_GZ{namespace Sys{class cDebug;}}
 
 namespace Lib_GZ{
+class csClass;
 class cStThread;
 class cThreadExt;
 
@@ -55,7 +56,8 @@ class cThread : public cClass {
 		
 		
      //  gzArray<gzSp<cStThread>> st;
-	      gzArray<cStThread*> st;
+	//      gzArray<cStThread*> st;
+	      gzArray<csClass*> st;
 		  
      //  gzArray<cStThread*> st;
 	   
@@ -95,6 +97,34 @@ class cThread : public cClass {
 };
 
 
+//*csClass in Thread.h*
+
+class tApi_Lib_GZ csClass   { //cStThread
+
+	public:
+	/*
+		//Object Creation Wrapper
+		inline virtual gzSp<cClass> New(Lib_GZ::cClass* _parent){
+			gzSp<cClass>_oTemp = gzSp<cClass>(new cClass(_parent));
+			//_oTemp->Ini_cClass();
+			return _oTemp;
+		}*/
+		//Public static
+		gzInt nClassId;
+		//Auto Singleton
+		
+	gzSp<cClass> zInst;
+  Lib_GZ::cThread* thread;//???????????????
+		//Static function
+
+		inline csClass(Lib_GZ::cThread* _thread): thread(_thread), zInst(0) {};
+	//	inline csClass(Lib_GZ::cThread* _thread):  thread(_thread), zInst(0) {};
+		inline ~csClass(){};
+};
+
+GZ_mStaticClass(Class)
+namespace Class{
+}
 
 
 }

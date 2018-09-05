@@ -37,6 +37,8 @@ namespace Lib {
        gzUInt nClass = 0; //SpecialVar
 	   
 	   
+	   gzInt32 nThreadCount = 0; //TODO atomic
+	   
 	   
 	/*
 		gzUInt _nId = Lib_GZ::Lib::nClass++;
@@ -44,7 +46,7 @@ namespace Lib {
 		gzBool bLittleEndian;
 
 
-       gzInt32 nThreadCount = 0; //TODO atomic
+
 
 
 
@@ -156,9 +158,10 @@ extern  gzUInt32 nASS3 ;
  gzUInt32 nASS2 = {0};
  gzUInt32 nASS3 = 1;
 */
+
 /*
 ///////////Test Manual overplace
-//GZ_tOverplace=\"[Lib_GZ,Lib_GZ_Windows,Lib_GZ_OpenGL,Lib_GZ_WinOpenGL,Lib_Demo]\"
+//GZ_tOverplace=\"[Lib_GZ,Lib_GZ_Windows,Lib_GZ_OpenGL,Lib_GZ_WinOpenGL,Lib_Demo]\" //"
 extern "C" int IniLib_Lib_GZ();
 extern "C" int IniLib_Lib_GZ_Windows();
 extern "C" int IniLib_Lib_GZ_OpenGL();
@@ -183,6 +186,8 @@ void fLoadAllLib(){
 	if(_rLib != NULL){fAllClass(*_rLib->_rLastClass);}
 		 
 	return; //Test
+	
+	
 	
 	
 /*
@@ -248,7 +253,7 @@ void fLoadAllLib(){
     gzStr _sLib = gzStrC(GZ_tOverplace);
     _sLib.fEnd();
     _sLib.fPrev();
-    _sLib = _sLib.fRevSubStr(gzU8("["), true); //TODOStr
+    _sLib = _sLib.fRevSubStr(gzU8( ), true); //TODOStr
     _sLib.fBegin();
     aLib = _sLib.fSplit(gzU8(","));
     _sLib.fBegin();
@@ -334,7 +339,7 @@ void Lib::fDoOverPlace(uOverplace* _rClass){
 /////////////////////////////////////////////////////////
 
 
-cLib::cLib(gzUIntX _nInstanceId, gzStr _sArg, gzUIntX _nCmd): Lib_GZ::cThread(0){
+//cLib::cLib(gzUIntX _nInstanceId, gzStr _sArg, gzUIntX _nCmd): Lib_GZ::cThread(0){
 	
 	
 	
@@ -445,9 +450,9 @@ gzBool cLib::fMainUpdate(gzInt _nSleepTime){
 */
 
 
-	
+	/*
 	cLib::~cLib(){
-		/*
+		
 		 Lib_GZ::Sys::System::Get(this)->fExit();
 
 		uRcList* _nCurrent = rFirstRc;
@@ -457,12 +462,12 @@ gzBool cLib::fMainUpdate(gzInt _nSleepTime){
 			//delete _nLast->_oRc;
 			GZ_fFree(_nLast);
 		}
-		*/
+		
 	
-	}
+	}*/
 
 
-}
+//}
 
 
 

@@ -21,7 +21,7 @@ template <class T>
 class gzPod {
     public:
     T val;
-    inline gzPod() {};
+    inline gzPod():val(0) {};
    // inline gzEmbed(::):val(_parent)  {};
 
     inline gzPod(T _val):val(_val){};

@@ -207,8 +207,7 @@ inline static gzDataRC*  fDataAlloc(  gzUIntX _nSize,  gzUIntX _nLimit ){  //TOD
 	_oRc->aTab = (gzUInt8*)GZ_fAnyCalloc( _nLimit ); GZ_nArrayTotalAlloc++; //Malloc?
 
 	memset( &_oRc->aTab[_nSize], 0, _nLimit - _nSize);//Zero all other
-	
-	printf("GZ_fAnyCalloc %d ",  _nLimit );
+
 	
 	_oRc->nSize = _nSize;
 	_oRc->nType = 2; //Heap type
@@ -227,10 +226,8 @@ inline static gzDataRC*  fDataAlloc(  gzUIntX _nSize,  gzUIntX _nLimit ){  //TOD
 inline gzDataRC* fDataCopyAlloc( gzUInt8* _aData, gzUIntX _nCopySize, gzUIntX _nNewSize,  gzUIntX _nLimit ){ //TODO inline?
 
 	gzDataRC* _oRc  = fDataAlloc(_nNewSize,_nLimit );
-	printf("fDataAlloc :%d  : %d", _nNewSize, _nLimit);
 
 	memcpy( _oRc->aTab, _aData, _nCopySize);
-	printf("_nCopySize :%d", _nCopySize);
 
 	return _oRc;
 	// new Gz_fMalloc

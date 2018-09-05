@@ -67,14 +67,14 @@ package  {
 		//Functions
 		
 		public function Window(_oInterface : Interface, _sWindowName : String, _nFrameWidth : UInt, _nFrameHeight : UInt, _bTransparent : Bool = false, _nBgColor : Int = 0xFFFFFFFF): Void{
-				Debug.fTrace1("WinCreated");
+				Debug.fTrace("WinCreated");
 		}
 		//, _nBorder : eWinBorder = eWinBorder.Normal, _bMinimizeBox: Bool = true, _bMaximizeBox: Bool = true, _bCloseBox: Bool = true, _bWinGPU:Bool = true, _bNoManager: Bool  = true ) : Void;
 		
 		
 		private function fReceiveMessage( _sMessage : String):Void; //Dummy for dInterProcessMessage
 		public function fCreate(  _nPosX : Int,  _nPosY : Int,  _nWinWidth : UInt, _nWinHeight : UInt,  _nStart : eWinState = eWinState.Normal,  _bResizable : Bool = false, _bDragAndDrop: Bool = false, _bVisible : Bool = true):Void{
-				Debug.fTrace1("---fCreate Not Implemented--");
+				Debug.fTrace("---fCreate Not Implemented--");
 				
 			if(hBorder == eWinBorder.Normal){
 				 
@@ -83,7 +83,7 @@ package  {
 		}
 		
 		public function fFrameStart():Void{
-			Debug.fTrace1("fFrameStart");
+			Debug.fTrace("fFrameStart");
 		}
 		
 		
@@ -119,13 +119,13 @@ package  {
 		
 		public function fFrameEnd():Void;
 		public function fGetPixelArray():CArray<Int, 2>{
-			Debug.fTrace1("ss");
+			Debug.fTrace("ss");
 			
 		}
 		
 			
 		 public function fTest():Void{
-			Debug.fTrace1("TEST!");
+			Debug.fTrace("TEST!");
 		}
 		
 		public function  fGetKey(_oKey : Key):Void;

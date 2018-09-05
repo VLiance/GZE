@@ -1,4 +1,6 @@
-﻿package  { 
+﻿
+#skipContent
+package  { 
 
 	
 	import GZ.File.Resource;
@@ -10,7 +12,7 @@
 	public overclass File  {
 		
 		public  function File():Void{
-			Debug.fTrace1("New File!");
+			Debug.fTrace("New File!");
 		}
 
 		
@@ -19,7 +21,7 @@
 		public static function fLauch(_sFile : String, _sArguments : String):Void;
 		
 		overable static function fGetExePath() : String {
-			Debug.fConsole("fGetExePath not impletmented");
+			Debug.fTrace("fGetExePath not impletmented");
 		}
 		
 
@@ -27,7 +29,7 @@
 		public static function fGetFullPath(_sDrive:String, _sPath:String) : String{
 			
 			var _sRealDrive : String = _sDrive;
-			Debug.fTrace1("fGetFullPath: " + _sPath);
+			Debug.fTrace("fGetFullPath: " + _sPath);
 			
 			if(_sDrive == "Exe"){
 			
@@ -37,7 +39,7 @@
 				_sRealDrive = Lib_GZ::Lib::sDirExe;
 				</cpp>
 				
-				Debug.fTrace1("_sRealDrivePath: " + _sRealDrive);
+				Debug.fTrace("_sRealDrivePath: " + _sRealDrive);
 				
 			}else{
 				//Default drive
@@ -49,13 +51,13 @@
 		
 		
 		public static function fLoadFileFromVDrive(_oRc : Resource):Bool {
-			Debug.fConsole("AfLoadFile not impletmented");
+			Debug.fTrace("AfLoadFile not impletmented");
 			//Get the path
 			return File.fLoadFile(_oRc,	File.fGetFullPath(_oRc.sVDrive, _oRc.sPath));
 		}
 		
 		overable static function fLoadFile(_oRc : Resource, _sFullPath:String):Bool{
-				Debug.fConsole("AAAAAfLoadFile not impletmented");
+				Debug.fTrace("AAAAAfLoadFile not impletmented");
 		}
 		
 	}

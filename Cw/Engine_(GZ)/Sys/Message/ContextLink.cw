@@ -1,4 +1,5 @@
 
+#skipContent
 package  { 
 
 	import GZ.Sys.Context;
@@ -50,11 +51,11 @@ package  {
 		}
 		
 		public function fCreateContext():Void {
-			Debug.fTrace1("Not Implemented!!! : " );
+			Debug.fTrace("Not Implemented!!! : " );
 		}
 		
 		public function fIniDrawZone():Void {
-			Debug.fTrace1("fIniDrawZone Implemented!!! : " );
+			Debug.fTrace("fIniDrawZone Implemented!!! : " );
 		}
 		
 

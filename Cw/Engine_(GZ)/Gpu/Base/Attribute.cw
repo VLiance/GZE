@@ -1,3 +1,6 @@
+
+#skipContent
+
 package  { 
 
 	import GZ.Gpu.ShaderBase.ShaderBase;
@@ -24,7 +27,7 @@ package  {
 			sName = _sName;
 			oProgram = _oProgram;
 			oProgram.aAttribute.fPush(this);
-			Debug.fTrace1("--- Attribute Created!! ---");
+			Debug.fTrace("--- Attribute Created!! ---");
 			fLoad();
 		}
 		
