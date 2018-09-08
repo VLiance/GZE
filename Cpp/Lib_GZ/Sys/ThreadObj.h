@@ -72,7 +72,7 @@ class tApi_Lib_GZ cThreadObj : public Lib_GZ::cClass {
 		gzBool bCreated;
 		gzSp<Lib_GZ::cThreadExt> oThreadExt;
 		ThreadObj::Dlg_fThreadCallBack_r_void_p_gzPtr::Dlg dCallBack;
-		inline cThreadObj(Lib_GZ::cClass* _parent) : Lib_GZ::cClass(_parent){};
+		inline cThreadObj(Lib_GZ::cClass* _parent) : Lib_GZ::cClass(_parent), bStarted(false),bCreated(false) {};
 		virtual void Ini_cThreadObj(Lib_GZ::cThreadExt* _oThreadEx, ThreadObj::Dlg_fThreadCallBack_r_void_p_gzPtr::Dlg _dCallBack);
 		virtual void fSetPriority(gzUInt _nPriority);
 		virtual void fThreadCallBack(Lib_GZ::cThreadExt* _oThreadEx);

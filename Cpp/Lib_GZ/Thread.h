@@ -83,7 +83,7 @@ class cThread : public cClass {
             thread = this;
 			nId = nCurrId;
 			nCurrId++;
-			printf("\n okay!\n");  
+			printf("\n\n  okay!\n");  
            // Lib_GZ::Sys::Debug::New(this,0,0,0,0); //DebugOnly
 		};
 		

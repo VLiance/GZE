@@ -7,11 +7,11 @@ package  {
 	import GZ.Sys.Window;
 	import GZ.Sys.System;
 	//import GzWindows.Sys.Message.OpContextLink;
-
 	
 	<cpp_h>
-		#include "Lib_GZ/SysUtils/WindowsHeader.h"
+		#include "Lib_GZ_Platform/Windows/MainHeader.h"
 	</cpp_h>
+	
 	<cpp>
 		#include "Lib_GZ/Lib.h"
 		extern gzUIntX nTestProgInstance;
@@ -57,8 +57,8 @@ package  {
 		//public var hWinClickNew : eWinClick;
 		
 		public function OpContext(_oInterface : Interface, _sWindowName : String, _nFrameWidth : UInt, _nFrameHeight : UInt, _bTransparent : Bool = false, _nBgColor : Int = 0xFFFFFFFF  ) : Void{
-			Debug.fTrace1("--Okays--");
-			Debug.fTrace1("---New OpWindows--");
+			Debug.fTrace("--Okays--");
+			Debug.fTrace("---New OpWindows--");
 			
 			Context(_oInterface, _sWindowName, _nFrameWidth, _nFrameHeight, _bTransparent, _nBgColor);
 			

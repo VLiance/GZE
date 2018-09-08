@@ -1,13 +1,18 @@
-﻿package  { 
+﻿
+#skipContent
+
+package  { 
 
 	import GZ.Sys.File;
 	import GZ.File.Resource;
 	
+	
 	<cpp_h>
-		#include "Lib_GZ/SysUtils/WindowsHeader.h"
-				
-	//	extern "C" char*getenv(const char *name);
+		#include "Lib_GZ_Platform/Windows/MainHeader.h"
+			//	extern "C" char*getenv(const char *name);
 	</cpp_h>
+	
+
 	
 	public class OpFile overplace File {
 		
@@ -41,7 +46,7 @@
 		
 		public static function fLoadFile(_oRc : Resource, _sFullPath:String):Bool {
 			
-			Debug.fConsole("Overcplace fLoadFile not impletmented");
+			Debug.fTrace("Overcplace fLoadFile not impletmented");
 			<cpp>
 			
 				//char *win = getenv("windir");if (win == NULL) win = getenv("SystemRoot");

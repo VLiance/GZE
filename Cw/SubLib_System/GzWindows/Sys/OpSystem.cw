@@ -4,8 +4,9 @@
 	import GZ.Sys.System;
 
 	<cpp_h>
-		#include "Lib_GZ/SysUtils/WindowsHeader.h"
+		#include "Lib_GZ_Platform/Windows/MainHeader.h"
 	</cpp_h>
+	
 	
 	public extension OpSystem overplace System  {
 		

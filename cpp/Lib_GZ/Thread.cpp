@@ -35,7 +35,7 @@ void cThread::fLinkThreadExt(cThreadExt* _pThreadExt){
 }
 
 void cThread::fStart(cClass* _opObj){
-
+	printf("\n\n -----------------THREAD fStart !\n");  
     oObj  = gzSCastSelf<Lib_GZ::cClass>(_opObj);
     fLoop();
 }

@@ -7,7 +7,7 @@ package  {
 	import GZ.Sys.ContextHandle;
 	
 	<cpp_h>
-		#include "Lib_GZ/SysUtils/WindowsHeader.h"
+		#include "Lib_GZ_Platform/Windows/MainHeader.h"
 	</cpp_h>
 	
 	<cpp>
@@ -40,7 +40,7 @@ package  {
 			
 			<cpp>
 				using namespace OpContextHandle;
-				using namespace Lib_GZ_Windows::Sys;
+				using namespace Lib_GzWindows::Sys;
 				using namespace Lib_GZ::Sys::Window;
 
 				// HWND hWnd;//Temp
@@ -53,9 +53,15 @@ package  {
 				wClass.hbrBackground=GZ_Null;
 				wClass.hCursor = LoadCursor( GZ_Null, IDC_ARROW );
 						
-				gzUTF16 _sIcon(oLink->sIcon);
-				wClass.hIcon = LoadIcon(hInstance, (LPCWSTR)(gzUInt16*)_sIcon);
-				wClass.hIconSm = LoadIcon(hInstance, (LPCWSTR)(gzUInt16*)_sIcon);
+				
+				gzStr16 _sIcon(oLink->sIcon.fToUTF16());
+				WCHAR _bufferIcon[255];//TODO FixARRAY 
+				_sIcon.fToChar((gzUInt**)_bufferIcon);
+				
+				//gzUTF16 _sIcon(oLink->sIcon);
+
+				wClass.hIcon = LoadIcon(hInstance, (LPCWSTR)(gzUInt16*)_bufferIcon);
+				wClass.hIconSm = LoadIcon(hInstance, (LPCWSTR)(gzUInt16*)_bufferIcon);
 
 				WCHAR _buffer[10];
 				static gzUInt _nUniqueId = 0;
@@ -133,8 +139,14 @@ package  {
 					_hBorderFlag = WS_SYSMENU | WS_CAPTION;//Temp
 				}
 				
-				gzUTF16 _sWinName(oLink->sName);
-				WCHAR* _WinName = (WCHAR*)(gzUInt16*)_sWinName;
+				
+								
+				gzStr16 _sWinName(oLink->sName.fToUTF16());
+				WCHAR _bufferName[255];//TODO FixARRAY 
+				_sWinName.fToChar((gzUInt**)_bufferName);
+				
+				//gzUTF16 _sWinName(oLink->sName);
+				WCHAR* _WinName = (WCHAR*)(gzUInt16*)_bufferName;
 					
 				hWnd = CreateWindowEx(
 				_nExStyleFlag | WS_EX_NOPARENTNOTIFY,
@@ -162,11 +174,11 @@ package  {
 			</cpp>
 
 //			ThreadMsg.fSend(new MsgCreateWindow("MonMessage!"));
-			Debug.fTrace1("Finsish Create: " + nHandleId);
+			Debug.fTrace("Finsish Create: " + nHandleId);
 		}
 		
 		<cpp>
-			Void fClientResize(HWND _hWnd, int _nWidth, int _nHeight){
+			void fClientResize(HWND _hWnd, int _nWidth, int _nHeight){
 				RECT rcClient, rcWindow;
 				POINT ptDiff;
 				GetClientRect(_hWnd, &rcClient);
@@ -181,7 +193,7 @@ package  {
 
 		override public function fIniPixelDrawZone(): CArray<Int32>{
 			
-			Debug.fTrace1("fIniPixelDrawZone");
+			Debug.fTrace("fIniPixelDrawZone");
 			<cpp>
 				frameSize.cx = nFrameWidth;
 				frameSize.cy = nFrameHeight;
@@ -208,7 +220,7 @@ package  {
 					bmi.bmiColors[0].rgbRed = 0;
 					bmi.bmiColors[0].rgbReserved = 0;
 
-					hbmp = CreateDIBSection( hmemdc, &bmi, DIB_RGB_COLORS, (Void**)&aPixels, GZ_Null, 0 );
+					hbmp = CreateDIBSection( hmemdc, &bmi, DIB_RGB_COLORS, (void**)&aPixels, GZ_Null, 0 );
 					SelectObject( hmemdc, hbmp );
 					/*
 					p2DArray = new gzInt*[nFrameHeight];

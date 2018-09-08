@@ -38,7 +38,7 @@ GZ_mCppClass(ThreadObj)
 	}
 
 	void cThreadObj::fStart(){ gz_(3)
-	//	Lib_GZ::Sys::Debug::GetInst(thread)->fWarning(gzU8("fStart not implemented in ThreadObj"));
+		Lib_GZ::Sys::Debug::GetInst(thread)->fWarning(gzU8("fStart not implemented in ThreadObj"));
 	}
 
 	void cThreadObj::fJoin(){ gz_(4)

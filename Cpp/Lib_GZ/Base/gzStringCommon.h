@@ -125,6 +125,15 @@
 		return gzp_DataArray;
 	}
 
+	gzUInt** fToChar(gzUInt** _aBufferArray) const { //TODO FixARRAY
+		memcpy( _aBufferArray, gzp_DataArray, gzp_DataSize);
+		_aBufferArray[gzp_DataSize] = 0;//gzUInt (4 char)
+		return _aBufferArray;
+	}
+
+	
+	
+	
 	/*gzUIntX nPos;
 	gzUIntX nIndex;
 	

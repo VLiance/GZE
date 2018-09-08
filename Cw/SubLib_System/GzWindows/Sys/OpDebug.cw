@@ -5,13 +5,12 @@ package  {
 
 	public extension OpDebug overplace Debug  {
 		
+	<cpp_h>
+		#include "Lib_GZ_Platform/Windows/MainHeader.h"
+		#include <locale.h> //Console
+	</cpp_h>
 
-		<cpp_h>
-			#include "Lib_GZ/SysUtils/WindowsHeader.h"
-			#include <locale.h> //Console
-		</cpp_h>
-		
-			
+			/*
 		<cpp_namespace>
 		
 			namespace FgColor{
@@ -38,16 +37,16 @@ package  {
 		  bool bIni = false;
 		  bool bPrefix = true;
 		  bool bPipe = false;
-		  Void  fPrint(gzPStr _sValue);
+		  void  fPrint(gzPStr _sValue);
 		
 			#define FOREGROUND_WHITE (FOREGROUND_BLUE| FOREGROUND_RED | FOREGROUND_GREEN)
-			 Void Color(gzUInt flags)
+			 void Color(gzUInt flags)
 			{
 				HANDLE H=GetStdHandle(STD_OUTPUT_HANDLE);
 				SetConsoleTextAttribute(H,(WORD)flags);
 			}
 			
-			 Void  fMsgPrint(gzPStr _sValue){
+			 void  fMsgPrint(gzPStr _sValue){
 				if(bPipe){
 					gzUTF16 _sPrint16(_sValue);
 					wprintf(L"%s\n", (const wchar_t*)_sPrint16.get());
@@ -59,7 +58,7 @@ package  {
 			}
 			
 			
-			 Void fPrint(char* _sPrefix , gzUInt _nPredixFlag, gzPStr _sMsg, gzUInt _nMsgFlag ){
+			 void fPrint(char* _sPrefix , gzUInt _nPredixFlag, gzPStr _sMsg, gzUInt _nMsgFlag ){
 				Color(_nPredixFlag );
 				if(bPrefix){
 					 wprintf(L"%s ", _sPrefix);
@@ -71,9 +70,10 @@ package  {
 
 		</cpp_namespace>
 		
-		
+		*/
 		
 		public function OpDebug():Void{
+			/*
 			Debug();
 			
 			var _nWidth : UInt = 1000;
@@ -107,51 +107,51 @@ package  {
 				#endif
 				
 			</cpp>
-`
+`			*/
 			
 		}
 		
 		
 		static function fTrace1(_sValue:String):Void {
 			<cpp>
-				_::fPrint((char*)L"1:", FOREGROUND_GREEN, _sValue, FOREGROUND_GREEN |FOREGROUND_INTENSITY);
+	//			_::fPrint((char*)L"1:", FOREGROUND_GREEN, _sValue, FOREGROUND_GREEN |FOREGROUND_INTENSITY);
 			 //   printf("1:%s\n", (char*)_sValue.fcStr());
 			</cpp>
 		}	
 			
 		static function fTrace2(_sValue:String):Void{
 			<cpp>
-				_::fPrint((char*)L"2:", FOREGROUND_BLUE | FOREGROUND_RED, _sValue, FOREGROUND_BLUE | FOREGROUND_RED|FOREGROUND_INTENSITY);
+	//			_::fPrint((char*)L"2:", FOREGROUND_BLUE | FOREGROUND_RED, _sValue, FOREGROUND_BLUE | FOREGROUND_RED|FOREGROUND_INTENSITY);
 			  //  printf("2:%s\n", (char*)_sValue.fcStr());
 			</cpp>
 		}
 		
 		static function fTrace3(_sValue:String):Void{
 			<cpp>
-				_::fPrint((char*)L"3:", FOREGROUND_GREEN | FOREGROUND_RED, _sValue, FOREGROUND_GREEN | FOREGROUND_RED| FOREGROUND_INTENSITY);
+	//			_::fPrint((char*)L"3:", FOREGROUND_GREEN | FOREGROUND_RED, _sValue, FOREGROUND_GREEN | FOREGROUND_RED| FOREGROUND_INTENSITY);
 			   // printf("3:%s\n", (char*)_sValue.fcStr());
 			</cpp>
 		}
 
 		static function fWarning(_sValue:String):Void{
 			<cpp>
-				_::fPrint((char*)L"W:", _::FgColor::YELLOW, _sValue, _::FgColor::YELLOW | FOREGROUND_INTENSITY);
+	//			_::fPrint((char*)L"W:", _::FgColor::YELLOW, _sValue, _::FgColor::YELLOW | FOREGROUND_INTENSITY);
 			//    printf("W:%s\n", (char*)_sValue.fcStr());
 			</cpp>
 		}
 		static function fError(_sValue:String):Void{
 			<cpp>
-			    printf("E:%s\n", (char*)_sValue.fcStr());
+			//    printf("E:%s\n", (char*)_sValue.fcStr());
 			</cpp>
 		}
 		static function fPass(_sValue:String):Void{
 			<cpp>
-			    printf("P:%s\n", (char*)_sValue.fcStr());
+			//    printf("P:%s\n", (char*)_sValue.fcStr());
 			</cpp>
 		}
 		static function fFatal(_sValue:String):Void{
 			<cpp>
-			    printf("F:%s\n", (char*)_sValue.fcStr());
+			//    printf("F:%s\n", (char*)_sValue.fcStr());
 			</cpp>
 		}
 }

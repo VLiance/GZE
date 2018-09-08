@@ -28,8 +28,9 @@ namespace Lib_GZ{
 	
        // pSysThread = new cSysThread(_dCallBack, 0);
        oThreadObj = Sys::ThreadObj::Get(thread)->New(this, this, _dCallBack.get());
+	    printf("Ini_cThreadExtaaaaa crete\n");
        fStart();
-      // printf("Ini_cThreadExt crete\n");
+ 
 	  
     }
 
@@ -40,18 +41,23 @@ namespace Lib_GZ{
 	}*/
 
 	void cThreadExt::fStart(){
-		printf("START");
-	/*
+      printf("\nfStarte\n");
+	
         #ifndef GZ_tMonothread
+		
+				printf("\n\n \nlooooll!\n");
         	if(!oThreadObj->bStarted){
-			oThreadObj->fStart();
+				printf("\n\n \n Start GThread !\n");
+				oThreadObj->fStart();
+					
             }
         #else
+
            oThreadObj->bStarted = true;
             oThreadObj->dCallBack.fCall(this);
-
+		
         #endif // GZ_tMonothread
-*/
+
 	}
 
 	void cThreadExt::fJoin(){/*

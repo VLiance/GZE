@@ -121,6 +121,20 @@ class gzSp {
     }
 
 	
+ /*
+   inline gzSp& operator = (Lib_GZ::cClass* _objPtr){//TEEEST
+		//printf("other %p",_oOther.get() );
+      // GZ_fSpAssert(_oOther.get() == 0);
+   //    if(_oOther.get() != 0){
+   
+            obj = _objPtr; //Copy
+    //   }else{
+            //obj = T( (Lib_GZ::cClass*)(obj->parent.get()) ); //Reset if null
+     //  }
+	 //		printf("obj %p",obj );
+        return *this;
+    }*/
+
 	
 	 long use_count() const // nothrow
     {
