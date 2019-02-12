@@ -1,0 +1,26 @@
+﻿<Lib> <!-- GZE Cwc Config -->
+
+
+<cmd>@{wPath}Lib.cwc</cmd>
+
+<Arguments>
+
+	<Compiler>-I "{wPath}src/"</Compiler>
+	<Compiler>-I "{wPath}src/SubLib_System/"</Compiler>
+	
+	<CWayv>-L "{wPath}src/Lib_GZ/"  -L "{wPath}src/SubLib_System/Lib_Gz{wPlatform}/"</CWayv>
+	<!--<CWayv>-L "{wPath}cw/Engine_(GZ)/"  -I "{wPath}cw/Wrapper_(GZ)/" -L "{wPath}cw/SubLib_System/Lib_Gz{wPlatform}/"</CWayv> -->
+	<!--<Compiler type="C~">-L "{wPath}cw/Engine_(GZ)/"  -I "{wPath}cw/Wrapper_(GZ)/" -L "{wPath}cw/SubLib_System/Gz{wPlatform}/"</Compiler> -->
+	
+	
+</Arguments>
+
+
+<If_Platform name="Windows">
+
+	<Linker>-lgdi32 -lopengl32 </Linker>
+	
+</If_Platform>
+
+
+</Lib> <!-- End -->

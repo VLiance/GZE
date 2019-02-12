@@ -1,6 +1,0 @@
-﻿
-extern "C" int IniLib_Lib_GZ(){
-if(Lib_GZ::rLastClass != 0){return 0;}
-
-return 1;
-}

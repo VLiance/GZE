@@ -1,4 +1,0 @@
-﻿-#If_HasIncluded {wPath}Cpp/SubLib_System/Lib_GZ_OpenGL/Lib_GZ_OpenGL.h :: -c {wPath}Cpp/SubLib_System/Lib_GZ_OpenGL/ -o {wExPath}Cpp/  | 
--c {wPath}Cpp/Lib_GZ_Platform/{wPlatform}/ -o {wExPath}Cpp/Lib_GZ_Platform/{wPlatform}/  | 
--c {wPath}Cpp/MinGZE.cxx -o {wExPath}Cpp/MinGZE.o  -x c++  |
- 
