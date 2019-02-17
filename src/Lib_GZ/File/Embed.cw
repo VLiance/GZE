@@ -1,3 +1,4 @@
+
 package  { 
 	
 	import GZ.File.FileBin;
@@ -5,7 +6,7 @@ package  {
 	import GZ.Sys.File;
 	import GZ.Gfx.Object;
 	import GZ.Gfx.Clip.Img;
-	import GZ.Global;
+//	import GZ.Global;
 
 	/**
 	 * @author Maeiky
