@@ -26,7 +26,7 @@ package  {
 		//public atomic var gMainThreadGate : Gate<ThreadMsg>;
 		
 		
-		public static var qaContext : QArray<Context, 1>;
+	//	public static var qaContext : QArray<Context, 1>;
 		
 		public var gContextGate : Gate<Context>; //Current thread
 //		public var gHandleGate : Gate<ThreadMsg>; //Normaly in main thread
@@ -38,18 +38,24 @@ package  {
 		public var aDrawZone1D : CArray<Int32>;
 		
 		
-		public var vRect : Rect<Int>;
+
 
 		public var bLibSharedContext : Bool = false;
 		public var bIniDrawZone : Bool = false;
 		
-		public static var qaLinks : QArray<ContextLink, 1>;
+		//public static var qaLinks : QArray<ContextLink, 1>;
 	
 		public var bBlitInProgress : Bool = false;
 		
 		
 		public function Context(_oInterface : Interface, _sWindowName : String, _nFrameWidth : UInt, _nFrameHeight : UInt, _bTransparent : Bool = false, _nBgColor : Int = 0xFFFFFFFF): Void {
 			//Window(_oInterface, _sWindowName, _nFrameWidth, _nFrameHeight, _bTransparent, _nBgColor);
+					//Debug.fInfo("_sWindowName Name  "  + _sWindowName);
+					//Debug.fInfo("_sWindowName Name  "  + _sWindowName);
+					//var _sTest : String = "_sWindowName "  + _sWindowName;
+					Debug.fInfo("_sWindowName "  + _sWindowName);
+					
+					
 		}
 		
 		public function fCreate(  _nPosX : Int,  _nPosY : Int,  _nWinWidth : UInt, _nWinHeight : UInt,  _nStart : eWinState = eWinState.Normal,   _bGpuDraw : Bool = true, _bResizable : Bool = false, _bDragAndDrop: Bool = false, _bVisible : Bool = true):Void{
@@ -70,13 +76,14 @@ package  {
 			
 
 			//var _vRect : Rect = new Rect(678.874321,123.45678,_nWinWidth, _nWinHeight);
-			vRect = new Rect<Int>(400,200,600, 600);
+		//	vRect = new Rect<Int>(400,200,600, 600);
 
-			Debug.fTrace("RECTx "  + vRect.nX);
-			
+			//Debug.fTrace("RECTx "  + vRect.nX);
+				Debug.fInfo("Context Name  "  + sName);
+			sName = "assss";
 		
 			//MainThreadPlatformMsg.gMainThreadGate.fSend(null);
-			MainThreadPlatformMsg.gMainThreadGate.fRegisterContext(gContextGate, vRect, ePositioning.Center);
+			MainThreadPlatformMsg.gMainThreadGate.fRegisterContext(gContextGate, sName, vFrame, ePositioning.Center);
 			
 			
 			
@@ -101,7 +108,7 @@ package  {
 		
 		 atomic function fContextRegistred():Void{
 		 	Debug.fTrace("!!!fContextRegistred!!!!");
-			Debug.fTrace("RECTx "  + vRect.nX);
+//			Debug.fTrace("RECTx "  + vRect.nX);
 			
 			
 		 }	

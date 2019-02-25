@@ -30,7 +30,7 @@
 #pragma once
 
 
-#include "Lib_GZ/GZ.h"
+#include "Lib_GZ/GZ_inc.h"
 
 
 #if defined(__GNUC__)

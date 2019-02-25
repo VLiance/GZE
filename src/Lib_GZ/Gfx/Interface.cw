@@ -81,7 +81,8 @@ package  {
 			sWindowName = _sWindowName;
 			nBgColor = _nBgColor;
 
-			oContext = new Context(this, _sWindowName, _nWeakWidth, _nWeakHeight, _bTransparent, _nBgColor);
+			var _sWindowNameTest : String = "abcde";
+			oContext = new Context(this, _sWindowNameTest, _nWeakWidth, _nWeakHeight, _bTransparent, _nBgColor);
 			//, _hBorder, _bMinimizeBox, _bMaximizeBox,_bCloseBox,_bCpuOnly,false);
 
 			oThreadItf.oWindow = oContext; //Will destroy windws when thread finish (shared_ptr)

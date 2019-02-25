@@ -16,6 +16,7 @@
 	////////////////////////////////////////
 	inline void fFirstAssign(const gzDataRC* _pOther) const {
 		gzDtThis->gzp_Data = (gzDataRC*)_pOther;
+	//	printf("\nADD instantce to "); _pOther->fPrint();
 		const_cast<gzDataRC*>(_pOther)->fAddInstance();
 		gzp_Additional_fAssign;
 
@@ -59,11 +60,13 @@
 
 	gzp_DataType(gzDataRC* _oOther){
 	  fFirstAssign(_oOther);
+	  	   //  		printf("\n --%p: New*: %d  ",this, gzp_Data->nInst);fPrint();
 	}
 
 	gzp_DataType(gzp_DataType* _oOther){
 	  fFirstAssign(_oOther->gzp_Data);
 	   gzp_Additional_fAssignType_PTR
+	     	//	printf("\n --%p: NewDataType*: %d  ",this,gzp_Data->nInst);fPrint();
 	}
 
 	/*
@@ -74,13 +77,16 @@
 	
 	
 	gzp_DataType(const gzDataRC& _oOther){
+
 	  fFirstAssign(&_oOther);
+	  		//printf("\n --%p: New&: %d  ",this, gzp_Data->nInst);fPrint();
 	}
 
 
 	gzp_DataType(const gzp_DataType& _oOther){
 	  fFirstAssign(_oOther.gzp_Data);
 	  gzp_Additional_fAssignType
+	  	  		//printf("\n --%p: NewDataType&: %d  ",this, gzp_Data->nInst);fPrint();
 	}
 
 
@@ -98,6 +104,7 @@
 
 
 	inline gzp_DataType operator+(const gzp_DataType& _aOther) const{
+			//	printf("\n++++++");
 		return fAdd(_aOther);
 	}
 

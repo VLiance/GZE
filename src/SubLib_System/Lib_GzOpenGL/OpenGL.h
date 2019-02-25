@@ -8,7 +8,7 @@ namespace Lib_GZ_OpenGL{class cOpenGL;}
 #include "Lib_GZ_OpenGL/Lib_GZ_OpenGL.h"
 #include "Lib_GZ/Base/Class.h"
 /*
-#include "Lib_GZ/GZ.h"
+#include "Lib_GZ/GZ_inc.h"
 #include "Lib_GZ/Base/Thread/Thread.h"
 #include "_OpenGL.h"
 */
@@ -230,7 +230,7 @@ namespace OpenGL{
 namespace Lib_GZ_OpenGL{class cOpenGL;}
 #ifndef tHDef_Generate_OpenGL_Lib_GZ_OpenGL_OpenGL
 #define tHDef_Generate_OpenGL_Lib_GZ_OpenGL_OpenGL
-#include "Lib_GZ/GZ.h"
+#include "Lib_GZ/GZ_inc.h"
 #include "Lib_GZ_Platform/Windows/glWin.h"
 //#include "Lib_GZ/Sys/Debug.h"
 namespace Lib_GZ_OpenGL {namespace SysGpuFunc{

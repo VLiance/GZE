@@ -132,7 +132,7 @@ public:
 	inline void Free(gzDataRC* _oRC) const { //Don't free if we have weak_ptr  alive
 		//printf("\nTestfrreee!");
 		//if(_oRC->nType  > 1){ //If Not read only
-			//printf("\nFree---xxxxxxxxxxxxxxxxx-:");_oRC->fPrint();
+		//	printf("\nFree---xxxxxxxxxxxxxxxxx-:");_oRC->fPrint();
 			//printf("\nFree--%d:", _oRC->nSpaceBef);
 			//GZ_fFree(_oRC->aTab - gzp_Data->nSpaceBef); 	GZ_nArrayTotalFree++; //Combined array
 			if( gzDataType_IS_Array_MUSTFREE(_oRC) ){ 

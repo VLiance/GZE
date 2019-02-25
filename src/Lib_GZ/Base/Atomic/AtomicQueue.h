@@ -13,7 +13,7 @@ namespace Lib_GZ{class cAtomicQueue;}
 #if !( defined tHDef_GZ_AtomicQueue)
 
 #define tHDef_GZ_cAtomicQueue
-#include "Lib_GZ/GZ.h"
+#include "Lib_GZ/GZ_inc.h"
 
 
 #ifdef GZ_tAtomic

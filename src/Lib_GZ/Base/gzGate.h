@@ -67,7 +67,7 @@ namespace Lib_GZ{
 
 #ifdef GZ_tWindows
 	///Heavy///
-	//#include "Lib_GZ/GZ.h"
+	//#include "Lib_GZ/GZ_inc.h"
 	//#include "Lib_GZ/concurrentqueue.h"
 #endif
 

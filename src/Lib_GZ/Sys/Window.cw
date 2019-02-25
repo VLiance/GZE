@@ -3,6 +3,7 @@ package  {
 	import GZ.Gpu.Gpu;
 	import GZ.Gfx.Interface;
 	import GZ.Input.Key;
+	import GZ.Base.Rect;
 
 	public extension Window  {
 	
@@ -62,18 +63,24 @@ package  {
 		public static var bMouseDrag : Bool;
 		public static var bFirstMouseOver : Bool;
 		
+		
+		public var vFrame : Rect<Int>;
+		
 		public var nPosX : Float;
 		public var nPosY : Float;
 		
 		public var nFrameWidth : Int;
 		public var nFrameHeight : Int;
 		
-		public var sWindowName : String;
+		public var sName : String;
 	
 		//Functions
 		
-		public function Window(_oInterface : Interface, _sWindowName : String, _nFrameWidth : UInt, _nFrameHeight : UInt, _bTransparent : Bool = false, _nBgColor : Int = 0xFFFFFFFF): Void{
-				Debug.fTrace("WinCreated");
+		public function Window(_oInterface : Interface, _sName : String, _nFrameWidth : UInt, _nFrameHeight : UInt, _bTransparent : Bool = false, _nBgColor : Int = 0xFFFFFFFF): Void{
+				vFrame = new Rect<Int>(0,0,800, 600); //Default
+					Debug.fInfo(_sName);
+				sName = _sName;
+	
 		}
 		//, _nBorder : eWinBorder = eWinBorder.Normal, _bMinimizeBox: Bool = true, _bMaximizeBox: Bool = true, _bCloseBox: Bool = true, _bWinGPU:Bool = true, _bNoManager: Bool  = true ) : Void;
 		

@@ -11,7 +11,7 @@
 
 #ifndef GZ_tLib_GZ
 	#define GZ_tLib_GZ
-	#include "Lib_GZ/GZ.h" 
+	#include "Lib_GZ/GZ_inc.h" 
 #endif
 
 #include "Lib_GZ/Lib.h"

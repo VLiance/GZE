@@ -12,7 +12,7 @@ namespace Lib_GZ{class cThreadList;}
 #if !( defined tHDef_GZ_ThreadList)
 
 #define tHDef_GZ_ThreadList
-#include "Lib_GZ/GZ.h"
+#include "Lib_GZ/GZ_inc.h"
 //#include "Lib_GZ/SysThread.h"
 namespace Lib_GZ{namespace Base{namespace Thread{class cThreadList;}}}
 

@@ -47,7 +47,7 @@ gzStr8 gzStr32::fToUTF8() const{
 	gzStr8 _oNew((gzStr8*)this);
 	_oNew.f_UTF32_2_UTF8();
 	return _oNew;
-}		
+}	/*	
 gzStr8 _gzeStr16::fToUTF8() const{
 	gzStr8 _oNew((gzStr8*)this);
 	_oNew.f_UTF16_2_UTF8();
@@ -57,7 +57,7 @@ gzStr8 _gzeStr32::fToUTF8() const{
 	gzStr8 _oNew((gzStr8*)this);
 	_oNew.f_UTF32_2_UTF8();
 	return _oNew;
-}	
+}	*/
 ////////////////////////////////////////////////
 gzStr16 gzStr8::fToUTF16() const{
 	gzStr16 _oNew((gzStr16*)this);
@@ -70,6 +70,7 @@ gzStr16 gzStr8::fToUTF16() const{
 	_oNew.f_UTF32_2_UTF16();
 	return _oNew;
 }	
+/*
 gzStr16 _gzeStr8::fToUTF16() const{
 	gzStr16 _oNew((gzStr16*)this);
 	_oNew.f_UTF8_2_UTF16();
@@ -79,7 +80,7 @@ gzStr16 _gzeStr8::fToUTF16() const{
 	gzStr16 _oNew((gzStr16*)this);
 	_oNew.f_UTF32_2_UTF16();
 	return _oNew;
-}	
+}	*/
 /////////////////////////////////////////////
 gzStr32 gzStr8::fToUTF32() const {
 		gzStr32 _oNew((gzStr32*)this);
@@ -90,7 +91,7 @@ gzStr32 gzStr16::fToUTF32() const {
 		gzStr32 _oNew((gzStr32*)this);
 		_oNew.f_UTF16_2_UTF32();
 		return _oNew;
-}	
+}	/*
 gzStr32 _gzeStr8::fToUTF32() const {
 		gzStr32 _oNew((gzStr32*)this);
 		_oNew.f_UTF8_2_UTF32();
@@ -100,21 +101,21 @@ gzStr32 _gzeStr16::fToUTF32() const {
 		gzStr32 _oNew((gzStr32*)this);
 		_oNew.f_UTF16_2_UTF32();
 		return _oNew;
-}	
+}	*/
 //////////////////////////////////////////
 
 	
-gzStr8 gzStrUI(gzUInt64 _nEntier){
+gzStr8 gzStrUI(gzUInt64 _nVal){
 	
 	gzUInt _nSize = 0;
     gzUInt8* _aArray;
-    if(_nEntier != 0){
+    if(_nVal != 0){
 
         gzUInt8 intBuff[20];// 18446744073709551615 (0xffffffffffffffff)  --> 20char
 
-        while (_nEntier > 0){
-            intBuff[_nSize] = _nEntier % 10 + 0x30; //Get dizaine
-            _nEntier /= 10;
+        while (_nVal > 0){
+            intBuff[_nSize] = _nVal % 10 + 0x30; //Get dizaine
+            _nVal /= 10;
             _nSize ++;
         }
 	
@@ -151,31 +152,31 @@ gzStr8 gzStrUI(gzUInt64 _nEntier){
     }
   //  return gzStr(_aArray, _nSize, false);
 }
-gzStr8 gzStrI(gzInt64 _nEntier) {
+gzStr8 gzStrI(gzInt64 _nVal) {
 
     gzUInt _nSize = 0;
     gzUInt8* _aArray;
 
-    if(_nEntier != 0){
+    if(_nVal != 0){
 
         gzInt i;
 
         //Check if negative
-        if(_nEntier > 0){
+        if(_nVal > 0){
             i = 0;
             _nSize = 0;
         }else{
             i = 1;
             _nSize = 1;
-            _nEntier *= -1;
+            _nVal *= -1;
         }
 
         //TSTR intBuff[10]; // uint range	0 to 4,294,967,295  --> 10char
         gzUInt8 intBuff[11]; // uint range	–2 147 483 648 to 2 147 483 647  --> 11char
 
-        while (_nEntier != 0){
-            intBuff[_nSize] = _nEntier % 10 + 0x30; //Get dizaine
-            _nEntier /= 10;
+        while (_nVal != 0){
+            intBuff[_nSize] = _nVal % 10 + 0x30; //Get dizaine
+            _nVal /= 10;
             _nSize ++;
         }
 
@@ -260,16 +261,16 @@ gzStr8 gzStrF(gzFloat64 _nFloat, gzUInt8 _nbCharAfter){
     if(_nbCharAfter > 8){
         _nbCharAfter = 8;
     }
-    gzUInt _nEntier = _nFloat;
+    gzUInt _nVal = _nFloat;
 
    // _nbCharAfter++; //Dot
-    gzStr _sFloatInt = gzStrUI(_nEntier);
+    gzStr _sFloatInt = gzStrUI(_nVal);
    // gzUInt _nSize = _sFloat.fSize();
    // gzUInt _nNewSize = _nSize  + _nbCharAfter;
 	
 	
 	
-	gzFloat64 _nTest = (1.0 + _nFloat - gzFloat64(_nEntier)) * ::Lib_GZ::Base::Math::pMath::fPow(gzFloat64(10.0), (_nbCharAfter));
+	gzFloat64 _nTest = (1.0 + _nFloat - gzFloat64(_nVal)) * ::Lib_GZ::Base::Math::pMath::fPow(gzFloat64(10.0), (_nbCharAfter));
 	gzUInt64 _nAfterDot = Lib_GZ::Base::Math::pMath::fFloatToInt(_nTest ); //Limit to 8 _nbCharAfter TODO
     gzStr8 _sAfterDot = gzStrUI(_nAfterDot);
 	
@@ -291,7 +292,7 @@ gzStr8 gzStrF(gzFloat64 _nFloat, gzUInt8 _nbCharAfter){
 
     _aArray[_nSize] = L'.';
 
-    gzFloat64 _nTest = (1.0 + _nFloat - gzFloat64(_nEntier)) * Lib_GZ::Base::Math::pMath::fPow(gzFloat64(10.0), (_nbCharAfter));
+    gzFloat64 _nTest = (1.0 + _nFloat - gzFloat64(_nVal)) * Lib_GZ::Base::Math::pMath::fPow(gzFloat64(10.0), (_nbCharAfter));
 	gzUInt64 _nAfterDot = Lib_GZ::Base::Math::pMath::fFloatToInt(_nTest ); //Limit to 8 _nbCharAfter TODO
     gzStr _sAfterDot = gzStrUI(_nAfterDot);
 
@@ -306,4 +307,11 @@ gzStr8 gzStrF(gzFloat64 _nFloat, gzUInt8 _nbCharAfter){
   
 }
 
+gzStr8 gzStrB(gzBool _bVal){
+	if(_bVal){
+		return gzConstStr_true;
+	}else{
+		return gzConstStr_false;
+	}
+}
 

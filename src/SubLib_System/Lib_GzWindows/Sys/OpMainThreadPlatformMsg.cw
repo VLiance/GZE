@@ -25,7 +25,7 @@ package  {
 	</cpp>
 	
 	/*
-	<cpp>«
+	<cpp>
 		#include "Lib_GZ/Lib.h"
 		extern gzUIntX nTestProgInstance;
 	</cpp>	
@@ -64,7 +64,6 @@ package  {
 			gMainThreadGate.ExecuteAll();
 			
 			/*
-			
 		 	var  _oMsg  : ThreadMsg = gMainThreadGate.Receive();
 			if(_oMsg){
 				Debug.fTrace("---fReceived message!!!!!-- : " );
@@ -72,8 +71,7 @@ package  {
 				Debug.fTrace("---Finish!!!!!-- : " );
 			}
 			*/
-		 
-		 
+
 	//	 	Debug.fTrace("---OP mange MSG--");
 			<cpp>
 				static MSG msg;
@@ -88,10 +86,10 @@ package  {
 		 }
 		 
 		 
-		override public function fRegisterContext(_gFrom : Gate<Context>, _vFrame : Rect<Int>, hPos : ePositioning):Void{
-		//override function fCreateForm(  _nPosX : Int,  _nPosY : Int,  _nWinWidth : UInt, _nWinHeight : UInt,  _nStart : eWinState = eWinState.Normal,   _bGpuDraw : Bool = true, _bResizable : Bool = false, _bDragAndDrop: Bool = false, _bVisible : Bool = true):Void{
-			Debug.fError("fCreateForm! from thread!!!");
-		//	Debug.fTrace("---fCreateForm!!!!!-- : "  +_nPosX + ":"  +_nPosY );
+		override public function fRegisterContext(_gFrom : Gate<Context>, _sName:String, _vFrame : Rect<Int>, hPos : ePositioning):Void{
+			//override function fCreateForm(  _nPosX : Int,  _nPosY : Int,  _nWinWidth : UInt, _nWinHeight : UInt,  _nStart : eWinState = eWinState.Normal,   _bGpuDraw : Bool = true, _bResizable : Bool = false, _bDragAndDrop: Bool = false, _bVisible : Bool = true):Void{
+			//Debug.fError("fCreateForm! from thread!!!");
+			//Debug.fTrace("---fCreateForm!!!!!-- : "  +_nPosX + ":"  +_nPosY );
 	
 			Debug.fTrace("RECTxxxx "  + _vFrame.nX);
 			Debug.fTrace("RECTyyyy"  + _vFrame.nY);
@@ -104,7 +102,7 @@ package  {
 			var _bBorder : Bool = true;
 			var _bTransparent : Bool = false;
 			var _bCloseBox : Bool = false;
-			var _sName : String = "Test";
+			//var _sName : String = "Test";
 			var _sIconName : String = "Icon";
 			
 			var _nX : UInt = _vFrame.nX;

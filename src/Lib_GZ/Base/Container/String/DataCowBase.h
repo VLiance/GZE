@@ -78,8 +78,15 @@
 
 
 
-
+//Same as Arrray
 	inline void Free(gzDataRC* _oRC) const { //Don't free if we have weak_ptr  alive
+
+/*
+		if(_oRC->nSize > 1 && _oRC->aTab[0] == 'a'){
+			printf("\nFree---xxxxxxxxxxxxxxxxx-:");_oRC->fPrint();
+			printf("\nFree---xxxxxxxxxxxxxxxxx-:");_oRC->fPrint();
+		}*/
+
 
 		if( gzDataType_IS_Array_MUSTFREE(_oRC) ){ 
 			GZ_fFree(_oRC->aTab - _oRC->nSpaceBef); 	GZ_nArrayTotalFree++; //Combined array
@@ -96,7 +103,7 @@
 
 		}
 	}
-
+//Same as Arrray
 	inline void fRemoveInstance(gzDataRC* _oRC) const{
 
 		_oRC->fRemoveInstance();
@@ -172,7 +179,7 @@
 
 	inline void fAssignArray(gzDataRC* _aData ) const{
 		gzDtThis->m.aData = _aData;
-		gzDtThis->m.aData->nInst = 1;
+		gzDtThis->m.aData->nInst = 1;//Useless?
 		gzDtThis->m.aSubTab = m.aData->aTab;
 		gzDtThis->m.nSubLimit =  m.aData->nLimit;
 		gzDtThis->m.nSubSize  = m.aData->nSize;
@@ -210,7 +217,7 @@
 
 		if(m.aData->nInst == 1 && gzDataType_IS_DataRC_MODIFIABLE( m.aData) ){  //Not  if read only
 			//Only one Instance, it was writable
-
+		printf("\nRezize meme");
 			//if(m.aSubTab + _nNewSize >  m.aData->aTab +  m.aData->nLimit ){ //Over the real limit
 			if(_nNewSize > m.nSubLimit ){
 				fResizeMem(_nNewSize);
@@ -219,6 +226,9 @@
 			gzDtThis->m.nSubSize = _nNewSize;
 		//	printf("\nONE");
 		}else{   // READONLY
+			//printf("\nfDetachReadOnly %d",m.aData->nInst );
+			//fPrint();
+			//printf("\nfDetachReadOnly %s",m.aData->aTab );
 			//Make new instance and detach
 			fDetachReadOnly(_nNewSize);
 		//	printf("\nDETACH");

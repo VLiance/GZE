@@ -132,53 +132,39 @@ package  {
 			</cpp>
 		}
 		
+		
 		public override  function fTrace(_sValue:String):Void {
 			<cpp>
-				_::fPrint(thread->nId, (char*)L"1:", FOREGROUND_GREEN, _sValue, FOREGROUND_GREEN |FOREGROUND_INTENSITY);
+				_::fPrint(thread->nId, (char*)L"T:", FOREGROUND_GREEN, _sValue, FOREGROUND_GREEN |FOREGROUND_INTENSITY);
 			   // printf("1:%s\n", (char*)_sValue.fcStr());
 			</cpp>
 		}	
 		
-		
-		/*
-		static function fTrace2(_sValue:String):Void{
-			//<cpp>
-				_::fPrint((char*)L"2:", FOREGROUND_BLUE | FOREGROUND_RED, _sValue, FOREGROUND_BLUE | FOREGROUND_RED|FOREGROUND_INTENSITY);
-			 //   printf("2:%s\n", (char*)_sValue.fcStr());
-			//</cpp>
-		}
-		
-		static function fTrace3(_sValue:String):Void{
-			//<cpp>
-				_::fPrint((char*)L"3:", FOREGROUND_GREEN | FOREGROUND_RED, _sValue, FOREGROUND_GREEN | FOREGROUND_RED| FOREGROUND_INTENSITY);
-			    //printf("3:%s\n", (char*)_sValue.fcStr());
-			//</cpp>
-		}*/
-		
 
-		public override  function fWarning(_sValue:String):Void{
-		//	fWrite("\n[" + thread + "]");
-			//fTrace("[" + thread + "]");
+		public override  function fInfo(_sValue:String):Void {
 			<cpp>
-			//fWrite(gzU8("[") + gzStrUI(thread->nId) + gzU8("]"));
-			//Lib_GzWindows::Sys::OpDebug::GetInst(thread);
+				_::fPrint(thread->nId, (char*)L"I:", _::FgColor::MAGENTA, _sValue, _::FgColor::MAGENTA | FOREGROUND_INTENSITY);
+			</cpp>
+		}	
+		
+		public override  function fWarning(_sValue:String):Void{
+			<cpp>
 				_::fPrint(thread->nId, (char*)L"W:", _::FgColor::YELLOW, _sValue, _::FgColor::YELLOW | FOREGROUND_INTENSITY);
-			 //   printf("W:%s\n", (char*)_sValue.fcStr());
 			</cpp>
 		}
 		public override  function fError(_sValue:String):Void{
 			<cpp>
-			   // printf("E:%s\n", (char*)_sValue.fcStr());
+			   _::fPrint(thread->nId, (char*)L"E:", _::FgColor::RED, _sValue, _::FgColor::RED | FOREGROUND_INTENSITY);
 			</cpp>
 		}
 		public	override  function fPass(_sValue:String):Void{
 			<cpp>
-			//    printf("P:%s\n", (char*)_sValue.fcStr());
+				_::fPrint(thread->nId, (char*)L"P:", FOREGROUND_GREEN, _sValue, FOREGROUND_GREEN |FOREGROUND_INTENSITY);
 			</cpp>
 		}
 		public override  function fFatal(_sValue:String):Void{
 			<cpp>
-			//    printf("F:%s\n", (char*)_sValue.fcStr());
+				_::fPrint(thread->nId, (char*)L"F:", _::FgColor::RED, _sValue, _::FgColor::RED | FOREGROUND_INTENSITY);
 			</cpp>
 		}
 		

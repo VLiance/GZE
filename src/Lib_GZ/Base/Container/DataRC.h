@@ -189,7 +189,7 @@ public:
 		}
 	}
 	inline void fRemoveInstance() {
-	
+		//printf("\n --%p: Rem:  ",this);
 		if(gzDataType_IS_DataRC_MODIFIABLE(this) ){ //Not ReadOnly
 			nInst--;
 			//printf("\n %p: Rem: %d  ",aTab, nInst);
@@ -235,6 +235,7 @@ inline static gzDataRC*  fDataAlloc(  gzUIntX _nSize,  gzUIntX _nLimit ){  //TOD
 	_oRc->nSpaceBef = 0;
 
 	_oRc->nInst = 0;
+	//_oRc->nInst = 1; //One by default?
 //	_oRc->nWeakInst = 0;
 	//_oRc->nStride = 0;
 	//printf("\n %p: New: %d  ",_oRc->aTab, _oRc->nInst);

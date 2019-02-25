@@ -1,2 +1,8 @@
 # Compiled Object files
 _old/
+*.cwc
+*.exe
+*.d
+*.o
+*.cwcfg
+obj/

@@ -9,14 +9,17 @@
 		public var oWindow : Context;
 		
 		public function ThreadItf():Void{
-		
-			Debug = new Debug();
 			
-			/*<cpp>
-				printf("\naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaan");
-			</cpp>*/
-			Debug.fTrace("---Thread Intd--"); //Bug because debug was created after
-		
+			//Create default debug singleton for this new thread
+			Debug = new Debug();
+			Debug.fInfo("-- New ThreadItf --");
+			<cpp>
+			//printf("\n-- New ThreadItf -- %p ", thread);
+			printf("\n-- New ThreadItf -- %p , id: %d", thread, thread->nId);
+			</cpp>
 		}
+
+		
+		
 	}
 }

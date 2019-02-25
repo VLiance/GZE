@@ -5,7 +5,7 @@
 namespace Lib_GZ{class cThreadMsg;}
 
 #include "Lib_GZ/Lib_GZ.h"
-#include "Lib_GZ/GZ.h"
+#include "Lib_GZ/GZ_inc.h"
 #include "Lib_GZ/Base/Thread/Thread.h"
 #include "Lib_GZ/Base/Class.h"
 namespace Lib_GZ{namespace ThreadMsg{

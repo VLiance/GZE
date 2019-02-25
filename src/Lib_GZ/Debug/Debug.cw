@@ -43,7 +43,9 @@ package {
 		 function fFatal(_sValue:String):Void {
 			fConsole(_sValue);
 		}
-		
+		 function fInfo(_sValue:String):Void {
+			fConsole(_sValue);
+		}
 		
 		
 		/*

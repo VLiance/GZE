@@ -10,7 +10,7 @@
 #endif
 
 //#include "Lib_GZ/GzOverplace.h"
-#include "Lib_GZ/GZ.h"
+#include "Lib_GZ/GZ_inc.h"
 #include "Lib_GZ/Base/Macro.h"
 GZ_mHLib(Lib_GZ_OpenGL)
 
