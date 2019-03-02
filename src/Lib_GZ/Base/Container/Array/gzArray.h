@@ -146,6 +146,19 @@ public:
 
 	inline void fRemoveInstance(gzDataRC* _oRC) const{
 		//printf("\nSub: %d  ", _oRC->nInst);fPrint();
+		
+		//Lock free safe version (can be not deleted)
+		if( _oRC->nInst == 1 ){//nType >= 0 Heap data -> must be freed 
+			Delete(_oRC);
+			//if(_oRC->nWeakInst == 0){
+				Free(_oRC);
+			//}
+		}else{
+			_oRC->fRemoveInstance();
+		}
+		
+		/*
+		//Lock free unsafe version (can be double delete)
 		_oRC->fRemoveInstance();
 		if( _oRC->nInst == 0 ){//nType >= 0 Heap data -> must be freed
 			Delete(_oRC);
@@ -153,6 +166,9 @@ public:
 				Free(_oRC);
 			//}
 		}
+		*/
+		
+		
 	}
 	
 

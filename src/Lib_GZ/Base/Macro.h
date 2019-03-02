@@ -174,10 +174,12 @@ void _sLib::_sClass::Thread_Start(GZ_FuncWrapD, gzPtr _pThread){  \
    printf("\n_oInitialiser %p ", _oInitialiser.get());\
    _oInitialiser->fLinkThreadExt((Lib_GZ::Base::Thread::cThreadExt*)_pThread); \
 	gzSp<_sLib::c##_sClass>_oTemp = gzSp<_sLib::c##_sClass>(new _sLib::c##_sClass(_oInitialiser.get())); \
-	_oTemp->Ini_c##_sClass((_namespace::c##_class*)_oInitialiser.get());   \
+	_oTemp->Constructor((_namespace::c##_class*)_oInitialiser.get());   \
 	_oInitialiser->fStart(_oTemp.get()); \
 	_oInitialiser->ThreadEnd();\
 }
+	//_oTemp->Ini_c##_sClass((_namespace::c##_class*)_oInitialiser.get());   \
+	
 //Temp 0000 L172  L174
 
 /*

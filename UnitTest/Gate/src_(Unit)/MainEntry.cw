@@ -24,8 +24,11 @@ import Unit.Test;
 		private var dTest : Delegate<fTestDelegate> = fTestDelegate;
 		public var oInterface : MainInterface;
 		
+		/*
+		public MainEntry():Void {
+			Debug.fTrace("Initialize!");
+		}*/
 		
-			
 
 		override public function fMain():Void {
 			var _oGz : GZ = new GZ();

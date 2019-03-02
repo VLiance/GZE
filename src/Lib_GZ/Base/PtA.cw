@@ -13,8 +13,8 @@ package  {
 	 */
 	public class PtA extends Pt  {
 
-		public evar oTf : Pt;
-		public evar o2d : Pt;
+		public var oTf : Pt;
+		public var o2d : Pt;
 
 		public function PtA(_nX : Float = 0, _nY : Float = 0, _nZ : Float = 0):Void  {
 			Pt(_nX, _nY, _nZ);

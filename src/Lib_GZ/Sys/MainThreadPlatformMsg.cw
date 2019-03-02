@@ -23,7 +23,7 @@ package  {
 		}
 		
 		
-		atomic function fRegisterContext(_gFrom : Gate<Context>, _sName:String, _vFrame : Rect<Int>, hPos : ePositioning):Void{
+		atomic function fRegisterContext(_gFrom : Gate<Context>, _sName:String, _vFrame : Rect<Int>, hPos : ePositioning, _oWindow : Window):Void{
 			Debug.fError("fCreateForm: not implemented");
 		}
 

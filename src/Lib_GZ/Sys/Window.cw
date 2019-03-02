@@ -4,8 +4,10 @@ package  {
 	import GZ.Gfx.Interface;
 	import GZ.Input.Key;
 	import GZ.Base.Rect;
+	import GZ.Sys.System;
 
 	public extension Window  {
+	
 	
 		//define var nPosCenter : Int;
 		public const var nPosCenter : Int = -1;

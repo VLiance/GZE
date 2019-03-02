@@ -33,7 +33,8 @@ package  {
 			
 	
 			oMain =  gzSp<Lib_GZ::cEntryPoint>( GZ_CreateEntryPointClass() );
-			oMain->Ini_cEntryPoint(); //TODO Better way?
+		//	oMain->Ini_cEntryPoint(); //TODO Better way?
+			oMain->cEntryPoint::Constructor(); //Set threading object
 			
 		//Create default singleton	
 		//Lib_GZ::Sys::Debug::Get(oMain->thread)->zInst = Lib_GZ::Sys::Debug::Get(oMain->thread)->New(oMain.get());
@@ -48,7 +49,7 @@ package  {
 		
 		
 		
-		oMain->fMain();
+		//oMain->fMain();
 			
 			
 			
@@ -62,7 +63,7 @@ package  {
 
 
 		//	return 0; // 1 Still Alive, 0 Stop, < 0 Errors
-			return 1; // 1 Still Alive, 0 Stop, < 0 Errors
+			return oMain->Constructor(); // 1 Still Alive, 0 Stop, < 0 Errors
 		}
 
 		gzInt Update(gzFloat _nDelta){
@@ -88,7 +89,7 @@ package  {
 	
 	public extension EntryPoint extends Thread {
 //	public class EntryPoint extends Thread {
-		public function EntryPoint():Void {
+		riding public function EntryPoint():Int {
 			Thread();
 		}
 		

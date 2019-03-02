@@ -58,8 +58,8 @@ class cThreadExt : public Lib_GZ::Base::cClass  {
 
         Base::Thread::cThread* oThread;
 
-		inline cThreadExt(cClass _parent):cClass(_parent), oThread(0){};
-		void Ini_cThreadExt(Lib_GZ::Dlg_r_void_p_gzPtr::DlgP _dCallBack);
+		inline cThreadExt(cClass* _parent):cClass(_parent), oThread(0){};
+		void Constructor(Lib_GZ::Dlg_r_void_p_gzPtr::DlgP _dCallBack);
 		virtual void fStart();
 		virtual void fJoin();
 		virtual void fCancel();
@@ -69,11 +69,12 @@ class cThreadExt : public Lib_GZ::Base::cClass  {
 	private:
 
 };
+
 namespace ThreadExt{
     //Object Creation Wrapper
-    inline gzSp<Lib_GZ::Base::Thread::cThreadExt> New(cClass _parent, Lib_GZ::Dlg_r_void_p_gzPtr::DlgP _dCallBack){
+    inline gzSp<Lib_GZ::Base::Thread::cThreadExt> New(Lib_GZ::Base::cClass* _parent, Lib_GZ::Dlg_r_void_p_gzPtr::DlgP _dCallBack){
         gzSp<Lib_GZ::Base::Thread::cThreadExt>_oTemp = gzSp<Lib_GZ::Base::Thread::cThreadExt>(new Lib_GZ::Base::Thread::cThreadExt(_parent));
-        _oTemp->Ini_cThreadExt(_dCallBack);
+        _oTemp->Constructor(_dCallBack);
         return _oTemp;
     }
 }

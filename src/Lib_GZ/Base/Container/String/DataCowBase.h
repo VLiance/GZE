@@ -197,7 +197,7 @@
 	
 	 inline void fDetachReadOnly(gzUInt _nNewSize ) const {
 		//printf("\n--DETACH %p ", m.aData);
-		m.aData->fRemoveInstance();
+		m.aData->fRemoveInstance(); //Will never be freed
         gzDataRC* _aData = fNewArray(_nNewSize);
         fAssignArray(_aData);
     }

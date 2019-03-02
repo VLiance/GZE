@@ -20,8 +20,8 @@ package  {
 		
 		public var oHandle : ContextHandle;
 		
-		public evar oDim : Dim;
-		public evar oPos : Pt;
+		public var oDim : Dim;
+		public var oPos : Pt;
 		
 		public var gFrom : Gate<ThreadMsg>;
 		

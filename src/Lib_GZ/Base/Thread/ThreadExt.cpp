@@ -20,7 +20,7 @@
 ////// Current Lib Access  ////
 namespace Lib_GZ{namespace Base{namespace Thread{
 
-    void cThreadExt::Ini_cThreadExt(Lib_GZ::Dlg_r_void_p_gzPtr::DlgP _dCallBack){
+    void cThreadExt::Constructor(Lib_GZ::Dlg_r_void_p_gzPtr::DlgP _dCallBack){
 	//printf("\nIni_cThreadExt");
 	
 

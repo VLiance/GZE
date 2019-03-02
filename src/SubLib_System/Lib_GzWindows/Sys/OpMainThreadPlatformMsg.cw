@@ -86,15 +86,19 @@ package  {
 		 }
 		 
 		 
-		override public function fRegisterContext(_gFrom : Gate<Context>, _sName:String, _vFrame : Rect<Int>, hPos : ePositioning):Void{
+	//	override public function fRegisterContext(_gFrom : Gate<Context>, _sName:String, _vFrame : Rect<Int>, _hPos : ePositioning, _oWindow : Window):Void {
+		override public function fRegisterContext(_gFrom : Gate<Context>, _sName:String, _vFrame : Rect<Int>, _hPos : ePositioning, _oWindow : Window):Void {
 			//override function fCreateForm(  _nPosX : Int,  _nPosY : Int,  _nWinWidth : UInt, _nWinHeight : UInt,  _nStart : eWinState = eWinState.Normal,   _bGpuDraw : Bool = true, _bResizable : Bool = false, _bDragAndDrop: Bool = false, _bVisible : Bool = true):Void{
 			//Debug.fError("fCreateForm! from thread!!!");
 			//Debug.fTrace("---fCreateForm!!!!!-- : "  +_nPosX + ":"  +_nPosY );
 	
-			Debug.fTrace("RECTxxxx "  + _vFrame.nX);
-			Debug.fTrace("RECTyyyy"  + _vFrame.nY);
-			Debug.fTrace("RECTywww"  + _vFrame.nWidth);
-			Debug.fTrace("RECTyhhh"  + _vFrame.nHeight);
+	
+	Debug.fTrace("vFrame.nWidth "  + _vFrame.nWidth);
+	
+			Debug.fTrace("RECTxxxx "  + _oWindow.vFrame.nX);
+			Debug.fTrace("RECTyyyy"  + _oWindow.vFrame.nY);
+			Debug.fTrace("RECTwww"  + _oWindow.vFrame.nWidth);
+			Debug.fTrace("RECThhh"  + _oWindow.vFrame.nHeight);
 			
 		//	var hBorder : Window.eWinBorder;
 			var _hBorder : Window.eWinBorder = Window.eWinBorder.Normal;

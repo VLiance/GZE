@@ -40,7 +40,7 @@ package  {
 		public var nHalfFrameWidth : Float;
 		public var nHalfFrameHeight : Float;
 		
-		public evar oKey : Key; 
+		public var oKey : Key; 
 
 		private var bWIntransparent : Bool;
 		private var nBgColor : Int;

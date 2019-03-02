@@ -57,7 +57,7 @@ class tApi_Lib_GZ_OpenGL cOpenGL : public Lib_GZ::Base::cClass {
 
 		//Var
 		cOpenGL(Lib_GZ::Base::cClass* _parent);
-		virtual void Ini_cOpenGL();
+		virtual void Constructor();
 
 	//	inline cOpenGL(const cOpenGL &_o)  : Lib_GZ::Base::cClass(_o){};
 	//	inline cOpenGL(const cOpenGL &_o, gzBool _b)  : Lib_GZ::Base::cClass(_o, _b){};
@@ -83,7 +83,7 @@ class tApi_Lib_GZ_OpenGL csOpenGL : public Lib_GZ::cStThread  {
 		//Object Creation Wrapper
 		inline virtual gzSp<cOpenGL> New(Lib_GZ::Base::cClass* _parent){
 			gzSp<cOpenGL>_oTemp = gzSp<cOpenGL>(new cOpenGL(_parent));
-			_oTemp->Ini_cOpenGL();
+			_oTemp->Constructor();
 			return _oTemp;
 		}
 		//Public static

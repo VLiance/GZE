@@ -76,14 +76,14 @@ package  {
 			
 
 			//var _vRect : Rect = new Rect(678.874321,123.45678,_nWinWidth, _nWinHeight);
-		//	vRect = new Rect<Int>(400,200,600, 600);
+			var _vRect : Rect<Int> = new Rect<Int>(400,200,600, 600);
 
 			//Debug.fTrace("RECTx "  + vRect.nX);
-				Debug.fInfo("Context Name  "  + sName);
-			sName = "assss";
+			Debug.fInfo("Context Name  "  + sName);
+	
 		
 			//MainThreadPlatformMsg.gMainThreadGate.fSend(null);
-			MainThreadPlatformMsg.gMainThreadGate.fRegisterContext(gContextGate, sName, vFrame, ePositioning.Center);
+			MainThreadPlatformMsg.gMainThreadGate.fRegisterContext(gContextGate, sName, _vRect, ePositioning.Center, this);
 			
 			
 			

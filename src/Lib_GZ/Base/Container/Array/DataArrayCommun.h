@@ -74,16 +74,24 @@
 	  fFirstAssign(_pOther);
 	}*/
 
-	
-	
+
 	gzp_DataType(const gzDataRC& _oOther){
 
 	  fFirstAssign(&_oOther);
 	  		//printf("\n --%p: New&: %d  ",this, gzp_Data->nInst);fPrint();
 	}
+	
+	
+	
 
-
-	gzp_DataType(const gzp_DataType& _oOther){
+	gzp_DataType(const gzp_DataType& _oOther, gzBool _bForceDetach){ //For multithread Operation? Or make nInst atomic?
+		  fFirstAssign(_oOther.gzp_Data);
+		//fDetach(gzp_DataSize);
+		gzp_WRITE_OPERATION_(gzp_DataSize) //Detach --> TODO direct detach
+		gzp_Additional_fAssignType
+	
+	}
+	gzp_DataType(const gzp_DataType& _oOther){ 
 	  fFirstAssign(_oOther.gzp_Data);
 	  gzp_Additional_fAssignType
 	  	  		//printf("\n --%p: NewDataType&: %d  ",this, gzp_Data->nInst);fPrint();
