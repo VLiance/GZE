@@ -1,11 +1,11 @@
 package  { 
 
 	import GZ.Gpu.Gpu;
-	import GZ.Gfx.Interface;
+	import GZ.Sys.Interface.Interface;
 	import GZ.Input.Key;
 	import GZ.Sys.MainThreadPlatformMsg;
-	import GZ.Sys.Context;
-	import GZ.Sys.Window;
+	import GZ.Sys.Interface.Context;
+	import GZ.Sys.Interface.Window;
 	import GZ.Sys.System;
 	import GZ.Base.Rect;
 	//import GzWindows.Sys.Message.OpContextLink;
@@ -15,54 +15,34 @@ package  {
 	</cpp_h>
 	
 	<cpp>
-		HDC hmemdc;
-		gzInt* aPixels;
-		gzInt** p2DArray;
-		HDC dcScreen;
-		SIZE frameSize;
-		HWND hWnd;
-		HBITMAP hbmp;
+		#include "Lib_GzWindows/Helper/Window.cpp_inc"
+		#include "Lib_GzWindows/Helper/ProcessMessage.cpp_inc"
 	</cpp>
-	
-	/*
-	<cpp>
-		#include "Lib_GZ/Lib.h"
-		extern gzUIntX nTestProgInstance;
-	</cpp>	
-		*/
 
+	
+	<cpp_namespace>
+		HDC dcScreen;
+		HWND hWnd;
+	</cpp_namespace>
 	
 	<cpp_namespace_h>
 	LRESULT CALLBACK AppWndProc(HWND _hWnd, gzUInt uMsg, WPARAM wParam, LPARAM lParam);
 	</cpp_namespace_h>
 	
 
-
-
 	public class OpMainThreadPlatformMsg overplace MainThreadPlatformMsg {
 	
 			use Window.ePositioning;
-		
-			public	var nHandleId : UIntX = 0;
-			public	var nFrameWidth : UInt = 800;
-			public	var nFrameHeight : UInt = 600;
-			public	var nWinHandleId : UIntX = 0;
-	
 
-	
 		
 		public function OpMainThreadPlatformMsg() : Void{
 			Debug.fTrace("--OpMainThreadPlatformMsg--");
-			
 			MainThreadPlatformMsg();
 		}
-	
 		 
 		 override public function fManageMessage():Void {
-		 
-			
 			gMainThreadGate.ExecuteAll();
-			
+
 			/*
 		 	var  _oMsg  : ThreadMsg = gMainThreadGate.Receive();
 			if(_oMsg){
@@ -72,7 +52,6 @@ package  {
 			}
 			*/
 
-	//	 	Debug.fTrace("---OP mange MSG--");
 			<cpp>
 				static MSG msg;
 				while (PeekMessage(&msg, GZ_Null, 0, 0, PM_REMOVE) > 0){
@@ -85,38 +64,37 @@ package  {
 			</cpp>
 		 }
 		 
-		 
-	//	override public function fRegisterContext(_gFrom : Gate<Context>, _sName:String, _vFrame : Rect<Int>, _hPos : ePositioning, _oWindow : Window):Void {
-		override public function fRegisterContext(_gFrom : Gate<Context>, _sName:String, _vFrame : Rect<Int>, _hPos : ePositioning, _oWindow : Window):Void {
-			//override function fCreateForm(  _nPosX : Int,  _nPosY : Int,  _nWinWidth : UInt, _nWinHeight : UInt,  _nStart : eWinState = eWinState.Normal,   _bGpuDraw : Bool = true, _bResizable : Bool = false, _bDragAndDrop: Bool = false, _bVisible : Bool = true):Void{
-			//Debug.fError("fCreateForm! from thread!!!");
-			//Debug.fTrace("---fCreateForm!!!!!-- : "  +_nPosX + ":"  +_nPosY );
-	
-	
-	Debug.fTrace("vFrame.nWidth "  + _vFrame.nWidth);
-	
+		override public function fRegisterContext(_gFrom : Gate<Context>, _oWindow : Window):Void {
+
 			Debug.fTrace("RECTxxxx "  + _oWindow.vFrame.nX);
 			Debug.fTrace("RECTyyyy"  + _oWindow.vFrame.nY);
 			Debug.fTrace("RECTwww"  + _oWindow.vFrame.nWidth);
 			Debug.fTrace("RECThhh"  + _oWindow.vFrame.nHeight);
 			
+					
+			var _nHandleId : UIntX = 0;
+			var _nWinHandleId : UIntX = 0;
+	
 		//	var hBorder : Window.eWinBorder;
 			var _hBorder : Window.eWinBorder = Window.eWinBorder.Normal;
 
 			var _bBorder : Bool = true;
 			var _bTransparent : Bool = false;
 			var _bCloseBox : Bool = false;
-			//var _sName : String = "Test";
+			
+			var _sName : String = _oWindow.sName;
 			var _sIconName : String = "Icon";
 			
-			var _nX : UInt = _vFrame.nX;
-			var _nY : UInt = _vFrame.nY;
+			var _nX : UInt = _oWindow.vFrame.nX;
+			var _nY : UInt = _oWindow.vFrame.nY;
 			
-
 			<cpp>
 				using namespace OpMainThreadPlatformMsg;
-				using namespace Lib_GzWindows::Sys;
-				using namespace Lib_GZ::Sys::Window;
+				using namespace Lib_GzWindows::Overplace;
+				using namespace Lib_GZ::Sys::Interface::Window;
+				
+				//if center:
+				_nX  = CW_USEDEFAULT; //CW_USEDEFAULT for correct monitor detection (center)
 
 				// HWND hWnd;//Temp
 				HINSTANCE hInstance = GetModuleHandle(NULL);
@@ -214,8 +192,8 @@ package  {
 		
 					_hBorderFlag
 					| WS_CLIPCHILDREN | WS_CLIPSIBLINGS    // Required for OpenGL
-					,_nX, _nY, _vFrame.nWidth, _vFrame.nHeight,
-					GZ_Null, GZ_Null, hInstance, this);
+					,CW_USEDEFAULT, _nY, _oWindow->vFrame.nWidth, _oWindow->vFrame.nHeight,
+					GZ_Null, GZ_Null, hInstance, _gFrom.get());
 				
 				if (!hWnd){
 					 gzInt nResult = GetLastError();
@@ -224,64 +202,56 @@ package  {
 					MessageBox(GZ_Null, buffer, L"Window Creation Failed!", MB_ICONERROR);
 				}
 				dcScreen = GetDC(hWnd);		
-				nHandleId = (gzUIntX)dcScreen;
-				nWinHandleId = (gzUIntX)hWnd;
+				_nHandleId = (gzUIntX)dcScreen;
+				_nWinHandleId = (gzUIntX)hWnd;
 				
-				//TODO
-//				fClientResize(hWnd, nFrameWidth, nFrameHeight); //Set correct client size
+				int _nTitleOffset = fClientResize(hWnd, _oWindow->vFrame.nWidth, _oWindow->vFrame.nHeight); //Set correct client size
+				ClipOrCenterWindowToMonitor(hWnd, MONITOR_CENTER | MONITOR_WORKAREA, _nTitleOffset);
+				
 				ShowWindow( hWnd, SW_SHOWDEFAULT );
-	
-							
+			
 			</cpp>
 
 //			ThreadMsg.fSend(new MsgCreateWindow("MonMessage!"));
-			Debug.fTrace("Finsish Create: " + nHandleId);
-			
-			_gFrom.fContextRegistred();
+			Debug.fTrace("Finsish Create: " + _nHandleId);
+
+			_gFrom.fContextRegistred(_nHandleId, _nWinHandleId);
 		}
 		
-		
-		
-		
-		<cpp>
-			HINSTANCE hInstance;
-			WCHAR*  WinClassName;
-		
-			#define WM_CAPTURE 0x900
-			#define WM_CAPTURE_RELEASE 0x901
-			#ifndef GWL_USERDATA
-			#define GWL_USERDATA -21
-			#endif
-			LRESULT CALLBACK AppWndProc(HWND _hWnd, gzUInt uMsg, WPARAM wParam, LPARAM lParam){
-				
-				using namespace Lib_GZ::Sys::Window;
-				using namespace Lib_GZ::Sys::Message;
-				//using namespace GZ_Windows::Sys::Message;
-				
-				//return DefWindowProc(_hWnd, uMsg, wParam, lParam);
-				cContextLink *_this = (cContextLink*)GetWindowLongPtr(_hWnd, GWL_USERDATA);
-				if(_this == 0  ){ //|| _this->hWinClickNew == eWinClick::Close || ::GZ::Global::nNumWindows == 0
-					switch(uMsg){
-						case WM_NCCREATE:
-							//Create "this pointer"
-							SetWindowLongPtr(_hWnd, GWL_USERDATA, (LONG_PTR) ((CREATESTRUCT*)lParam)->lpCreateParams);
-						 break;
-					}
-					return DefWindowProc(_hWnd, uMsg, wParam, lParam);
-				}
+	<cpp>	
+		HINSTANCE hInstance;
+		WCHAR*  WinClassName;
 
+		#define WM_CAPTURE 0x900
+		#define WM_CAPTURE_RELEASE 0x901
+		#ifndef GWL_USERDATA
+		#define GWL_USERDATA -21
+		#endif
+		LRESULT CALLBACK AppWndProc(HWND _hWnd, gzUInt uMsg, WPARAM wParam, LPARAM lParam){
+			
+			using namespace Lib_GZ::Sys::Interface::Window;
+			//using namespace GZ_Windows::Sys::Message;
+			Lib_GZ::cHoldGate* _pGate = (Lib_GZ::cHoldGate*)GetWindowLongPtr(_hWnd, GWL_USERDATA);
+			
+			//return DefWindowProc(_hWnd, uMsg, wParam, lParam);
+			//cContextLink *_this = (cContextLink*)GetWindowLongPtr(_hWnd, GWL_USERDATA);
+			if(_pGate == 0  ){ //|| _this->hWinClickNew == eWinClick::Close || ::GZ::Global::nNumWindows == 0
+				switch(uMsg){
+					case WM_NCCREATE:
+						//Create "this pointer"
+						SetWindowLongPtr(_hWnd, GWL_USERDATA, (LONG_PTR) ((CREATESTRUCT*)lParam)->lpCreateParams);
+					 break;
+				}
+				return DefWindowProc(_hWnd, uMsg, wParam, lParam);
+			}else{
+				fProcessMessage(_pGate,  _hWnd, uMsg, wParam, lParam);
 				return DefWindowProc(_hWnd, uMsg, wParam, lParam);
 			}
-		</cpp>
+		}
+	</cpp>
 		
-		
-		
-		
-		
-		
-		/*
-		
-		public function fMove( _nPosX : Int, _nPosY : Int):Void;
+	/*
+	public function fMove( _nPosX : Int, _nPosY : Int):Void;
         public function fMoveAndSize(_nPosX : Int, _nPosY : Int, _nWidth : Int, _nHeight: Int):Void;
         public function fShow(_bActive : Bool = true):Void;
         public function fHide():Void;
@@ -313,25 +283,12 @@ package  {
 		public function fGetPixelArray():CArray<Int, 2>;
 		public function  fGetKey(_oKey : Key):Void;
 		
-
-		
-		
 		*/
 		/*
 		override public function fCompleteContext(_nHandleId : UIntX) :Void {
 			  Debug.fTrace1("fCompleteContext : " + _nHandleId);
-
 		}
 		*/
 		
-		
-		
-		
-		
-		
-		
-		
-		
-
 	}
 }

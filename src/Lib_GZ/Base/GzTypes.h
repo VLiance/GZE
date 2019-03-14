@@ -13,6 +13,15 @@
 #ifndef tHDef_GZ_Types
 #define tHDef_GZ_Types
 
+//From "Lib_GZ.h"
+#ifdef tLibExport_Lib_GZ
+	#define tApi_Lib_GZ __declspec(dllexport)
+#elif tLibImport_Lib_GZ
+	#define tApi_Lib_GZ __declspec(dllimport)
+#else
+	 #define tApi_Lib_GZ
+#endif
+
 
 #define BUILD_BUG_ON(condition) ((void)sizeof(char[1 - 2*!!(condition)]))
 
@@ -168,7 +177,12 @@ typedef gzUInt32 gzUTF32;
 //typedef Lib_GZ::cDelegate* gzAny;
 
 namespace Lib_GZ{namespace Base{class cClass;}}
-typedef Lib_GZ::Base::cClass* gzAny;
+//typedef Lib_GZ::Base::cClass* gzAny;
+typedef Lib_GZ::Base::cClass* gzClass;
+struct gzAny{};
+
+
+
 
 //struct gzDelegateClass { Lib_GZ::Delegate* oClass;};
 //typedef void* gzDlgWrap;
@@ -299,5 +313,5 @@ extern Lib_GZ_OpenGL::csOpenGL* oMainOGL;
 
 
 typedef void* ArrayPtr;//Temp?
-
+	
 #endif

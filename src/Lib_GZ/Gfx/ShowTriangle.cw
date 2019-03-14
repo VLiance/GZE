@@ -5,7 +5,7 @@
 package  { 
 	
 	import flash.display.InteractiveObject;
-	import GZ.Sys.Window;
+	import GZ.Sys.Interface.Window;
 	import GZ.Gfx.Shape;
 	import GZ.Gfx.Root;
 	import GZ.Gfx.Triangle;

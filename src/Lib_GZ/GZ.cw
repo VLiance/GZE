@@ -13,6 +13,8 @@ package  {
 
 	include GZ.Debug.Debug;
 	include GZ.Base.Class;
+	include GZ.Base.Result.Result;
+	include GZ.Base.Result.Result_Int;
 	include GZ.Base.Thread.ThreadMsg;
 
 	import GZ.Base.Math.Math;

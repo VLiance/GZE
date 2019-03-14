@@ -1,10 +1,9 @@
 
-#skipContent
 
 package  { 
 
 	
-//	import GZ.Wrap.Image;
+	import GZ.File.Image;
 	import GZ.Sys.System;
 	import GZ.File.Resource;
 	import GZ.Gpu.GpuObj.GpuObject;
@@ -75,14 +74,16 @@ package  {
 		
 		override public function fCpuLoad():Bool {
 		
+		
 			Debug.fTrace("LoadRessource");
+			/*
 			if(bRcLoaded == false){
 				bRcLoaded = true;
 				fLoadFile();
 				
 				Image.fOpen(this);
 				Debug.fTrace("Finish");
-			}
+			}*/
 			return true;
 		}
 		

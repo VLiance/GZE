@@ -1,6 +1,6 @@
 ﻿package  { 
 
-	import GZ.Sys.Context;
+	import GZ.Sys.Interface.Context;
 	import GZ.Base.Thread.Thread;
 	import GZ.Sys.ThreadObj;
 

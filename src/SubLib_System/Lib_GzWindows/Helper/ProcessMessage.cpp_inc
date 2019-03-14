@@ -1,0 +1,15 @@
+
+void fProcessMessage(Lib_GZ::cHoldGate* _pGate, HWND _hWnd, gzUInt uMsg, WPARAM wParam, LPARAM lParam){
+	using namespace Lib_GZ::Sys::Interface::Context;
+	gzGate<Lib_GZ::Sys::Interface::cContext> _gFrom(_pGate); 
+	
+		
+	switch(uMsg){
+		 case WM_KEYDOWN:
+		//	_gFrom.Send(new cfContextRegistred());
+           // _this->KeyDown[wParam] = true;
+			
+        break;
+	}
+				
+}

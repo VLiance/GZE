@@ -4,7 +4,7 @@ package  {
 	import GZ.Gfx.Root;
 	import GZ.Gfx.GlobalData;
 	import GZ.Gfx.Buffer;
-	import GZ.Gfx.Interface;
+	import GZ.Sys.Interface.Interface;
 	import GZ.Sys.Timer;
 	import GZ.Base.Math.Math;
 
@@ -42,7 +42,7 @@ package  {
 			var _nDeltaTime : Float = _nTime - nLastTime;
 			nLastTime = _nTime;
 			
-			//Debug.fTrace1("_nDeltaTime: " + _nDeltaTime);
+			//Debug.fTrace("_nDeltaTime: " + _nDeltaTime);
 		
 			nDeltaSecAcc += _nDeltaTime;
 

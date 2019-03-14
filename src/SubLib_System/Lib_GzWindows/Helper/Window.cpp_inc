@@ -1,0 +1,109 @@
+
+#define MONITOR_CENTER   0x0001        // center rect to monitor 
+#define MONITOR_CLIP     0x0000        // clip rect to monitor 
+#define MONITOR_WORKAREA 0x0002        // use monitor work area 
+#define MONITOR_AREA     0x0000        // use monitor entire area 
+
+int fClientResize(HWND _hWnd, int _nWidth, int _nHeight){
+
+	RECT rcClient, rcWindow;
+	POINT ptDiff;
+	GetClientRect(_hWnd, &rcClient);
+	GetWindowRect(_hWnd, &rcWindow);
+	ptDiff.x = (rcWindow.right - rcWindow.left) - rcClient.right;
+	ptDiff.y = (rcWindow.bottom - rcWindow.top) - rcClient.bottom;
+	MoveWindow(_hWnd,rcWindow.left, rcWindow.top, _nWidth + ptDiff.x, _nHeight + ptDiff.y, false);
+	int _nTitleBarOffset = ptDiff.y -  ptDiff.x/2; //Substract bottom border
+	return _nTitleBarOffset;
+}
+
+//  The most common problem apps have when running on a 
+//  multimonitor system is that they "clip" or "pin" windows 
+//  based on the SM_CXSCREEN and SM_CYSCREEN system metrics. 
+//  Because of app compatibility reasons these system metrics 
+//  return the size of the primary monitor. 
+// 
+//  This shows how you use the multi-monitor functions 
+//  to do the same thing. 
+
+void ClipOrCenterRectToMonitor(LPRECT prc, UINT flags)
+{
+    HMONITOR hMonitor;
+    MONITORINFO mi;
+    RECT        rc;
+    int         w = prc->right  - prc->left;
+    int         h = prc->bottom - prc->top;
+
+    // 
+    // get the nearest monitor to the passed rect. 
+    // 
+    hMonitor = MonitorFromRect(prc, MONITOR_DEFAULTTONEAREST);
+
+    // 
+    // get the work area or entire monitor rect. 
+    // 
+    mi.cbSize = sizeof(mi);
+    GetMonitorInfo(hMonitor, &mi);
+
+    if (flags & MONITOR_WORKAREA)
+        rc = mi.rcWork;
+    else
+        rc = mi.rcMonitor;
+
+    // 
+    // center or clip the passed rect to the monitor rect 
+    // 
+    if (flags & MONITOR_CENTER)
+    {
+        prc->left   = rc.left + (rc.right  - rc.left - w) / 2;
+        prc->top    = rc.top  + (rc.bottom - rc.top  - h) / 2;
+        prc->right  = prc->left + w;
+        prc->bottom = prc->top  + h;
+    }
+    else
+    {
+        prc->left   = GZ_fMax(rc.left, GZ_fMin(rc.right-w,  prc->left));
+        prc->top    = GZ_fMax(rc.top,  GZ_fMin(rc.bottom-h, prc->top));
+        prc->right  = prc->left + w;
+        prc->bottom = prc->top  + h;
+    }
+}
+
+void ClipOrCenterWindowToMonitor(HWND hwnd, UINT flags, int _nTitleBarOffset = 0)
+{
+    RECT rc;
+    GetWindowRect(hwnd, &rc);
+    ClipOrCenterRectToMonitor(&rc, flags);
+    SetWindowPos(hwnd, NULL, rc.left, rc.top - _nTitleBarOffset/2, 0, 0, SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE);
+}
+
+			
+RECT fCenter(HWND _hWnd, HWND _parent_window){
+
+	/*
+	RECT rctDesktop;
+	SystemParametersInfo(SPI_GETWORKAREA,NULL,&rctDesktop,NULL);
+	*/
+
+	RECT _rect,  rcWindow;
+
+	GetClientRect(_parent_window, &_rect);
+	//GetEffectiveClientRect(_parent_window, &_rect);
+	GetWindowRect(_hWnd, &rcWindow);
+	
+	int _nWidth = _rect.right    - _rect.left;
+	int _nHeight = _rect.bottom  - _rect.top;
+	
+	_rect.left = (_rect.right/2) - (_nWidth/2);
+	_rect.top = (_rect.bottom/2) - (_nHeight/2);
+	
+	_rect.right = _rect.left  + _nWidth;
+	_rect.bottom = _rect.left  + _nHeight;
+	
+	MoveWindow(_hWnd,_rect.left, _rect.top, _nWidth, _nHeight, false);
+	
+	return _rect;
+}
+
+
+

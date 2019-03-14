@@ -45,7 +45,7 @@ template<class T, class U> gzSp<T> gzSCastSelf( gzSp<U> const & r )
 
 
 
-template<class T> gzSp<T> gzSCastSelf( gzAny _ptr) {
+template<class T> gzSp<T> gzSCastSelf( gzClass _ptr) {
 //template<class T> gzSp<T> gzSCastSelf( void* _ptr) {
 
     if(_ptr == 0){
@@ -249,7 +249,7 @@ template<class T, class U> gzSp<T> gzSCast( gzWp<U> const & r ) //GZ_NoExcept
 */
 
 
-template<class T> gzSp<T> gzSCast( gzAny _ptr ) //GZ_NoExcept
+template<class T> gzSp<T> gzSCast( gzClass _ptr ) //GZ_NoExcept
 //template<class T> gzSp<T> gzSCast( void* _ptr ) //GZ_NoExcept
 {
    // (void) static_cast< T* >( static_cast< U* >( 0 ) );

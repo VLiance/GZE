@@ -6,7 +6,7 @@ package  {
 	import GZ.Sys.System;
 	import GZ.Sys.Message.ContextLink;
 	import GzEmsc.Sys.OpContext;
-	import GZ.Sys.ContextHandle;
+	import GZ.Sys.Interface.ContextHandle;
 	
 	<cpp_h>
 	#include "Lib_GZ/SysUtils/EmscHeader.h"

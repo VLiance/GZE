@@ -17,6 +17,10 @@ package  {
 		public var o2d : Pt;
 
 		public function PtA(_nX : Float = 0, _nY : Float = 0, _nZ : Float = 0):Void  {
+			oTf = new Pt();
+			o2d = new Pt();
+			
+			
 			Pt(_nX, _nY, _nZ);
 		}
 

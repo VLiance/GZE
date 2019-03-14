@@ -3,7 +3,7 @@
 
 	import GZ.Base.Thread.Thread;
 	import GZ.Base.Thread.ThreadExt;
-	import GZ.Gfx.Interface;
+	import GZ.Sys.Interface.Interface;
 	
 	public overclass ThreadObj  {
 	

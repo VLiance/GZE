@@ -206,17 +206,17 @@
 
 
 
-	inline void fShinkBefore(gzUIntX _nSpace ){
-		GZ_Assert_Array(gzp_DataSize >=  _nSpace);
-		gzp_DataArray += _nSpace;
-		gzp_DataSize -= _nSpace;
-		gzp_DataLimit -= _nSpace;
-		gzp_DataTypeOnly(gzp_Data->nSpaceBef += _nSpace);
+	inline void fShinkBefore(gzUIntX _nIndex ){
+		GZ_Assert_Array(gzp_DataSize >=  _nIndex); //Todo only set var?
+		gzp_DataArray += _nIndex;
+		gzp_DataSize -= _nIndex;
+		gzp_DataLimit -= _nIndex;
+		gzp_DataTypeOnly(gzp_Data->nSpaceBef += _nIndex);
 	}
 
-	inline void fShinkAfter(gzUIntX _nSpace ){
-		GZ_Assert_Array(gzp_DataSize >=  _nSpace);
-		gzp_DataSize -= _nSpace;
+	inline void fShinkAfter(gzUIntX _nIndex ){
+		GZ_Assert_Array(gzp_DataSize >=  _nIndex);//Todo only set var?
+		gzp_DataSize = _nIndex;
 	}
 
 	//#Rule1 be sure that end index was > of begin index
@@ -224,7 +224,9 @@
 		GZ_Assert_Array(gzp_DataSize >= _nBeginIndex + _nCount );
 		
 		fShinkBefore(_nBeginIndex);
-		fShinkAfter((gzp_DataSize - _nCount));
+	
+		fShinkAfter( _nCount);
+		
 	}
 	inline gzp_DataType fSubStrCount(gzUIntX _nBeginIndex, gzUIntX _nCount = 1 ){
 		gzp_RIni(f_SubStrCount(_nBeginIndex, _nCount));
@@ -233,11 +235,11 @@
 
 	//#Rule1 be sure that end index was > of begin index
 	inline void f_SubStr(gzUIntX _nBeginIndex, gzUIntX _nEndIndex ){
-		GZ_Assert_Array(_nBeginIndex <= _nEndIndex );
+		GZ_Assert_Array(_nBeginIndex <= _nEndIndex );//Todo set to empty?
 		//gzUInt _nEndIndex = _nBeginIndex + _nCount;
 
 		fShinkBefore(_nBeginIndex);
-		fShinkAfter(gzp_DataSize - (_nEndIndex - _nBeginIndex));
+		fShinkAfter(_nEndIndex - _nBeginIndex);
 	}
 	inline gzp_DataType fSubStr(gzUIntX _nBeginIndex, gzUIntX _nEndIndex ){
 		gzp_RIni(f_SubStr(_nBeginIndex, _nEndIndex));
@@ -274,4 +276,28 @@
 	 void fPrintData() const {
 	 	printf("%.*s", gzp_DataSize, gzp_DataArray);
 	}
+	
+
+	/////////////////////////////////////////////////////////////////////////////////////
+	
+	 gzResult_Int fFind(const gzp_DataType& _pFind) const {
+	 	//printf("%.*s", gzp_DataSize, gzp_DataArray);
+		if(_pFind.gzp_DataSize == 0){return gzResult_Int();}
+		gzInt _nTo =  gzp_DataSize -  (_pFind.gzp_DataSize - 1);
+		for(gzInt i = 0; i < _nTo; i++){
+			if(gzp_DataArray[i] == _pFind.gzp_DataArray[0]){
+				if( fSubFind(&gzp_DataArray[i], &_pFind.gzp_DataArray[0],  _pFind.gzp_DataSize )){
+					return gzResult_Int(i);
+				}
+			}
+		}
+		return gzResult_Int();
+	}
+	
+	
+	
+	
+	
+	
+	
 

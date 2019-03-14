@@ -18,7 +18,7 @@
 
 <If_Platform name="Windows">
 
-	<Linker>-lgdi32 -lopengl32 </Linker>
+	<Linker>-lgdi32 -lopengl32 -luser32</Linker>
 	
 </If_Platform>
 

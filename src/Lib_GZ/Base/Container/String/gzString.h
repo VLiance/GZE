@@ -13,7 +13,9 @@
 #define tHDef_Lib_GZ_Str
 
 #include "Lib_GZ/Base/Container/DataRC.h"
+#include "Lib_GZ/Base/Container/Array/DataArray.h"
 #include "Lib_GZ/Base/Container/String/Utf8.h"
+#include "Lib_GZ/Base/Result/gzResult.h"
 
 
 #define gzp_nS  *_nS

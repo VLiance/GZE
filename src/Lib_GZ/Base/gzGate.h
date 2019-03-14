@@ -71,7 +71,7 @@ namespace Lib_GZ{
 	//#include "Lib_GZ/concurrentqueue.h"
 #endif
 
-template <class S, class T>
+template <class S, class T = Lib_GZ::Base::Thread::cThreadMsg>
 class gzGate {
 public :
 
@@ -87,7 +87,9 @@ public :
 	inline ~gzGate(){
 		Lib_GZ::Gate::fSub(oHold);
 	}
-
+	
+	
+	
 
 	inline gzSp<T> Receive(S* _oReceivingClass){ return gzSp<T>((T*)oHold->fReceive(_oReceivingClass)); }
 
@@ -112,18 +114,50 @@ public :
 	
 	inline  int Send(Lib_GZ::Base::Thread::cThreadMsg* _oMsg){return oHold->fSend(_oMsg);};
 
-	gzGate(const gzGate& _oOther);
-	gzGate& operator=(const gzGate& _oOther) const;
+	
+	Lib_GZ::cHoldGate* get(){
+		return oHold;
+	}
+
+	gzGate(Lib_GZ::cHoldGate* _oOther){
+		oHold = _oOther;
+		Lib_GZ::Gate::fAdd(oHold);
+	}
+	
+	
+	gzGate(const gzGate& _oOther){
+		oHold = _oOther.oHold;
+	   Lib_GZ::Gate::fAdd(oHold);
+	}
+	
+	
+	inline gzGate& operator=(const gzGate& _oOther) const{
+		
+		Lib_GZ::cHoldGate* _oTemp = oHold;
+
+	   const_cast<gzGate<S,T>*>(this)->oHold = _oOther.oHold;
+	   Lib_GZ::Gate::fAdd(oHold);
+
+
+		if(_oTemp != 0){
+			Lib_GZ::Gate::fSub(_oTemp); //Delete old instance
+		}
+
+	   return *const_cast<gzGate<S,T>*>(this);
+	}
+	
+	
 
 };
 
-
+/*
 template <class S,class T>
 	gzGate<S,T>::gzGate(const gzGate& _oOther){
 	oHold = _oOther.oHold;
    Lib_GZ::Gate::fAdd(oHold);
 }
-
+*/
+/*
 template <class S,class T>
 gzGate<S,T>& gzGate<S,T>::operator=(const gzGate<S,T>& _oOther) const{
 
@@ -140,7 +174,7 @@ gzGate<S,T>& gzGate<S,T>::operator=(const gzGate<S,T>& _oOther) const{
    return *const_cast<gzGate<S,T>*>(this);
 }
 
-
+*/
 
 
 

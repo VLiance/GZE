@@ -13,6 +13,8 @@
 #define tHDef_Lib_GZ_Array
 
 #include "Lib_GZ/Base/Container/DataRC.h"
+#include "Lib_GZ/Base/Container/Array/DataArray.h"
+#include "Lib_GZ/Base/Result/gzResult.h"
 
 //gzDataArrayShared
 
@@ -268,7 +270,6 @@ public:
 			gzp_DataSize = _nNewSize;
 			
 		}
-		
 	}
 	
 	
@@ -376,6 +377,8 @@ class gzPodLock{
 	}
 	
 	
+
+	
 	 ~gzPodLock(){
 
 		 printf("\n***DestroyLock****");
@@ -429,7 +432,14 @@ class gzArray {
 		array.fSetArrayAndSize( (_nIndex+1) * (sizeof(T))  );
 		return  *((T*)(&array.aData->aTab[_nIndex * GzS]));
 	}
-	
+	inline const T&  fPush(const T& _oObj) const {
+		(*this)[gzp_length] = _oObj;
+		return _oObj;
+	}
+	inline gzUIntX GnSize() const {
+		return gzp_length;
+	}
+
 	
 
 	gzPodLock<T> getsafe(){  //(safe)

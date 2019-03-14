@@ -12,7 +12,7 @@ package  {
 	import GZ.Gfx.Face;
 	import GZ.Gfx.Triangle;
 	import GZ.File.RcImg;
-	import GZ.Gfx.Interface;
+	import GZ.Sys.Interface.Interface;
 	import GZ.Base.PtA;
 	import GZ.Base.Pt;
 	import GZ.Base.Poly4;
@@ -28,14 +28,14 @@ package  {
 
 		use Triangle.uPoint3D;
 		//use Triangle.uPoint2D;
-/*
+
 		public var aPt3dOri : CArray<Float, 1, 12>; //ToDO dynamique (only 4 point)
 		public var aPoint3D : CArray<Float, 1, 12>; //ToDO dynamique (only 4 point)
 		public var aPoint2D : CArray<Float, 1, 12>; //ToDO dynamique (only 4 point)
 		public var aPtSource: CArray<Float, 1, 10>; //ToDO dynamique (only 4 point)
 
 		public var aNewPt3dOri : Array<PtA>;
-*/
+
 
 
 		public var nIndexPt : UInt = 0; // Todo find better way to save this var
@@ -74,11 +74,11 @@ package  {
 
 		public function Shape( _oParent : Root, _nX : Float, _nY:Float, _nNbPt : UInt = 4,	_bSmoothBorder:Bool = true):Void {
 			Object(_oParent, _nX , _nY);
-			/*
+			
 			nNbPt = _nNbPt;
 			nNbPt3 = _nNbPt * 3;
 			bSmoothBorder = _bSmoothBorder
-*/
+
 		//	oGpuObj = new SysGpuShape();
 			//aPoint3D = malloc ? _nNbPt TODO TODO
 		}
@@ -99,16 +99,16 @@ package  {
 */
 
 		public function fAddPt( _oPt : PtA, _oCenter : Pt ):Void {
-/*
+
 			_oPt.nX = _oPt.nX - _oCenter.nX;
 			_oPt.nY = _oPt.nY - _oCenter.nY;
 			_oPt.nZ =_oPt.nZ - _oCenter.nZ;
-			aNewPt3dOri.fPush(_oPt);*/
+			aNewPt3dOri.fPush(_oPt);
 		}
 
 
 		public function fCreateFace(_oRc : RcImg, _oSrc : Poly4):Void {
-	/*
+	
 	//	public function fCreateFace(_oRc : RcImg, _rPt1 : Mapped<uPoint3D>, _rPt2: Mapped<uPoint3D>, _rPt3 : Mapped<uPoint3D>, _rPt4 : Mapped<uPoint3D>, _nPtS1x:Float, _nPtS1y:Float, _nPtS2x:Float, _nPtS2y:Float, _nPtS3x:Float, _nPtS3y:Float, _nPtS4x:Float, _nPtS4y:Float):Void {
 			//oFace = new Face(this, _oRc,   aNewPt3dOri[0],  aNewPt3dOri[1], aNewPt3dOri[2], aNewPt3dOri[3],           aPoint2D,             _nPtS1x:Float, _nPtS1y:Float, _nPtS2x:Float, _nPtS2y:Float, _nPtS3x:Float, _nPtS3y:Float, _nPtS4x:Float, _nPtS4y:Float);
 			oFace = new Face(this, _oRc,   aNewPt3dOri[0],  aNewPt3dOri[1], aNewPt3dOri[2], aNewPt3dOri[3],           aPoint2D,      _oSrc );
@@ -117,7 +117,7 @@ package  {
 			//_rPt2D.nX = (_nX + nBorder);
 			//_rPt2D.nY = (_nY + nBorder);
 
-		//	oGpuObj.fIni(this);*/
+		//	oGpuObj.fIni(this);
 		}
 
 
@@ -149,7 +149,7 @@ package  {
 		}
 
 		public function fIsInside():Bool {
-			/*
+			
 			var _nL : Float;
 			var _nR : Float;
 			var _nT : Float;
@@ -180,12 +180,14 @@ package  {
 				return false;
 			}else{
 				return true;
-			}*/
+			}
 		}
 
 
 
 		override public function fCpuDraw(_nPosX: Int, _nPosY:Int, _nX_Start : Int, _nX_End : Int, _nY_Start : Int, _nY_End : Int):Bool {
+		
+
 /*
 			if(	oGblPt.nZ < oItf.nHalfFrameHeight * -1){ //Todo find better way
 				return false;
@@ -193,12 +195,11 @@ package  {
 */
 
 
-/*CWtemp
 			fTransform();
 			fConvertTo2d();
-*/
+
 			//if(fIsInside() ){ //Temp comment
-/*CWtemp
+
 				var _nRsBrRed : Int =  (nGAttRed ) * 255;
 				var _nRsBrGreen : Int =  (nGAttGreen ) * 255;
 				var _nRsBrBlue : Int =  (nGAttBlue ) * 255;
@@ -209,22 +210,22 @@ package  {
 				if (_nRsAlpha < 0) {
 					_nRsAlpha = 0;
 				}
-*/
+
 				
 				/*
 				var _nX_Start:Int = oDstBuff.nBuffPLimL;
 				var _nX_End:Int = oDstBuff.nBuffPLimR;
 				var _nY_Start:Int = oDstBuff.nBuffPLimT;
 				var _nY_End:Int = oDstBuff.nBuffPLimB;
-				*/
-				/*
+				
+				
 				 _nX_Start = oDstBuff.nBuffPLimL;
 				 _nX_End = oDstBuff.nBuffPLimR;
 				 _nY_Start = oDstBuff.nBuffPLimT;
 				 _nY_End = oDstBuff.nBuffPLimB;
-
+*/
 				oFace.fCpuDraw( oDstBuff, Math.nHPrec, Math.nHPrec, _nX_Start, _nX_End, _nY_Start, _nY_End,  _nRsAlpha , _nRsBrRed , _nRsBrGreen , _nRsBrBlue , 256 , 256 , 256 , 0 , 0 ,0 );
-				*/
+				
 				return true;
 
 			//}else{
@@ -237,7 +238,7 @@ package  {
 		
 
 		public function fTransform():Void {
-/*
+
 			var _nRoll : Float = nGAttRoll;
 			var _nPitch : Float = nGAttPitch;
 			var _nYaw : Float = nGAttYaw;
@@ -278,23 +279,23 @@ package  {
 				_oPt.oTf.nX *= nGAttWidth;
 				_oPt.oTf.nY *= nGAttHeight;
 				_oPt.oTf.nZ *= nGAttLength;
-				_oPt.oTf.fRotate(oQuaternion);
+			//	_oPt.oTf.fRotate(oQuaternion);
 			}
 			
-			*/
+			
 		}
 
 
 
 		public function fConvertTo2d():Void {
-/*
+
 			var _nFocal : Float = oDstBuff.oPerspective.nValue;
 			
 			var _nX : Float = oGblPt.nX + 0.25;
 			var _nY : Float = oGblPt.nY - 0.25;
 			
 			if(oDstBuff.oPerspective.nType == 1){
-				
+				//Debug.fTrace("oDstBuff.oPerspective.nType 1");
 				for( var i : UInt = 0; i < aNewPt3dOri.nSize; i++){
 					var _oPt : PtA = aNewPt3dOri[i];
 					var _nZ : Float = (_oPt.oTf.nZ + oGblPt.nZ) * _nFocal + 1;
@@ -305,7 +306,7 @@ package  {
 				
 
 			}else {
-
+			//	Debug.fTrace("oDstBuff.oPerspective.nType else");
 				var _nFromX : Float = oDstBuff.oPerspective.nFromX;
 				var _nFromY : Float = oDstBuff.oPerspective.nFromY;
 
@@ -319,7 +320,7 @@ package  {
 			
 			}
 			
-			*/
+			
 			
 			
 		}

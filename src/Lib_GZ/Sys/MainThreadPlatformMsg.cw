@@ -1,9 +1,9 @@
 ﻿
 package  { 
 
-	import GZ.Sys.Context;
+	import GZ.Sys.Interface.Context;
 	import GZ.Base.Rect;
-	import GZ.Sys.Window;
+	import GZ.Sys.Interface.Window;
 
 	public overclass MainThreadPlatformMsg  {
 	
@@ -23,7 +23,7 @@ package  {
 		}
 		
 		
-		atomic function fRegisterContext(_gFrom : Gate<Context>, _sName:String, _vFrame : Rect<Int>, hPos : ePositioning, _oWindow : Window):Void{
+		atomic function fRegisterContext(_gFrom : Gate<Context>, _oWindow : Window):Void{
 			Debug.fError("fCreateForm: not implemented");
 		}
 

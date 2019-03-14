@@ -1,7 +1,7 @@
 package  { 
 
 	import GZ.Gpu.Gpu;
-	import GZ.Gfx.Interface;
+	import GZ.Sys.Interface.Interface;
 	import GZ.Input.Key;
 	import GZ.Base.Rect;
 	import GZ.Sys.System;
@@ -10,11 +10,13 @@ package  {
 	
 	
 		//define var nPosCenter : Int;
+		public const var nWinAlpha : UInt = 128;
+		
 		public const var nPosCenter : Int = -1;
 		
 		public var bGlobalSharedContext : Bool;
 		public var bReady : Bool;
-		
+		public  var bTransparent  : Bool = false;
 		
 		public var oGpu : Gpu;
 		
@@ -59,7 +61,7 @@ package  {
 		public var bWinGPU : Bool;
 		public var nMouseX : Float;
 		public var nMouseY : Float;
-		public var nHandleId : UInt;
+		//public var nHandleId : UInt;
 		public var nLastMouseX : Float;
 		public var nLastMouseY : Float;
 		public static var bMouseDrag : Bool;
@@ -82,6 +84,8 @@ package  {
 				vFrame = new Rect<Int>(0,0,800, 600); //Default
 					Debug.fInfo(_sName);
 				sName = _sName;
+				
+				//Debug.fTrace("vFrameW: "  + vFrame.nWidth);
 	
 		}
 		//, _nBorder : eWinBorder = eWinBorder.Normal, _bMinimizeBox: Bool = true, _bMaximizeBox: Bool = true, _bCloseBox: Bool = true, _bWinGPU:Bool = true, _bNoManager: Bool  = true ) : Void;
@@ -98,7 +102,7 @@ package  {
 		}
 		
 		public function fFrameStart():Void{
-			Debug.fTrace("fFrameStart");
+		//	Debug.fTrace("fFrameStart");
 		}
 		
 		
@@ -118,7 +122,7 @@ package  {
 		  
         public function fIniPixelZone():Void;
         public function drawPixel():Void;
-        public function fBlit():Void;
+       // public function fBlit():Void;
         public function fKeyIsDown(_nKeyVal : Int):Int;
         public function fClear():Void;
         public function fCpuVSyncOnGpu():Void;

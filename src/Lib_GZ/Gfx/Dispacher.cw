@@ -92,7 +92,6 @@ package  {
 			forEach(var _oChild : Root  in  qaChild){
 				_oChild.fRender();
 			}
-
 		}
 
 		public function fDispatchContextResume() :Void {

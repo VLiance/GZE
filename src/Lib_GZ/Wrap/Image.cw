@@ -8,8 +8,8 @@ package  {
 	
 	public class Image  {
 			
-		pure public function fOpen(_oRc : RcImg): Int;
-		pure public function fDelete(_oRc : RcImg): Void;
+		 public function fOpen(_oRc : RcImg): Int;
+		 public function fDelete(_oRc : RcImg): Void;
 		
 	}
 }

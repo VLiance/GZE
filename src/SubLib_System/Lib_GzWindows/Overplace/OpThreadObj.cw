@@ -2,12 +2,12 @@
 
 	import GZ.Base.Thread.Thread;
 	import GZ.Base.Thread.ThreadExt;
-	import GZ.Gfx.Interface;
+	import GZ.Sys.Interface.Interface;
 	import GZ.Sys.ThreadObj;
 	
-			<cpp_h>
-			#include "Lib_GzWindows/MainHeader.h"
-			</cpp_h>
+	<cpp_h>
+	#include "Lib_GzWindows/MainHeader.h"
+	</cpp_h>
 			
 	public class OpThreadObj overplace ThreadObj  {
 	

@@ -1,6 +1,4 @@
 
-#skipContent
-
 package  {
 
 	/**
@@ -53,10 +51,19 @@ package  {
 			//oFileHandle = new File();
 			
 			Debug.fTrace("AAAAAA Path string: " + _sPath);
-	
 			
+			var _sMyString : String = "5:/**01234567";
+			var _nTest : Int = _sMyString.fFind(":/**");
+			Debug.fTrace("Find: " + _nTest );
+			if(_sMyString.fFind(":/*")){
+				Debug.fTrace("Pass");
+			}else{
+				Debug.fTrace("Fail"  );
+			}
 			
-			var _aPath : Array<String> = _sPath.fSplit(":/");
+		//	var _aPath : Array<String> = _sPath.fSplit(":/");
+			
+			/*
 			//var _aPath : Array<String> = _sPath.fSplit(":/"); //Notwork
 			sVDrive = _aPath[0];
 			sPath = _aPath[1];
@@ -67,7 +74,7 @@ package  {
 			
 			Debug.fTrace("***sVDrive Path : " + sVDrive);
 			Debug.fTrace("***sVDrive Path : " + sPath);
-			
+			*/
 		//	sVDrive = ""; //Temp
 	
 			

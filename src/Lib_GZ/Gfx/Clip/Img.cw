@@ -5,7 +5,7 @@
 
 package  {
 
-	import GZ.Sys.Window;
+	import GZ.Sys.Interface.Window;
 	import GZ.Gfx.Shape;
 	import GZ.Gfx.Face;
 	import GZ.Gfx.Root;
@@ -64,9 +64,18 @@ package  {
 			//aPixelArray = oImage.fGetImage();
 			aPixelArray = _oRc.aImg;
 
+			
 			nWidth = _oRc.nWidth;
 			nHeight =  _oRc.nHeight;
 			oRc = _oRc;
+			
+			
+//Temp		
+_nX = 300;
+_nY = 300;
+	
+_nWidth = 200;
+_nHeight = 200;
 
 			if(_nWidth != 0){
 				nWidth = _nWidth;
@@ -131,6 +140,7 @@ package  {
 			}
 			
 			
+
 			fAddPt(oPtTL, _oCenter);
 			fAddPt(oPtTR, _oCenter);
 			fAddPt(oPtBR, _oCenter);

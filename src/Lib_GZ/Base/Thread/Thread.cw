@@ -85,7 +85,16 @@ package  {
 		
 		
 		public function fLoop():Void {
-			
+			<cpp>
+			#ifndef GZ_tMonothread
+				while(bRun){
+					oObj->ThreadLoop();
+				 //   Lib_GZ::Sys::System::Get(thread)->fSleep(nSleepTime); //TODO Syteme
+				}
+			#else
+				oObj->ThreadLoop();
+			#endif
+			</cpp>
 		}
 
 	}

@@ -11,7 +11,7 @@ package  {
 	import GZ.Gfx.Pixel;
 	import GZ.Gfx.Object;
 	import GZ.Gfx.Perspective;
-	import GZ.Gfx.Interface;
+	import GZ.Sys.Interface.Interface;
 	import GZ.Gpu.GpuObj.GpuBuffer;
 
 	/**
@@ -60,6 +60,7 @@ package  {
 			nBuffHeight = _nHeight;
 			
 			if (_bNewPerspective) {
+				Debug.fTrace("New Percepective");
 				oPerspective = new Perspective(this);
 			}else {
 				

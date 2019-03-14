@@ -36,16 +36,18 @@ package  {
 		</cpp_class_h>
 			
 			
-			
+		<cpp_initializer_list>
+			:gzAny()
+		</cpp_initializer_list>
 			
 		<cpp_initializer>
 			if(_parent != 0){
 				  //  parent = _parent->SpFromThis();
 					parent = _parent;
 					GzThread = _parent->thread;
-					  printf("\nClassSetThread");
+					//  printf("\nClassSetThread");
 			  }else{
-			   printf("\nClassNull");
+					//printf("\nClassNull");
 					//Only new thread can have parent to zero (cThread) TODO aAssert
 					//	--> thread = this;--> IN thread.cpp
 			   }

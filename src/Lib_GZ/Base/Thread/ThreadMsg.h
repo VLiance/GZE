@@ -43,7 +43,8 @@ class tApi_Lib_GZ cThreadMsg : public Lib_GZ::Base::cClass {
 
 
 		//Var
-		inline cThreadMsg(Lib_GZ::Base::cClass* _parent) : Lib_GZ::Base::cClass(_parent){};
+		inline cThreadMsg(Lib_GZ::Base::cClass* _parent = 0) : Lib_GZ::Base::cClass(_parent){}; //_parent is optional, TODO useless?
+		//inline cThreadMsg(Lib_GZ::Base::cClass* _parent = 0) : Lib_GZ::Base::cClass(_parent){}; //_parent is optional, TODO useless?
 		inline virtual void Constructor(){};
 		inline virtual void fRun(){};
 

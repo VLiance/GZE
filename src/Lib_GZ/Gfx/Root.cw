@@ -5,10 +5,10 @@
 package  { 
 
 	import GZ.Gfx.Dispacher;
-	import GZ.Sys.Window;
+	import GZ.Sys.Interface.Window;
 	import GZ.Gfx.Object;  
 	import GZ.Gfx.Buffer;  
-	import GZ.Gfx.Interface;  
+	import GZ.Sys.Interface.Interface;  
 	import GZ.Gfx.Attribute;  
 	import GZ.Base.Math.Math;
 	import GZ.Gpu.GpuObj.GpuObject;
@@ -153,10 +153,6 @@ package  {
 		}
 		
 		
-		
-	}
-	
-			
 		
 	}
 }

@@ -22,6 +22,7 @@
 #include "Lib_GZ/Base/GzBaseFunc.h"
 #include "Lib_GZ/Base/GzMem.h"
 
+
 #define GZ_Array_Expand_Factor 2
 
 
@@ -39,7 +40,6 @@
 //#define gzNewData(_aData) ((gzDataRoot){ gzNewDataOnly(_aData),0,0 })
 //#define gzNewData(_aData)    fStackDataCopyAlloc((gzUInt8*)(gzConcat(gzS8 ,_aData)), (gzUIntX)(sizeof(gzConcat(gzS8 ,_aData))-1))
 //#define gzNewData(_aData)    fStackDataCopyAlloc((gzUInt8*)(_aData), (gzUIntX)(sizeof(_aData)))
-
 
 
 #define gzNewData8(_aData)    ::GZ::fStackDataCopyAlloc((gzUInt8*)(gzConcat(gzS8 ,_aData)), (gzUIntX)(sizeof(gzConcat(gzS8 ,_aData))-1))
@@ -75,9 +75,15 @@
 #define gzStaticU16(_sName, _aData) static gzStr16(  gzData16(_aData) ) _sName;
 #define gzStaticU32(_sName, _aData) static gzStr32(  gzData32(_aData) ) _sName;
 */
+
 #define gzU8(_aData)  gzStr8(  gzNewData8(_aData)  )
 #define gzU16(_aData) gzStr16(  gzNewData16(_aData) )
 #define gzU32(_aData) gzStr32(  gzNewData32(_aData) )
+
+#define gzU8_Sized(_aData, _nSize)  gzStr8(  ::GZ::fStackDataCopyAlloc((gzUInt8*)(gzConcat(gzS8 ,_aData)), _nSize) )
+
+#define gzU8_NewData(_nSize)  gzStr8(  fDataAlloc(_nSize, _nSize)  )
+
 
 /*
 #define gzData_U8(_sName, _aData)   gzDataRC _sName##_dat = GzToDataRC_const(gzConcat(gzS8 ,_aData));  gzStr8 _sName(&_sName##_dat);
@@ -226,8 +232,7 @@ inline static gzDataRC*  fDataAlloc(  gzUIntX _nSize,  gzUIntX _nLimit ){  //TOD
 	gzDataRC* _oRc =  (gzDataRC*)GZ_fAnyMalloc(sizeof(gzDataRC)); GZ_nArrayTotalAlloc++;  //Can be optimised with malloc if we be sure that all data are memcpy
 	_oRc->aTab = (gzUInt8*)GZ_fAnyCalloc( _nLimit ); GZ_nArrayTotalAlloc++; //Malloc?
 
-	memset( &_oRc->aTab[_nSize], 0, _nLimit - _nSize);//Zero all other
-
+	memset( &_oRc->aTab[_nSize], 0, _nLimit - _nSize);//Zero all other 
 	
 	_oRc->nSize = _nSize;
 	_oRc->nType = gzDataType_Both_HEAP; //Heap type

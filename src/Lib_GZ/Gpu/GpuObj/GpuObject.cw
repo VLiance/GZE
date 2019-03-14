@@ -2,7 +2,7 @@ package  {
 
 	
 	import GZ.Gfx.Object;
-	import GZ.Gfx.Interface;
+	import GZ.Sys.Interface.Interface;
 	
 	public class GpuObject  {
 	

@@ -10,7 +10,7 @@ package  {
 	import GZ.Gfx.Buffer;
 	import GZ.Base.Math.Math;
 	import GZ.Gfx.Pixel;
-	import GZ.Gfx.Interface;
+	import GZ.Sys.Interface.Interface;
 	
 	//import GZ.image.Png;
 	
@@ -121,6 +121,12 @@ package  {
 				var _nResR:Int = oDstBuff.nBuffPLimR;
 				var _nResT:Int = oDstBuff.nBuffPLimT;
 				var _nResB:Int = oDstBuff.nBuffPLimB;
+				/*
+				Debug.fTrace("_nResL: "  + _nResL);
+				Debug.fTrace("_nResT: "  + _nResT);
+				Debug.fTrace("_nResR: "  + _nResR);
+				Debug.fTrace("_nResB: "  + _nResB);
+				*/
 				
 				//fCpuDraw(_nPosX, _nPosY, Math.fITronc(_nResL - _nCastPosX), Math.fITronc(_nResR - _nCastPosX), Math.fITronc(_nResT - _nCastPosY), Math.fITronc(_nResB - _nCastPosY) );
 				fCpuDraw( Math.nHPrec,  Math.nHPrec, _nResL, _nResR, _nResT, _nResB );

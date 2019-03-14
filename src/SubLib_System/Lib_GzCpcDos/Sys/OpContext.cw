@@ -1,10 +1,10 @@
 package  { 
 
 	import GZ.Gpu.Gpu;
-	import GZ.Gfx.Interface;
+	import GZ.Sys.Interface.Interface;
 	import GZ.Input.Key;
-	import GZ.Sys.Context;
-	import GZ.Sys.Window;
+	import GZ.Sys.Interface.Context;
+	import GZ.Sys.Interface.Window;
 	import GZ.Sys.System;
 
 	

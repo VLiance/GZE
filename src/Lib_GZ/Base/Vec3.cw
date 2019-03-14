@@ -2,7 +2,7 @@
 //The permisive licence allow to use GZE for free or commercial project (Apache License, Version 2.0).
 //For conditions of distribution and use, see copyright notice in Licence.txt, this license must be included with any distribution of the code.
 
-#skipContent
+
 package  {
 
 	import GZ.Base.Math.Math;
@@ -21,7 +21,7 @@ package  {
 			Vec2(_nX, _nY);
 			nZ = _nZ;
 		}
-		/*
+		
 		//! Cross product
 		public function  fCross(_oOther : Vec3):Void {
 			
@@ -40,7 +40,7 @@ package  {
 			nX = _nTempX;
 			nY = _nTempY;
 		}
-		*/
+		
 		public function fRotate(_oQuat : Quaternion ):Void{
 			// return pt + 2.0*cross(rot.xyz, cross(rot.xyz,pt) + rot.w*pt);
 			var _nTempX : Float = nX;

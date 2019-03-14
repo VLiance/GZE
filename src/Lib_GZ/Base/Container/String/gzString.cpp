@@ -258,12 +258,28 @@ gzStr8 gzStrC(const char* _Array, gzUInt _nCount){
 
 gzStr8 gzStrF(gzFloat64 _nFloat, gzUInt8 _nbCharAfter){
 
+
+	char buffer [24];//24 double / Single 16 --> Forced precision --> TODO
+	int n=sprintf(buffer, "%0.2f", _nFloat);
+	return 	gzU8_Sized(buffer, n);
+	
+//////////////////////////////////////
+////////// Not precise : (TODO) -->
+//////////////////////////////////////
     if(_nbCharAfter > 8){
         _nbCharAfter = 8;
     }
-    gzUInt _nVal = _nFloat;
+    gzUInt _nVal;
+	 gzStr _sSign;
+	if(_nFloat >=  0){
+		_nVal = _nFloat;
+	}else{
+		_sSign = gzU8("-");
+		_nVal = _nFloat * -1;
+	}
 
    // _nbCharAfter++; //Dot
+
     gzStr _sFloatInt = gzStrUI(_nVal);
    // gzUInt _nSize = _sFloat.fSize();
    // gzUInt _nNewSize = _nSize  + _nbCharAfter;
@@ -275,7 +291,13 @@ gzStr8 gzStrF(gzFloat64 _nFloat, gzUInt8 _nbCharAfter){
     gzStr8 _sAfterDot = gzStrUI(_nAfterDot);
 	
 	//_sAfterDot.fShinkBefore(1);
-	 return _sFloatInt + gzU8(".") + _sAfterDot.fSubStr(1, _nbCharAfter+1);
+	 return _sSign + _sFloatInt + gzU8(".") + _sAfterDot.fSubStr(1, _nbCharAfter+1);
+	  
+	  
+	  
+	  
+	  
+	  
 	  
     //New array with enough space
    // gzUInt8* _aNewArray = GZ_fSafeMalloc( (_nNewSize + 2 ), gzUInt8);

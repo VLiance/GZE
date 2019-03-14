@@ -5,13 +5,9 @@ package  {
 
 	import GZ.Sys.MainThreadPlatformMsg;
 	import GZ.Gpu.Gpu;
-	import GZ.Sys.Window;
-	import GZ.Gfx.Interface;
+	import GZ.Sys.Interface.Window;
+	import GZ.Sys.Interface.Interface;
 	import GZ.Input.Key;
-	import GZ.Sys.Message.ContextCreated;
-	import GZ.Sys.Message.ContextLink;
-	import GZ.Sys.Message.MousePos;
-	import GZ.Sys.Message.Blit;
 	import GZ.Base.Pt;
 	import GZ.Base.Dim;
 	import GZ.Base.Rect;
@@ -21,9 +17,13 @@ package  {
 	public overclass Context extends Window {
 		
 
-		
-		
+		public	var nHandleId : UIntX;
+		public	var nWinHandleId : UIntX;
 		//public atomic var gMainThreadGate : Gate<ThreadMsg>;
+		
+		
+		public	var nResFacX : Int = 1;
+		public	var nResFacY : Int = 1;
 		
 		
 	//	public static var qaContext : QArray<Context, 1>;
@@ -69,6 +69,8 @@ package  {
 			
 			
 			Debug.fTrace("Create new Window from Context!!");
+			//Debug.fTrace("vFrameW:" + vFrame.nWidth);
+			//Debug.fTrace("vFrameW:" + vFrame.nWidth);
 			
 			
 			//var _vPoint : Vec3 = new Vec3(3,2,5);
@@ -77,13 +79,16 @@ package  {
 
 			//var _vRect : Rect = new Rect(678.874321,123.45678,_nWinWidth, _nWinHeight);
 			var _vRect : Rect<Int> = new Rect<Int>(400,200,600, 600);
-
-			//Debug.fTrace("RECTx "  + vRect.nX);
+			Debug.fTrace("RECTx "  + _vRect.nX);
+			//Debug.fTrace("vFrameW: "  + vFrame.nWidth);
+			
+			
+			
 			Debug.fInfo("Context Name  "  + sName);
 	
 		
 			//MainThreadPlatformMsg.gMainThreadGate.fSend(null);
-			MainThreadPlatformMsg.gMainThreadGate.fRegisterContext(gContextGate, sName, _vRect, ePositioning.Center, this);
+			MainThreadPlatformMsg.gMainThreadGate.fRegisterContext(gContextGate, this);
 			
 			
 			
@@ -101,13 +106,25 @@ package  {
 			//Debug.fTrace("FrameSTart");
 			gContextGate.ExecuteAll();
 
-			
-		
 		}
 		
 		
-		 atomic function fContextRegistred():Void{
-		 	Debug.fTrace("!!!fContextRegistred!!!!");
+		 atomic function fContextRegistred(_nHandleId : UIntX, _nWinHandleId: UIntX):Void{
+		 	Debug.fTrace("!!!fContextRegistred!!!! " + _nHandleId + ":" + _nWinHandleId);
+			
+			nHandleId = _nHandleId;
+			nWinHandleId = _nWinHandleId;
+			
+			aDrawZone1D = fIniPixelDrawZone();
+			
+			<cpp>
+				aDrawZone2D = new gzInt*[nFrameHeight];
+				for (gzInt y = 0; y < nFrameHeight; ++y){
+					aDrawZone2D[y] =  (gzInt*)&aDrawZone1D[y * nFrameWidth];
+				}
+				aDrawZone2D[10][5] = 0xFFFFFFFF;
+			</cpp>	
+			bIniDrawZone = true;
 //			Debug.fTrace("RECTx "  + vRect.nX);
 			
 			
@@ -120,82 +137,25 @@ package  {
 
 		private function fReceiveMessage( _sMessage : String):Void; //Dummy for dInterProcessMessage
 		
-		
 
-		
-		
-		//Called in main thread
-		//static public function fAddLink(_oLink : ContextLink):Void{
-		 public function fAddLink(_oLink : ContextLink):Void{
-			//qaLinks.fPush(_oLink);
-		}
-		
-		//Called regulary from main thread
-		//static public function fManageMessage():Void{
-		public function fManageMessage():Void{
-	
-			/*
-				Debug.fTrace("---New fManageMessage--");
-				
-			var  _oMsg  : ThreadMsg = gMainThreadGate.fReceive();
-			if(_oMsg){
-				Debug.fTrace("---fReceived message!!!!!-- : " );
-				_oMsg.fRun();
-			}
-		
-			forEach(var _oLink : ContextLink in qaLinks){
-				_oLink.oHandle.fUpdate();
-				var _oMsg : MousePos = new MousePos();
-				//_oLink.fSendMsg(_oMsg);
-			}
-			Context.fManageMessageOp();*/
-		}
-		
-		 public function fManageMessageOp():Void {
-		//static public function fManageMessageOp():Void {
-		}
-	
-		
 		
 		public function fSendData(_nOtherWinId : UInt):Void;
 		  
         public function fIniPixelZone():Void;
         public function drawPixel():Void;
 		
-        public function fBlit():Void{
-			/*
-			
-			if(bIniDrawZone || bWinGPU){
-						
-			//Debug.fTrace1("fBlitDrawZone ");
-			
-			//	Debug.fTrace1("aDrawZone ");
-			//	aDrawZone2D[5][20] = 0xFFFFFFFF;
-			//	aDrawZone2D[5][7] = 0xFFFFFFFF;
-			
-				bBlitInProgress = true;
-				var _oMsgBlit : Blit = new Blit();
-				gHandleGate.fSend(_oMsgBlit);
-				
-				
-				
-				//Wait for answer
-				while(bBlitComplete == false){
-					System.fSleep(1);
-					var  _oMsg  : ThreadMsg = gContextGate.fReceive();
-					if(_oMsg){
-						_oMsg.fRun();
-					}
-				}
-				bBlitComplete = false;
-				Debug.fTrace1("Complete ");
-			}*/
-		}
+      
 		
+		public function fBlit():UIntX {
+			Debug.fError("fBlit: not implemented, unable to draw");
+			return 0;
+		}
+
 		
         public function fKeyIsDown(_nKeyVal : Int):Int;
 		
         public function fClear():Void{
+
 			if(bIniDrawZone){
 				<cpp>
 				int _nLength = nFrameHeight * nFrameWidth;
@@ -229,36 +189,20 @@ package  {
 		
 		public function  fGetKey(_oKey : Key):Void;
 		
+
 		
-		public function fCompleteContext(_oInfo : ContextCreated) :Void {
-		/*
-			gHandleGate = _oInfo.gContextHandle;
-			
-			//aDrawZone2D = _oInfo.nDrawZoneAdr;
-			<cpp>
-			/*
-			aDrawZone1D = (gzInt32*)(_oInfo->nDrawZoneAdr);
-			//aDrawZone1D = _oInfo.nDrawZoneAdr; //Erroooor auto add "&" for GPU Handling XD 
-			*/
-			</cpp>
-			/*
-			if(_oInfo.bGpuDraw == false){
-				if( aDrawZone1D == 0){
-					Debug.fError("Error, no valid draw zone (pixel array of 1D) returned by fIniPixelDrawZone");
-				}else{
-					bIniDrawZone = true;
-					//Debug.fTrace1("fSetaDrawZone ");*/
-					<cpp>
-					/*
-					aDrawZone2D = new gzInt*[nFrameHeight];
-					for (gzInt y = 0; y < nFrameHeight; ++y){
-						aDrawZone2D[y] =  (gzInt*)&aDrawZone1D[y * nFrameWidth];
-					}*/
-					</cpp>/*
-				}
-			}*/
+		public function fIniPixelDrawZone(): CArray<Int32>{
+			Debug.fError("fIniPixelDrawZone: not implemented, it require an initialised 1D pixel array");
 		}
+			 
+	//	public function  fGetDrawZone():CArray<Int32, 2>;
 		
+	
+		public function fGpuBlit():UIntX {
+			oGpu.fBlit();
+			//Debug.fError("fGpuBlit: not implemented, unable to draw");
+			return 0;
+		}
 		
 		
 		public function fBlitComplete(_nDrawZoneAdr : UIntX = 0):Void {

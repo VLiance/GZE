@@ -1,9 +1,9 @@
 package  { 
 	
 	
-	import GZ.Sys.Window;
+	import GZ.Sys.Interface.Window;
 
-	import GZ.Gfx.Interface;
+	import GZ.Sys.Interface.Interface;
 	
 
  

@@ -5,7 +5,7 @@
 package  { 
 	
 	import GZ.Gfx.Object;
-	import GZ.Sys.Window;
+	import GZ.Sys.Interface.Window;
 	import GZ.Gfx.Root;
 	import GZ.Gfx.Clip.Rectangle;
 	

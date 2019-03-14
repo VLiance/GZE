@@ -7,8 +7,8 @@ package  {
 	import GZ.Gfx.Root;
 	import GZ.Gfx.GlobalData;
 	import GZ.Sys.FrameRate;
-	import GZ.Sys.Context;
-	import GZ.Sys.Window;
+	import GZ.Sys.Interface.Context;
+	import GZ.Sys.Interface.Window;
 	import GZ.Base.Math.Math;
 	import GZ.Base.Thread.Thread;
 	import GZ.Gfx.Clip.Rectangle;
@@ -128,7 +128,7 @@ package  {
 
 
 		override public function fNewFrame():Void {
-				//	Debug.fTrace("fNewFrame");
+					//Debug.fTrace("fNewFrame");
 //	Debug.fTrace1("---Update1--");
 			oContext.fFrameStart(); //Or checkMsg?
 			
@@ -143,7 +143,7 @@ package  {
 				oContext.fGetMousePosition();
 				oContext.fGetKey(oKey);
 				oContext.fClear(); 
-				fUpdateParentToChild();  
+				fUpdateParentToChild();
 				fUpdateChild(); 
 				//fUpdateChildToParent(); //Is U sless??
 				     

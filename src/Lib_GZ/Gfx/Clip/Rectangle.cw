@@ -4,7 +4,7 @@
 
 package  {
 
-	import GZ.Sys.Window;
+	import GZ.Sys.Interface.Window;
 	import GZ.Gfx.Object;
 	import GZ.Gfx.Shape;
 	import GZ.Gfx.Root;

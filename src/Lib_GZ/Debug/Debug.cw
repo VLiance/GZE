@@ -17,34 +17,32 @@ package {
 			Debug.oInst = this;
 		}
 		*/
-	
-	
-		private function fConsole(_sValue:String):Void { //Pure function Cannot be overplaced
-		
+
+		pure function fConsole(_sValue:String):Void { //Pure function Cannot be overplaced
 			<cpp>
+				printf("\n");
 				_sValue.fPrint();
-			// printf("c:%s\n", (char*)_sValue.fToChar());
-		   //  printf("%s\n",_sValue.fToChar());
 			</cpp>
 		}
 		
+
 		 function fTrace(_sValue:String):Void {
-			fConsole(_sValue);
+			Debug.fConsole(_sValue);
 		}
 		 function fPass(_sValue:String):Void {
-			fConsole(_sValue);
+			Debug.fConsole(_sValue);
 		}
 		 function fWarning(_sValue:String):Void {
-			fConsole(_sValue);
+			Debug.fConsole(_sValue);
 		}
 		 function fError(_sValue:String):Void {
-			fConsole(_sValue);
+			Debug.fConsole(_sValue);
 		}
 		 function fFatal(_sValue:String):Void {
-			fConsole(_sValue);
+			Debug.fConsole(_sValue);
 		}
 		 function fInfo(_sValue:String):Void {
-			fConsole(_sValue);
+			Debug.fConsole(_sValue);
 		}
 		
 		

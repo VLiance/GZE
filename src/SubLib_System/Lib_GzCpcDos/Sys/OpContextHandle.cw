@@ -4,7 +4,7 @@ package  {
 	import GZ.Sys.System;
 	import GZ.Sys.Message.ContextLink;
 	import GzCpcDos.Sys.OpContext;
-	import GZ.Sys.ContextHandle;
+	import GZ.Sys.Interface.ContextHandle;
 	
 	<cpp_h>
 		#include "Lib_GZ/SysUtils/CpcDosHeader.h"
@@ -45,6 +45,13 @@ package  {
 		}
 		override public function fIniPixelDrawZone(): CArray<Int32>{
 			Debug.fTrace1("Please Insert IniPixelDrawZone code here");
+			
+			<cpp>
+			/*
+			aPixels = new gzInt[nFrameWidth * nFrameHeight];
+			return aPixels;
+			*/
+			</cpp>
 			
 			<cpp>
 			// Retourner le pointeur du contexte depuis Cpcdos

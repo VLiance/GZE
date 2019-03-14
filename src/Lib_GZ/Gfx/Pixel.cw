@@ -27,6 +27,9 @@ package  {
 
 		public pure function fCopyPixelToDest(_aDest : CArray<Int32, 2>, _nPixelClip : UInt, _nX : Int, _nY : Int ):Void  {
 
+		
+		//_aDest[_nY][_nX] = 0xFFFFFF
+		
 			var _nPixelFrame : UInt = 0;
 			//var _nPixelClip : UInt = 0;
 			var _nFrameAlpha : UInt = 0;
@@ -112,7 +115,12 @@ package  {
 
 
 		public pure function fGetSmoothPixel(_aSource : CArray<Int32, 2>, _nLx : UInt32, _nTy : UInt32, _aDest : CArray<Int32, 2>,  _nDestX : UInt32, _nDestY : UInt32, _nAlpha : UInt32, _nPcBrRed : UInt32,  _nPcBrGreen: UInt32, _nPcBrBlue: UInt32, _nPcRevRed : UInt32, _nPcRevBlue: UInt32, _nPcRevGreen: UInt32, _nOfRevRed:UInt32, _nOfRevBlue:UInt32, _nOfRevGreen:UInt32  ):Void  {
-
+				//Debug.fConsole("_nDestY " + _nDestY);
+				//Debug.fConsole("_nDestX " + _nDestX);
+				_aDest[_nDestY][_nDestX] = 0x48FF00FF;
+				return;
+				
+				
 			var _nPixelFrame : UInt32 = _aDest[_nDestY][_nDestX];
 			if(_nPixelFrame & 0xFF000000 != 0xFF000000){ //Not Already have full color pixel
 
@@ -205,10 +213,44 @@ package  {
 		}
 
 
-
-	public pure function fDrawSegTri(_nDirX : Int,  _oPtT :  Pt,  _oPtL :  Pt, _rPtST :  Mapped<uPoint3D>,  _rPtSL :  Mapped<uPoint3D>, _oPtSegT :  Pt, _oPtSegL  : Pt,  _rPtSegST:  Mapped<uPoint3D>, _rPtSegSL :  Mapped<uPoint3D>, _aDest : CArray<Int32, 2>, _aSource : CArray<Int32, 2>, _nPosX : Int,  _nPosY : Int, _nX_Start : Int, _nX_End : Int, _nY_Start : Int, _nY_End : Int, _nLimW : UInt,  _nLimH : UInt, _nLast :Int, _nAlpha : UInt,  _nPcBrRed: UInt, _nPcBrGreen : UInt, _nPcBrBlue : UInt, _nPcRevRed : UInt, _nPcRevGreen: UInt , _nPcRevBlue: UInt, _nOfRevRed:UInt, _nOfRevBlue:UInt, _nOfRevGreen:UInt, _nFirst:Int, _bNothingRight:Bool = false):Void {
-			//Debug.fConsole("---fDrawSegTri--");
 	
+	public pure function fDrawSegTri(_nDirX : Int,  _oPtT :  Pt,  _oPtL :  Pt, _rPtST :  Mapped<uPoint3D>,  _rPtSL :  Mapped<uPoint3D>, _oPtSegT :  Pt, _oPtSegL  : Pt,  _rPtSegST:  Mapped<uPoint3D>, _rPtSegSL :  Mapped<uPoint3D>, _aDest : CArray<Int32, 2>, _aSource : CArray<Int32, 2>, _nPosX : Int,  _nPosY : Int, _nX_Start : Int, _nX_End : Int, _nY_Start : Int, _nY_End : Int, _nLimW : UInt,  _nLimH : UInt, _nLast :Int, _nAlpha : UInt,  _nPcBrRed: UInt, _nPcBrGreen : UInt, _nPcBrBlue : UInt, _nPcRevRed : UInt, _nPcRevGreen: UInt , _nPcRevBlue: UInt, _nOfRevRed:UInt, _nOfRevBlue:UInt, _nOfRevGreen:UInt, _nFirst:Int, _bNothingRight:Bool = false):Void {
+
+
+
+	
+			if(_oPtSegT.nY + 1 > _oPtSegL.nY){ //Ignore segment triangle < 1px height
+				return;
+			}
+			
+			
+			
+			
+				/*
+		Debug.fConsole(" Math.nSP " +  (1 << Math.nSP) );
+		Debug.fConsole("----------------------------");
+		Debug.fConsole("--_oPtT: " +  _oPtT.nX + ", " +_oPtT.nY );
+		Debug.fConsole("--_oPtL: " +  _oPtL.nX + ", " +_oPtL.nY );
+			
+		Debug.fConsole("--_oPtSegT: " +  _oPtSegT.nX + ", " +_oPtSegT.nY );
+		Debug.fConsole("--_oPtSegL: " +  _oPtSegL.nX + ", " +_oPtSegL.nY );
+		Debug.fConsole("---------------------");
+		//Debug.fConsole("_oPtM: " +  _oPtM.nX + ", " +_oPtM.nY );
+
+	
+			Debug.fConsole("---fDrawSegTri--");
+				Debug.fConsole("--_oPtSegT: " +  _oPtSegT.nX + ", " +_oPtSegT.nY );
+				Debug.fConsole("--_oPtSegL: " +  _oPtSegT.nX + ", " +_oPtSegL.nY );
+				Debug.fConsole("--_nDirX: " + _nDirX );
+			*/
+			
+	
+	/*
+			if(Math.fAbs() ){
+				
+			}
+	*/
+	//Debug.fTrace("---fDrawSegTri--");
 			var _nFloatPrec : Float =  Math.nPrec;
 			//var _nDirX : Int = _oTri.nDrawDir;
 
@@ -234,6 +276,8 @@ package  {
 			var _nSlopeLx : Int    =  _oPtL.nX * Math.nPrec;
 
 
+			
+			
 			var _nSlopeSTx: Float   =  (_rPtST.nX * 256.0 + 64.0) / _oPtT.nZ;
 			var _nSlopeSTy : Float  =   (_rPtST.nY * 256.0 - 64.0) /_oPtT.nZ;
 			var _nSlopeSTz: Float   = 1/ _oPtT.nZ;
@@ -247,7 +291,14 @@ package  {
 			var _nIPosY : Int =  _nPosY - Math.nPrec;
 			//var _nIPosX : Int =  _nPosX - Math.nPrec + GZ::Math::nHPrec/2;
 			//var _nIPosY : Int =  _nPosY - Math.nPrec - GZ::Math::nHPrec/2;
-
+			/*
+			<cpp>
+			printf("\n_nPosX%d", _nIPosX);
+			printf("\n_nPosY %d", _nIPosY);
+	
+			</cpp>
+		*/
+		
 			var _nSLx : Float;  //Source from right to left
 			var _nSLy : Float;  //Source from right to left
 			var _nSLz : Float;  //Source from right to left
@@ -288,12 +339,41 @@ package  {
 			var _nLimXTOffset : Int = (Math.nPrec + Math.nHPrec) - (_nIPosX + Math.nHPrec - _nIntOffX ) - Math.nPrec;
 
 			//var _nFHeight : Int =  (_nFBy - _nFTy); //Int is important no *256
-			var _nFHeight : Int =  (_nFBy - _nFTy) + 1; //+1 Seem to remove bug when value are too fit to check futer
-			var _nFHeightSlope : Int =  (_nSlopeLy  - _nSlopeTy ) + 1; //+1 Seem to remove bug when value are too fit to check futer
+			var _nFHeight : Int =  (_nFBy - _nFTy)  + (1<< Math.nDivPrec); //+1 Seem to remove bug when value are too fit to check futer
+			var _nFHeightSlope : Int =  (_nSlopeLy  - _nSlopeTy ) + (1<< Math.nDivPrec); //+1 Seem to remove bug when value are too fit to check futer
+
+			//var _nFHeight : Int =  (_nFBy - _nFTy) + 1; //+1 Seem to remove bug when value are too fit to check futer
+			//var _nFHeightSlope : Int =  (_nSlopeLy  - _nSlopeTy ) + 1; //+1 Seem to remove bug when value are too fit to check futer
 
 			var _nDif_FLx:Int = (tLS(_nFL2x - _nFL1x) << Math.nDivPrec) / _nFHeight;
-			var _nDif_FRx:Int = (tLS(_nSlopeLx - _nSlopeTx) << Math.nDivPrec) / _nFHeightSlope;
+			var _nDif_FRx:Int = ((tLS(_nSlopeLx - _nSlopeTx)) << Math.nDivPrec) / _nFHeightSlope;
 
+				/*
+				Debug.fConsole("_nDiff_SlopeLy:   " + (_nSlopeLx - _nSlopeTx) );
+				<cpp>
+					printf("\ncpp_nSlopeLy: %d ", _nSlopeLx);
+					printf("\ncpp_nSlopeTx: %d ", _nSlopeTx);
+					printf("\ncpp_nFHeightSlope: %d ", _nFHeightSlope);
+					printf("\ncpp__nDif_FRx: %d ", _nDif_FRx);
+				</cpp>
+				
+				
+				Debug.fConsole("_nSlopeLy:   " + _nSlopeLy );
+				Debug.fConsole("_nSlopeTy:   " + _nSlopeTy );
+								
+				Debug.fConsole("_nFHeightSlopeOri:   " + _nFHeightSlope );
+				*/
+				var _nTestS2 : Int = _nFHeightSlope >> Math.nSP;
+				
+				
+				//Debug.fConsole("_nFHeightSlope:   " + _nTestS2 );
+				
+				var _nTest2 : Int = _nDif_FRx >> Math.nSP;
+				
+				//Debug.fConsole("_nDif_FRx:   " + _nTest2 );
+				//Debug.fConsole("_nDif_FRxOri:   " + _nDif_FRx );
+				
+			
 
 			var _nFHeightFloat : Float = _nFHeight / _nFloatPrec;
 
@@ -355,10 +435,18 @@ package  {
 
 			_nLimW -= 128;
 			_nLimH -= 128;
-
-
+/*
+			<cpp>
+			printf("\nASSS %d", _nToY);
+			printf("\nA_nRealY %d", _nRealY);
+			</cpp>
+			*/
+			
 			while (_nRealY < _nToY) {
-
+			
+	
+				//_nTest = _nToY >> Math.nSP;
+				////Debug.fConsole("_nTest:   " + _nTest );
 				////////////////////////////////////////////////
 
 				_nSLx = _nSL1x + (_nYFloat * _nDif_SLx); //X pos from source
@@ -372,7 +460,14 @@ package  {
 
 				_nXStart =  _nFL1x + (tLS(y) * _nDif_FLx) >> Math.nDivPrec;
 				_nXEnd = 	_nSlopeTx + ((tLS((y +  (_nFTy -  _nSlopeTy )  ) ) * _nDif_FRx) >> Math.nDivPrec);
-
+/*
+				var _nTest : Int = _nXStart >> Math.nSP;
+				Debug.fConsole("_nXStart:   " + _nTest );
+				var _nTest3 : Int = _nXEnd >> Math.nSP;
+				Debug.fConsole("_nXEnd:   " + _nTest3 );
+		*/		
+				
+				
 
 				if (_nDirX == 1) {
 					_nXDist =  Math.fMax(_nXEnd -  _nXStart, 1); //Minim of 1, remove bug of 0 div -> not test with 1 pixel
@@ -383,11 +478,22 @@ package  {
 					 x = Math.fMin( _nDirBegX, _nX_End  -  _nXStart  + _nLimXTOffset );
 					_nXLimit = Math.fMax(_nXDist + _nDirEndX,   _nX_Start - _nXStart + _nLimXTOffset - Math.nPrec);
 				}
+				
+		
+
+				
+				
+				
+				
 				var _nXDistFloat : Float = _nXDist /_nFloatPrec;
 				var _nDif_SLRx:Float = ((_nSRx - _nSLx) ) / _nXDistFloat;
 				var _nDif_SLRy:Float = ((_nSRy - _nSLy) ) / _nXDistFloat;
 				var _nDif_SLRz:Float = ((_nSRz - _nSLz) ) / _nXDistFloat;
 
+				
+				//Debug.fConsole("_nXDistFloat:   " + _nXDistFloat );	
+			
+				
 
 				var _nXFrac :Int =  Math.fIFrac(_nIPosX +  _nXStart+ x);
 				//var _nXEndFrac :Int =  Math.fIFrac(_nIPosX +  _nXEnd+ x);
@@ -398,9 +504,24 @@ package  {
 
 				var _nXFloat : Float = x / _nFloatPrec;
 				//_nXLimit += _nXEndFrac;
+				
+				
+			//var _nTest  : Int = (_nX + x ) >> Math.nSP;
+			//Debug.fConsole("--_nXLimit:   " + (_nXLimit >> Math.nPrec ) );	
+	//		Debug.fConsole("_nIPosY:   " + _nIPosY );	
+		
+				/*
+			<cpp>
+			printf("\n__nXLimit %d", (_nXLimit >> 1024));
+			printf("\n__nDirX %d", _nDirX);
+			printf("\nx %d", x);
+			</cpp>
+		*/
 				_nXLimit = Math.fITronc(_nXLimit - x ) + x;
 				if (_nDirX == 1 && x < _nXLimit || _nDirX == -1 && x > _nXLimit) {//Remove bug
-
+				
+		
+	
 					for (; x != _nXLimit; x += _nXAdd) {
 
 						var _n1OnZ : Float = _nSLz + (_nXFloat * _nDif_SLRz );
@@ -425,7 +546,12 @@ package  {
 						inline Pixel.fGetSmoothPixel(_aSource, _nGetX , _nGetY , _aDest, _nRealXPix,  _nRealYPix , _nAlpha, _nPcBrRed,_nPcBrGreen , _nPcBrBlue , _nPcRevRed, _nPcRevGreen, _nPcRevBlue, _nOfRevRed, _nOfRevBlue, _nOfRevGreen);
 
 						//Pixel.fCopyPixelToDest(_aDest,_aSource[_nGetY/256][_nGetX/256], (_nX+x)/1024, _nRealY/1024);
-
+/*
+						<cpp>
+						printf("\nASSS");
+						</cpp>
+						*/
+						//Pixel. (_aDest,0xFFFFFF00, (_nX+x)/1024, _nRealY/1024);
 						//Pixel.fCopyPixelToDest(_aDest,0xFF000000, (_nX+x)/1024, _nRealY/1024);
 
 
