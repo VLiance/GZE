@@ -14,8 +14,8 @@
 
 #ifdef GZ_tDebug
    // #define GzAssert(expr)   if( !(expr )){ Lib_GZ::fAssertError(__LINE__); }
-    #define GzAssert(expr, msg)   if( !(expr )){ Lib_GZ::fAssertError(gzU8(msg),__FILE__, __func__ , __LINE__); }
-    #define GzUnAssert(expr, msg)   if( (expr )){ Lib_GZ::fAssertError(gzU8(msg),__FILE__, __func__ , __LINE__); }
+    #define GzAssert(expr, msg)   if( !(expr )){ Lib_GZ::fAssertError((msg),__FILE__, __func__ , __LINE__); }
+    #define GzUnAssert(expr, msg)   if( (expr )){ Lib_GZ::fAssertError((msg),__FILE__, __func__ , __LINE__); }
 			
 			/*
     #define GZ_fSpAssertMsg(expr, msg) assert((expr)&&(msg))\
@@ -33,8 +33,8 @@ class gzStr;
 namespace Lib_GZ{
 
    // void fAssertError(gzUInt _nLine);
-    void fAssertError(_gzStr8 _sMessage, const char* _sFile, const char* _sFunc, gzUInt _nLine);
-    void fConsole(_gzStr8 _sValue);
+    void fAssertError(const char* _sMessage, const char* _sFile, const char* _sFunc, gzUInt _nLine);
+    void fConsole(const char* _sValue);
 
 }
 #endif

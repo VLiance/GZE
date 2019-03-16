@@ -9,6 +9,7 @@
 //- If you want to see GZE evolve please help us with a donation.
 
 
+
 #define ASS 1 
 	
 	#undef gzp_Additional_fAssign2
@@ -27,7 +28,15 @@
 	#define gzp_SearchIndex(Ex) (Ex << gzp_Stride)
 	//#define gzp_SearchIndex ;
 	//#define gzp_DataRelSize (gzp_DataSize >>  (sizeof(T) >> 1) )
-	#define gzp_DataRelSize (gzp_DataSize >>  (gzp_nByte >> 1) )
+	//#define gzp_DataRelSize (gzp_DataSize >>  (gzp_nByte >> 1) )
+	
+	#undef  gzp_DataRelSize
+	#define gzp_DataRelSize(_nFullSize) ((_nFullSize) >>  (gzp_nByte >> 1) )
+	
+	//#undef  gzp_DataSizeFull
+	//#define gzp_DataSizeFull(_nRelSize) ((_nRelSize) <<  (gzp_nByte >> 1) )
+	#undef GzS 
+	#define GzS (gzp_nByte)
 
 //	#define gzp_Additional_fAssign2 gzDtThis->nPos = 0;gzDtThis->nIndex = 0;
 	/*
@@ -37,7 +46,8 @@
 	*/
 	
 	#include "DataCowBase.h"
-
+	#include "Lib_GZ/Base/Container/Array/ArrayContainerCommun.h"
+	
 	
 	
 	#define gzp_NewAssing(_Func, _nMaxPossibleSize, _nStride)\
@@ -155,6 +165,20 @@
 	#define GZ_WStr(_sString) ((WCHAR*)_sString.fToUTF16().fFinalize().fGetArray())
 	#define GZ_CStr(_sString) ((char*)_sString.fToUTF8().fFinalize().fGetArray())
 	
+	
+	
+	inline gzArray<gzp_DataType> fSplit(const gzp_DataType& _sSplit){
+	   gzArray<gzp_DataType> _aNewArrray;
+		gzResult_Search _rFind(false, 0,0,0);
+		
+	   while( (_rFind = fDataFind(_sSplit, _rFind.nValEnd, GzS)) ){
+			_aNewArrray.fPush( fSubStr( _rFind.nFrom* GzS, _rFind.nVal* GzS) );
+	   }
+	   _aNewArrray.fPush( fSubStr( _rFind.nFrom* GzS, _rFind.nVal* GzS) );
+		
+		return 	_aNewArrray;
+	}
+
 
 	/*
 	..........................................

@@ -16,7 +16,7 @@
 #include "Lib_GZ/Base/Container/Array/DataArray.h"
 #include "Lib_GZ/Base/Container/String/Utf8.h"
 #include "Lib_GZ/Base/Result/gzResult.h"
-
+#include "Lib_GZ/Base/Container/Array/gzArray.h"
 
 #define gzp_nS  *_nS
 

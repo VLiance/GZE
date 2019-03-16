@@ -277,22 +277,23 @@
 	 	printf("%.*s", gzp_DataSize, gzp_DataArray);
 	}
 	
-
+/*
 	/////////////////////////////////////////////////////////////////////////////////////
-	
-	 gzResult_Int fFind(const gzp_DataType& _pFind) const {
+	 gzResult_Search fDataFind(const gzp_DataType& _pFind, gzUIntX _nFromIndex = 0, gzUInt8 _nStride = 1 ) const {
+		_nFromIndex = _nFromIndex * _nStride;
+		
 	 	//printf("%.*s", gzp_DataSize, gzp_DataArray);
-		if(_pFind.gzp_DataSize == 0){return gzResult_Int();}
-		gzInt _nTo =  gzp_DataSize -  (_pFind.gzp_DataSize - 1);
-		for(gzInt i = 0; i < _nTo; i++){
+		if(_pFind.gzp_DataSize == 0){return gzResult_Search(false, ( gzp_DataSize)/_nStride, (_nFromIndex)/_nStride,0);}
+		gzUIntX _nTo =  gzp_DataSize -  (_pFind.gzp_DataSize - 1);
+		for(gzUIntX i = _nFromIndex; i < _nTo; i++){
 			if(gzp_DataArray[i] == _pFind.gzp_DataArray[0]){
 				if( fSubFind(&gzp_DataArray[i], &_pFind.gzp_DataArray[0],  _pFind.gzp_DataSize )){
-					return gzResult_Int(i);
+					return gzResult_Search(true, (i)/_nStride, ( _nFromIndex)/_nStride,  (i + _pFind.gzp_DataSize)/_nStride );
 				}
 			}
 		}
-		return gzResult_Int();
-	}
+		return gzResult_Search(false, (gzp_DataSize)/_nStride, (_nFromIndex)/_nStride,0);
+	}*/
 	
 	
 	

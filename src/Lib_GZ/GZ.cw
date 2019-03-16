@@ -15,6 +15,8 @@ package  {
 	include GZ.Base.Class;
 	include GZ.Base.Result.Result;
 	include GZ.Base.Result.Result_Int;
+	include GZ.Base.Result.Result_Index;
+	include GZ.Base.Result.Result_Search;
 	include GZ.Base.Thread.ThreadMsg;
 
 	import GZ.Base.Math.Math;

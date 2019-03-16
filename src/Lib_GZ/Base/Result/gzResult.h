@@ -14,10 +14,13 @@
 
 #include "Lib_GZ/Base/GzTypes.h"
 #include "Lib_GZ/Base/Result/Result_Int.h"
+#include "Lib_GZ/Base/Result/Result_Search.h"
 
 //namespace Lib_GZ{namespace Base{namespace Result{class cResult_Int;}}}
 
 typedef  Lib_GZ::Base::Result::cResult_Int gzResult_Int; 
+typedef  Lib_GZ::Base::Result::cResult_Index gzResult_Index; 
+typedef  Lib_GZ::Base::Result::cResult_Search gzResult_Search; 
 /*
 struct gzResults : gzAny{
 	gzBool bValid;

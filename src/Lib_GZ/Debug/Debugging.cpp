@@ -34,9 +34,10 @@ namespace Lib_GZ{
 	}
 
 
-    void fConsole(_gzStr8 _sValue){
+    void fConsole(const char* _sValue){
         printf("c:");
-        _sValue.fPrint();
+        //_sValue.fPrint();
+		printf("%s",_sValue );
         printf("\n");
     }
 
@@ -48,8 +49,8 @@ namespace Lib_GZ{
 		GZ_Crash();
     }
 */
-    void fAssertError(_gzStr8 _sMessage, const char* _sFile, const char* _sFunc, gzUInt _nLine){
-		(gzU8("\nE:Assert[") +  gzStrC(_sFile) +  gzU8(":") +  gzStrC(_sFunc) + gzU8(":") + gzStrUI(_nLine) + gzU8("]: ") + 	_sMessage + gzU8(" (place breakpoint here to get the call stack -> Lib_GZ/Debugging.cpp)") ).fPrint() ;
+    void fAssertError(const char* _sMessage, const char* _sFile, const char* _sFunc, gzUInt _nLine){
+		(gzU8("\nE:Assert[") +  gzStrC(_sFile) +  gzU8(":") +  gzStrC(_sFunc) + gzU8(":") + gzStrUI(_nLine) + gzU8("]: ") + 	gzU8(_sMessage) + gzU8(" (place breakpoint here to get the call stack -> Lib_GZ/Debugging.cpp)") ).fPrint() ;
 		GZ_Crash();
     }
 }

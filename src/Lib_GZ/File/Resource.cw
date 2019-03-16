@@ -52,9 +52,20 @@ package  {
 			
 			Debug.fTrace("AAAAAA Path string: " + _sPath);
 			
-			var _sMyString : String = "5:/**01234567";
-			var _nTest : Int = _sMyString.fFind(":/**");
+			var _sMyString : String = "55:/**01234567";
+			var _nTest : Int = _sMyString.fFind(":/**",3);
 			Debug.fTrace("Find: " + _nTest );
+			
+			
+			var _oResult : Result_Search = _sMyString.fFind(":/**");	
+			
+			Debug.fTrace("Val: " +  _oResult.nVal );
+			
+			var _aArray: Array<String> = _sMyString.fSplit(":/*");
+			Debug.fTrace("TestArray[0] = "  + _aArray[0]  );
+			Debug.fTrace("TestArray[1] = "  + _aArray[1]  );
+			Debug.fTrace("TestArray[2] = "  + _aArray[2]  );
+				
 			if(_sMyString.fFind(":/*")){
 				Debug.fTrace("Pass");
 			}else{

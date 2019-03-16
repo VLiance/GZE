@@ -42,11 +42,25 @@
 
 
 	#undef gzp_Data
+	
+	/////////////////////
 	#define gzp_Data m.aData
-
 	#define gzp_DataSize m.nSubSize
 	#define gzp_DataArray m.aSubTab
 	#define gzp_DataLimit  m.nSubLimit
+	////////////////////////////////
+	#undef gzp_Type
+	#define gzp_Type gzp_DataType
+	#undef gzp_Data_
+	#define gzp_Data_ m.aData
+	#undef gzp_Size
+	#define gzp_Size m.nSubSize
+	#undef gzp_Array
+	#define gzp_Array m.aSubTab
+	#undef gzp_Limit
+	#define gzp_Limit  m.nSubLimit
+	/////////////////////////////////
+	
 	#define gzp_DataTypeOnly(_Exp)
 	#define gzp_RIni(Exp) gzp_DataType _oNew(gzDtThis);_oNew.Exp;return _oNew;
 	//#define gzp_RIni(Exp) gzp_DataType _oNew(gzDtThis);_oNew.Exp;return _oNew;
