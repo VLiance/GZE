@@ -67,7 +67,8 @@ public:
 	#define gzp_RelSizeO gzp_DataSize / gzp_Stride
 	
 	#define gzp_WRITE_OPERATION_(ex) gzp_TestLock
-	#define gzp_Stride (sizeof(1))
+	//#define gzp_Stride (sizeof(T))
+	#define gzp_Stride (1)
 	#define gzp_SearchIndex(ex) (ex * gzp_Stride)
 	
 	
@@ -475,13 +476,18 @@ class gzArray {
 		m.fSetArrayAndSize( (_nIndex+1) * (sizeof(T))  );
 		return  *((T*)(&m.aData->aTab[_nIndex * GzS]));
 	}
+	
+	
+	
+	
 	inline const T&  fPush(const T& _oObj) const {
 		(*this)[gzp_length] = _oObj;
 		return _oObj;
 	}
+	/*
 	inline gzUIntX GnSize() const {
 		return gzp_length;
-	}
+	}*/
 
 	
 

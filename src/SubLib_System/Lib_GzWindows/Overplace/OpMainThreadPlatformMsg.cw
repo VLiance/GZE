@@ -107,8 +107,8 @@ package  {
 				wClass.hCursor = LoadCursor( GZ_Null, IDC_ARROW );
 						
 
-				wClass.hIcon = LoadIcon(hInstance,   GZ_WStr(_sIconName) );
-				wClass.hIconSm = LoadIcon(hInstance, GZ_WStr(_sIconName) );
+				wClass.hIcon = LoadIcon(hInstance,   _sIconName.fToWStr().get() );
+				wClass.hIconSm = LoadIcon(hInstance, _sIconName.fToWStr().get() );
 
 				WCHAR _buffer[10];
 				static gzUInt _nUniqueId = 0;
@@ -188,7 +188,7 @@ package  {
 				hWnd = CreateWindowEx(
 					_nExStyleFlag | WS_EX_NOPARENTNOTIFY,
 					WinClassName,
-					GZ_WStr(_sName),
+					_sName.fToWStr().get(),
 		
 					_hBorderFlag
 					| WS_CLIPCHILDREN | WS_CLIPSIBLINGS    // Required for OpenGL

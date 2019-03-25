@@ -49,7 +49,9 @@
 typedef  gzStr8 gzStr;
 //extern gzStr8 gzNullStr;
 //extern static const gzDataRC gzNullStr_Data;
-gzConst_U8(gzNullStr_Data, "");
+gzConst_U8(gzNullStr_Data_8, "");
+gzConst_U16(gzNullStr_Data_16, "");
+gzConst_U32(gzNullStr_Data_32, "");
 
 gzConst_U8(gzZeroStrChar_8, "\0");
 gzConst_U16(gzZeroStrChar_16, "\0");
@@ -74,26 +76,10 @@ gzConst_U32(gzZeroStrChar_32, "\0");
 		#undef gzp_DataType
 		#define gzp_DataType gzStr8
 		
+		#undef gzp_NullStr 
+		#define gzp_NullStr gzNullStr_Data_8
 		
-		gzp_DataType(){ //To test
-		
-		//TODO optimise
-			  	m.aData = 0;
-			 	m.aSubTab =	0;
-				m.nSubSize =	0;
-				m.nSubLimit =	0;
-				
-		 //   static gzDataRC _gzNullStr_dat = GzToDataRC_const(gzConcat(gzS8 ,""));  
-			//static gzStr8 _gzNullStr(&_gzNullStr_dat); 
-			gzStr8 _gzNullStr(gzNullStr_Data);
-			
-			//TODO TODO TEST gzNullStr
-		//	printf("\n4\n");
-			//*this = gzNullStr;
-			*this = _gzNullStr;
-	
-		}
-		
+
 		/*
 		 gzp_DataType(const _gzeStr8& _sReturn){
 			m = ((gzStr8*)(&_sReturn))->m;
@@ -160,6 +146,8 @@ gzConst_U32(gzZeroStrChar_32, "\0");
 	public:
 		#undef gzp_DataType
 		#define gzp_DataType gzStr16
+		#undef gzp_NullStr 
+		#define gzp_NullStr gzNullStr_Data_16
 		/*
 		 gzp_DataType(const _gzeStr16& _sReturn){
 			m = ((gzStr16*)(&_sReturn))->m;
@@ -218,6 +206,8 @@ gzConst_U32(gzZeroStrChar_32, "\0");
 	public:
 		#undef gzp_DataType
 		#define gzp_DataType gzStr32
+		#undef gzp_NullStr 
+		#define gzp_NullStr gzNullStr_Data_32
 		/*
 		 gzp_DataType(const _gzeStr32& _sReturn){
 			m = ((gzStr32*)(&_sReturn))->m;

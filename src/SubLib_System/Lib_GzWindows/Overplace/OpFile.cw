@@ -1,6 +1,4 @@
 ﻿
-#skipContent
-
 package  { 
 
 	import GZ.Sys.File;
@@ -14,53 +12,97 @@ package  {
 	
 
 	
+	<cpp_namespace>
+	gzStr GetMainModulePath(){
+		TCHAR* buf    = NULL;
+		DWORD  bufLen = 256;
+		DWORD  retLen;
+		while (32768 >= bufLen){
+			if (!(buf = (TCHAR*)malloc(sizeof(TCHAR) * (size_t)bufLen))){
+				/* Insufficient memory */
+				return gzStr();
+			}
+			if (!(retLen = GetModuleFileName(NULL, buf, bufLen))){
+				/* GetModuleFileName failed */
+				free(buf);
+				return gzStr();
+			}else if (bufLen > retLen){
+				/* Success */
+			//	wprintf(L"%s" ,buf );
+				//LPCTSTR result = _tcsdup(buf); /* Caller should free returned pointer */
+				gzStr _sPath(gzU16_Sized(buf, retLen).fToUTF8());
+				free(buf);
+				return _sPath;
+			}
+			
+			free(buf);
+			bufLen <<= 1;
+		}
+		/* Path too long */
+		return gzStr();
+	}	
+	</cpp>
+		
+		
+	
 	public class OpFile overplace File {
 		
+		public  function OpFile(_sFile : String):Void{
+			Debug.fTrace("New  OpFile!: " + _sFile);
+		}
 		
-		public  static function fGetExePath() : String { //Return the full path with exe name
-			
-			<cpp>
-			#define MAX_PATH 260
-			wchar_t result[ MAX_PATH ];
 
-			GetModuleFileNameW( NULL, result, MAX_PATH ); //MinReq:  WinXp
-			//Get length
-			gzInt _nLength = 0;
-			for(gzInt i  = 0; i < MAX_PATH; i++){
-				if(result[i] == 0){
-					break;
-				}
-				_nLength++;
-			}
-			///////
-			gzStr _sPath((gzUInt16*)result);
-			_sPath.fReplaceAll(gzU8("\\"), gzU8("/"));
-			_sPath.fBegin();
-			return _sPath;  //Call GZ_fUnSet(_sVal);
-			//return "E:/FlashDev/_MyProject/Simacode/LDK/LinxDemo/_out/_MainDemo/Windows/Debug/bin/";
+		public override  function fGetSystemExePath() : String { //Return the full path with exe name
+			//var _sFullExe : String;
+			<cpp>
+			// sFullExePath = GetMainModulePath().fReplaceAll(gzU8("\\"), gzU8("/"));
+			return GetMainModulePath().fReplaceAll(gzU8("\\"), gzU8("/"));
 			</cpp>
 			
+			
+			//
+			/*
+			if(sFullExePath.fRevFind("/")){
+				
+			}*/
+			
+			//return sFullExePath;
 		}
 		
 
 		
-		public static function fLoadFile(_oRc : Resource, _sFullPath:String):Bool {
+		
+		//"r" 	Opens for reading. If the file does not exist or cannot be found, the fopen call fails.
+		//"w" 	Opens an empty file for writing. If the given file exists, its contents are destroyed.
+		//"a" 	Opens for writing at the end of the file (appending) without removing the end-of-file (EOF) marker before new data is written to the file. Creates the file if it does not exist.
+		//"r+" 	Opens for both reading and writing. The file must exist.
+		//"w+" 	Opens an empty file for both reading and writing. If the file exists, its contents are destroyed.
+		//"a+" 	Opens for reading and appending. The appending operation includes the removal of the EOF marker before new data is written to the file. The EOF marker is not restored after writing is completed. Creates the file if it does not exist.
+		
+		//Modifier
+		//t 	Open in text (translated) mode.
+		//b 	Open in binary (untranslated) mode; translations involving carriage-return and linefeed characters are suppressed.
+		//If t or b is not given in mode, the default translation mode is defined by the global variable _fmode. If t or b is prefixed to the argument, the function fails and returns NULL.
+		
+		public override   function fLoadFile(_oRc : Resource):Bool {
+			//Error, can't open file
 			
-			Debug.fTrace("Overcplace fLoadFile not impletmented");
+		//	sFullPath = "C:/Test.txt"
+		//	Debug.fTrace("!!Overcplace fLoadFile not impletmented!!");
+			Debug.fTrace("fLoadFile ! : " + sFullPath);
+			
+			
 			<cpp>
-			
-				//char *win = getenv("windir");if (win == NULL) win = getenv("SystemRoot");
-			
-				 gzUTF16 _wcFile(_sFullPath);
-					
-				 FILE*  f = _wfopen((wchar_t*)(gzUInt16*)_wcFile, L"rb+");
+				gzStr16 _sWFile = sFullPath.fToWStr();
+				
+				 //FILE*  f = _wfopen(GZ_WStr(sFullPath.fReplaceAll(gzU8("/"), gzU8("\\"))), L"rb");
+				 FILE*  f = _wfopen(_sWFile.get(), L"rb");
 				 unsigned char *result;
-					
-
+				
 				if (f != NULL){
 					
 					WIN32_FILE_ATTRIBUTE_DATA fa;
-					if (!GetFileAttributesExW((LP)(gzUInt16*)_wcFile, GetFileExInfoStandard, &fa)){
+					if (!GetFileAttributesExW(_sWFile.get(), GetFileExInfoStandard, &fa)){
 					// error handling
 					}
 					
@@ -75,12 +117,19 @@ package  {
 					
 					_oRc->fSetDynamicMemData(_aData, _nSize); //Will be auto free
 					
-					Lib_GZ::Sys::pDebug::fConsole(gzU8("---File Open!-- ") + _sFullPath);
+					</cpp>
+						Debug.fTrace("File opened! : " + sFullPath);
+					<cpp>
 					 return true;
 					 
 				}else{
-
-					Lib_GZ::Sys::pDebug::fConsole(gzU8("Error, can't open file : ") + _sFullPath);
+					</cpp>
+						Debug.fError("Error, can't open file : " + sFullPath);
+					<cpp>
+					
+				//	Lib_GZ::Sys::pDebug::fConsole(gzU8("Error, can't open file : ") + _sFullPath);
+				
+				
 				}
 
 				 fclose(f);

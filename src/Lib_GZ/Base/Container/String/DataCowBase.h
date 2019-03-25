@@ -74,6 +74,21 @@
 	#undef gzp_WRITE_OPERATION_
 	#define gzp_WRITE_OPERATION_(_nNewSize) if(m.aData->nInst != 1){ fDetach(_nNewSize);} //Todo break with external fonction
 
+	
+	gzp_DataType(){
+	
+			m.aData = 0;
+			m.aSubTab =	0;
+			m.nSubSize =	0;
+			m.nSubLimit =	0;
+			
+	 //   static gzDataRC _gzNullStr_dat = GzToDataRC_const(gzConcat(gzS8 ,""));  
+		//static gzStr8 _gzNullStr(&_gzNullStr_dat); 
+		gzp_DataType _gzNullStr(gzp_NullStr);
+		*this = _gzNullStr;
+	}
+		
+	
 	inline void Delete(gzDataRC* _oRC) const {
 		/*  Not applicable for datacow
 

@@ -103,7 +103,19 @@ gzStr32 _gzeStr16::fToUTF32() const {
 		return _oNew;
 }	*/
 //////////////////////////////////////////
-
+ gzStr8 gzStr8::fToCStr() const {
+	return 	fToUTF8().fFinalize();
+}
+ gzStr16 gzStr8::fToWStr() const {
+	return 	fToUTF16().fFinalize();
+}
+ gzStr8 gzStr16::fToCStr() const {
+	return 	fToUTF8().fFinalize();
+}
+ gzStr16 gzStr16::fToWStr() const {
+	return 	fToUTF16().fFinalize();
+}
+/////////////////////////
 	
 gzStr8 gzStrUI(gzUInt64 _nVal){
 	

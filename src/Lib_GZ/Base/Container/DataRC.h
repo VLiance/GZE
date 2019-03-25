@@ -80,7 +80,9 @@
 #define gzU16(_aData) gzStr16(  gzNewData16(_aData) )
 #define gzU32(_aData) gzStr32(  gzNewData32(_aData) )
 
-#define gzU8_Sized(_aData, _nSize)  gzStr8(  ::GZ::fStackDataCopyAlloc((gzUInt8*)(gzConcat(gzS8 ,_aData)), _nSize) )
+#define gzU8_Sized(_aData, _nSize)  gzStr8(  ::GZ::fStackDataCopyAlloc((gzUInt8*)(_aData), _nSize) )
+#define gzU16_Sized(_aData, _nSize)  gzStr16(  ::GZ::fStackDataCopyAlloc((gzUInt8*)(_aData), (_nSize*2)) )
+#define gzU32_Sized(_aData, _nSize)  gzStr32(  ::GZ::fStackDataCopyAlloc((gzUInt8*)(_aData), (_nSize*4)) )
 
 #define gzU8_NewData(_nSize)  gzStr8(  fDataAlloc(_nSize, _nSize)  )
 

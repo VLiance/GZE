@@ -98,14 +98,15 @@
 	}
 
 
-	gzp_DataType& operator=(const gzp_DataType& _oOther) {
+	gzp_DataType& operator=(const gzp_DataType& _oOther) const {
 		
 	
 		fAssign(_oOther.gzp_Data);
 		gzp_Additional_fAssignType
 	   return *gzDtThis;
 	}
-	gzp_DataType operator+=(const gzp_DataType& _oOther) {
+	
+	gzp_DataType operator+=(const gzp_DataType& _oOther) const {
 		f_Add(_oOther);
 	   return *gzDtThis;
 	}
@@ -116,16 +117,6 @@
 		return fAdd(_aOther);
 	}
 
-	 ///// WRITING OPERATION
-	inline gzp_ReturnType* operator[](gzUIntX _nIndex) {
-		gzp_WRITE_OPERATION_(m.nSubSize);
-		return (gzp_ReturnType*)&gzp_DataArray[gzp_SearchIndex(_nIndex) ];
-	}
-
-	 //READING
-	inline gzp_ReturnType operator()(gzUIntX _nIndex) const {
-		return gzp_DataArray[gzp_SearchIndex(_nIndex)];
-	}
 
 
 
@@ -236,12 +227,15 @@
 	//#Rule1 be sure that end index was > of begin index
 	inline void f_SubStr(gzUIntX _nBeginIndex, gzUIntX _nEndIndex ){
 		GZ_Assert_Array(_nBeginIndex <= _nEndIndex );//Todo set to empty?
+		if(_nEndIndex > gzp_DataSize ){
+			_nEndIndex = gzp_DataSize;
+		}
 		//gzUInt _nEndIndex = _nBeginIndex + _nCount;
 
 		fShinkBefore(_nBeginIndex);
 		fShinkAfter(_nEndIndex - _nBeginIndex);
 	}
-	inline gzp_DataType fSubStr(gzUIntX _nBeginIndex, gzUIntX _nEndIndex ){
+	inline gzp_DataType fSubStr(gzUIntX _nBeginIndex, gzUIntX _nEndIndex = ((gzUIntX)-1) ) const {
 		gzp_RIni(f_SubStr(_nBeginIndex, _nEndIndex));
 	}
 
@@ -251,10 +245,17 @@
 	 	return gzp_DataArray;
 	}
 	
-
-	 gzUIntX fSize() const {
-	 	return gzp_RelSize;
+	 ///// WRITING OPERATION
+	inline gzp_ReturnType* operator[](gzUIntX _nIndex) {
+		gzp_WRITE_OPERATION_(m.nSubSize);
+		return (gzp_ReturnType*)&gzp_DataArray[gzp_SearchIndex(_nIndex) ];
 	}
+
+	 //READING
+	inline gzp_ReturnType operator()(gzUIntX _nIndex) const {
+		return gzp_DataArray[gzp_SearchIndex(_nIndex)];
+	}
+	
 
 	#endif
 

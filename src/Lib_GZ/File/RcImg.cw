@@ -76,14 +76,14 @@ package  {
 		
 		
 			Debug.fTrace("LoadRessource");
-			/*
+			
 			if(bRcLoaded == false){
 				bRcLoaded = true;
 				fLoadFile();
 				
 				Image.fOpen(this);
-				Debug.fTrace("Finish");
-			}*/
+				Debug.fTrace("Finish TODO");
+			}
 			return true;
 		}
 		

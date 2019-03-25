@@ -1,5 +1,4 @@
 ﻿
-#skipContent
 package  { 
 
 	
@@ -11,35 +10,93 @@ package  {
 	
 	public overclass File  {
 		
-		public  function File():Void{
-			Debug.fTrace("New File!");
-		}
+	
+		public var sFullExePath : String;
+		public var sExeFullName : String;
+		public var sExeName : String;
+		public var sExeExt : String;
+		public var sExeFolder : String;
+		
+		
+		public var sFullPath : String;
+		public var sFolder : String;
+		public var sFullName : String;
+		public var sName : String;
+		public var sExt : String;
+		public var sVDrive : String;
 
+		
+		public var bProcessAllPathDone : Bool = false;
+		
+		
+		public  function File(_sFile : String):Void{
+			Debug.fTrace("New File!: " + _sFile);
+			if(_sFile == "Sys:/CurrentModule"){
+				//sDrive = "Sys";
+				Debug.fTrace("Requiere systeme module");
+				fExtractPath(fGetSystemExePath());
+			}
+		}
+	
+		overable static function fGetSystemExePath() : String {
+			Debug.fTrace("fGetExePath not impletmented");
+		}
+		
 		
 		public static function fCreateDirectory(_sFolder : String):Int;
 		public static function fIsFileExist(_sFile : String):Bool;
 		public static function fLauch(_sFile : String, _sArguments : String):Void;
 		
-		overable static function fGetExePath() : String {
-			Debug.fTrace("fGetExePath not impletmented");
+		
+		
+		public static function fExtractPath(_sPath : String) : Void {
+			sFullPath = _sPath;
+			
+			var _aPath : Array<String> = _sPath.fSplit(":/");
+			if(_aPath.nSize > 1){
+				sVDrive = _aPath[0];
+				_sPath = _aPath[1];
+			}else{
+				sVDrive = "";
+				_sPath = _aPath[0];
+			}
+
+			var _oResult : Result_Search = _sPath.fRevFind("/");
+			sFullName =  _sPath.fSubStr(_oResult.nValEnd );
+			sFolder =  _sPath.fSubStr(0, _oResult.nValEnd );
+			
+			_oResult = sFullName.fFind(".");
+			sName =  sFullName.fSubStr(0, _oResult.nVal);
+			sExt =  sFullName.fSubStr(_oResult.nValEnd );
+			
+			
+				Debug.fTrace("sFullPath: " + sFullPath);
+				Debug.fTrace("sFullName: " + sFullName);
+				Debug.fTrace("sFolder: " + sFolder);
+				Debug.fTrace("sName: " +  sName);
+				Debug.fTrace("sExt: " +  sExt);
+				Debug.fTrace("sVDrive: " +  sVDrive);
 		}
 		
 
 		
 		public static function fGetFullPath(_sDrive:String, _sPath:String) : String{
 			
+			//fProcessAllPath();
+			
 			var _sRealDrive : String = _sDrive;
 			Debug.fTrace("fGetFullPath: " + _sPath);
 			
 			if(_sDrive == "Exe"){
-			
-			//	_sRealDrive = File.fGetExePath();
-				
+				Debug.fTrace("Now fGetExePath: " + _sPath);
+				//_sRealDrive = File.fGetExePath();
+				/*
 				<cpp>
 				_sRealDrive = Lib_GZ::Lib::sDirExe;
 				</cpp>
+				*/
 				
-				Debug.fTrace("_sRealDrivePath: " + _sRealDrive);
+			//	Debug.fTrace("_sRealDrivePath: " + sFullExePath);
 				
 			}else{
 				//Default drive
@@ -53,10 +110,10 @@ package  {
 		public static function fLoadFileFromVDrive(_oRc : Resource):Bool {
 			Debug.fTrace("AfLoadFile not impletmented");
 			//Get the path
-			return File.fLoadFile(_oRc,	File.fGetFullPath(_oRc.sVDrive, _oRc.sPath));
+			return File.fLoadFile(_oRc);
 		}
 		
-		overable static function fLoadFile(_oRc : Resource, _sFullPath:String):Bool{
+		overable static function fLoadFile(_oRc : Resource):Bool{
 				Debug.fTrace("AAAAAfLoadFile not impletmented");
 		}
 		

@@ -49,10 +49,10 @@ package  {
 		public function Resource(_sPath : String, _hLocation: eLocation = eLocation.Unknow):Void {
 			hLocation = _hLocation;
 			//oFileHandle = new File();
-			
+			/*
 			Debug.fTrace("AAAAAA Path string: " + _sPath);
 			
-			var _sMyString : String = "55:/**01234567";
+			var _sMyString : String = "55:/**01/234:/*567";
 			var _nTest : Int = _sMyString.fFind(":/**",3);
 			Debug.fTrace("Find: " + _nTest );
 			
@@ -61,34 +61,26 @@ package  {
 			
 			Debug.fTrace("Val: " +  _oResult.nVal );
 			
-			var _aArray: Array<String> = _sMyString.fSplit(":/*");
+			var _aArray: Array<String> = _sMyString.fSplit("/");
 			Debug.fTrace("TestArray[0] = "  + _aArray[0]  );
 			Debug.fTrace("TestArray[1] = "  + _aArray[1]  );
 			Debug.fTrace("TestArray[2] = "  + _aArray[2]  );
+			Debug.fTrace("TestArray[3] = "  + _aArray[3]  );
 				
 			if(_sMyString.fFind(":/*")){
 				Debug.fTrace("Pass");
 			}else{
 				Debug.fTrace("Fail"  );
 			}
+			*/
 			
-		//	var _aPath : Array<String> = _sPath.fSplit(":/");
+			var _aPath : Array<String> = _sPath.fSplit(":/");
 			
-			/*
-			//var _aPath : Array<String> = _sPath.fSplit(":/"); //Notwork
 			sVDrive = _aPath[0];
 			sPath = _aPath[1];
 			
-			sPath.fNext(); //Remove first slash drive
-			sPath.fNext(); //Remove first slash drive
-			sPath = sPath.fSubStr();
-			
 			Debug.fTrace("***sVDrive Path : " + sVDrive);
 			Debug.fTrace("***sVDrive Path : " + sPath);
-			*/
-		//	sVDrive = ""; //Temp
-	
-			
 		}
 
 		/*

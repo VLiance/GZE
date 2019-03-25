@@ -79,6 +79,7 @@
 	gzStr8 fToUTF8() const;	
 	 #else
 		inline gzStr8 fToUTF8() const{return *this;} //Just to be generic
+		inline const unsigned char* get() const {return gzp_DataArray;}
 	#endif
 	////////////////////////////////////
 	
@@ -95,6 +96,7 @@
 	 gzStr16 fToUTF16() const;
 	#else
 		inline gzStr16 fToUTF16() const{return *this;} //Just to be generic
+		inline const wchar_t* get() const {return (wchar_t*)gzp_DataArray;}
 	#endif
 	////////////////////////////////////
 	
@@ -113,7 +115,16 @@
 	#endif
 	////////////////////////////////////
 
-
+	 gzStr8 fToCStr() const;
+	 gzStr16 fToWStr() const;
+	/*
+	inline gzStr8 fToCStr() const {
+		return 	fToUTF8().fFinalize();
+	}
+	inline gzStr16 fToWStr() const {
+		return 	fToUTF16().fFinalize();
+	}*/
+	
 	
 	
 	
@@ -140,7 +151,8 @@
 	//unsigned char* fToChar(gzUInt &_nSize) const { //TODO copy to be safe?
 	//}
 	
-	unsigned char* fGetArray() const {
+
+	inline unsigned char* fGetArray() const {
 		return gzp_DataArray;
 	}
 
@@ -162,22 +174,53 @@
 	}
 	
 	//Cast to standard string
-	#define GZ_WStr(_sString) ((WCHAR*)_sString.fToUTF16().fFinalize().fGetArray())
-	#define GZ_CStr(_sString) ((char*)_sString.fToUTF8().fFinalize().fGetArray())
+	// #define GZ_WStr(_sString) ((WCHAR*)_sString.fToUTF16().fFinalize().fGetArray())
+	// #define GZ_CStr(_sString) ((char*)_sString.fToUTF8().fFinalize().fGetArray())
 	
+
+	/*
+	#define GZ_WStr(_sString) (_sString.fToUTF16().fFinalize())
+	#define GZ_CStr(_sString) (_sString.fToUTF8().fFinalize())
 	
+	#define GZ_WStr_get(_sString) ((WCHAR*)_sString.fToUTF16().fFinalize().get()) //Use only as RValue
+	#define GZ_CStr_get(_sString) ((char*)_sString.fToUTF8().fFinalize().get())   //Use only as RValue
+	*/
 	
-	inline gzArray<gzp_DataType> fSplit(const gzp_DataType& _sSplit){
+	inline gzArray<gzp_DataType> fSplit(const gzp_DataType& _sSplit) const {
 	   gzArray<gzp_DataType> _aNewArrray;
 		gzResult_Search _rFind(false, 0,0,0);
 		
-	   while( (_rFind = fDataFind(_sSplit, _rFind.nValEnd, GzS)) ){
+	   while( (_rFind = fDataFind(_sSplit, _rFind.nValEnd)) ){
 			_aNewArrray.fPush( fSubStr( _rFind.nFrom* GzS, _rFind.nVal* GzS) );
 	   }
 	   _aNewArrray.fPush( fSubStr( _rFind.nFrom* GzS, _rFind.nVal* GzS) );
 		
 		return 	_aNewArrray;
 	}
+	
+	gzp_Type fReplaceAll(const gzp_Type& _pFind, const gzp_Type& _pRemplace, gzUIntX _nFromIndex = 0) const {
+			gzp_Type _sResult;
+			gzArray<gzp_DataType> _aSplitArrray = fSplit(_pFind);
+			gzUIntX i;
+			for(i = 0; i < _aSplitArrray.GnSize()-1; i++ ){
+				_sResult +=  _aSplitArrray[i] + _pRemplace;
+			}
+			_sResult +=  _aSplitArrray[i];
+			return _sResult;
+	 }
+	 
+	/*
+	 gzStr fReplace(const gzp_Type& _pFind, const gzp_Type& _pRemplace, gzUIntX _nFromIndex = 0, gzResult_Search& _rFind ) const {
+			gzStr _sNewStr;
+			//gzResult_Search _rFind(false, 0,0,0);
+		   if( (_rFind = fDataFind(_sSplit, _nFromIndex, GzS)) ){
+				_sNewStr += fSubStr( _rFind.nFrom* GzS, _rFind.nVal* GzS);
+		   }
+			_sNewStr +=  fSubStr( _rFind.nFrom* GzS, _rFind.nVal* GzS);
+			 
+			return _sNewStr;
+	 }
+ */
 
 
 	/*

@@ -9,30 +9,70 @@
 //- If you want to see GZE evolve please help us with a donation.
 
 
+ gzUIntX GnSize() const {
+	 return gzp_Size / GzS;
+}
 
+
+
+	
 /////////////////////////////////////////////////////////////////////////////////////
- gzResult_Search fDataFind(const gzp_Type& _pFind, gzUIntX _nFromIndex = 0, gzUInt8 _nStride = 1 ) const {
-	_nFromIndex = _nFromIndex * _nStride;
+ gzResult_Search fDataFind(const gzp_Type& _pFind, gzUIntX _nFromIndex = 0) const {
+	_nFromIndex = _nFromIndex * GzS;
 	
 	//printf("%.*s", gzp_DataSize, gzp_DataArray);
-	if(_pFind.gzp_Size == 0){return gzResult_Search(false, ( gzp_Size)/_nStride, (_nFromIndex)/_nStride,0);}
+	if(_pFind.gzp_Size == 0){return gzResult_Search(false, ( gzp_Size)/GzS, (_nFromIndex)/GzS,0);}
+	
 	gzUIntX _nTo =  gzp_Size -  (_pFind.gzp_Size - 1);
 	for(gzUIntX i = _nFromIndex; i < _nTo; i++){
 		if(gzp_Array[i] == _pFind.gzp_Array[0]){
 			if( fSubFind(&gzp_Array[i], &_pFind.gzp_Array[0],  _pFind.gzp_Size )){
-				return gzResult_Search(true, (i)/_nStride, ( _nFromIndex)/_nStride,  (i + _pFind.gzp_Size)/_nStride );
+				return gzResult_Search(true, (i)/GzS, ( _nFromIndex)/GzS,  (i + _pFind.gzp_Size)/GzS );
 			}
 		}
 	}
-	return gzResult_Search(false, (gzp_Size)/_nStride, (_nFromIndex)/_nStride,0);
+	return gzResult_Search(false, (gzp_Size)/GzS, (_nFromIndex)/GzS,0);
 }
-	
 
- gzResult_Search fFind(const gzp_Type& _pFind, gzUIntX _nFromIndex = 0, gzUInt8 _nStride = 1 ) const {
-	 return fDataFind( _pFind, _nFromIndex, GzS);
+gzResult_Search fDataRevFind(const gzp_Type& _pFind, gzUIntX _nFromIndex = ((gzUIntX)-1)/GzS ) const {
+	_nFromIndex = _nFromIndex * GzS;
+	if(_nFromIndex > gzp_Size-_pFind.gzp_Size){_nFromIndex = gzp_Size-_pFind.gzp_Size;}
+	if(_pFind.gzp_Size == 0){return gzResult_Search(false, ( gzp_Size)/GzS, (_nFromIndex)/GzS,0);}
+		
+		
+	gzUIntX i = _nFromIndex;
+	do{
+		if(gzp_Array[i] == _pFind.gzp_Array[0]){
+			if( fSubFind(&gzp_Array[i], &_pFind.gzp_Array[0],  _pFind.gzp_Size )){
+				return gzResult_Search(true, (i)/GzS, ( _nFromIndex)/GzS,  (i + _pFind.gzp_Size)/GzS );
+			}
+		}
+		i--;
+	}while(i > 0);
+	
+	return gzResult_Search(false, (gzp_Size)/GzS, (_nFromIndex)/GzS,0);
+}
+
+ gzResult_Search fFind(const gzp_Type& _pFind, gzUIntX _nFromIndex = 0) const {
+	 return fDataFind( _pFind, _nFromIndex);
+ }
+ 
+  gzResult_Search fRevFind(const gzp_Type& _pFind, gzUIntX _nFromIndex = ((gzUIntX)-1)/GzS  ) const {
+	 return fDataRevFind( _pFind, _nFromIndex);
  }
 
+ 
+  inline gzBool operator==(const gzp_Type& _oOther) const {
+		return true;
+   }
 	
 
-
-
+/*
+	gzp_DataType& operator=(const gzp_DataType& _oOther) {
+		
+	
+		fAssign(_oOther.gzp_Data);
+		gzp_Additional_fAssignType
+	   return *gzDtThis;
+	}
+*/
