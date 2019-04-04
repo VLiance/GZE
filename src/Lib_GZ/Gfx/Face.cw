@@ -102,6 +102,13 @@ package  {
 			rPtS3 = aPtSource[4];
 			rPtS4 = aPtSource[6];
 			
+			
+			Debug.fTrace("rPtS1: " +  rPtS1.nX + ", " +rPtS1.nY );
+			Debug.fTrace("rPtS2: " +  rPtS2.nX + ", " +rPtS2.nY );
+			Debug.fTrace("rPtS3: " +  rPtS3.nX + ", " +rPtS3.nY );
+			Debug.fTrace("rPtS4: " +  rPtS4.nX + ", " +rPtS4.nY );
+
+			
 			oGpuObj = new GpuFace();
 			oGpuObj.fIni(this);
 		}
@@ -126,7 +133,12 @@ package  {
 			*/
 			Triangle.fDraw(oPt1.o2d, oPt2.o2d, oPt4.o2d,  rPtS1, rPtS2, rPtS4,  _nPosX, _nPosY, oRc.aImg, oRc.nWidth, oRc.nHeight,  _oDest , _nX_Start , _nX_End , _nY_Start , _nY_End,  _nRsAlpha, _nRsBrRed, _nRsBrGreen , _nRsBrBlue, _nRsRevRed, _nRsRevBlue, _nRsRevGreen, _nOfRevRed, _nOfRevBlue, _nOfRevGreen);
 			Triangle.fDraw(oPt4.o2d, oPt2.o2d, oPt3.o2d,  rPtS4, rPtS2, rPtS3,  _nPosX, _nPosY, oRc.aImg, oRc.nWidth, oRc.nHeight,  _oDest , _nX_Start , _nX_End , _nY_Start , _nY_End,  _nRsAlpha, _nRsBrRed, _nRsBrGreen , _nRsBrBlue, _nRsRevRed, _nRsRevBlue, _nRsRevGreen, _nOfRevRed, _nOfRevBlue, _nOfRevGreen, true);
-		
+			/*
+			Debug.fTrace("rPtS1: " +  rPtS1.nX + ", " +rPtS1.nY );
+			Debug.fTrace("rPtS2: " +  rPtS2.nX + ", " +rPtS2.nY );
+			Debug.fTrace("rPtS3: " +  rPtS3.nX + ", " +rPtS3.nY );
+			Debug.fTrace("rPtS4: " +  rPtS4.nX + ", " +rPtS4.nY );
+			*/
 		}
 		
 		

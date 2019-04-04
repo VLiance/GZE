@@ -73,7 +73,8 @@ package  {
 				
 				var _sSrc : String = _oImgNode.fAttribute("source");
 				//var _nWidth : UInt = _oImgNode.fAttributeInt("width");
-				//var _nWidth : UInt = _oImgNode.fAttributeInt("height");	
+				//var _nWidth : UInt = _oImgNode.fAttributeInt("height");
+				
 				oRc = new RcImg();	
 				oRc.fLoadFromDrive(_sSrc);
 				oRc.fCpuLoad();

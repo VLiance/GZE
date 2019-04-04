@@ -60,8 +60,7 @@
 	#include "Lib_GZ/Base/Macro.h"
 	#include "Lib_GZ/Lib_GZ.h"
 	
-	
-	
+
 #include "Lib_GZ/Base/GzBase.h"
 #include "Lib_GZ/Base/Thread/Thread.h"
 #include "Lib_GZ/Base/Class.h"
@@ -73,6 +72,7 @@
 
 #include "Lib_GZ/Lib.h"
 #include "Lib_GZ/Base/Thread/ThreadMsg.h"
-
+	
+#include "Lib_GZ/Base/Easing/gzEase.h"
 	
 #endif

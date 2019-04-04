@@ -1,7 +1,7 @@
 ﻿
 package  { 
 
-	import GZ.Sys.File;
+	import GZ.File.File;
 	import GZ.File.Resource;
 	
 	

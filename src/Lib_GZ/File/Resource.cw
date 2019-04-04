@@ -5,7 +5,7 @@ package  {
 	 * @author Maeiky
 	 */
 	 
-	 import GZ.Sys.File;
+	 import GZ.File.File;
 	 
 	 
 
@@ -13,6 +13,7 @@ package  {
 		
 		public var sFile : String;
 		//public var oFileHandle : File;
+		public var oFile : File;
 		
 		public var aSrcMemData : CArray<UInt8>;
 		public var sPath : String;
@@ -73,7 +74,8 @@ package  {
 				Debug.fTrace("Fail"  );
 			}
 			*/
-			
+			oFile = new File(_sPath);
+			/*
 			var _aPath : Array<String> = _sPath.fSplit(":/");
 			
 			sVDrive = _aPath[0];
@@ -81,6 +83,7 @@ package  {
 			
 			Debug.fTrace("***sVDrive Path : " + sVDrive);
 			Debug.fTrace("***sVDrive Path : " + sPath);
+			*/
 		}
 
 		/*
@@ -94,17 +97,18 @@ package  {
 			//if( hLocation == eLocation.Drive){
 			if( hLocation == eLocation.Unknow ||  hLocation == eLocation.Drive){ //TODO check for virtual path (Embed Drive)
 				//aSrcMemData = oFileHandle.fLoadFileFromVDrive(sVDrive, sPath);
-				File.fLoadFileFromVDrive(this);
+				//File.fLoadFileFromVDrive(this);
+				oFile.fLoadFileFromVDrive(this);
 			}
 			
 		}
 		
-		public function fSetDynamicMemData(_aSrcMemData : CArray<UInt8>, _nSize:UIntX):Void {
+		public function fSetDynamicMemData(_aSrcMemData : CArray<UInt8>, _nSize:UIntX):Void { //Will be auto freed 
 			aSrcMemData = _aSrcMemData;
 			nSize = _nSize;
 		}
 		
-		public function fSetStaticMemData(_aSrcMemData : CArray<UInt8>, _nSize:UIntX):Void {
+		public function fSetStaticMemData(_aSrcMemData : CArray<UInt8>, _nSize:UIntX):Void { //Will not freed 
 			aSrcMemData = _aSrcMemData;
 			nSize = _nSize;
 		}

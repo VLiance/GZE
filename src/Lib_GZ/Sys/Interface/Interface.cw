@@ -156,10 +156,11 @@ package  {
 					fDispatchRender(); 
 				}
 				
-				/*       
+				       
 				if (oBackground) { 
 					oBackground.fDraw();
-				}*/
+				//	Debug.fTrace("Draw Background")
+				}
 				
 				if(oContext.bWinGPU ) {
 					oGpuObj.fDraw(0, 0,  0, 0, 0);

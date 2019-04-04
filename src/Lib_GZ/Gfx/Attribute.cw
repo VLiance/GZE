@@ -7,6 +7,7 @@ package  {
 	import GZ.Gfx.Object;
 	import GZ.Gfx.Root;
 	import GZ.Base.PtA;
+	import GZ.Base.Pod.Point;
 
 	/**
 	 * @author Maeiky
@@ -34,9 +35,9 @@ package  {
 
 		
 		
-		private  var nAttX : Float;
-		private  var nAttY : Float;
-		private  var nAttZ : Float;
+		public  var nAttX : Float;
+		public  var nAttY : Float;
+		public  var nAttZ : Float;
 		//
 		private  var nAttRoll : Float;
 		private  var nAttYaw : Float;
@@ -48,11 +49,11 @@ package  {
 		//
 		private  var nAttRed : Float;
 		private  var nAttGreen : Float;
-		private  var nAttBlue : Float;
-		private  var nAttAlpha : Float = 1.0;
+		private  var nAttBlue : EaseFloat;
+		private  var nAttAlpha : EaseFloat = 1.0;
 
 		
-		
+		private  var vPos : Point<EaseFloat>;
 		
 		
 		
@@ -71,14 +72,24 @@ package  {
 		////////////////////////////////////////////////////////
 
 		//////////////// Wrap ////////////////
+		public function TnX(_nVal : Float):Void {
+			<cpp>
+			vPos.nX.fTo( _nVal);
+			</cpp>
+		}
+		
+		
 		public function WnX(_nVal : Float):Void {
-
+			nAttX = _nVal;
+			vPos.nX  = _nVal;
 		}
 		public function WnY(_nVal : Float):Void {
-
+			nAttY = _nVal;
+			vPos.nY  = _nVal;
 		}
 		public function WnZ(_nVal : Float):Void {
-
+			nAttZ = _nVal;
+			vPos.nZ  = _nVal;
 		}
 		
 		////////////////	////////////////
@@ -93,15 +104,24 @@ package  {
 
 
 		override public function  fApplyPos():Void {
-
-		
-	nAttX = 50;
-	nAttY = 50;
+			
+			<cpp>
+			vPos.nX.fStep();
+			</cpp>
+		/*
+	nAttX = 100;
+	nAttY = 100;
 	nAttZ = 0;
-	
+	*/
+	/*
 			oGblPt.nX = nAttX * oParent.nGAttWidth;
 			oGblPt.nY = nAttY * oParent.nGAttHeight;
 			oGblPt.nZ = nAttZ * oParent.nGAttLength;
+			*/
+			
+			oGblPt.nX = vPos.nX  * oParent.nGAttWidth;
+			oGblPt.nY = vPos.nY  * oParent.nGAttHeight;
+			oGblPt.nZ = vPos.nZ  * oParent.nGAttLength;
 			
 		//	oGblPt.fRotate(oParent.oQuaternion);
 			

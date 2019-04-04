@@ -64,7 +64,7 @@ package  {
 		//Object(_oParent, _nX , _nY);
 			Shape(_oParent, _nX , _nY, 4, false);
 
-			/*
+			
 			nGAttType = 2.0; //No texture form
 
 			var _nCenterX :Int = 0;
@@ -135,8 +135,8 @@ package  {
 			nG1Red = nS1Red;
 			nG1Blue = nS1Blue;
 			nG1Green = nS1Green;
+			
 
-*/
 
 		}
 
@@ -173,7 +173,7 @@ package  {
 
 		//overrided!!
 		override public function fCpuDraw(_nPosX: Int, _nPosY:Int, _nX_Start : Int, _nX_End : Int, _nY_Start : Int, _nY_End : Int):Bool {
-		/*
+		
 			
 			var _nX : Int = 0;
 			var _nY : Int = 0;
@@ -268,7 +268,7 @@ package  {
 			}
 
 			
-			*/
+			
 		}
 
 

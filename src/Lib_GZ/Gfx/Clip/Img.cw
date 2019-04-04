@@ -71,11 +71,11 @@ package  {
 			
 			
 //Temp		
-_nX = 300;
-_nY = 300;
+//_nX = 300;
+//_nY = 300;
 	
-_nWidth = 200;
-_nHeight = 200;
+//_nWidth = 200;
+//_nHeight = 200;
 
 			if(_nWidth != 0){
 				nWidth = _nWidth;

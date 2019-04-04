@@ -14,3 +14,5 @@
 //#include "Lib_GZ/Sys/ThreadObj.cpp"
 //#include "Lib_GZ/Sys/Debug.cpp"
 #include "Lib_GZ/Base/Math/Math.cpp"
+#include "Lib_GZ/File/Image.cpp"
+#include "Lib_GZ/3rdparty/Image/stb_image.cpp"

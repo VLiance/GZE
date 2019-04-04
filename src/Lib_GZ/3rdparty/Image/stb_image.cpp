@@ -59,7 +59,7 @@
 
 #include "stb_image.h"
 
-#include "Lib_GZ/Math.h"
+#include "Lib_GZ/Base/Math/Math.h"
 #undef NULL
 #define NULL GZ_Null
 
@@ -187,7 +187,8 @@
 // initialize a memory-decode context
 static void start_mem(stbi *s, uint8 const *buffer, int len)
 {
-   s->io.read = zNull;
+   //s->io.read = zNull;
+   s->io.read = 0;
    s->read_from_callbacks = 0;
    s->img_buffer = s->img_buffer_original = (uint8 *) buffer;
    s->img_buffer_end = (uint8 *) buffer+len;
@@ -663,7 +664,7 @@ static float   *ldr_to_hdr(stbi_uc *data, int x, int y, int comp)
    if (comp & 1) n = comp; else n = comp-1;
    for (i=0; i < x*y; ++i) {
       for (k=0; k < n; ++k) {
-         output[i*comp + k] = (float) GZ::pMath::fPow(data[i*comp+k]/255.0f, l2h_gamma) * l2h_scale;
+         output[i*comp + k] = (float) Lib_GZ::Base::Math::pMath::fPow(data[i*comp+k]/255.0f, l2h_gamma) * l2h_scale;
       }
       if (k < comp) output[i*comp + k] = data[i*comp+k]/255.0f;
    }
@@ -681,7 +682,7 @@ static stbi_uc *hdr_to_ldr(float   *data, int x, int y, int comp)
    if (comp & 1) n = comp; else n = comp-1;
    for (i=0; i < x*y; ++i) {
       for (k=0; k < n; ++k) {
-         float z = (float) GZ::pMath::fPow(data[i*comp+k]*h2l_scale_i, h2l_gamma_i) * 255 + 0.5f;
+         float z = (float) Lib_GZ::Base::Math::pMath::fPow(data[i*comp+k]*h2l_scale_i, h2l_gamma_i) * 255 + 0.5f;
          if (z < 0) z = 0;
          if (z > 255) z = 255;
          output[i*comp + k] = (uint8) float2int(z);
@@ -4019,7 +4020,7 @@ static void hdr_convert(float *output, stbi_uc *input, int req_comp)
       float f1;
       // Exponent
      // f1 = (float) ldexp(1.0f, input[3] - (int)(128 + 8));
-      f1 = (float) GZ::pMath::fPow(2, input[3] - (int)(128 + 8));
+      f1 = (float) Lib_GZ::Base::Math::pMath::fPow(2, input[3] - (int)(128 + 8));
       if (req_comp <= 2)
          output[0] = (input[0] + input[1] + input[2]) * f1 / 3;
       else {

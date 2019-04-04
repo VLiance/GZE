@@ -117,8 +117,8 @@ package  {
 		public pure function fGetSmoothPixel(_aSource : CArray<Int32, 2>, _nLx : UInt32, _nTy : UInt32, _aDest : CArray<Int32, 2>,  _nDestX : UInt32, _nDestY : UInt32, _nAlpha : UInt32, _nPcBrRed : UInt32,  _nPcBrGreen: UInt32, _nPcBrBlue: UInt32, _nPcRevRed : UInt32, _nPcRevBlue: UInt32, _nPcRevGreen: UInt32, _nOfRevRed:UInt32, _nOfRevBlue:UInt32, _nOfRevGreen:UInt32  ):Void  {
 				//Debug.fConsole("_nDestY " + _nDestY);
 				//Debug.fConsole("_nDestX " + _nDestX);
-				_aDest[_nDestY][_nDestX] = 0x48FF00FF;
-				return;
+			//	_aDest[_nDestY][_nDestX] = 0x48FF00FF;
+			//	return;
 				
 				
 			var _nPixelFrame : UInt32 = _aDest[_nDestY][_nDestX];
@@ -218,13 +218,16 @@ package  {
 
 
 
-	
 			if(_oPtSegT.nY + 1 > _oPtSegL.nY){ //Ignore segment triangle < 1px height
 				return;
 			}
-			
-			
-			
+			/*
+				Debug.fConsole("--*******");
+			Debug.fConsole("--_rPtST: " +  _rPtST.nX + ", " +_rPtST.nY );
+			Debug.fConsole("--_rPtSL: " +  _rPtSL.nX + ", " +_rPtSL.nY );
+			Debug.fConsole("--_rPtSegST: " +  _rPtSegST.nX + ", " +_rPtSegST.nY );
+			Debug.fConsole("--_rPtSegSL: " +  _rPtSegSL.nX + ", " +_rPtSegSL.nY );
+			*/
 			
 				/*
 		Debug.fConsole(" Math.nSP " +  (1 << Math.nSP) );
@@ -339,41 +342,24 @@ package  {
 			var _nLimXTOffset : Int = (Math.nPrec + Math.nHPrec) - (_nIPosX + Math.nHPrec - _nIntOffX ) - Math.nPrec;
 
 			//var _nFHeight : Int =  (_nFBy - _nFTy); //Int is important no *256
-			var _nFHeight : Int =  (_nFBy - _nFTy)  + (1<< Math.nDivPrec); //+1 Seem to remove bug when value are too fit to check futer
-			var _nFHeightSlope : Int =  (_nSlopeLy  - _nSlopeTy ) + (1<< Math.nDivPrec); //+1 Seem to remove bug when value are too fit to check futer
+			
+			var _nFHeight : Int =  (_nFBy - _nFTy) ; //+1 Seem to remove bug when value are too fit to check futer
+			var _nFHeightSlope : Int =  (_nSlopeLy  - _nSlopeTy ) ; //+1 Seem to remove bug when value are too fit to check futer
+			
+			//var _nFHeight : Int =  (_nFBy - _nFTy)  + (1); //+1 Seem to remove bug when value are too fit to check futer
+			//var _nFHeightSlope : Int =  (_nSlopeLy  - _nSlopeTy ) + (1); //+1 Seem to remove bug when value are too fit to check futer
 
+			
+			//var _nFHeight : Int =  (_nFBy - _nFTy)  + (1<< Math.nDivPrec); //+1 Seem to remove bug when value are too fit to check futer
+			//var _nFHeightSlope : Int =  (_nSlopeLy  - _nSlopeTy ) + (1<< Math.nDivPrec); //+1 Seem to remove bug when value are too fit to check futer
+
+			
 			//var _nFHeight : Int =  (_nFBy - _nFTy) + 1; //+1 Seem to remove bug when value are too fit to check futer
 			//var _nFHeightSlope : Int =  (_nSlopeLy  - _nSlopeTy ) + 1; //+1 Seem to remove bug when value are too fit to check futer
 
 			var _nDif_FLx:Int = (tLS(_nFL2x - _nFL1x) << Math.nDivPrec) / _nFHeight;
 			var _nDif_FRx:Int = ((tLS(_nSlopeLx - _nSlopeTx)) << Math.nDivPrec) / _nFHeightSlope;
 
-				/*
-				Debug.fConsole("_nDiff_SlopeLy:   " + (_nSlopeLx - _nSlopeTx) );
-				<cpp>
-					printf("\ncpp_nSlopeLy: %d ", _nSlopeLx);
-					printf("\ncpp_nSlopeTx: %d ", _nSlopeTx);
-					printf("\ncpp_nFHeightSlope: %d ", _nFHeightSlope);
-					printf("\ncpp__nDif_FRx: %d ", _nDif_FRx);
-				</cpp>
-				
-				
-				Debug.fConsole("_nSlopeLy:   " + _nSlopeLy );
-				Debug.fConsole("_nSlopeTy:   " + _nSlopeTy );
-								
-				Debug.fConsole("_nFHeightSlopeOri:   " + _nFHeightSlope );
-				*/
-				var _nTestS2 : Int = _nFHeightSlope >> Math.nSP;
-				
-				
-				//Debug.fConsole("_nFHeightSlope:   " + _nTestS2 );
-				
-				var _nTest2 : Int = _nDif_FRx >> Math.nSP;
-				
-				//Debug.fConsole("_nDif_FRx:   " + _nTest2 );
-				//Debug.fConsole("_nDif_FRxOri:   " + _nDif_FRx );
-				
-			
 
 			var _nFHeightFloat : Float = _nFHeight / _nFloatPrec;
 

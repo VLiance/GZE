@@ -63,6 +63,15 @@ gzResult_Search fDataRevFind(const gzp_Type& _pFind, gzUIntX _nFromIndex = ((gzU
 
  
   inline gzBool operator==(const gzp_Type& _oOther) const {
+  	//	gzUIntX _nTO = GZ_fMax(gzp_Size,_oOther.gzp_Size);
+		if(gzp_Size != _oOther.gzp_Size){
+			return false;
+		}
+		for(gzUIntX i = 0; i < gzp_Size; i++){
+			if(gzp_Array[i] != _oOther.gzp_Array[i]){
+				return false;
+			}
+		}
 		return true;
    }
 	

@@ -9,7 +9,7 @@
 //- If you want to see GZE evolve please help us with a donation.
 
 #include "Image.h"
-#include "Lib_GZ/Sys/Debug.h"
+#include "Lib_GZ/Debug/Debug.h"
 
 
 namespace Lib_GZ{ namespace File{
@@ -23,7 +23,7 @@ gzUInt nNbFile = 0;
 
 
 gzInt pImage::fOpen(File::cRcImg* _oRc) {
-
+	using namespace Lib_GZ::Debug;
 	
 	
 	
@@ -93,13 +93,13 @@ gzInt pImage::fOpen(File::cRcImg* _oRc) {
 		*/
 		
 		if(_oRc->aSrcMemData == 0){
-				Sys::pDebug::fConsole(gzStrL("IMG LOAD FAIL: Nothing in memory for: ") + _oRc->sVDrive +  _oRc->sPath  );
+				pDebug::fConsole(gzU8("IMG LOAD FAIL: Nothing in memory for: ") + _oRc->sVDrive +  _oRc->sPath  );
 				data = 0;
 			}else{
 				data = stbi_load_from_memory(  (stbi_uc*)_oRc->aSrcMemData, _oRc->nSize, &x, &y, &n, 0);
 				
 				
-				Sys::pDebug::fConsole(gzStrL("IMG  Load: ") + _oRc->sVDrive +  _oRc->sPath  );
+				pDebug::fConsole(gzU8("IMG  Load: ") + _oRc->sVDrive +  _oRc->sPath  );
 				
 				
 		
@@ -115,7 +115,7 @@ gzInt pImage::fOpen(File::cRcImg* _oRc) {
 				}else {
 					//Fail
 				   // Sys::Debug::fError(gzStrL("IMG LOAD FAIL: ") + gzStrC(stbi_failure_reason())  + gzStrL(" ") +  _oRc->sRoot +  _oRc->sSubPath  );
-					 Sys::pDebug::fConsole(gzStrL("IMG LOAD FAIL: ") + gzStrC(stbi_failure_reason())  + gzStrL(" ") +  _oRc->sVDrive +  _oRc->sPath  );
+					 pDebug::fConsole(gzU8("IMG LOAD FAIL: ") + gzStrC(stbi_failure_reason())  + gzU8(" ") +  _oRc->sVDrive +  _oRc->sPath  );
 
 				 //   printf("\n IMG %s LOAD FAIL: %s\n", , stbi_failure_reason());
 				}

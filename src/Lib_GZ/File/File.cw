@@ -19,22 +19,26 @@ package  {
 		
 		
 		public var sFullPath : String;
-		public var sFolder : String;
+
 		public var sFullName : String;
 		public var sName : String;
 		public var sExt : String;
+		public var sFolder : String;
 		public var sVDrive : String;
-
+		public var sRealDrive : String;
+		
 		
 		public var bProcessAllPathDone : Bool = false;
 		
 		
 		public  function File(_sFile : String):Void{
 			Debug.fTrace("New File!: " + _sFile);
-			if(_sFile == "Sys:/CurrentModule"){
-				//sDrive = "Sys";
+			if(_sFile == "Sys|CurrentModule"){
+
 				Debug.fTrace("Requiere systeme module");
-				fExtractPath(fGetSystemExePath());
+				fExtractPath("Sys|" + fGetSystemExePath());
+			}else{
+				fExtractPath(_sFile);
 			}
 		}
 	
@@ -52,12 +56,24 @@ package  {
 		public static function fExtractPath(_sPath : String) : Void {
 			sFullPath = _sPath;
 			
-			var _aPath : Array<String> = _sPath.fSplit(":/");
-			if(_aPath.nSize > 1){
-				sVDrive = _aPath[0];
-				_sPath = _aPath[1];
+			Debug.fTrace("****fExtractPath " + _sPath);
+			
+			var _aSplitArg : Array<String> = _sPath.fSplit("|");
+			if(_aSplitArg.nSize > 1){
+				sVDrive = _aSplitArg[0];
+				_sPath = _aSplitArg[1];
 			}else{
 				sVDrive = "";
+				_sPath = _aSplitArg[0];
+			}
+			
+			
+			var _aPath : Array<String> = _sPath.fSplit(":/");
+			if(_aPath.nSize > 1){
+				sRealDrive = _aPath[0];
+				_sPath = _aPath[1];
+			}else{
+				sRealDrive = "";
 				_sPath = _aPath[0];
 			}
 
@@ -69,7 +85,13 @@ package  {
 			sName =  sFullName.fSubStr(0, _oResult.nVal);
 			sExt =  sFullName.fSubStr(_oResult.nValEnd );
 			
+				Debug.fTrace("****sVDrive " + sVDrive);
+			if(sVDrive == "Exe"){
+					Debug.fTrace("****Have EXE " );
+				sFullPath = File.sRealDrive + ":/" + File.sFolder + sFolder + sFullName;
+			}
 			
+				Debug.fTrace("--- " );
 				Debug.fTrace("sFullPath: " + sFullPath);
 				Debug.fTrace("sFullName: " + sFullName);
 				Debug.fTrace("sFolder: " + sFolder);
@@ -110,7 +132,8 @@ package  {
 		public static function fLoadFileFromVDrive(_oRc : Resource):Bool {
 			Debug.fTrace("AfLoadFile not impletmented");
 			//Get the path
-			return File.fLoadFile(_oRc);
+			return fLoadFile(_oRc);
+			//return File.fLoadFile(_oRc);
 		}
 		
 		overable static function fLoadFile(_oRc : Resource):Bool{
