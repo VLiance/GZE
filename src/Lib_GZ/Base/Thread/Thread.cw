@@ -5,6 +5,7 @@ package  {
 
 
 	//import GZ.Base.Thread.ThreadExt;
+	import GZ.Sys.System;
 
 	public extension Thread extends Class  {
 		
@@ -89,7 +90,7 @@ package  {
 			#ifndef GZ_tMonothread
 				while(bRun){
 					oObj->ThreadLoop();
-				 //   Lib_GZ::Sys::System::Get(thread)->fSleep(nSleepTime); //TODO Syteme
+				    Lib_GZ::Sys::System::GetInst(thread)->fSleep(nSleepTime); //TODO Syteme
 				}
 			#else
 				oObj->ThreadLoop();

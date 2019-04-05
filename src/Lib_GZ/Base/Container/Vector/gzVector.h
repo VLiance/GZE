@@ -142,6 +142,16 @@ gzDef_Vec_Func_fPrint(gzUInt64, "%llu");
 	
 	
 }
+
+
+#define gzDef_Vec_Func_Ease(_Name, _nSize)\
+	inline void fStep() const {	for(gzUInt8 i = 0; i < (_nSize-1); i++){aTab[i].fStep(vSpeed.nVal,vSpeed.nTo); } }; /* -1 --> Remove vSpeed value from stepping itself */ \
+	inline void fSetSpeed(T _nSpeed) const {vSpeed.nVal = _nSpeed; }; \
+	inline void fSetLimit(T _nLimit) const {vSpeed.nTo = _nLimit; }; 
+
+
+
+
 //inline gzVec##_Name operator=(const gzVecSized&  _vVec)  const {GzVector::fTabAssign(gzContTab(aTab),GZ_TabSize, _vVec);return *this;}\
 //inline gzVec##_Name operator=(int  _nTest)  const {GzVector::fIntAssign(gzContTab(aTab),GZ_TabSize, 0);return *this;}\
 	//inline ~gzVec##_Name(){};\ //Not pod 	

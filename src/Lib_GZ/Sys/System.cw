@@ -1,5 +1,4 @@
 ﻿
-#skipContent
 
 package  { 
 
@@ -12,24 +11,25 @@ package  {
 		
 		
 		public function System():Void{
-			System.oInst = this;
+		//	System.oInst = this;
 		}
 		
 		 function fSleep(_nMilliseconds : UInt = 1):Void {
+		 /*
 			if(oInst ) {
 			}else{
 				oInst = new System();
 			}
 
-			oInst.fSleep(_nMilliseconds);
+			oInst.fSleep(_nMilliseconds);*/
 		}
 
 		
 		 function fIni(_nInstance:UIntX, _sCommandLine:String, _nShowCmd : UInt):Void{
-			
+			/*
 			Debug.fTrace("nInstance-: " + _nInstance);
 			Debug.fTrace("Tread-: " + thread);
-			nInstance = _nInstance;
+			nInstance = _nInstance;*/
 		}
 		
 

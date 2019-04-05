@@ -4,6 +4,7 @@
 	import GZ.Base.Thread.Thread;
 	import GZ.Sys.ThreadObj;
 	import GZ.File.File;
+	import GZ.Sys.System;
 
 	public class ThreadItf extends Thread  {
 		
@@ -13,6 +14,7 @@
 			
 			//Create default debug singleton for this new thread
 			Debug = new Debug();
+			System = new System();
 			File = new File("Sys|CurrentModule");
 			Debug.fInfo("-- New ThreadItf --");
 			<cpp>

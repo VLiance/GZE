@@ -74,8 +74,10 @@ package  {
 		//////////////// Wrap ////////////////
 		public function TnX(_nVal : Float):Void {
 			<cpp>
-			vPos.nX.fTo( _nVal);
+		//	vPos.nX.fTo( _nVal);
 			</cpp>
+			
+			vPos.nX.fTo( _nVal);
 		}
 		
 		
@@ -106,8 +108,23 @@ package  {
 		override public function  fApplyPos():Void {
 			
 			<cpp>
-			vPos.nX.fStep();
+			//vPos.vSpeed.nVal = 10;
+			//vPos.vSpeed.nTo = 2;
+			
+			//vPos.fStep();
 			</cpp>
+			
+			vPos.fSetSpeed(-100);
+			vPos.fSetLimit(99900);
+			
+			vPos.fStep();
+			
+			/*
+			vPos.nX.fStep();
+			vPos.nY.fStep();
+			vPos.nZ.fStep();
+			*/
+			
 		/*
 	nAttX = 100;
 	nAttY = 100;

@@ -69,24 +69,24 @@
 			}
 			
 			if(_nSpeed >= 0){
-				gzFloat _nVal = (nTo - nFracVal)/_nSpeed;
-				if(_nVal > _nLimit){
-					_nVal = _nLimit;
+				gzFloat _nEase = (nTo - nFracVal)/_nSpeed;
+				if(_nEase > _nLimit){
+					_nEase = _nLimit;
 				}
-				if(_nVal < -_nLimit){
-					_nVal = -_nLimit;
+				if(_nEase < -_nLimit){
+					_nEase = -_nLimit;
 				}
-				nFracVal += _nVal;
+				nFracVal += _nEase;
 
 			}else{
-				gzFloat _nVal = (nTo*(-0.03) - nFracVal)/_nSpeed;
-				if(_nVal > _nLimit){
-					_nVal = _nLimit;
+				gzFloat _nEase = (nTo*(-0.03) - nFracVal)/_nSpeed;
+				if(_nEase > _nLimit){
+					_nEase = _nLimit;
 				}
-				if(_nVal < -_nLimit){
-					_nVal = -_nLimit;
+				if(_nEase < -_nLimit){
+					_nEase = -_nLimit;
 				}
-				nFracVal += _nVal;
+				nFracVal += _nEase;
 				if( nFracVal  > nTo){//Limit
 					nFracVal = nTo;
 				}
