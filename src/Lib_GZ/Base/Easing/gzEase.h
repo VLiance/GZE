@@ -23,13 +23,13 @@
 	  //  Canvas& canvas;
 		T nVal;
 		T nTo;
-		gzFloat nFracVal;
+	//	gzFloat nFracVal;
 		//gzFloat nLimit;
 		//gzFloat nSpeed;
 
-		gzEase():nVal(0),nFracVal(0),nTo(0)  {
+		gzEase():nVal(0),nTo(0)  {
 		}
-		gzEase(T _val):nVal(_val),nFracVal((gzFloat)_val),nTo(_val)  {
+		gzEase(T _val):nVal(_val),nTo(_val)  {
 			//  printf("\nIni/Set %f", _val);
 		}
 		
@@ -37,7 +37,7 @@
 			//	printf("\nSet %d", _val);
 				nVal = _val;
 				nTo = _val;
-				nFracVal = (gzFloat)_val;
+			//	nFracVal = (gzFloat)_val;
 				
 				return nVal;
 		}
@@ -64,35 +64,37 @@
 		}
 		
 		inline void fStep(gzFloat _nSpeed = 10, gzFloat _nLimit = 999999999){ //Todo, limit to float max
+			/*
 			if(_nSpeed >  -1.0 && _nSpeed < 1.0 ){
 				_nSpeed = 1.0;
-			}
+			}*/
 			
-			if(_nSpeed >= 0){
-				gzFloat _nEase = (nTo - nFracVal)/_nSpeed;
+			if(_nSpeed > 1){
+				gzFloat _nEase = (nTo - nVal)/_nSpeed;
 				if(_nEase > _nLimit){
 					_nEase = _nLimit;
 				}
 				if(_nEase < -_nLimit){
 					_nEase = -_nLimit;
 				}
-				nFracVal += _nEase;
-
-			}else{
-				gzFloat _nEase = (nTo*(-0.03) - nFracVal)/_nSpeed;
+				nVal += _nEase;
+				
+			}else if(_nSpeed < -1){
+			
+				gzFloat _nEase = (nTo*(-0.03) - nVal)/_nSpeed;
 				if(_nEase > _nLimit){
 					_nEase = _nLimit;
 				}
 				if(_nEase < -_nLimit){
 					_nEase = -_nLimit;
 				}
-				nFracVal += _nEase;
-				if( nFracVal  > nTo){//Limit
-					nFracVal = nTo;
+				nVal += _nEase;
+				if( nVal  > nTo){//Limit
+					nVal = nTo;
 				}
 			}
 
-			nVal = nFracVal;
+		//nVal = nFracVal;
 		}
 
 		

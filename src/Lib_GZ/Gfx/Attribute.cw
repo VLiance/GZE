@@ -8,6 +8,9 @@ package  {
 	import GZ.Gfx.Root;
 	import GZ.Base.PtA;
 	import GZ.Base.Pod.Point;
+	import GZ.Base.Pod.Rotation;
+	import GZ.Base.Pod.Size;
+	import GZ.Base.Pod.Color;
 
 	/**
 	 * @author Maeiky
@@ -51,10 +54,11 @@ package  {
 		private  var nAttGreen : Float;
 		private  var nAttBlue : EaseFloat;
 		private  var nAttAlpha : EaseFloat = 1.0;
-
 		
-		private  var vPos : Point<EaseFloat>;
-		
+		public  var vPos  : Point<EaseFloat>;
+		public  var vRot  : Rotation<EaseFloat>;
+		public  var vSize : Size<EaseFloat>;
+		public  var vColor : Color<EaseFloat>;
 		
 		
 		
@@ -65,6 +69,13 @@ package  {
 			
 			//oQuaternion = new Quaternion();
 			//oCopyQuater = oQuaternion;
+			
+			vSize.nWidth = 1;
+			vSize.nHeight = 1;
+			vSize.nLength = 1;
+			
+			vColor.nAlpha = 1;
+
 		}
 
 		////////////////////////////////////////////////////////
@@ -73,10 +84,7 @@ package  {
 
 		//////////////// Wrap ////////////////
 		public function TnX(_nVal : Float):Void {
-			<cpp>
-		//	vPos.nX.fTo( _nVal);
-			</cpp>
-			
+
 			vPos.nX.fTo( _nVal);
 		}
 		
@@ -103,39 +111,14 @@ package  {
 
 
 
-
-
 		override public function  fApplyPos():Void {
 			
-			<cpp>
-			//vPos.vSpeed.nVal = 10;
-			//vPos.vSpeed.nTo = 2;
-			
-			//vPos.fStep();
-			</cpp>
-			
-			vPos.fSetSpeed(-100);
-			vPos.fSetLimit(99900);
-			
+
 			vPos.fStep();
+			vRot.fStep();
+			vSize.fStep();
 			
-			/*
-			vPos.nX.fStep();
-			vPos.nY.fStep();
-			vPos.nZ.fStep();
-			*/
-			
-		/*
-	nAttX = 100;
-	nAttY = 100;
-	nAttZ = 0;
-	*/
-	/*
-			oGblPt.nX = nAttX * oParent.nGAttWidth;
-			oGblPt.nY = nAttY * oParent.nGAttHeight;
-			oGblPt.nZ = nAttZ * oParent.nGAttLength;
-			*/
-			
+
 			oGblPt.nX = vPos.nX  * oParent.nGAttWidth;
 			oGblPt.nY = vPos.nY  * oParent.nGAttHeight;
 			oGblPt.nZ = vPos.nZ  * oParent.nGAttLength;
@@ -145,23 +128,24 @@ package  {
 			oGblPt.nX += oParent.oGblPt.nX;
 			oGblPt.nY += oParent.oGblPt.nY;
 			oGblPt.nZ += oParent.oGblPt.nZ;
+		
 			
+			
+			nGAttRoll  = vRot.nRoll  + oParent.nGAttRoll;
+			nGAttYaw   = vRot.nYaw   + oParent.nGAttYaw;
+			nGAttPitch = vRot.nPitch + oParent.nGAttPitch;
 
-			nGAttRoll = nAttRoll + oParent.nGAttRoll;
-			nGAttYaw = nAttYaw + oParent.nGAttYaw;
-			nGAttPitch = nAttPitch + oParent.nGAttPitch;
 
-			nGAttRed  = nAttRed  + oParent.nGAttRed;
-			nGAttGreen = nAttGreen + oParent.nGAttGreen;
-			nGAttBlue = nAttBlue + oParent.nGAttBlue;
+			nGAttWidth = vSize.nWidth * oParent.nGAttWidth;
+			nGAttHeight = vSize.nHeight * oParent.nGAttHeight;
+			nGAttLength = vSize.nLength * oParent.nGAttLength;
+			
+			nGAttRed  = vColor.nRed  + oParent.nGAttRed;
+			nGAttGreen =  vColor.nGreen + oParent.nGAttGreen;
+			nGAttBlue =  vColor.nBlue + oParent.nGAttBlue;
 
-			nGAttWidth = nAttWidth * oParent.nGAttWidth;
-			nGAttHeight = nAttHeight * oParent.nGAttHeight;
-			nGAttLength = nAttLength * oParent.nGAttLength;
-
-			nGAttAlpha = nAttAlpha * oParent.nGAttAlpha;
+			nGAttAlpha =  vColor.nAlpha * oParent.nGAttAlpha;
 
 		}
-
 	}
 }

@@ -146,6 +146,7 @@ gzDef_Vec_Func_fPrint(gzUInt64, "%llu");
 
 #define gzDef_Vec_Func_Ease(_Name, _nSize)\
 	inline void fStep() const {	for(gzUInt8 i = 0; i < (_nSize-1); i++){aTab[i].fStep(vSpeed.nVal,vSpeed.nTo); } }; /* -1 --> Remove vSpeed value from stepping itself */ \
+	inline void fStep(T _nSpeed, T _nLimit) const {	for(gzUInt8 i = 0; i < (_nSize-1); i++){aTab[i].fStep(_nSpeed,_nLimit); } }; /* -1 --> Remove vSpeed value from stepping itself */ \
 	inline void fSetSpeed(T _nSpeed) const {vSpeed.nVal = _nSpeed; }; \
 	inline void fSetLimit(T _nLimit) const {vSpeed.nTo = _nLimit; }; 
 

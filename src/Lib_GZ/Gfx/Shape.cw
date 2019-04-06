@@ -243,20 +243,25 @@ package  {
 			var _nPitch : Float = nGAttPitch;
 			var _nYaw : Float = nGAttYaw;
 
-			var _nWidth : Float =  nGAttWidth;
-			var _nHeight : Float = nGAttHeight;
-			var _nLength : Float = nGAttLength;
+			//var _nFocal : Float = 1.0 / 270.0;
 
-			var _nFocal : Float = 1.0 / 270.0;
-			for (var i : UInt = 0; i < nNbPt3; i += 3 ) {
-
-				var _rPt : Mapped<uPoint3D> = aPt3dOri[i];
-
+			for( var i : UInt = 0; i < aNewPt3dOri.nSize; i++){
+				var _oPt : PtA = aNewPt3dOri[i];
+				_oPt.fCopyToTf();
+				
+				//var _oTf : Pt = _oPt.oTf;
+				
+				/*
+				_oPt.oTf.nX *= nGAttWidth;
+				_oPt.oTf.nY *= nGAttHeight;
+				_oPt.oTf.nZ *= nGAttLength;
+				*/
+				
 				////// SCALE //////
-				var x : Float = _rPt.nX * _nWidth;
-				var y : Float = _rPt.nY * _nHeight;
-				var z : Float = _rPt.nZ * _nLength;
-
+				var x : Float = _oPt.oTf.nX * nGAttWidth;
+				var y : Float = _oPt.oTf.nY * nGAttHeight;
+				var z : Float = _oPt.oTf.nZ * nGAttLength;
+				
 				//////// Rotation /////////
 				var _nTx : Float = (x * Math.fCos(_nYaw)) - (z * Math.fSin(_nYaw));
 				var _nTz : Float = (x * Math.fSin(_nYaw)) + (z * Math.fCos(_nYaw));
@@ -265,20 +270,11 @@ package  {
 				x = (_nTx * Math.fCos(_nRoll)) - (_nTy * Math.fSin(_nRoll));
 				y = (_nTx * Math.fSin(_nRoll)) + (_nTy * Math.fCos(_nRoll));
 				///////////////////////
+				
+				_oPt.oTf.nX =x;
+				_oPt.oTf.nY =y;
+				_oPt.oTf.nZ =z;
 
-
-				aPoint3D[i] = x;
-				aPoint3D[i+1] = y;
-				aPoint3D[i+2] = z;
-			}
-			
-			
-			for( var i : UInt = 0; i < aNewPt3dOri.nSize; i++){
-				var _oPt : PtA = aNewPt3dOri[i];
-				_oPt.fCopyToTf();
-				_oPt.oTf.nX *= nGAttWidth;
-				_oPt.oTf.nY *= nGAttHeight;
-				_oPt.oTf.nZ *= nGAttLength;
 			//	_oPt.oTf.fRotate(oQuaternion);
 			}
 			
