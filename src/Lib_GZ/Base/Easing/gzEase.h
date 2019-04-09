@@ -41,7 +41,8 @@
 				
 				return nVal;
 		}
-	
+		//inline T operator*(const T&   _oOther) const {return nVal * _oOther;}\
+
 		inline operator T () const {
 			//printf("\nGet %d", nVal);
 			return nVal;

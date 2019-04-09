@@ -200,10 +200,10 @@ package  {
 
 			//if(fIsInside() ){ //Temp comment
 
-				var _nRsBrRed : Int =  (nGAttRed ) * 255;
-				var _nRsBrGreen : Int =  (nGAttGreen ) * 255;
-				var _nRsBrBlue : Int =  (nGAttBlue ) * 255;
-				var _nRsAlpha : Int =   (nGAttAlpha * 255);
+				var _nRsBrRed : Int =  (vGblColor.nRed ) * 255;
+				var _nRsBrGreen : Int = (vGblColor.nGreen) * 255;
+				var _nRsBrBlue : Int =  (vGblColor.nBlue ) * 255;
+				var _nRsAlpha : Int =   (vGblColor.nAlpha * 255);
 				if (_nRsAlpha > 256) {
 					_nRsAlpha = 256;
 				}
@@ -239,9 +239,9 @@ package  {
 
 		public function fTransform():Void {
 
-			var _nRoll : Float = nGAttRoll;
-			var _nPitch : Float = nGAttPitch;
-			var _nYaw : Float = nGAttYaw;
+			var _nRoll : Float = vGblRot.nRoll;
+			var _nPitch : Float = vGblRot.nPitch;
+			var _nYaw : Float = vGblRot.nYaw;
 
 			//var _nFocal : Float = 1.0 / 270.0;
 
@@ -258,9 +258,9 @@ package  {
 				*/
 				
 				////// SCALE //////
-				var x : Float = _oPt.oTf.nX * nGAttWidth;
-				var y : Float = _oPt.oTf.nY * nGAttHeight;
-				var z : Float = _oPt.oTf.nZ * nGAttLength;
+				var x : Float = _oPt.oTf.nX * vGblSize.nWidth;
+				var y : Float = _oPt.oTf.nY * vGblSize.nHeight;
+				var z : Float = _oPt.oTf.nZ * vGblSize.nLength;
 				
 				//////// Rotation /////////
 				var _nTx : Float = (x * Math.fCos(_nYaw)) - (z * Math.fSin(_nYaw));

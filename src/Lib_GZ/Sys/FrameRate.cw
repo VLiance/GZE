@@ -53,7 +53,7 @@ package  {
 				}
 				
 				nFps = nFrame;
-			//	Debug.fTrace1("Fps: " + nFrame);
+				Debug.fTrace("Fps: " + nFrame);
 				
 				nFrame = 0;
 			}

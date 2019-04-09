@@ -106,7 +106,7 @@ union{\
 	inline operator gzMatrixSized<T>() const {gzMatrixSized<T> _v = {gzContTab(aTab),_nSizeX,_nSizeY  };return _v;}\
 	inline operator gzVecSized<T>() 	const {gzVecSized<T>    _v = {gzContTab(aTab),_nSizeX * _nSizeY };return _v;}\
 	inline gzMat##_Name operator+(const gzMatrixSized<T>&   _mMat) const {gzMat##_Name _vNew;GzVector::fTabAddStride(_vNew.aTab,aTab,_nSizeX*_nSizeY,_mMat.aTab,_mMat.nSizeX*_mMat.nSizeY, _nSizeX, _mMat.nSizeX );return _vNew;}\
-	inline gzMat##_Name operator+(const gzMat##_Name _mMat)    const {gzMat##_Name _vNew;GzVector::fTabAdd(_vNew.aTab,aTab,_nSizeX*_nSizeY,_mMat.aTab,      _nSizeX*    _nSizeY );return _vNew;}\
+	inline gzMat##_Name operator+(const gzMat##_Name _mMat)        const {gzMat##_Name _vNew;GzVector::fTabAdd(_vNew.aTab,aTab,_nSizeX*_nSizeY,_mMat.aTab,      _nSizeX*    _nSizeY );return _vNew;}\
 	inline void  fPrint() const {GzMatrix::fPrint(gzContTab(aTab), _nSizeX, _nSizeY );}\
 	inline gzMat##_Name&  fAssertUpcast(gzUIntX _nSizeOf) { GzAssert(_nSizeOf <=  sizeof(aTab), "Upcast Invalid"); return *this;}	\
 };\

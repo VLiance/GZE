@@ -20,41 +20,32 @@ package  {
 		public var oGblPt : PtA;
 				
 				
+		public  var vGblColor : Color<Float>;		
+		public  var vGblSize : Size<Float>;		
+		public  var vGblRot : Rotation<Float>;		
+				/*
 		public var nGAttRed  : Float;
 		public var nGAttGreen : Float;
 		public var nGAttBlue : Float;
 		public var nGAttAlpha : Float = 1.0;
-	
+		*/
 	
 		public var nGAttRoll : Float;
 		public var nGAttYaw : Float;
 		public var nGAttPitch : Float;
 		
 
+		
+		
 		public var nGAttWidth  : Float = 1.0;
 		public var nGAttHeight : Float = 1.0;
 		public var nGAttLength : Float = 1.0;
+		
+		
 		public var nGAttType : Float = 1.0;
 
 		
-		
-		public  var nAttX : Float;
-		public  var nAttY : Float;
-		public  var nAttZ : Float;
-		//
-		private  var nAttRoll : Float;
-		private  var nAttYaw : Float;
-		private  var nAttPitch : Float;
-		//
-		private  var nAttWidth : Float = 1;
-		private  var nAttHeight : Float = 1;
-		private  var nAttLength : Float=  1;
-		//
-		private  var nAttRed : Float;
-		private  var nAttGreen : Float;
-		private  var nAttBlue : EaseFloat;
-		private  var nAttAlpha : EaseFloat = 1.0;
-		
+	
 		public  var vPos  : Point<EaseFloat>;
 		public  var vRot  : Rotation<EaseFloat>;
 		public  var vSize : Size<EaseFloat>;
@@ -75,34 +66,16 @@ package  {
 			vSize.nLength = 1;
 			
 			vColor.nAlpha = 1;
+			vGblColor.nAlpha = 1;
+			
+			vGblSize.nWidth = 1;
+			vGblSize.nHeight = 1;
+			vGblSize.nLength = 1;
+			
 
 		}
 
-		////////////////////////////////////////////////////////
-		//////////////////// Position //////////////////////////
-		////////////////////////////////////////////////////////
-
-		//////////////// Wrap ////////////////
-		public function TnX(_nVal : Float):Void {
-
-			vPos.nX.fTo( _nVal);
-		}
 		
-		
-		public function WnX(_nVal : Float):Void {
-			nAttX = _nVal;
-			vPos.nX  = _nVal;
-		}
-		public function WnY(_nVal : Float):Void {
-			nAttY = _nVal;
-			vPos.nY  = _nVal;
-		}
-		public function WnZ(_nVal : Float):Void {
-			nAttZ = _nVal;
-			vPos.nZ  = _nVal;
-		}
-		
-		////////////////	////////////////
 
 		//////////////////////////////
 		public function fApplyColor():Void {
@@ -113,38 +86,35 @@ package  {
 
 		override public function  fApplyPos():Void {
 			
-
 			vPos.fStep();
 			vRot.fStep();
 			vSize.fStep();
 			
-
-			oGblPt.nX = vPos.nX  * oParent.nGAttWidth;
-			oGblPt.nY = vPos.nY  * oParent.nGAttHeight;
-			oGblPt.nZ = vPos.nZ  * oParent.nGAttLength;
+			oGblPt.nX = vPos.nX  * oParent.vGblSize.nWidth;
+			oGblPt.nY = vPos.nY  * oParent.vGblSize.nHeight;
+			oGblPt.nZ = vPos.nZ  * oParent.vGblSize.nLength;
 			
 		//	oGblPt.fRotate(oParent.oQuaternion);
 			
 			oGblPt.nX += oParent.oGblPt.nX;
 			oGblPt.nY += oParent.oGblPt.nY;
 			oGblPt.nZ += oParent.oGblPt.nZ;
-		
-			
-			
-			nGAttRoll  = vRot.nRoll  + oParent.nGAttRoll;
-			nGAttYaw   = vRot.nYaw   + oParent.nGAttYaw;
-			nGAttPitch = vRot.nPitch + oParent.nGAttPitch;
 
-
-			nGAttWidth = vSize.nWidth * oParent.nGAttWidth;
-			nGAttHeight = vSize.nHeight * oParent.nGAttHeight;
-			nGAttLength = vSize.nLength * oParent.nGAttLength;
 			
-			nGAttRed  = vColor.nRed  + oParent.nGAttRed;
-			nGAttGreen =  vColor.nGreen + oParent.nGAttGreen;
-			nGAttBlue =  vColor.nBlue + oParent.nGAttBlue;
+			vGblRot =  vRot + oParent.vGblRot;
+			
+			//vGblSize = vSize * oParent.vGblSize;
 
-			nGAttAlpha =  vColor.nAlpha * oParent.nGAttAlpha;
+			vGblSize = vSize * oParent.vGblSize;
+	
+			vGblColor.nRed  = vColor.nRed  + oParent.vGblColor.nRed;
+			vGblColor.nGreen =  vColor.nGreen + oParent.vGblColor.nGreen ;
+			vGblColor.nBlue =  vColor.nBlue + oParent.vGblColor.nBlue;
+			
+			vGblColor.nAlpha =  vColor.nAlpha * oParent.vGblColor.nAlpha;
+			
+		//	vGblColor = vGblColor * oParent.vGblColor;
+			
 
 		}
 	}
