@@ -46,8 +46,8 @@
 			}
 			</cpp>
 			
-			Debug.fTrace1("GetVersion : nVersionMinor" + GpuInfo.nVersionMinor );
-			Debug.fTrace1("GetVersion : nVersionMajor" + GpuInfo.nVersionMajor );
+			Debug.fTrace("GetVersion : nVersionMinor" + GpuInfo.nVersionMinor );
+			Debug.fTrace("GetVersion : nVersionMajor" + GpuInfo.nVersionMajor );
 			return true;
 
 			

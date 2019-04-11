@@ -13,11 +13,11 @@
 		
 		
 		public function fLoadImg(_aImg : CArray<Int, 1>, _nWidth : Int, _nHeight : Int):Void{
-			Debug.fTrace1("Load Img");
+			Debug.fTrace("Load Img");
 		}
 		
 		override public function fContextIni(_nHandleId : UIntX, _bGlobalSharedContext : Bool):Bool{
-			Debug.fTrace1("OP fContextIni Not Implemented : " + _nHandleId);
+			Debug.fTrace("OP fContextIni Not Implemented : " + _nHandleId);
 			
 		}
 		

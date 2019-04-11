@@ -10,7 +10,7 @@ package  {
 
 		
 		override public function fLoad():Void {
-			Debug.fTrace1("--- OpAttribute Created!! ---");
+			Debug.fTrace("--- OpAttribute Created!! ---");
 			
 			nId = OpenGL.fGetAttribLocation(oProgram.nId,  sName );
 			
@@ -82,7 +82,7 @@ package  {
 
 			}
 			
-			Debug.fTrace1("SetDivisor");
+			Debug.fTrace("SetDivisor");
 		}
 		
 		

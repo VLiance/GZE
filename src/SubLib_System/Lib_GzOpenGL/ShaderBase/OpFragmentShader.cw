@@ -8,7 +8,7 @@ package  {
 	public class OpFragmentShader overplace FragmentShader {
 		
 		public function OpFragmentShader(_hGlsl_ES_Version : eGlsl_ES_Version = eGlsl_ES_Version.Auto):Void { 
-			Debug.fTrace1("--- OpFragmentShader Created!! ---");
+			Debug.fTrace("--- OpFragmentShader Created!! ---");
 			FragmentShader(_hGlsl_ES_Version);
 			
 			if(_hGlsl_ES_Version == eGlsl_ES_Version.Auto){
@@ -103,7 +103,7 @@ package  {
 			nLineError = strtol(&pEnd[1], GZ_Null, 10) - 1; //Skip ':'
 		
 			</cpp>
-			Debug.fTrace1("LineErr: " + nLineError);
+			Debug.fTrace("LineErr: " + nLineError);
 			return _sReturn;
 			//gzInt _nLength;
 			//GL_fGetShaderInfoLog(nId, sizeof(logBuf), &_nLength, (gzUInt8*)logBuf );

@@ -84,7 +84,7 @@ package  {
 			
 
 			
-	//			Debug.fTrace1("Value X0 :" + _oChar.nX0);
+	//			Debug.fTrace("Value X0 :" + _oChar.nX0);
 	//		Debug.fTrace2("Value Y0 :" + _oChar.nY0);
 
 			//var _nCenterX  : Float =  _oChar.nHoriBeringX / -64.0;
@@ -97,7 +97,7 @@ package  {
 			var _oChar : uCharData = _oRc.fGetCharRect(_nChar);
 			var _rRect : uRectPack = _oChar.rRect;
 */
-		///	Debug.fTrace1("Value X0 :" + _oChar.nX0);
+		///	Debug.fTrace("Value X0 :" + _oChar.nX0);
 		//	Debug.fTrace2("Value Y0 :" + _oChar.nY0);
 
        //    var _nCenterX  : Float = nWidth / 2;
@@ -123,7 +123,7 @@ package  {
 			nAdvance = _oChar.nHoriAdvance;
 			
 			
-			//Debug.fTrace1(" _oChar.nHoriAdvance" +  _oChar.nHoriAdvance);
+			//Debug.fTrace(" _oChar.nHoriAdvance" +  _oChar.nHoriAdvance);
 		//	nAdvance = 10;
 
 

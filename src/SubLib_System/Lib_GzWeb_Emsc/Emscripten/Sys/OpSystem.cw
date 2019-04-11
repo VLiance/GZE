@@ -5,7 +5,7 @@
 		
 
 	<cpp>
-	#include "Lib_GZ/SysUtils/EmscHeader.h"
+	#include "Lib_GzWeb_Emsc/Emscripten/EmscHeader.h"
 	</cpp>
 /*
 	<cpp_static_h>
@@ -17,7 +17,7 @@
 		
 		
 		
-		
+		/*
 		public function OpSystem():Void{
 			System();
 		}
@@ -26,15 +26,9 @@
 		}
 
 		static function fIni(_nInstance:UInt, _sCommandLine:String, _nShowCmd : UInt):Void{
-
-			
 		}
 
-	
-
-		
-		
 		static function fExit():Void;
-		
+		*/
 	}
 }

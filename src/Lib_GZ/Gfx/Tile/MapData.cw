@@ -73,7 +73,7 @@ package  {
 
 		public function fLoadTxmNode( _oMapNode : XmlElement ):Void {
 
-			Debug.fTrace1("Tmx Map : " + _oMapNode.fAttribute("map"));
+			Debug.fTrace("Tmx Map : " + _oMapNode.fAttribute("map"));
 
 			nWidth =  _oMapNode.fAttributeInt("width");
 			nHeight =  _oMapNode.fAttributeInt("height");
@@ -120,7 +120,7 @@ package  {
 
 			nHexsideLength  = _oMapNode.fAttributeInt("hexsidelength");
 
-			Debug.fTrace1("Map " + nWidth + "x" + nHeight):
+			Debug.fTrace("Map " + nWidth + "x" + nHeight):
 
 			fExtactAllMapTmxNode(_oMapNode);
 		}
@@ -131,7 +131,7 @@ package  {
 
 				//Map Properties
 				if(_oNode.fName() == "properties"){
-					Debug.fTrace1("found Map properties");
+					Debug.fTrace("found Map properties");
 				}
 
 				//Map Tilesets
@@ -151,7 +151,7 @@ package  {
 				
 				
 
-				Debug.fTrace1(_oNode.fName());
+				Debug.fTrace(_oNode.fName());
 				_oNode = _oNode.fNext();
 			}
 		}

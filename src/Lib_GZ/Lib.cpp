@@ -483,7 +483,7 @@ gzBool cLib::fMainUpdate(gzInt _nSleepTime){
 	
 	//int _nVal = ThreadMsg::fGetMasterMsg();
 	//if(_nVal){
-	//	Lib_GZ::Sys::Debug::Get(thread)->fTrace1(gzU8("fGetMasterMsg: ") +  gzStrI(_nVal));
+	//	Lib_GZ::Sys::Debug::Get(thread)->fTrace(gzU8("fGetMasterMsg: ") +  gzStrI(_nVal));
 	//}
 
 

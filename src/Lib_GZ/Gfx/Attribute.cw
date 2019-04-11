@@ -22,29 +22,9 @@ package  {
 				
 		public  var vGblColor : Color<Float>;		
 		public  var vGblSize : Size<Float>;		
-		public  var vGblRot : Rotation<Float>;		
-				/*
-		public var nGAttRed  : Float;
-		public var nGAttGreen : Float;
-		public var nGAttBlue : Float;
-		public var nGAttAlpha : Float = 1.0;
-		*/
-	
-		public var nGAttRoll : Float;
-		public var nGAttYaw : Float;
-		public var nGAttPitch : Float;
+		public  var vGblRot : Rotation<Float>;	
 		
 
-		
-		
-		public var nGAttWidth  : Float = 1.0;
-		public var nGAttHeight : Float = 1.0;
-		public var nGAttLength : Float = 1.0;
-		
-		
-		public var nGAttType : Float = 1.0;
-
-		
 	
 		public  var vPos  : Point<EaseFloat>;
 		public  var vRot  : Rotation<EaseFloat>;

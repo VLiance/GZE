@@ -19,7 +19,7 @@
 
 
 #ifdef D_Platform_Web_Emsc
-	#include "Lib_GZ_Platform/EmscHeader.h"
+	#include "Lib_GzWeb_Emsc/Emscripten/EmscHeader.h"
 
 	#define GzNullVal emscripten::val::global("Null");
 

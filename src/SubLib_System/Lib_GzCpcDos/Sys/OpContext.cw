@@ -11,7 +11,7 @@ package  {
 	public extension OpContext overplace Context {
 		
 		public function OpContext(_oInterface : Interface, _sWindowName : String, _nFrameWidth : UInt, _nFrameHeight : UInt, _bTransparent : Bool = false, _nBgColor : Int = 0xFFFFFFFF  ) : Void{
-			Debug.fTrace1("---New OpWindows--");
+			Debug.fTrace("---New OpWindows--");
 			Context(_oInterface, _sWindowName, _nFrameWidth, _nFrameHeight, _bTransparent, _nBgColor);
 		}
 		 

@@ -47,7 +47,7 @@ package  {
 
 		/////////////////// Tmx Loader ///////////////
 		public function fLoadTmxNode( _oFromNode : XmlElement ):Void {
-			//Debug.fTrace1("Extact tileset");
+			//Debug.fTrace("Extact tileset");
 
 			nFirstGrid = _oFromNode.fAttributeInt("firstgid");
 
@@ -91,7 +91,7 @@ package  {
 			 
 			 
 		    fIni();
-			//Debug.fTrace1("tilewidth:" + nTileWidth);
+			//Debug.fTrace("tilewidth:" + nTileWidth);
 
 		}
 		

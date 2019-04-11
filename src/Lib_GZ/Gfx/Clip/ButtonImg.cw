@@ -42,8 +42,8 @@ package  {
 			nHeight = oImg.nHeight;
 
 			
-			//Debug.fTrace1("Btn width : " + nWidth );
-			//Debug.fTrace1("Btn height : " + nHeight);
+			//Debug.fTrace("Btn width : " + nWidth );
+			//Debug.fTrace("Btn height : " + nHeight);
 			
 			//TODO
 			//nLimT = 0;

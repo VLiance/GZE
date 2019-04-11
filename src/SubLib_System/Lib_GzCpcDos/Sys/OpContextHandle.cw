@@ -31,7 +31,7 @@ package  {
 		}
 		
 		override public function fCreateContextHandle(): Bool {
-			Debug.fTrace1("Please Insert CreateContextHandle code here");
+			Debug.fTrace("Please Insert CreateContextHandle code here");
 			<cpp>
 
 			
@@ -40,11 +40,11 @@ package  {
 			int Size_Y = 600;
 			nIdContextGZE = oCpcdos->Create_Context(Size_X, Size_Y);
 			</cpp>
-			Debug.fTrace1("ContextId: " + nIdContextGZE);
+			Debug.fTrace("ContextId: " + nIdContextGZE);
 				
 		}
 		override public function fIniPixelDrawZone(): CArray<Int32>{
-			Debug.fTrace1("Please Insert IniPixelDrawZone code here");
+			Debug.fTrace("Please Insert IniPixelDrawZone code here");
 			
 			<cpp>
 			/*

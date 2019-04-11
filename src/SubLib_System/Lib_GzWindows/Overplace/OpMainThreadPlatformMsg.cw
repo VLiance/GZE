@@ -286,7 +286,7 @@ package  {
 		*/
 		/*
 		override public function fCompleteContext(_nHandleId : UIntX) :Void {
-			  Debug.fTrace1("fCompleteContext : " + _nHandleId);
+			  Debug.fTrace("fCompleteContext : " + _nHandleId);
 		}
 		*/
 		

@@ -65,7 +65,7 @@ package  {
 			Shape(_oParent, _nX , _nY, 4, false);
 
 			
-			nGAttType = 2.0; //No texture form
+			//nGAttType = 2.0; //No texture form
 
 			var _nCenterX :Int = 0;
 			var _nCenterY :Int = 0;

@@ -19,7 +19,7 @@ package  {
 		
 		
 		override public function fLoad():Void {
-			Debug.fTrace1("aa");
+			Debug.fTrace("aa");
 		}
 		
 		

@@ -13,11 +13,11 @@
 
 		
 		public function fLoadImg(_aImg : CArray<Int, 1>, _nWidth : Int, _nHeight : Int):Void{
-			Debug.fTrace1("Load Img");
+			Debug.fTrace("Load Img");
 		}
 		
 		override public function fContextIni(_nHandleId : UIntX, _bGlobalSharedContext : Bool):Bool{
-			Debug.fTrace1("*********** SOP EMSC!! fContextIni GPU : " );
+			Debug.fTrace("*********** SOP EMSC!! fContextIni GPU : " );
 			
 			
 			OpenGL.fClearColor(1.0, 0.0, 0.0, 0.5);
@@ -26,7 +26,7 @@
 			
 			fLoadDefaultShader();
 			
-			Debug.fTrace1("Finish" );
+			Debug.fTrace("Finish" );
 			
 			
 
@@ -48,7 +48,7 @@
 			//val FPSMeter = window.get("FPSMeter");
 			
 			  </cpp>
-			// Debug.fTrace1("fBlit: Gpu");
+			// Debug.fTrace("fBlit: Gpu");
 			oGzShModel.fDraw();
 			<cpp>
 			if(!FPSMeter.isUndefined()){

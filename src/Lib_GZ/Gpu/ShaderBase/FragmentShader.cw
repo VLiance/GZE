@@ -6,7 +6,7 @@ package  {
 		
 		
 		public function FragmentShader(_hGlsl_ES_Version : eGlsl_ES_Version = eGlsl_ES_Version.Auto):Void { 
-			Debug.fTrace1("--- FragmentShader Created!! ---");
+			Debug.fTrace("--- FragmentShader Created!! ---");
 			hType = eType.Vertex;
 			ShaderBase(_hGlsl_ES_Version);
 		}

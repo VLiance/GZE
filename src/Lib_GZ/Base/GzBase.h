@@ -185,8 +185,8 @@ struct gzRcFolder{
 	const gzRcFile* aFile;
 };
 
-#ifdef GZ_tWeb_Emsc
-	#include "Lib_GZ/SysUtils/EmscHeader.h"
+#ifdef D_Platform_Web_Emsc
+	#include "Lib_GzWeb_Emsc/Emscripten/EmscHeader.h"
 
 	#define GzNullVal emscripten::val::global("Null");
 	/*
@@ -201,7 +201,7 @@ struct gzRcFolder{
 
 	};*/
 
-	typedef emscripten::val gzVal; //TODO
+	//typedef emscripten::val gzVal; //TODO
 
 #else
 	typedef gzUInt gzVal;

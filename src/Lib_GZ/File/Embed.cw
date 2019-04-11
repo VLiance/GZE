@@ -306,7 +306,7 @@ package  {
 			
 			_oFileWriteHeader.fClose();
 			
-			Debug.fTrace1("Sucess : " + _sSourcePath );
+			Debug.fTrace("Sucess : " + _sSourcePath );
 		}
 		
 		

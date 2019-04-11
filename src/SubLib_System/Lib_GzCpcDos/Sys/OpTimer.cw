@@ -13,13 +13,13 @@ package  {
 		
 		
 		public   function fStart() : Void { //Return the full path with exe name
-			Debug.fTrace1("\nTimer Start ! \n");
+			Debug.fTrace("\nTimer Start ! \n");
 			nConterStart = 0;
 		}
 		
 			
 		public   function fGet() : Float { //Return the full path with exe name
-			Debug.fTrace1("\nTimer Get ! \n");
+			Debug.fTrace("\nTimer Get ! \n");
 			nConterStart+= 10000;
 			return nConterStart;
 		}

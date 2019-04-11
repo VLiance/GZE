@@ -35,7 +35,7 @@ package  {
 			aIndice[4] = 2;
 			aIndice[5] = 3;
 			
-		//	Debug.fTrace1("ValIndice2 : " + aIndice[2]);
+		//	Debug.fTrace("ValIndice2 : " + aIndice[2]);
 			
 			////
 			var _nIndice : Val = OpenGL.fCreateBuffer();

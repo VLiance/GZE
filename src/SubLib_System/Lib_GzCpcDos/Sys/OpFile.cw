@@ -36,7 +36,7 @@
 			_sPath.fBegin();
 			
 			</cpp>
-			Debug.fTrace1("-------------fGetExePath: " + _sPath);
+			Debug.fTrace("-------------fGetExePath: " + _sPath);
 			
 			return _sPath;
 		}
@@ -59,7 +59,7 @@
 				gzUInt _nExist = oCpcdos->File_exist((char*) _sFullPath.fcStr());
 				if(_nExist > 0){
 					</cpp>
-					Debug.fTrace1("File Exist: " + _sFullPath);
+					Debug.fTrace("File Exist: " + _sFullPath);
 					<cpp>
 					
 					

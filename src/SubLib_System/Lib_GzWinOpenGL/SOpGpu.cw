@@ -25,12 +25,12 @@
 
 		
 		public function fLoadImg(_aImg : CArray<Int, 1>, _nWidth : Int, _nHeight : Int):Void{
-			Debug.fTrace1("Load Img");
+			Debug.fTrace("Load Img");
 		}
 		
 		override public function fContextIni(_nHandleId : UIntX, _bGlobalSharedContext : Bool):Bool{
 			
-			Debug.fTrace1("*********** OP Windows!! fContextIni GPU : " + _nHandleId);
+			Debug.fTrace("*********** OP Windows!! fContextIni GPU : " + _nHandleId);
 			
 			
 			<cpp>
@@ -155,7 +155,7 @@
 		
 				
 		 override public function fBlit():Void {
-			// Debug.fTrace1("fBlit: Gpu");
+			// Debug.fTrace("fBlit: Gpu");
 			oGzShModel.fDraw();
 			<cpp>
 			SwapBuffers(hDC); //Window func

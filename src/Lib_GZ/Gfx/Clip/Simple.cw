@@ -43,7 +43,7 @@ package  {
 		
 		
 		override public function fUpdateChildToParent():Void {
-			//Debug.fTrace1("update");
+			//Debug.fTrace("update");
 			//Debug.fTrace3("Simple update");
 			
 	

@@ -51,7 +51,7 @@ gzInt pImage::fOpen(File::cRcImg* _oRc) {
 
 			#ifndef STBI_NO_STDIO
 			   Sys::pDebug::fConsole(gzStrL("File To Load: ") + _oRc->sVDrive +  _oRc->sPath);
-			   // Debug::fTrace1( _oRc->sSubPath);
+			   // Debug::fTrace( _oRc->sSubPath);
 				//From drive
 				
 				#ifdef GZ_tWeb_Emsc

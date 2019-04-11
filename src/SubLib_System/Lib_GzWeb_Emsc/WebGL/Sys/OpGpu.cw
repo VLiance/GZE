@@ -10,13 +10,13 @@
 	public class OpGpu overplace Gpu  {
 		
 		public function OpGpu():Void{
-			Gpu();
+			Gpu(0, false);
 
-			Debug.fTrace1("Gpu loaded");
+			Debug.fTrace("Gpu loaded");
 		}
 		
 		public function fLoadImg(_aImg : CArray<Int, 1>, _nWidth : Int, _nHeight : Int):Void{
-			Debug.fTrace1("Load Img");
+			Debug.fTrace("Load Img");
 		}
 	
 		

@@ -207,7 +207,7 @@ package  {
 		
 		public function fBlitComplete(_nDrawZoneAdr : UIntX = 0):Void {
 		/*
-			//Debug.fTrace1("fBlitComplete ");
+			//Debug.fTrace("fBlitComplete ");
 			if(_nDrawZoneAdr != 0){
 				aDrawZone2D = _nDrawZoneAdr;
 			}

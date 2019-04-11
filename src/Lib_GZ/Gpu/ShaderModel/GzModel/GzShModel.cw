@@ -23,7 +23,7 @@ package  {
 		public var oUvMouse : UnVec2;
 		
 		public function GzShModel():Void {
-			Debug.fTrace1("--- GzShModel Created!! ---");
+			Debug.fTrace("--- GzShModel Created!! ---");
 			fLoad();
 		}
 		
@@ -73,7 +73,7 @@ package  {
 			
 			if(oVertex.fCompile() == false){
 				Debug.fError("Vertex Shader:  " + oVertex.fGetErrorLine() );
-				Debug.fTrace1(" -->" + oVertex.fGetLog());
+				Debug.fTrace(" -->" + oVertex.fGetLog());
 				
 			}else{
 				Debug.fPass("Vertex Success");
@@ -286,7 +286,7 @@ package  {
 
 			if(oFragement.fCompile() == false){
 				Debug.fError("Fragment Shader: " + oFragement.fGetErrorLine() );
-				Debug.fTrace1(" -->" + oFragement.fGetLog());
+				Debug.fTrace(" -->" + oFragement.fGetLog());
 	
 			}else{
 				Debug.fPass("Fragement Shader Success");
@@ -328,7 +328,7 @@ package  {
 		
 			
 		public function fPod(_oPod : TestPod2):Void {
-			Debug.fTrace1("PodsX:" + _oPod.nW);
+			Debug.fTrace("PodsX:" + _oPod.nW);
 		}
 		
 		

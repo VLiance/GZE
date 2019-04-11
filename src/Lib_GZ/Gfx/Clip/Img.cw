@@ -53,12 +53,12 @@ package  {
 			//nEase = 5;
 			//nEase.to(10);
 			//nEase.speed(5);
-			//Debug.fTrace1("LoadImg");
+			//Debug.fTrace("LoadImg");
 
 			//oImage = new Image();
 			//oImage.fOpen(_oRc);
 			_oRc.fCpuLoad();
-		//	Debug.fTrace1("Finish");
+		//	Debug.fTrace("Finish");
 
 			//oPng.fOpenFromMemory(aFile, 512000);
 			//aPixelArray = oImage.fGetImage();

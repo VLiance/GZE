@@ -55,15 +55,15 @@ package {
 	
 		/*
 		macro function fConsole(_sValue:String):Void;
-		macro function fTrace1(_sValue:String):Void; 
+		macro function fTrace(_sValue:String):Void; 
 		macro function fTrace2(_sValue:String):Void;
 		macro function fTrace3(_sValue:String):Void;
 		macro function fError(_sValue:String):Void;
 		*/
 /*
-		static function fTrace1(_sValue:String):Void {
+		static function fTrace(_sValue:String):Void {
 		//	fConsole(_sValue);
-		//	oInst.fTrace1(_sValue);
+		//	oInst.fTrace(_sValue);
 		}
 		static function fTrace2(_sValue:String):Void {
 			//oInst.fTrace2(_sValue);
@@ -75,7 +75,7 @@ package {
 
 		
 	/*
-		public function fTrace1(_sValue:String):Void;
+		public function fTrace(_sValue:String):Void;
 		public function fTrace2(_sValue:String):Void;
 		public function fTrace3(_sValue:String):Void;
 

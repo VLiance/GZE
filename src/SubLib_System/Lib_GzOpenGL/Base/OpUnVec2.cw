@@ -12,7 +12,7 @@ package  {
 		
 
 		override public function fLoad():Void {
-			Debug.fTrace1("--- OpShUniform Created!! ---");
+			Debug.fTrace("--- OpShUniform Created!! ---");
 			nId = OpenGL.fGetUniformLocation(oProgram.nId, sName);
 			
 			bValid = true; //Todo

@@ -11,7 +11,7 @@ package  {
 		}
 			
 	
-		public static function fTrace1(_sValue:String):Void {
+		public static function fTrace(_sValue:String):Void {
 			<cpp>
 			    printf("1:%s\n", (char*)_sValue.fcStr());
 			</cpp>

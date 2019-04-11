@@ -1,15 +1,18 @@
 package  { 
 
-	
-	import GzOpenGL.OpenGL;
-	
+	import GZ.Gpu.Gpu;
+	import GZ.Sys.Interface.Interface;
+	import GZ.Input.Key;
+	import GZ.Sys.Interface.Context;
+	import GZ.Sys.Interface.Window;
 	import GZ.Sys.System;
-	import GZ.Sys.Message.ContextLink;
-	import GzEmsc.Sys.OpContext;
-	import GZ.Sys.Interface.ContextHandle;
+
+	import GzOpenGL.OpenGL;
+	import GZ.Sys.System;
+
 	
 	<cpp_h>
-	#include "Lib_GZ/SysUtils/EmscHeader.h"
+	#include "Lib_GzWeb_Emsc/Emscripten/EmscHeader.h"
 	</cpp_h>
 	
 	<cpp_class_h>
@@ -24,18 +27,19 @@ package  {
 	
 	<cpp>
 		extern "C" {
+		/*
 				 EMSCRIPTEN_KEEPALIVE
 				float  lerp()  {
 					
 					printf("\ncall lerp");
 					return 66;
-				}
-				
+				}*/
+				/*
 				EMSCRIPTEN_KEEPALIVE
 				 __attribute__((noinline)) int int_sqrt(int x) {
 					 	printf("\ncall int_sqrt");
 				  return (x);
-				}
+				}*/
 				
 				//float *gblvals;
 				
@@ -56,25 +60,29 @@ package  {
 
 		
 	</cpp>
-
-
-
-	public class OpContextHandle overplace ContextHandle {
-
-		public function OpContextHandle(_oLink : ContextLink): Void {
-			
-
-			ContextHandle(_oLink);
+	
+	
+	public extension OpContext overplace Context {
+		
+	
+		
+		public function OpContext(_oInterface : Interface, _sWindowName : String, _nFrameWidth : UInt, _nFrameHeight : UInt, _bTransparent : Bool = false, _nBgColor : Int = 0xFFFFFFFF  ) : Void{
+			Debug.fTrace("---New OpWindows--");
+			Context(_oInterface, _sWindowName, _nFrameWidth, _nFrameHeight, _bTransparent, _nBgColor);
 		}
-		
-		
-		
+		 
+		 override static public function fManageMessageOp():Void {
+		 }
+		 
+		 
+		 
+		 
 		override public function fCreateContextHandle(): Bool {
 		
 			
 				var _nGpuId : Int;
 			
-				Debug.fTrace1("Please Insert CreateContextHandle code here");
+				Debug.fTrace("Please Insert CreateContextHandle code here");
 				
 				var _bContext2d : Bool = false;
 				
@@ -111,9 +119,9 @@ package  {
 				
 				 const char* aGLContextName[] = {"webgl2", "webgl", "experimental-webgl", "moz-webgl"};
 				if(_nGpuId >= 0){
-				   Lib_GZ::Sys::Debug::Get(thread)->fTrace1(  gzU8("--Test GPU Context:") + gzStrC(aGLContextName[_nGpuId]));
+				  Lib_GZ::Debug::Debug::GetInst(thread)->fTrace(  gzU8("--Test GPU Context:") + gzStrC(aGLContextName[_nGpuId]));
 				}else{
-				  Lib_GZ::Sys::Debug::Get(thread)->fError( gzU8("--Gpu not supported"));
+				  Lib_GZ::Debug::Debug::GetInst(thread)->fError( gzU8("--Gpu not supported"));
 				  _bContext2d = true;
 				}
 				
@@ -132,7 +140,7 @@ package  {
 					gzStr _sVersion = gzStrC(((char*)((std::string)(gl.call<std::string>("getParameter", gl["VERSION"]))).c_str()));
 					
 					
-					Lib_GZ::Sys::Debug::Get(thread)->fPass( gzU8("OpenGL avalaible: ") + _sVersion);
+					Lib_GZ::Debug::Debug::GetInst(thread)->fPass( gzU8("OpenGL avalaible: ") + _sVersion);
 					
 					gl.call<Void>("clearColor",  0.5, val(0.7), val(0.2), val(1.0));
 				//	gl.call<Void>("clear",  gl["COLOR_BUFFER_BIT"]  );
@@ -141,8 +149,8 @@ package  {
 					val window = val::global("window");
 					window.set("OpenGL", gl);
 					
-					
-					Lib_GZ_OpenGL::OpenGL::Get(thread)->oGL = gl; //Temp
+			
+			//		Lib_GZ_OpenGL::OpenGL::Get(thread)->oGL = gl; //Temp
 					
 					
 					
@@ -225,7 +233,7 @@ package  {
 			
 		}
 		override public function fIniPixelDrawZone(): CArray<Int32>{
-			Debug.fTrace1("Please Insert IniPixelDrawZone code here");
+			Debug.fTrace("Please Insert IniPixelDrawZone code here");
 			<cpp>
 			aPixels = new gzInt[nFrameWidth * nFrameHeight];
 			return aPixels;
@@ -234,7 +242,6 @@ package  {
 		override public function fBlit():UIntX {
 			<cpp>
 			
-
 				int _nLength = nFrameWidth * nFrameHeight;
 				
 				#pragma unroll 8
@@ -255,4 +262,5 @@ package  {
 		}
 				
 	}
+		
 }

@@ -75,7 +75,7 @@ package  {
 				fNewFrame();
 				fBlit();
 				nFrame++;
-				//	Debug.fTrace1("Frame : " + nFrame);
+				//	Debug.fTrace("Frame : " + nFrame);
 			}
 			
 			//fNewFrame();

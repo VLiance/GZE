@@ -129,7 +129,7 @@ package  {
 
 		override public function fNewFrame():Void {
 					//Debug.fTrace("fNewFrame");
-//	Debug.fTrace1("---Update1--");
+//	Debug.fTrace("---Update1--");
 			oContext.fFrameStart(); //Or checkMsg?
 			
 	//		
@@ -139,7 +139,7 @@ package  {
 
 				aPixelArray = oContext.aDrawZone2D;  //Update pixel array after fliping (If change)
 
-			//			Debug.fTrace1("fUpdateChild");
+			//			Debug.fTrace("fUpdateChild");
 				oContext.fGetMousePosition();
 				oContext.fGetKey(oKey);
 				oContext.fClear(); 
@@ -147,7 +147,7 @@ package  {
 				fUpdateChild(); 
 				//fUpdateChildToParent(); //Is U sless??
 				     
-			//	Debug.fTrace1("Render");
+			//	Debug.fTrace("Render");
 				//fDispatchLimit(this);  
 				oContext.fIniRender();  
 				//fDispatchAll(rAllDispacher.qa Render);
@@ -218,7 +218,7 @@ package  {
 
 		override public fIniProcess:Void {
 			oContext.fIniProcess();
-			Debug.fTrace1("fIniProcess");
+			Debug.fTrace("fIniProcess");
 		}
 
 		override public function fBlit():Void {

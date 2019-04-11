@@ -8,11 +8,11 @@ package  {
 		
 						
 		public function OpVertexShader(_hGlsl_ES_Version : eGlsl_ES_Version = eGlsl_ES_Version.Auto):Void { 
-			Debug.fTrace1("--- OpVertexShader Created!! ---");
+			Debug.fTrace("--- OpVertexShader Created!! ---");
 			VertexShader(_hGlsl_ES_Version);
 			
 			if(_hGlsl_ES_Version == eGlsl_ES_Version.Auto){
-				Debug.fTrace1("--****************--");
+				Debug.fTrace("--****************--");
 				
 				<cpp>
 				#ifdef GZ_tWeb_Emsc
