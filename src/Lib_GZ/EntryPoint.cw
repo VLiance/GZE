@@ -66,10 +66,23 @@ package  {
 			return oMain->Constructor(); // 1 Still Alive, 0 Stop, < 0 Errors
 		}
 
+		#include "Lib_GZ/Base/Thread/ThreadList.h"
 		gzInt Update(gzFloat _nDelta){
 		
 			static gzInt _nCount = 0;
 			Lib_GZ::Sys::MainThreadPlatformMsg::GetInst(oMain->thread)->fManageMessage();
+		
+		
+			#ifdef GZ_D_Monothread
+				static gzBool _bAllTaskIsFinished = true;
+				if(_bAllTaskIsFinished){
+					_bAllTaskIsFinished = false;
+					Lib_GZ::Base::Thread::ThreadList::fNextTask();
+					_bAllTaskIsFinished = true;
+				}
+				
+			#endif
+			
 			
 		//	Lib_GZ::Sys::MainThreadPlatformMsg::GetInst(oMain->thread);
 			

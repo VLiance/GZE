@@ -13,7 +13,7 @@
 	</cpp_static_h>
 */
 	
-	public extension OpSystem overplace System  {
+	public class OpSystem overplace System  {
 		
 		
 		

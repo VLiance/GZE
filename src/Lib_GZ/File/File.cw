@@ -26,6 +26,7 @@ package  {
 		public var sFolder : String;
 		public var sVDrive : String;
 		public var sRealDrive : String;
+		public var sFullRealDrive : String;
 		
 		
 		public var bProcessAllPathDone : Bool = false;
@@ -36,6 +37,7 @@ package  {
 			if(_sFile == "Sys|CurrentModule"){
 
 				Debug.fTrace("Requiere systeme module");
+			//	fExtractPath("Sys|" + fGetSystemExePath());
 				fExtractPath("Sys|" + fGetSystemExePath());
 			}else{
 				fExtractPath(_sFile);
@@ -72,11 +74,12 @@ package  {
 			if(_aPath.nSize > 1){
 				sRealDrive = _aPath[0];
 				_sPath = _aPath[1];
+				sFullRealDrive = sRealDrive + ":/";
 			}else{
 				sRealDrive = "";
+				sFullRealDrive = "";
 				_sPath = _aPath[0];
 			}
-
 			var _oResult : Result_Search = _sPath.fRevFind("/");
 			sFullName =  _sPath.fSubStr(_oResult.nValEnd );
 			sFolder =  _sPath.fSubStr(0, _oResult.nValEnd );
@@ -88,7 +91,7 @@ package  {
 				Debug.fTrace("****sVDrive " + sVDrive);
 			if(sVDrive == "Exe"){
 					Debug.fTrace("****Have EXE " );
-				sFullPath = File.sRealDrive + ":/" + File.sFolder + sFolder + sFullName;
+				sFullPath = File.sFullRealDrive + File.sFolder + sFolder + sFullName;
 			}
 			
 				Debug.fTrace("--- " );

@@ -7,7 +7,7 @@ package  {
 	import GZ.Sys.Interface.Window;
 	import GZ.Sys.System;
 
-	import GzOpenGL.OpenGL;
+	//import GzOpenGL.OpenGL;
 	import GZ.Sys.System;
 
 	
@@ -62,13 +62,16 @@ package  {
 	</cpp>
 	
 	
-	public extension OpContext overplace Context {
+	public class OpContext overplace Context {
 		
 	
-		
-		public function OpContext(_oInterface : Interface, _sWindowName : String, _nFrameWidth : UInt, _nFrameHeight : UInt, _bTransparent : Bool = false, _nBgColor : Int = 0xFFFFFFFF  ) : Void{
+		public var bContext2d : Bool = true;
+		//public var bContext2d : Bool = false;
+			
+		public function OpContext(_oInterface : Interface, _sWindowName : String, _nFrameWidth : UInt, _nFrameHeight : UInt, _bTransparent : Bool = false, _nBgColor : Int = 0xFFFFFFFF): Void {
 			Debug.fTrace("---New OpWindows--");
 			Context(_oInterface, _sWindowName, _nFrameWidth, _nFrameHeight, _bTransparent, _nBgColor);
+			bWinGPU = false;
 		}
 		 
 		 override static public function fManageMessageOp():Void {
@@ -77,14 +80,14 @@ package  {
 		 
 		 
 		 
-		override public function fCreateContextHandle(): Bool {
+		override public function fCreateContext(): Void {
 		
 			
 				var _nGpuId : Int;
 			
 				Debug.fTrace("Please Insert CreateContextHandle code here");
 				
-				var _bContext2d : Bool = false;
+			
 				
 				<cpp>
 				
@@ -122,7 +125,7 @@ package  {
 				  Lib_GZ::Debug::Debug::GetInst(thread)->fTrace(  gzU8("--Test GPU Context:") + gzStrC(aGLContextName[_nGpuId]));
 				}else{
 				  Lib_GZ::Debug::Debug::GetInst(thread)->fError( gzU8("--Gpu not supported"));
-				  _bContext2d = true;
+				  bContext2d = true;
 				}
 				
 				
@@ -133,7 +136,7 @@ package  {
 				canvas.set("height", val(600));
 				//val gl = canvas.call<val>("getContext", val("webgl"));
 
-				if( _bContext2d == false && _nGpuId >= 0){ //WebGl supported
+				if( bContext2d == false && _nGpuId >= 0){ //WebGl supported
 					
 					val gl = canvas.call<val>("getContext", val(aGLContextName[_nGpuId]));
 					
@@ -240,8 +243,13 @@ package  {
 			</cpp>
 		}
 		override public function fBlit():UIntX {
+			//Debug.fTrace("fBlit");
+			
+			if(bContext2d){
+				if(bIniDrawZone){
 			<cpp>
 			
+			//return 0; ///////////////////////////DISABLED
 				int _nLength = nFrameWidth * nFrameHeight;
 				
 				#pragma unroll 8
@@ -259,6 +267,8 @@ package  {
 				pixelArray.call<Void>("set", val(buf8));
 				oCanvas.call<Void>("putImageData", imageData, val(0), val(0)); // at coords 0,0
 			</cpp>
+				}
+			}
 		}
 				
 	}

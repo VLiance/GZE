@@ -21,7 +21,7 @@
 	_nFromIndex = _nFromIndex * GzS;
 	
 	//printf("%.*s", gzp_DataSize, gzp_DataArray);
-	if(_pFind.gzp_Size == 0){return gzResult_Search(false, ( gzp_Size)/GzS, (_nFromIndex)/GzS,0);}
+	if(_pFind.gzp_Size == 0 || gzp_Size < _pFind.gzp_Size){return gzResult_Search(false, ( gzp_Size)/GzS, GZ_fMin(_nFromIndex,gzp_Size)/GzS,0);}
 	
 	gzUIntX _nTo =  gzp_Size -  (_pFind.gzp_Size - 1);
 	for(gzUIntX i = _nFromIndex; i < _nTo; i++){
@@ -31,7 +31,7 @@
 			}
 		}
 	}
-	return gzResult_Search(false, (gzp_Size)/GzS, (_nFromIndex)/GzS,0);
+	return gzResult_Search(false, (gzp_Size)/GzS, GZ_fMin(_nFromIndex,gzp_Size)/GzS,0);
 }
 
 gzResult_Search fDataRevFind(const gzp_Type& _pFind, gzUIntX _nFromIndex = ((gzUIntX)-1)/GzS ) const {

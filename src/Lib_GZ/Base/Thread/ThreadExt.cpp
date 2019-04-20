@@ -43,7 +43,7 @@ namespace Lib_GZ{namespace Base{namespace Thread{
 	void cThreadExt::fStart(){
       printf("\nfStarte\n");
 	
-        #ifndef GZ_tMonothread
+        #ifndef GZ_D_Monothread
 		
 				printf("\n\n \nlooooll!\n");
         	if(!oThreadObj->bStarted){
@@ -56,7 +56,7 @@ namespace Lib_GZ{namespace Base{namespace Thread{
            oThreadObj->bStarted = true;
             oThreadObj->dCallBack.fCall(this);
 		
-        #endif // GZ_tMonothread
+        #endif // GZ_D_Monothread
 
 	}
 

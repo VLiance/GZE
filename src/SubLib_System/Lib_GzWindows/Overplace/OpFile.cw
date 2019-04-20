@@ -120,6 +120,7 @@ package  {
 					</cpp>
 						Debug.fTrace("File opened! : " + sFullPath);
 					<cpp>
+					 fclose(f);
 					 return true;
 					 
 				}else{

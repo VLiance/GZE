@@ -19,7 +19,7 @@ namespace Lib_GZ{class cAtomicQueue;}
 #ifdef GZ_tAtomic
 	#include "Lib_GZ/Base/Atomic/concurrentqueue.h"
 #else
-	#include "Lib_GZ/QArray.h"
+	#include "Lib_GZ/Base/gzQArray.h"
 #endif
 
 #include "Lib_GZ/Base/Thread/ThreadMsg.h"

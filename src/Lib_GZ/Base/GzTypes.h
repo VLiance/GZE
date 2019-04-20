@@ -223,7 +223,7 @@ namespace Lib_GZ{ struct uLib; namespace Lib{extern gzUInt nClass;  extern  uLib
 #define tApi_Demo
 
 //No atomic val in monothreaded
-#ifndef GZ_tMonothread
+#ifndef GZ_D_Monothread
 	#define GZ_tAtomic
 #endif
 

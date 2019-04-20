@@ -462,7 +462,7 @@ gzBool cLib::fMainUpdate(gzInt _nSleepTime){
 	Sys::Context::Get(this)->fManageMessage();
    // printf("fMainUpdate\n");
 
-    #ifdef GZ_tMonothread
+    #ifdef GZ_D_Monothread
         Lib_GZ::ThreadList::fNextTask();
     #endif
 

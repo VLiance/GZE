@@ -14,7 +14,7 @@
 		<cpp>
 			//#include "Lib_GZ_Platform/Windows/MainHeader.h"
 			//namespace SysThreadObj {
-				#ifndef GZ_tMonothread
+				#ifndef GZ_D_Monothread
 				//class cThreadObj;
 				
 				
@@ -58,7 +58,7 @@
 		
 			<cpp>
 			
-			 #ifndef GZ_tMonothread
+			 #ifndef GZ_D_Monothread
 			    OpThreadObj::hThread = CreateThread(NULL, 0, &OpThreadObj::fThreadProc, this, 0,  NULL);
 			  if(OpThreadObj::hThread) {
 					bStarted = true;
@@ -76,9 +76,9 @@
 		}
 		override public function fJoin():Void{
 			<cpp>
-				#ifndef GZ_tMonothread
+				#ifndef GZ_D_Monothread
 					printf("fCancel\n");
-					 #ifndef GZ_tMonothread
+					 #ifndef GZ_D_Monothread
 					//if (TerminateThread(hThread, 0) == 0){
 					//    Debug::fError(gzStrL("Error on Thread cancel"));
 					// }
@@ -89,7 +89,7 @@
 		}
 		override public function fCancel():Void{
 			<cpp>
-				#ifndef GZ_tMonothread
+				#ifndef GZ_D_Monothread
 				//if (TerminateThread(hThread, 0) == 0){
 				//    Debug::fError(gzStrL("Error on Thread cancel"));
 				// }
@@ -99,7 +99,7 @@
 		
 		override public function fClose():Void{
 			<cpp>
-				#ifndef GZ_tMonothread
+				#ifndef GZ_D_Monothread
 					printf("fClose\n");
 					printf("\n---- Delete Instance : %d",  Lib_GZ::Global::nNumWindows);
 					/*

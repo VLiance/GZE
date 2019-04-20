@@ -115,10 +115,11 @@ package  {
 
 
 		public pure function fGetSmoothPixel(_aSource : CArray<Int32, 2>, _nLx : UInt32, _nTy : UInt32, _aDest : CArray<Int32, 2>,  _nDestX : UInt32, _nDestY : UInt32, _nAlpha : UInt32, _nPcBrRed : UInt32,  _nPcBrGreen: UInt32, _nPcBrBlue: UInt32, _nPcRevRed : UInt32, _nPcRevBlue: UInt32, _nPcRevGreen: UInt32, _nOfRevRed:UInt32, _nOfRevBlue:UInt32, _nOfRevGreen:UInt32  ):Void  {
+				
 				//Debug.fConsole("_nDestY " + _nDestY);
 				//Debug.fConsole("_nDestX " + _nDestX);
-			//	_aDest[_nDestY][_nDestX] = 0x48FF00FF;
-			//	return;
+				//_aDest[_nDestY][_nDestX] = 0x48FF00FF;
+				//return;
 				
 				
 			var _nPixelFrame : UInt32 = _aDest[_nDestY][_nDestX];
@@ -253,6 +254,7 @@ package  {
 				
 			}
 	*/
+
 	//Debug.fTrace("---fDrawSegTri--");
 			var _nFloatPrec : Float =  Math.nPrec;
 			//var _nDirX : Int = _oTri.nDrawDir;

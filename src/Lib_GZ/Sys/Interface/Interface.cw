@@ -128,7 +128,7 @@ package  {
 
 
 		override public function fNewFrame():Void {
-					//Debug.fTrace("fNewFrame");
+				//	Debug.fTrace("fNewFrame");
 //	Debug.fTrace("---Update1--");
 			oContext.fFrameStart(); //Or checkMsg?
 			

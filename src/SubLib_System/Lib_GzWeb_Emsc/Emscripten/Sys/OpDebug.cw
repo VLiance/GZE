@@ -1,9 +1,9 @@
 package  { 
 	
 
-	import GZ.Sys.Debug;
+	import GZ.Debug.Debug;
 
-	public extension OpDebug overplace Debug  {
+	public class OpDebug overplace Debug  {
 
 		
 		public function OpDebug():Void{

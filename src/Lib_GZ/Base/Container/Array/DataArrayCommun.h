@@ -198,7 +198,11 @@
 
 
 	inline void fShinkBefore(gzUIntX _nIndex ){
-		GZ_Assert_Array(gzp_DataSize >=  _nIndex); //Todo only set var?
+		//GZ_Assert_Array(gzp_DataSize >=  _nIndex); //Todo only set var?
+		if(_nIndex > gzp_DataSize){
+			_nIndex = gzp_DataSize;
+		}
+		
 		gzp_DataArray += _nIndex;
 		gzp_DataSize -= _nIndex;
 		gzp_DataLimit -= _nIndex;
@@ -206,8 +210,10 @@
 	}
 
 	inline void fShinkAfter(gzUIntX _nIndex ){
-		GZ_Assert_Array(gzp_DataSize >=  _nIndex);//Todo only set var?
-		gzp_DataSize = _nIndex;
+		//GZ_Assert_Array(gzp_DataSize >=  _nIndex);//Todo only set var?
+		if(_nIndex < gzp_DataSize){
+			gzp_DataSize = _nIndex;
+		}
 	}
 
 	//#Rule1 be sure that end index was > of begin index
@@ -226,6 +232,7 @@
 
 	//#Rule1 be sure that end index was > of begin index
 	inline void f_SubStr(gzUIntX _nBeginIndex, gzUIntX _nEndIndex ){
+	
 		GZ_Assert_Array(_nBeginIndex <= _nEndIndex );//Todo set to empty?
 		if(_nEndIndex > gzp_DataSize ){
 			_nEndIndex = gzp_DataSize;

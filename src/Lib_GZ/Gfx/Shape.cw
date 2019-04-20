@@ -187,7 +187,7 @@ package  {
 
 		override public function fCpuDraw(_nPosX: Int, _nPosY:Int, _nX_Start : Int, _nX_End : Int, _nY_Start : Int, _nY_End : Int):Bool {
 		
-
+			//Debug.fTrace("---------BeginDraw!");
 /*
 			if(	oGblPt.nZ < oItf.nHalfFrameHeight * -1){ //Todo find better way
 				return false;
@@ -225,12 +225,15 @@ package  {
 				 _nY_End = oDstBuff.nBuffPLimB;
 */
 				oFace.fCpuDraw( oDstBuff, Math.nHPrec, Math.nHPrec, _nX_Start, _nX_End, _nY_Start, _nY_End,  _nRsAlpha , _nRsBrRed , _nRsBrGreen , _nRsBrBlue , 256 , 256 , 256 , 0 , 0 ,0 );
-				
+			
+			//Debug.fTrace("----------FinishDraw!");
 				return true;
 
 			//}else{
 		//		return false;
 		//	}
+		
+	
 		}
 
 

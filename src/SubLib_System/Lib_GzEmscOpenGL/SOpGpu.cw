@@ -38,7 +38,8 @@
 		
 				
 		 override public function fBlit():Void {
-			 
+			 Debug.fTrace("GPU blit disabled");
+			 return;
 			 <cpp>
 			//val window = val::global("window");
 			val FPSMeter = val::global("meter");

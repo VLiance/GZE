@@ -193,6 +193,7 @@
 	   while( (_rFind = fDataFind(_sSplit, _rFind.nValEnd)) ){
 			_aNewArrray.fPush( fSubStr( _rFind.nFrom* GzS, _rFind.nVal* GzS) );
 	   }
+	  
 	   _aNewArrray.fPush( fSubStr( _rFind.nFrom* GzS, _rFind.nVal* GzS) );
 		
 		return 	_aNewArrray;
@@ -201,6 +202,7 @@
 	gzp_Type fReplaceAll(const gzp_Type& _pFind, const gzp_Type& _pRemplace, gzUIntX _nFromIndex = 0) const {
 			gzp_Type _sResult;
 			gzArray<gzp_DataType> _aSplitArrray = fSplit(_pFind);
+			
 			gzUIntX i;
 			for(i = 0; i < _aSplitArrray.GnSize()-1; i++ ){
 				_sResult +=  _aSplitArrray[i] + _pRemplace;

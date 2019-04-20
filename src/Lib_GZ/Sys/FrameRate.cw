@@ -42,7 +42,7 @@ package  {
 			var _nDeltaTime : Float = _nTime - nLastTime;
 			nLastTime = _nTime;
 			
-			//Debug.fTrace("_nDeltaTime: " + _nDeltaTime);
+		//	Debug.fWarning("***********_nDeltaTime: " + _nDeltaTime);
 		
 			nDeltaSecAcc += _nDeltaTime;
 
@@ -53,7 +53,7 @@ package  {
 				}
 				
 				nFps = nFrame;
-				Debug.fTrace("Fps: " + nFrame);
+			//	Debug.fTrace("Fps: " + nFrame);
 				
 				nFrame = 0;
 			}
@@ -65,10 +65,11 @@ package  {
 			if(nDeltaFpsAcc >= nToFrameMilli ){
 				nDeltaFpsAcc -= nToFrameMilli;
 				
+				
 				//Perfome all missed frame --> set a limit?
 				while(nDeltaFpsAcc >= nToFrameMilli){ 	
 					nDeltaFpsAcc -= nToFrameMilli;
-					fNewFrame();
+				//	fNewFrame(); //TODO , do only logic?
 				}
 				
 				

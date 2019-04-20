@@ -111,6 +111,7 @@ package  {
 		
 		 atomic function fContextRegistred(_nHandleId : UIntX, _nWinHandleId: UIntX):Void{
 		 	Debug.fTrace("!!!fContextRegistred!!!! " + _nHandleId + ":" + _nWinHandleId);
+			fCreateContext();
 			
 			nHandleId = _nHandleId;
 			nWinHandleId = _nWinHandleId;
@@ -131,8 +132,8 @@ package  {
 		 }	
 		
 
-		public function fCreateNow():Void {
-			Debug.fTrace("Create Now Not implemented");
+		public function fCreateContext():Void {
+			Debug.fTrace("fCreateContext Not implemented");
 		}
 
 		private function fReceiveMessage( _sMessage : String):Void; //Dummy for dInterProcessMessage

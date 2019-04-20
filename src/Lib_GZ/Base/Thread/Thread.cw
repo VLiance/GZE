@@ -32,7 +32,9 @@ package  {
 			};
 			inline void fStart(Lib_GZ::Base::cClass* _opObj){
 			   oObj  = gzSCastSelf<Lib_GZ::Base::cClass>(_opObj);
-				fLoop();
+			   #ifndef GZ_D_Monothread
+				fLoop(); //Change execution oder (Mono/multi thread), not good
+			   #endif
 			}
 		</cpp_class_h>
 		
@@ -86,14 +88,16 @@ package  {
 		
 		
 		public function fLoop():Void {
+
 			<cpp>
-			#ifndef GZ_tMonothread
+					
+			#ifndef GZ_D_Monothread
 				while(bRun){
 					oObj->ThreadLoop();
 				    Lib_GZ::Sys::System::GetInst(thread)->fSleep(nSleepTime); //TODO Syteme
 				}
 			#else
-				oObj->ThreadLoop();
+				oObj->ThreadLoop(); //Already called in threadlist?
 			#endif
 			</cpp>
 		}
