@@ -5,6 +5,7 @@
 	import GZ.Sys.ThreadObj;
 	import GZ.File.File;
 	import GZ.Sys.System;
+	import GZ.File.Font;
 
 	public class ThreadItf extends Thread  {
 		
@@ -16,6 +17,7 @@
 			Debug = new Debug();
 			System = new System();
 			File = new File("Sys|CurrentModule");
+			Font = new Font();
 			Debug.fInfo("-- New ThreadItf --");
 			<cpp>
 			//printf("\n-- New ThreadItf -- %p ", thread);

@@ -8,21 +8,19 @@
 //- Include an attribution statement somewhere in your project.
 //- If you want to see GZE evolve please help us with a donation.
 
-#include "Font.h"
+//#include "Font.h"
 #include "ImgPack.h"
 #include "Lib_GZ/File/RcImg.h"
 #include "Lib_GZ/File/RcFont.h"
 
-#include "Lib_GZ/Lib/Utils/stb_rect_pack.h"
+#include "Lib_GZ/3rdparty/Image/stb_rect_pack.h"
 #include "Math.h"
-#include "Lib_GZ/Sys/Debug.h"
+//#include "Lib_GZ/Sys/Debug.h"
 
-
+namespace Lib_GZ{namespace File{namespace Font{
 extern  stbtt_fontinfo font; //temp
 extern  float fontscale; //temp
-
-
-namespace Lib_GZ{namespace Wrap{
+}
 File::cRcFont* oRcFont;
 
 namespace ImgPack{
@@ -227,6 +225,7 @@ gzSp<uFontRange> myRange = qaRange[0]; //Temp
 
 
 int fSetSquaresDim(uPackContext *spc, stbrp_rect* _rect){
+	using namespace Font;
 
 	int _nNbRange = 1; //Temp
 	uFontRange *_aRanges = qaRange[0].get(); //Temp
@@ -283,7 +282,7 @@ int fSetSquaresDim(uPackContext *spc, stbrp_rect* _rect){
 
 
 int fDrawRect(uPackContext *spc, unsigned char *pixels, stbrp_rect* _rect){
-
+using namespace Font;
 	int _nNbRange = 1; //Temp
 	uFontRange *_aRanges = qaRange[0].get(); //Temp
 
@@ -372,7 +371,7 @@ struct uCharData{
 
 
 void fSetCharData(File::Font::cCharData* _oChar, uCharData* _rData){
-	
+	using namespace Font;
 	  stbrp_rect *r = (stbrp_rect *)_rData->rRect; 
 		  
 		_oChar->nX = r->x;
@@ -400,7 +399,7 @@ void fGetCharData(File::Font::cCharData* _oChar){
     gzUInt k = 0;
 	for(gzUInt i = 0; i < qaRange.GnSize(); i++ ){
 
-		uFontRange* _pRange = qaRange(i)->get();
+		uFontRange* _pRange = qaRange(i).get();
 
         if(_nChar >= _pRange->nFirstChar  && _nChar < _pRange->nFirstChar + _pRange->nNbChar){
             gzUInt _nIndex = _nChar - _pRange->nFirstChar;
@@ -426,7 +425,7 @@ void fGetCharData(File::Font::cCharData* _oChar){
    	gzEND_QArray(_qe_rRange)}
 	*/
 	
-  fSetCharData(_oChar, qaRange(0)->get()->aData[0]); ///Todo InvalidChar
+  fSetCharData(_oChar, qaRange(0).get()->aData[0]); ///Todo InvalidChar
 	
   // return rInvalidChar;
 }

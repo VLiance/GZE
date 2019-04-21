@@ -172,7 +172,6 @@
 
 	
 
-	
 
 	//////////////// ADD /////////////////
 	inline void f_Add(const gzp_DataType& _aOther ) const{
@@ -208,6 +207,9 @@
 		gzp_DataLimit -= _nIndex;
 		gzp_DataTypeOnly(gzp_Data->nSpaceBef += _nIndex);
 	}
+
+	
+
 
 	inline void fShinkAfter(gzUIntX _nIndex ){
 		//GZ_Assert_Array(gzp_DataSize >=  _nIndex);//Todo only set var?

@@ -12,9 +12,10 @@
 #define tHDef_GZ_WrapFont
 
 #include "Lib_GZ/GZ.h"
-#include "Lib_GZ/Lib/Utils/stb_rect_pack.h"
+#include "Lib_GZ/3rdparty/Image/stb_rect_pack.h"
 
 //#include "Lib_GZ/Lib/SFF/stb_truetype.h"
+#include "Lib_GZ/File/Font/CharData.h"
 
 struct stbrp_rect;
 
@@ -26,7 +27,7 @@ namespace Lib_GZ{
 namespace File{class cRcFont;class cRcImg;}
 
 
-    namespace Wrap{
+    namespace File{
 
 
     namespace ImgPack{
@@ -62,7 +63,8 @@ namespace File{class cRcFont;class cRcImg;}
           // float xoff2,yoff2;
         };
 
-         struct  uFontRange{
+         class  uFontRange : public ::Lib_GZ::Base::cClass  {  //Extend cClass!? {
+		 public:
            gzFloat nFontSize;
            gzUInt  nFirstChar;
            int nNbChar;
@@ -96,25 +98,22 @@ namespace File{class cRcFont;class cRcImg;}
 
 
     }
+	
+	/*
     namespace pFont{
 
         gzInt fOpen(File::cRcFont* _oRc);
         gzInt fDelete(File::cRcFont* _oRc);
         Font::uCharData* fGetCharData(gzUInt _nChar);
     }
-
-
-
 class cFont {
 
     public:
 
-
-
     private:
-
-
 };
+*/
+
 }}
 
 #endif

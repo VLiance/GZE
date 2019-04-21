@@ -10,7 +10,7 @@ package  {
 	import GZ.Base.Math.Math;
 	import GZ.Gfx.Triangle;
 	import GZ.File.RcFont;
-	import GZ.Wrap.Font;
+	import GZ.File.Font;
 	import GZ.Base.PtA;
 	import GZ.Base.Pt;
 	import GZ.Base.Poly4;

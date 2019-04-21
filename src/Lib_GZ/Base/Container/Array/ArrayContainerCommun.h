@@ -75,7 +75,10 @@ gzResult_Search fDataRevFind(const gzp_Type& _pFind, gzUIntX _nFromIndex = ((gzU
 		return true;
    }
 	
-
+	inline void fClear(){
+		gzp_Size = 0;
+	}
+	
 /*
 	gzp_DataType& operator=(const gzp_DataType& _oOther) {
 		

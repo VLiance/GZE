@@ -1,7 +1,7 @@
 package  { 
 
 	
-	import GZ.Wrap.Font;
+	import GZ.File.Font;
 	import GZ.Sys.System;
 	import GZ.File.Resource;
 	import GZ.File.RcImg;
@@ -12,7 +12,7 @@ package  {
 	 * @author Maeiky
 	 */	
 
-	public class RcFont extends RcImg {
+	public class RcFont extends RcImg { //extends Resource instead?
 		
 		use Font.uCharData;
 		

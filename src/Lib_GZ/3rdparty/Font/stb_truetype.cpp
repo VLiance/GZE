@@ -1,5 +1,5 @@
 #include "stb_truetype.h"
-#include "Lib_GZ/Lib/Utils/stb_rect_pack.h"
+#include "Lib_GZ/3rdparty/Image/stb_rect_pack.h"
 #define STB_TRUETYPE_IMPLEMENTATION
 
 // stb_truetype.h - v1.06 - public domain

@@ -16,3 +16,7 @@
 #include "Lib_GZ/Base/Math/Math.cpp"
 #include "Lib_GZ/File/Image.cpp"
 #include "Lib_GZ/3rdparty/Image/stb_image.cpp"
+#include "Lib_GZ/3rdparty/Image/stb_rect_pack.cpp"
+#include "Lib_GZ/3rdparty/Font/stb_truetype.cpp"
+#include "Lib_GZ/File/ImgPack.cpp"
+
