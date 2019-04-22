@@ -84,8 +84,8 @@ package  {
 			
 
 			
-	//			Debug.fTrace("Value X0 :" + _oChar.nX0);
-	//		Debug.fTrace2("Value Y0 :" + _oChar.nY0);
+			//	Debug.fInfo("Value X :" + _oChar.nX);
+			//Debug.fInfo("Value Y :" + _oChar.nY);
 
 			//var _nCenterX  : Float =  _oChar.nHoriBeringX / -64.0;
 			//var _nCenterY  : Float =  _oChar.nHoriBeringX / -64.0;
@@ -180,7 +180,7 @@ package  {
 
 
 		override public function fUpdateChildToParent():Void {
-
+			
 			//fApplyPos();
 		}
 

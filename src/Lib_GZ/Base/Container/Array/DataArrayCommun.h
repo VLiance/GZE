@@ -255,7 +255,7 @@
 	}
 	
 	 ///// WRITING OPERATION
-	inline gzp_ReturnType* operator[](gzUIntX _nIndex) {
+	inline gzp_ReturnType* operator[](gzUIntX _nIndex)const {
 		gzp_WRITE_OPERATION_(m.nSubSize);
 		return (gzp_ReturnType*)&gzp_DataArray[gzp_SearchIndex(_nIndex) ];
 	}

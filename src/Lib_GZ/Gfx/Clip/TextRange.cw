@@ -32,26 +32,40 @@ package  {
 		}
 		
 		public function fAdd(_sText : String = ""):Void {
-			/*
+			
 			var i : UInt = 0;
-			_sText.fBegin();
+			//_sText.fBegin();
+			
+			var _nLength : UInt = _sText.nSize;
 			var _nPrevChar : UInt = 0;
-			while(_sText.fNext()){
+			//while(_sText.fNext()){
+			
+			while(i < _nLength){
 				
-				nCursorX += oRc.fGetKernAdvance(_nPrevChar, _sText.nChar);
+				//nCursorX += oRc.fGetKernAdvance(_nPrevChar, _sText.nChar);
+				nCursorX += oRc.fGetKernAdvance(_nPrevChar, _sText[i]);
 				
 				var _nIntPosX : Int = nCursorX;
-				var _oLetter : Letter =  new Letter(this, oRc, _nIntPosX, 0, _sText.nChar);
+			///	var _oLetter : Letter =  new Letter(this, oRc, _nIntPosX, 0, _sText.nChar);
+				var _oLetter : Letter =  new Letter(this, oRc, _nIntPosX, 0, _sText[i]);
 				aLetter[i] = _oLetter;
-				_oLetter.WnRed(50);
+				//_oLetter.vColor.nRed = 1.0;
+
+				//_oLetter.WnRed(50);
 				
 				nCursorX += _oLetter.nAdvance;
-				 _nPrevChar = _sText.nChar;
-				  
+				// _nPrevChar = _sText.nChar;
+				 _nPrevChar =_sText[i];
+				  /*
+				  <cpp>
+				  printf("\n %d ", _sText(i) );
+				  </cpp>
+				  */
+				 //Debug.fTrace("Letter " +  _sText[i] );
 				 
 				 
 				i++;
-			}*/
+			}
 		}
 		
 		public function fClear():Void {

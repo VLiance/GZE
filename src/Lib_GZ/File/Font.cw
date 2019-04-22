@@ -95,7 +95,12 @@ package  {
 		
 		
 		overable static function fGetCharData( _oCharData : CharData ):Void{
-				Debug.fTrace("Test");
+			//	Debug.fInfo("fGetCharData");
+		
+				<cpp>
+				using namespace ImgPack;
+				ImgPack::fGetCharData(_oCharData);
+				</cpp>
 		}
 		
 		overable static function fOpen(_oRc : RcFont): Int {

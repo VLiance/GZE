@@ -102,12 +102,12 @@ package  {
 			rPtS3 = aPtSource[4];
 			rPtS4 = aPtSource[6];
 			
-			
+			/*
 			Debug.fTrace("rPtS1: " +  rPtS1.nX + ", " +rPtS1.nY );
 			Debug.fTrace("rPtS2: " +  rPtS2.nX + ", " +rPtS2.nY );
 			Debug.fTrace("rPtS3: " +  rPtS3.nX + ", " +rPtS3.nY );
 			Debug.fTrace("rPtS4: " +  rPtS4.nX + ", " +rPtS4.nY );
-
+			*/
 			
 			oGpuObj = new GpuFace();
 			oGpuObj.fIni(this);

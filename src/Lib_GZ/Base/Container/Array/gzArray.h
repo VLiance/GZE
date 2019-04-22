@@ -199,10 +199,11 @@ public:
 	inline void fArrayRealloc( gzUIntX _nSize) const { //Only new array for now
 		gzUInt8* _aOldTab = aData->aTab ;
 		gzUInt _nOldSize = aData->nSize;
+		/*
 		printf("\n ---_nOldSize %d", _nOldSize);
 		printf("\n ---nSize %d", _nSize);
 		printf("\n ---nSpaceBef %d", aData->nSpaceBef);
-		
+		*/
 		
 		aData->aTab = fArrayAlloc(_nSize); //Reset aTab
 		memcpy( aData->aTab , _aOldTab, _nOldSize );
@@ -460,7 +461,7 @@ class gzArray {
 		
 		if(_nIndex >= gzp_length){
 			//	printf("\n!Return !! %d", _nZero);  
-			return 0;
+			return T();
 		}
 	//	GzUnAssert(_nIndex >= gzp_length, "Reading array Out of bound");
 	//	GzUnAssert(_nIndex >= m.aData->nSize, "Reading array Out of bound");

@@ -47,6 +47,8 @@ package  {
 		
 		public function Object( _oParent : Root, _nX : Float, _nY:Float):Void {
 			Attribute(_oParent);
+			vPos.nX = _nX;
+			vPos.nY = _nY;
 			//WnX(_nX);
 			//WnY(_nY);
 			/*

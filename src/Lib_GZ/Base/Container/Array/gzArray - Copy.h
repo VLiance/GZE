@@ -198,10 +198,11 @@ public:
 	inline void fArrayRealloc( gzUIntX _nSize) const { //Only new array for now
 		gzUInt8* _aOldTab = aData->aTab ;
 		gzUInt _nOldSize = aData->nSize;
+		/*
 		printf("\n ---_nOldSize %d", _nOldSize);
 		printf("\n ---nSize %d", _nSize);
 		printf("\n ---nSpaceBef %d", aData->nSpaceBef);
-		
+		*/
 		
 		aData->aTab = fArrayAlloc(_nSize); //Reset aTab
 		memcpy( aData->aTab , _aOldTab, _nOldSize );
