@@ -69,6 +69,7 @@ package  {
 			vPos.fStep();
 			vRot.fStep();
 			vSize.fStep();
+			vColor.fStep();
 			
 			oGblPt.nX = vPos.nX  * oParent.vGblSize.nWidth;
 			oGblPt.nY = vPos.nY  * oParent.vGblSize.nHeight;

@@ -14,7 +14,7 @@
 #include "Lib_GZ/File/RcFont.h"
 
 #include "Lib_GZ/3rdparty/Image/stb_rect_pack.h"
-#include "Math.h"
+#include "Lib_GZ/Base/Math/Math.h"
 //#include "Lib_GZ/Sys/Debug.h"
 
 namespace Lib_GZ{namespace File{namespace Font{

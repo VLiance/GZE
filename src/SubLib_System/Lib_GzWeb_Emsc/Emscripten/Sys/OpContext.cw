@@ -240,6 +240,7 @@ package  {
 			<cpp>
 			aPixels = new gzInt[nFrameWidth * nFrameHeight];
 			return aPixels;
+
 			</cpp>
 		}
 		override public function fBlit():UIntX {

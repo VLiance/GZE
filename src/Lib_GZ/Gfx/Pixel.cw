@@ -219,7 +219,7 @@ package  {
 
 
 
-			if(_oPtSegT.nY + 1 > _oPtSegL.nY){ //Ignore segment triangle < 1px height
+			if(_oPtSegT.nY + 0.01 > _oPtSegL.nY){ //Ignore segment triangle < 1px height
 				return;
 			}
 			/*
