@@ -4,5 +4,4 @@ _old/
 *.exe
 *.d
 *.o
-*.cwcfg
 obj/
