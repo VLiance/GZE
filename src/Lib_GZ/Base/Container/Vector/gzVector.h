@@ -165,14 +165,18 @@ gzDef_Vec_Func_fPrint(gzUInt64, "%llu");
 	
 }
 
+
+#undef gzCurrThis
+#define gzCurrThis const_cast<gzVec##_Name<SubT,T>*>(this)
+
 #define gzDef_Vec_Func_EaseConv(_Name, _nSize)\
 	//inline operator gzVecEase##_Name<T> () const { gzVecEase##_Name<T> _vNew; GzVector::fTabAssign<T, gzEase<T>>(_vNew.aTab,_nSize, *this); return _vNew;};
 
 #define gzDef_Vec_Func_Ease(_Name, _nSize, _SubName)\
 	inline void fStep() const {	for(gzUInt8 i = 0; i < (_nSize-1); i++){aTab[i].fStep(vSpeed.nVal,vSpeed.nTo); } }; /* -1 --> Remove vSpeed value from stepping itself */ \
 	inline void fStep(T _nSpeed, T _nLimit) const {	for(gzUInt8 i = 0; i < (_nSize-1); i++){aTab[i].fStep(_nSpeed,_nLimit); } }; /* -1 --> Remove vSpeed value from stepping itself */ \
-	inline void fSetSpeed(T _nSpeed) const {vSpeed.nVal = _nSpeed; }; \
-	inline void fSetLimit(T _nLimit) const {vSpeed.nTo = _nLimit; }; \
+	inline void fSetSpeed(T _nSpeed) const { const_cast<gzVec##_Name<SubT,T>*>(this)->vSpeed.nVal = _nSpeed; }; \
+	inline void fSetLimit(T _nLimit) const { const_cast<gzVec##_Name<SubT,T>*>(this)->vSpeed.nTo = _nLimit; }; \
 	inline operator gzVec##_SubName<SubT> () const { gzVec##_SubName<SubT> _vNew; GzVector::fTabAssign<SubT, T>(_vNew.aTab,_nSize, *this); return _vNew;};\
 	inline gzVec##_Name operator*(const gzVecSized<T>&   _vVec) const {gzDef_Operate(_Name, _nSize, _vVec.nSize, GZ_EuOpp::Mul)}; \
 	//inline operator gzVecSized<SubT> () const {      gzVec##_SubName<SubT> _vNew; GzVector::fTabAssign<SubT, T>(_vNew.aTab,_nSize, *this); gzVecSized<SubT> _v = {(_vNew.aTab),(sizeof(_vNew.aTab)/sizeof(SubT))};return _v;}; \

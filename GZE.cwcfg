@@ -9,15 +9,15 @@
 	
 	<CompilerLinker type="C++">-std=c++11 </CompilerLinker>
 	
-	<CWayv>-L "{_pModule}src/Lib_GZ/"  -L "{_pModule}src/SubLib_System/Lib_Gz{_sPlatform}/"</CWayv>
-
+	<CWayv>-L "{_pModule}src/Lib_GZ/"  -L "{_pModule}src/SubLib_System/Lib_Gz{_sPlatform}/" </CWayv>
+	<!--  -L "{_pModule}src/SubLib_System/Lib_GzOpenGL/" -->
 	
 </Arguments>
 
 
 <If_Platform name="Windows">
 
-	<Linker_Lib>-lgdi32 -lopengl32 -luser32</Linker_Lib>
+	<Linker_Lib>-lgdi32 -lopengl32 -luser32 </Linker_Lib>
 	
 </If_Platform>
 

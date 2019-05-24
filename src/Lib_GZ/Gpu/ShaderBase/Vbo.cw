@@ -10,8 +10,11 @@ package  {
 		
 		//public var aData : CArray<Float32, 1, 50>;
 		//public var aData : DArray<Float32, 1, 50>;
-		
+
 	//public var aData : DArray<Float, 1, 50>;
+				
+				
+		public var aData : Array<Float32>;
 				
 		public enum eVecType : UInt {
 			Vec1;

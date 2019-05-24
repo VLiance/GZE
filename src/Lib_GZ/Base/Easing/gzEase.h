@@ -17,7 +17,9 @@
 //#include "Lib_GZ/Base/GzBaseFunc.h"
 ////#include "Lib_GZ/Base/GzMem.h"
 
-		
+#undef gzCurrThis
+#define gzCurrThis const_cast<gzEase<T>*>(this)
+	
 	template <class T>
 	class gzEase { public:
 	  //  Canvas& canvas;
@@ -64,7 +66,7 @@
 			nTo = _nDest;
 		}
 		
-		inline void fStep(gzFloat _nSpeed = 10, gzFloat _nLimit = 999999999){ //Todo, limit to float max
+		inline void fStep(gzFloat _nSpeed = 10, gzFloat _nLimit = 999999999) const { //Todo, limit to float max
 			/*
 			if(_nSpeed >  -1.0 && _nSpeed < 1.0 ){
 				_nSpeed = 1.0;
@@ -78,7 +80,7 @@
 				if(_nEase < -_nLimit){
 					_nEase = -_nLimit;
 				}
-				nVal += _nEase;
+				gzCurrThis->nVal += _nEase;
 				
 			}else if(_nSpeed < -1){
 			
@@ -89,9 +91,9 @@
 				if(_nEase < -_nLimit){
 					_nEase = -_nLimit;
 				}
-				nVal += _nEase;
+				gzCurrThis->nVal += _nEase;
 				if( nVal  > nTo){//Limit
-					nVal = nTo;
+					gzCurrThis->nVal = nTo;
 				}
 			}
 
