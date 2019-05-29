@@ -107,6 +107,7 @@ typedef int tLS ;
 //#include "Lib_GZ/Base/SmartPtr/EnableSharedFromThis.h"
 #include "Lib_GZ/Base/SmartPtr/gzSp.h"
 #include "Lib_GZ/Base/SmartPtr/gzWp.h"
+#include "Lib_GZ/Base/SmartPtr/gzUp.h"
 
 /*
 // A macro to disallow the copy constructor and operator= functions

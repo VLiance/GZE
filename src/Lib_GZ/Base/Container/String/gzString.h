@@ -252,6 +252,25 @@ gzStr8 gzStrI(gzInt64 _nVal);
 gzStr8 gzStrF(gzFloat64 _nFloat, gzUInt8 _nbCharAfter = 3);
 
 
+//Fixe array to string, can be dangerous if memory is release before string
+inline gzStr8 GZ_CArray_fToStr(gzUInt8* _aData, gzUIntX _nSize){
+	return gzStrC((char*)_aData, _nSize);
+}
+/*
+//Todo Test
+inline gzStr8 GZ_CArray_fMapToStr(gzUInt8* _aData, gzUIntX _nSize){
+
+	  gzData_Map(_sTest, _aData);
+	  gzStr8 _sMap(&_sTest_dat);
+	
+   return _sMap;
+}
+ */
+
+	
+
+
+
 gzConst_U8(gzConstStr_true, "true");
 gzConst_U8(gzConstStr_false, "false");
 gzStr8 gzStrB(gzBool _bVal);

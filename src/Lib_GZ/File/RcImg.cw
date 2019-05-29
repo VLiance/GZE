@@ -81,7 +81,7 @@ package  {
 				bRcLoaded = true;
 				fLoadFile();
 				
-				Image.fOpen(this);
+				Image.fOpen(this); //Set aImg
 				Debug.fTrace("Finish TODO");
 			}
 			return true;

@@ -195,7 +195,6 @@
 	   }
 	  
 	   _aNewArrray.fPush( fSubStr( _rFind.nFrom* GzS, _rFind.nVal* GzS) );
-		
 		return 	_aNewArrray;
 	}
 	

@@ -92,7 +92,7 @@
 #define gzData_U16(_sName, _aData)  gzDataRC _sName##_dat = GzToDataRC_const(gzConcat(gzS16 ,_aData)); gzStr8 _sName(&_sName##_dat);
 #define gzData_U32(_sName, _aData)  gzDataRC _sName##_dat = GzToDataRC_const(gzConcat(gzS32 ,_aData)); gzStr8 _sName(&_sName##_dat);
 */
-
+#define gzData_Map(_sName, _aData)   gzDataRC _sName##_dat = GzToDataRC_const(_aData); 
 
 #define gzConst_U8(_sName, _sStr)  static const gzDataRC _sName = gzData8(_sStr);
 #define gzConst_U16(_sName, _sStr) static const gzDataRC _sName = gzData16(_sStr);

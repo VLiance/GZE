@@ -260,7 +260,7 @@ gzStr8 gzStrC(const char* _Array, gzUInt _nCount){
 	gzStr8 _sNewStr( ::GZ::fDataAlloc(_nCount, _nCount));
 	  gzUInt8* _aNew  = _sNewStr.m.aData->aTab;
 		
-    memcpy( _aNew, _Array, _nCount  * sizeof(gzUInt8));
+   memcpy( _aNew, _Array, _nCount  * sizeof(gzUInt8));
   
    return _sNewStr;
 }
