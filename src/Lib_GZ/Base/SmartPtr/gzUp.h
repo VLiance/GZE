@@ -45,23 +45,22 @@ class gzUp {
     T* obj;
 
     inline gzUp(void* _objPtr): obj((T*)_objPtr)  {
-		//printf("\n  **obj %p \n",obj );
+		printf("\n  **obj %p \n",obj );
 	};
 
 
 	inline gzUp():obj(0)  {};
     inline gzUp(T _obj):obj(&_obj){
-		//printf("\n  &bj %p \n",obj );
+		printf("\n  &bj %p \n",obj );
 	};
-
+/*
 	template <class R>
-	inline gzUp& operator = (gzUp<R> _oOther){
-
+	inline gzUp& operator = (const gzUp<R> &_oOther){
 		obj = _oOther.get(); 
-		_oOther.obj = 0; //Move
-
+		// const_cast<type*>(this)_oOther.obj = 0; //Move
+		const_cast<gzUp<R>*>(_oOther)->obj = 0; //Move
 		return *this;
-	}
+	}*/
 
 	//Automatic convert to pointer
 	//Example: Lib_GZ::Sys::Debug::SetInst(oMain->thread) = Lib_GZ::Sys::Debug::Get(oMain->thread)->New(oMain.get());
@@ -94,10 +93,24 @@ class gzUp {
     }
 
 
+	inline gzUp( gzUp<T> &_oOther){
+
+		obj = _oOther.get(); 
+		_oOther.obj = 0; //Move
+//const_cast<gzUp<T>*>(_oOther)->obj = 0; //Move
+//const_cast<T*>(&_oOther)->obj = 0; //Move
+//const_cast<gzUp<T>*>(this)->_oOther.obj = 0; //Move
+
+	}
+	
+
     inline ~gzUp(){
 		if(obj != 0){
-			delete obj;
+			delete obj; //Not work on return
+		}else{
+			printf("\n No delete");
 		}
+		
 	};
 };
 
