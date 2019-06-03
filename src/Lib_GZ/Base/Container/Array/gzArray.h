@@ -17,6 +17,8 @@
 #include "Lib_GZ/Base/Result/gzResult.h"
 #include "Lib_GZ/Base/Math/MathBit.h"
 #include "Lib_GZ/Debug/Debugging.h"
+#include "Lib_GZ/Base/SmartPtr/SmartPtr.h"
+
 
 //gzDataArrayShared
 
@@ -535,8 +537,18 @@ class gzArray {
 			//printf("[%d] ", i); printf( "%p", m.aData->aTab[i * GzS]  );printf("\n");
 		//	printf("[%d] ", i); printf( "%c", m.aData->aTab[i * GzS]  );printf("\n");
 		}
-
 	 }
+	 
+	 inline void fClear(){
+
+		for(gzUIntX i = 0; i < gzp_Size; i++){
+			 Lib_GZ::fRemove(((T*)(&m.aData->aTab[i * GzS])));
+			//((T*)(&m.aData->aTab[i * GzS]))->remove();
+		}
+		gzp_Size = 0;
+	}
+	 
+	 
 	 
 	 	 
 	inline void f_SubStr(gzUIntX _nBeginIndex, gzUIntX _nEndIndex )  {

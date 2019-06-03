@@ -7,10 +7,18 @@ package  {
 	
 	//import GZ.ThreadMsg;
 	
+	
+	<cpp_h>	
+		#include "Lib_GZ/Base/SmartPtr/SharedCount.h"
+	</cpp_h>
+		
+	
 	public extension Class   {
 
 		public static var nClassId : Int;
 		
+	
+	
 		<cpp_namespace_h>	
 			//namespace Lib_GZ{namespace Base{namespace Thread{class cThread;}}}
 			}namespace Thread{class cThread;}namespace Class{
@@ -21,8 +29,21 @@ package  {
 		
 		<cpp_class_h>
 			inline cClass* SpFromThis(){return this;}; //TODO
-
+			/*
+			inline void AddInst() const {const_cast<cClass*>(this)->nInstCount++;}; 
+			inline void SubInst() const {
+				const_cast<cClass*>(this)->nInstCount--;
+				
+				printf("\nnInstCount: %d", nInstCount);
+				if(nInstCount == 0){
+					printf("\nDelete ");
+					delete this;
+				}
+			};
+			*/
+			
 			cClass* parent;//temps //TODO gzWp
+			gzInt nInstCount;
 			
 			union {
 				Lib_GZ::Base::Thread::cThread* GzThread;
@@ -37,7 +58,7 @@ package  {
 			
 			
 		<cpp_initializer_list>
-			:gzAny()
+			:SharedCount(), nInstCount(0)
 		</cpp_initializer_list>
 			
 		<cpp_initializer>

@@ -13,6 +13,7 @@
 //#include "Lib_GZ/Base/SmartPtr/SharedPtr.h"
 #include "Lib_GZ/Base/GzTypes.h"
 
+
 namespace Lib_GZ{namespace Base{class cClass;}}
 
 template <class T> class gzSp;
@@ -20,7 +21,7 @@ template <class T> class gzSp;
 #if !( defined tHDef_GZ_gzSp)
 #define tHDef_GZ_gzSp
 
-
+#include "Lib_GZ/Base/SmartPtr/SharedCount.h"
 
 
 //template<class T, class U> gzSp<T> gzSCastSelf( gzSp<U> const & r )
@@ -44,8 +45,8 @@ template<class T, class U> gzSp<T> gzSCastSelf( gzSp<U> const & r )
 
 
 
-
-template<class T> gzSp<T> gzSCastSelf( gzClass _ptr) {
+/*
+template<class T> gzSp<T> gzSCastSelf( gzSharedCount* _ptr) {
 //template<class T> gzSp<T> gzSCastSelf( void* _ptr) {
 
     if(_ptr == 0){
@@ -58,24 +59,20 @@ template<class T> gzSp<T> gzSCastSelf( gzClass _ptr) {
 	return gzSp<T>((T*)_ptr ); //Add Count ??!!!
 	
 			 
-	/* TODO !!!!!!!!
-    if( _ptr->weak_this_.px != 0){
-        gzSp<T> r( ((gzWp<T>)_ptr->weak_this_ ));
+	// TODO !!!!!!!!
+   // if( _ptr->weak_this_.px != 0){
+    //    gzSp<T> r( ((gzWp<T>)_ptr->weak_this_ ));
+    //    return gzSp<T>( r, r.get() );
+   // }else{ //Objet was created in stack so we create a SharedPtrFrom This
+				////return gzSp<T>(); //Copy?
+			//  // return  gzSp<T>(new T(*((T*)_ptr))); //Copy, heavy?
+	//   return  gzSp<T>( static_cast<T*>( _ptr->MemCopy()) ); //Copy v2 //GzDynamic_cast here
+   // }
+}*/
 
-        return gzSp<T>( r, r.get() );
-
-    }else{ //Objet was created in stack so we create a SharedPtrFrom This
-		
-		//return gzSp<T>(); //Copy?
-      // return  gzSp<T>(new T(*((T*)_ptr))); //Copy, heavy?
-	   return  gzSp<T>( static_cast<T*>( _ptr->MemCopy()) ); //Copy v2 //GzDynamic_cast here
-    }
-*/
+template<class T> gzSharedCount* gzSCastSelf( gzSharedCount* _ptr) { //disable
+	return _ptr;
 }
-
-
-
-
 
 
 
@@ -94,19 +91,64 @@ class gzSp {
     T* obj;
    // inline gzSp() {};
    
-   // inline gzSp(Lib_GZ::Base::cClass* _objPtr): obj((T*)_objPtr)  {};
-    inline gzSp(Lib_GZ::Base::cClass* _objPtr): obj((T*)_objPtr)  {
-		//printf("\n  **obj %p \n",obj );
-	};
-
-
+   
+   
+ 
+   
+  ///////REQUIRED ////////
+ 	inline gzSp(const gzSp<T> &_oOther){
+		obj = _oOther.get();
+		addInst();
+	}
 	
+
+	inline gzSp& operator = ( const gzSp<T> _oOther){
+		if(obj != 0) {subInst();};
+		obj = _oOther.get();
+		addInst();
+		return *this;
+	}
+	/////////////////////////////////
+	
+	inline gzSp(gzSharedCount* _objPtr):obj((T*)_objPtr)  {
+	//	addInst();
+	};
+	inline gzSp():obj(0)  {};
+	
+   // inline gzSp(T _obj):obj(_obj){addInst();};
+	/////////////////////////////////
+	
+	inline  void addInst() const {
+	 // ((cClass*)(const_cast<gzSp<T>*>(this))->obj)->AddInst();
+		if(obj != 0){ //TODO  Removed if using dummy obj
+			((gzSharedCount*)obj)->AddInst();
+		}
+	}
+	inline  void subInst() const {
+		if(obj != 0){ //TODO Removed if using dummy obj
+			((gzSharedCount*)obj)->SubInst();
+		}
+	}
+
+	inline  void remove() const {
+		subInst();
+	}
+   
+   
+   
+   
+   /*
+   // inline gzSp(Lib_GZ::Base::cClass* _objPtr): obj((T*)_objPtr)  {};
+    inline gzSp(gzSharedCount* _objPtr): obj((T*)_objPtr)  {
+		//printf("\n  **obj %p \n",obj );
+		
+	};
 	inline gzSp():obj(0)  {};
 
     inline gzSp(T _obj):obj(&_obj){
 		//printf("\n  &bj %p \n",obj );
 	};
-
+*/
  //   inline gzSp( gzSp<T> _oOther):obj(*_oOther.get()){};
 
  //  inline gzSp(gzSp<T> _oOther):obj(*_oOther.get()){}; //Copy
@@ -249,6 +291,11 @@ template<class T, class U> gzSp<T> gzSCast( gzWp<U> const & r ) //GZ_NoExcept
 */
 
 
+template<class T> gzSharedCount* gzSCast( gzSharedCount* _ptr ){ //Disable
+	return _ptr;
+}
+
+/*
 template<class T> gzSp<T> gzSCast( gzClass _ptr ) //GZ_NoExcept
 //template<class T> gzSp<T> gzSCast( void* _ptr ) //GZ_NoExcept
 {
@@ -260,7 +307,7 @@ template<class T> gzSp<T> gzSCast( gzClass _ptr ) //GZ_NoExcept
     //return gzSp<T>( _pOri, p );
     return gzSp<T>( p );
 }
-
+*/
 
 template<class T, class U> gzSp<T> gzSCast( gzSp<U> const & _pOri ) //GZ_NoExcept
 {

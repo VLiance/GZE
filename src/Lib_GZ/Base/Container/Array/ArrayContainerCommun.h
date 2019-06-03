@@ -61,6 +61,7 @@ gzResult_Search fDataRevFind(const gzp_Type& _pFind, gzUIntX _nFromIndex = ((gzU
 	 return fDataRevFind( _pFind, _nFromIndex);
  }
 
+ //#include <type_traits> //std::is_same
  
   inline gzBool operator==(const gzp_Type& _oOther) const {
   	//	gzUIntX _nTO = GZ_fMax(gzp_Size,_oOther.gzp_Size);
@@ -74,10 +75,22 @@ gzResult_Search fDataRevFind(const gzp_Type& _pFind, gzUIntX _nFromIndex = ((gzU
 		}
 		return true;
    }
-	
+	/*
 	inline void fClear(){
+	
+	//if (std::is_same<T, gzSp<T>>::value){   // <== THIS IS HOW YOU WOULD USE IT
+			for(gzUIntX i = 0; i < gzp_Size; i++){
+				gzp_Array[i]
+			}
+	//	}
 		gzp_Size = 0;
-	}
+	}*/
+	
+	
+	
+	
+	
+	
 	
 /*
 	gzp_DataType& operator=(const gzp_DataType& _oOther) {

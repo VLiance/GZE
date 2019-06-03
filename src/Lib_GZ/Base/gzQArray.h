@@ -87,19 +87,12 @@ public :
     inline ~gzPods(){
     }
 };
-namespace Lib_GZ{
-    template <typename T>
-    inline void fIsFree(const T &t) {
-    }
-    template <typename T>
-    inline void fIsFree(const gzPods<T> &t) {
-        if(t.bMustFree){
-            t.dDelete.fCall((void*)t.Val);
-            GZ_fFree(t.Val);
-        }
-    }
-}
+
 */
+
+
+
+
 template <class T>
 struct gzQElementHold {
     void* pNext;
@@ -119,7 +112,7 @@ struct gzQElementHold {
         //printf("\n--Create2");
     }
      inline ~gzQElementHold(){
-       // Lib_GZ::fIsFree(Val);
+        Lib_GZ::fRemove(Val);
     }
 };
 
