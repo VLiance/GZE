@@ -541,8 +541,10 @@ class gzArray {
 	 
 	 inline void fClear(){
 
-		for(gzUIntX i = 0; i < gzp_Size; i++){
-			 Lib_GZ::fRemove(((T*)(&m.aData->aTab[i * GzS])));
+		for(gzUIntX i = 0; i < (gzp_Size)/GzS; i++){
+			 //Lib_GZ::fRemove(((T*)(&m.aData->aTab[i * GzS])));
+			((T*) m.aData->aTab)[i] = 0;
+			//((T*) m.aData->aTab)[i * GzS] = 0;
 			//((T*)(&m.aData->aTab[i * GzS]))->remove();
 		}
 		gzp_Size = 0;

@@ -18,8 +18,14 @@
 		template <typename T>
 		inline void fRemove(const T &t) {
 		}
+		
 		template <typename T>
-		inline void fRemove(const gzSp<T> &t) {
+		inline void fRemove( gzSp<T>* t) { //From Array
+			t->remove();
+		}
+		
+		template <typename T>
+		inline void fRemove(const gzSp<T> &t) {//From QArray
 			t.remove();
 			/*
 			if(t.bMustFree){

@@ -103,15 +103,35 @@ class gzSp {
 	
 
 	inline gzSp& operator = ( const gzSp<T> _oOther){
-		if(obj != 0) {subInst();};
+		//if(obj != 0) {subInst();};
+		subInst();
 		obj = _oOther.get();
 		addInst();
 		return *this;
 	}
 	/////////////////////////////////
 	
+	template <class R>
+	inline gzSp& operator = (gzSp<R> _oOther){
+	
+		subInst();
+		//printf("other %p",_oOther.get() );
+	  // GZ_fSpAssert(_oOther.get() == 0);
+	//    if(_oOther.get() != 0){
+			obj = _oOther.get(); //Copy
+	//   }else{
+			//obj = T( (Lib_GZ::Base::cClass*)(obj->parent.get()) ); //Reset if null
+	 //  }
+		addInst();
+	 
+	 //		printf("obj %p",obj );
+		return *this;
+	}
+	
+	
+	
 	inline gzSp(gzSharedCount* _objPtr):obj((T*)_objPtr)  {
-	//	addInst();
+		addInst();
 	};
 	inline gzSp():obj(0)  {};
 	
@@ -131,7 +151,9 @@ class gzSp {
 	}
 
 	inline  void remove() const {
-		subInst();
+	//	subInst();
+		//delete this;
+		this->~gzSp();
 	}
    
    
@@ -153,18 +175,7 @@ class gzSp {
 
  //  inline gzSp(gzSp<T> _oOther):obj(*_oOther.get()){}; //Copy
 
-	template <class R>
-	inline gzSp& operator = (gzSp<R> _oOther){
-		//printf("other %p",_oOther.get() );
-	  // GZ_fSpAssert(_oOther.get() == 0);
-	//    if(_oOther.get() != 0){
-			obj = _oOther.get(); //Copy
-	//   }else{
-			//obj = T( (Lib_GZ::Base::cClass*)(obj->parent.get()) ); //Reset if null
-	 //  }
-	 //		printf("obj %p",obj );
-		return *this;
-	}
+	
 
 	//Automatic convert to pointer
 	//Example: Lib_GZ::Sys::Debug::SetInst(oMain->thread) = Lib_GZ::Sys::Debug::Get(oMain->thread)->New(oMain.get());
@@ -251,7 +262,9 @@ class gzSp {
      }
      */
 
-    inline ~gzSp(){};
+    inline ~gzSp(){
+		subInst();
+	};
 };
 /*
 //template <class T>
@@ -309,18 +322,23 @@ template<class T> gzSp<T> gzSCast( gzClass _ptr ) //GZ_NoExcept
 }
 */
 
+template<class T, class U> gzSharedCount*  gzSCast( gzSp<U> const & _pOri ) //GZ_NoExcept
+{
+	return _pOri;
+}
+
+/*
 template<class T, class U> gzSp<T> gzSCast( gzSp<U> const & _pOri ) //GZ_NoExcept
 {
    // (void) static_cast< T* >( static_cast< U* >( 0 ) );
 
  //   typedef typename gzSp<T>::T E;
-
-
     T* p = static_cast< T* >( _pOri.get() );
     //return gzSp<T>( _pOri, p );
     return gzSp<T>( p );
 }
 
+*/
 
 
 

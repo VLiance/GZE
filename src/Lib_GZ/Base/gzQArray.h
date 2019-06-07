@@ -112,7 +112,8 @@ struct gzQElementHold {
         //printf("\n--Create2");
     }
      inline ~gzQElementHold(){
-        Lib_GZ::fRemove(Val);
+	
+        //Lib_GZ::fRemove(Val);
     }
 };
 

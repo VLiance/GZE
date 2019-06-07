@@ -31,18 +31,27 @@ class SharedCount : gzAny {
    }
    
    
-	inline void AddInst() const {const_cast<SharedCount*>(this)->nSharedCount++;}; 
+	inline void AddInst() const {
+	
+		if(nSharedCount > 300){
+			printf("\nnSharedCount: %d", nSharedCount);
+		}
+		const_cast<SharedCount*>(this)->nSharedCount++;
+	
+	}; 
 	inline void SubInst() const {
 		const_cast<SharedCount*>(this)->nSharedCount--;
-		
-		printf("\nnSharedCount: %d", nSharedCount);
-		if(nSharedCount == 0){
-			printf("\nDelete ");
+		if(nSharedCount > 300){
+			printf("\nnDelSharedCount: %d", nSharedCount);
+		}
+	
+		if(nSharedCount <= 0){
+		//	printf("\nDelete ");
 			delete this;
 		}
 	};
 	
-    inline ~SharedCount(){
+    virtual inline ~SharedCount(){
 	};
 };
 
