@@ -201,7 +201,16 @@ package  {
 			var _nClipBlue : UInt = 0;
 			var _nClipGreen : UInt = 0;
 
+			
+			
+			
 			aSourcePixel = oDstBuff.aPixelArray;
+			
+			<cpp>
+			return false;
+			void* _aSourcePixel = aSourcePixel;
+			</cpp>
+			
 
 			for (var y:Int = _nY_Start; y <= _nY_End; y++) {
 

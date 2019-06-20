@@ -8,7 +8,10 @@ package  {
 	import GZ.Sys.System;
 
 	public extension Thread extends Class  {
-		
+	
+	
+		public atomic var bAppIsAlive : Bool = true;
+		public atomic var nThreadCount : Int = 0;
 	
 		
 		public var bRun : Bool = true;
@@ -24,7 +27,7 @@ package  {
 		<cpp_class_h>
 			static gzUInt nCurrId; //TODO MAKE IT ATOMIC
 			cThreadExt* pThreadExt;
-			gzArray<csClass*> st;
+			gzArray<Lib_GZ::Base::csClass*> st;
 			gzSp<cClass> oObj;
 			inline void fLinkThreadExt(cThreadExt* _pThreadExt){
 				pThreadExt = _pThreadExt;
@@ -74,7 +77,7 @@ package  {
 					Lib_GZ::Base::Thread::cThread* thread;//???????????????
 
 					inline csClass(Lib_GZ::Base::Thread::cThread* _thread): thread(_thread), zInst(0) {};
-					inline ~csClass(){};
+					inline virtual ~csClass(){};
 			};
 
 			GZ_mStaticClass(Class)
@@ -92,16 +95,31 @@ package  {
 			<cpp>
 					
 			#ifndef GZ_D_Monothread
-				while(bRun){
+				nThreadCount++;
+				while(bAppIsAlive && bRun){
 					oObj->ThreadLoop();
 				    Lib_GZ::Sys::System::GetInst(thread)->fSleep(nSleepTime); //TODO Syteme
 				}
+				nThreadCount--;
 			#else
 				oObj->ThreadLoop(); //Already called in threadlist?
 			#endif
+			</cpp>
+		}
+		
+		destructor  {
+			<cpp>
+				for(int i = 0; i < st.GnSize(); i++){
+					csClass* _ptr = st(i);
+					if(_ptr != 0){
+						delete _ptr;
+					}
+				}
+				
 			</cpp>
 		}
 
 	}
 }
 
+//

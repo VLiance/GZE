@@ -55,7 +55,7 @@ namespace GzVector{
 				return _oLeft / _oRight;
 			break;
 		}
-		//return _oLeft + _oRight;
+		return _oLeft;//Default --> remove warning
 	}
 
 	template<class T> inline void fIntAssign(T* _aTab, const gzUIntX _nSize,  const int  _nVal){

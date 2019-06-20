@@ -158,7 +158,7 @@
     gzSp<Lib_GZ::Base::Thread::cThreadExt> NewThread(Lib_GZ::Base::cClass* _parent); \
 
 //A new thread create (threadExt), we send a callback to call when the thread start to this class
-//When the thread was created, it create a initialiser Extend as Thread) class to be created before and released after
+//When the thread was created, it create a initialiser (Extend as Thread) class to be created before and released after
 //Then we set the current thread to the initialiser (Extend as Thread)
 //Then current class was created and we send it the initialiser (Extend as Thread)
 //Then with lopp indefinitly while bRun was true
@@ -176,6 +176,7 @@ void _sLib::_sClass::Thread_Start(GZ_FuncWrapD, gzPtr _pThread){  \
 	gzSp<_sLib::c##_sClass>_oTemp = gzSp<_sLib::c##_sClass>(new _sLib::c##_sClass(_oInitialiser.get())); \
 	_oTemp->Constructor((_namespace::c##_class*)_oInitialiser.get());   \
 	_oInitialiser->fStart(_oTemp.get()); \
+	printf("\nEND Thread class: " #_sClass);\
 	_oInitialiser->ThreadEnd();\
 }
 	//_oTemp->Ini_c##_sClass((_namespace::c##_class*)_oInitialiser.get());   \
@@ -294,35 +295,45 @@ GZ_mStaticClassThread(_Class,_Op)
   //  extern gzUInt _nId;\
 
 
-#define GZ_mStaticClass(_Class)  GZ_mStaticClassThread(_Class,  0, 0)}
-#define GZ_mStaticClassOp(_Class, _Op)  GZ_mStaticClassThread(_Class, &_Op::Create, &_Op::Adr)}
+#define GZ_mStaticClass(_Class)  GZ_mStaticClassThread(_Class, &_Class::Ini_Class, 0)}
+#define GZ_mStaticClassOp(_Class, _Op)  GZ_mStaticClassThread(_Class, &_Class::Ini_Class, &_Op::Adr)}
+
+
+//#define GZ_mStaticClassOp(_Class, _Op)  GZ_mStaticClassThread(_Class, &_Op::Create, &_Op::Adr)}
 
 //    struct uOverplace {uOverplace* rPrec; gzUInt nId; gzPtrFuncRPAny cfOri; gzPtrFuncRPAny cfOver; gzPtrFuncRPAny cfExt;  gzPtrFuncRAny cfExtAdr; gzStr8 sName;};
  
+/*
+   printf("\n ------PTR_Aft: %p", _oCurrThread->st[zDefault.nId]); \
+   _oCurrThread->st.fSet(zDefault.nId, (Lib_GZ::Base::csClass*)_ptr);\
+	  printf("\n ------PTR_Aft: %p", _oCurrThread->st[zDefault.nId]); \
+	    printf("\n ------CREATENEWCALSSS!! %p , %p , %p  , %d , %d : "#_Class, _oCurrThread, _oCurrThread->st[zDefault.nId] , _oCurrThread->st(zDefault.nId), zDefault.nId, _oCurrThread->nId); \
 
+*/
  
-#define GZ_mStaticClassThread(_Class, _OpCreate, _OpAdr)\
+#define GZ_mStaticClassThread(_Class, _pIniClass, _OpAdr)\
 namespace _Class{\
 	gzConst_U8(sClassName, #_Class);\
     extern Lib_GZ::uOverplace zDefault;\
     extern gzPtrFuncRPAny cfDefault;\
     extern void Ini_Class();\
     inline void* Create(void* _oCurrThread){\
-		 return new cs##_Class((Lib_GZ::Base::Thread::cThread*)_oCurrThread);\
+		cs##_Class* _ptr = new cs##_Class((Lib_GZ::Base::Thread::cThread*)_oCurrThread);			\
+		return _ptr;\
     }\
     inline void* Adr(){\
         return &zDefault;\
     }\
-    inline Lib_GZ::uOverplace AddClass(){ zDefault = {Lib::SetClass(&zDefault), 0, &Create,  &Create, _OpCreate, _OpAdr, sClassName}; return zDefault;}\
+    inline Lib_GZ::uOverplace AddClass(){ zDefault = {Lib::SetClass(&zDefault), 0, &Create,  &Create, _pIniClass, _OpAdr, sClassName}; return zDefault;}\
     \
 	/* TODO Check if a shared ptr is required */ \
     inline cs##_Class* Get(Lib_GZ::Base::Thread::cThread* _oCurrThread){\
         if(_oCurrThread->st(zDefault.nId) == 0){\
-             _oCurrThread->st[zDefault.nId] = (cs##_Class*)zDefault.cfOver(_oCurrThread); /* cfOver=Create() create new static class */ \
-	   printf("\n ------CREATENEWCALSSS!! %p , %d , %d : "#_Class, _oCurrThread, zDefault.nId, _oCurrThread->nId); \
-	  }else{\
+		cs##_Class* _ptr =   (cs##_Class*)zDefault.cfOver(_oCurrThread); \
+	      _oCurrThread->st[zDefault.nId] = (cs##_Class*)_ptr; /* cfOver=Create() create new static class */ \
+	}else{\
 		}\
-        return ((cs##_Class*) _oCurrThread->st(zDefault.nId));\
+        return static_cast<cs##_Class*>( _oCurrThread->st(zDefault.nId));\
     }\
 	inline gzSp<c##_Class> GetInst(Lib_GZ::Base::Thread::cThread* _oCurrThread){\
 		GzAssert( Get(_oCurrThread)->zInst != 0, "Singleton must be created first, use C~: "#_Class" = new "#_Class"(...);")		\

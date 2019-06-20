@@ -17,6 +17,8 @@
 #include "Lib_GZ/Base/Result/gzResult.h"
 #include "Lib_GZ/Base/Math/MathBit.h"
 #include "Lib_GZ/Debug/Debugging.h"
+#include "Lib_GZ/Base/SmartPtr/SmartPtr.h"
+
 
 //gzDataArrayShared
 
@@ -27,7 +29,7 @@
 
 
 
-//template <class T>
+template <class T>
 class gzArray_ {
 public:
 	
@@ -67,7 +69,8 @@ public:
 	#define gzp_RelSizeO gzp_DataSize / gzp_Stride
 	
 	#define gzp_WRITE_OPERATION_(ex) gzp_TestLock
-	#define gzp_Stride (sizeof(1))
+	//#define gzp_Stride (sizeof(T))
+	#define gzp_Stride (1)
 	#define gzp_SearchIndex(ex) (ex * gzp_Stride)
 	
 	
@@ -75,7 +78,7 @@ public:
 	#define gzp_Data aData
 	
 	#define gzp_nS  *_nS
-	#define gzp_DataType gzArray_
+	#define gzp_DataType gzArray_<T>
 	#define gzp_DataSize aData->nSize
 	#define gzp_DataArray aData->aTab
 	#define gzp_DataLimit  aData->nLimit
@@ -123,9 +126,11 @@ public:
 	}*/
 
 	inline void Delete(gzDataRC* _oRC) const {
-		if(_oRC->nType == gzDataType_Both_HEAP_AND_SUBFREE){ //Cond before func? Remove all sub instances & sub free
+		///if(_oRC->nType == gzDataType_Both_HEAP_AND_SUBFREE){ //Cond before func? Remove all sub instances & sub free
+		if( gzDataType_IS_Array_MUSTFREE(_oRC) ){  //Cond before func? Remove all sub instances & sub free
 			for(gzUInt i = 0; i < _oRC->nSize; i++){
-				//(Base* ) aTab[i]->Delete();
+				//(Base* ) aTab[i]->Delete(); 
+				//((T*) m.aData->aTab)[i] = 0; //Todo not for basic type 
 			}
 		}
 		
@@ -162,17 +167,15 @@ public:
 			_oRC->fRemoveInstance();
 		}
 		
-		/*
-		//Lock free unsafe version (can be double delete)
-		_oRC->fRemoveInstance();
-		if( _oRC->nInst == 0 ){//nType >= 0 Heap data -> must be freed
-			Delete(_oRC);
-			//if(_oRC->nWeakInst == 0){
-				Free(_oRC);
-			//}
-		}
-		*/
 		
+		//Lock free unsafe version (can be double delete)
+	//	_oRC->fRemoveInstance();
+	//	if( _oRC->nInst == 0 ){//nType >= 0 Heap data -> must be freed
+		//	Delete(_oRC);
+			//if(_oRC->nWeakInst == 0){
+		//		Free(_oRC);
+			//}
+	//	}
 		
 	}
 	
@@ -344,26 +347,26 @@ template <class T>
 class gzPodLock{
 	
 	 public:
-	 gzArray_* m;
+	 gzArray_<T>* array;
 	// T* element;
 	 
 	 
-	  gzPodLock(gzArray_* _array):m(_array){
+	  gzPodLock(gzArray_<T>* _array):array(_array){
 		 printf("\n***CreateLock***");
-		 m->nLock ++;
+		 array->nLock ++;
 	 }
 	 
 	 /*
-	  gzPodLock(gzArray_* _array,  T* _element ):m(_array), element(_element){
+	  gzPodLock(gzArray_* _array,  T* _element ):array(_array), element(_element){
 		 printf("\n***CreateLock***");
-		 m->nLock ++;
+		 array->nLock ++;
 	 }
 	 */
 	 
 	 /*
 	 	inline T& operator[](gzUIntX _nIndex) {
-		return  *((T*)(&m.aData->aTab[_nIndex * GzS]));
-		//return  ((T)(m.aData->aTab[_nIndex * GzS]));
+		return  *((T*)(&array.aData->aTab[_nIndex * GzS]));
+		//return  ((T)(array.aData->aTab[_nIndex * GzS]));
 	}*/
 	/*
 	 T& get(){
@@ -376,8 +379,8 @@ class gzPodLock{
 	}*/
 	
 	inline T& operator[](gzUIntX _nIndex) {
-		return  *((T*)(&m->aData->aTab[_nIndex * GzS]));
-		//return  ((T)(m.aData->aTab[_nIndex * GzS]));
+		return  *((T*)(&array->aData->aTab[_nIndex * GzS]));
+		//return  ((T)(array.aData->aTab[_nIndex * GzS]));
 	}
 	
 	
@@ -386,29 +389,77 @@ class gzPodLock{
 	 ~gzPodLock(){
 
 		 printf("\n***DestroyLock****");
-		  m->nLock --;
+		  array->nLock --;
 	 }
 };
 
 
 
 		//	static const gzUIntX* _nZero = 0;
-			
+		
+
+		
+	#undef gzp_Data
+	#define gzp_Data  m.aData
+	
+	#undef gzp_DataType
+	#define gzp_DataType gzArray_<T>
+	
+	#undef gzp_DataSize
+	#define gzp_DataSize  aData->nSize
+	
+	#undef gzp_DataArray
+	#define gzp_DataArray  aData->aTab
+	
+	#undef gzp_DataLimit
+	#define gzp_DataLimit  aData->nLimit
+	
+	/////////////////////////////
+	#undef gzp_Type
+	#define gzp_Type gzArray<T>
+	#undef gzp_Data_
+	#define gzp_Data_ m.aData
+	#undef gzp_Size
+	#define gzp_Size m.aData->nSize
+	#undef gzp_Array
+	#define gzp_Array m.aData->aTab
+	#undef gzp_Limit
+	#define gzp_Limit  m.aData->nLimit
+	/////////////////////////////////
+	
+	//#define gzp_DataTypeOnly(_Exp)  _Exp;
+	//#define gzp_DataRelSize(_nFullSize) (_nFullSize)
+	
+//	#define gzp_RIni(Exp) Exp;return *gzDtThis;
+	#undef gzp_RIni
+    #define gzp_RIni(Exp) gzp_DataType _oNew(gzDtThis, true);_oNew.Exp;return _oNew;	
+		
+		
+	
 template <class T>
 class gzArray {
 	public:
-	gzArray_ array;
+	gzArray_<T> m;
+	
+	gzBool bCatchMe;
 	
 	#include "ArrayContainerCommun.h"
 	
-	inline gzArray(){//TODO TODO Default construction!!!!!!
-		
+	
+	
+	inline gzArray():m(){//TODO TODO Default construction!!!!!!
+		bCatchMe = false;
 	}
+	
+	inline gzArray(gzBool _bCatchMe):m(){//TODO TODO Default construction!!!!!!
+		bCatchMe = true;
+	}
+	
 	
 	/*
 	//READING
 	inline T& operator()(gzUIntX _nIndex) {
-		return  *((T*)(&array.aData->aTab[_nIndex * GzS]));
+		return  *((T*)(&m.aData->aTab[_nIndex * GzS]));
 	}
 	*/
 	
@@ -421,119 +472,137 @@ class gzArray {
 		
 		if(_nIndex >= gzp_length){
 			//	printf("\n!Return !! %d", _nZero);  
-			return 0;
+			return T();
 		}
 	//	GzUnAssert(_nIndex >= gzp_length, "Reading array Out of bound");
-	//	GzUnAssert(_nIndex >= array.aData->nSize, "Reading array Out of bound");
-	//		printf("\n!!!!!!!!! return !! %d",((T*)(&array.aData->aTab[_nIndex * GzS]))->get());
-		return  *((T*)(&array.aData->aTab[_nIndex * GzS]));
+	//	GzUnAssert(_nIndex >= m.aData->nSize, "Reading array Out of bound");
+	//		printf("\n!!!!!!!!! return !! %d",((T*)(&m.aData->aTab[_nIndex * GzS]))->get());
+		return  *((T*)(&m.aData->aTab[_nIndex * GzS]));
 	}
 		
 	//WRITING 
 	inline T&  operator[](gzUIntX _nIndex) const {
-		//GzAssert(array.aData->nType != 0, "DataArray is readOnly, use () instead if you reading only values"); //IF READONLY WE RECREATE ONE (COW), TODO VERIFY?
-		//GzUnAssert(_nIndex >=  gzp_length , "Writing array Out of bound"); //OUT OF BOUND REALLOC ARRAY
+		//GzAssert(m.aData->nType != 0, "DataArray is readOnly, use () instead if you reading only values"); //IF READONLY WE RECREATE ONE (COW), TODO VERIFY?
+		//GzUnAssert(_nIndex >=  gzp_length , "Writing m Out of bound"); //OUT OF BOUND REALLOC ARRAY
 		
-		array.fSetArrayAndSize( (_nIndex+1) * (sizeof(T))  );
-		return  *((T*)(&array.aData->aTab[_nIndex * GzS]));
+		m.fSetArrayAndSize( (_nIndex+1) * (sizeof(T))  );
+		return  *((T*)(&m.aData->aTab[_nIndex * GzS]));
 	}
+	
+	
+	
+	
 	inline const T&  fPush(const T& _oObj) const {
 		(*this)[gzp_length] = _oObj;
 		return _oObj;
 	}
+	/*
 	inline gzUIntX GnSize() const {
 		return gzp_length;
-	}
+	}*/
 
 	
 
 	gzPodLock<T> getsafe(){  //(safe)
-//		return gzPodLock<T>(  &array , (T*)(&array.aData->aTab[0]));
-		return gzPodLock<T>(  &array);
+//		return gzPodLock<T>(  &m , (T*)(&m.aData->aTab[0]));
+		return gzPodLock<T>(  &m);
 	}
 	
 	/*
 	
 	//	gzPodLock<T> fGetLock(gzUIntX _nIndex){
 	//	printf("\n------%d", sizeof(T));
-		//return *(T*)&(array.aData->aTab[_nIndex * GzS]);
-	//	return *(T*)&(array.aData->aTab[_nIndex * GzS]);
-	//	((gzFloat*)array.aData->aTab)[0] = 5.5;
+		//return *(T*)&(m.aData->aTab[_nIndex * GzS]);
+	//	return *(T*)&(m.aData->aTab[_nIndex * GzS]);
+	//	((gzFloat*)m.aData->aTab)[0] = 5.5;
 	
-	//	return (T*)(&array.aData->aTab[_nIndex * GzS]);
+	//	return (T*)(&m.aData->aTab[_nIndex * GzS]);
 	*/
 	
 	
 
-	gzArray(const gzArray_& _oOther):array(_oOther){}
+	gzArray(const gzArray_<T>& _oOther):m(_oOther){}
 
-	gzArray(gzDataRC* _oOther):array(_oOther){}
+	gzArray(gzDataRC* _oOther):m(_oOther){}
 /*
-	gzArray(const gzDataRC& _oOther):array(_oOther){
+	gzArray(const gzDataRC& _oOther):m(_oOther){
 		printf("\noku\n");
 	}*/
 	
 
-	gzArray<T> operator=(const gzArray_& _oOther) {
-		array = _oOther;
+	gzArray<T> operator=(const gzArray_<T>& _oOther) {
+		m = _oOther;
 	   return *this;
 	}
-	gzArray operator+=(const gzArray_& _oOther) {
-		array += _oOther;
+	gzArray operator+=(const gzArray_<T>& _oOther) {
+		m += _oOther;
 	   return *gzDtThis;
 	}
 	
 	inline void fPrint() const {
-		printf("\n %p ", array.aData);
+		printf("\n %p ", m.aData);
 		for(gzUInt i = 0; i < gzp_length; i++){
-			printf("[%d] ", i);((T*)(&array.aData->aTab[i * GzS]))->fPrint();printf("\n");
-			//printf("[%d] ", i); printf( "%p", array.aData->aTab[i * GzS]  );printf("\n");
-		//	printf("[%d] ", i); printf( "%c", array.aData->aTab[i * GzS]  );printf("\n");
+			printf("[%d] ", i);((T*)(&m.aData->aTab[i * GzS]))->fPrint();printf("\n");
+			//printf("[%d] ", i); printf( "%p", m.aData->aTab[i * GzS]  );printf("\n");
+		//	printf("[%d] ", i); printf( "%c", m.aData->aTab[i * GzS]  );printf("\n");
 		}
-
 	 }
+	 
+	 inline void fClear(){
+
+		for(gzUIntX i = 0; i < (gzp_Size)/GzS; i++){
+			 //Lib_GZ::fRemove(((T*)(&m.aData->aTab[i * GzS])));
+			((T*) m.aData->aTab)[i] = 0;
+			//((T*) m.aData->aTab)[i * GzS] = 0;
+			//((T*)(&m.aData->aTab[i * GzS]))->remove();
+		}
+		gzp_Size = 0;
+	}
+	 
+	 
 	 
 	 	 
 	inline void f_SubStr(gzUIntX _nBeginIndex, gzUIntX _nEndIndex )  {
-		return array.f_SubStr(_nBeginIndex * GzS,_nEndIndex * GzS);
+		return m.f_SubStr(_nBeginIndex * GzS,_nEndIndex * GzS);
 	 }
 	inline gzp_DataType fSubStr(gzUIntX _nBeginIndex, gzUIntX _nEndIndex )  {
-		return array.fSubStr(_nBeginIndex * GzS,_nEndIndex * GzS );
+		return m.fSubStr(_nBeginIndex * GzS,_nEndIndex * GzS );
 	 }
 	inline void f_SubStrCount(gzUIntX _nBeginIndex, gzUIntX _nCount = 1){
-		return array.f_SubStrCount(_nBeginIndex * GzS,_nCount * GzS);
+		return m.f_SubStrCount(_nBeginIndex * GzS,_nCount * GzS);
 	}
 	inline gzp_DataType fSubStrCount(gzUIntX _nBeginIndex, gzUIntX _nCount = 1 ){
-		return array.fSubStrCount(_nBeginIndex * GzS,_nCount * GzS);
+		return m.fSubStrCount(_nBeginIndex * GzS,_nCount * GzS);
 	}
-	
 
-
-	
-	
 
 /*
 	inline gzArray_& operator->()
-	{ return array; }
+	{ return m; }
 	*/
 
 	
 /*
 	inline operator gzArray_*() {
-		return array;
+		return m;
 	};
 */
 /*
 	inline operator gzArray_&() {
-		return *array;
+		return *m;
 	};
 	*/
 	
-	
+	inline ~gzArray(){
+		if(bCatchMe){
+			printf("\nDelete CatchMe array");
+		}
+	}
 	
 };
 
-typedef  const gzArray_& _gzArray_;
+
+//typedef  const gzArray_& _gzArray_;
 
 
 #endif

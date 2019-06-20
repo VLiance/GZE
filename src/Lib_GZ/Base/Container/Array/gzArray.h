@@ -27,9 +27,11 @@
 
 //extern const gzDataRC gzNullStr_Data;
 
+namespace Lib_GZ{namespace Base{class csClass;}}
 
 
-//template <class T>
+
+template <class T>
 class gzArray_ {
 public:
 	
@@ -78,7 +80,7 @@ public:
 	#define gzp_Data aData
 	
 	#define gzp_nS  *_nS
-	#define gzp_DataType gzArray_
+	#define gzp_DataType gzArray_<T>
 	#define gzp_DataSize aData->nSize
 	#define gzp_DataArray aData->aTab
 	#define gzp_DataLimit  aData->nLimit
@@ -126,9 +128,11 @@ public:
 	}*/
 
 	inline void Delete(gzDataRC* _oRC) const {
-		if(_oRC->nType == gzDataType_Both_HEAP_AND_SUBFREE){ //Cond before func? Remove all sub instances & sub free
-			for(gzUInt i = 0; i < _oRC->nSize; i++){
-				//(Base* ) aTab[i]->Delete();
+		///if(_oRC->nType == gzDataType_Both_HEAP_AND_SUBFREE){ //Cond before func? Remove all sub instances & sub free
+		if( gzDataType_IS_Array_MUSTFREE(_oRC) ){  //Cond before func? Remove all sub instances & sub free
+			for(gzUInt i = 0; i < _oRC->nSize / sizeof(T); i++){
+				//(Base* ) aTab[i]->Delete(); 
+				((T*) aData->aTab)[i] = T(); //Todo not for basic type 
 			}
 		}
 		
@@ -165,17 +169,15 @@ public:
 			_oRC->fRemoveInstance();
 		}
 		
-		/*
-		//Lock free unsafe version (can be double delete)
-		_oRC->fRemoveInstance();
-		if( _oRC->nInst == 0 ){//nType >= 0 Heap data -> must be freed
-			Delete(_oRC);
-			//if(_oRC->nWeakInst == 0){
-				Free(_oRC);
-			//}
-		}
-		*/
 		
+		//Lock free unsafe version (can be double delete)
+	//	_oRC->fRemoveInstance();
+	//	if( _oRC->nInst == 0 ){//nType >= 0 Heap data -> must be freed
+		//	Delete(_oRC);
+			//if(_oRC->nWeakInst == 0){
+		//		Free(_oRC);
+			//}
+	//	}
 		
 	}
 	
@@ -347,11 +349,11 @@ template <class T>
 class gzPodLock{
 	
 	 public:
-	 gzArray_* array;
+	 gzArray_<T>* array;
 	// T* element;
 	 
 	 
-	  gzPodLock(gzArray_* _array):array(_array){
+	  gzPodLock(gzArray_<T>* _array):array(_array){
 		 printf("\n***CreateLock***");
 		 array->nLock ++;
 	 }
@@ -403,7 +405,7 @@ class gzPodLock{
 	#define gzp_Data  m.aData
 	
 	#undef gzp_DataType
-	#define gzp_DataType gzArray_
+	#define gzp_DataType gzArray_<T>
 	
 	#undef gzp_DataSize
 	#define gzp_DataSize  aData->nSize
@@ -439,13 +441,22 @@ class gzPodLock{
 template <class T>
 class gzArray {
 	public:
-	gzArray_ m;
+	gzArray_<T> m;
+	
+	gzBool bCatchMe;
 	
 	#include "ArrayContainerCommun.h"
 	
-	inline gzArray(){//TODO TODO Default construction!!!!!!
-		
+	
+	
+	inline gzArray():m(){//TODO TODO Default construction!!!!!!
+		bCatchMe = false;
 	}
+	
+	inline gzArray(gzBool _bCatchMe):m(){//TODO TODO Default construction!!!!!!
+		bCatchMe = true;
+	}
+	
 	
 	/*
 	//READING
@@ -462,13 +473,16 @@ class gzArray {
 
 		
 		if(_nIndex >= gzp_length){
-			//	printf("\n!Return !! %d", _nZero);  
+				//printf("\n!*******Return !! %d", _nZero);  
 			return T();
 		}
 	//	GzUnAssert(_nIndex >= gzp_length, "Reading array Out of bound");
 	//	GzUnAssert(_nIndex >= m.aData->nSize, "Reading array Out of bound");
 	//		printf("\n!!!!!!!!! return !! %d",((T*)(&m.aData->aTab[_nIndex * GzS]))->get());
-		return  *((T*)(&m.aData->aTab[_nIndex * GzS]));
+		//return  *((T*)(&m.aData->aTab[_nIndex * GzS]));
+		//  *((T*)(m.aData->aTab)[_nIndex * GzS]));
+		return	((T*)m.aData->aTab)[_nIndex]; //Todo not for basic type 
+			
 	}
 		
 	//WRITING 
@@ -477,10 +491,24 @@ class gzArray {
 		//GzUnAssert(_nIndex >=  gzp_length , "Writing m Out of bound"); //OUT OF BOUND REALLOC ARRAY
 		
 		m.fSetArrayAndSize( (_nIndex+1) * (sizeof(T))  );
-		return  *((T*)(&m.aData->aTab[_nIndex * GzS]));
+		 //return  *((T*)(&m.aData->aTab[_nIndex * GzS]));
+		return  ((T*)m.aData->aTab)[_nIndex];
+		
 	}
 	
-	
+	inline void fSet(gzUIntX _nIndex, T _nVal)  {
+		printf("\n ***Val: %p", (T)_nVal);
+		/*
+		 ((T*)(m.aData->aTab))[_nIndex] = (T)_nVal;
+		 T _ptest = (T)_nVal;
+		// T* _aTestTab = (T*)(m.aData->aTab);
+		 //_aTestTab[_nIndex] =_nVal;
+		 
+		 printf("\n **Val: %p", (T)_nVal);
+		 printf("\n **ValSet: %p",  ((T*)(m.aData->aTab))[_nIndex] );
+		 printf("\n **_ptest: %p", _ptest );
+		// printf("\n **_aTestTab: %p",  _aTestTab[_nIndex] );*/
+	}
 	
 	
 	inline const T&  fPush(const T& _oObj) const {
@@ -512,7 +540,7 @@ class gzArray {
 	
 	
 
-	gzArray(const gzArray_& _oOther):m(_oOther){}
+	gzArray(const gzArray_<T>& _oOther):m(_oOther){}
 
 	gzArray(gzDataRC* _oOther):m(_oOther){}
 /*
@@ -521,11 +549,11 @@ class gzArray {
 	}*/
 	
 
-	gzArray<T> operator=(const gzArray_& _oOther) {
+	gzArray<T> operator=(const gzArray_<T>& _oOther) {
 		m = _oOther;
 	   return *this;
 	}
-	gzArray operator+=(const gzArray_& _oOther) {
+	gzArray operator+=(const gzArray_<T>& _oOther) {
 		m += _oOther;
 	   return *gzDtThis;
 	}
@@ -543,7 +571,10 @@ class gzArray {
 
 		for(gzUIntX i = 0; i < (gzp_Size)/GzS; i++){
 			 //Lib_GZ::fRemove(((T*)(&m.aData->aTab[i * GzS])));
-			((T*) m.aData->aTab)[i] = 0;
+			//((T*) m.aData->aTab)[i] = 0;
+			
+			((T*) m.aData->aTab)[i] = T(); //Todo not for basic type 
+			
 			//((T*) m.aData->aTab)[i * GzS] = 0;
 			//((T*)(&m.aData->aTab[i * GzS]))->remove();
 		}
@@ -584,10 +615,16 @@ class gzArray {
 	};
 	*/
 	
+	inline ~gzArray(){
+		if(bCatchMe){
+			printf("\nDelete CatchMe array");
+		}
+	}
+	
 };
 
 
-typedef  const gzArray_& _gzArray_;
+//typedef  const gzArray_& _gzArray_;
 
 
 #endif

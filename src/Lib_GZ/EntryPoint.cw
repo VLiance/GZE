@@ -14,8 +14,12 @@ package  {
 <cpp>
 	#include <GZE.h>
 	#include <Main>
+
 	
 		extern Lib_GZ::cEntryPoint* GZ_CreateEntryPointClass();
+		
+		
+		
 		
 		//gzSp<Lib_GZ::cLib> oGzLib;
 		gzSp<Lib_GZ::cEntryPoint> oMain;
@@ -36,6 +40,7 @@ package  {
 		//	oMain->Ini_cEntryPoint(); //TODO Better way?
 			oMain->cEntryPoint::Constructor(); //Set threading object
 			
+
 		//Create default singleton	
 		//Lib_GZ::Sys::Debug::Get(oMain->thread)->zInst = Lib_GZ::Sys::Debug::Get(oMain->thread)->New(oMain.get());
 		Lib_GZ::Debug::Debug::SetInst(oMain->thread) = Lib_GZ::Debug::Debug::Get(oMain->thread)->New(oMain);
@@ -49,10 +54,9 @@ package  {
 		
 		
 		
-		//oMain->fMain();
-			
-			
-			
+			//oMain->fMain();
+	
+		
 
 			
 		//_oMain
@@ -91,13 +95,28 @@ package  {
 			//fprintf(stderr,"\nUpdate: %d\n" endl_cr, _nCount);
 			_nCount++;
 			
-			if(_nCount > 300){
+			if(_nCount > 100){
 			return 0; // 1 Still Alive, 0 Stop, < 0 Errors
 			}
 			return 1; // 1 Still Alive, 0 Stop, < 0 Errors
 		}
 		gzInt Close(gzInt _nExitCode){
-			printf("Good bye: %d \n", _nExitCode);
+		
+			Lib_GZ::Base::Thread::Thread::bAppIsAlive = false;
+			
+			//Wait for all thread
+			#ifndef GZ_D_Monothread
+			
+				while(Lib_GZ::Base::Thread::Thread::nThreadCount != 0){
+					Sleep(1);
+					//Lib_GZ::Sys::System::GetInst(oMain->thread)->fSleep(1); //Cannot acess thread when waiting to close it
+				}
+				
+				 
+			#endif
+		
+			printf("\n Good bye: %d \n", _nExitCode);
+			//Lib_GZ::Sys::System::GetInst(oMain->thread)->fSleep(1);
 			return  _nExitCode; //Success
 		}
 </cpp>

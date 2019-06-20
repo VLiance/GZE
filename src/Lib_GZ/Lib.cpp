@@ -192,7 +192,12 @@ void fLoadAllLib(){
 		
     printf("\n--IniLib :"  );   _rLib->sName.fPrint();  
 	 printf("\n"  ); 
-	if(_rLib != NULL){fAllClass(*_rLib->_rLastClass);}
+	if(_rLib != NULL){
+	
+		fAllClass(*_rLib->_rLastClass);
+		fIniAllClass(*_rLib->_rLastClass);
+	
+	}
 		 
 	return; //Test
 	
@@ -274,14 +279,16 @@ void fLoadAllLib(){
 }
 
 
-
+////////////////////////////////////////////////
 void fLoadLib(Lib_GZ::uLib* _rLib){ 
 	if(_rLib != NULL){
 		fAllClass(*_rLib->_rLastClass);
+
 	}
+	
+	fIniClassLib(_rLib);//TODO IS better place?
+	
 }
-
-
 void fAllClass(uOverplace* _rLastClass){ 
 
 	static int _nId = 0;
@@ -291,20 +298,13 @@ void fAllClass(uOverplace* _rLastClass){
 		_rLastClass->nId = _nId;
 	
 		( gzU8("\n --Class :") + _rLastClass->sName + gzU8(" id:") +  gzStrUI( _rLastClass->nId)).fPrint();	
-		//( gzU8("\n --Class :") + _rLastClass->sName  ).fPrint();	//Leaked!!!!!!!!!!!!
-		
-	//	( gzU8("\n --Class :")  + gzU8(" id:") +  gzStrUI( _rLastClass->nId)).fPrint();
 		fDoOverPlace(_rLastClass);
 		
 		_nId++;
         _rLastClass = _rLastClass->rPrec;
     }
-
 }
-
-
 void fDoOverPlace(uOverplace* _rClass){
- 
 		uOverplace* _subClass = _rClass;
 		while(_subClass->cfExtAdr != 0){
 			printf("\n     --Do Overplace");
@@ -312,12 +312,29 @@ void fDoOverPlace(uOverplace* _rClass){
 			_subExtClass->cfOver = _rClass->cfOri;
 			_subClass = _subExtClass;
 		}
-
 }
+////////////////////////////////////////////////////
+
+void fIniAllClass(uOverplace* _rLastClass){ 
 
 
-
-
+	printf("fIniALLStaticCLASS: %d ", (int)_rLastClass );
+		
+    while (_rLastClass != 0){
+		( gzU8("\n --IniClass :") + _rLastClass->sName + gzU8(" id:") +  gzStrUI( _rLastClass->nId)).fPrint();	
+		//fDoOverPlace(_rLastClass);
+		_rLastClass->cfIniClass();
+		
+		
+        _rLastClass = _rLastClass->rPrec;
+    }
+}
+void fIniClassLib(Lib_GZ::uLib* _rLib){ 
+	if(_rLib != NULL){
+		fIniAllClass(*_rLib->_rLastClass);
+	} 
+}
+////////////////////////////////////////////////////////////
 
 
 

@@ -51,9 +51,13 @@ package  {
 			};
 					
 			inline cClass():GzThread(0),parent(0){}; //Sure?
-						
+					
+			inline virtual void IniClass(){};
 			inline virtual void ThreadLoop(){};
-			inline virtual void ThreadEnd(){};
+			inline virtual void ThreadEnd(){
+				printf("\n----ThreadEND");
+			};
+			
 		</cpp_class_h>
 			
 			

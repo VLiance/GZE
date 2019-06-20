@@ -37,19 +37,29 @@ class SharedCount : gzAny {
 			printf("\nnSharedCount: %d", nSharedCount);
 		}
 		const_cast<SharedCount*>(this)->nSharedCount++;
-	
+		ViewAddInst();
 	}; 
 	inline void SubInst() const {
 		const_cast<SharedCount*>(this)->nSharedCount--;
+		ViewSubInst();
+				
 		if(nSharedCount > 300){
 			printf("\nnDelSharedCount: %d", nSharedCount);
 		}
-	
+
 		if(nSharedCount <= 0){
 		//	printf("\nDelete ");
 			delete this;
 		}
 	};
+	
+	//Only on debug
+	inline virtual void ViewAddInst() const {
+		
+	}
+	inline virtual void ViewSubInst() const {
+		
+	}
 	
     virtual inline ~SharedCount(){
 	};

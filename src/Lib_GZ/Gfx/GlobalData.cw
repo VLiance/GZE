@@ -28,7 +28,7 @@ package  {
 		*/
 		
 		//public static var rFirstScreen : uScreen;
-		
+	
 		private static var nID : Int = 0;
 		private static var nTotalScreen : Int = 0;
 		private static var nTest : Int;

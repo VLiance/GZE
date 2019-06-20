@@ -18,7 +18,9 @@
 #define GZ_tMainInclued
 
 
+#include "Lib_GZ/Base/Thread/Thread.h" //Temp
 
+	
 //////// Include base of GZE //////////
 #ifndef tLib_GZ
 //#include "MinGZE.gcpp"
@@ -43,6 +45,7 @@ gzInt Close(gzInt _nExitCode);
 
 #define endl_cr "\r"
 
+
 #ifdef GZ_tJit
 
 	extern "C" int Jit_Main(void* _dTest) {
@@ -57,6 +60,7 @@ gzInt Close(gzInt _nExitCode);
 		return nMainIsAlive;
 	}
 
+	
 //#elif defined D_Platform_Windows
 #elif defined D_Platform_Windows
 
@@ -115,7 +119,9 @@ int WINAPI WinMain (HINSTANCE hThisInstance,  HINSTANCE hPrevInstance,  LPSTR lp
 SetConsoleOutputCP(CP_UTF8);
 //////////////////////////////////////////////////////////
 	#endif
-
+	
+	setbuf(stdout, NULL);
+	
 	GZ_nArrayTotalAlloc = 0;
 	
 	HWND MainEventHwnd = {0}; //Create a Dummy Windows to handle main events
@@ -137,15 +143,18 @@ SetConsoleOutputCP(CP_UTF8);
 	
 	#ifndef D_GZE_CPP_ONLY
 	Lib_GZ::Lib::fLoadLib(IniLib_Lib_GzWindows());
+	//Lib_GZ::Lib::fIniClassLib(IniLib_Lib_GzWindows()); //Todo generic, not only windows..
+	Lib_GZ::Base::Thread::Thread::bAppIsAlive = true;
 	#endif
 	
+
 	
 	nMainIsAlive = Main("", (gzUIntX)hThisInstance, (gzInt)nCmdShow );
 
 	
 	
 	while(nMainIsAlive){
-
+		fflush(stdout);
 		Sleep(nMainUpdateMs);
 		nMainIsAlive = Update(0);
 		
@@ -162,9 +171,14 @@ SetConsoleOutputCP(CP_UTF8);
 		#endif
 		
 	}
-
 	
-	return Close(messages.wParam);
+	
+	
+	
+	
+	int _nClose = Close(messages.wParam);
+	fflush(stdout);
+	return _nClose;
     //return messages.wParam;   //The program return-value is 0 - The value that PostQuitMessage() gave
 }
 
@@ -245,7 +259,7 @@ SetConsoleOutputCP(CP_UTF8);
 #endif
 
 #ifndef D_Platform_Web_Emsc
-#include<conio.h> //getch
+//#include<conio.h> //getch
 #endif
 struct End { //Place before any global strurt to be sure it was called after everything, note this may not be called at the every end, this can be a false negative
   ~End(){
@@ -256,9 +270,11 @@ struct End { //Place before any global strurt to be sure it was called after eve
 			printf("\n\nE:---!!! MEMORY BROKEN !!!---\n\n");
 		}
 	  printf("\n--- End! ---");
+	  /*
 	  #ifndef  D_Platform_Web_Emsc
 	  getch();
 	  #endif
+	  */
   }
 };End oEnd;
 

@@ -23,25 +23,19 @@ template <class T> class gzSp;
 
 #include "Lib_GZ/Base/SmartPtr/SharedCount.h"
 
-
+/*
 //template<class T, class U> gzSp<T> gzSCastSelf( gzSp<U> const & r )
 template<class T, class U> gzSp<T> gzSCastSelf( gzSp<U> const & r )
 {
 	
-	/*
-    (void) static_cast< T* >( static_cast< U* >( 0 ) );
-
-    typedef typename gzSp<T>::element_type E;
-
-
-    E * p = static_cast< E* >( r.get() );
-    return gzSp<T>( r, p );
-	*/
-	
+   // (void) static_cast< T* >( static_cast< U* >( 0 ) );
+   // typedef typename gzSp<T>::element_type E;
+   // E * p = static_cast< E* >( r.get() );
+  // return gzSp<T>( r, p );
 		return gzSp<T>( r.get() ); //Add Count ??!!!
 		
 }
-
+*/
 
 
 
@@ -323,6 +317,10 @@ template<class T> gzSp<T> gzSCast( gzClass _ptr ) //GZ_NoExcept
 */
 
 template<class T, class U> gzSharedCount*  gzSCast( gzSp<U> const & _pOri ) //GZ_NoExcept
+{
+	return _pOri;
+}
+template<class T, class U> gzSharedCount*  gzSCast( U* _pOri ) //GZ_NoExcept
 {
 	return _pOri;
 }

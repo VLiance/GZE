@@ -17,6 +17,35 @@
 //Class include
 
 
+//Resumé
+//Macro: (GZ_mNewThreadCpp(Lib_Demo, MainInterface, Lib_GZ::Sys, ThreadItf));
+
+//	oThreadExt = gzSCast<Lib_GZ::Base::Thread::cThreadExt>(Lib_Demo::MainInterface::NewThread(this));
+// Macro:  
+//_dCallBack = &_sLib::_sClass::Thread_Start;
+// return Lib_GZ::Base::Thread::ThreadExt::New(_parent, _dCallBack)
+// New ThreadExt:
+// _oTemp->Constructor(_dCallBack);
+// 		ThreadList::fAdd(this);
+//      New ThreadObj --> OpThreadObj (Windows Thread)
+//			oThreadObj->fStart()
+//				OpThreadObj::hThread = CreateThread(&OpThreadObj::fThreadProc)
+//				bStarted = true;
+//					fThreadProc:
+//						New Real Thread:  Lib_GZ::Sys::cThreadObj* self->dCallBack.fCall(self->oThreadExt.get()); //Loop here
+//----------------------New Real Thread------------------------------------------------------------------------
+// dCallBack: Thread_Start:
+// _oInitialiser = ThreadItf::Get(oThreadExt->thread)->New(0); //Create csThreadItf in current thread and new Instance associate in new thread, legit?
+// fLinkThreadExt: 	_oInitialiser(cThreadExt*) --> pThreadExt = _pThreadExt; pThreadExt->oThread = this;
+// _oTemp = new _sLib::cMainInterface(_oInitialiser.get())
+// _oTemp->Constructor((_namespace::c##_class*)_oInitialiser.get());
+// _oInitialiser->fStart(_oTemp.get());
+//		fStart:
+//			 oObj  = gzSCastSelf<Lib_GZ::Base::cClass>(_oTemp);
+//			fLoop:
+//				while(bAppIsAlive && bRun){oObj->ThreadLoop();}
+// _oInitialiser->ThreadEnd();\
+
 ////// Current Lib Access  ////
 namespace Lib_GZ{namespace Base{namespace Thread{
 
@@ -27,7 +56,7 @@ namespace Lib_GZ{namespace Base{namespace Thread{
         ThreadList::fAdd(this);
 	
        // pSysThread = new cSysThread(_dCallBack, 0);
-       oThreadObj = Sys::ThreadObj::Get(thread)->New(this, this, _dCallBack.get());
+       oThreadObj = Sys::ThreadObj::Get(thread)->New(this, this, _dCallBack.get()); 
 	    printf("Ini_cThreadExtaaaaa crete\n");
        fStart();
  

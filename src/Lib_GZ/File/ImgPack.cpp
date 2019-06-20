@@ -25,7 +25,7 @@ File::cRcFont* oRcFont;
 
 namespace ImgPack{
 
-gzArray< gzSp<uFontRange> > qaRange;
+gzArray< gzSp<uFontRange> > qaRange(true);
 
 
 // stbrp_rect *  rects; //TODO
@@ -187,8 +187,13 @@ int fAddFontRange(uPackContext *spc, gzFloat _FontSize, gzUInt _nFirstChar, gzUI
 stbrp_rect* fIniRectList(uPackContext *spc, int* _nTotal){
 
 	int _nNbRange = 1; //Temp
-gzSp<uFontRange> myRange = qaRange[0]; //Temp
- uFontRange* _aRanges  = myRange.get(); //Temp
+	
+	
+//gzSp<uFontRange> myRange = qaRange[0]; //Temp
+// uFontRange* _aRanges  = myRange.get(); //Temp
+
+ uFontRange* _aRanges  = qaRange[0].get(); //Temp
+ 
 
    stbrp_context *context = (stbrp_context *) spc->pack_info;
  //  stbrp_rect    *rects;

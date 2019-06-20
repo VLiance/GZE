@@ -45,7 +45,7 @@ package  {
 		private var bWIntransparent : Bool;
 		private var nBgColor : Int;
 
-		public var oThreadItf : ThreadItf;
+		public wvar oThreadItf : ThreadItf;
 		
 		public var bGpuDraw : Bool = true;
 

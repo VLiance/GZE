@@ -444,7 +444,7 @@ gzInt pImage::fDelete(File::cRcImg* _oRc){
       GZ_fFree(_aPixelArray[0]);
         //Todo delete P2D array
     }
-//    printf("\n -----************ Destroye!******* ");
+    printf("\n -----************ Destroye!******* %p ", _oRc);
     return 0;
 }
 

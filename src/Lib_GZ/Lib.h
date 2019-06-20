@@ -47,11 +47,15 @@ typedef File::cResource* (*gzPtrFuncRc)(void);
 */
 namespace Lib {
 
-   extern void fLoadAllLib();
-   extern void fLoadLib( Lib_GZ::uLib* _oLib);
-   extern void fAllClass(uOverplace* _rLastClass);
-   
-   extern void fDoOverPlace(uOverplace* _rClass);
+	extern void fLoadAllLib();
+	extern void fLoadLib( Lib_GZ::uLib* _oLib);
+	extern void fIniClassLib(Lib_GZ::uLib* _rLib);
+
+	extern void fAllClass(uOverplace* _rLastClass);
+	extern void fIniAllClass(uOverplace* _rLastClass);
+
+	extern void fDoOverPlace(uOverplace* _rClass);
+ 
 	
 /*
 	namespace Sys{
