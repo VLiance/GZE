@@ -103,7 +103,6 @@ namespace Lib_GZ{namespace Base{namespace Thread{
 
 	}
 
-
     cThreadExt::~cThreadExt(){
 /*
         //Sleep(50);

@@ -187,7 +187,9 @@ gzInt pImage::fOpen(File::cRcImg* _oRc) {
 
 #endif
 
-    pImage::fGetImage(_oRc, image_data, image_nbChannel);
+    pImage::fGetImage(_oRc, image_data, image_nbChannel); //Data must be copied
+	stbi_image_free(image_data);
+		
 //#endif
 	return 0;
 }
@@ -308,6 +310,7 @@ gzInt** pImage::fGetImage(File::cRcImg* _oRc, gzUInt8* image_data, gzUInt image_
 #endif
     */
     _oRc->aImg = p2DArray;
+
 	//printf("!aImage Loaded : %d," (int )_oRc->aImg);
 	
     return p2DArray;
@@ -440,10 +443,12 @@ gzInt pImage::fDelete(File::cRcImg* _oRc){
     //free all
     gzInt32** _aPixelArray = _oRc->aImg;
     if(_aPixelArray != 0){
-
-      GZ_fFree(_aPixelArray[0]);
-        //Todo delete P2D array
+		GZ_fFree(_aPixelArray[0]);//gzInt* p1DArray = (gzInt *)GZ_fCalloc(nExtHeight * nExtWidth , sizeof(gzInt) );
+		delete[] _aPixelArray; //   p2DArray = new gzInt*[nExtHeight];
     }
+	
+	
+	
     printf("\n -----************ Destroye!******* %p ", _oRc);
     return 0;
 }
@@ -466,6 +471,8 @@ gzInt** pImage::fNewEmpty( gzInt _height, gzInt _width){
     }
 	return _aPixelArray;
 }
+
+
 
 
 }//Image

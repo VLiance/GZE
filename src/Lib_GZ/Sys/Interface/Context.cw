@@ -213,9 +213,14 @@ package  {
 				aDrawZone2D = _nDrawZoneAdr;
 			}
 			bBlitInProgress = false;
-			//
-		}*/
-
+			//*/
+		}
+		destructor {
+			<cpp>
+			//GZ_fFree(aDrawZone2D);
+			delete[] aDrawZone2D;
+			</cpp>
+		}
 		
 	}
 }

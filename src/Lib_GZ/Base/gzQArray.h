@@ -17,8 +17,6 @@ template <class T> class gzQArray;
 //#include "Lib_GZ/Base/Macro.h"
 
 #include "Lib_GZ/Base/SmartPtr/gzSp.h"
-//#include "Lib_GZ/Base/SmartPtr/SharedPtr.h"
-//#include "Lib_GZ/Base/SmartPtr/WeakPtr.h"
 #include "Lib_GZ/Base/SmartPtr/gzWp.h"
 
 #define gzPQArray const gzQArray&
@@ -44,7 +42,7 @@ class gzQElementAny {
     }
 };
 
-class gzQRoot   : public Lib_GZ::Base::cClass { //Todo (verify) -> gzSp require base class
+class gzQRoot   : public Lib_GZ::Base::SmartPtr::SharedCount { //Todo (verify) -> gzSp require base class
 //class gzQRoot   { //Todo (verify) -> gzSp require base class
 public:
     void* pFirst;

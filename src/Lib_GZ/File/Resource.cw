@@ -22,6 +22,7 @@ package  {
 		public var bReadOnly : Bool = true;
 		
 		public var bRcLoaded : Bool = false;
+		public var bDynamiqueData : Bool = false;
 		public var bGpuLoaded : Bool = false;
 		//public var oInterface : Interface = 0;
 		
@@ -104,17 +105,33 @@ package  {
 		}
 		
 		public function fSetDynamicMemData(_aSrcMemData : CArray<UInt8>, _nSize:UIntX):Void { //Will be auto freed 
+			fFreeData();
+			
 			aSrcMemData = _aSrcMemData;
 			nSize = _nSize;
+			bDynamiqueData = true;
 		}
 		
 		public function fSetStaticMemData(_aSrcMemData : CArray<UInt8>, _nSize:UIntX):Void { //Will not freed 
+			fFreeData();
+			bDynamiqueData = false;
+			
 			aSrcMemData = _aSrcMemData;
 			nSize = _nSize;
 		}
 		
 		
+		public function fFreeData():Void {
+			<cpp> 
+				if(bDynamiqueData){
+					GZ_fFree(aSrcMemData);
+				}
+			</cpp>
+		}
 		
+		destructor{
+			 fFreeData();
+		}
 
 
 	}

@@ -94,16 +94,48 @@ class gzSp {
 		obj = _oOther.get();
 		addInst();
 	}
+	/*
+	 inline gzSp(gzSp<T> &&_oOther){
+		obj = _oOther.get();
+	}*/
 	
 
-	inline gzSp& operator = ( const gzSp<T> _oOther){
+	inline gzSp& operator = ( const gzSp<T>& _oOther){
 		//if(obj != 0) {subInst();};
 		subInst();
 		obj = _oOther.get();
 		addInst();
 		return *this;
 	}
-	/////////////////////////////////
+	/*
+	inline gzSp& operator = ( const gzSp<T>&& _oOther){
+		//if(obj != 0) {subInst();};
+		//subInst();
+		obj = _oOther.get();
+		//addInst();
+		return *this;
+	}*/
+	////////*/////////////////////////
+	
+	
+	
+	template <class R>
+	inline gzSp& operator = (const gzSp<R>& _oOther){
+	
+		subInst();
+			obj = _oOther.get(); //Copy
+		addInst();
+		return *this;
+	}
+	/*
+	template <class R>
+	inline gzSp& operator = (gzSp<R>&& _oOther){
+	
+			obj = _oOther.get(); //Copy
+		return *this;
+	}*/
+	
+	/*
 	
 	template <class R>
 	inline gzSp& operator = (gzSp<R> _oOther){
@@ -120,7 +152,7 @@ class gzSp {
 	 
 	 //		printf("obj %p",obj );
 		return *this;
-	}
+	}*/
 	
 	
 	
@@ -215,7 +247,10 @@ class gzSp {
 	
 	 long use_count() const // nothrow
     {
-        return 0; //TODO TODO !!!!!!!!!!!
+	//return 0;
+		//TODO Test if zero?
+		if(obj == 0){return 0;}
+        return obj->nSharedCount; 
     }
 
 /*

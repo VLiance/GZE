@@ -13,7 +13,7 @@
 		//public static var aThreadList<Thread>;
 
 		
-		public var oThreadExt : ThreadExt;
+		public wvar oThreadExt : ThreadExt;
 		public var dCallBack : Delegate<fThreadCallBack>;
 		
 		public function ThreadObj(_oThreadEx : ThreadExt, _dCallBack : Delegate<fThreadCallBack>):Void{

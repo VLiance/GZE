@@ -22,7 +22,7 @@
 				//DWORD WINAPI fThreadProc(void *_pParam );
 				//Create a thread and loop inside until finish
 				DWORD WINAPI fThreadProc(void *_pParam ) {
-					Lib_GZ::Sys::cThreadObj* self = ( Lib_GZ::Sys::cThreadObj*)_pParam;
+					gzSp<Lib_GZ::Sys::cThreadObj> self = ( Lib_GZ::Sys::cThreadObj*)_pParam;
 					printf("\n---- Started : %d",  Lib_GZ::Global::nNumWindows);
 					self->dCallBack.fCall(self->oThreadExt.get());
 

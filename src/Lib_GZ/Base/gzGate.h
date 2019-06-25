@@ -98,6 +98,7 @@ public :
 		T* _oMsg = oHold->fReceive(_oReceivingClass); 
 		if(_oMsg){	
 			_oMsg->fRun();
+			delete _oMsg;
 			return true;
 		}else{
 			return false;

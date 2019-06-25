@@ -36,7 +36,7 @@ package  {
 		//public var bCloseBox : Bool = true;
 
 		
-		private static var qaShort : QArray<Int, 1>;
+	//	private static var qaShort : QArray<Int, 1>;
 
 	
 		public var hWinClickNew : eWinClick = eWinClick.None;

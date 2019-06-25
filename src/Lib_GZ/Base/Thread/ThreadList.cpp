@@ -42,7 +42,7 @@ namespace Lib_GZ{namespace Base{ namespace Thread{ namespace ThreadList{
         Lib_GZ::Lib::nThreadCount++;
 		
        //qaList.fPush( gzSCast<cThreadExt>( _opThread->SpFromThis()) );
-       aList.fPush( _opThread );
+   //    aList.fPush( _opThread );
         _opThread->qeInList = aList.GqeLast();
     }
 

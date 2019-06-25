@@ -51,6 +51,7 @@ namespace Dlg_r_void_p_gzPtr{
 
 class cThreadExt : public Lib_GZ::Base::cClass  {
 
+
 	public:
         gzSp<Sys::cThreadObj> oThreadObj;
 
@@ -65,6 +66,16 @@ class cThreadExt : public Lib_GZ::Base::cClass  {
 		virtual void fCancel();
 		virtual void fClose();
 		virtual ~cThreadExt();
+		
+		
+	//Only on debug
+	inline virtual void ViewAddInst() const {
+		printf("\n-----AddThreadInst");
+	}
+	inline virtual void ViewSubInst() const {
+		printf("\n------SubThreadInst");
+	}
+	
 
 	private:
 
@@ -73,7 +84,7 @@ class cThreadExt : public Lib_GZ::Base::cClass  {
 namespace ThreadExt{
     //Object Creation Wrapper
     inline gzSp<Lib_GZ::Base::Thread::cThreadExt> New(Lib_GZ::Base::cClass* _parent, Lib_GZ::Dlg_r_void_p_gzPtr::DlgP _dCallBack){
-        gzSp<Lib_GZ::Base::Thread::cThreadExt>_oTemp = gzSp<Lib_GZ::Base::Thread::cThreadExt>(new Lib_GZ::Base::Thread::cThreadExt(_parent));
+        Lib_GZ::Base::Thread::cThreadExt* _oTemp = new Lib_GZ::Base::Thread::cThreadExt(_parent);
         _oTemp->Constructor(_dCallBack);
         return _oTemp;
     }
