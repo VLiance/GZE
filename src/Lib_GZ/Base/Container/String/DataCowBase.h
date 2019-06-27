@@ -118,6 +118,7 @@
 
 
 		if( gzDataType_IS_Array_MUSTFREE(_oRC) ){ 
+			///printf("\nFree---xxxxxxxxxxxxxxxxx-: %d", _oRC->nSpaceBef);_oRC->fPrint();
 			GZ_fFree(_oRC->aTab - _oRC->nSpaceBef); 	GZ_nArrayTotalFree++; //Combined array
 		}
 		

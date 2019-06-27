@@ -157,9 +157,9 @@ class gzUp {
     inline ~gzUp(){
 		if(obj != 0){
 			delete obj; //Not work on return
-				printf("\n--------- Delete!!");
+			///	printf("\n--------- Delete!!");
 		}else{
-			printf("\n No delete");
+			//printf("\n No delete");
 		}
 		
 	};

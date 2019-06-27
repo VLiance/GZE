@@ -84,7 +84,7 @@ package  {
 		}
 		
 		destructor {
-			Image.fDelete(this);
+
 		}
 		
 

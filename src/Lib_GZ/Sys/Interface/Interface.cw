@@ -135,7 +135,7 @@ package  {
 	//		
 			
 		//	if (bSreenCreated && oWindow.bBlitInProgress == false) {
-			if (bSreenCreated && oContext.bBlitInProgress == false) {
+			if (oContext.bIniDrawZone && bSreenCreated && oContext.bBlitInProgress == false) {
 
 				aPixelArray = oContext.aDrawZone2D;  //Update pixel array after fliping (If change)
 

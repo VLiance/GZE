@@ -142,6 +142,19 @@ void fImgPack(File::cRcImg* _oRc){
 }
 
 
+
+
+ uFontRange::~uFontRange(){
+  //  uFontRange* _rRange = (uFontRange*)_wRange;
+
+    uCharData** _aData  =this->aData;
+    for(gzUInt i = 0; i < this->nNbChar ; i++){
+       GZ_fFree(_aData[i]);
+    }
+     GZ_fFree(_aData);
+}
+
+/*
 void fDeleteRange(GZ_FuncWrapD, void* _wRange){
     uFontRange* _rRange = (uFontRange*)_wRange;
 
@@ -151,7 +164,7 @@ void fDeleteRange(GZ_FuncWrapD, void* _wRange){
     }
      GZ_fFree(_rRange->aData);
 }
-
+*/
 
 
 int fAddFontRange(uPackContext *spc, gzFloat _FontSize, gzUInt _nFirstChar, gzUInt _nNbChar){
@@ -162,9 +175,10 @@ int fAddFontRange(uPackContext *spc, gzFloat _FontSize, gzUInt _nFirstChar, gzUI
     }
 
   // uFontRange* rRange  = (uFontRange*)GZ_fMalloc(1, sizeof(uFontRange));
-     gzSp<uFontRange> myArray =  gzSp<uFontRange>( new uFontRange());
+     //gzSp<uFontRange> myArray =  gzSp<uFontRange>( new uFontRange());
+     gzSp<uFontRange> _oFontRange(new uFontRange());
 
-   uFontRange* rRange  = myArray.get();
+   uFontRange* rRange  = _oFontRange.get();
 
    rRange->nFirstChar = _nFirstChar;
    rRange->nNbChar          = _nNbChar;
@@ -172,7 +186,7 @@ int fAddFontRange(uPackContext *spc, gzFloat _FontSize, gzUInt _nFirstChar, gzUI
    rRange->nFontSize    = _FontSize;
 
 
-    qaRange.fPush(myArray);
+    qaRange.fPush(_oFontRange);
  //   qaRange.fPush(gzPodLinkOwn(rRange, &fDeleteRange));
 
  return 1;

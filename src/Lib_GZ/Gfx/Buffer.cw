@@ -47,7 +47,7 @@ package  {
 		
 		public var oGpuObj : GpuBuffer;
 
-		public var aBufferArray : CArray<Int32, 2>;
+		//public var aBufferArray : CArray<Int32, 2>; //aPixelarray?
 		
 		
 		public function Buffer( _oParent : Root, _nWidth : UInt, _nHeight : UInt, _bNewPerspective : Bool = false):Void {

@@ -207,7 +207,11 @@ package  {
 			aSourcePixel = oDstBuff.aPixelArray;
 			
 			<cpp>
-			return false;
+			//return false;
+			if(aSourcePixel == 0){
+				printf("\n ***********************FAILLLL");
+			}
+			
 			void* _aSourcePixel = aSourcePixel;
 			</cpp>
 			

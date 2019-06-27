@@ -18,6 +18,7 @@ package  {
 	<cpp_namespace>
 	    stbtt_fontinfo font;
        float fontscale;
+	 
 	   
 	   void fCreateImage(File::cRcFont* _oRc, gzUInt8* _bmpData) {
 
@@ -67,6 +68,11 @@ package  {
 	   
 	</cpp_namespace>
 	
+	
+	<cpp_h>
+		class stbrp_rect;
+	</cpp_h>
+	
 	public overclass Font  {
 			
 		public unit uRectPack {
@@ -89,6 +95,13 @@ package  {
             nHoriBeringY : Int16;
 		} 
 		
+		<cpp_class_h>
+		  stbrp_rect*  myrects;
+		</cpp_class_h>
+		
+		<cpp_initializer_list>
+			,myrects(0)
+		</cpp_initializer_list>
 		
 		//public var nBitmap_H : Int = 512;
 		//public var nBitmap_W : Int = 512;
@@ -102,6 +115,9 @@ package  {
 				ImgPack::fGetCharData(_oCharData);
 				</cpp>
 		}
+		
+		
+		
 		
 		overable static function fOpen(_oRc : RcFont): Int {
 			Debug.fWarning("Open");
@@ -125,7 +141,8 @@ package  {
 			
 printf("\nfSetSquaresDim");
     int _nTotal;
-	stbrp_rect*  myrects = fIniRectList(&pc, &_nTotal);
+	fDeleteRect();
+	myrects = fIniRectList(&pc, &_nTotal);
 	fSetSquaresDim(&pc, myrects);
 	
 	stbrp_pack_rects((stbrp_context *) pc.pack_info, myrects, _nTotal); //do pack
@@ -150,8 +167,18 @@ printf("\nfCreateImage");
 
 	}
 	
+	public function fDeleteRect():Void{
+		<cpp>
+		if(myrects != 0){
+			GZ_fFree(myrects);
+		}
+		</cpp>
+		
+	}
 	
-	
+	destructor {
+		fDeleteRect();
+	}
 	
 	
 

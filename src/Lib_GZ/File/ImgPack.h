@@ -40,7 +40,7 @@ namespace File{class cRcFont;class cRcImg;}
 
 
 
-         struct uFontRange;
+         class uFontRange;
 
         struct uRectPack{
            // reserved for your use:
@@ -69,6 +69,9 @@ namespace File{class cRcFont;class cRcImg;}
            gzUInt  nFirstChar;
            int nNbChar;
            uCharData** aData;
+		   
+		   ~uFontRange();
+		   
         } ;
 
 

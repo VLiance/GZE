@@ -76,7 +76,7 @@ package  {
 		
 		
 		destructor {
-			Font.fDelete(this);
+			//Font.fDelete(this); //Bug?
 		}
 
 	}

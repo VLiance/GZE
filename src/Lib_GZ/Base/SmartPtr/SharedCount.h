@@ -33,9 +33,9 @@ class SharedCount : gzAny {
    
 	inline void AddInst() const {
 	
-		if(nSharedCount > 300){
-			printf("\nnSharedCount: %d", nSharedCount);
-		}
+		//if(nSharedCount > 300){
+		//	printf("\nnSharedCount: %d", nSharedCount);
+		//}
 		const_cast<SharedCount*>(this)->nSharedCount++;
 		ViewAddInst();
 	}; 
@@ -43,9 +43,9 @@ class SharedCount : gzAny {
 		const_cast<SharedCount*>(this)->nSharedCount--;
 		ViewSubInst();
 				
-		if(nSharedCount > 300){
-			printf("\nnDelSharedCount: %d", nSharedCount);
-		}
+		//if(nSharedCount > 300){
+	//		printf("\nnDelSharedCount: %d", nSharedCount);
+		//}
 
 		if(nSharedCount <= 0){
 		//	printf("\nDelete ");
