@@ -12,20 +12,21 @@
 #include "ImgPack.h"
 #include "Lib_GZ/File/RcImg.h"
 #include "Lib_GZ/File/RcFont.h"
+#include "Lib_GZ/File/Font.h"
 
 #include "Lib_GZ/3rdparty/Image/stb_rect_pack.h"
 #include "Lib_GZ/Base/Math/Math.h"
 //#include "Lib_GZ/Sys/Debug.h"
 
 namespace Lib_GZ{namespace File{namespace Font{
-extern  stbtt_fontinfo font; //temp
-extern  float fontscale; //temp
+//extern  stbtt_fontinfo font; //temp
+//extern  float fontscale; //temp
 }
 File::cRcFont* oRcFont;
 
 namespace ImgPack{
 
-gzArray< gzSp<uFontRange> > qaRange(true);
+
 
 
 // stbrp_rect *  rects; //TODO
@@ -104,14 +105,14 @@ void fImgPack(File::cRcImg* _oRc){
 
 
 
- void fPackEnd  (uPackContext *spc){
+ void fPackEnd  (File::cFont* _oFont, uPackContext *spc){
 
    GZ_fFree(spc->nodes    );
    GZ_fFree(spc->pack_info);
 }
 
 
- stbrp_context*  fPackBegin(uPackContext *spc,  int pw, int ph, int stride_in_bytes, int padding, void *alloc_context)
+ stbrp_context*  fPackBegin(File::cFont* _oFont, uPackContext *spc,  int pw, int ph, int stride_in_bytes, int padding, void *alloc_context)
 {
    stbrp_context *context = (stbrp_context *) GZ_fMalloc(sizeof(*context)   ,1  );
    int            num_nodes = pw - padding;
@@ -167,7 +168,7 @@ void fDeleteRange(GZ_FuncWrapD, void* _wRange){
 */
 
 
-int fAddFontRange(uPackContext *spc, gzFloat _FontSize, gzUInt _nFirstChar, gzUInt _nNbChar){
+int fAddFontRange(File::cFont* _oFont, uPackContext *spc, gzFloat _FontSize, gzUInt _nFirstChar, gzUInt _nNbChar){
 
    uCharData** aData  = (uCharData**)GZ_fMalloc(_nNbChar, sizeof(uCharData*));
     for(gzUInt i = 0; i < _nNbChar; i++){
@@ -186,7 +187,7 @@ int fAddFontRange(uPackContext *spc, gzFloat _FontSize, gzUInt _nFirstChar, gzUI
    rRange->nFontSize    = _FontSize;
 
 
-    qaRange.fPush(_oFontRange);
+    _oFont->qaRange.fPush(_oFontRange);
  //   qaRange.fPush(gzPodLinkOwn(rRange, &fDeleteRange));
 
  return 1;
@@ -198,7 +199,7 @@ int fAddFontRange(uPackContext *spc, gzFloat _FontSize, gzUInt _nFirstChar, gzUI
 
 
 
-stbrp_rect* fIniRectList(uPackContext *spc, int* _nTotal){
+stbrp_rect* fIniRectList(File::cFont* _oFont, uPackContext *spc, int* _nTotal){
 
 	int _nNbRange = 1; //Temp
 	
@@ -206,7 +207,7 @@ stbrp_rect* fIniRectList(uPackContext *spc, int* _nTotal){
 //gzSp<uFontRange> myRange = qaRange[0]; //Temp
 // uFontRange* _aRanges  = myRange.get(); //Temp
 
- uFontRange* _aRanges  = qaRange[0].get(); //Temp
+ uFontRange* _aRanges  =  _oFont->qaRange[0].get(); //Temp
  
 
    stbrp_context *context = (stbrp_context *) spc->pack_info;
@@ -243,11 +244,11 @@ stbrp_rect* fIniRectList(uPackContext *spc, int* _nTotal){
 
 
 
-int fSetSquaresDim(uPackContext *spc, stbrp_rect* _rect){
+int fSetSquaresDim(File::cFont* _oFont, uPackContext *spc, stbrp_rect* _rect){
 	using namespace Font;
 
 	int _nNbRange = 1; //Temp
-	uFontRange *_aRanges = qaRange[0].get(); //Temp
+	uFontRange *_aRanges =  _oFont->qaRange[0].get(); //Temp
 
   int i,j,k, return_value = 1;
    /////////////////////////////////////////////////////////////////////////////
@@ -264,8 +265,8 @@ int fSetSquaresDim(uPackContext *spc, stbrp_rect* _rect){
            int xpos = 0;
             float x_shift = xpos - (float) floor(xpos);
             unsigned int _nLetter = _aRanges[i].nFirstChar + j;
-            stbtt_GetCodepointHMetrics(&font, _nLetter, &advance, &lsb);
-            stbtt_GetCodepointBitmapBoxSubpixel(&font, _nLetter, fontscale,fontscale,x_shift,0, &x0,&y0,&x1,&y1);
+            stbtt_GetCodepointHMetrics(&_oFont->font, _nLetter, &advance, &lsb);
+            stbtt_GetCodepointBitmapBoxSubpixel(&_oFont->font, _nLetter, _oFont->fontscale,_oFont->fontscale,x_shift,0, &x0,&y0,&x1,&y1);
 
 			// bitmap width is ix1-ix0, height is iy1-iy0, and location to place
 			// the bitmap top left is (leftSideBearing*scale,iy0).
@@ -300,10 +301,10 @@ int fSetSquaresDim(uPackContext *spc, stbrp_rect* _rect){
 
 
 
-int fDrawRect(uPackContext *spc, unsigned char *pixels, stbrp_rect* _rect){
+int fDrawRect(File::cFont* _oFont, uPackContext *spc, unsigned char *pixels, stbrp_rect* _rect){
 using namespace Font;
 	int _nNbRange = 1; //Temp
-	uFontRange *_aRanges = qaRange[0].get(); //Temp
+	uFontRange *_aRanges =  _oFont->qaRange[0].get(); //Temp
 
 	spc->pixels = pixels;
 
@@ -325,7 +326,7 @@ using namespace Font;
 			#define tSIZE 512
 			unsigned int _nLetter = _aRanges[i].nFirstChar + j;
      //   stbtt_MakeCodepointBitmap(&font,   &spc->pixels[r->x + 1 + ((r->y + 1) * tSIZE) ]   , r->w - 2, r->h- 2, tSIZE, fontscale,fontscale, _nLetter);
-        stbtt_MakeCodepointBitmap(&font,   &spc->pixels[r->x + 1 + ((r->y + 1) * tSIZE) ]   , r->w - 2, r->h- 2, tSIZE, fontscale,fontscale, _nLetter);
+        stbtt_MakeCodepointBitmap(&_oFont->font,   &spc->pixels[r->x + 1 + ((r->y + 1) * tSIZE) ]   , r->w - 2, r->h- 2, tSIZE, _oFont->fontscale,_oFont->fontscale, _nLetter);
       //stbtt_MakeCodepointBitmapSubpixel(&font, &screen[baseline + y0][(int) xpos + x0], x1-x0,y1-y0, 79, scale,scale,x_shift,0, text[ch]);
 //spc->width
 
@@ -389,7 +390,7 @@ struct uCharData{
 */
 
 
-void fSetCharData(File::Font::cCharData* _oChar, uCharData* _rData){
+void fSetCharData(File::cFont* _oFont, File::Font::cCharData* _oChar, uCharData* _rData){
 	using namespace Font;
 	  stbrp_rect *r = (stbrp_rect *)_rData->rRect; 
 		  
@@ -399,8 +400,8 @@ void fSetCharData(File::Font::cCharData* _oChar, uCharData* _rData){
 		_oChar->nH = r->h;
 	
 
-	_oChar->nHoriAdvance = _rData->nHoriAdvance * fontscale;
-	_oChar->nHoriBeringX = _rData->nHoriBeringX * fontscale;
+	_oChar->nHoriAdvance = _rData->nHoriAdvance * _oFont->fontscale;
+	_oChar->nHoriBeringX = _rData->nHoriBeringX * _oFont->fontscale;
 	_oChar->nHoriBeringY = _rData->nHoriBeringY;
 	
 	
@@ -408,7 +409,7 @@ void fSetCharData(File::Font::cCharData* _oChar, uCharData* _rData){
 
 
 
-void fGetCharData(File::Font::cCharData* _oChar){
+void fGetCharData(File::cFont* _oFont, File::Font::cCharData* _oChar){
 //uCharData* fGetCharData(gzUInt _nChar){
 
 	gzUInt _nChar = _oChar->nChar;
@@ -416,16 +417,16 @@ void fGetCharData(File::Font::cCharData* _oChar){
 
     gzUInt nTotalRange = 1;
     gzUInt k = 0;
-	for(gzUInt i = 0; i < qaRange.GnSize(); i++ ){
+	for(gzUInt i = 0; i <  _oFont->qaRange.GnSize(); i++ ){
 
-		uFontRange* _pRange = qaRange(i).get();
+		uFontRange* _pRange =  _oFont->qaRange(i).get();
 
         if(_nChar >= _pRange->nFirstChar  && _nChar < _pRange->nFirstChar + _pRange->nNbChar){
             gzUInt _nIndex = _nChar - _pRange->nFirstChar;
 
 					
             uCharData* _rRest = _pRange->aData[_nIndex];
-			fSetCharData(_oChar, _rRest);
+			fSetCharData(_oFont, _oChar, _rRest);
 			return;
             //return (uCharData*)_pRange->aData[_nIndex];
 			//_oChar->nX = q.x0;
@@ -444,7 +445,7 @@ void fGetCharData(File::Font::cCharData* _oChar){
    	gzEND_QArray(_qe_rRange)}
 	*/
 	
-  fSetCharData(_oChar, qaRange(0).get()->aData[0]); ///Todo InvalidChar
+  fSetCharData(_oFont, _oChar,  _oFont->qaRange(0).get()->aData[0]); ///Todo InvalidChar
 	
   // return rInvalidChar;
 }

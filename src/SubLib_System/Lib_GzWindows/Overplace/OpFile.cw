@@ -10,8 +10,10 @@ package  {
 			//	extern "C" char*getenv(const char *name);
 	</cpp_h>
 	
+	<cpp>
+	//	#include "Lib_GzWindows/Sys/SysFile.cpp"
+	</cpp>
 
-	
 	<cpp_namespace>
 	gzStr GetMainModulePath(){
 		TCHAR* buf    = NULL;
@@ -52,6 +54,34 @@ package  {
 		}
 		
 
+		
+		
+		public static function fIsSysFileExist(_sFile : String):Bool {
+			
+			<cpp>
+			gzStr16 _sUtf16File(_sFile.fToUTF16());
+			DWORD attr = GetFileAttributes((LPCWSTR)(gzUInt16*)_sUtf16File.get());
+			if(attr == INVALID_FILE_ATTRIBUTES){ //It's a directory it must finish with a slash
+				
+				return false;   //  not a file
+			}else{
+				if(attr & FILE_ATTRIBUTE_DIRECTORY ){
+					if( _sFile(_sFile.GnSize()-1) == '/'){
+						return true;
+					}else{
+						return false;
+					}
+				}
+			
+			
+			
+				return true;
+			}
+			</cpp>
+		}
+	
+		
+		
 		public override  function fGetSystemExePath() : String { //Return the full path with exe name
 			//var _sFullExe : String;
 			<cpp>

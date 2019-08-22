@@ -7,19 +7,28 @@ package  {
 	import GZ.File.RcFont;
 	import GZ.File.Font.CharData;
 	
+	<cpp_h>
+	#include "Lib_GZ/3rdparty/Font/stb_truetype.h"
+	   namespace Lib_GZ{ namespace File{ namespace ImgPack{ class uFontRange;}}}
+	</cpp_h>
+	
 	<cpp>
 	#include "Lib_GZ/3rdparty/Font/stb_truetype.h"
 	#include "Lib_GZ/File/ImgPack.h"
+
+	
+
 	
 	#define nBitmap_H 512
 	#define nBitmap_W 512
 	</cpp>
 	
+	
+	
+	
 	<cpp_namespace>
-	    stbtt_fontinfo font;
-       float fontscale;
-	 
-	   
+
+	    //  stbtt_fontinfo font;
 	   void fCreateImage(File::cRcFont* _oRc, gzUInt8* _bmpData) {
 
 			//unsigned char* test = &temp_bitmap[0][0];
@@ -96,11 +105,17 @@ package  {
 		} 
 		
 		<cpp_class_h>
-		  stbrp_rect*  myrects;
-		</cpp_class_h>
+			stbrp_rect*  myrects;
+		  	 
+			float fontscale;
+			stbtt_fontinfo font;
+			gzArray<gzSp<::Lib_GZ::File::ImgPack::uFontRange>> qaRange;
 		
+		</cpp_class_h>
+	
+
 		<cpp_initializer_list>
-			,myrects(0)
+			,myrects(0),qaRange(true)
 		</cpp_initializer_list>
 		
 		//public var nBitmap_H : Int = 512;
@@ -112,7 +127,7 @@ package  {
 		
 				<cpp>
 				using namespace ImgPack;
-				ImgPack::fGetCharData(_oCharData);
+				ImgPack::fGetCharData(this,_oCharData);
 				</cpp>
 		}
 		
@@ -135,23 +150,29 @@ package  {
 			
 			using namespace ImgPack;
 			
+		
+			printf("\n My fontscale: %f " , fontscale);
+			
+			
 			uPackContext pc;
-			fPackBegin(&pc, nBitmap_W, nBitmap_H, 0, 2, NULL);
-			fAddFontRange(&pc, 12.0, 32, 95);
+			fPackBegin(this, &pc, nBitmap_W, nBitmap_H, 0, 2, NULL);
+			fAddFontRange(this, &pc, _oRc->nDefaultScale, 32, 95);
+			
+			
 			
 printf("\nfSetSquaresDim");
     int _nTotal;
 	fDeleteRect();
-	myrects = fIniRectList(&pc, &_nTotal);
-	fSetSquaresDim(&pc, myrects);
+	myrects = fIniRectList(this, &pc, &_nTotal);
+	fSetSquaresDim(this, &pc, myrects);
 	
 	stbrp_pack_rects((stbrp_context *) pc.pack_info, myrects, _nTotal); //do pack
 	
 	
 	unsigned char aBmpPack[nBitmap_H][nBitmap_W] = { {0}};
 	printf("\nffDrawRect");
-	fDrawRect(&pc,aBmpPack[0],myrects );
-    fPackEnd(&pc);
+	fDrawRect(this, &pc,aBmpPack[0],myrects );
+    fPackEnd(this, &pc);
 
 printf("\nfCreateImage");
     fCreateImage(_oRc, (gzUInt8*) &aBmpPack[0][0] );

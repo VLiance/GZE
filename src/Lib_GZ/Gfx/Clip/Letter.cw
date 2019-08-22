@@ -60,7 +60,9 @@ package  {
 			//oImage = new Image();
 			//oImage.fOpen(_oRc);
 			_oRc.fCpuLoad();
-
+			if(oItf.bGpuDraw){
+				_oRc.fGpuLoad();
+			}
 
 			//oPng.fOpenFromMemory(aFile, 512000);
 			//aPixelArray = oImage.fGetImage();
@@ -71,9 +73,7 @@ package  {
 			oRc = _oRc;
 
 			//oGpuObj.fSetImg(aPixelArray[0], nWidth, nHeight);
-			if(oItf.bGpuDraw){
-				_oRc.fGpuLoad();
-			}
+			
 
 			//oGpuObj.fSetImg(_oRc);
 
@@ -123,10 +123,10 @@ package  {
 			nAdvance = _oChar.nHoriAdvance;
 			
 			
-			//Debug.fTrace(" _oChar.nHoriAdvance" +  _oChar.nHoriAdvance);
+
 		//	nAdvance = 10;
-
-
+		
+		
 
 
 			var	_nBorder : Float = 1;

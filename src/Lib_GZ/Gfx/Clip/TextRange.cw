@@ -11,6 +11,7 @@ package  {
 	import GZ.Gfx.Clip;
 	import GZ.Gfx.Clip.Letter;
 	import GZ.File.RcFont;
+	import GZ.File.Font.CharData;
 
 	/**
 	 * @author Maeiky
@@ -30,6 +31,29 @@ package  {
 
 			fAdd(_sText);
 		}
+		
+		
+		public pure function fGetTextWidth(_oRc : RcFont, _sText : String = ""):Float {
+		
+			_oRc.fCpuLoad(); //TODO Better way!
+			
+			var i : UInt = 0;
+
+		    var _nCursorX : Float = 0;
+			
+			var _nLength : UInt = _sText.nSize;
+
+			while(i < _nLength){
+				
+				//_nCursorX += oRc.fGetKernAdvance(_nPrevChar, _sText[i]);
+				var _oChar : CharData = _oRc.fGetCharRect(_sText[i]); 
+				_nCursorX += _oChar.nHoriAdvance;
+
+				i++;
+			}
+			return _nCursorX;
+		}
+		
 		
 		public function fAdd(_sText : String = ""):Void {
 			

@@ -20,11 +20,13 @@ package  {
 		//public var nDim : UInt = 0;
 		public var nDefaultScale : UInt ;
 		public var aFont : CArray<Int32>
+		public var oFont : Font;
 		
 		
 		public function RcFont(_sPath : String, _nDefaultScale : Float = 12.0 ):Void {
 			nDefaultScale = _nDefaultScale;
 			RcImg(_sPath);
+			oFont = new Font();
 		}
 		
 		/*
@@ -44,7 +46,7 @@ package  {
 		public function fGetCharRect(_nChar:UInt):CharData {
 			//var _
 			var _oCharData : CharData = new CharData(_nChar);
-			 Font.fGetCharData(_oCharData);
+			 oFont.fGetCharData(_oCharData);
 			 return _oCharData;
 		
 		}	
@@ -55,7 +57,7 @@ package  {
 				bRcLoaded = true;
 				fLoadFile();
 				
-				Font.fOpen(this);
+				oFont.fOpen(this);
 			}
 			return true;
 		}
@@ -71,7 +73,7 @@ package  {
 				
 			
 			
-			return Font.fGetKernAdvance(this, _nCh1, _nCh2);
+			return oFont.fGetKernAdvance(this, _nCh1, _nCh2);
 		}
 		
 		

@@ -78,6 +78,8 @@ package  {
 		
 		public var sName : String;
 	
+	
+		public var oItf : Interface;
 		//Functions
 		
 		public function Window(_oInterface : Interface, _sName : String, _nFrameWidth : UInt, _nFrameHeight : UInt, _bTransparent : Bool = false, _nBgColor : Int = 0xFFFFFFFF): Void{
@@ -85,6 +87,8 @@ package  {
 					Debug.fInfo(_sName);
 				sName = _sName;
 				
+				
+				oItf = _oInterface;
 				//Debug.fTrace("vFrameW: "  + vFrame.nWidth);
 	
 		}

@@ -72,6 +72,12 @@ package  {
 		
 		
 		override public function fGpuLoad():Bool {
+		
+			if(bGpuLoaded == false){
+				bGpuLoaded = true;
+				nGpuTexId = GpuObject.fLoadImg(aImg[0], nWidth, nHeight);
+			}
+		
 			/*
 			if(System.bHaveGpu){
 				if(bGpuLoaded == false){

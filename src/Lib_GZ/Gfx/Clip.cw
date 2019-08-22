@@ -18,7 +18,7 @@ package  {
 		
 		//public var aTimeline : Array;
 		
-		public function Clip( _oParent : Root, _nX: Float, _nY:Float):Void {
+		public function Clip( _oParent : Root, _nX: Float=0, _nY:Float=0):Void {
 			Object(_oParent, _nX , _nY);
 		}
 	

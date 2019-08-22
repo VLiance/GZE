@@ -29,12 +29,14 @@ namespace File{class cRcFont;class cRcImg;}
 
     namespace File{
 
-
+		class cFont;
+	
+	
     namespace ImgPack{
 
 
 
-		void fGetCharData(File::Font::cCharData* _oChar);
+		void fGetCharData(File::cFont* _oFont, File::Font::cCharData* _oChar);
 
 
 
@@ -89,12 +91,12 @@ namespace File{class cRcFont;class cRcImg;}
 
 
 
-			int fDrawRect(uPackContext *spc,  unsigned char *pixels, stbrp_rect* _rect);
-			int fSetSquaresDim(uPackContext *spc, stbrp_rect* _rect);
-			stbrp_rect* fIniRectList(uPackContext *spc, int* _nTotal);
-			int fAddFontRange(uPackContext *spc, gzFloat _FontSize, gzUInt _nFirstChar, gzUInt _nNbChar);
-			stbrp_context* fPackBegin(uPackContext *spc, int pw, int ph, int stride_in_bytes, int padding, void *alloc_context);
-			void fPackEnd  (uPackContext *spc);
+			int fDrawRect(File::cFont* _oFont, uPackContext *spc,  unsigned char *pixels, stbrp_rect* _rect);
+			int fSetSquaresDim(File::cFont* _oFont, uPackContext *spc, stbrp_rect* _rect);
+			stbrp_rect* fIniRectList(File::cFont* _oFont, uPackContext *spc, int* _nTotal);
+			int fAddFontRange(File::cFont* _oFont, uPackContext *spc, gzFloat _FontSize, gzUInt _nFirstChar, gzUInt _nNbChar);
+			stbrp_context* fPackBegin(File::cFont* _oFont, uPackContext *spc, int pw, int ph, int stride_in_bytes, int padding, void *alloc_context);
+			void fPackEnd  (File::cFont* _oFont, uPackContext *spc);
 
 
 

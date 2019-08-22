@@ -50,7 +50,16 @@ package  {
 		
 		
 		public static function fCreateDirectory(_sFolder : String):Int;
-		public static function fIsFileExist(_sFile : String):Bool;
+		public static function fIsSysFileExist(_sFile : String):Bool;
+		
+		
+		public static function fIsFileExist(_sPath : String):Bool{
+			var _oFile : File = new File(_sPath);
+			Debug.fTrace("TestExist: " + _oFile.sFullPath);
+			return fIsSysFileExist(_oFile.sFullPath);
+		}
+
+		
 		public static function fLauch(_sFile : String, _sArguments : String):Void;
 		
 		

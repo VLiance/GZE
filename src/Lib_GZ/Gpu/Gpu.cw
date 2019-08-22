@@ -11,7 +11,7 @@ package  {
 		public var oGpuInfo : GpuInfo;
 		
 		public function Gpu(_nHandleId : UIntX, _bGlobalSharedContext : Bool):Void {
-			//Debug.fTrace("--- Gpu Created!! ---");
+			Debug.fTrace("--- Gpu Created!! ---");
 			oGpuInfo = new GpuInfo();
 			
 			fContextIni(_nHandleId, _bGlobalSharedContext);
@@ -19,6 +19,7 @@ package  {
 			fBlit();
 		}
 
+		
 		public function fLoadImg(_aImg : CArray<Int, 1>, _nWidth : Int, _nHeight : Int):Void;
 		
 		

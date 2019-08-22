@@ -126,6 +126,15 @@ package  {
 
 		}
 
+		
+		public function fRegistred():Void {
+			oGpuObj.fIni(this);
+
+			fWinStart();
+			if (bWIntransparent != true) { //If transparent go to CPU draw
+				oBackground = new Rectangle(this, 0p, 0p, oContext.nFrameWidth, oContext.nFrameHeight, nBgColor);
+			}
+		}
 
 		override public function fNewFrame():Void {
 				//	Debug.fTrace("fNewFrame");
@@ -202,12 +211,13 @@ package  {
 		override public function fIniProcess():Void {
 			oContext.fIniProcess();
 			//oGpuObj.fIniRectangle(0,0,nBuffWidth,nBuffHeight);
+			/*
 			oGpuObj.fIni(this);
 
 			fWinStart();
 			if (bWIntransparent != true) { //If transparent go to CPU draw
 				oBackground = new Rectangle(this, 0p, 0p, oContext.nFrameWidth, oContext.nFrameHeight, nBgColor);
-			}
+			}*/
 		}
 
 		

@@ -37,12 +37,12 @@ package  {
 		}
 
 		override public function fGpuLoad():Bool {
-			if (System.bHaveGpu) {
+			//if (System.bHaveGpu) {
 				for (var i : UInt  = 0; i < nTotal; i++) {
 					var _oImg : RcImg = aImg[i];
 					_oImg.fGpuLoad();
 				}
-			}
+			//}
 			return true;
 		}
 

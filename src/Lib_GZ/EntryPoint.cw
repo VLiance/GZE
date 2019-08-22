@@ -96,7 +96,7 @@ package  {
 			_nCount++;
 			
 			if(_nCount > 1000){
-			return 0; // 1 Still Alive, 0 Stop, < 0 Errors
+			//return 0; // 1 Still Alive, 0 Stop, < 0 Errors
 			}
 			return 1; // 1 Still Alive, 0 Stop, < 0 Errors
 		}
