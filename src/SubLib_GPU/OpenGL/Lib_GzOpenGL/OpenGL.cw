@@ -5,15 +5,15 @@ generate "OpenGL" {
 		//public static var oGL : OpenGL;
 		
 		<cpp_h>
-		#ifdef GZ_tWeb_Emsc
+		#ifdef D_Platform_Web_Emsc
 			#include "Lib_GZ/SysUtils/EmscHeader.h"
 		#endif
 			
-		extern Void* gzEmscPtrBuffer;
+		extern void* gzEmscPtrBuffer;
 		</cpp_h>
 		
 		<cpp_static_h>
-		#ifdef GZ_tWeb_Emsc
+		#ifdef D_Platform_Web_Emsc
 		val oGL = val::global("Null");
 		#endif
 		</cpp_static_h>
@@ -145,7 +145,7 @@ generate "OpenGL" {
 		
 		public static function fCreateBuffer():Val{
 			<cpp>
-				#ifdef GZ_tWeb_Emsc
+				#ifdef D_Platform_Web_Emsc
 
 					return oGL.call<val>("createBuffer");
 					//return ::GZ::fConsole(gzU8("ScreateBuffer"));
@@ -171,7 +171,7 @@ generate "OpenGL" {
 		
 		public static function fGetShaderInfoLog(_nShaderId : Val):String {
 			<cpp>
-			#ifdef GZ_tWeb_Emsc
+			#ifdef D_Platform_Web_Emsc
 				std::string _sTest = oGL.call<std::string>("getShaderInfoLog", _nShaderId);	 //N
 				return gzStrC(_sTest.c_str());
 				 
@@ -202,8 +202,8 @@ generate "OpenGL" {
 		
 		public static function fGetProgramParameter(_nShaderId : Val, _hInfo : eProgramInfo, _aParams:CArray<Int>):Void{
 			<cpp>
-				#ifdef GZ_tWeb_Emsc
-					oGL.call<Void>("getProgramParameter", _nShaderId,  val((int)_hInfo) );	 //Not sure
+				#ifdef D_Platform_Web_Emsc
+					oGL.call<void>("getProgramParameter", _nShaderId,  val((int)_hInfo) );	 //Not sure
 					
 				#else
 					GL_fGetProgramiv(_nShaderId, _hInfo, _aParams);
@@ -222,7 +222,7 @@ generate "OpenGL" {
 
 		gen public static function fGetUniformLocation(_nIdProgram : Val, _cName:CArray<UInt8>):Val{
 			<cpp>
-			#ifdef GZ_tWeb_Emsc
+			#ifdef D_Platform_Web_Emsc
 				std::string _sTest = (char*)_cName;
 				return GL_fGetUniformLocation(_nIdProgram, _sTest);
 			#endif
@@ -231,7 +231,7 @@ generate "OpenGL" {
 
 		gen public static function fGetAttribLocation(_nIdProgram : Val, _cName:CArray<UInt8>):Val {
 			<cpp>
-			#ifdef GZ_tWeb_Emsc
+			#ifdef D_Platform_Web_Emsc
 				std::string _sTest = (char*)_cName;
 				return GL_fGetAttribLocation(_nIdProgram, _sTest);
 			#endif
@@ -244,12 +244,15 @@ generate "OpenGL" {
 
 		gen public static function fCreateShader(_hType : eShader):Val;
 		public static function fShaderSource(_nShaderId : Val, _sSourceCode:String):Void {
+			
 			<cpp>
-				const gzUInt8* _cStr = _sSourceCode.fcStr();
-				#ifdef GZ_tWeb_Emsc
-					std::string _sTest = (char*)_cStr;
-					oGL.call<Void>("shaderSource", _nShaderId,    std::string(_sTest) );	 //Not sure
+				gzStr8 _sFinalString  = _sSourceCode.fToUTF8().fFinalize();
+			
+				#ifdef D_Platform_Web_Emsc
+					std::string _sTest = (char*)_sFinalString.get();
+					oGL.call<void>("shaderSource", _nShaderId,    std::string(_sTest) );	 //Not sure
 				#else
+					const gzUInt8* _cStr = _sFinalString.get();
 					GL_fShaderSource(_nShaderId, 1,(gzUInt8**)&_cStr, GZ_Null);	
 				#endif
 			</cpp>
@@ -261,7 +264,7 @@ generate "OpenGL" {
 		
 		public static function fGetShaderParameter(_nShaderId : Val, _hInfo : eShaderInfo):UInt {
 			<cpp>
-				#ifdef GZ_tWeb_Emsc
+				#ifdef D_Platform_Web_Emsc
 					return oGL.call<int>("getShaderParameter", _nShaderId,  val((int)_hInfo) );	 //Not sure
 				#else
 					gzInt _nParam;
@@ -295,25 +298,25 @@ generate "OpenGL" {
 
 		
 		
-		public static function fBufferData(_hTarget : eBufferTarget, _nNb:UInt, _hType :eTypeSize, _pData:DArray<UInt8>, _hUsage:eDrawFlow ):Void {
+		public static function fBufferData(_hTarget : eBufferTarget, _nNb:UInt, _hType :eTypeSize, _pData:Array<UInt8>, _hUsage:eDrawFlow ):Void {
 		//	OpenGL.fBufferData(_hTarget, _nNb * _nType, _pData, _hUsage);
 			<cpp>
-			fBufferData(Lib_GZ_OpenGL::OpenGL::eBufferTarget(_hTarget), _nNb * _hType, (Void*)_pData.array, _hUsage);
+			fBufferData(Lib_GzOpenGL::OpenGL::eBufferTarget(_hTarget), _nNb * _hType, (void*)_pData.get(), _hUsage);
 			</cpp>
 		}
 		
 		gen public static function fBufferData(_hTarget : eBufferTarget, _nSize:IntX, _pData:Any, _hUsage:eDrawFlow ):Void {
 		
 			<cpp>
-			#ifdef GZ_tWeb_Emsc
+			#ifdef D_Platform_Web_Emsc
 
 					gzDataRoot* _array = (gzDataRoot*)(_pData) ;
-					oGL.call<Void>("bufferData", (int)_hTarget, _array->JsMem , (int)_hUsage);	 
+					oGL.call<void>("bufferData", (int)_hTarget, _array->JsMem , (int)_hUsage);	 
 
 				return;
 			#else
 
-				_pData = (Void*)((gzDataRoot*)_pData)->aTab;
+				_pData = (void*)((gzDataRoot*)_pData)->aTab;
 	
 			#endif
 			</cpp>
@@ -322,9 +325,9 @@ generate "OpenGL" {
 		
 		gen public static function fDrawElements(_hMode : eDrawMode, _nCount : Int, _hVarType : eVarType, _pOffset : Any):Void {
 			<cpp>
-			#ifdef GZ_tWeb_Emsc
+			#ifdef D_Platform_Web_Emsc
 				//gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cubeVerticesIndexBuffer);
-				oGL.call<Void>("drawElements", val((int)_hMode),  _nCount, val((int)_hVarType), (int)_pOffset);	 //N
+				oGL.call<void>("drawElements", val((int)_hMode),  _nCount, val((int)_hVarType), (int)_pOffset);	 //N
 				
 				return;
 			#endif

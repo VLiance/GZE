@@ -9,6 +9,10 @@ package  {
 	public class OpAttribute overplace Attribute {
 
 		
+		public function OpAttribute(_oProgram : ProgramShader, _sName : String):Void {
+		
+		}
+		
 		override public function fLoad():Void {
 			Debug.fTrace("--- OpAttribute Created!! ---");
 			

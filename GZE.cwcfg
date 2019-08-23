@@ -6,10 +6,11 @@
 
 	<Compiler>-I "{_pModule}src/"</Compiler>
 	<Compiler>-I "{_pModule}src/SubLib_System/"</Compiler>
-	
+	<Compiler>-I "{_pModule}src/SubLib_GPU/OpenGL/"</Compiler>
+
 	<CompilerLinker type="C++">-std=c++11 </CompilerLinker>
 	
-	<CWayv>-L "{_pModule}src/Lib_GZ/"  -L "{_pModule}src/SubLib_System/Lib_Gz{_sPlatform}/" </CWayv>
+	<CWayv>-L "{_pModule}src/Lib_GZ/"  -L "{_pModule}src/SubLib_System/Lib_Gz{_sPlatform}/"  -L "{_pModule}src/SubLib_GPU/OpenGL/Lib_GzOpenGL/"  -L "{_pModule}src/SubLib_GPU/OpenGL/Lib_GzOpenGL_{_sPlatform}/" </CWayv>
 	<!--  -L "{_pModule}src/SubLib_System/Lib_GzOpenGL/" -->
 	
 </Arguments>

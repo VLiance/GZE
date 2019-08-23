@@ -97,7 +97,7 @@ LRESULT CALLBACK MainHwndProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARA
     return 0;
 }
 
-	#ifdef tPlatform_CpcDos
+	#ifdef D_Platform_CpcDos
 //////////////////////////////////////////////////////////
 #include "Lib_GZ/SysUtils/CpcDos/CPC_WPR.cpp"
 extern bool bOnCpcDos;

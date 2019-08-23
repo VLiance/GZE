@@ -5,7 +5,7 @@
 	
 	
 	<cpp_h>
-		#include "Lib_GZ/SysUtils/glWin.h"
+		#include "Lib_GzOpenGL_Windows/glWin.h"
 	</cpp_h>
 	
 		

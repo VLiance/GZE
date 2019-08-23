@@ -495,7 +495,9 @@ class gzArray {
 		return  ((T*)m.aData->aTab)[_nIndex];
 		
 	}
-	
+	 gzUInt8* get() const {
+	 	return gzp_Array;
+	}
 	inline void fSet(gzUIntX _nIndex, T _nVal)  {
 		printf("\n ***Val: %p", (T)_nVal);
 		/*

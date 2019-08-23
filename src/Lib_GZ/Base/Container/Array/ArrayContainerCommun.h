@@ -9,6 +9,9 @@
 //- If you want to see GZE evolve please help us with a donation.
 
 
+
+
+
  gzUIntX GnSize() const {
 	 return gzp_Size / GzS;
 }

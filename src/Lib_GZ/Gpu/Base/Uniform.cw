@@ -1,4 +1,4 @@
-#skipContent
+
 package  { 
 
 	import GZ.Gpu.ShaderBase.ShaderBase;
