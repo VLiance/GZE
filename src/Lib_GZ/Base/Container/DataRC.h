@@ -50,12 +50,6 @@
 
 #define gzDtThis const_cast<gzp_DataType*>(this)
 
-#define Gz_fMalloc(_type, _size) ((_type*)malloc(sizeof(_type) * _size));
-#define GZ_fAnyMalloc(_size) (malloc(_size)) ;
-//#define GZ_fAnyCalloc(_size) (malloc(_size)) ;
-#define GZ_fAnyCalloc(_size) (calloc(_size,sizeof(char))) ;
-//#define GZ_fFree(_ptr) (free(_ptr)) ;
-
 
 #ifndef u8
 	#define gzS8
@@ -231,8 +225,8 @@ inline static gzDataRC* fEmptyArray(gzUInt _nSize ) {
 }*/
 
 inline static gzDataRC*  fDataAlloc(  gzUIntX _nSize,  gzUIntX _nLimit ){  //TODO inline?
-	gzDataRC* _oRc =  (gzDataRC*)GZ_fAnyMalloc(sizeof(gzDataRC)); GZ_nArrayTotalAlloc++;  //Can be optimised with malloc if we be sure that all data are memcpy
-	_oRc->aTab = (gzUInt8*)GZ_fAnyCalloc( _nLimit ); GZ_nArrayTotalAlloc++; //Malloc?
+	gzDataRC* _oRc =  (gzDataRC*)GZ_fMalloc(1, sizeof(gzDataRC)); GZ_nArrayTotalAlloc++;  //Can be optimised with malloc if we be sure that all data are memcpy
+	_oRc->aTab = (gzUInt8*)GZ_fCalloc(1, _nLimit ); GZ_nArrayTotalAlloc++; //Malloc?
 
 	memset( &_oRc->aTab[_nSize], 0, _nLimit - _nSize);//Zero all other 
 	

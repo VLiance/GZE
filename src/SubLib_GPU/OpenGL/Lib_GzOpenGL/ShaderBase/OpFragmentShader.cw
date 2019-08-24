@@ -88,7 +88,8 @@ package  {
 			var _sReturn : String = OpenGL.fGetShaderInfoLog(nId);
 			
 			<cpp>
-			 char* _str = ( char* )_sReturn.fcStr();
+			_sReturn = _sReturn.fToUTF8().fFinalize();
+			 char* _str = ( char* )_sReturn.get();
 
 			 
 		//	nLineError = strtol( &_str[2] , GZ_Null, 10) - 1; //Windows 

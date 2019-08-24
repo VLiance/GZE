@@ -20,5 +20,15 @@ typedef  emscripten::memory_view memory_view;
 typedef  emscripten::value_object value_object;*/
 ///////////////////////////
 
+//GzNullVal in gzVal.h
+typedef emscripten::val gzVal; //TODO
+
+struct gzJsMem{
+	val MallocPtr; 
+	val Array;
+};
+
+extern gzJsMem* GzCurrJsMem;
+
 
 

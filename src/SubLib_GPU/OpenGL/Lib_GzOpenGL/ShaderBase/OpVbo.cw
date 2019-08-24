@@ -8,6 +8,12 @@ package  {
 	
 	public class OpVbo overplace Vbo {
 
+	
+		public function OpVbo(_oProgram : ProgramShader):Void {
+		
+		}
+	
+	
 		override public function fLoad():Void {
 
 			nId = OpenGL.fCreateBuffer();

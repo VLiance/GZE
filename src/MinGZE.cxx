@@ -6,6 +6,7 @@
 
 #include "Lib_GZ/Lib.cpp"
 //#include "Lib_GZ/Base/Thread/Thread.cpp"
+#include "Lib_GZ/Base/GzMem.cpp"
 #include "Lib_GZ/Base/gzGate.cpp"
 #include "Lib_GZ/Base/gzQArray.cpp"
 #include "Lib_GZ/Base/Thread/ThreadMsg.cpp"

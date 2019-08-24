@@ -468,6 +468,10 @@ class gzArray {
 	//const gzUInt GZ_ZERO;
 
 	
+	inline  operator void* ()  { return m.aData;};
+	
+	
+	
 	//READING :: return RVO
 	inline T operator()(gzUIntX _nIndex) const { 
 

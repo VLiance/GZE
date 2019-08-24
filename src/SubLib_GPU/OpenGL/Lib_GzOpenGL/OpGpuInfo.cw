@@ -16,7 +16,7 @@
 		override public function fIniFunctions():Bool{
 			
 			<cpp>
-			Lib_GZ_OpenGL::SysGpuFunc::fGetGpuFunctions(); //Only if not already done
+			Lib_GzOpenGL::SysGpuFunc::fGetGpuFunctions(); //Only if not already done
 			</cpp>
 	
 			return true;

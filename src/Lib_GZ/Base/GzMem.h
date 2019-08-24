@@ -31,19 +31,43 @@
 
     //    #include <stdlib.h> //malocc/calloc/free
 
-        #define GZ_fMalloc(_nNb, _nSize) malloc((_nNb) * (_nSize))
-        #define GZ_fCalloc(_nNb, _nSize) calloc(_nNb, _nSize)
-        #define GZ_fRealloc realloc
-        #define GZ_fFree free
-        //#define GZ_fFree(_Empty)
+	
+	
+	
+	
+	
+	//	#define Gz_fMalloc(_type, _size) ((_type*)malloc(sizeof(_type) * _size));
+	//	#define GZ_fAnyMalloc(_size) (malloc(_size)) ;
+	//	#define GZ_fAnyCalloc(_size) (calloc(_size,sizeof(char))) ;
+
+
+		#ifdef D_Platform_Web_Emsc
+			extern static void * fEMSC_Malloc(int size);
+	
+			#define GZ_fMalloc(_nNb, _nSize) fEMSC_Malloc((_nNb) * (_nSize))
+			#define GZ_fCalloc(_nNb, _nSize) fEMSC_Malloc(_nNb * _nSize) //TODO set vals to 0
+			//#define GZ_fRealloc realloc
+			#define GZ_fFree free
+
+		#else
+			#define GZ_fMalloc(_nNb, _nSize) malloc((_nNb) * (_nSize))
+			#define GZ_fCalloc(_nNb, _nSize) calloc(_nNb, _nSize)
+			#define GZ_fRealloc realloc
+			#define GZ_fFree free
+			//#define GZ_fFree(_Empty)
+
+		#endif
+		
+		
+		
     #endif
 
-
+/*
      #define GZ_fSafeMalloc(_nNb, _nType)(_nType*)malloc((_nNb) * sizeof(_nType));
      #define GZ_fSafeCalloc(_nNb, _nType)(_nType*)calloc(_nNb, sizeof(_nType));
      #define GZ_fSafeRealloc realloc
      #define GZ_fSafeFree free
-
+*/
 #endif
 
 

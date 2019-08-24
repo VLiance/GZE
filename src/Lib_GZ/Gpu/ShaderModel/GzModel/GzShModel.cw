@@ -9,8 +9,8 @@ package  {
 	import GZ.Gpu.ShaderBase.Vbo;
 	import GZ.Gpu.GpuObj.GpuBatch;
 	import GZ.Base.Perspective;
-	import GZ.Base.TestPod;
-	import GZ.Base.TestPod2;
+	//import GZ.Base.TestPod;
+	//import GZ.Base.TestPod2;
 	
 	
 	public overclass GzShModel  {
@@ -317,19 +317,18 @@ package  {
 			var _oPersv : Perspective = new Perspective();
 			
 			
-			var _oPod : TestPod = new TestPod(5, 5);
+			
 			//	oGpuBatch.fDraw();
 		
-			
-			var _oPod2 : TestPod2 = new TestPod2(1, 2.5, 3, 4);
-			//_oPod2.nX = 8;
-				fPod(_oPod2);
+			///var _oPod : TestPod = new TestPod(5, 5);
+			///var _oPod2 : TestPod2 = new TestPod2(1, 2.5, 3, 4);
+			///	fPod(_oPod2);
 		}
 		
-			
+			/*
 		public function fPod(_oPod : TestPod2):Void {
 			Debug.fTrace("PodsX:" + _oPod.nW);
-		}
+		}*/
 		
 		
 		
@@ -337,7 +336,7 @@ package  {
 			
 	
 		//	if(oUvMouse.oVal.nX < 6){
-				oUvMouse.oVal.nX += 0.01;
+				oUvMouse.vVal.nX += 0.01;
 		//	}
 			oUvMouse.fSend();
 			

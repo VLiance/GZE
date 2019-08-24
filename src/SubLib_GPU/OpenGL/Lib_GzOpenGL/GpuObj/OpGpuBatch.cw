@@ -10,7 +10,7 @@ package  {
 	public class OpGpuBatch overplace GpuBatch {
 		
 		public var aIndice2Tri : CArray<UInt8, 1, 6>;
-		public var aIndice : DArray<UInt8, 1, 6>;
+		public var aIndice : Array<UInt8, 1, 6>;
 		
 		<cpp_namespace>
 		 static char aIndice2TriA[] = {0,1,2, 0,2,3};

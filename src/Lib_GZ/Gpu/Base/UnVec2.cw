@@ -8,18 +8,16 @@ package  {
 	
 	public overclass UnVec2  extends Uniform {
 		
-		public evar oVal : Vec2;
+		public var vVal : Vec2;
 		
 
-		/*
-				public function UnVec2(_oProgram : ProgramShader, _sName : String):Void {
-			Uniform(_oProgram, _sName);
+		public function UnVec2(_oProgram : ProgramShader, _sName : String):Void {
 		}
-		*/
+
 		
 		
 		override public function fLoad():Void {
-			Debug.fTrace("aa");
+			//Debug.fTrace("aa");
 		}
 		
 		

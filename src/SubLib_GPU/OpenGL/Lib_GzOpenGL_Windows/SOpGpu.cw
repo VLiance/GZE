@@ -8,7 +8,7 @@
 	import GzOpenGL.OpGpu;
 
 	<cpp_h>
-		#include "Lib_GZ/SysUtils/WindowsHeader.h"
+		#include "Lib_GzWindows/MainHeader.h"
 	</cpp>
 	
 	<cpp_class_h>
@@ -17,12 +17,39 @@
 	</cpp_class_h>
 	
 
-		
+	<cpp>
+	void* Lib_GzOpenGL::SysGpuFunc::fGetFuncGL(const char *_cName, gzBool _bRequired){
+		using namespace Lib_GZ;
+		System::fResetLastError();
+		void *p = (void *)wglGetProcAddress(_cName);
+		gzUInt _nErr = GetLastError();
+		if(_nErr == 127){
+			SetLastError(0);
+			HMODULE _pModule = LoadLibraryA("opengl32.dll");
+			p = (void *)GetProcAddress(_pModule, _cName);
+			if(p == 0 && _bRequired){
+				GZ_Debug_fError(gzU8("Error OGL function Missing: ") + gzStrC(_cName));
+			}
+		}else{
+			if(_nErr){ 
+				SetLastError(0);
+				GZ_Debug_fError(gzU8("Error loading OGL function (")  + gzStrUI(_nErr)  + gzU8("): ") +  System::fGetLastErrorString(_nErr) + gzStrC(_cName));
+			}
+		}
+		return p;
+	}
+	</cpp>
+	
+	
 	
 	public class SOpGpu overplace OpGpu  {
 		
 	//	public var oGzShModel : GzShModel;
 
+				
+		public function SOpGpu(_nHandleId : UIntX, _bGlobalSharedContext : Bool):Void {
+		
+		}
 		
 		public function fLoadImg(_aImg : CArray<Int, 1>, _nWidth : Int, _nHeight : Int):Void{
 			Debug.fTrace("Load Img");

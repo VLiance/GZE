@@ -10,6 +10,11 @@ package  {
 	
 	public class OpUnVec2 overplace UnVec2 {
 		
+		
+		
+		public function OpUnVec2(_oProgram : ProgramShader, _sName : String):Void {
+		}
+		
 
 		override public function fLoad():Void {
 			Debug.fTrace("--- OpShUniform Created!! ---");
@@ -36,7 +41,7 @@ package  {
 		
 		
 		override public function fSend():Void {
-			OpenGL.fUniform2f(nId, oVal.nX, oVal.nY);
+			OpenGL.fUniform2f(nId, vVal.nX, vVal.nY);
 		}
 		
 		

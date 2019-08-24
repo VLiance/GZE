@@ -298,10 +298,12 @@ generate "OpenGL" {
 
 		
 		
-		public static function fBufferData(_hTarget : eBufferTarget, _nNb:UInt, _hType :eTypeSize, _pData:Array<UInt8>, _hUsage:eDrawFlow ):Void {
+		public static function fBufferData(_hTarget : eBufferTarget, _nNb:UInt, _hType :eTypeSize, _pData:Any, _hUsage:eDrawFlow ):Void {
+		//public static function fBufferData(_hTarget : eBufferTarget, _nNb:UInt, _hType :eTypeSize, _pData:Array<Any>, _hUsage:eDrawFlow ):Void {
 		//	OpenGL.fBufferData(_hTarget, _nNb * _nType, _pData, _hUsage);
 			<cpp>
-			fBufferData(Lib_GzOpenGL::OpenGL::eBufferTarget(_hTarget), _nNb * _hType, (void*)_pData.get(), _hUsage);
+			fBufferData(Lib_GzOpenGL::OpenGL::eBufferTarget(_hTarget), _nNb * _hType, (void*)_pData, _hUsage);
+		///	fBufferData(Lib_GzOpenGL::OpenGL::eBufferTarget(_hTarget), _nNb * _hType, (void*)_pData.get(), _hUsage);
 			</cpp>
 		}
 		
@@ -310,14 +312,15 @@ generate "OpenGL" {
 			<cpp>
 			#ifdef D_Platform_Web_Emsc
 
-					gzDataRoot* _array = (gzDataRoot*)(_pData) ;
-					oGL.call<void>("bufferData", (int)_hTarget, _array->JsMem , (int)_hUsage);	 
+		//			gzDataRoot* _array = (gzDataRoot*)(_pData) ;
+		//			oGL.call<void>("bufferData", (int)_hTarget, _array->JsMem , (int)_hUsage);	 
+					//TODO JSMEM
 
 				return;
 			#else
-
-				_pData = (void*)((gzDataRoot*)_pData)->aTab;
-	
+				//TODO 
+			//	_pData = (void*)((gzDataRoot*)_pData)->aTab; //pData already ok?
+				
 			#endif
 			</cpp>
 		}
