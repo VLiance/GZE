@@ -42,7 +42,7 @@
 
 
 		#ifdef D_Platform_Web_Emsc
-			extern static void * fEMSC_Malloc(int size);
+			extern void * fEMSC_Malloc(int size);
 	
 			#define GZ_fMalloc(_nNb, _nSize) fEMSC_Malloc((_nNb) * (_nSize))
 			#define GZ_fCalloc(_nNb, _nSize) fEMSC_Malloc(_nNb * _nSize) //TODO set vals to 0

@@ -125,9 +125,9 @@ package  {
 				}
 				aDrawZone2D[10][5] = 0xFFFFFFFF;
 			</cpp>	
-			
-			oGpu = new Gpu(_nWinHandleId, true);
-				
+			if(bWinGPU){
+				oGpu = new Gpu(_nWinHandleId, true);
+			}
 				
 			bIniDrawZone = true;
 //			Debug.fTrace("RECTx "  + vRect.nX);

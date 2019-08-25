@@ -6,18 +6,24 @@ generate "OpenGL" {
 		
 		<cpp_h>
 		#ifdef D_Platform_Web_Emsc
-			#include "Lib_GZ/SysUtils/EmscHeader.h"
+			#include "Lib_GzWeb_Emsc/Emscripten/EmscHeader.h"
 		#endif
 			
 		extern void* gzEmscPtrBuffer;
 		</cpp_h>
 		
-		<cpp_static_h>
+		<cpp_namespace_h>
+		#ifdef D_Platform_Web_Emsc
+		extern val oGL;
+		//val oGL = val::global("Null");
+		#endif
+		</cpp_namespace_h>
+		
+		<cpp_namespace>
 		#ifdef D_Platform_Web_Emsc
 		val oGL = val::global("Null");
 		#endif
-		</cpp_static_h>
-		
+		</cpp_namespace>	
 
 
 		

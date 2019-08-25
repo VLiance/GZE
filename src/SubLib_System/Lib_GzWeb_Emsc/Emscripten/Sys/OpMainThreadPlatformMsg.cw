@@ -42,9 +42,10 @@ package  {
 			
 
 //			ThreadMsg.fSend(new MsgCreateWindow("MonMessage!"));
-			Debug.fTrace("Finsish Create: " );
+			Debug.fTrace("Finsish CreateEmsc " );
 
 			_gFrom.fContextRegistred(0, 0);
+			Debug.fTrace("Fok " );
 		}
 		
 	

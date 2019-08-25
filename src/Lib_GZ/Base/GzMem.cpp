@@ -38,10 +38,14 @@ extern "C" {
 
 }
 
-
+//#define GZ_fMalloc(_nNb, _nSize) malloc((_nNb) * (_nSize))
+		
 	
-static void * fEMSC_Malloc(int size){
-	
+ void* fEMSC_Malloc(int _nSize){
+ 
+		//TODO !!!!!!!!!!!!!
+		return malloc(_nSize);
+		//TODO !!!!!!!!!!!!!
 		
 		 EM_ASM_ARGS({
 				

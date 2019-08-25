@@ -10,7 +10,10 @@
 
 	public class SOpGpu overplace OpGpu  {
 		
-
+		public function SOpGpu(_nHandleId : UIntX, _bGlobalSharedContext : Bool):Void {
+		
+		}
+		
 		
 		public function fLoadImg(_aImg : CArray<Int, 1>, _nWidth : Int, _nHeight : Int):Void{
 			Debug.fTrace("Load Img");

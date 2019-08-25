@@ -34,8 +34,10 @@ package  {
 				WHITE             = FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE,
 			  };
 			}
-
-		  CRITICAL_SECTION m_cs;
+			
+		  #ifndef GZ_D_Monothread
+			CRITICAL_SECTION m_cs;
+		  #endif
 		  bool bIni = false;
 		  bool bPrefix = true;
 		  bool bPipe = false;
@@ -66,7 +68,9 @@ package  {
 					//	fWrite(gzU8("[") + gzStrUI(thread->nId) + gzU8("]"));
 					
 				// Lock the Critical section
-				EnterCriticalSection(&m_cs); 
+				#ifndef GZ_D_Monothread
+					EnterCriticalSection(&m_cs); 
+				#endif
 					
 				Color(_nPredixFlag );
 				if(bPrefix){
@@ -78,7 +82,9 @@ package  {
 					////
 					
 				//Release the Critical section
-				LeaveCriticalSection(&m_cs);	
+				#ifndef GZ_D_Monothread	
+					LeaveCriticalSection(&m_cs);	
+				#endif
 			}
 
 		</cpp_namespace>
@@ -97,7 +103,10 @@ package  {
 			var _nPosY : UInt = 0;
 			
 			<cpp>
+				 #ifndef GZ_D_Monothread
 				InitializeCriticalSection(&_::m_cs); 
+				#endif
+				
 				#ifdef GZ_tDebug
 				
 					COORD coord;
@@ -170,7 +179,9 @@ package  {
 		
 		destructor  {
 			<cpp>
+				#ifndef GZ_D_Monothread
 				DeleteCriticalSection(&_::m_cs);
+				#endif
 			</cpp>
 		}
 		

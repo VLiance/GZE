@@ -163,6 +163,14 @@
 //Then current class was created and we send it the initialiser (Extend as Thread)
 //Then with lopp indefinitly while bRun was true
 
+#ifndef GZ_D_Monothread
+	#define CallThreadEnd 	_oInitialiser->ThreadEnd();
+#else
+	#define CallThreadEnd  _oInitialiser->AddInst();_oTemp->AddInst();  //TODO //Call when ending manually and SubInst of these gzSP
+#endif
+
+ //TODO Delete thread mannually in monothread
+
 #define GZ_mNewThreadCpp(_sLib, _sClass, _namespace , _class) \
 gzSp<Lib_GZ::Base::Thread::cThreadExt> _sLib::_sClass::NewThread(Lib_GZ::Base::cClass* _parent){   \
     Lib_GZ::Dlg_r_void_p_gzPtr::Dlg _dTCall(&_sLib::_sClass::Thread_Start); \
@@ -177,7 +185,7 @@ void _sLib::_sClass::Thread_Start(GZ_FuncWrapD, gzPtr _pThread){  \
 	_oTemp->Constructor((_namespace::c##_class*)_oInitialiser.get());   \
 	_oInitialiser->fStart(_oTemp.get()); \
 	printf("\nEND Thread class: " #_sClass);\
-	_oInitialiser->ThreadEnd();\
+	CallThreadEnd\
 }
 	//_oTemp->Ini_c##_sClass((_namespace::c##_class*)_oInitialiser.get());   \
 	

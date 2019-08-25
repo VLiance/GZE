@@ -518,6 +518,7 @@ class gzArray {
 	
 	
 	inline const T&  fPush(const T& _oObj) const {
+		
 		(*this)[gzp_length] = _oObj;
 		return _oObj;
 	}

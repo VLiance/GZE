@@ -42,7 +42,7 @@ namespace Lib_GZ{namespace Base{ namespace Thread{ namespace ThreadList{
         Lib_GZ::Lib::nThreadCount++;
 		
        //qaList.fPush( gzSCast<cThreadExt>( _opThread->SpFromThis()) );
-   //    aList.fPush( _opThread );
+       aList.fPush( _opThread );
         _opThread->qeInList = aList.GqeLast();
     }
 
@@ -53,13 +53,16 @@ namespace Lib_GZ{namespace Base{ namespace Thread{ namespace ThreadList{
 
 
    void fNextTask(){
-     //printf("\n fNextTask");
+    // printf("\n fNextTask");
 	 
        if(aList.GnTotal() > 0){
-            //printf("DoTask %d \n" , Lib_GZ::Lib::nThreadCount);
+            printf("DoTask %d \n" , Lib_GZ::Lib::nThreadCount);
             qeTask = aList.GqeFirst();
+			 printf("\n fLoop");
             qeTask.ref()->oThread->fLoop();
+			 printf("\n End");
             qeTask = qeTask.GqeNext();
+			
        }
    }
 

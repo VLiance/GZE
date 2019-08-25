@@ -12,7 +12,9 @@
 		public var oWindow : Context;
 		
 		public function ThreadItf():Void{
-			
+		<cpp>
+			printf("\nnew Debug");
+		</cpp>	
 			//Create default debug singleton for this new thread
 			Debug = new Debug();
 			System = new System();

@@ -8,6 +8,9 @@
 //- Include an attribution statement somewhere in your project.
 //- If you want to see GZE evolve please help us with a donation.
 
+#ifndef tHDef_EmscHeader
+#define tHDef_EmscHeader
+
 ///// Emsc Include /////
 #include <emscripten/emscripten.h>
 #include <emscripten/val.h>
@@ -21,7 +24,7 @@ typedef  emscripten::value_object value_object;*/
 ///////////////////////////
 
 //GzNullVal in gzVal.h
-typedef emscripten::val gzVal; //TODO
+//typedef emscripten::val gzVal; //TODO
 
 struct gzJsMem{
 	val MallocPtr; 
@@ -31,4 +34,4 @@ struct gzJsMem{
 extern gzJsMem* GzCurrJsMem;
 
 
-
+#endif
