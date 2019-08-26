@@ -39,7 +39,13 @@ extern "C" {
 }
 
 //#define GZ_fMalloc(_nNb, _nSize) malloc((_nNb) * (_nSize))
-		
+
+
+ void* fEMSC_Calloc(int _nSize){
+	void* _ptr = fEMSC_Malloc(_nSize);
+	memset(_ptr, 0, _nSize);
+	return _ptr;
+} 
 	
  void* fEMSC_Malloc(int _nSize){
  

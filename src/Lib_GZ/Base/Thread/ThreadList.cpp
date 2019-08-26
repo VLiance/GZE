@@ -56,11 +56,11 @@ namespace Lib_GZ{namespace Base{ namespace Thread{ namespace ThreadList{
     // printf("\n fNextTask");
 	 
        if(aList.GnTotal() > 0){
-            printf("DoTask %d \n" , Lib_GZ::Lib::nThreadCount);
+         //   printf("DoTask %d \n" , Lib_GZ::Lib::nThreadCount);
             qeTask = aList.GqeFirst();
-			 printf("\n fLoop");
+		//	 printf("\n fLoop");
             qeTask.ref()->oThread->fLoop();
-			 printf("\n End");
+		//	 printf("\n End");
             qeTask = qeTask.GqeNext();
 			
        }

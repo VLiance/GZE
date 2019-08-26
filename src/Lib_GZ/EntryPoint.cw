@@ -95,9 +95,9 @@ package  {
 			//fprintf(stderr,"\nUpdate: %d\n" endl_cr, _nCount);
 			_nCount++;
 			
-			if(_nCount > 1000){
+			//if(_nCount > 10){
 			//return 0; // 1 Still Alive, 0 Stop, < 0 Errors
-			}
+			//}
 			return 1; // 1 Still Alive, 0 Stop, < 0 Errors
 		}
 		gzInt Close(gzInt _nExitCode){
