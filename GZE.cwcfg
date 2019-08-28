@@ -5,7 +5,7 @@
 <Arguments>
 
 
-	<Compiler>-DGZ_D_Monothread</Compiler><!-- TEMP ONLY FOR TEST-->
+	<!-- <Compiler>-DGZ_D_Monothread</Compiler>--><!-- ONLY FOR TEST-->
 
 	<Compiler>-I "{_pModule}src/"</Compiler>
 	<Compiler>-I "{_pModule}src/SubLib_System/"</Compiler>

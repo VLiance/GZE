@@ -44,11 +44,14 @@
 		#ifdef D_Platform_Web_Emsc
 			extern void * fEMSC_Malloc(int size);
 			extern void * fEMSC_Calloc(int size);
+			extern void fEMSC_Free(void* _ptr);
 	
 			#define GZ_fMalloc(_nNb, _nSize) fEMSC_Malloc((_nNb) * (_nSize))
 			#define GZ_fCalloc(_nNb, _nSize) fEMSC_Calloc(_nNb * _nSize) //TODO set vals to 0
+			#define GZ_fFree(_ptr) fEMSC_Free(_ptr) //TODO set vals to 0
 			//#define GZ_fRealloc realloc
-			#define GZ_fFree free
+			
+	
 
 		#else
 			#define GZ_fMalloc(_nNb, _nSize) malloc((_nNb) * (_nSize))

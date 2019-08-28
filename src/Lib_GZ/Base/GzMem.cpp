@@ -11,6 +11,7 @@
 
 #ifdef D_Platform_Web_Emsc
 #include "Lib_GzWeb_Emsc/Emscripten/EmscHeader.h"
+#include "Lib_GZ/Base/Container/gzVal.h"
 /*
 	typedef struct
 	{
@@ -40,6 +41,23 @@ extern "C" {
 
 //#define GZ_fMalloc(_nNb, _nSize) malloc((_nNb) * (_nSize))
 
+ void fEMSC_Free(void* _ptr){
+
+free(_ptr); return;
+
+
+	_ptr = &(((gzVal**)_ptr)[-1]) ;
+	delete ((gzVal**)_ptr)[0];
+	
+	EM_ASM_ARGS({
+		Module._free($0); //gzMallocPtr.byteOffset
+	}, _ptr );	
+
+	
+
+	//gzVal* _oVal =  ((gzVal*)_ptr - sizeof(gzVal*));
+	//free((char*)_ptr - sizeof(void*));//Move back JsMem ptr
+ }
 
  void* fEMSC_Calloc(int _nSize){
 	void* _ptr = fEMSC_Malloc(_nSize);
@@ -49,8 +67,11 @@ extern "C" {
 	
  void* fEMSC_Malloc(int _nSize){
  
-		//TODO !!!!!!!!!!!!!
-		return malloc(_nSize);
+ 
+ return malloc(_nSize);
+		
+		_nSize += sizeof(void*); //For JsMem
+ 
 		//TODO !!!!!!!!!!!!!
 		
 		 EM_ASM_ARGS({
@@ -59,20 +80,44 @@ extern "C" {
 		  
 				var numBytes = $0; 
 
-				var malloc = Module._malloc(numBytes);
-				gzMallocPtr = new Uint8Array(Module.HEAPU8.buffer, malloc, numBytes);
+				//var malloc = Module._malloc(numBytes);
+				 malloc = Module._malloc(numBytes);
+				gzMallocPtr = new Uint8ClampedArray(Module.HEAPU8.buffer, malloc, numBytes); 
 				
+				if(numBytes > 800*500* 4 && numBytes < 800*800* 4 ){
+					gzMallocPtrTest = new Uint8ClampedArray(gzMallocPtr,0,50); 
+					
+				}else{
+				gzMallocPtrTest = 0;
+				}
+				//gzMallocPtr = new Uint8Array(Module.HEAPU8.buffer, malloc, numBytes); 
+				 // gzMallocPtr.set(new Uint8Array(typedArray.buffer));
 				// call the c function which should modify the vals
-				dEmscMalloc(gzMallocPtr.byteOffset, gzMallocPtr.buffer);
+				dEmscMalloc(gzMallocPtr.byteOffset);
+				//dEmscMalloc(gzMallocPtr.byteOffset, gzMallocPtr.buffer);
 				//gzArrayHeap = new Int8Array(gzMallocPtr.buffer, gzMallocPtr.byteOffset + $1, numBytes);
 				
-		}, _nSize * 4 );	
+				
+				
+		//}, _nSize  );	
+		//}, _nSize * 4 );	
+		}, _nSize  );	
 		
 		//TODO
 		//JsMem = val::global("gzMallocPtr"); //TODO
 		//TODO
+//	#define GZ_fSetJSmem(_obj) _obj->JsMem =  (gzVal*)new gzVal(val::global("gzMallocPtr")); //TODO delete //Get last calloc ptr
 		
-		return gzEmscPtrMalloc;
+		
+		
+	   gzVal* _ptrJSMem = (gzVal*)new gzVal(val::global("gzMallocPtr")); //TODO delete //Get last calloc ptr
+	   
+
+//return gzEmscPtrMalloc; //Work
+		
+		((gzVal**)gzEmscPtrMalloc)[0] = _ptrJSMem;
+
+		return &(((gzVal**)gzEmscPtrMalloc)[1]);
 
 	
 	/*

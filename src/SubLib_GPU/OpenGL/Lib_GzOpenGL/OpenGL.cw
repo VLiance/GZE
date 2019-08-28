@@ -318,14 +318,14 @@ generate "OpenGL" {
 			<cpp>
 			#ifdef D_Platform_Web_Emsc
 
-		//			gzDataRoot* _array = (gzDataRoot*)(_pData) ;
-		//			oGL.call<void>("bufferData", (int)_hTarget, _array->JsMem , (int)_hUsage);	 
+					gzVal* _val = *(((gzVal**)_pData) - sizeof(gzVal*));
+					oGL.call<void>("bufferData", (int)_hTarget,  _val , (int)_hUsage);	 
 					//TODO JSMEM
 
 				return;
 			#else
 				//TODO 
-			//	_pData = (void*)((gzDataRoot*)_pData)->aTab; //pData already ok?
+				//_pData = (void*)((gzDataRoot*)_pData)->aTab; //pData already ok? -> ok
 				
 			#endif
 			</cpp>

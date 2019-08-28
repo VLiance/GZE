@@ -21,12 +21,17 @@ package  {
 	val pixelArray  = val::global("Null");
 	val buf8  = val::global("Null");
 	val imageData = val::global("Null");
+	val _ptrJSMem = val::global("Null");
+	val myoffset = val::global("Null");
+
 	gzInt* aPixels;
 	</cpp_class_h>
 
 	
 	<cpp>
 		extern "C" {
+		
+		
 		/*
 				 EMSCRIPTEN_KEEPALIVE
 				float  lerp()  {
@@ -57,9 +62,24 @@ package  {
 				}*/
 				
 			}
-
-		
 	</cpp>
+	
+		<cpp_namespace>
+		
+			size_t array_Size = 0;
+			unsigned char* array_Buff = 0;
+			
+	
+	
+			val getBytes() {
+				return val(typed_memory_view(array_Size, array_Buff));
+			}
+
+			EMSCRIPTEN_BINDINGS(memory_view_example) {
+				function("getBytes", &getBytes);
+			}
+				
+		</cpp_namespace>
 	
 	
 	public class OpContext overplace Context {
@@ -199,9 +219,9 @@ package  {
 					int _nHeight = 600;
 					
 					oCanvas = canvas.call<val>("getContext", val("2d"));
-					imageData = oCanvas.call<val>("createImageData", val(_nWidth), val(_nHeight));
+					imageData = oCanvas.call<val>("createImageData", val(_nWidth), val(_nHeight)); //Give ImageData 
 		
-					pixelArray = imageData["data"];
+					pixelArray = imageData["data"]; //Give Uint8ClampedArray 
 			
 					val ArrayBuffer = val::global("ArrayBuffer");
 					val Uint8ClampedArray = val::global("Uint8ClampedArray");
@@ -238,7 +258,14 @@ package  {
 		override public function fIniPixelDrawZone(): CArray<Int32>{
 			Debug.fTrace("Please Insert IniPixelDrawZone code here");
 			<cpp>
-			aPixels = new gzInt[nFrameWidth * nFrameHeight];
+			//aPixels = new gzInt[nFrameWidth * nFrameHeight];
+			aPixels = (gzInt*)GZ_fMalloc(nFrameWidth * nFrameHeight,  sizeof(gzUInt32));
+			_ptrJSMem = val::global("gzMallocPtrTest"); //TODO delete //Get last calloc ptr
+	myoffset =   gzVal(val::global("malloc"));
+	array_Size = nFrameWidth * nFrameHeight * sizeof(gzUInt32);
+	array_Buff = (unsigned char*)aPixels;
+			
+
 			return aPixels;
 
 			</cpp>
@@ -251,21 +278,59 @@ package  {
 			<cpp>
 			
 			//return 0; ///////////////////////////DISABLED
+			
 				int _nLength = nFrameWidth * nFrameHeight;
-				
+				/*
 				#pragma unroll 8
 				for (int i = 0; i < _nLength; i++) {
 					gzUInt _nVal = aPixels[i];
 					aData.set(i, (_nVal & 0xFF00FF00) | ((_nVal & 0x00FF0000) >> 16)  | ((_nVal & 0x000000FF) << 16)); //Reverse Blue & Red
 					//aData.set(i, _nVal);
-				}
-				
+				}*/
 				/*
+			
 				for (int i = 0; i < _nLength*4; i++) {
 					pixelArray.set( i, val(aPixels[i>>1]));
 				}*/
-
-				pixelArray.call<Void>("set", val(buf8));
+					
+					/*
+				gzVal** _ptr = &(((gzVal**)aPixels)[-1]) ;
+				gzVal* _myBuff =  ((gzVal**)_ptr)[0];
+				
+				//(((gzVal**)aPixels)[-1]);
+				val test = *_myBuff;
+				//Uint8Array
+				//buf8 = test;
+				//val testOffset = gzVal((gzUInt32)(&aPixels[-1]));
+				val testOffset = gzVal((&aPixels[-1]));
+				//emscripten::val::array();
+					*/
+					
+		//	buf8.call<Void>("set", _ptrJSMem, 1920000);
+					
+		
+			//	pixelArray.call<Void>("set", _ptrJSMem, myoffset);
+			//pixelArray.call<Void>("set",  _ptrJSMem );
+				
+				//console.log(_ptrJSMem.length);
+				
+			
+				EM_ASM(
+				//var myUint8Array  = new  Uint8ClampedArray();
+					var myUint8Array = Module.getBytes();
+				//	pixelArray.set(myUint8Array);
+				 );
+				
+				
+			//	buf8 = val::global("myUint8Array");
+			//	pixelArray.call<Void>("set",buf8);
+				//pixelArray.call<Void>("set", val::global("myUint8Array"));
+		
+				
+				pixelArray.call<Void>("set", typed_memory_view(array_Size, array_Buff));
+				//pixelArray.call<Void>("set", getBytes());
+				//pixelArray.call<Void>("set",  testOffset );
+				//pixelArray.call<Void>("set",  _ptrJSMem );
 				oCanvas.call<Void>("putImageData", imageData, val(0), val(0)); // at coords 0,0
 			</cpp>
 				}

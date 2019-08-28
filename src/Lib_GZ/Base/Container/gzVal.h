@@ -16,6 +16,7 @@
 #include "Lib_GZ/Base/GzTypes.h"
 #include "Lib_GZ/Base/GzBaseFunc.h"
 #include "Lib_GZ/Base/GzMem.h"
+//#include "Lib_GZ/Base/Container/String/gzString.h"
 
 
 #ifdef D_Platform_Web_Emsc
@@ -32,7 +33,7 @@
 				
 				gzVal(const char* v) : emscripten::val(v){};
 				
-				gzVal(gzStr8 _str) : emscripten::val( (const char* )_str.array() ){};
+				//gzVal(gzStr8 _str) : emscripten::val( (const char* )_str.array() ){};
 				
 				
 				template<typename T>
@@ -84,7 +85,14 @@
 			private:
 
 		};
-		
+		/*
+		class gzPtrVal(){
+			public: 
+			gzVal val;
+			gzPtrVal(const gzVal& _oVal){
+				val = _oVal;
+			}
+		} */
 	
 #else
 	typedef gzUInt gzVal;

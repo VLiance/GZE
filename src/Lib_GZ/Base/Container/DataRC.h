@@ -17,6 +17,23 @@
 #define GZ_tDebug
 
 
+#ifdef D_Platform_Web_Emsc
+	#define dJsMemIni
+	#define GZ_fSetJSmem
+/*
+	//#include "Lib_GzWeb_Emsc/Emscripten/EmscHeader.h"
+	#include "Lib_GZ/Base/Container/gzVal.h"
+	#define dJsMemIni ,0 
+	#define GZ_fSetJSmem(_obj) _obj->JsMem =  (gzVal*)new gzVal(val::global("gzMallocPtr")); //TODO delete //Get last calloc ptr
+*/
+#else
+
+	#define dJsMemIni
+	#define GZ_fSetJSmem
+	
+#endif
+	
+	
 
 #include "Lib_GZ/Base/GzTypes.h"
 #include "Lib_GZ/Base/GzBaseFunc.h"
@@ -61,9 +78,9 @@
 #define gzS32 U
 
 
-#define gzData8(_aData)   ((gzDataRC){(gzUInt8*)(gzConcat(gzS8 ,_aData)),(gzUIntX)(sizeof(gzConcat(gzS8 ,_aData))-1), (gzUIntX)sizeof(gzConcat(gzS8 ,_aData))-1 ,0,0,(gzUInt)-1})
-#define gzData16(_aData)  ((gzDataRC){(gzUInt8*)(gzConcat(gzS16,_aData)),(gzUIntX)(sizeof(gzConcat(gzS16,_aData))-2), (gzUIntX)sizeof(gzConcat(gzS16,_aData))-2 ,0,0,(gzUInt)-1})
-#define gzData32(_aData)  ((gzDataRC){(gzUInt8*)(gzConcat(gzS32,_aData)),(gzUIntX)(sizeof(gzConcat(gzS32,_aData))-4), (gzUIntX)sizeof(gzConcat(gzS32,_aData))-4 ,0,0,(gzUInt)-1})
+#define gzData8(_aData)   ((gzDataRC){(gzUInt8*)(gzConcat(gzS8 ,_aData)),(gzUIntX)(sizeof(gzConcat(gzS8 ,_aData))-1), (gzUIntX)sizeof(gzConcat(gzS8 ,_aData))-1 ,0,0,(gzUInt)-1 dJsMemIni})
+#define gzData16(_aData)  ((gzDataRC){(gzUInt8*)(gzConcat(gzS16,_aData)),(gzUIntX)(sizeof(gzConcat(gzS16,_aData))-2), (gzUIntX)sizeof(gzConcat(gzS16,_aData))-2 ,0,0,(gzUInt)-1 dJsMemIni})
+#define gzData32(_aData)  ((gzDataRC){(gzUInt8*)(gzConcat(gzS32,_aData)),(gzUIntX)(sizeof(gzConcat(gzS32,_aData))-4), (gzUIntX)sizeof(gzConcat(gzS32,_aData))-4 ,0,0,(gzUInt)-1 dJsMemIni})
 /*
 #define gzStaticU8(_sName, _aData)  static gzStr8(  gzData8(_aData)  ) _sName;
 #define gzStaticU16(_sName, _aData) static gzStr16(  gzData16(_aData) ) _sName;
@@ -172,7 +189,11 @@ public:
 
 	gzUInt nInst;  //If not readonly ... Test if not const before write
 	//gzUInt nWeakInst;  //If not readonly ... only for array?
-
+	/*
+	#ifdef D_Platform_Web_Emsc
+	gzVal* JsMem;
+	#endif
+	*/
 	
 	inline void fPrint() const {
 		//for(gzUInt i = 0; i < nSize >>  nStride; i++){
@@ -227,6 +248,8 @@ inline static gzDataRC* fEmptyArray(gzUInt _nSize ) {
 inline static gzDataRC*  fDataAlloc(  gzUIntX _nSize,  gzUIntX _nLimit ){  //TODO inline?
 	gzDataRC* _oRc =  (gzDataRC*)GZ_fMalloc(1, sizeof(gzDataRC)); GZ_nArrayTotalAlloc++;  //Can be optimised with malloc if we be sure that all data are memcpy
 	_oRc->aTab = (gzUInt8*)GZ_fCalloc(1, _nLimit ); GZ_nArrayTotalAlloc++; //Malloc?
+	
+//	GZ_fSetJSmem(_oRc); 
 
 	memset( &_oRc->aTab[_nSize], 0, _nLimit - _nSize);//Zero all other 
 	
