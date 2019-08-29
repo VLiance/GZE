@@ -25,7 +25,7 @@ package  {
 		}
 		
 		/*
-		public function Rect(_oPos : Pt, _oDim : Dim):Void  {
+		public function Rect(_oPos : Pt<Float>, _oDim : Dim):Void  {
 
 			
 		}*/

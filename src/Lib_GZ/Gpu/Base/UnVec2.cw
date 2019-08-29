@@ -8,7 +8,7 @@ package  {
 	
 	public overclass UnVec2  extends Uniform {
 		
-		public var vVal : Vec2;
+		public var vVal : Vec2<Float>;
 		
 
 		public function UnVec2(_oProgram : ProgramShader, _sName : String):Void {

@@ -60,8 +60,8 @@ package  {
 		
 		public function fCreate(  _nPosX : Int,  _nPosY : Int,  _nWinWidth : UInt, _nWinHeight : UInt,  _nStart : eWinState = eWinState.Normal,   _bGpuDraw : Bool = true, _bResizable : Bool = false, _bDragAndDrop: Bool = false, _bVisible : Bool = true):Void{
 			
-			var _oPt : Pt = new Pt(_nPosX, _nPosY);
-			var _oDim : Dim = new Dim(_nWinWidth, _nWinHeight);
+			//var _oPt : Pt<Float> = new Pt<Float>(_nPosX, _nPosY);
+			//var _oDim : Dim = new Dim(_nWinWidth, _nWinHeight);
 			
 			bWinGPU = _bGpuDraw;
 			nFrameWidth = _nWinWidth;
@@ -126,7 +126,7 @@ package  {
 				aDrawZone2D[10][5] = 0xFFFFFFFF;
 			</cpp>	
 			if(bWinGPU){
-				oGpu = new Gpu(_nWinHandleId, true);
+				oGpu = new Gpu(_nHandleId, true);
 			}
 				
 			bIniDrawZone = true;

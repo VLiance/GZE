@@ -14,12 +14,12 @@ package  {
 	 */
 	public class Poly4  {
 		
-		public var oPt1 : Pt;
-		public var oPt2 : Pt;
-		public var oPt3 : Pt;
-		public var oPt4 : Pt;
+		public var oPt1 : Pt<Float>;
+		public var oPt2 : Pt<Float>;
+		public var oPt3 : Pt<Float>;
+		public var oPt4 : Pt<Float>;
 		
-		public function Poly4(_oPt1 : Pt, _oPt2 : Pt, _oPt3 : Pt, _oPt4 : Pt):Void  {
+		public function Poly4(_oPt1 : Pt<Float>, _oPt2 : Pt<Float>, _oPt3 : Pt<Float>, _oPt4 : Pt<Float>):Void  {
 			oPt1 = _oPt1;
 			oPt2 = _oPt2;
 			oPt3 = _oPt3;

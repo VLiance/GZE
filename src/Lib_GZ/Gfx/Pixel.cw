@@ -174,7 +174,8 @@ package  {
 				_nResLL = (((_nResHH - _nResLL ))*  Math.fMin(Math.fMax(_nPcBrRed + _nOfRevRed, 0), 256) +  (( _nResLL ) * _nPcRevRed) ) * _nAlpha * (Math.fMin(Math.fMax(_nPcBrRed + 256, 0), 256) );
 				_nResH = (((_nResHH - _nResH))*  Math.fMin(Math.fMax(_nPcBrGreen + _nOfRevGreen , 0), 256)  +     ((_nResH  ) * _nPcRevGreen) ) * _nAlpha * (Math.fMin(Math.fMax(_nPcBrGreen + 256, 0), 256) );
 				_nResL =  (((_nResHH - _nResL) ) *  Math.fMin(Math.fMax(_nPcBrBlue + _nOfRevBlue , 0), 256) +  ((_nResL) *  _nPcRevBlue)  ) * _nAlpha *  (Math.fMin(Math.fMax(_nPcBrBlue + 256, 0), 256) );
-
+		
+				
 				/* _nPcBrRed -256 -> + 256
 				 * _nPcLg = _nPcBrRed
 				 * _nPcLg =  min 0, max 256
@@ -207,15 +208,27 @@ package  {
 					_nResH = (_nFramH + (_nResH >> 8) * _nRevAlphaDest) & 0xFF00FF00;
 				}
 				/////////////////////////////////////////////////
-
 				_aDest[_nDestY][_nDestX] =    _nResH | (_nResL >> 8);
-
+				
+				/*	
+				<cpp>
+					#ifndef GZ_D_CpuRenderer_Reverse_BlueAndRed
+				</cpp>
+					_aDest[_nDestY][_nDestX] =    _nResH | ((_nResL ) >> 24) |  ((_nResL& 0x000FF000) << 8); //Reverse blue & Red
+				<cpp>
+					#else
+				</cpp>
+					_aDest[_nDestY][_nDestX] =    _nResH | (_nResL >> 8);
+				<cpp>
+					#endif
+				</cpp>
+				*/
 			}
 		}
 
 
 	
-	public pure function fDrawSegTri(_nDirX : Int,  _oPtT :  Pt,  _oPtL :  Pt, _rPtST :  Mapped<uPoint3D>,  _rPtSL :  Mapped<uPoint3D>, _oPtSegT :  Pt, _oPtSegL  : Pt,  _rPtSegST:  Mapped<uPoint3D>, _rPtSegSL :  Mapped<uPoint3D>, _aDest : CArray<Int32, 2>, _aSource : CArray<Int32, 2>, _nPosX : Int,  _nPosY : Int, _nX_Start : Int, _nX_End : Int, _nY_Start : Int, _nY_End : Int, _nLimW : UInt,  _nLimH : UInt, _nLast :Int, _nAlpha : UInt,  _nPcBrRed: UInt, _nPcBrGreen : UInt, _nPcBrBlue : UInt, _nPcRevRed : UInt, _nPcRevGreen: UInt , _nPcRevBlue: UInt, _nOfRevRed:UInt, _nOfRevBlue:UInt, _nOfRevGreen:UInt, _nFirst:Int, _bNothingRight:Bool = false):Void {
+	public pure function fDrawSegTri(_nDirX : Int,  _oPtT :  Pt<Float>,  _oPtL :  Pt<Float>, _rPtST :  Mapped<uPoint3D>,  _rPtSL :  Mapped<uPoint3D>, _oPtSegT :  Pt<Float>, _oPtSegL  : Pt<Float>,  _rPtSegST:  Mapped<uPoint3D>, _rPtSegSL :  Mapped<uPoint3D>, _aDest : CArray<Int32, 2>, _aSource : CArray<Int32, 2>, _nPosX : Int,  _nPosY : Int, _nX_Start : Int, _nX_End : Int, _nY_Start : Int, _nY_End : Int, _nLimW : UInt,  _nLimH : UInt, _nLast :Int, _nAlpha : UInt,  _nPcBrRed: UInt, _nPcBrGreen : UInt, _nPcBrBlue : UInt, _nPcRevRed : UInt, _nPcRevGreen: UInt , _nPcRevBlue: UInt, _nOfRevRed:UInt, _nOfRevBlue:UInt, _nOfRevGreen:UInt, _nFirst:Int, _bNothingRight:Bool = false):Void {
 
 
 
@@ -531,8 +544,23 @@ package  {
 						}
 
 						//(_nX+x ) >> Math.nSP
-						inline Pixel.fGetSmoothPixel(_aSource, _nGetX , _nGetY , _aDest, _nRealXPix,  _nRealYPix , _nAlpha, _nPcBrRed,_nPcBrGreen , _nPcBrBlue , _nPcRevRed, _nPcRevGreen, _nPcRevBlue, _nOfRevRed, _nOfRevBlue, _nOfRevGreen);
-
+						
+						//inline Pixel.fGetSmoothPixel(_aSource, _nGetX , _nGetY , _aDest, _nRealXPix,  _nRealYPix , _nAlpha, _nPcBrRed,_nPcBrGreen , _nPcBrBlue , _nPcRevRed, _nPcRevGreen, _nPcRevBlue, _nOfRevRed, _nOfRevBlue, _nOfRevGreen);
+						Pixel.fCopyPixelToDest(_aDest,0xFF000000, (_nX+x)/1024, _nRealY/1024);
+						/*
+						<cpp>
+							#ifdef GZ_D_CpuRenderer_Reverse_BlueAndRed
+						</cpp>
+							inline Pixel.fGetSmoothPixel(_aSource, _nGetX , _nGetY , _aDest, _nRealXPix,  _nRealYPix , _nAlpha, _nPcBrBlue ,_nPcBrGreen , _nPcBrRed , _nPcRevBlue , _nPcRevGreen, _nPcRevRed, _nOfRevBlue, _nOfRevRed,  _nOfRevGreen);
+						<cpp>
+							#else
+						</cpp>
+							inline Pixel.fGetSmoothPixel(_aSource, _nGetX , _nGetY , _aDest, _nRealXPix,  _nRealYPix , _nAlpha, _nPcBrRed,_nPcBrGreen , _nPcBrBlue , _nPcRevRed, _nPcRevGreen, _nPcRevBlue, _nOfRevRed, _nOfRevBlue, _nOfRevGreen);
+						<cpp>
+							#endif
+						</cpp>
+						*/
+						
 						//Pixel.fCopyPixelToDest(_aDest,_aSource[_nGetY/256][_nGetX/256], (_nX+x)/1024, _nRealY/1024);
 /*
 						<cpp>

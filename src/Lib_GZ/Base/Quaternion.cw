@@ -1,7 +1,7 @@
 //This file is part of "GZE - GroundZero Engine"
 //The permisive licence allow to use GZE for free or commercial project (Apache License, Version 2.0).
 //For conditions of distribution and use, see copyright notice in Licence.txt, this license must be included with any distribution of the code.
-#skipContent
+
 package  {
 
 	import GZ.Base.Math.Math;
@@ -10,7 +10,9 @@ package  {
 	/**
 	 * @author Maeiky
 	 */
-	public class Quaternion extends Vec4 {
+	public vector Quaternion extends Vec4 {
+	
+			public var nTest : Number; //teemp
 
 		public function Quaternion():Void  {
 			Vec4(0,0,0,1);
@@ -65,7 +67,7 @@ package  {
 		}
 		
 
-		public function fCombine(_oOther : Quaternion ):Void {
+		public function fCombine(_oOther : Quaternion<Number> ):Void {
 		
 			var _nTempX : Float = (nX * _oOther.nW) + (nW * _oOther.nX) + (nZ * _oOther.nY) - (nY * _oOther.nZ);
 			var _nTempY : Float = (nY * _oOther.nW) + (nW * _oOther.nY) + (nX * _oOther.nZ) - (nZ * _oOther.nX);

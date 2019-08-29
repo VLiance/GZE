@@ -144,7 +144,7 @@ package  {
 //			rPtBL = addPoint(0 -_nBorder, nHeight  +_nBorder,        _nCenterX, _nCenterY);
 
 
-			var _oCenter  : Pt = new Pt(_nCenterX, _nCenterY );
+			var _oCenter  : Pt<Float> = new Pt<Float>(_nCenterX, _nCenterY );
 
 			oPtTL = new PtA(0 - _nBorder, 0 -_nBorder);
 			oPtTR = new PtA(nWidth  +_nBorder, 0 -_nBorder);
@@ -161,10 +161,10 @@ package  {
 	        var _nSrcX  : Float = _oChar.nX + _nBorder;
 			var  _nSrcY  : Float = _oChar.nY + _nBorder;
 			
-			var _oPtSrc1 : Pt = new Pt(_nSrcX + 0 - _nBorder, _nSrcY + 0 - _nBorder);
-			var _oPtSrc2 : Pt = new Pt(_nSrcX + nWidth  +_nBorder, _nSrcY +  0 -_nBorder);
-			var _oPtSrc3 : Pt = new Pt(_nSrcX + nWidth  +_nBorder, _nSrcY +  nHeight +_nBorder);
-			var _oPtSrc4 : Pt = new Pt(_nSrcX + 0 - _nBorder, _nSrcY +  nHeight  + _nBorder);
+			var _oPtSrc1 : Pt<Float> = new Pt<Float>(_nSrcX + 0 - _nBorder, _nSrcY + 0 - _nBorder);
+			var _oPtSrc2 : Pt<Float> = new Pt<Float>(_nSrcX + nWidth  +_nBorder, _nSrcY +  0 -_nBorder);
+			var _oPtSrc3 : Pt<Float> = new Pt<Float>(_nSrcX + nWidth  +_nBorder, _nSrcY +  nHeight +_nBorder);
+			var _oPtSrc4 : Pt<Float> = new Pt<Float>(_nSrcX + 0 - _nBorder, _nSrcY +  nHeight  + _nBorder);
 			var _oSrc : Poly4 = new Poly4(_oPtSrc1, _oPtSrc2,  _oPtSrc3, _oPtSrc4);
 
 			fCreateFace(_oRc, _oSrc);

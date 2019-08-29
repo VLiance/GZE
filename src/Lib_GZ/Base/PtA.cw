@@ -4,24 +4,37 @@
 
 package  {
 
-	import GZ.Base.Math.Math;
+	//import GZ.Base.Math.Math;
 	import GZ.Base.Pt;
 	import GZ.Base.Vec3;
 
 	/**
 	 * @author Maeiky
 	 */
-	public class PtA extends Pt  {
+	//public class PtA extends Pt  {
+	
+	public class PtA   {
 
-		public var oTf : Pt;
-		public var o2d : Pt;
+		public var oTf : Pt<Float>;
+		public var o2d : Pt<Float>;
+		
+		//public var vPt : Pt<Float>;
+		public var nX : Float;
+		public var nY : Float;
+		public var nZ : Float;
+		
 
 		public function PtA(_nX : Float = 0, _nY : Float = 0, _nZ : Float = 0):Void  {
-			oTf = new Pt();
-			o2d = new Pt();
+				nX = _nX;
+				nY = _nY;
+				nZ = _nZ;
+				
+			//oTf = new Pt<Float>();
+			//o2d = new Pt<Float>();
 			
 			
-			Pt(_nX, _nY, _nZ);
+			//Pt(_nX, _nY, _nZ);
+			
 		}
 
 		public function fCopyToTf():Void  {

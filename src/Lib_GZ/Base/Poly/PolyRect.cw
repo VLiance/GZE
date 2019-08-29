@@ -16,12 +16,12 @@ package  {
 	 */
 	public class Rect extends Poly4 {
 
-		public function Rect(_oPos : Pt, _oDim : Dim):Void  {
+		public function Rect(_oPos : Pt<Float>, _oDim : Dim):Void  {
 
-			var _oTL : Pt = new Pt(_oPos.nX, _oPos.nY);
-			var _oTR : Pt = new Pt(_oPos.nX + _oDim.nWidth, _oPos.nY);
-			var _oBR : Pt = new Pt(_oPos.nX + _oDim.nWidth, _oPos.nY + _oDim.nHeight);
-			var _oBL : Pt = new Pt(_oPos.nX, _oPos.nY + _oDim.nHeight);
+			var _oTL : Pt<Float> = new Pt(_oPos.nX, _oPos.nY);
+			var _oTR : Pt<Float> = new Pt(_oPos.nX + _oDim.nWidth, _oPos.nY);
+			var _oBR : Pt<Float> = new Pt(_oPos.nX + _oDim.nWidth, _oPos.nY + _oDim.nHeight);
+			var _oBL : Pt<Float> = new Pt(_oPos.nX, _oPos.nY + _oDim.nHeight);
 			Poly4(_oTL, _oTR, _oBR, _oBL);
 		}
 
@@ -64,7 +64,7 @@ package  {
 		
 		/*
 		public function fFlipRD():Void  {
-			var _oTempPt : Pt = oPt2;
+			var _oTempPt : Pt<Float> = oPt2;
 			oPt2 = oPt4;
 			oPt4 = _oTempPt;
 		}*/

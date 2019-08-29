@@ -6,6 +6,9 @@
 	import GZ.File.File;
 	import GZ.Sys.System;
 	import GZ.File.Font;
+	
+	import GzOpenGL.OpenGL;
+	import GZ.Gpu.GpuObj.GpuObject;
 
 	public class ThreadItf extends Thread  {
 		
@@ -21,6 +24,9 @@
 			File = new File("Sys|CurrentModule");
 			Font = new Font();
 			Debug.fInfo("-- New ThreadItf --");
+			
+			OpenGL = new OpenGL();
+			GpuObject = new GpuObject();
 			<cpp>
 			//printf("\n-- New ThreadItf -- %p ", thread);
 			printf("\n-- New ThreadItf -- %p , id: %d", thread, thread->nId);

@@ -5,12 +5,12 @@
 package  {
 
 	import GZ.Base.Math.Math;
-	import GZ.Base.Vec3;
+	//import GZ.Base.Vec3;
 
 	/**
 	 * @author Maeiky
 	 */
-	public class Dim  extends Vec3 {
+	public vector Dim  {
 
 		public var nWidth : Float;
 		public var nHeight : Float;

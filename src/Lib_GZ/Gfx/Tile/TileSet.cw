@@ -109,7 +109,7 @@ package  {
 			var _nTileX : UInt = (_nTileId - (_nTileY * nTilePerRow));
 			var _nPosX : Float = _nTileX* nTileWidthB + nMargin;
 			var _nPosY : Float = _nTileY* nTileWidthB + nMargin;
-			var _oPt : Pt = new Pt(_nPosX, _nPosY);
+			var _oPt : Pt<Float> = new Pt(_nPosX, _nPosY);
 			return _oPt;
 		}
 		

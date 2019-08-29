@@ -48,7 +48,7 @@ package  {
 		//public easeOut var nEase :Int;
 
 
-		public function Img( _oParent : Root, _nX: Float, _nY:Float, _oRc : RcImg, _bCenter:Bool = true, _nCenterX:Int = 0, _nCenterY:Int = 0, _bSmoothBorder:Bool = true, _bDrawLine:Bool = false,  _oSrcRegion : Poly4 = 0, _nWidth:UInt = 0, _nHeight:UInt = 0, _oPts : Poly4 = 0):Void {
+		public function Img( _oParent : Root, _nX: Float, _nY:Float, _oRc : RcImg, _bCenter:Bool = true, _nCenterX:Float = 0, _nCenterY:Float = 0, _bSmoothBorder:Bool = true, _bDrawLine:Bool = false,  _oSrcRegion : Poly4 = 0, _nWidth:UInt = 0, _nHeight:UInt = 0, _oPts : Poly4 = 0):Void {
 			Shape(_oParent, _nX , _nY, 4, _bSmoothBorder);
 			//nEase = 5;
 			//nEase.to(10);
@@ -116,7 +116,7 @@ package  {
 			}
 */
 
-			var _oCenter  : Pt = new Pt(_nCenterX, _nCenterY);
+			var _oCenter  : Pt<Float> = new Pt<Float>(_nCenterX, _nCenterY);
 			
 			
 			oPtTL = new PtA(0 - _nBorder, 0 -_nBorder);
@@ -149,10 +149,10 @@ package  {
 			var _oSrc : Poly4;
 	
 			if(_oSrcRegion == 0){
-				var _oPtSrc1 : Pt = new Pt(0 - _nBorder, 0 - _nBorder);
-				var _oPtSrc2 : Pt = new Pt(nWidth  +_nBorder, 0 -_nBorder);
-				var _oPtSrc3 : Pt = new Pt(nWidth  +_nBorder, nHeight +_nBorder);
-				var _oPtSrc4 : Pt = new Pt(0 - _nBorder, nHeight  + _nBorder);
+				var _oPtSrc1 : Pt<Float> = new Pt<Float>(0 - _nBorder, 0 - _nBorder);
+				var _oPtSrc2 : Pt<Float> = new Pt<Float>(nWidth  +_nBorder, 0 -_nBorder);
+				var _oPtSrc3 : Pt<Float> = new Pt<Float>(nWidth  +_nBorder, nHeight +_nBorder);
+				var _oPtSrc4 : Pt<Float> = new Pt<Float>(0 - _nBorder, nHeight  + _nBorder);
 				_oSrc  = new Poly4(_oPtSrc1, _oPtSrc2, _oPtSrc3, _oPtSrc4);
 			}else{
 				_oSrc = _oSrcRegion;

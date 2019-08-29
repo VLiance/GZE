@@ -9,14 +9,14 @@ package  {
 	/**
 	 * @author Maeiky
 	 */
-	public class Vec2  {
+	public vector Vec2  {
 
-		public var nX : Float;
-		public var nY : Float;
+		public var nX : Number;
+		public var nY : Number;
 
-		public function Vec2(_nX : Float = 0, _nY : Float = 0):Void  {
-			nX = _nX;
-			nY = _nY;
+		public function Vec2(_nX : Number = 0, _nY : Number = 0):Void  {
+			//nX = _nX;
+			//nY = _nY;
 		}
 		
 		

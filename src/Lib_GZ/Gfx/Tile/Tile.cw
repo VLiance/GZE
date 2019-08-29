@@ -22,10 +22,10 @@ package  {
 	 */
 	public class Tile  extends Img {
 
-		public var oOffsetL : Pt;
-		public var oOffsetT : Pt;
-		public var oOffsetR : Pt;
-		public var oOffsetB : Pt;
+		public var oOffsetL : Pt<Float>;
+		public var oOffsetT : Pt<Float>;
+		public var oOffsetR : Pt<Float>;
+		public var oOffsetB : Pt<Float>;
 
 		public var nPosL : Int;
 		public var nPosT : Int;
@@ -62,7 +62,7 @@ package  {
 			nCaseY = _nCaseY;
 
 			if(oTileData.oTileset.nTilePerRow > 0){
-				var _oSrcPos : Pt =  _oTileset.fGetTilePos(oTileData.nId);
+				var _oSrcPos : Pt<Float> =  _oTileset.fGetTilePos(oTileData.nId);
 				var _oRegion : Rect = new Rect(_oSrcPos , new Dim(_oTileset.nTileWidth,_oTileset.nTileHeight));
 				
 				if(oTileData.nFlipX < 0){
@@ -87,7 +87,7 @@ package  {
 
 		}
 
-		public function fSetNeighbor(_oSrcPos : Pt):Void{
+		public function fSetNeighbor(_oSrcPos : Pt<Float>):Void{
 
 
 			var _nTileWidth : UInt = oTileData.oTileset.nTileWidth;
@@ -107,10 +107,10 @@ package  {
 			var _nWidth : Float = (oTileData.oTileset.oRc.nWidth + 2.0);
 			var _oTileset : TileSet = oTileData.oTileset;
 
-			var _oPtT : Pt = new Pt();
-			var _oPtR : Pt = new Pt();
-			var _oPtB : Pt = new Pt();
-			var _oPtL : Pt = new Pt();
+			var _oPtT : Pt<Float> = new Pt();
+			var _oPtR : Pt<Float> = new Pt();
+			var _oPtB : Pt<Float> = new Pt();
+			var _oPtL : Pt<Float> = new Pt();
 			if(_oTileT){
 				_oPtT =  _oTileset.fGetTilePos(_oTileT.nId);
 			}
@@ -199,10 +199,10 @@ package  {
 			var _oTileTR : TileData = _aTileData[nCaseY - 1][nCaseX + 1];
 			var _oTileBR : TileData = _aTileData[nCaseY + 1][nCaseX + 1];
 			var _oTileBL : TileData = _aTileData[nCaseY + 1][nCaseX - 1];
-			var _oPtTL : Pt = new Pt();
-			var _oPtTR : Pt = new Pt();
-			var _oPtBR : Pt = new Pt();
-			var _oPtBL : Pt = new Pt();
+			var _oPtTL : Pt<Float> = new Pt();
+			var _oPtTR : Pt<Float> = new Pt();
+			var _oPtBR : Pt<Float> = new Pt();
+			var _oPtBL : Pt<Float> = new Pt();
 			if(_oTileTL){
 				 _oPtTL  =_oTileset.fGetTilePos(_oTileTL.nId);
 			}

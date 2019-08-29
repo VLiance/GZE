@@ -250,7 +250,7 @@ gzStr8 gzStrC(const char* _Array, gzUInt _nCount);
 gzStr8 gzStrUI(gzUInt64 _nVal);
 gzStr8 gzStrI(gzInt64 _nVal);
 gzStr8 gzStrF(gzFloat64 _nFloat, gzUInt8 _nbCharAfter = 3);
-
+#define gzStrN gzStrF  //Temp
 
 //Fixe array to string, can be dangerous if memory is release before string
 inline gzStr8 GZ_CArray_fToStr(gzUInt8* _aData, gzUIntX _nSize){

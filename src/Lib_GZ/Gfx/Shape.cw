@@ -98,7 +98,7 @@ package  {
 		}
 */
 
-		public function fAddPt( _oPt : PtA, _oCenter : Pt ):Void {
+		public function fAddPt( _oPt : PtA, _oCenter : Pt<Float> ):Void {
 
 			_oPt.nX = _oPt.nX - _oCenter.nX;
 			_oPt.nY = _oPt.nY - _oCenter.nY;

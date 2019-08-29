@@ -67,8 +67,8 @@ package  {
 			
 			//nGAttType = 2.0; //No texture form
 
-			var _nCenterX :Int = 0;
-			var _nCenterY :Int = 0;
+			var _nCenterX :Float = 0;
+			var _nCenterY :Float = 0;
 
 			nWidth = _nW;
 			nHeight = _nH;
@@ -76,7 +76,7 @@ package  {
 			var _nBorder : Float = 0;
 
 
-			var _oCenter  : Pt = new Pt(_nCenterX, _nCenterY);
+			var _oCenter  : Pt<Float> = new Pt<Float>(_nCenterX, _nCenterY);
 
 
 			oPtTL = new PtA(0 - _nBorder, 0 -_nBorder);
@@ -90,10 +90,10 @@ package  {
 			fAddPt(oPtBL, _oCenter);
 
 
-			var _oPtSrc1 : Pt = new Pt( 0 , 0);
-			var _oPtSrc2 : Pt = new Pt(nWidth  , 0);
-			var _oPtSrc3 : Pt = new Pt( nWidth , nHeight );
-			var _oPtSrc4 : Pt = new Pt(0 , nHeight);
+			var _oPtSrc1 : Pt<Float> = new Pt<Float>( 0 , 0);
+			var _oPtSrc2 : Pt<Float> = new Pt<Float>(nWidth  , 0);
+			var _oPtSrc3 : Pt<Float> = new Pt<Float>( nWidth , nHeight );
+			var _oPtSrc4 : Pt<Float> = new Pt<Float>(0 , nHeight);
 			
 			var _oSrc : Poly4 = new Poly4(_oPtSrc1, _oPtSrc2, _oPtSrc3, _oPtSrc4);
 

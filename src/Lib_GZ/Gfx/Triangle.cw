@@ -55,13 +55,13 @@ package  {
 
 
 
-		public var oPtA : Pt;
-		public var oPtB : Pt;
-		public var oPtC : Pt;
+		public var oPtA : Pt<Float>;
+		public var oPtB : Pt<Float>;
+		public var oPtC : Pt<Float>;
 
-		public var oPtT : Pt;
-		public var oPtM : Pt;
-		public var oPtL : Pt;
+		public var oPtT : Pt<Float>;
+		public var oPtM : Pt<Float>;
+		public var oPtL : Pt<Float>;
 
 
 
@@ -145,21 +145,21 @@ package  {
 		}*/
 
 
-		public pure function fFindXFromLinePt( _oPt1 : Pt, _oPt2 : Pt,  _nY:Float):Float {
+		public pure function fFindXFromLinePt( _oPt1 : Pt<Float>, _oPt2 : Pt<Float>,  _nY:Float):Float {
 			var _nRelY : Float = _oPt1.nY - _nY;
 			return _oPt1.nX - _nRelY / Math.fTan(    Triangle.fFindAngle(_oPt1, _oPt2)  ); //Bottom square triangle end lenght
 		}
 
-		public pure function fFindAngle( _oPt1 : Pt, _oPt2 : Pt):Float {
+		public pure function fFindAngle( _oPt1 : Pt<Float>, _oPt2 : Pt<Float>):Float {
 			return Math.fATan2(_oPt1.nY - _oPt2.nY, _oPt1.nX - _oPt2.nX);
 		}
 
 
-		 public pure function fDraw(_oPtA:Pt,_oPtB:Pt,_oPtC:Pt,  _aPtSA:Mapped<uPoint3D>,_aPtSB:Mapped<uPoint3D>,_aPtSC:Mapped<uPoint3D>,   _nPosX : Int, _nPosY : Int, _aPixelArray : CArray<Int32, 2>,  _nSWidth : UInt,  _nSHeight : UInt, _oSource : Object, _nX_Start : Int, _nX_End : Int, _nY_Start : Int, _nY_End : Int,  _nRsAlpha: UInt , _nRsBrRed: UInt , _nRsBrGreen: UInt   , _nRsBrBlue: UInt , _nRsRevRed: UInt , _nRsRevBlue: UInt , _nRsRevGreen: UInt , _nOfRevRed: UInt , _nOfRevBlue: UInt , _nOfRevGreen: UInt, _bNothingRight : Bool = false ):Void  {
+		 public pure function fDraw(_oPtA:Pt<Float>,_oPtB:Pt<Float>,_oPtC:Pt<Float>,  _aPtSA:Mapped<uPoint3D>,_aPtSB:Mapped<uPoint3D>,_aPtSC:Mapped<uPoint3D>,   _nPosX : Int, _nPosY : Int, _aPixelArray : CArray<Int32, 2>,  _nSWidth : UInt,  _nSHeight : UInt, _oSource : Object, _nX_Start : Int, _nX_End : Int, _nY_Start : Int, _nY_End : Int,  _nRsAlpha: UInt , _nRsBrRed: UInt , _nRsBrGreen: UInt   , _nRsBrBlue: UInt , _nRsRevRed: UInt , _nRsRevBlue: UInt , _nRsRevGreen: UInt , _nOfRevRed: UInt , _nOfRevBlue: UInt , _nOfRevGreen: UInt, _bNothingRight : Bool = false ):Void  {
 			
-			var _oPtT :Pt;
-			 var _oPtM :Pt;
-			 var _oPtL :Pt;
+			var _oPtT :Pt<Float>;
+			 var _oPtM :Pt<Float>;
+			 var _oPtL :Pt<Float>;
 			 
 			 
 			 /*
@@ -167,7 +167,7 @@ package  {
 			Debug.fConsole("_aPtSB: " +  _aPtSB.nX + ", " +_aPtSB.nY );
 			Debug.fConsole("_aPtSC: " +  _aPtSC.nX + ", " +_aPtSC.nY );
 			*/
-			 /*
+			/* 
 			Debug.fConsole("_oPtA: " +  _oPtA.nX + ", " +_oPtA.nY );
 			Debug.fConsole("_oPtB: " +  _oPtB.nX + ", " +_oPtB.nY );
 			Debug.fConsole("_oPtC: " +  _oPtC.nX + ", " +_oPtC.nY );

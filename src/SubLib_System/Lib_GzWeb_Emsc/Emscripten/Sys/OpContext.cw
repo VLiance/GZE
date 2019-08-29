@@ -25,6 +25,9 @@ package  {
 	val myoffset = val::global("Null");
 
 	gzInt* aPixels;
+	gzUIntX nArraySize;
+	
+	
 	</cpp_class_h>
 
 	
@@ -65,19 +68,17 @@ package  {
 	</cpp>
 	
 		<cpp_namespace>
-		
+			/*
 			size_t array_Size = 0;
 			unsigned char* array_Buff = 0;
-			
-	
-	
 			val getBytes() {
 				return val(typed_memory_view(array_Size, array_Buff));
 			}
 
 			EMSCRIPTEN_BINDINGS(memory_view_example) {
 				function("getBytes", &getBytes);
-			}
+			}*/
+			
 				
 		</cpp_namespace>
 	
@@ -86,12 +87,13 @@ package  {
 		
 	
 		public var bContext2d : Bool = true;
+		public var nGpuId : Int = -1;
 		//public var bContext2d : Bool = false;
 			
 		public function OpContext(_oInterface : Interface, _sWindowName : String, _nFrameWidth : UInt, _nFrameHeight : UInt, _bTransparent : Bool = false, _nBgColor : Int = 0xFFFFFFFF): Void {
 			Debug.fTrace("---New OpWindows--");
 			Context(_oInterface, _sWindowName, _nFrameWidth, _nFrameHeight, _bTransparent, _nBgColor);
-			bWinGPU = false;
+			//bWinGPU = false;
 		}
 		 
 		 override static public function fManageMessageOp():Void {
@@ -103,7 +105,7 @@ package  {
 		override public function fCreateContext(): Void {
 		
 			
-				var _nGpuId : Int;
+			
 			
 				Debug.fTrace("Please Insert CreateContextHandle code here");
 				
@@ -113,7 +115,7 @@ package  {
 				
 				///////////// DETECT GPU ///////////////
 				using namespace emscripten;
-				_nGpuId = EM_ASM_INT_V({
+				nGpuId = EM_ASM_INT_V({
 
 					if (!!window.WebGLRenderingContext) {
 						var names = (['webgl2', 'webgl', 'experimental-webgl', 'moz-webgl']);
@@ -141,8 +143,8 @@ package  {
 				
 				
 				 const char* aGLContextName[] = {"webgl2", "webgl", "experimental-webgl", "moz-webgl"};
-				if(_nGpuId >= 0){
-				  Lib_GZ::Debug::Debug::GetInst(thread)->fTrace(  gzU8("--Test GPU Context:") + gzStrC(aGLContextName[_nGpuId]));
+				if(nGpuId >= 0){
+				  Lib_GZ::Debug::Debug::GetInst(thread)->fTrace(  gzU8("--Test GPU Context:") + gzStrC(aGLContextName[nGpuId]));
 				}else{
 				  Lib_GZ::Debug::Debug::GetInst(thread)->fError( gzU8("--Gpu not supported"));
 				  bContext2d = true;
@@ -156,9 +158,9 @@ package  {
 				canvas.set("height", val(600));
 				//val gl = canvas.call<val>("getContext", val("webgl"));
 
-				if( bContext2d == false && _nGpuId >= 0){ //WebGl supported
+				if( bContext2d == false && nGpuId >= 0){ //WebGl supported
 					
-					val gl = canvas.call<val>("getContext", val(aGLContextName[_nGpuId]));
+					val gl = canvas.call<val>("getContext", val(aGLContextName[nGpuId]));
 					
 					gzStr _sVersion = gzStrC(((char*)((std::string)(gl.call<std::string>("getParameter", gl["VERSION"]))).c_str()));
 					
@@ -232,108 +234,54 @@ package  {
 					aData = Uint32Array.new_(buf);
 					//val data = new Uint32Array(buf);
 					
-					
-					
-					
 				}
-				
-				
-				
-		
-				
+
 				//val h264_decoder = val::global("h264_decoder");
 				//val _aTest = h264_decoder.call<val>("test");
 				
 				
-				
-				
 			</cpp>	
 			
-			if(_nGpuId >= 0){ //WebGl supported
+			if(nGpuId >= 0){ //WebGl supported
 				
 			}
-			
-			
+
 		}
+		
 		override public function fIniPixelDrawZone(): CArray<Int32>{
 			Debug.fTrace("Please Insert IniPixelDrawZone code here");
 			<cpp>
-			//aPixels = new gzInt[nFrameWidth * nFrameHeight];
-			aPixels = (gzInt*)GZ_fMalloc(nFrameWidth * nFrameHeight,  sizeof(gzUInt32));
-			_ptrJSMem = val::global("gzMallocPtrTest"); //TODO delete //Get last calloc ptr
-	myoffset =   gzVal(val::global("malloc"));
-	array_Size = nFrameWidth * nFrameHeight * sizeof(gzUInt32);
-	array_Buff = (unsigned char*)aPixels;
 			
+			nArraySize = nFrameWidth * nFrameHeight * sizeof(gzUInt32);
+			aPixels = (gzInt*)GZ_fMalloc(nFrameWidth * nFrameHeight, sizeof(gzUInt32));
 
 			return aPixels;
-
 			</cpp>
 		}
+		
 		override public function fBlit():UIntX {
 			//Debug.fTrace("fBlit");
+			if(bIniDrawZone){
 			
-			if(bContext2d){
-				if(bIniDrawZone){
-			<cpp>
-			
-			//return 0; ///////////////////////////DISABLED
-			
-				int _nLength = nFrameWidth * nFrameHeight;
-				/*
-				#pragma unroll 8
-				for (int i = 0; i < _nLength; i++) {
-					gzUInt _nVal = aPixels[i];
-					aData.set(i, (_nVal & 0xFF00FF00) | ((_nVal & 0x00FF0000) >> 16)  | ((_nVal & 0x000000FF) << 16)); //Reverse Blue & Red
-					//aData.set(i, _nVal);
-				}*/
-				/*
-			
-				for (int i = 0; i < _nLength*4; i++) {
-					pixelArray.set( i, val(aPixels[i>>1]));
-				}*/
+				if( bContext2d == false && nGpuId >= 0){ //WebGl supported
 					
-					/*
-				gzVal** _ptr = &(((gzVal**)aPixels)[-1]) ;
-				gzVal* _myBuff =  ((gzVal**)_ptr)[0];
-				
-				//(((gzVal**)aPixels)[-1]);
-				val test = *_myBuff;
-				//Uint8Array
-				//buf8 = test;
-				//val testOffset = gzVal((gzUInt32)(&aPixels[-1]));
-				val testOffset = gzVal((&aPixels[-1]));
-				//emscripten::val::array();
-					*/
-					
-		//	buf8.call<Void>("set", _ptrJSMem, 1920000);
-					
-		
-			//	pixelArray.call<Void>("set", _ptrJSMem, myoffset);
-			//pixelArray.call<Void>("set",  _ptrJSMem );
-				
-				//console.log(_ptrJSMem.length);
-				
-			
-				EM_ASM(
-				//var myUint8Array  = new  Uint8ClampedArray();
-					var myUint8Array = Module.getBytes();
-				//	pixelArray.set(myUint8Array);
-				 );
-				
-				
-			//	buf8 = val::global("myUint8Array");
-			//	pixelArray.call<Void>("set",buf8);
-				//pixelArray.call<Void>("set", val::global("myUint8Array"));
-		
-				
-				pixelArray.call<Void>("set", typed_memory_view(array_Size, array_Buff));
-				//pixelArray.call<Void>("set", getBytes());
-				//pixelArray.call<Void>("set",  testOffset );
-				//pixelArray.call<Void>("set",  _ptrJSMem );
-				oCanvas.call<Void>("putImageData", imageData, val(0), val(0)); // at coords 0,0
-			</cpp>
+				}else{
+					<cpp>
+						/*
+						#pragma unroll 8
+						for (int i = 0; i < _nLength; i++) {
+							gzUInt _nVal = aPixels[i];
+							aData.set(i, (_nVal & 0xFF00FF00) | ((_nVal & 0x00FF0000) >> 16)  | ((_nVal & 0x000000FF) << 16)); //Reverse Blue & Red
+							//aData.set(i, _nVal);
+						}
+						pixelArray.call<Void>("set",buf8);
+						*/
+						
+						pixelArray.call<Void>("set", typed_memory_view(nArraySize, (gzUInt8*)aPixels));
+						oCanvas.call<Void>("putImageData", imageData, val(0), val(0)); // at coords 0,0
+					</cpp>
 				}
+				
 			}
 		}
 				

@@ -11,9 +11,9 @@ package  {
 	/**
 	 * @author Maeiky
 	 */
-	public class Pt extends Vec3  {
+	public vector Pt extends Vec3  {
 
-		public function Pt(_nX : Float = 0, _nY : Float = 0, _nZ : Float = 0):Void  {
+		public function Pt(_nX : Number = 0, _nY : Number = 0, _nZ : Number = 0):Void  {
 			Vec3(_nX, _nY, _nZ);
 		}
 

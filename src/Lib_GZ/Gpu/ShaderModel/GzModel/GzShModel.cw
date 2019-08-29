@@ -297,6 +297,8 @@ package  {
 			
 			if(oProgram.fLink()){
 				Debug.fPass("Link Success");
+			}else{
+				Debug.fError("Link error! " );
 			}
 			
 			

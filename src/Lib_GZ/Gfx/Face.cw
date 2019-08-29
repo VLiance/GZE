@@ -122,7 +122,7 @@ package  {
 			
 			//Triangle.fDraw(aPoint2D[nPt1], aPoint2D[nPt2], aPoint2D[nPt4],  rPtS1, rPtS2, rPtS4,  _nPosX, _nPosY, oRc.aImg, oRc.nWidth, oRc.nHeight,  _oDest , _nX_Start , _nX_End , _nY_Start , _nY_End,  _nRsAlpha, _nRsBrRed, _nRsBrGreen , _nRsBrBlue, _nRsRevRed, _nRsRevBlue, _nRsRevGreen, _nOfRevRed, _nOfRevBlue, _nOfRevGreen);
 			//Triangle.fDraw(aPoint2D[nPt4], aPoint2D[nPt2], aPoint2D[nPt3],  rPtS4, rPtS2, rPtS3,  _nPosX, _nPosY, oRc.aImg, oRc.nWidth, oRc.nHeight,  _oDest , _nX_Start , _nX_End , _nY_Start , _nY_End,  _nRsAlpha, _nRsBrRed, _nRsBrGreen , _nRsBrBlue, _nRsRevRed, _nRsRevBlue, _nRsRevGreen, _nOfRevRed, _nOfRevBlue, _nOfRevGreen, true);
-			/*
+		/*	
 			Debug.fConsole("Width: " +  (oPt1.o2d.nX - oPt2.o2d.nX) );
 			Debug.fConsole("Height: " +  (oPt1.o2d.nY - oPt3.o2d.nY) );
 			

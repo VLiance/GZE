@@ -266,9 +266,15 @@ gzInt** pImage::fGetImage(File::cRcImg* _oRc, gzUInt8* image_data, gzUInt image_
 									_nPixelFrame =  RowY[x];
 									_nFrameAlpha = (_nPixelFrame >> 24);
 
-									_nFrameBlue = ((_nPixelFrame >> 16) & 0xFF) * _nFrameAlpha >> 8;
-									_nFrameGreen = ((_nPixelFrame >> 8) & 0xFF) * _nFrameAlpha >> 8;
-									_nFrameRed = (_nPixelFrame & 0xFF)          * _nFrameAlpha >> 8;
+										_nFrameGreen = ((_nPixelFrame >> 8) & 0xFF) * _nFrameAlpha >> 8;
+					
+										#ifdef GZ_D_CpuRenderer_Reverse_BlueAndRed
+											_nFrameRed = ((_nPixelFrame >> 16) & 0xFF) * _nFrameAlpha >> 8;
+											_nFrameBlue = (_nPixelFrame & 0xFF)          * _nFrameAlpha >> 8;
+										#else
+											_nFrameBlue = ((_nPixelFrame >> 16) & 0xFF) * _nFrameAlpha >> 8;
+											_nFrameRed = (_nPixelFrame & 0xFF)          * _nFrameAlpha >> 8;
+										#endif
 
 									//p2DArray[y+nBORDER][x+nBORDER] = (_nFrameAlpha << 24) | (_nFrameRed << 16) | (_nFrameGreen << 8) | _nFrameBlue;
 									p1DArray[((y+nBORDER) *  nExtWidth) + (x+nBORDER) ]  = (_nFrameAlpha << 24) | (_nFrameRed << 16) | (_nFrameGreen << 8) | _nFrameBlue;
