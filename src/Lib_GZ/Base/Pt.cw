@@ -14,7 +14,7 @@ package  {
 	public vector Pt extends Vec3  {
 
 		public function Pt(_nX : Number = 0, _nY : Number = 0, _nZ : Number = 0):Void  {
-			Vec3(_nX, _nY, _nZ);
+			//Vec3(_nX, _nY, _nZ);
 		}
 
 

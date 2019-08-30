@@ -24,6 +24,10 @@ package  {
 			OpenGL.fGetProgramParameter(nId, LINK_STATUS, _nLinkStatus);
 			if(_nLinkStatus != 0){
 				bLinked = true;
+			}else{
+				var _sError : String = OpenGL.fGetProgramInfoLog(nId);
+				Debug.fError("Error linking OpenGL Program: " + _sError);
+				
 			}
 			return bLinked;
 		}

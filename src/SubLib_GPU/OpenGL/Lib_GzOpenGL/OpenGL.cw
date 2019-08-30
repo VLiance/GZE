@@ -174,6 +174,34 @@ generate "OpenGL" {
 		gen public static function fBufferSubData(_hTarget : eBufferTarget, _nOffset:IntX, _nSize:IntX, _pData:Any):Void;
 		
 		
+		public static function fGetProgramInfoLog(_nProgId : Val):String {
+			<cpp>
+			#ifdef D_Platform_Web_Emsc
+				std::string _sTest = oGL.call<std::string>("getProgramInfoLog", _nProgId);	 //N
+				return gzStrC(_sTest.c_str());
+				 
+			#else
+				</cpp>
+				var _aLogBuff : CArray<UInt8, 1>;
+				var _nLength : Int;
+				<cpp>
+				//the size of the buffer required to store the returned information log can be obtained by calling	glGetShader with the value GL_INFO_LOG_LENGTH.
+				char logBuf[8024]; //Max length?
+				_aLogBuff = (gzUInt8*)logBuf;
+
+
+				GL_fGetProgramInfoLog(_nProgId, sizeof(logBuf), &_nLength, (gzUInt8*)logBuf );
+				//nLineError = strtol( &logBuf[2] , GZ_Null, 10) - 1;
+				//printf("\n %s ", logBuf);
+				return gzStrC(logBuf, _nLength);
+			#endif
+				</cpp>
+		
+		}
+		
+		gen public static function fGetProgramInfoLog(_nProgramId : Val, _nMaxLength : Int, _aLength : CArray<Int>, _cLogInfo:CArray<UInt8>):Void;
+
+		
 		
 		public static function fGetShaderInfoLog(_nShaderId : Val):String {
 			<cpp>
@@ -206,6 +234,7 @@ generate "OpenGL" {
 		gen public static function fCreateProgram():Val;
 		gen public static function fLinkProgram(_nIdProgram : Val):Void;
 		
+		
 		public static function fGetProgramParameter(_nShaderId : Val, _hInfo : eProgramInfo, _aParams:CArray<Int>):Void{
 			<cpp>
 				#ifdef D_Platform_Web_Emsc
@@ -220,11 +249,13 @@ generate "OpenGL" {
 		
 		
 		
+		
+		
+		
 		gen public static function fUseProgram(_nIdProgram : Val):Void;
 		gen public static function fDeleteProgram(_nIdProgram : Val):Void;
 		
-		gen public static function fGetProgramInfoLog(_nProgramId : Val, _nMaxLength : Int, _aLength : CArray<Int>, _cLogInfo:CArray<UInt8>):Void;
-
+		
 
 		gen public static function fGetUniformLocation(_nIdProgram : Val, _cName:CArray<UInt8>):Val{
 			<cpp>

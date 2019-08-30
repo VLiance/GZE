@@ -152,8 +152,10 @@ package  {
 				var _oPtSrc1 : Pt<Float> = new Pt<Float>(0 - _nBorder, 0 - _nBorder);
 				var _oPtSrc2 : Pt<Float> = new Pt<Float>(nWidth  +_nBorder, 0 -_nBorder);
 				var _oPtSrc3 : Pt<Float> = new Pt<Float>(nWidth  +_nBorder, nHeight +_nBorder);
-				var _oPtSrc4 : Pt<Float> = new Pt<Float>(0 - _nBorder, nHeight  + _nBorder);
+				var _oPtSrc4 : Pt<Float> = new Pt<Float>(0 - _nBorder, nHeight  + _nBorder);								
+								
 				_oSrc  = new Poly4(_oPtSrc1, _oPtSrc2, _oPtSrc3, _oPtSrc4);
+
 			}else{
 				_oSrc = _oSrcRegion;
 			}

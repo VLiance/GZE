@@ -21,8 +21,8 @@
 #endif
 
 #include "Lib_GZ/GZ.h"
-#include "Lib_GzOpenGL/OpenGL.h"
-//#include "Lib_GZ/Sys/Debug.h"
+#include "Lib_GZ_OpenGL/OpenGL.h"
+#include "Lib_GZ/Sys/Debug.h"
 
 
 
@@ -144,12 +144,11 @@
 #define GL_COLOR_ATTACHMENT15             0x8CEF
 				
 
-//#define GZ_Debug_fError Lib_GZ::Sys::pDebug::fConsole
-#define GZ_Debug_fError(a)
+#define GZ_Debug_fError Lib_GZ::Sys::pDebug::fConsole
 
-#ifdef D_Platform_Windows
+#ifdef GZ_tWindows
 
-	#include "Lib_GzWindows/MainHeader.h"
+	#include "Lib_GZ/SysUtils/WindowsHeader.h"
 
 	typedef BOOL (WINAPI * PFNWGLCHOOSEPIXELFORMATARBPROC) (HDC hdc, const int *piAttribIList, const gzFloat32 *pfAttribFList, gzUInt32 nMaxFormats, int *piFormats, gzUInt32 *nNumFormats);
 	typedef HGLRC (WINAPI * PFNWGLCREATECONTEXTATTRIBSARBPROC) (HDC hDC, HGLRC hShareContext, const int *attribList);
@@ -161,7 +160,7 @@
 		inline void fResetLastError(){
 			gzUInt _nErr = GetLastError();
 			if(_nErr){
-				GZ_Debug_fError(gzU8("Previous Win GetLastError detected (") +  gzStrUI(_nErr)  + gzU8("): ") +  System::fGetLastErrorString(_nErr) );
+				GZ_Debug_fError(gzStrL("Previous Win GetLastError detected (") +  gzStrUI(_nErr)  + gzStrL("): ") +  System::fGetLastErrorString(_nErr) );
 			}
 			SetLastError(0);
 		}
@@ -171,7 +170,7 @@
 #else
 	namespace System{
 		inline gzStr fGetLastErrorString(gzUInt _nError){
-			return gzU8("");
+			return gzStrL("");
 		}
 		inline void fResetLastError(){
 			return;
@@ -191,7 +190,7 @@ namespace _SysGpuInfo{
 
 
 
-#ifdef D_Platform_Web_Emsc
+#ifdef GZ_tWeb_Emsc
 
 
 

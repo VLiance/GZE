@@ -535,9 +535,10 @@ package  {
 						//_nGetX =  m_getBezier(0, 35, 111, _nGetX/111);
 						///////////////////
 
-						//	Pixel.fCopyPixelToDest(_aDest,0xFFFF00FF, (_nX+x)/1024, _nRealY/1024);
-
-
+						//	Pixel.fCopyPixelToDes t(_aDest,0xFFFF00FF, (_nX+x)/1024, _nRealY/1024);
+			
+						//Debug.fConsole("--_oPtSegT: " +  ...
+						
 						if (_nGetX > _nLimW  || _nGetY > _nLimH) { //Todo negate
 							_nGetX = 0;
 							_nGetY = 0;
@@ -546,8 +547,8 @@ package  {
 						//(_nX+x ) >> Math.nSP
 						
 						//inline Pixel.fGetSmoothPixel(_aSource, _nGetX , _nGetY , _aDest, _nRealXPix,  _nRealYPix , _nAlpha, _nPcBrRed,_nPcBrGreen , _nPcBrBlue , _nPcRevRed, _nPcRevGreen, _nPcRevBlue, _nOfRevRed, _nOfRevBlue, _nOfRevGreen);
-						Pixel.fCopyPixelToDest(_aDest,0xFF000000, (_nX+x)/1024, _nRealY/1024);
-						/*
+						//Pixel.fCopyPixelToDest(_aDest,0xFF000000, (_nX+x)/1024, _nRealY/1024);
+						
 						<cpp>
 							#ifdef GZ_D_CpuRenderer_Reverse_BlueAndRed
 						</cpp>
@@ -559,7 +560,7 @@ package  {
 						<cpp>
 							#endif
 						</cpp>
-						*/
+						
 						
 						//Pixel.fCopyPixelToDest(_aDest,_aSource[_nGetY/256][_nGetX/256], (_nX+x)/1024, _nRealY/1024);
 /*

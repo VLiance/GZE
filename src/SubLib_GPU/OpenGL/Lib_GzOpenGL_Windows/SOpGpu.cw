@@ -7,6 +7,7 @@
 	import GZ.Gpu.ShaderModel.GzModel.GzShModel;
 	import GzOpenGL.OpGpu;
 
+
 	<cpp_h>
 		#include "Lib_GzWindows/MainHeader.h"
 	</cpp>
