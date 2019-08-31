@@ -17,7 +17,6 @@
 		#define GL_OUT_OF_MEMORY                  0x0505
 		
 		
-		
 
 		//HGLRC cSysGPU::hRcGlobalShared = 0;
 		//HDC cSysGPU::hDcGlobal = 0;
@@ -137,45 +136,46 @@
 	</cpp_h>
 	
 		
+
 	
 	public class OpGpuInfo overplace GpuInfo  {
 		
 		
 		<cpp_class_h>
-		inline gzStr fGetFile(const char *_cFile){
+		inline static gzStr fGetFile(const char *_cFile){
 			gzStr _sFile = gzStrC(_cFile);
-			_sFile.fReplaceAll(gzStrL("\\"), gzStrL("/"));
+			_sFile.fReplaceAll(gzU8("\\"), gzU8("/"));
 			return _sFile;
 		}
 		</cpp_class_h>
 		
-		
-		public pure function  fGetErrorString( _nError : UInt):Void {
+	
+		public pure function  fGetErrorString( _nError : UInt):String {
 			<cpp>
 			switch (_nError) {
 				case GL_NO_ERROR :
-					return gzStrL("GL_NO_ERROR");
+					return gzU8("GL_NO_ERROR");
 				break;
 				case GL_INVALID_ENUM :
-					return gzStrL("GL_INVALID_ENUM");
+					return gzU8("GL_INVALID_ENUM");
 				break;
 				case GL_INVALID_VALUE :
-					return gzStrL("GL_INVALID_VALUE");
+					return gzU8("GL_INVALID_VALUE");
 				break;
 				case GL_INVALID_OPERATION :
-					return gzStrL("GL_INVALID_OPERATION");
+					return gzU8("GL_INVALID_OPERATION");
 				break;
 				case GL_STACK_OVERFLOW :
-					return gzStrL("GL_STACK_OVERFLOW");
+					return gzU8("GL_STACK_OVERFLOW");
 				break;
 				case GL_STACK_UNDERFLOW :
-					return gzStrL("GL_STACK_UNDERFLOW");
+					return gzU8("GL_STACK_UNDERFLOW");
 				break;
 				case GL_OUT_OF_MEMORY :
-					return gzStrL("GL_OUT_OF_MEMORY");
+					return gzU8("GL_OUT_OF_MEMORY");
 				break;
 				default :
-					return gzStrL("GL_UNKNOW(") + gzStrUI(_nError) + gzStrL(")");
+					return gzU8("GL_UNKNOW(") + gzStrUI(_nError) + gzU8(")");
 				break;
 			}
 			</cpp>

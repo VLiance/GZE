@@ -13,25 +13,74 @@ package  {
 
 	import GZ.Gpu.GpuInfo;
 	import GzOpenGL.OpenGL;
-
-	#include "Lib_GzWindows/MainHeader.h"
-	
 	
 	<cpp_h>
+	
+		#include "Lib_GzWindows/MainHeader.h"
+	
+		#define GZ_Debug_fError Lib_GZ::Debug::pDebug::fConsole
+
 	
 		typedef BOOL (WINAPI * PFNWGLCHOOSEPIXELFORMATARBPROC) (HDC hdc, const int *piAttribIList, const gzFloat32 *pfAttribFList, gzUInt32 nMaxFormats, int *piFormats, gzUInt32 *nNumFormats);
 		typedef HGLRC (WINAPI * PFNWGLCREATECONTEXTATTRIBSARBPROC) (HDC hDC, HGLRC hShareContext, const int *attribList);
 
 		typedef const char* (WINAPI* PFNWGLGETEXTENSIONSSTRINGARBPROC)(HDC hdc);
 
+		
+
+		
+		
 	</cpp_h>
 	
 	
+	<cpp>
+namespace Lib_GzOpenGL{namespace OpenGL{
+		gzStr fGetLastErrorString(gzUInt _nError){
+		  if (_nError)
+		  {
+			LPVOID lpMsgBuf;
+			DWORD bufLen = FormatMessageW(
+				FORMAT_MESSAGE_ALLOCATE_BUFFER |
+				FORMAT_MESSAGE_FROM_SYSTEM |
+				FORMAT_MESSAGE_IGNORE_INSERTS,
+				NULL,
+				_nError,
+				MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+				(LPTSTR) &lpMsgBuf,
+				0, NULL );
+			if (bufLen)
+			{
+			  LPCSTR lpMsgStr = (LPCSTR)lpMsgBuf;
+			  //std::string result(lpMsgStr, lpMsgStr+bufLen);
+			 //   gzStr _sError = gzStr(lpMsgStr,(gzUInt)(bufLen) - 1);
+				gzStr _sError = gzStr16((gzUInt16*) lpMsgStr).fToUTF8();
+
+			//_sError.fEnd().fPrev(); //Remove last char
+			//_sError = _sError.fRevSubStr(gzStrToEnd);
+			  LocalFree(lpMsgBuf);
+
+			  return _sError;
+			}
+		  }
+		  return gzU8("Unknow");
+		}
+		inline void fResetLastError(){
+			gzUInt _nErr = GetLastError();
+			if(_nErr){
+				GZ_Debug_fError(gzU8("Previous Win GetLastError detected (") +  gzStrUI(_nErr)  + gzU8("): ") +  Lib_GzOpenGL::OpenGL::fGetLastErrorString(_nErr) );
+			}
+			SetLastError(0);
+		}
+}}
+		
+	</cpp>
 	
-	public class OpGpuInfo overplace GpuInfo  {
+	
+	
+	public class GlWin  {
 
 	
-
+/*
 		public pure function fGetLastErrorString( _nError : UInt):String{
 			<cpp>
 			  if (_nError)
@@ -65,9 +114,9 @@ package  {
 			  return gzStrL("Unknow");
 			  </cpp>
 		}
-		
-		
-		public pure function fResetLastError(){
+		*/
+		/*
+		public pure function fResetLastError():Void{
 			<cpp>
 				gzUInt _nErr = GetLastError();
 				if(_nErr){
@@ -76,7 +125,7 @@ package  {
 				SetLastError(0);
 			</cpp>
 		}
-	
+		*/
 	
 	
 		

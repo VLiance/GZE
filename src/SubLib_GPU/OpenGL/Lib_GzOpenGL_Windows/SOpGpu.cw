@@ -5,11 +5,16 @@
 	import GZ.Gpu.Gpu;
 	import GZ.Gpu.GpuInfo;
 	import GZ.Gpu.ShaderModel.GzModel.GzShModel;
+	import GzOpenGL_Windows.GlWin;
 	import GzOpenGL.OpGpu;
+	import GzOpenGL.OpGpuInfo;
+
 
 
 	<cpp_h>
 		#include "Lib_GzWindows/MainHeader.h"
+		namespace Lib_GzOpenGL{namespace OpenGL{extern void fResetLastError();}}
+		namespace Lib_GzOpenGL{namespace OpenGL{extern gzStr fGetLastErrorString(gzUInt _nError);}}
 	</cpp>
 	
 	<cpp_class_h>
@@ -18,10 +23,12 @@
 	</cpp_class_h>
 	
 
+	
+	
 	<cpp>
 	void* Lib_GzOpenGL::SysGpuFunc::fGetFuncGL(const char *_cName, gzBool _bRequired){
 		using namespace Lib_GZ;
-		System::fResetLastError();
+		Lib_GzOpenGL::OpenGL::fResetLastError();
 		void *p = (void *)wglGetProcAddress(_cName);
 		gzUInt _nErr = GetLastError();
 		if(_nErr == 127){
@@ -34,7 +41,7 @@
 		}else{
 			if(_nErr){ 
 				SetLastError(0);
-				GZ_Debug_fError(gzU8("Error loading OGL function (")  + gzStrUI(_nErr)  + gzU8("): ") +  System::fGetLastErrorString(_nErr) + gzStrC(_cName));
+				GZ_Debug_fError(gzU8("Error loading OGL function (")  + gzStrUI(_nErr)  + gzU8("): ") +  Lib_GzOpenGL::OpenGL::fGetLastErrorString(_nErr) + gzStrC(_cName));
 			}
 		}
 		return p;
