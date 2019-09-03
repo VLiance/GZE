@@ -190,7 +190,7 @@
 		
 				
 		 override public function fBlit():Void {
-			 Debug.fTrace("fBlit: Gpu");
+			// Debug.fTrace("fBlit: Gpu");
 			oGzShModel.fDraw();
 			<cpp>
 			SwapBuffers(hDC); //Window func

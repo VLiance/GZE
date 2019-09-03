@@ -335,16 +335,17 @@ generate "OpenGL" {
 
 		
 		
-		public static function fBufferData(_hTarget : eBufferTarget, _nNb:UInt, _hType :eTypeSize, _pData:Any, _hUsage:eDrawFlow ):Void {
+		public static function fBufferData(_hTarget : eBufferTarget, _nNb:UInt, _hType :eTypeSize, _pData:CArray<UInt8>, _hUsage:eDrawFlow ):Void {
+		//public static function fBufferData(_hTarget : eBufferTarget, _nNb:UInt, _hType :eTypeSize, _pData:Any, _hUsage:eDrawFlow ):Void {
 		//public static function fBufferData(_hTarget : eBufferTarget, _nNb:UInt, _hType :eTypeSize, _pData:Array<Any>, _hUsage:eDrawFlow ):Void {
 		//	OpenGL.fBufferData(_hTarget, _nNb * _nType, _pData, _hUsage);
 			<cpp>
-			fBufferData(Lib_GzOpenGL::OpenGL::eBufferTarget(_hTarget), _nNb * _hType, (void*)_pData, _hUsage);
+			fBufferData(Lib_GzOpenGL::OpenGL::eBufferTarget(_hTarget), _nNb * _hType, _pData, _hUsage);
 		///	fBufferData(Lib_GzOpenGL::OpenGL::eBufferTarget(_hTarget), _nNb * _hType, (void*)_pData.get(), _hUsage);
 			</cpp>
 		}
 		
-		gen public static function fBufferData(_hTarget : eBufferTarget, _nSize:IntX, _pData:Any, _hUsage:eDrawFlow ):Void {
+		gen public static function fBufferData(_hTarget : eBufferTarget, _nSize:IntX, _pData:CArray<UInt8>, _hUsage:eDrawFlow ):Void {
 		
 			<cpp>
 			#ifdef D_Platform_Web_Emsc
