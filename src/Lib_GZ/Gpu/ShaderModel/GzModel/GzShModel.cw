@@ -40,7 +40,7 @@ package  {
 				out vec2 ioTexture;
 				
 				
-				Void main(){
+				void main(){
 
 					if (nVertexID < 2){
 						if(nVertexID == 0){
@@ -72,8 +72,12 @@ package  {
 			oVertex.fLoad();
 			
 			if(oVertex.fCompile() == false){
-				Debug.fError("Vertex Shader:  " + oVertex.fGetErrorLine() );
-				Debug.fTrace(" -->" + oVertex.fGetLog());
+				//Debug.fError("Vertex Shader:  " + oVertex.fGetErrorLine() );
+				Debug.fError("Vertex Shader Error:" );
+				Debug.fTrace("-->" + oVertex.fGetLog());
+				Debug.fTrace("-----------------");
+				Debug.fTrace(oVertex.fGetString());
+				Debug.fTrace("-----------------");
 				
 			}else{
 				Debug.fPass("Vertex Success");
@@ -201,7 +205,7 @@ package  {
 					 return vec3(0.9137,0.83,0.70);
 				 }
 				 
-				 Void main(){
+				 void main(){
 					 
 					  vec2 q = ( gl_FragCoord.xy / vec2(800.0,800.0) );
 					  
@@ -285,8 +289,13 @@ package  {
 			oFragement.fLoad();
 
 			if(oFragement.fCompile() == false){
-				Debug.fError("Fragment Shader: " + oFragement.fGetErrorLine() );
-				Debug.fTrace(" -->" + oFragement.fGetLog());
+				//Debug.fError("Fragment Shader: " + oFragement.fGetErrorLine() );
+				Debug.fError("Fragment Shader Error:" );
+				Debug.fTrace("-->" + oFragement.fGetLog());
+				Debug.fTrace("-----------------");
+				Debug.fTrace(oFragement.fGetString());
+				Debug.fTrace("-----------------");
+				
 	
 			}else{
 				Debug.fPass("Fragement Shader Success");
@@ -336,7 +345,7 @@ package  {
 		
 		public function fDraw():Void {
 			
-	
+//	Debug.fTrace("aaaaa");
 		//	if(oUvMouse.oVal.nX < 6){
 				oUvMouse.vVal.nX += 0.01;
 		//	}

@@ -1,5 +1,6 @@
 ﻿package  { 
 
+
 	import GzOpenGL.OpenGL;
 	
 	import GZ.Gpu.Gpu;
@@ -8,7 +9,6 @@
 	import GzOpenGL_Windows.GlWin;
 	import GzOpenGL.OpGpu;
 	import GzOpenGL.OpGpuInfo;
-
 
 
 	<cpp_h>
@@ -190,7 +190,7 @@
 		
 				
 		 override public function fBlit():Void {
-			// Debug.fTrace("fBlit: Gpu");
+			 Debug.fTrace("fBlit: Gpu");
 			oGzShModel.fDraw();
 			<cpp>
 			SwapBuffers(hDC); //Window func
@@ -205,7 +205,7 @@
 			<cpp>
 			 //Default options
 			#define GL_BLEND                          0x0BE2
-			GL_fEnable (GL_BLEND);
+			GL_fEnable(GL_BLEND);
 			////////////////////
 		    </cpp>
 			oGzShModel = new GzShModel();
@@ -219,9 +219,15 @@
 			#define GL_DEPTH_BUFFER_BIT               0x00000100
 			#define GL_STENCIL_BUFFER_BIT             0x00000400
 			#define GL_COLOR_BUFFER_BIT               0x00004000
+			
+		
 	//		GL_fClearColor(0.0, 0.0, 1.0, 0.0);
 	//		GL_fClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			</cpp>
+			//	OpenGL.fClearColor(1.0, 0.0, 0.0, 0.5);
+			//OpenGL.fClear(COLOR_BUFFER_BIT);
+			
+			
 		 }
 		
 

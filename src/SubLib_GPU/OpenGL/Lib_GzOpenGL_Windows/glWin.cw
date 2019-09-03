@@ -53,7 +53,7 @@ namespace Lib_GzOpenGL{namespace OpenGL{
 			  LPCSTR lpMsgStr = (LPCSTR)lpMsgBuf;
 			  //std::string result(lpMsgStr, lpMsgStr+bufLen);
 			 //   gzStr _sError = gzStr(lpMsgStr,(gzUInt)(bufLen) - 1);
-				gzStr _sError = gzStr16((gzUInt16*) lpMsgStr).fToUTF8();
+				gzStr _sError = gzStr16( gzStrC((gzUInt16*) lpMsgStr)).fToUTF8();
 
 			//_sError.fEnd().fPrev(); //Remove last char
 			//_sError = _sError.fRevSubStr(gzStrToEnd);
@@ -64,7 +64,7 @@ namespace Lib_GzOpenGL{namespace OpenGL{
 		  }
 		  return gzU8("Unknow");
 		}
-		inline void fResetLastError(){
+		void fResetLastError(){
 			gzUInt _nErr = GetLastError();
 			if(_nErr){
 				GZ_Debug_fError(gzU8("Previous Win GetLastError detected (") +  gzStrUI(_nErr)  + gzU8("): ") +  Lib_GzOpenGL::OpenGL::fGetLastErrorString(_nErr) );

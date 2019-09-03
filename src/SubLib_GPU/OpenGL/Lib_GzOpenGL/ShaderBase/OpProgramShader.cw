@@ -26,7 +26,7 @@ package  {
 				bLinked = true;
 			}else{
 				var _sError : String = OpenGL.fGetProgramInfoLog(nId);
-				Debug.fError("Error linking OpenGL Program: " + _sError);
+				Debug.fError("Error linking OpenGL Program: \n" + _sError);
 				
 			}
 			return bLinked;

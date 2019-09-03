@@ -86,7 +86,7 @@ package  {
 			</cpp>
 			*/
 			var _sReturn : String = OpenGL.fGetShaderInfoLog(nId);
-			
+		
 			<cpp>
 			_sReturn = _sReturn.fToUTF8().fFinalize();
 			 char* _str = ( char* )_sReturn.get();
@@ -105,6 +105,7 @@ package  {
 		
 			</cpp>
 			Debug.fTrace("LineErr: " + nLineError);
+			//	Debug.fTrace("fGetShaderInfoLog: " +_sReturn );
 			return _sReturn;
 			//gzInt _nLength;
 			//GL_fGetShaderInfoLog(nId, sizeof(logBuf), &_nLength, (gzUInt8*)logBuf );

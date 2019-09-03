@@ -90,12 +90,20 @@ package  {
 			aData[7] = 0.0;
 	*/
 			
-			
+				Lib_GzOpenGL::OpenGL::GetInst(thread)->fBindBuffer(Lib_GzOpenGL::OpenGL::eBufferTarget(Lib_GzOpenGL::OpenGL::eBufferTarget::ARRAY_BUFFER), gzVal(nId));
+		Lib_GzOpenGL::OpenGL::GetInst(thread)->fBufferData(Lib_GzOpenGL::OpenGL::eBufferTarget(Lib_GzOpenGL::OpenGL::eBufferTarget::ARRAY_BUFFER), 4, Lib_GzOpenGL::OpenGL::eTypeSize(Lib_GzOpenGL::OpenGL::eTypeSize::Vec4), aData.get(), Lib_GzOpenGL::OpenGL::eDrawFlow(Lib_GzOpenGL::OpenGL::eDrawFlow::STREAM_DRAW));
+	
 			</cpp>
 
 			 //Send all data
-			OpenGL.fBindBuffer(ARRAY_BUFFER, nId);
-			OpenGL.fBufferData(ARRAY_BUFFER, 4, Vec4, aData, STREAM_DRAW);
+		//	OpenGL.fBindBuffer(ARRAY_BUFFER, nId);
+	//		OpenGL.fBufferData(ARRAY_BUFFER, 4, Vec4, aData, STREAM_DRAW); //TODO reput those
+			
+			
+			
+			
+			
+			
 		/*
 			//Temp
 			<cpp>

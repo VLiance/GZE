@@ -243,10 +243,10 @@ gzConst_U32(gzZeroStrChar_32, "\0");
 /////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////
 
-
+gzStr16 gzStrC(gzUInt16* _Array);
 gzStr8 gzStrC(const char* _Array);
-gzStr8 gzStrC(gzInt* _Array);
 gzStr8 gzStrC(const char* _Array, gzUInt _nCount);
+
 gzStr8 gzStrUI(gzUInt64 _nVal);
 gzStr8 gzStrI(gzInt64 _nVal);
 gzStr8 gzStrF(gzFloat64 _nFloat, gzUInt8 _nbCharAfter = 3);

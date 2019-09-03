@@ -232,8 +232,16 @@ package  {
 		}
 
 		override public function fBlit():Void {
+		if(oContext.bWinGPU ) {
+		
+			oContext.fGpuBlit();
+		
+		}else {
 			oContext.fBlit();
-	
+		}
+			
+						
+			
 		}
 
 

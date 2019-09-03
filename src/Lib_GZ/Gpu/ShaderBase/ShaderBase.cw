@@ -1,6 +1,4 @@
 
-#skipContent
-
 package  { 
 
 	
@@ -39,6 +37,19 @@ package  {
 			Debug.fTrace("--- BaseShader Created!! ---");
 			hGlsl_ES_Version = _hGlsl_ES_Version;
 		}
+		
+		
+		public function fGetString():String {
+			
+			var _sResult : String = "";
+			for(var i : UInt = 0; i < aLine.nSize; i++){
+				_sResult += "[" + i + "]" + aLine[i] + "\n";
+			}
+
+			return _sResult;
+		}
+		
+		
 		
 		public function fLoad():Void {
 			

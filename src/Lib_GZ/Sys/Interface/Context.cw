@@ -206,7 +206,9 @@ package  {
 		
 	
 		public function fGpuBlit():UIntX {
-			oGpu.fBlit();
+			if(bIniDrawZone == true){ // Or jsut registred
+				oGpu.fBlit();
+			}
 			//Debug.fError("fGpuBlit: not implemented, unable to draw");
 			return 0;
 		}

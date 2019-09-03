@@ -232,6 +232,26 @@ gzStr8 gzStrI(gzInt64 _nVal) {
   //  return gzStr(_aArray, _nSize, false);
 }
 
+
+gzStr16 gzStrC(gzUInt16* _Array){
+    if(_Array == 0){
+        return gzU16("");//gzNullStr?
+    }
+    gzUInt _nCount = 0;
+
+	do{
+		_nCount++;
+	}while(_Array[_nCount] != 0);
+
+
+	gzStr16 _sNewStr( ::GZ::fDataAlloc(_nCount, _nCount));
+	  gzUInt8* _aNew  = _sNewStr.m.aData->aTab;
+		
+    memcpy( _aNew, _Array, _nCount  * sizeof(gzUInt16));
+  
+   return _sNewStr;
+}
+
 //Todo Test
 gzStr8 gzStrC(const char* _Array){
     if(_Array == 0){
