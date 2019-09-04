@@ -9,6 +9,9 @@ package  {
 	import GZ.Gpu.ShaderBase.Vbo;
 	import GZ.Gpu.GpuObj.GpuBatch;
 	import GZ.Base.Perspective;
+	import GZ.Sys.Interface.Context;
+	
+	
 	//import GZ.Base.TestPod;
 	//import GZ.Base.TestPod2;
 	
@@ -183,7 +186,7 @@ package  {
 					 vec3 q = mod(p,c) - 0.5 * c;
 					  return  q ;
 					   
-					// return  vec3( smoothstep(length(p), fract(p.x*0.2), fract(p.y*0.2)),1,1);
+					//return  vec3( smoothstep(length(p), fract(p.x*0.2), fract(p.y*0.2)),1,1);
 					 /*
 					 if (fract(p.x*0.2)>0.2){
 						 if (fract(p.z*0.2)>0.2){
@@ -214,7 +217,8 @@ package  {
 					 //return;
 					 
 					 
-					 float _nMove = 2.5 * vMouse.x;
+					 float _nMoveX = 2.5 * vMouse.x * vMouse.y;
+					// float _nMoveY = 2.5 * vMouse.y;
 					 
 					 
 					
@@ -230,12 +234,12 @@ package  {
 					
 					
 					// Position de la caméra.
-					vec2 mouse = vec2(0.5, 0.5);
-					float mx = mouse.x* PI * 2.0;
-					float my = mouse.y* PI / 2.01;
-					//vec3 prp = vec3(  cos(my)*cos(mx),  sin(my),   cos(my)*sin(mx)  ) * 6.0;
+					//vec2 mouse = vec2(0.5, 0.5);
+					float mx = vMouse.x* PI * 2.0;
+					float my = vMouse.y* PI / 2.01;
+					vec3 prp = vec3(  cos(my)*cos(mx),  sin(my),   cos(my)*sin(mx)  ) * 6.0;
 					
-					vec3 prp = vec3(  _nMove * 1.5 - 0.2 , _nMove - 0.3- 1.0,   -0.6 ) * 6.0 ;
+					//vec3 prp = vec3(  _nMoveX * 1.5 - 0.2 , _nMoveX - 0.3- 1.0,   -0.6 ) * 6.0 ;
 					
 					//vec3 prp = cam_pos;
 					
@@ -280,7 +284,9 @@ package  {
 						FragColor = vec4((b*c+pow(b,16.0))*(1.0-f*.01),1.0);
 						
 					}else{
-						FragColor = vec4(0.0 + vColor.x,0,0,1.0);
+						//FragColor = vec4(0.0 + vColor.x,0,0,1.0);
+						//FragColor = vec4(0.0 + vMouse.x ,0.0 + vMouse.y ,0.0 ,1.0);
+						FragColor = vec4(0.0 ,0.0 ,0.0 ,1.0);
 						//FragColor = vec4(0 ,0,0,1.0);
 					}
 				}
@@ -344,10 +350,19 @@ package  {
 		
 		
 		public function fDraw():Void {
+		
 			
+			//nDestX = oWindow.nMouseX  + nDragX + ( oWindow.nMouseX - oWindow.nLastMouseX)/1.5;
+			//nDestY = oWindow.nMouseY  + nDragY + ( oWindow.nMouseY - oWindow.nLastMouseY)/1.5;
 //	Debug.fTrace("aaaaa");
 		//	if(oUvMouse.oVal.nX < 6){
-				oUvMouse.vVal.nX += 0.01;
+				//oUvMouse.vVal.nX = Context.nMouseX/ 5.5;
+				Debug.fTrace( Context.nMouseX + ": " +Context.nMouseY  );
+				
+				
+				oUvMouse.vVal.nX = Context.nMouseX/800 - 0.5;
+				oUvMouse.vVal.nY = Context.nMouseY/600 - 0.5;
+				
 		//	}
 			oUvMouse.fSend();
 			

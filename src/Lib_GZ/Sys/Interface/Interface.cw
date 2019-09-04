@@ -84,7 +84,8 @@ package  {
 			var _sWindowNameTest : String = "abcde";
 			oContext = new Context(this, _sWindowNameTest, _nWeakWidth, _nWeakHeight, _bTransparent, _nBgColor);
 			//, _hBorder, _bMinimizeBox, _bMaximizeBox,_bCloseBox,_bCpuOnly,false);
-
+			Context = oContext; //Set singleton
+			
 			oThreadItf.oWindow = oContext; //Will destroy windws when thread finish (shared_ptr)
 			bWIntransparent = _bTransparent;
 

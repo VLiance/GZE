@@ -54,7 +54,8 @@ package  {
 		
 		//Overited
 		override public function fUpdateParentToChild():Void {
-			//oWindow.fGetMousePosition(); Maybe si upder entre temps or not
+			//oWindow.fGetMousePosition(); //Maybe si upder entre temps or not
+			
 			bPress = false;
 			bRelease = false;
 			

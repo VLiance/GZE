@@ -177,7 +177,28 @@ package  {
 		public function fIsWindowReady():Bool;
 		public function fIniRender():Void;
 
-		public function fGetMousePosition():Void;
+		public function fGetMousePosition():Void{
+			<cpp>
+				CURSORINFO ci;
+				ci.cbSize = sizeof(CURSORINFO);
+				GetCursorInfo(&ci);
+
+				POINT point;
+				point.x = ci.ptScreenPos.x;
+				point.y = ci.ptScreenPos.y;
+
+				ScreenToClient((HWND)nWinHandleId, &point);
+
+				nLastMouseX = nMouseX;
+				nLastMouseY = nMouseY;
+				nMouseX =  gzFloat(point.x) / nResFacX;
+				nMouseY =  gzFloat(point.y) / nResFacY;
+
+				bFirstMouseOver = false;
+			</cpp>
+		}
+		
+		
 		public function fStartCaptureOutside():Void;
 		public function fStopCaptureOutside():Void;
 		//public function fFrameStart():Void;
