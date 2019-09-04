@@ -16,7 +16,7 @@ package  {
 	</cpp_h>
 	
 	<cpp_class_h>
-	val oCanvas = val::global("Null");
+	gzVal oHtmlCanvas;
 	val aData = val::global("Null");
 	val pixelArray  = val::global("Null");
 	val buf8  = val::global("Null");
@@ -119,7 +119,7 @@ package  {
 						var names = (['webgl2', 'webgl', 'experimental-webgl', 'moz-webgl']);
 						var gl = false;
 						var canvas = document.createElement("canvas");
-
+						
 						for(var i in names) {
 							try {
 								gl = canvas.getContext(names[i]);
@@ -152,6 +152,8 @@ package  {
 				//WebGl detect
 				val document = val::global("document");
 				val canvas = document.call<val>("getElementById", val("canvas"));
+				oHtmlCanvas = canvas; //TODO Cleanup
+				
 				canvas.set("width", val(800));
 				canvas.set("height", val(600));
 				//val gl = canvas.call<val>("getContext", val("webgl"));

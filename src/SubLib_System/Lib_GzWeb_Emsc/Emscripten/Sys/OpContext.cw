@@ -13,9 +13,28 @@ package  {
 	
 	<cpp_h>
 	#include "Lib_GzWeb_Emsc/Emscripten/EmscHeader.h"
+	//gzVal oHtmlCanvas;
 	</cpp_h>
 	
+	<cpp>
+	#include "Lib_GzWeb_Emsc/Emscripten/Helper/html5_mouse.cpp"
+	</cpp>
+	
+	
+	
+	<cpp_namespace_h>
+		extern gzInt nEvtMouseX;
+		extern gzInt nEvtMouseY;
+	</cpp_namespace_h>
+	
+	<cpp_namespace>
+		gzInt nEvtMouseX = 0;
+		gzInt nEvtMouseY = 0;
+	</cpp_namespace>
+	
+	
 	<cpp_class_h>
+
 	val oCanvas = val::global("Null");
 	val aData = val::global("Null");
 	val pixelArray  = val::global("Null");
@@ -154,6 +173,7 @@ package  {
 				//WebGl detect
 				val document = val::global("document");
 				val canvas = document.call<val>("getElementById", val("canvas"));
+				//oHtmlCanvas = canvas; //TODO Cleanup
 				canvas.set("width", val(800));
 				canvas.set("height", val(600));
 				//val gl = canvas.call<val>("getContext", val("webgl"));
@@ -243,6 +263,9 @@ package  {
 				//val _aTest = h264_decoder.call<val>("test");
 				
 				
+				
+			fInitialise_Mouse();
+				
 			</cpp>	
 			
 			if(nGpuId >= 0){ //WebGl supported
@@ -287,6 +310,31 @@ package  {
 				
 			}
 		}
+		
+		
+		public function fGetMousePosition():Void{
+			<cpp>
+			
+				nLastMouseX = nMouseX;
+				nLastMouseY = nMouseY;
+				nMouseX = nEvtMouseX / nResFacX;
+				nMouseY =  nEvtMouseY / nResFacY;
+
+				bFirstMouseOver = false;
+				
+			</cpp>
+		}
+		
+		/*
+		    var canvasOffset=$("#canvas").offset();
+    var offsetX=canvasOffset.left;
+    var offsetY=canvasOffset.top;
+		*/
+		
+		
+		
+		
+		
 				
 	}
 		
