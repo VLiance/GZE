@@ -36,8 +36,8 @@ package  {
 			OpenGL.fUseProgram(nId);
 			
 			<cpp>
-			 #ifndef GZ_tAndroid
-			 #ifndef GZ_tWeb_Emsc
+			 #ifndef D_Platform_Android
+			 #ifndef D_Platform_Web_Emsc
 			</cpp>
 			///// DEFAULT VAO require for OpenGL > 3, (not exist on WebGL 1.0 (possible extention OES_vertex_array_object) & ES2, and not required)
 			var _nEmptyVAO : UInt;

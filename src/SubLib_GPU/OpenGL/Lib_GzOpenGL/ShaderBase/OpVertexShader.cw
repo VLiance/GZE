@@ -15,7 +15,7 @@ package  {
 				Debug.fTrace("--****************--");
 				
 				<cpp>
-				#ifdef GZ_tWeb_Emsc
+				#ifdef D_Platform_Web_Emsc
 				</cpp>
 				
 				<glsl(this)>
@@ -79,6 +79,7 @@ package  {
 		override public function fCompile():Bool {
 			
 			OpenGL.fCompileShader(nId);
+			
 			var _nCompilationStatus : UInt;
 			_nCompilationStatus = OpenGL.fGetShaderParameter(nId, COMPILE_STATUS);
 			//OpenGL.fGetShaderParameter(nId, COMPILE_STATUS, _nCompilationStatus);

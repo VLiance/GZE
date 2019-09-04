@@ -30,6 +30,7 @@
 	
 				inline gzVal(): emscripten::val(0){};
 				inline gzVal( emscripten::val  _oVal) : emscripten::val(_oVal){};
+				inline gzVal(gzVal&  _oVal) : emscripten::val(_oVal.get()){};
 				
 				gzVal(const char* v) : emscripten::val(v){};
 				

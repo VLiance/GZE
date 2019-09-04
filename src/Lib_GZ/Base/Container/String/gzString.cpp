@@ -244,7 +244,7 @@ gzStr16 gzStrC(gzUInt16* _Array){
 	}while(_Array[_nCount] != 0);
 
 
-	gzStr16 _sNewStr( ::GZ::fDataAlloc(_nCount, _nCount));
+	gzStr16 _sNewStr( ::GZ::fDataAlloc(_nCount* sizeof(gzUInt16), _nCount* sizeof(gzUInt16)));
 	  gzUInt8* _aNew  = _sNewStr.m.aData->aTab;
 		
     memcpy( _aNew, _Array, _nCount  * sizeof(gzUInt16));

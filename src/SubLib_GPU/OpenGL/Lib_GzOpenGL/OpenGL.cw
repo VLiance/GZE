@@ -14,17 +14,21 @@ generate "OpenGL" {
 		
 		<cpp_namespace_h>
 		#ifdef D_Platform_Web_Emsc
-		extern val oGL;
+		//extern val oGL;
 		//val oGL = val::global("Null");
 		#endif
 		</cpp_namespace_h>
 		
 		<cpp_namespace>
 		#ifdef D_Platform_Web_Emsc
-		val oGL = val::global("Null");
+		//val oGL = val::global("Null");
 		#endif
 		</cpp_namespace>	
 
+		<cpp_class_h>
+			gzVal oGL;
+		</cpp_class_h>
+		
 
 		
 		public enum eShaderInfo : Int {
@@ -350,8 +354,15 @@ generate "OpenGL" {
 			<cpp>
 			#ifdef D_Platform_Web_Emsc
 
-					gzVal* _val = *(((gzVal**)_pData) - sizeof(gzVal*));
-					oGL.call<void>("bufferData", (int)_hTarget,  _val , (int)_hUsage);	 
+						//pixelArray.call<Void>("set", typed_memory_view(nArraySize, (gzUInt8*)aPixels));
+						//oCanvas.call<Void>("putImageData", imageData, val(0), val(0)); // at coords 0,0
+						
+						 
+						oGL.call<void>("bufferData", (int)_hTarget,  typed_memory_view(_nSize, (gzUInt8*)_pData) , (int)_hUsage);	 
+							
+					//gzVal* _val = *(((gzVal**)_pData) - sizeof(gzVal*));
+					//oGL.call<void>("bufferData", (int)_hTarget,  _val , (int)_hUsage);	 
+		
 					//TODO JSMEM
 
 				return;

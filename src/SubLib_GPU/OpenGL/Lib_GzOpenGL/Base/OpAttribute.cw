@@ -77,7 +77,7 @@ package  {
 				
 				OpenGL.fVertexAttribPointer(nId, Vec4, FLOAT, false, 0, 0);
 				<cpp>
-				#ifndef GZ_tWeb_Emsc
+				#ifndef D_Platform_Web_Emsc
 				</cpp>
 			//		OpenGL.fVertexAttribDivisor(nId, _nDiv); //Temp
 				<cpp>

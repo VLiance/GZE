@@ -5,7 +5,11 @@
 	
 	
 	<cpp_h>
-		#include "Lib_GzOpenGL_Windows/glWin.h"
+	
+
+		#ifdef D_Platform_Windows
+		#include "Lib_GzOpenGL_Windows/GlWin.h"
+		#endif
 	
 		#undef GL_NO_ERROR
 		#define GL_NO_ERROR                       0

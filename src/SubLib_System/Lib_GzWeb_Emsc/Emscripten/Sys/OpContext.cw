@@ -7,7 +7,7 @@ package  {
 	import GZ.Sys.Interface.Window;
 	import GZ.Sys.System;
 
-	//import GzOpenGL.OpenGL;
+	import GzOpenGL.OpenGL;
 	import GZ.Sys.System;
 
 	
@@ -86,9 +86,9 @@ package  {
 	public class OpContext overplace Context {
 		
 	
-		public var bContext2d : Bool = true;
+		//public var bContext2d : Bool = true;
 		public var nGpuId : Int = -1;
-		//public var bContext2d : Bool = false;
+		public var bContext2d : Bool = false;
 			
 		public function OpContext(_oInterface : Interface, _sWindowName : String, _nFrameWidth : UInt, _nFrameHeight : UInt, _bTransparent : Bool = false, _nBgColor : Int = 0xFFFFFFFF): Void {
 			Debug.fTrace("---New OpWindows--");
@@ -160,6 +160,9 @@ package  {
 
 				if( bContext2d == false && nGpuId >= 0){ //WebGl supported
 					
+					
+					 Lib_GZ::Debug::Debug::GetInst(thread)->fError( gzU8("--WebGL creation"));
+					
 					val gl = canvas.call<val>("getContext", val(aGLContextName[nGpuId]));
 					
 					gzStr _sVersion = gzStrC(((char*)((std::string)(gl.call<std::string>("getParameter", gl["VERSION"]))).c_str()));
@@ -175,7 +178,7 @@ package  {
 					window.set("OpenGL", gl);
 					
 			
-			//		Lib_GZ_OpenGL::OpenGL::Get(thread)->oGL = gl; //Temp
+					Lib_GzOpenGL::OpenGL::GetInst(thread)->oGL = gl; //Temp
 					
 					
 					

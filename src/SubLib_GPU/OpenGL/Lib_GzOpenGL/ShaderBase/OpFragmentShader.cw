@@ -13,7 +13,7 @@ package  {
 			
 			if(_hGlsl_ES_Version == eGlsl_ES_Version.Auto){
 				<cpp>
-			#ifdef GZ_tWeb_Emsc
+			#ifdef D_Platform_Web_Emsc
 			</cpp>
 				
 				<glsl(this)>

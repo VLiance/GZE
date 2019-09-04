@@ -27,7 +27,7 @@ gzInt pImage::fOpen(File::cRcImg* _oRc) {
 	
 	
 	
-//#ifndef GZ_tWeb_Emsc
+//#ifndef D_Platform_Web_Emsc
 
 
 //#if ( defined GZ_tWindows || defined  GZ_tLinux || defined  GZ_tAndroid )
@@ -39,7 +39,7 @@ gzInt pImage::fOpen(File::cRcImg* _oRc) {
     gzUInt8* data;
 
 	
-	#ifdef GZ_tWeb_Emsc
+	#ifdef D_Platform_Web_Emsc
 	//_oRc->hLocation = File::Resource::eLocation::Drive; //Temp (with cpp exoprt)
 	
 	#endif
@@ -54,7 +54,7 @@ gzInt pImage::fOpen(File::cRcImg* _oRc) {
 			   // Debug::fTrace( _oRc->sSubPath);
 				//From drive
 				
-				#ifdef GZ_tWeb_Emsc
+				#ifdef D_Platform_Web_Emsc
 						gzUTF16 _sLoad(gzStrL("GZ/RcEngine/Transform.png"));
 				#else
 						gzUTF16 _sLoad(_oRc->sVDrive + _oRc->sPath);
