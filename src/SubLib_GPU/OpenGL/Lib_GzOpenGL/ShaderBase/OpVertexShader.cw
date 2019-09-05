@@ -11,7 +11,13 @@ package  {
 			Debug.fTrace("--- OpVertexShader Created!! ---");
 			VertexShader(_hGlsl_ES_Version);
 			
-			if(_hGlsl_ES_Version == eGlsl_ES_Version.Auto){
+			fAddHeader();
+		}
+		
+
+		
+		override public function fAddHeader():Void {
+			if(hGlsl_ES_Version == eGlsl_ES_Version.Auto){
 				Debug.fTrace("--****************--");
 				
 				<cpp>
@@ -60,11 +66,7 @@ package  {
 				#endif
 				</glsl>
 			}
-			
-			
 		}
-		
-
 		
 		
 		override public function fSendToGpu(_sShader : String):Bool {

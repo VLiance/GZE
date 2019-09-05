@@ -57,43 +57,53 @@ int gotWheel = 0;
 
 void instruction()
 {
+/*
   if (!gotClick) { printf("Please click on the canvas.\n"); return; }
   if (!gotMouseDown) { printf("Please click on the canvas.\n"); return; }
   if (!gotMouseUp) { printf("Please click on the canvas.\n"); return; }
   if (!gotDblClick) { printf("Please double-click on the canvas.\n"); return; }
   if (!gotMouseMove) { printf("Please move the mouse on the canvas.\n"); return; }
   if (!gotWheel) { printf("Please scroll the mouse wheel.\n"); return; }
-
+*/
   if (gotClick && gotMouseDown && gotMouseUp && gotDblClick && gotMouseMove && gotWheel) report_result(0);
 }
 
 EM_BOOL mouse_callback(int eventType, const EmscriptenMouseEvent *e, void *userData)
 {
-	//return false;
 	////Todo Optimize///
 	val document = val::global("document");
 	val _oHtmlCanvas = document.call<val>("getElementById", val("canvas"));
 	
-	//int _nCanvasX = _oHtmlCanvas["clientLeft"].typeof().as<double>();
-	//int _nCanvasY = _oHtmlCanvas["clientTop"].typeof().as<double>();
-	//int _nCanvasX = _oHtmlCanvas.call<int>("clientLeft");
-	//int _nCanvasY = _oHtmlCanvas.call<int>("clientTop"); 
-	int _nCanvasX = 0;
-	int _nCanvasY = 0;
+	gzVal rect = _oHtmlCanvas.call<val>("getBoundingClientRect");
+	int  _nCanvasX = rect["left"].as<int>();
+	int  _nCanvasY = rect["top"].as<int>();
+	
+	/*
+	 _nCanvasX = EM_ASM_INT({
+		var rec = document.getElementById('canvas').getBoundingClientRect();
+		  return rec.left;
+	});
+	 _nCanvasY = EM_ASM_INT({
+		 		var rec = document.getElementById('canvas').getBoundingClientRect();
+		  return rec.top;
+	});
+	*/
+	
+	
 	
 	////////////////////
 	
+	
     Lib_GzWeb_Emsc::Emscripten::Sys::OpContext::nEvtMouseX =  e->clientX - _nCanvasX;
     Lib_GzWeb_Emsc::Emscripten::Sys::OpContext::nEvtMouseY =  e->clientY - _nCanvasY;
-	//e->clientY - _nCanvasY
+
 	
 	/*
   printf("%s, screen: (%ld,%ld), client: (%ld,%ld),%s%s%s%s button: %hu, buttons: %hu, movement: (%ld,%ld), target: (%ld, %ld)\n",
     emscripten_event_type_to_string(eventType), e->screenX, e->screenY, e->clientX - _nCanvasX, e->clientY - _nCanvasY,
     e->ctrlKey ? " CTRL" : "", e->shiftKey ? " SHIFT" : "", e->altKey ? " ALT" : "", e->metaKey ? " META" : "", 
     e->button, e->buttons, e->movementX, e->movementY, e->targetX, e->targetY);
-
-	*/
+*/
 	
   if (e->screenX != 0 && e->screenY != 0 && e->clientX != 0 && e->clientY != 0 && e->targetX != 0 && e->targetY != 0)
   {
@@ -137,8 +147,6 @@ EM_BOOL wheel_callback(int eventType, const EmscriptenWheelEvent *e, void *userD
 
 	
 
-
-
   if (e->deltaY > 0.f || e->deltaY < 0.f)
     gotWheel = 1;
 
@@ -165,7 +173,7 @@ int fInitialise_Mouse()
 
   ret = emscripten_set_wheel_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, 0, 1, wheel_callback);
   TEST_RESULT(emscripten_set_wheel_callback);
-
+/*
 #ifdef AUTOMATE_SUCCESS
   EM_ASM(
     function sendEvent(type, data) {
@@ -209,9 +217,9 @@ int fInitialise_Mouse()
     sendEvent('mousewheel', { screenX: 1, screenY: 1, clientX: 1, clientY: 1, button: 0, buttons: 0, 'wheelDeltaX': 1, 'wheelDeltaY': 1 });
   );
 #endif
-
+*/
   /* For the events to function, one must either call emscripten_set_main_loop or enable Module.noExitRuntime by some other means. 
      Otherwise the application will exit after leaving main(), and the atexit handlers will clean up all event hooks (by design). */
-  EM_ASM(Module['noExitRuntime'] = true);
+  //EM_ASM(Module['noExitRuntime'] = true);
   return 0;
 }

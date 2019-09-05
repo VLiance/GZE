@@ -12,11 +12,18 @@ package  {
 			nId = OpenGL.fCreateProgram();
 		}
 		
-			
+		
 		override public function fAttachShader(_oShader : ShaderBase):Void {
 			OpenGL.fAttachShader(nId, _oShader.nId);
+			aShaderAttached.fPush(_oShader);
+			_oShader.aAttachedProgram.fPush(this);
 		}
-		
+		override public function fDetachShader(_oShader : ShaderBase):Void {
+			OpenGL.fDetachShader(nId, _oShader.nId);
+			//TODO aShaderAttached.fUnPush(_oShader.nId);
+		}
+			
+
 		override public function fLink():Bool{
 			
 			OpenGL.fLinkProgram(nId);

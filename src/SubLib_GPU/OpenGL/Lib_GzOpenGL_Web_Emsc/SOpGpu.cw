@@ -34,9 +34,7 @@
 			
 			Debug.fTrace("Finish" );
 			
-			
 
-			
 			
 			return true;
 		}
@@ -46,14 +44,8 @@
 		 override public function fBlit():Void {
 		 
 		 
-		 
-		 
-		 
 		//	 Debug.fTrace("GPU blit disabled");
 			// return;
-			 
-			 
-			 
 			 
 			 <cpp>
 			//val window = val::global("window");

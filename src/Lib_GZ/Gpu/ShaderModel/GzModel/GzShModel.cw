@@ -357,11 +357,11 @@ package  {
 //	Debug.fTrace("aaaaa");
 		//	if(oUvMouse.oVal.nX < 6){
 				//oUvMouse.vVal.nX = Context.nMouseX/ 5.5;
-				Debug.fTrace( Context.nMouseX + ": " +Context.nMouseY  );
+				//Debug.fTrace( Context.nMouseX + ": " +Context.nMouseY  );
 				
 				
-				oUvMouse.vVal.nX = Context.nMouseX/800 - 0.5;
-				oUvMouse.vVal.nY = Context.nMouseY/600 - 0.5;
+			oUvMouse.vVal.nX = Context.nMouseX/800 - 0.5;
+			oUvMouse.vVal.nY = Context.nMouseY/600 - 0.5;
 				
 		//	}
 			oUvMouse.fSend();

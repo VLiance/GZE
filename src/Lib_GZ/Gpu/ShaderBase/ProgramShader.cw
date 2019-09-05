@@ -15,6 +15,9 @@ package  {
 		public var aUniform : Array<Uniform>;
 		public var aVbo : Array<Vbo>;
 		public var nDefaultAttribDivisor : UInt = 0;
+		
+		public var aShaderAttached : Array<ShaderBase>;
+		
 
 		public function ProgramShader():Void {
 			Debug.fTrace("--- ProgramShader Created!! ---");
@@ -26,6 +29,24 @@ package  {
 		
 		public function fAttachShader(_oShader : ShaderBase):Void {
 		}
+		public function fDetachShader(_oShader : ShaderBase):Void {
+		}
+		
+		public function fDetachAll_Fragment(_oShader : ShaderBase):Void {
+			for( var i : UInt = 0; i < aShaderAttached.nSize; i++){
+				var _oShader : ShaderBase = aShaderAttached[i];
+				if(_oShader.hType == ShaderBase.eType.Fragment){
+					fDetachShader(_oShader);
+				}
+			}
+		}
+		
+		public function fDetachAll(_oShader : ShaderBase):Void {
+			for( var i : UInt = 0; i < aShaderAttached.nSize; i++){
+				fDetachShader(aShaderAttached[i]);
+			}
+		}
+		
 		
 		public function fLink():Bool;
 		

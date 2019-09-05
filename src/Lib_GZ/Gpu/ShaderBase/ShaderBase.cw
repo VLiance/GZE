@@ -1,6 +1,7 @@
 
 package  { 
 
+	import GZ.Gpu.ShaderBase.ProgramShader;
 	
 	public extension ShaderBase  {
 		
@@ -14,6 +15,8 @@ package  {
 		public var sLog : String;
 		
 		public var aLine : Array<String>;
+		
+		public wvar aAttachedProgram : Array<ProgramShader>;
 		
 
 		public enum eGlsl_ES_Version : UInt8 {
@@ -50,6 +53,34 @@ package  {
 		}
 		
 		
+		public function fUpdateShader(_sSrc : String):Void {
+			fReset();
+			fAddSrc(_sSrc);
+			fLoad();
+			if(fCompile() == false){
+				Debug.fError("Update Shader Error:" );
+				Debug.fTrace("-->" + fGetLog());
+				Debug.fTrace("-----------------");
+				Debug.fTrace(fGetString());
+				Debug.fTrace("-----------------");
+				
+			}else{
+				Debug.fPass("Update Shader Success");
+			}
+			
+		}
+		
+		
+		
+		public function fReset():Void {
+			aLine.fClear();
+			fAddHeader();
+		}
+		
+		
+		public function fAddHeader():Void {
+		}
+		
 		
 		public function fLoad():Void {
 			
@@ -84,7 +115,15 @@ package  {
 			sSharder += _sLine + "\n";
 			aLine.fPush(_sLine);
 		}
-			/*
+		
+		public function fAddSrc(_sSrc : String):Void {
+			var _aSplit : Array<String> = _sSrc.fSplit("\n");
+			for( var i : UInt = 0; i < _aSplit.nSize; i++){
+				aLine.fPush(_aSplit[i]);
+			}
+		} 
+		
+		/*
 		public function fAdd(_sText : String):Void {
 			sSharder += _sText;
 		}

@@ -11,10 +11,15 @@ package  {
 			Debug.fTrace("--- OpFragmentShader Created!! ---");
 			FragmentShader(_hGlsl_ES_Version);
 			
-			if(_hGlsl_ES_Version == eGlsl_ES_Version.Auto){
+			fAddHeader();
+		}
+		
+		
+		override public function fAddHeader():Void {
+			if(hGlsl_ES_Version == eGlsl_ES_Version.Auto){
 				<cpp>
-			#ifdef D_Platform_Web_Emsc
-			</cpp>
+				#ifdef D_Platform_Web_Emsc
+				</cpp>
 				
 				<glsl(this)>
 					///#ifdef GZ_tAndroid   //ES2
@@ -45,8 +50,13 @@ package  {
 				#endif
 				</cpp>
 			}
-			
 		}
+		
+		
+		
+		
+		
+		
 		
 		override public function fSendToGpu(_sShader : String):Bool {
 			

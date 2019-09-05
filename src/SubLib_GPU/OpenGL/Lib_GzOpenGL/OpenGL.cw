@@ -320,6 +320,7 @@ generate "OpenGL" {
 		
 		gen public static function fDeleteShader(_nShaderId : Val):Void;
 		gen public static function fAttachShader(_nIdProgram : Val, _nShaderId : Val):Void;
+		gen public static function fDetachShader(_nIdProgram : Val, _nShaderId : Val):Void;
 
 		//Texture
 		gen public static function fActiveTexture(_eTexture : UInt):Void;
