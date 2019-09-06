@@ -15,13 +15,10 @@
 //extern "C" {
 	
 		gzInt UpdateFragmentShader(std::string _sSrc) {
-			static int _nTest = 0;
-			_nTest++;
-			if(_nTest == 150){
-				printf("\n\nCalllll yeahhhhh: %s\n", _sSrc.c_str());
-				ptrGzShModel->oFragement->fUpdateShader(gzStrC(_sSrc.c_str()));
-			}
-			
+
+			printf("\n\nUpdateShaderWith: %s\n", _sSrc.c_str());
+			ptrGzShModel->oFragement->fUpdateShader(gzStrC(_sSrc.c_str()));
+
 			return 1;
 		}
 
@@ -61,6 +58,13 @@
 			
 			Debug.fTrace("Finish" );
 			
+			
+			<cpp>
+				val GZE_JS = val::global("gze");
+				if(!GZE_JS.isUndefined()){
+					 GZE_JS.call<Void>("Initialised");
+				}
+			</cpp>
 
 			
 			return true;
@@ -75,6 +79,18 @@
 			// return;
 			 
 			 <cpp>
+			 
+			 
+			static int _nTest = 0;
+			_nTest++;
+			if(_nTest == 200){
+				val GZE_JS = val::global("gze");
+				if(!GZE_JS.isUndefined()){
+					 GZE_JS.call<Void>("After200Frames");
+				}
+			}
+			 
+			
 			//val window = val::global("window");
 			val FPSMeter = val::global("meter");
 			if(!FPSMeter.isUndefined()){
@@ -100,6 +116,10 @@
 			<cpp>
 				ptrGzShModel = oGzShModel.get();
 			</cpp>
+			
+			
+		
+			
 		 }
 		
 		
