@@ -2,6 +2,7 @@
 package  { 
 
 	import GZ.Gpu.ShaderBase.ProgramShader;
+	import GzOpenGL.OpenGL;
 	
 	public extension ShaderBase  {
 		
@@ -41,6 +42,12 @@ package  {
 			hGlsl_ES_Version = _hGlsl_ES_Version;
 		}
 		
+		public function fDetach():String {
+			for( var i : UInt = 0; i < aAttachedProgram.nSize; i++){
+				OpenGL.fDetachShader(aAttachedProgram[i].nId, nId);
+			}
+			aAttachedProgram.fClear();
+		}
 		
 		public function fGetString():String {
 			
@@ -67,13 +74,13 @@ package  {
 			}else{
 				Debug.fPass("Update Shader Success");
 			}
-			
 		}
 		
 		
 		
 		public function fReset():Void {
 			aLine.fClear();
+			fDetach();
 			fAddHeader();
 		}
 		

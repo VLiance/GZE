@@ -6,7 +6,34 @@
 	import GZ.Gpu.GpuInfo;
 	import GZ.Gpu.ShaderModel.GzModel.GzShModel;
 	import GzOpenGL.OpGpu;
+	import GZ.Gpu.ShaderBase.FragmentShader;
+	
+	<cpp>
+		Lib_GZ::Gpu::ShaderModel::GzModel::cGzShModel* ptrGzShModel = 0;
+		
+		
+//extern "C" {
+	
+		gzInt UpdateFragmentShader(std::string _sSrc) {
+			static int _nTest = 0;
+			_nTest++;
+			if(_nTest == 150){
+				printf("\n\nCalllll yeahhhhh: %s\n", _sSrc.c_str());
+				ptrGzShModel->oFragement->fUpdateShader(gzStrC(_sSrc.c_str()));
+			}
+			
+			return 1;
+		}
 
+		EMSCRIPTEN_BINDINGS(my_module) {
+			function("UpdateFragmentShader", &UpdateFragmentShader);
+		}
+		
+//	}
+	</cpp>
+	
+	
+	
 
 	public class SOpGpu overplace OpGpu  {
 		
@@ -70,13 +97,18 @@
 		 public function fLoadDefaultShader():Bool {
 
 			oGzShModel = new GzShModel();
+			<cpp>
+				ptrGzShModel = oGzShModel.get();
+			</cpp>
 		 }
-		
 		
 		
 		 override public function fClear():Void {
 		
 		 }
+		 
+		 
+		 
 		
 
 	}
