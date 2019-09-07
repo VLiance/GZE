@@ -131,13 +131,19 @@ package  {
 		public function fRegistred():Void {
 			oGpuObj.fIni(this);
 
+			if(oContext.bWinGPU ) {
+				if(fLoadShader() == false){
+					oContext.oGpu.fLoadDefaultShader();
+				}
+			}
 			fWinStart();
 			if (bWIntransparent != true) { //If transparent go to CPU draw
 				oBackground = new Rectangle(this, 0p, 0p, oContext.nFrameWidth, oContext.nFrameHeight, nBgColor);
 			}
-			
+		
 
 			oContext.fInitialised();
+			
 	
 		}
 
@@ -249,6 +255,10 @@ package  {
 			
 		}
 
+
+		public function fLoadShader():Bool {
+			return false;
+		}
 
 		public function fWinStart():Void {
 		}

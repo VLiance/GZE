@@ -115,7 +115,10 @@
 		
 		 public function fLoadDefaultShader():Bool {
 			
+			
 			oGzShModel = new GzShModel_Raymarching();
+			
+			
 			<cpp>
 				ptrGzShModel = oGzShModel.get();
 			</cpp>

@@ -6,6 +6,8 @@
 	import GZ.Gpu.Gpu;
 	import GZ.Gpu.GpuInfo;
 	import GZ.Gpu.ShaderModel.GzModel.GzShModel;
+	import GZ.Gpu.ShaderModel.GzModel.GzShModel_Quad;
+	import GZ.Gpu.ShaderModel.GzModel.GzShModel_Raymarching;
 	import GzOpenGL_Windows.GlWin;
 	import GzOpenGL.OpGpu;
 	import GzOpenGL.OpGpuInfo;
@@ -179,10 +181,8 @@
 			
 			</cpp>
 			
-			fLoadDefaultShader();
-			fClear();
-			fBlit();
-			fClear(); //Double buffer must clear both
+			//fLoadDefaultShader();
+		
 			
 			return true;
 		}
@@ -208,7 +208,11 @@
 			GL_fEnable(GL_BLEND);
 			////////////////////
 		    </cpp>
-			oGzShModel = new GzShModel();
+			oGzShModel = new GzShModel_Raymarching();
+			
+			fClear(); //TODO Verify
+			fBlit();  //TODO Verify
+			fClear(); //Double buffer must clear both
 		 }
 		
 		

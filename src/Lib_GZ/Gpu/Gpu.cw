@@ -16,13 +16,15 @@ package  {
 			
 			fContextIni(_nHandleId, _bGlobalSharedContext);
 			
-			fBlit();
+			//fBlit();
 		}
 
 		
 		public function fLoadImg(_aImg : CArray<Int, 1>, _nWidth : Int, _nHeight : Int):Void;
 		
-		
+		public function fLoadDefaultShader():Bool {
+		}
+		 
 		public function fBlit():Void{
 			Debug.fError("Gpu: fBlit: not implemented, unable to draw");
 		}
