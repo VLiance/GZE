@@ -60,7 +60,7 @@ package  {
 		}
 		
 		
-		public function fUpdateShader(_sSrc : String):Void {
+		public function fUpdateShader(_sSrc : String):Bool {
 			fReset();
 			fAddSrc(_sSrc);
 			fLoad();
@@ -70,9 +70,11 @@ package  {
 				Debug.fTrace("-----------------");
 				Debug.fTrace(fGetString());
 				Debug.fTrace("-----------------");
+				return false;
 				
 			}else{
 				Debug.fPass("Update Shader Success");
+				return true;
 			}
 		}
 		

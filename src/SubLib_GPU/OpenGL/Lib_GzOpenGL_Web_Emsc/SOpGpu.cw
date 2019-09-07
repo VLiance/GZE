@@ -7,6 +7,7 @@
 	import GZ.Gpu.ShaderModel.GzModel.GzShModel;
 	import GzOpenGL.OpGpu;
 	import GZ.Gpu.ShaderBase.FragmentShader;
+	import GZ.Gpu.ShaderBase.ProgramShader;
 	
 	<cpp>
 		Lib_GZ::Gpu::ShaderModel::GzModel::cGzShModel* ptrGzShModel = 0;
@@ -15,12 +16,16 @@
 //extern "C" {
 	
 		gzInt UpdateFragmentShader(std::string _sSrc) {
-			static int _nTest = 0;
-			_nTest++;
-			if(_nTest == 150){
-				printf("\n\nCalllll yeahhhhh: %s\n", _sSrc.c_str());
-				ptrGzShModel->oFragement->fUpdateShader(gzStrC(_sSrc.c_str()));
+			
+			printf("\n\nCalllll UpdateFragmentShader %s\n", _sSrc.c_str());
+			if(ptrGzShModel->oFragement->fUpdateShader(gzStrC(_sSrc.c_str()))){
+				ptrGzShModel->oProgram->fAttachShader(ptrGzShModel->oFragement);
+				if(ptrGzShModel->oProgram->fLink()){
+					Lib_GZ::Debug::Debug::GetInst(ptrGzShModel->thread)->fPass(gzU8("Link Success"));
+					//Debug->fPass("Link Success");
+				}
 			}
+			
 			
 			return 1;
 		}
@@ -61,7 +66,12 @@
 			
 			Debug.fTrace("Finish" );
 			
-
+			<cpp>
+			val GZE = val::global("GZE");
+			if(!GZE.isUndefined()){
+				 GZE.call<Void>("Initialised");
+			}
+			</cpp>
 			
 			return true;
 		}
@@ -75,6 +85,19 @@
 			// return;
 			 
 			 <cpp>
+			 
+			 
+			 static int _nTest = 0;
+			_nTest++;
+			if(_nTest == 200){
+				val GZE = val::global("GZE");
+				if(!GZE.isUndefined()){
+					 GZE.call<Void>("After200Frames");
+				}
+			}
+			 
+			 
+			 
 			//val window = val::global("window");
 			val FPSMeter = val::global("meter");
 			if(!FPSMeter.isUndefined()){
