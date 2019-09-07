@@ -274,6 +274,18 @@ package  {
 
 		}
 		
+		
+		override public function fInitialised(): Void {
+			Debug.fPass("Context Initialised");
+			<cpp>
+			val GZE = val::global("GZE");
+			if(!GZE.isUndefined()){
+				 GZE.call<Void>("Initialised");
+			}
+			</cpp>
+		}
+	
+		
 		override public function fIniPixelDrawZone(): CArray<Int32>{
 			Debug.fTrace("Please Insert IniPixelDrawZone code here");
 			<cpp>

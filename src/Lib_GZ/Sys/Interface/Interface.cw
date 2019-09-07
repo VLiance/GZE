@@ -135,6 +135,10 @@ package  {
 			if (bWIntransparent != true) { //If transparent go to CPU draw
 				oBackground = new Rectangle(this, 0p, 0p, oContext.nFrameWidth, oContext.nFrameHeight, nBgColor);
 			}
+			
+
+			oContext.fInitialised();
+	
 		}
 
 		override public function fNewFrame():Void {

@@ -137,7 +137,10 @@ package  {
 			
 		 }	
 		
-
+		public function fInitialised():Void {
+		}
+		
+		
 		public function fCreateContext():Void {
 			Debug.fTrace("fCreateContext Not implemented");
 		}

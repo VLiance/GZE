@@ -4,7 +4,8 @@
 	
 	import GZ.Gpu.Gpu;
 	import GZ.Gpu.GpuInfo;
-	import GZ.Gpu.ShaderModel.GzModel.GzShModel;
+	import GZ.Gpu.ShaderModel.GzModel.GzShModel_Quad;
+	import GZ.Gpu.ShaderModel.GzModel.GzShModel_Raymarching;
 	import GzOpenGL.OpGpu;
 	import GZ.Gpu.ShaderBase.FragmentShader;
 	import GZ.Gpu.ShaderBase.ProgramShader;
@@ -66,12 +67,7 @@
 			
 			Debug.fTrace("Finish" );
 			
-			<cpp>
-			val GZE = val::global("GZE");
-			if(!GZE.isUndefined()){
-				 GZE.call<Void>("Initialised");
-			}
-			</cpp>
+		
 			
 			return true;
 		}
@@ -86,7 +82,7 @@
 			 
 			 <cpp>
 			 
-			 
+			 /*
 			 static int _nTest = 0;
 			_nTest++;
 			if(_nTest == 200){
@@ -94,7 +90,7 @@
 				if(!GZE.isUndefined()){
 					 GZE.call<Void>("After200Frames");
 				}
-			}
+			}*/
 			 
 			 
 			 
@@ -118,11 +114,12 @@
 		
 		
 		 public function fLoadDefaultShader():Bool {
-
-			oGzShModel = new GzShModel();
+			
+			oGzShModel = new GzShModel_Raymarching();
 			<cpp>
 				ptrGzShModel = oGzShModel.get();
 			</cpp>
+			
 		 }
 		
 		
