@@ -4,6 +4,7 @@ package  {
 	
 	
 	import GZ.Gpu.GpuInfo;
+	import GZ.Gpu.ShaderModel.GzModel.GzShModel;
 
 	
 	public overclass Gpu  {
@@ -21,6 +22,10 @@ package  {
 
 		
 		public function fLoadImg(_aImg : CArray<Int, 1>, _nWidth : Int, _nHeight : Int):Void;
+		
+		public function fSetShader(_oGzShModel : GzShModel):Void {
+		}
+		
 		
 		public function fLoadDefaultShader():Bool {
 		}

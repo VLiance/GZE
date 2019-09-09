@@ -24,6 +24,12 @@ package  {
 			fLoad();
 		}
 		
+		public function fReLoad_Uniform():Void {
+			for( var i : UInt = 0; i < aUniform.nSize; i++){
+				aUniform[i].fLoad();
+			}
+		}
+		
 		public function fLoad():Void {
 		}
 		
@@ -65,7 +71,7 @@ package  {
 			return _oUniform;
 		}
 		*/
-		
+
 		public function fAddVbo():Vbo{
 			var _oVbo : Vbo = new Vbo(this);
 			return _oVbo;

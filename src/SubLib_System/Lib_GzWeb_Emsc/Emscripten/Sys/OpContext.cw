@@ -172,10 +172,12 @@ package  {
 				
 				//WebGl detect
 				val document = val::global("document");
-				val canvas = document.call<val>("getElementById", val("canvas"));
+				val canvas = document.call<val>("getElementById", val("gze_canvas"));
 				//oHtmlCanvas = canvas; //TODO Cleanup
-				canvas.set("width", val(800));
-				canvas.set("height", val(600));
+				
+				//canvas.set("width", val(800));
+				//canvas.set("height", val(600));
+				
 				//val gl = canvas.call<val>("getContext", val("webgl"));
 
 				if( bContext2d == false && nGpuId >= 0){ //WebGl supported
@@ -321,6 +323,38 @@ package  {
 				}
 				
 			}
+		}
+		
+		
+		
+		
+		public function fGetWindowSize():Bool{
+			<cpp>
+				////Todo Optimize///
+				/*
+					int nGpuId = EM_ASM_INT_V({
+					var canvas = document.createElement("gze_canvas");
+					return 0;
+					});*/
+								
+				val document = val::global("document");
+				val _oHtmlCanvas = document.call<val>("getElementById", val("gze_canvas"));
+				
+				//gzVal rect = _oHtmlCanvas.call<val>("getBoundingClientRect");
+				nFrameWidth = _oHtmlCanvas["width"].as<int>();
+				nFrameHeight = _oHtmlCanvas["height"].as<int>();
+				//nFrameHeight = rect["top "].as<int>();
+				//Module.canvas.width = container.clientWidth;
+				//Module.canvas.height = container.clientHeight;
+				
+			//     Module.canvas.width = nFrameWidth;
+			//	 Module.canvas.height = nFrameHeight;
+				
+				//TODO Set vFrame instead!!!!
+				
+				//////
+			</cpp>
+			return true;
 		}
 		
 		

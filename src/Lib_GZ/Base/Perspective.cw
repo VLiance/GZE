@@ -16,7 +16,7 @@ package  {
 
 	//	public evar mProj : Mat4x4;
 		
-		public var nWidth : Float = 800;
+		public var nWidth : Float = 100;//800
 		public var nHeight : Float = 600;
 		
 		

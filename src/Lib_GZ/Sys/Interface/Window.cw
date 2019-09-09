@@ -83,7 +83,17 @@ package  {
 		//Functions
 		
 		public function Window(_oInterface : Interface, _sName : String, _nFrameWidth : UInt, _nFrameHeight : UInt, _bTransparent : Bool = false, _nBgColor : Int = 0xFFFFFFFF): Void{
-				vFrame = new Rect<Int>(0,0,800, 600); //Default
+				
+				if(fGetWindowSize()){
+					//nFrameWidth already set
+				}else{
+					nFrameWidth = _nFrameWidth;
+					nFrameHeight = _nFrameHeight;
+				}
+			
+				
+				
+				vFrame = new Rect<Int>(0,0,nFrameWidth, nFrameHeight); //Default
 					Debug.fInfo(_sName);
 				sName = _sName;
 				
@@ -109,6 +119,8 @@ package  {
 		//	Debug.fTrace("fFrameStart");
 		}
 		
+		
+		public function fGetWindowSize()():Bool;
 		
 		
 		public function fMove( _nPosX : Int, _nPosY : Int):Void;

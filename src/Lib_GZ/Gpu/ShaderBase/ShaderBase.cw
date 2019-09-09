@@ -63,6 +63,7 @@ package  {
 		public function fUpdateShader(_sSrc : String):Bool {
 			fReset();
 			fAddSrc(_sSrc);
+			fAddMain();//Temp?
 			fLoad();
 			if(fCompile() == false){
 				Debug.fError("Update Shader Error:" );
@@ -89,7 +90,8 @@ package  {
 		
 		public function fAddHeader():Void {
 		}
-		
+		public function fAddMain():Void {
+		}
 		
 		public function fLoad():Void {
 			

@@ -17,6 +17,7 @@ package  {
 	import GZ.Sys.System;
 	import GZ.Sys.ThreadItf;
 	import GZ.Input.Key;
+	import GZ.Gpu.ShaderModel.GzModel.GzShModel;
 
 	/**
 	 * @author Maeiky
@@ -48,6 +49,8 @@ package  {
 		public wvar oThreadItf : ThreadItf;
 		
 		public var bGpuDraw : Bool = true;
+		
+		public var oGzShModel : GzShModel;
 
 		//public function Interface(_oThreadItf : ThreadItf, _sWindowName : String, _nWeakWidth : UInt, _nWeakHeight : UInt, _bTransparent : Bool = false, _nBgColor : Int = 0xFFFFFFFF, _hBorder : eWinBorder = eWinBorder.Normal,  _bMinimizeBox : Bool = true, _bMaximizeBox : Bool  = true, _bCloseBox : Bool = true, _bCpuOnly : Bool = false):Void {
 		public function Interface(_oThreadItf : ThreadItf, _sWindowName : String, _nWeakWidth : UInt, _nWeakHeight : UInt, _bTransparent : Bool = false, _nBgColor : Int = 0xFFFFFFFF):Void {
@@ -104,6 +107,9 @@ package  {
 
 		public function fCreateInterface(_nPosX:Int = Window.nPosCenter, _nPosY:Int = Window.nPosCenter, _hWinState:eWinState = eWinState.Normal):Void {
 			Debug.fTrace("---ToCreateWin--");
+			
+			
+
 			oContext.fCreate(_nPosX, _nPosY, nFrameWidth, nFrameHeight, _hWinState, bGpuDraw, true);
 			
 			/*
@@ -134,7 +140,10 @@ package  {
 			if(oContext.bWinGPU ) {
 				if(fLoadShader() == false){
 					oContext.oGpu.fLoadDefaultShader();
+				}else{
+					oContext.oGpu.fSetShader(oGzShModel);
 				}
+				
 			}
 			fWinStart();
 			if (bWIntransparent != true) { //If transparent go to CPU draw
@@ -157,9 +166,12 @@ package  {
 		//	if (bSreenCreated && oWindow.bBlitInProgress == false) {
 			if (oContext.bIniDrawZone && bSreenCreated && oContext.bBlitInProgress == false) {
 
+				oContext.fGetWindowSize();
+			
 				aPixelArray = oContext.aDrawZone2D;  //Update pixel array after fliping (If change)
 
 			//			Debug.fTrace("fUpdateChild");
+				
 				oContext.fGetMousePosition();
 				oContext.fGetKey(oKey);
 				oContext.fClear(); 

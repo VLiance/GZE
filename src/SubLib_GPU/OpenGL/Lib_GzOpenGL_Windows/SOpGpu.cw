@@ -198,6 +198,13 @@
 	
 		 }
 		
+		 override public function fSetShader(_oShader: GzShModel):Void {
+			oGzShModel = _oShader;
+			
+			fClear(); //TODO Verify
+			fBlit();  //TODO Verify
+			fClear(); //Double buffer must clear both
+		 }
 		
 		
 		 public function fLoadDefaultShader():Bool {

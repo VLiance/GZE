@@ -5,6 +5,7 @@ package  {
 	import GZ.Gpu.ShaderBase.ProgramShader;
 	import GZ.Gpu.Base.Attribute;
 	import GZ.Gpu.Base.Uniform;
+	import GZ.Gpu.Base.UnFloat;
 	import GZ.Gpu.Base.UnVec2;
 	import GZ.Gpu.ShaderBase.Vbo;
 	import GZ.Gpu.GpuObj.GpuBatch;
@@ -23,7 +24,9 @@ package  {
 		public var oProgram : ProgramShader;
 		public var oGpuBatch : GpuBatch;
 		public var oVboBatch : Vbo;
-		public var oUvMouse : UnVec2;
+		public var oUiTime : UnFloat;
+		public var oUiMouse : UnVec2;
+		public var oUiResolution : UnVec2;
 		
 		public function GzShModel():Void {
 			fLoad();

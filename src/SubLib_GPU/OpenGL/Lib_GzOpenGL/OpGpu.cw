@@ -30,8 +30,11 @@
 		
 		 override public function fBlit():Void {
 		 }
+		 
 		
-		
+		 override public function fSetShader(_oGzShModel : GzShModel):Void {
+		 }
+		 
 		 override public function fLoadDefaultShader():Bool {
 		 }
 		

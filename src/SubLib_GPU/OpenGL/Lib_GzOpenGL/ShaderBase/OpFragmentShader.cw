@@ -15,15 +15,24 @@ package  {
 		}
 		
 		
+		override public function fAddMain():Void {
+			<glsl(this)>
+				 void main(){
+					mainImage(FragColor, FragCoord.xy);
+				 }
+			</glsl>	
+		}
+		
+		
+		
 		override public function fAddHeader():Void {
 			if(hGlsl_ES_Version == eGlsl_ES_Version.Auto){
 				<cpp>
 				#ifdef D_Platform_Web_Emsc
 				</cpp>
 				
-				<glsl(this)>
-					///#ifdef GZ_tAndroid   //ES2
-					#version 100
+				/*
+					#version 100  //WebGl 1 //ES2
 					precision highp float;  //highp only works in fragment shaders if you have the GL_FRAGMENT_PRECISION_HIGH extension enabled.
 					precision highp int;  //highp only works in fragment shaders if you have the GL_FRAGMENT_PRECISION_HIGH extension enabled.
 					#define texture(s,t) texture2D(s, t)
@@ -31,6 +40,28 @@ package  {
 					#define FragColor gl_FragColor
 					#define FragData gl_FragData
 					#define xflat
+				*/
+				
+				
+				<glsl(this)>
+					#version 300 es //WebGl 2 / ES3
+					#line 2
+					///#ifdef GZ_tAndroid   
+					///#version 100  //WebGl 1 //ES2
+					precision highp float;  //highp only works in fragment shaders if you have the GL_FRAGMENT_PRECISION_HIGH extension enabled.
+					precision highp int;  //highp only works in fragment shaders if you have the GL_FRAGMENT_PRECISION_HIGH extension enabled.
+					#define texture(s,t) texture2D(s, t)
+					//#define in varying
+					#define FragCoord gl_FragCoord
+					//#define FragColor gl_FragColor
+					#define FragData gl_FragData
+					out vec4 FragColor; // output fragment color
+					//#define fragColor FragColor
+					#define xflat
+					//#define iTime 5.0
+					uniform float iTime;
+					uniform vec2 iResolution;
+					uniform vec2 iMouse;
 					///#endif // GZ_tAndroid
 				</glsl>	
 			
@@ -39,10 +70,18 @@ package  {
 				</cpp>
 				
 				<glsl(this)>
-					//#ifdef GZ_tWindows  //GL 3.3 minimal
-					#version 330
+					#version 330  //GL 3.3 minimal
+					#line 2
 					#define xflat flat
 					out vec4 FragColor;
+					#define FragCoord gl_FragCoord
+					#define FragData gl_FragData
+					
+					//ToDO update
+					uniform vec2 iResolution;
+					uniform vec2 iMouse;
+					uniform float iTime;
+					//#define iTime 5.0
 					///#endif
 				</glsl>	
 				

@@ -63,11 +63,10 @@ package  {
 			//var _oPt : Pt<Float> = new Pt<Float>(_nPosX, _nPosY);
 			//var _oDim : Dim = new Dim(_nWinWidth, _nWinHeight);
 			
+			
+
 			bWinGPU = _bGpuDraw;
-			nFrameWidth = _nWinWidth;
-			nFrameHeight = _nWinHeight;
-			
-			
+
 			Debug.fTrace("Create new Window from Context!!");
 			//Debug.fTrace("vFrameW:" + vFrame.nWidth);
 			//Debug.fTrace("vFrameW:" + vFrame.nWidth);
@@ -187,6 +186,7 @@ package  {
 		
 		public function fIsWindowReady():Bool;
 		public function fIniRender():Void;
+
 
 		public function fGetMousePosition():Void;
 		public function fStartCaptureOutside():Void;

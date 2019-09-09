@@ -24,8 +24,23 @@ package  {
 				#ifdef D_Platform_Web_Emsc
 				</cpp>
 				
+				
+				/*
+					#version 100  //-->ES2/ WebGl 1
+					////////////////// ES2 //////////////////////
+					//#version 300 es    //-->ES3
+					
+					#define glES
+					#define texture(s,t) texture2D(s, t)
+					#define in attribute
+					#define out varying
+					#define xflat
+				*/
+				
 				<glsl(this)>
-					#version 100  //-->ES2/ WebGl
+					#version 300 es //WebGl 2 / ES3
+					#line 2
+					///#version 100  //-->ES2/ WebGl 1
 				////////////////// ES2 //////////////////////
 					//Default Value
 					//precision highp float;
@@ -37,8 +52,8 @@ package  {
 					
 					#define glES
 					#define texture(s,t) texture2D(s, t)
-					#define in attribute
-					#define out varying
+					//#define in attribute
+					//#define out varying
 					#define xflat
 				////////////////////////////////////////////
 				</glsl>		

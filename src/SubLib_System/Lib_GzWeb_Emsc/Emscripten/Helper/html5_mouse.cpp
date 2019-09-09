@@ -72,7 +72,7 @@ EM_BOOL mouse_callback(int eventType, const EmscriptenMouseEvent *e, void *userD
 {
 	////Todo Optimize///
 	val document = val::global("document");
-	val _oHtmlCanvas = document.call<val>("getElementById", val("canvas"));
+	val _oHtmlCanvas = document.call<val>("getElementById", val("gze_canvas"));
 	
 	gzVal rect = _oHtmlCanvas.call<val>("getBoundingClientRect");
 	int  _nCanvasX = rect["left"].as<int>();
@@ -130,7 +130,7 @@ EM_BOOL wheel_callback(int eventType, const EmscriptenWheelEvent *e, void *userD
 	return false;
 	////Todo Optimize///
 	val document = val::global("document");
-	val _oHtmlCanvas = document.call<val>("getElementById", val("canvas"));
+	val _oHtmlCanvas = document.call<val>("getElementById", val("gze_canvas"));
 	
 	int _nCanvasX = _oHtmlCanvas["clientLeft"].typeof().as<int>();
 	int _nCanvasY = _oHtmlCanvas["clientTop"].typeof().as<int>();
@@ -158,7 +158,7 @@ int fInitialise_Mouse()
 {
   // Make the canvas area stand out from the background.
   //emscripten_set_canvas_element_size("#canvas", 400, 300);
-  EM_ASM(Module['canvas'].style.backgroundColor = 'black';);
+ // EM_ASM(Module['canvas'].style.backgroundColor = 'black';);
 
   EMSCRIPTEN_RESULT ret = emscripten_set_click_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, 0, 1, mouse_callback);
   TEST_RESULT(emscripten_set_click_callback);

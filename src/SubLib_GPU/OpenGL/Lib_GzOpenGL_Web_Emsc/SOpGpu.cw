@@ -9,6 +9,7 @@
 	import GzOpenGL.OpGpu;
 	import GZ.Gpu.ShaderBase.FragmentShader;
 	import GZ.Gpu.ShaderBase.ProgramShader;
+	import GZ.Gpu.ShaderModel.GzModel.GzShModel;
 	
 	<cpp>
 		Lib_GZ::Gpu::ShaderModel::GzModel::cGzShModel* ptrGzShModel = 0;
@@ -22,6 +23,7 @@
 			if(ptrGzShModel->oFragement->fUpdateShader(gzStrC(_sSrc.c_str()))){
 				ptrGzShModel->oProgram->fAttachShader(ptrGzShModel->oFragement);
 				if(ptrGzShModel->oProgram->fLink()){
+					ptrGzShModel->oProgram->fReLoad_Uniform();
 					Lib_GZ::Debug::Debug::GetInst(ptrGzShModel->thread)->fPass(gzU8("Link Success"));
 					//Debug->fPass("Link Success");
 				}
@@ -63,7 +65,7 @@
 			
 			OpenGL.fClear(COLOR_BUFFER_BIT);
 			
-			fLoadDefaultShader();
+			//fLoadDefaultShader();
 			
 			Debug.fTrace("Finish" );
 			
@@ -113,15 +115,22 @@
 		
 		
 		
-		 public function fLoadDefaultShader():Bool {
-			
-			
-			oGzShModel = new GzShModel_Raymarching();
-			
+		 override public function fSetShader(_oShader: GzShModel):Void {
+			oGzShModel = _oShader;
 			
 			<cpp>
 				ptrGzShModel = oGzShModel.get();
-			</cpp>
+			</cpp> 
+		 }
+		
+		
+		 override public function fLoadDefaultShader():Bool {
+			
+			oGzShModel = new GzShModel_Raymarching();
+			
+			<cpp>
+				ptrGzShModel = oGzShModel.get();
+			</cpp> 
 			
 		 }
 		
