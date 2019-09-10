@@ -1,7 +1,10 @@
 package  { 
 
+	import GzOpenGL.OpenGL;
 	import GzOpenGL.OpGpuInfo;
 	import GZ.Gpu.GpuObj.GpuBuffer;
+	import GZ.Sys.Interface.Interface;
+	import GZ.Gfx.Object;
 	
 	<cpp>
 		#define GL_DEPTH_COMP_X GL_DEPTH_COMPONENT
@@ -16,7 +19,7 @@ package  {
 
 	
 	public class OpGpuBuffer overplace GpuBuffer  {
-	
+		public var nTexId : Int;
 	
 	/*
     GZ::cBuffer* oBuffer;
@@ -38,15 +41,27 @@ package  {
     gzUInt nVAO;
 */
 
-		//public var nAtlasId : Int = -1;
+//public var nAtlasId : Int = -1;
 	
 		
-		override public function GpuObject(_oInterface : Interface, _bAutoClear: Bool = true):Void{
+		public function OpGpuBuffer(_oInterface : Interface, _bAutoClear: Bool = true ):Void {
+			GpuBuffer(_oInterface, _bAutoClear);
 		}
 		
 		
 		
+		override public function fIni():Void{
+			fCreate();
+		}
+		
+		
 		override public function fCreate():Void{
+				
+				OpenGL.fActiveTexture(TEXTURE1);
+				OpenGL.fGenTextures(1, nTexId);
+				OpenGL.fGenTextures(1, nTexId);
+				
+				OpenGL.fBindTexture(TEXTURE_2D, nTexId);
 			/*
 				/////////////////////////////////////////////////////////////////
 				GL_fActiveTexture( GL_TEXTURE1 );

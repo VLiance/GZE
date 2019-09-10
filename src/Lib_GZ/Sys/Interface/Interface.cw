@@ -79,7 +79,7 @@ package  {
 
 			oThreadItf = _oThreadItf;
 
-			oGpuObj = new GpuBuffer();
+			oGpuObj = new GpuBuffer(this);
 
 			sWindowName = _sWindowName;
 			nBgColor = _nBgColor;
@@ -135,7 +135,7 @@ package  {
 
 		
 		public function fRegistred():Void {
-			oGpuObj.fIni(this);
+			oGpuObj.fIni();
 
 			if(oContext.bWinGPU ) {
 				if(fLoadShader() == false){

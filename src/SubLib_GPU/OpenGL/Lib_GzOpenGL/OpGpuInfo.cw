@@ -6,6 +6,7 @@
 	
 	<cpp_h>
 	
+		#define GL_TEXTURE_FOMAT GL_BGRA
 
 		#ifdef D_Platform_Windows
 		#include "Lib_GzOpenGL_Windows/GlWin.h"
@@ -78,15 +79,6 @@
 		#define GL_UNSIGNED_BYTE                  0x1401
 		#define GL_FLOAT                          0x1406
 
-		#define GL_STREAM_DRAW                    0x88E0
-		#define GL_STREAM_READ                    0x88E1
-		#define GL_STREAM_COPY                    0x88E2
-		#define GL_STATIC_DRAW                    0x88E4
-		#define GL_STATIC_READ                    0x88E5
-		#define GL_STATIC_COPY                    0x88E6
-		#define GL_DYNAMIC_DRAW                   0x88E8
-		#define GL_DYNAMIC_READ                   0x88E9
-		#define GL_DYNAMIC_COPY                   0x88EA
 
 		/// BeginMode
 		#define GL_POINTS                         0x0000
@@ -110,14 +102,33 @@
 		#define GL_ONE_MINUS_DST_COLOR            0x0307
 		#define GL_SRC_ALPHA_SATURATE             0x0308
 
+		
+		#define GL_CLAMP_TO_EDGE                  0x812F
+
+		#define GL_BGR                            0x80E0
+		#define GL_BGRA                           0x80E1
+
+		#define GL_STREAM_DRAW                    0x88E0
+		#define GL_STREAM_READ                    0x88E1
+		#define GL_STREAM_COPY                    0x88E2
+		#define GL_STATIC_DRAW                    0x88E4
+		#define GL_STATIC_READ                    0x88E5
+		#define GL_STATIC_COPY                    0x88E6
+		#define GL_DYNAMIC_DRAW                   0x88E8
+		#define GL_DYNAMIC_READ                   0x88E9
+		#define GL_DYNAMIC_COPY                   0x88EA
+
+
 		#define GL_ARRAY_BUFFER                 0x8892
+
+
 
 		#define GL_FRAMEBUFFER                    0x8D40
 		#define GL_RENDERBUFFER                   0x8D41
 		#define GL_DEPTH_ATTACHMENT               0x8D00
 		#define GL_STENCIL_ATTACHMENT             0x8D20
 
-				
+/* See eCOLOR_ATTACHMENTS
 		////// FBO
 		#define GL_MAX_COLOR_ATTACHMENTS          0x8CDF
 		#define GL_COLOR_ATTACHMENT0              0x8CE0
@@ -136,6 +147,112 @@
 		#define GL_COLOR_ATTACHMENT13             0x8CED
 		#define GL_COLOR_ATTACHMENT14             0x8CEE
 		#define GL_COLOR_ATTACHMENT15             0x8CEF
+		/////////////////
+*/
+		#define  GL_vec1 1
+		#define  GL_vec2 2
+		#define  GL_vec3 3
+		#define  GL_vec4 4
+
+		#define  GL_float_vec1 (1 * sizeof(gzFloat32))
+		#define  GL_float_vec2 (2 * sizeof(gzFloat32))
+		#define  GL_float_vec3 (3 * sizeof(gzFloat32))
+		#define  GL_float_vec4 (4 * sizeof(gzFloat32))
+
+		#define  GL_ATTRIB_POSITION 0
+		#define  GL_ATTRIB_SOURCE_1  1
+		#define  GL_ATTRIB_SOURCE_2  15
+		#define  GL_ATTRIB_CORNER   2
+		#define  GL_ATTRIB_TEXCOORD 3
+		#define  GL_ATTRIB_COLOR_1  4
+		#define  GL_ATTRIB_COLOR_2  5
+		#define  GL_ATTRIB_COLOR_3  6
+		#define  GL_ATTRIB_COLOR_4  7
+		#define  GL_ATTRIB_OBJ_POS  8
+		#define  GL_ATTRIB_OBJ_ROT  9
+
+		#define  GL_ATTRIB_PT_1     11
+		#define  GL_ATTRIB_PT_2     12
+		#define  GL_ATTRIB_PT_3     13
+		#define  GL_ATTRIB_PT_4     14
+
+
+		/* See texture
+		//TEXTURE
+		#define GL_TEXTURE0                       0x84C0
+		#define GL_TEXTURE1                       0x84C1
+		#define GL_TEXTURE2                       0x84C2
+		#define GL_TEXTURE3                       0x84C3
+		#define GL_TEXTURE4                       0x84C4
+		#define GL_TEXTURE5                       0x84C5
+		#define GL_TEXTURE6                       0x84C6
+		#define GL_TEXTURE7                       0x84C7
+		#define GL_TEXTURE8                       0x84C8
+		#define GL_TEXTURE9                       0x84C9
+		#define GL_TEXTURE10                      0x84CA
+		#define GL_TEXTURE11                      0x84CB
+		#define GL_TEXTURE12                      0x84CC
+		#define GL_TEXTURE13                      0x84CD
+		#define GL_TEXTURE14                      0x84CE
+		#define GL_TEXTURE15                      0x84CF
+		#define GL_TEXTURE16                      0x84D0
+		#define GL_TEXTURE17                      0x84D1
+		#define GL_TEXTURE18                      0x84D2
+		#define GL_TEXTURE19                      0x84D3
+		#define GL_TEXTURE20                      0x84D4
+		#define GL_TEXTURE21                      0x84D5
+		#define GL_TEXTURE22                      0x84D6
+		#define GL_TEXTURE23                      0x84D7
+		#define GL_TEXTURE24                      0x84D8
+		#define GL_TEXTURE25                      0x84D9
+		#define GL_TEXTURE26                      0x84DA
+		#define GL_TEXTURE27                      0x84DB
+		#define GL_TEXTURE28                      0x84DC
+		#define GL_TEXTURE29                      0x84DD
+		#define GL_TEXTURE30                      0x84DE
+		#define GL_TEXTURE31                      0x84DF
+		#define GL_ACTIVE_TEXTURE                 0x84E0
+		#define GL_TEXTURE_2D_ARRAY               0x8C1A
+*/
+		//Blend
+		#define GL_CONSTANT_COLOR                 0x8001
+		#define GL_ONE_MINUS_CONSTANT_COLOR       0x8002
+		#define GL_CONSTANT_ALPHA                 0x8003
+		#define GL_ONE_MINUS_CONSTANT_ALPHA       0x8004
+		#define GL_BLEND_COLOR                    0x8005
+		#define GL_FUNC_ADD                       0x8006
+		#define GL_MIN                            0x8007
+		#define GL_MAX                            0x8008
+		#define GL_BLEND_EQUATION                 0x8009
+		#define GL_FUNC_SUBTRACT                  0x800A
+		#define GL_FUNC_REVERSE_SUBTRACT          0x800B
+
+
+		#define GL_MAX_ARRAY_TEXTURE_LAYERS 0x88FF
+
+
+		#define GL_READ_ONLY                  0x88B8
+		#define GL_WRITE_ONLY                 0x88B9
+		#define GL_READ_WRITE                 0x88BA
+		#define GL_BUFFER_ACCESS              0x88BB
+		#define GL_BUFFER_MAPPED              0x88BC
+		#define GL_BUFFER_MAP_POINTER         0x88BD
+		#define GL_STREAM_DRAW                0x88E0
+		#define GL_STREAM_READ                0x88E1
+		#define GL_STREAM_COPY                0x88E2
+		#define GL_STATIC_DRAW                0x88E4
+		#define GL_STATIC_READ                0x88E5
+		#define GL_STATIC_COPY                0x88E6
+		#define GL_DYNAMIC_DRAW               0x88E8
+		#define GL_DYNAMIC_READ               0x88E9
+		#define GL_DYNAMIC_COPY               0x88EA
+
+		#define GL_MAP_READ_BIT                   0x0001
+		#define GL_MAP_WRITE_BIT                  0x0002
+		#define GL_MAP_INVALIDATE_RANGE_BIT       0x0004
+		#define GL_MAP_INVALIDATE_BUFFER_BIT      0x0008
+		#define GL_MAP_FLUSH_EXPLICIT_BIT         0x0010
+		#define GL_MAP_UNSYNCHRONIZED_BIT         0x0020
 		
 	</cpp_h>
 	

@@ -3,6 +3,8 @@ package  {
 	
 	import GZ.Gpu.ShaderBase.ProgramShader;
 	import GZ.Gpu.GpuObj.GpuObject;
+	import GZ.Sys.Interface.Interface;
+	import GZ.Gfx.Object;
 	
 	public overclass GpuBuffer extends GpuObject  {
 		
@@ -15,7 +17,7 @@ package  {
 		
 
 		
-		public function GpuBuffer(oInterface : Interface, _bAutoClear: Bool = true ):Void {
+		public function GpuBuffer(_oInterface : Interface, _bAutoClear: Bool = true ):Void {
 			bAutoClear = _bAutoClear;
 			oItf = _oInterface;
 		}
@@ -29,7 +31,9 @@ package  {
 		public function  fUnload():Void {
 			
 		}
-		
+		public function  fIni():Void {
+			
+		}
 		
 
 		

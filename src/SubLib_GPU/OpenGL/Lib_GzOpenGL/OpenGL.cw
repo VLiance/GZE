@@ -55,6 +55,26 @@ generate "OpenGL" {
 		}
 		
 		
+		
+		public enum eTargetTexture : Int {
+			TEXTURE_1D 0x0DE0
+			TEXTURE_2D 0x0DE1
+			TEXTURE_3D 0x806F
+			TEXTURE_1D_ARRAY 0x8C18
+			TEXTURE_2D_ARRAY 0x8C1A
+			TEXTURE_BUFFER 0x8C2A
+			TEXTURE_CUBE_MAP 0x8513
+			TEXTURE_CUBE_MAP_POSITIVE_X 0x8515
+			TEXTURE_CUBE_MAP_NEGATIVE_X 0x8516
+			TEXTURE_CUBE_MAP_POSITIVE_Y 0x8517
+			TEXTURE_CUBE_MAP_NEGATIVE_Y 0x8518
+			TEXTURE_CUBE_MAP_POSITIVE_Z 0x8519
+			TEXTURE_CUBE_MAP_NEGATIVE_Z 0x851A
+			TEXTURE_RECTANGLE 0x84F5
+			TEXTURE_2D_MULTISAMPLE 0x9100
+			TEXTURE_2D_MULTISAMPLE_ARRAY 0x9102
+		}
+		
 		public enum eDrawMode : Int {
 			POINTS = 0x0000;
 			PATCHES = 0x000E;
@@ -114,6 +134,71 @@ generate "OpenGL" {
 			ARRAY_BUFFER_BINDING           = 0x8894;
 			ELEMENT_ARRAY_BUFFER_BINDING   = 0x8895;
 		}
+		
+
+
+		public enum eColorAttachments : Int {
+			 MAX_COLOR_ATTACHMENTS          0x8CDF;
+			 COLOR_ATTACHMENT0              0x8CE0;
+			 COLOR_ATTACHMENT1              0x8CE1;
+			 COLOR_ATTACHMENT2              0x8CE2;
+			 COLOR_ATTACHMENT3              0x8CE3;
+			 COLOR_ATTACHMENT4              0x8CE4;
+			 COLOR_ATTACHMENT5              0x8CE5;
+			 COLOR_ATTACHMENT6              0x8CE6;
+			 COLOR_ATTACHMENT7              0x8CE7;
+			 COLOR_ATTACHMENT8              0x8CE8;
+			 COLOR_ATTACHMENT9              0x8CE9;
+			 COLOR_ATTACHMENT10             0x8CEA;
+			 COLOR_ATTACHMENT11             0x8CEB;
+			 COLOR_ATTACHMENT12             0x8CEC;
+			 COLOR_ATTACHMENT13             0x8CED;
+			 COLOR_ATTACHMENT14             0x8CEE;
+			 COLOR_ATTACHMENT15             0x8CEF;
+		}
+
+	
+		public enum eTexture : Int {
+			TEXTURE0                       0x84C0;
+			TEXTURE1                       0x84C1;
+			TEXTURE2                       0x84C2;
+			TEXTURE3                       0x84C3;
+			TEXTURE4                       0x84C4;
+			TEXTURE5                       0x84C5;
+			TEXTURE6                       0x84C6;
+			TEXTURE7                       0x84C7;
+			TEXTURE8                       0x84C8;
+			TEXTURE9                       0x84C9;
+			TEXTURE10                      0x84CA;
+			TEXTURE11                      0x84CB;
+			TEXTURE12                      0x84CC;
+			TEXTURE13                      0x84CD;
+			TEXTURE14                      0x84CE;
+			TEXTURE15                      0x84CF;
+			TEXTURE16                      0x84D0;
+			TEXTURE17                      0x84D1;
+			TEXTURE18                      0x84D2;
+			TEXTURE19                      0x84D3;
+			TEXTURE20                      0x84D4;
+			TEXTURE21                      0x84D5;
+			TEXTURE22                      0x84D6;
+			TEXTURE23                      0x84D7;
+			TEXTURE24                      0x84D8;
+			TEXTURE25                      0x84D9;
+			TEXTURE26                      0x84DA;
+			TEXTURE27                      0x84DB;
+			TEXTURE28                      0x84DC;
+			TEXTURE29                      0x84DD;
+			TEXTURE30                      0x84DE;
+			TEXTURE31                      0x84DF;
+			ACTIVE_TEXTURE                 0x84E0;
+			TEXTURE_2D_ARRAY               0x8C1A;
+		}
+		
+		
+		
+		
+		
 
 		//OGL
 		public static function fGetError():UInt; //Must be first
@@ -323,11 +408,11 @@ generate "OpenGL" {
 		gen public static function fDetachShader(_nIdProgram : Val, _nShaderId : Val):Void;
 
 		//Texture
-		gen public static function fActiveTexture(_eTexture : UInt):Void;
+		gen public static function fActiveTexture(_hTexture : eTexture):Void;
 		gen public static function fTexImage2D(_eTarget : UInt, _nLevel : Int, _nInternalformat : Int, _nWidth:Int, _nHeight:Int, _nBorder:Int, _eFormat:UInt, _eType:UInt, _pPixel:Any ):Void;
 		gen public static function fTexImage3D(_eTarget : UInt, _nLevel : Int, _nInternalformat : Int, _nWidth:Int, _nHeight:Int, _nDepth:Int, _nBorder:Int, _eFormat:UInt, _eType:UInt, _pPixel:Any ):Void;
 		gen public static function fTexSubImage3D(_eTarget : UInt, _nLevel : Int, _nOffsetX:Int, _nOffsetY:Int, _nOffsetZ:Int,  _nWidth:Int, _nHeight:Int, _nDepth:Int, _eFormat:UInt, _eType:UInt, _pPixel:Any ):Void;
-		gen public static function fBindTexture(_eTarget : UInt, _nTextureId : UInt):Void;
+		gen public static function fBindTexture(_hTarget : eTargetTexture, _nTextureId : UInt):Void;
 
 		gen public static function fTexParameterf(_eTarget : UInt, _eName : UInt, _nParam : Float32):Void;
 		gen public static function fTexParameteri(_eTarget : UInt, _eName : UInt, _nParam : Int):Void;
