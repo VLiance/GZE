@@ -7,13 +7,30 @@ package  {
 	public overclass GpuBuffer extends GpuObject  {
 		
 
-	
-		public var nId : Int;
 		public wvar oProgram : ProgramShader;
 		
-		public function GpuBuffer( ):Void {
+		public var nId : Int = -1;
+		public var bAutoClear : Bool;
+		public wvar oItf : Interface;
+		
+
+		
+		public function GpuBuffer(oInterface : Interface, _bAutoClear: Bool = true ):Void {
+			bAutoClear = _bAutoClear;
+			oItf = _oInterface;
+		}
+		
+	
+		override public function fDraw( _oSource : Object, _nX_Start : Int, _nX_End : Int, _nY_Start : Int, _nY_End : Int):Void{
+		
+		}
+		
+		
+		public function  fUnload():Void {
 			
 		}
+		
+		
 
 		
 	}

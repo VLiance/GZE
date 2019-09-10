@@ -332,6 +332,9 @@ package  {
 			var _oAtObjPos : Attribute = oProgram.fAddAttribute("atObjPos");
 			var _oAtVertexID : Attribute = oProgram.fAddAttribute("atVertexID");
 			
+			
+			
+			
 			oUiMouse = new UnVec2(oProgram, "iMouse");
 			oUiResolution = new UnVec2(oProgram, "iResolution");
 			//oUiTime = new UnVec2(oProgram, "iTime");

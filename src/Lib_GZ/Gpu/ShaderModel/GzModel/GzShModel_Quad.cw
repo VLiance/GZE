@@ -35,41 +35,194 @@ package  {
 			oProgram = new ProgramShader();
 			
 	
-			<glsl(oVertex)>
-				
-				in vec4 atObjPos;
-				xflat out vec4 vColor;
-				out vec2 ioTexture;
-				
-				
-				void main(){
+<glsl(oVertex)>
+							
+	uniform int nType;
 
-					if (nVertexID < 2){
-						if(nVertexID == 0){
-							gl_Position.x = -1.0;
-							gl_Position.y = -1.0;
-						}else{
-							gl_Position.x = 1.0;
-							gl_Position.y = -1.0;
-						}
-					}else{
-						if(nVertexID == 2){
-							gl_Position.x = 1.0;
-							gl_Position.y = 1.0;
-						}else{
-							gl_Position.x = -1.0;
-							gl_Position.y = 1.0;
-						}
-					}
-					gl_Position.z = 0.5;
-					gl_Position.w = 1.0;
+	layout (location = 8) in vec4 in_ObjPos; //x, y, z, ???? 
+	layout (location = 9) in vec4 in_ObjRot; // Roll, Yaw, Pitch, Focal
+	layout (location = 11) in vec4 in_Pt1;  //x,y,z, Width
+	layout (location = 12) in vec4 in_Pt2;  //x,y,z, Height
+	layout (location = 13) in vec4 in_Pt3;  //x,y,z, Length
+	layout (location = 14) in vec4 in_Pt4;  //x,y,z, ?????
+	layout (location = 3) in vec2 in_TexCoord0;  //Sx1,Sy1,Sx2,Sy2 
+	layout (location = 1) in vec4 in_TexSource0;  //Sx3,Sy3,Sx4,Sy4
+	layout (location = 15)  in vec4 in_TexSource1;  //Sx3,Sy3,Sx4,Sy4
 
-					//gl_Position.xy = atObjPos.xy; //Temp
-					vColor = atObjPos;
-					//vColor = vec4(atObjPos.y, 0.0,1.0,1.0 );
-					// vColor = vec4(1.0,0.0,0.0,1.0);
-				}
-			</glsl>
+	layout (location = 4) in vec4 in_Color1; //R,G,B,A
+	////  in vec4 in_LimitRender;  //Limit render ... in uniform? <----
+
+	//AylasID, UniformActionID, Type
+
+	////  in vec4 in_AchorRoll;  //pt1,pt2,pt3,pt4  
+	////  in vec4 in_AchorPt1;  //x1,y1,x2,x2  
+	////  in vec4 in_AchorPt2;  //x1,y1,x2,x2  
+	////  in vec4 in_AchorPt3;  //x1,y1,x2,x2  
+	////  in vec4 in_AchorPt4;  //x1,y1,x2,x2  
+
+	layout (location = 0) in vec3 in_PtPos;       //Remove     
+	layout (location = 2) in vec2 in_Corner;      //Remove     
+	layout (location = 5) in vec4 in_Color2;   //Remove     
+	layout (location = 6) in vec4 in_Color3;   //Remove     
+	layout (location = 7) in vec4 in_Color4;   //Remove     
+
+
+
+	uniform float nWinHalfWidth;
+	uniform float nWinHalfHeight;
+
+	uniform vec2 nPos;
+	uniform vec2 nTexDim;
+	uniform vec2 nTexDimSource;
+
+	uniform vec4 v1Color;
+	uniform mat4 mColor;
+	/////////////////
+
+	out vec2 coord_Texture;
+	out vec2 coord_TextureSource;
+	out vec2 coord_Corner;
+
+	flat out vec4 coord_Color1;
+	flat out vec4 coord_Color2;
+	flat out vec4 coord_Color3;
+	flat out vec4 coord_Color4;
+
+	flat out vec4 coord_Pt1;
+	flat out vec4 coord_Pt2;
+	flat out vec4 coord_Pt3;
+	flat out vec4 coord_Pt4;
+	///////////////////
+
+	in int gl_VertexID;
+
+	void main(){
+
+		if(nType == 1){ //Normal 2D
+
+		
+		
+			gl_Position.x = (((in_PtPos.x * in_PtPos.z) + nPos.x + 0.5) - nWinHalfWidth )/ nWinHalfWidth ;
+			gl_Position.y = (((in_PtPos.y * in_PtPos.z) + nPos.y + 0.499) - nWinHalfHeight)/-nWinHalfHeight ;
+			gl_Position.w = in_PtPos.z;
+			gl_Position.z = 0;
+
+
+			
+			coord_Texture.x = (in_TexCoord0.x + 0.5) / (nTexDim.x + 4 );
+			coord_Texture.y = (in_TexCoord0.y + 0.5) / (nTexDim.y + 4) ;
+
+			coord_TextureSource.x = in_TexCoord0.x / nTexDim.x;
+			coord_TextureSource.y = in_TexCoord0.y / nTexDim.y;
+
+			coord_Corner = in_Corner;
+			
+			coord_Color1 = in_Color1;
+			coord_Color2 = in_Color2;
+			coord_Color3 = in_Color3;
+			coord_Color4 = in_Color4;
+		}
+		
+		if(nType == 4){ //Normal 3D
+			
+
+			
+			gl_Position.x = in_PtPos.x;
+			gl_Position.y = in_PtPos.y;
+			gl_Position.z = in_PtPos.z;
+			
+			//BATCH ONLY
+			switch(gl_VertexID){
+				case 0 :
+					gl_Position =  in_Pt1;
+					coord_Corner = vec2(0.25,0.25);
+					coord_Texture = (in_TexSource0.xy + 0.5)/ 500.0;
+		
+				break;
+				case 1 :
+					gl_Position =  in_Pt2;
+					coord_Corner = vec2(0.75,0.25);
+					coord_Texture = (in_TexSource0.zw + 0.5)/ 500.0;
+				break;
+				case 2 :
+					gl_Position =  in_Pt3;
+					coord_Corner = vec2(0.75,0.75);
+					coord_Texture = (in_TexSource1.xy + 0.5)/ 500.0;
+				break;
+				case 3 :
+					gl_Position =  in_Pt4;
+					coord_Corner = vec2(0.25,0.75);
+					coord_Texture = (in_TexSource1.zw + 0.5)/ 500.0;
+				break;
+			}
+		
+			
+			///// Rotation ////
+			float _nTx = (gl_Position.x * cos(in_ObjRot.y)) - (gl_Position.z * sin(in_ObjRot.y));
+			float _nTz = (gl_Position.x * sin(in_ObjRot.y)) + (gl_Position.z * cos(in_ObjRot.y));
+			float _nTy = (gl_Position.y * cos(in_ObjRot.z)) - (_nTz * sin(in_ObjRot.z));
+			gl_Position.z  = (_nTy * sin(in_ObjRot.z)) - (_nTz * cos(in_ObjRot.z));
+			gl_Position.x = (_nTx * cos(in_ObjRot.x)) - (_nTy * sin(in_ObjRot.x));
+			gl_Position.y = (_nTx * sin(in_ObjRot.x)) + (_nTy * cos(in_ObjRot.x));
+			////////////////////
+			
+			//3D to Screen
+			gl_Position.w  =  gl_Position.z * in_ObjPos.w + 1.0;
+			gl_Position.x = (((gl_Position.x ) + in_ObjPos.x + 0.5) - nWinHalfWidth )/ nWinHalfWidth ;
+			gl_Position.y = (((gl_Position.y ) + in_ObjPos.y + 0.499) - nWinHalfHeight)/-nWinHalfHeight ;
+			gl_Position.z = 0;
+
+		
+			
+			//coord_Texture.x = (in_TexCoord0.x + 0.5) / (nTexDim.x + 4 );  //Not batch
+			//coord_Texture.y = (in_TexCoord0.y + 0.5) / (nTexDim.y + 4) ;  //Not batch
+
+			coord_TextureSource.x = in_TexCoord0.x / nTexDim.x;
+			coord_TextureSource.y = in_TexCoord0.y / nTexDim.y;
+
+		
+			//coord_Corner =vec2(0.5,0.5);
+			
+			coord_Color1 = in_Color1;
+			coord_Color2 = in_Color2;
+			coord_Color3 = in_Color3;
+			coord_Color4 = in_Color4;
+			
+			coord_Pt1 = in_Pt1;
+			coord_Pt2 = in_Pt2;
+			coord_Pt3 = in_Pt3;
+			coord_Pt4 = in_Pt4;
+			
+		}
+		
+		
+
+		if(nType == 2){ //Buffer
+		
+			gl_Position = vec4(in_PtPos, 1.0) ;
+			gl_Position.x = (gl_Position.x - nWinHalfWidth )/ nWinHalfWidth;
+			gl_Position.y = ((gl_Position.y  )  - nWinHalfHeight)/-nWinHalfHeight;
+
+			coord_Texture.x = in_TexCoord0.x / nTexDim.x;
+			coord_Texture.y = (in_TexCoord0.y )/ nTexDim.y;
+
+			coord_TextureSource.x = in_TexCoord0.x / nTexDim.x;
+			coord_TextureSource.y = in_TexCoord0.y / nTexDim.y;
+		}
+
+		if(nType == 3){ //UniColor
+			gl_Position = vec4(in_PtPos, 1.0) ;
+			gl_Position.x = (gl_Position.x - nWinHalfWidth )/ nWinHalfWidth;
+			gl_Position.y = ((gl_Position.y  )  - nWinHalfHeight)/-nWinHalfHeight;
+			coord_TextureSource.x = in_TexCoord0.x / nTexDim.x;
+			coord_TextureSource.y = in_TexCoord0.y / nTexDim.y;
+		}
+
+	}
+				
+				
+				
+</glsl>
 
 			oVertex.fLoad();
 			
@@ -86,210 +239,115 @@ package  {
 			}
 			
 			///////////// Fragment Shader //////////////
-			<glsl(oFragement)>
-				uniform vec2 vTexDim;
-				uniform vec2 vWinDim;
-				//uniform vec2 iMouse;
+<glsl(oFragement)>
 				
-				xflat in vec4 vColor;
-				xflat in vec2 ioTexture;
+					
+	out vec4 outputColor;
 
-				vec3 cam_pos = vec3(0,0,0);
-				float PI=3.14159265;
-				
-				 ///////////////////////// OBJ /////////////////
-				 
-				 //Sol
-				vec2 obj_floor( vec3 p){
-					return vec2(p.y+10.0,0);
-				}
-				
-				 //Sphere
-				vec2 obj_sphere( vec3 p){
-					float d = length(p)-1.9;
-					 return vec2(d,1);
-				}	 
-				
-				 //Tore
-				 vec2 obj_torus( vec3 p){
-					 vec2 r = vec2(1.4,1.2);
-					 vec2 q = vec2(length(p.xz)-r.x,p.y);
-					 float d = length(q)-r.y;
-					 return vec2(d,1);
-				}	
-				
-								
-				//Box
-				vec2 obj_round_box(vec3 p){
-					float d = length(max(abs(p)-vec3(0.3,0.15,1.0),0.0))-0.2;
-					return vec2(d,1);
-				}
-				/*
-				vec2 obj_round_box(vec3 p){
-					  float d= length(max(abs(p)-vec3(1.0,0.5,2.0),0.0))-0.08;
-				//  float d = length(max(abs(p)-vec3(2.0,0.5,2.0),0.0))-0.2;
-				  return vec2(d,1);
-				}*/
+	uniform sampler2D TexCurrent;
+	uniform sampler2D TexSource;
+	uniform sampler2D TexFragPos;
+	uniform sampler2D TexPixSrc;
 
-								
-				 ///////////////////////////////////////////////////////
+	uniform sampler2DArray TexArray;  
 
-				/// Operator ////////	
-				vec2 op_union(vec2 a, vec2 b){
-				  float d = min(a.x, b.x);
-				  return vec2(d,1);
-				}
-				
-				vec2 op_rep(vec3 p, vec3 c){
-				  vec3 q = mod(p,c)-0.5*c;
-				  return obj_round_box(q);
-				}
-				
-				vec2 op_sub(vec2 a, vec2 b)	{
-				  float d = max(a.x, -b.x);
-				  return vec2(d,1);
-				}
-				
-				vec2 op_blend(vec3 p, vec2 a, vec2 b){
-				 float s = smoothstep(length(p), 0.0, 1.0);
-				 float d = mix(a.x, b.x, s);
-				 return vec2(d,1);
-				}
+	in vec2 coord_TextureSource;
+	in vec2 coord_Texture;
+	in vec2 coord_Corner;
 
-				///////////   Union  ////////////////////
-				vec2 obj_union( vec2 obj0,  vec2 obj1){ 
-					if (obj0.x < obj1.x){
-						return obj0;
-					}else{
-						return obj1;
-					}
-				}
-				
-				// Union d'objets
-				vec2 distance_to_obj( vec3 p){
-					 //return obj_floor(p);
-					 //return obj_union(obj_floor(p), obj_round_box(p));
-					 //return obj_union(obj_floor(p), op_union(obj_round_box(p), obj_sphere(p)));  
-				  	 //return obj_union(obj_floor(p), op_sub(obj_round_box(p), obj_sphere(p)));
-					 //return obj_union(obj_floor(p), op_blend(p, obj_round_box(p), obj_torus(p))   )  ;
-				  	 //return obj_union(obj_floor(p), op_blend(p, obj_round_box(p), obj_torus(p))   )  ;
-					  return obj_union(obj_floor(p), op_rep(p , vec3(3.0, 2.0, 6.0)));
-				}
+	flat in vec4 coord_Color1;
+	flat in vec4 coord_Color2;
+	flat in vec4 coord_Color3;
+	flat in vec4 coord_Color4;
+
+	flat in vec4 coord_Pt1;
+	flat in vec4 coord_Pt2;
+	flat in vec4 coord_Pt3;
+	flat in vec4 coord_Pt4;
+
+	uniform vec4 vColorTL;
+	uniform vec4 vColorTR;
+	uniform vec4 vColorBR;
+	uniform vec4 vColorBL;
+
+	uniform vec4 v1Color;
+	uniform mat4 mColor;
+
+	uniform int nType;
+
+
+	void main()
+	{
+
+		if(nType == 1 || nType == 4){ //Normal
+			vec2 coord_Source = gl_FragCoord.xy/vec2(800.0,600.0);
+			vec4 pixFrame = texture(TexSource, coord_Source );
+
+			float nRevAlpha = 1.0 -  pixFrame.a;
+
+			//float nTR = (coord_Texture.x * (1.0-coord_Texture.y));
+			//float nBR = (coord_Texture.x * coord_Texture.y);
+			//float nBL = ((1.0 - coord_Texture.x) * coord_Texture.y);
+			//float nTL = 1.0 - (nBL + nTR + nBR);
 			
+			vec4 vCoDist = texture(TexFragPos, coord_Corner );
+			
+			//vec4 vTL2 = vec4(1.0,0.5,0.5,1.0) * vCoDist.r;
+			//vec4 vTR2 = vec4(0.5,1.0,0.5,1.0) * vCoDist.g;
+			//vec4 vBR2 = vec4(0.5,0.5,1.0,1.0) * vCoDist.b;
+			//vec4 vBL2 = vec4(0.5,0.5,0.5,0.5) * vCoDist.a;
 
-				 //// Couleur du sol (damier)
-				 vec3 floor_color( vec3 p){
-					 
-					 vec3 c = vec3(8.0, 5.0, 9.0);
-					 
-					 vec3 q = mod(p,c) - 0.5 * c;
-					  return  q ;
-					   
-					//return  vec3( smoothstep(length(p), fract(p.x*0.2), fract(p.y*0.2)),1,1);
-					 /*
-					 if (fract(p.x*0.2)>0.2){
-						 if (fract(p.z*0.2)>0.2){
-							 return vec3(0,0.1,0.2);
-						}else{
-							return vec3(1,1,1);
-						}
-					}else{
-						if (fract(p.z*.2)>.2){
-							return vec3(1,1,1);
-						}else{
-							return vec3(0.3,0,0);
-						}
-					}*/
-				 }
-				 
-				 //// Couleur de la primitive
-				 vec3 prim_c( vec3 p){
-					 return vec3(0.9137,0.83,0.70);
-				 }
-				 
-				 void main(){
-					 
-					  vec2 q = ( gl_FragCoord.xy / vec2(800.0,800.0) );
-					  
-					 
-					 //FragColor = vec4(0,q.y,0,1.0);
-					 //return;
-					 
-					 
-					 float _nMoveX = 2.5 * iMouse.x * iMouse.y;
-					// float _nMoveY = 2.5 * iMouse.y;
-					 
-					 
-					
-					 //vec2 q = vec2(1.0, 0.5);
-					 vec2 vPos = -1.0 + 2.0 * q;
-					 
-				 	// Inclinaison de la caméra.
-					vec3 vuv = vec3(0,1.5,0.0);
-					
-					// Direction de la caméra.
-					vec3 vrp = vec3(0.5,0.5,1.0);
-					//vec3 vrp = vec3(0.0, _nMove,  0.0) * 6.0;
-					
-					
-					// Position de la caméra.
-					//vec2 mouse = vec2(0.5, 0.5);
-					float mx = iMouse.x* PI * 2.0;
-					float my = iMouse.y* PI / 2.01;
-					vec3 prp = vec3(  cos(my)*cos(mx),  sin(my),   cos(my)*sin(mx)  ) * 6.0;
-					
-					//vec3 prp = vec3(  _nMoveX * 1.5 - 0.2 , _nMoveX - 0.3- 1.0,   -0.6 ) * 6.0 ;
-					
-					//vec3 prp = cam_pos;
-					
-					vec3 vpn = normalize(vrp-prp);
-					vec3 u = normalize(cross(vuv , vpn));
-					vec3 v = cross(vpn , u);
-					vec3 vcv = (prp + vpn);
-					
-					//vec3 scrCoord=vcv+vPos.x*u*resolution.x/resolution.y+vPos.y*v;
-					
-					vec3 scrCoord = vcv + vPos.x * u * 0.8 + vPos.y * v * 0.8;
-					vec3 scp = normalize(scrCoord - prp);
-					
-					 // Raymarching.
-					const vec3 e = vec3(0.02, 0, 0);
-					const float maxd = 100.0;
-					vec2 d = vec2(0.02,0.0);
-					vec3 c,p,N;
-					
-					float f = 1.0;
-					for(int i = 0; i< 260; i++){
-						if ((abs(d.x) < .001) || (f > maxd)) {
-							break;
-						}
-						
-						f += d.x;
-						p = prp + scp * f;
-						d = distance_to_obj(p);
-					}
-					
-					if (f < maxd){
-						if (d.y==0.0){
-							c=floor_color(p);
-						}else{
-							c=prim_c(p);
-						}
-						
-						vec3 n = vec3(d.x-distance_to_obj(p-e.xyy).x, d.x-distance_to_obj(p-e.yxy).x,  d.x-distance_to_obj(p-e.yyx).x);
-						N = normalize(n);
-						float b=dot(N,normalize(prp-p));
-						// Simple éclairage Phong, LightPosition = CameraPosition
-						FragColor = vec4((b*c+pow(b,16.0))*(1.0-f*.01),1.0);
-						
-					}else{
-						//FragColor = vec4(0.0 + vColor.x,0,0,1.0);
-						//FragColor = vec4(0.0 + iMouse.x ,0.0 + iMouse.y ,0.0 ,1.0);
-						FragColor = vec4(0.0 ,0.0 ,0.0 ,1.0);
-						//FragColor = vec4(0 ,0,0,1.0);
-					}
-				}
-			</glsl>
+			vec4 vPtDist = clamp(( coord_Color1 * vCoDist.a) + (coord_Color2 * vCoDist.r) + (coord_Color3 * vCoDist.g) + (coord_Color4 * vCoDist.b), 0.0, 1.0);
+			
+			vec4 vLight = max(vPtDist * 2.0 - 1.0, 0); //0 a 1 -> = 0 if Dark
+			vec4 vDark  = min(vPtDist * 2.0 , 1.0); //0 a 1 -> = 1 if bright
+
+			
+			vec4 pixTex = texture(TexCurrent, coord_Texture);
+			//vec4 pixTex = texture(TexArray, vec3(coord_Texture, coord_Pt4.w ));  //Batch only
+		//	vec4 pixTex = texture(TexArray, vec3(coord_Texture, 0 ));  //Batch only
+			//vec4 pixTex = vec4(0.5,0.5,0.5,0.5);  //Batch only
+			
+			
+			//vec4 pixTex = texture(TexCurrent, vec2(vPtDist.r,vPtDist.g ));
+			
+			pixTex.r = (((pixTex.a - pixTex.r) * vLight.r) + pixTex.r) * vPtDist.a * vDark.r;
+			pixTex.g = (((pixTex.a - pixTex.g) * vLight.g) + pixTex.g) * vPtDist.a * vDark.g;
+			pixTex.b = (((pixTex.a - pixTex.b) * vLight.b) + pixTex.b) * vPtDist.a * vDark.b;
+			pixTex.a *= vPtDist.a;
+			
+			//vec4 vPix = pixFrame + pixTex * nRevAlpha;
+			//vec4 vPix = vec4(pixFrame.rgb - nRevAlpha * pixFrame.rgb, 1.0);
+			vec4 vPix = pixFrame + pixTex * (1 - pixFrame.a);
+			//vPix.a = 1.0;
+			
+			outputColor = vPix;
+			outputColor = pixTex;
+	//		outputColor =  vec4( vCoDist.x, vCoDist.y, vCoDist.z,1.0);
+			
+			
+			//////////////////////////////////////////////////////
+
+			///////////////////////////////////////////////////////
+			
+			//outputColor = vec4( (vCoDist.x  + vCoDist.z   ) , 0.0,0.0,1.0);
+		}
+		if(nType == 2){ //Buffer (no Alpha)
+			outputColor = texture(TexCurrent, coord_Texture);
+		}
+
+		if(nType == 3){ //UniColor
+			vec2 coord_Source = gl_FragCoord.xy/vec2(800.0,600.0);
+			vec4 pixFrame = texture(TexSource, coord_Source );
+			//vec4 pixTex =  vec4(1.0,1.0,1.0,1.0);
+			vec4 pixTex =  v1Color;
+			float nRevAlpha = 1.0 -  pixFrame.a;
+			outputColor = pixFrame + pixTex * nRevAlpha;
+		}
+		
+	}
+				
+</glsl>
 			
 			oFragement.fLoad();
 
