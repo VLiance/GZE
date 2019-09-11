@@ -3,7 +3,7 @@ package  {
 	import GzOpenGL.OpenGL;
 	import GzOpenGL.OpGpuInfo;
 	import GZ.Gpu.GpuObj.GpuBuffer;
-	import GZ.Sys.Interface.Interface;
+	import GZ.Gfx.Buffer;
 	import GZ.Gfx.Object;
 	
 	<cpp>
@@ -20,6 +20,7 @@ package  {
 	
 	public class OpGpuBuffer overplace GpuBuffer  {
 		public var nTexId : Int;
+		public var nIdBuff : Int;
 	
 	/*
     GZ::cBuffer* oBuffer;
@@ -33,7 +34,7 @@ package  {
     gzInt nNbPoints;
     gzUInt nTexId;
     gzUInt nAtlasId;
-    gzUInt nIdBuff;
+    gzUInt ;
     gzBool bAutoClear;
   //  gzUInt nTexWidth;
    // gzUInt nTexHeight;
@@ -44,8 +45,8 @@ package  {
 //public var nAtlasId : Int = -1;
 	
 		
-		public function OpGpuBuffer(_oInterface : Interface, _bAutoClear: Bool = true ):Void {
-			GpuBuffer(_oInterface, _bAutoClear);
+		public function OpGpuBuffer(_oBuffer : Buffer, _bAutoClear: Bool = true ):Void {
+			GpuBuffer(_oBuffer, _bAutoClear);
 		}
 		
 		
@@ -58,11 +59,56 @@ package  {
 		override public function fCreate():Void{
 				
 				OpenGL.fActiveTexture(TEXTURE1);
-				OpenGL.fGenTextures(1, nTexId);
-				OpenGL.fGenTextures(1, nTexId);
 				
+				//New Texture of buffer size
+				OpenGL.fGenTextures(1, nTexId);
 				OpenGL.fBindTexture(TEXTURE_2D, nTexId);
-			/*
+				OpenGL.fTexImage2D(TEXTURE_2D, 0, BGRA, oBuffer.nBuffWidth, oBuffer.nBuffHeight, 0, BGRA, UNSIGNED_BYTE, 0);
+				OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_MAG_FILTER , OpenGL.eTextureMagFilter.LINEAR);
+				OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_MIN_FILTER , OpenGL.eTextureMinFilter.LINEAR);
+				OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_WRAP_S, OpenGL.eTextureWrapMode.REPEAT); // Repeat on X axis
+				OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_WRAP_T, OpenGL.eTextureWrapMode.REPEAT);  // Stretch on Y axis
+				OpenGL.fBindTexture(TEXTURE_2D, 0);
+				
+				//FBO
+				OpenGL.fGenFramebuffers(1, nIdBuff);
+				OpenGL.fBindFramebuffer(FRAMEBUFFER, nIdBuff);
+				
+				//RENDERBUFFER
+				var _nIdRbo : Int = 0;
+				OpenGL.fGenRenderbuffers(1, _nIdRbo);
+				OpenGL.fBindRenderbuffer(RENDERBUFFER, _nIdRbo);
+				OpenGL.fRenderbufferStorage(RENDERBUFFER, DEPTH_COMPONENT,  oBuffer.nBuffWidth, oBuffer.nBuffHeight); //ES2 requie GL_DEPTH_COMPONENT16?
+				OpenGL.fBindRenderbuffer(RENDERBUFFER, 0);
+				
+				//Attach the created texture to FBO color attachement point: nTexId = COLOR_ATTACHMENT0
+				OpenGL.fFramebufferTexture2D(FRAMEBUFFER, COLOR_ATTACHMENT0, TEXTURE_2D, nTexId, 0);
+			   // glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, nLastTexture, 0);
+
+				// Attach a renderbuffer object the binded framebuffer object: _nIdRbo => nIdBuff
+				OpenGL.fFramebufferRenderbuffer(FRAMEBUFFER, DEPTH_ATTACHMENT, RENDERBUFFER, _nIdRbo);
+
+				
+				//aTexCoord[0] = 0.0f;   aTexCoord[1] =  oBuffer->nBuffHeight;   aTexCoord[2] =  oBuffer->nBuffWidth;   aTexCoord[3] = oBuffer->nBuffHeight;
+				//aTexCoord[4] = oBuffer->nBuffWidth;   aTexCoord[5] = 0.0f ;   aTexCoord[6] = 0.0f ;       aTexCoord[7] = 0.0f ;
+
+
+				if(bAutoClear){
+					//Clear
+					OpenGL.fBindFramebuffer(FRAMEBUFFER, nIdBuff);
+					OpenGL.fClearColor(1.0, 1.0, 1.0, 1.0);
+					OpenGL.fClear(COLOR_BUFFER_BIT );
+					//GL_fClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+					//GL_fBindFramebuffer(GL_FRAMEBUFFER, 0); // unbind
+				}
+
+
+				OpenGL.fBindFramebuffer(FRAMEBUFFER, 0);
+				
+				
+				
+					
+				/*
 				/////////////////////////////////////////////////////////////////
 				GL_fActiveTexture( GL_TEXTURE1 );
 

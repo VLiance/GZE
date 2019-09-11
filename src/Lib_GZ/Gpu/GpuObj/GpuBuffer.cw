@@ -5,21 +5,27 @@ package  {
 	import GZ.Gpu.GpuObj.GpuObject;
 	import GZ.Sys.Interface.Interface;
 	import GZ.Gfx.Object;
+	import GZ.Gfx.Buffer;
+	
 	
 	public overclass GpuBuffer extends GpuObject  {
 		
 
 		public wvar oProgram : ProgramShader;
 		
+				
+		//public var nBuffWidth : UInt = 0;
+		//public var nBuffHeight : UInt = 0;
+		
 		public var nId : Int = -1;
 		public var bAutoClear : Bool;
-		public wvar oItf : Interface;
+		public wvar oBuffer : Buffer;
 		
 
 		
-		public function GpuBuffer(_oInterface : Interface, _bAutoClear: Bool = true ):Void {
+		public function GpuBuffer(_oBuffer : Buffer, _bAutoClear: Bool = true ):Void {
 			bAutoClear = _bAutoClear;
-			oItf = _oInterface;
+			oBuffer = _oBuffer;
 		}
 		
 	
