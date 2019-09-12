@@ -362,7 +362,7 @@ package  {
 			
 			//nDestX = oWindow.nMouseX  + nDragX + ( oWindow.nMouseX - oWindow.nLastMouseX)/1.5;
 			//nDestY = oWindow.nMouseY  + nDragY + ( oWindow.nMouseY - oWindow.nLastMouseY)/1.5;
-			//	Debug.fTrace("aaaaa");
+			
 			//	if(oUiMouse.oVal.nX < 6){
 			//oUiMouse.vVal.nX = Context.nMouseX/ 5.5;
 			//Debug.fTrace( Context.nMouseX + ": " +Context.nMouseY  );
@@ -375,7 +375,7 @@ package  {
 			oUiResolution.vVal.nX  = Context.nFrameWidth;
 			oUiResolution.vVal.nY  = Context.nFrameHeight;
 			oUiResolution.fSend();
-					
+			
 			oVboBatch.fSendData();
 			oGpuBatch.fDraw();
 		}

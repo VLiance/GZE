@@ -19,7 +19,7 @@ package  {
 
 	
 	public class OpGpuBuffer overplace GpuBuffer  {
-		public var nTexId : Int;
+		public var nTexId : Val;
 		public var nIdBuff : Int;
 	
 	/*
@@ -57,12 +57,15 @@ package  {
 		
 		
 		override public function fCreate():Void{
+				return;
 				
 				OpenGL.fActiveTexture(TEXTURE1);
 				
 				//New Texture of buffer size
 				OpenGL.fGenTextures(1, nTexId);
+				
 				OpenGL.fBindTexture(TEXTURE_2D, nTexId);
+				/*
 				OpenGL.fTexImage2D(TEXTURE_2D, 0, BGRA, oBuffer.nBuffWidth, oBuffer.nBuffHeight, 0, BGRA, UNSIGNED_BYTE, 0);
 				OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_MAG_FILTER , OpenGL.eTextureMagFilter.LINEAR);
 				OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_MIN_FILTER , OpenGL.eTextureMinFilter.LINEAR);
@@ -87,7 +90,7 @@ package  {
 
 				// Attach a renderbuffer object the binded framebuffer object: _nIdRbo => nIdBuff
 				OpenGL.fFramebufferRenderbuffer(FRAMEBUFFER, DEPTH_ATTACHMENT, RENDERBUFFER, _nIdRbo);
-
+				*/
 				
 				//aTexCoord[0] = 0.0f;   aTexCoord[1] =  oBuffer->nBuffHeight;   aTexCoord[2] =  oBuffer->nBuffWidth;   aTexCoord[3] = oBuffer->nBuffHeight;
 				//aTexCoord[4] = oBuffer->nBuffWidth;   aTexCoord[5] = 0.0f ;   aTexCoord[6] = 0.0f ;       aTexCoord[7] = 0.0f ;

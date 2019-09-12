@@ -552,11 +552,19 @@ generate "OpenGL" {
 		gen public static function fTexImage2D(_hTarget : eTargetTexture, _nLevel : Int, _hInternalformat : ePixelFormat, _nWidth:Int, _nHeight:Int, _nBorder:Int, _hFormat:ePixelFormat,  _hType: ePixelType, _pPixel:Any ):Void;
 		gen public static function fTexImage3D(_hTarget : eTargetTexture, _nLevel : Int, _hInternalformat : ePixelFormat, _nWidth:Int, _nHeight:Int, _nDepth:Int, _nBorder:Int, _hFormat:ePixelFormat,  _hType: ePixelType, _pPixel:Any ):Void;
 		gen public static function fTexSubImage3D(_hTarget : eTargetTexture, _nLevel : Int, _nOffsetX:Int, _nOffsetY:Int, _nOffsetZ:Int,  _nWidth:Int, _nHeight:Int, _nDepth:Int, _hFormat:ePixelFormat,  _hType: ePixelType, _pPixel:Any ):Void;
-		gen public static function fBindTexture(_hTarget : eTargetTexture, _nTextureId : UInt):Void;
+		gen public static function fBindTexture(_hTarget : eTargetTexture, _nTextureId : Val):Void;
 
 		gen public static function fTexParameterf(_hTarget : eTargetTexture, _hName : eTextureParameterName, _nParam : Float32):Void;
 		gen public static function fTexParameteri(_hTarget : eTargetTexture, _hName : eTextureParameterName, _nParam : Int):Void;
-		gen public static function fGenTextures(_nNb: Int, _aTextures : CArray<UInt>):Void;
+		gen public static function fGenTextures(_nNb: Int, _aTextures : CArray<UInt>):Void{
+			<cpp>
+			#ifdef D_Platform_Web_Emsc
+				
+			//	oGL.call<gzVal>("createTexture");	//Can we create multiple textures?
+				return;
+			#endif
+			</cpp>
+		}
 
 		//Draw
 		gen public static function fClear(_hMask : eClearBuffer):Void;

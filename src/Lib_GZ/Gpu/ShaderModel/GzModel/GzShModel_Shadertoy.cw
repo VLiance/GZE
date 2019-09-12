@@ -393,7 +393,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 			//	Debug.fTrace("aaaaa");
 			//	if(oUiMouse.oVal.nX < 6){
 			//oUiMouse.vVal.nX = Context.nMouseX/ 5.5;
-			//Debug.fTrace( Context.nMouseX + ": " +Context.nMouseY  );
+		//	Debug.fTrace( Context.nMouseX + ": " + Context.nMouseY  );
 				
 				
 			oUiMouse.vVal.nX = Context.nMouseX/Context.nFrameWidth - 0.5;
@@ -403,7 +403,9 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 			oUiResolution.vVal.nX  = Context.nFrameWidth;
 			oUiResolution.vVal.nY  = Context.nFrameHeight;
 			oUiResolution.fSend();
-					
+				
+		//		Debug.fTrace("oUiMouse.vVal.nX" + oUiMouse.vVal.nX);
+						
 			oVboBatch.fSendData();
 			oGpuBatch.fDraw();
 		}
