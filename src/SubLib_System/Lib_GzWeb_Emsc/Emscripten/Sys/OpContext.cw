@@ -18,7 +18,7 @@ package  {
 	
 	<cpp>
 	#include "Lib_GzWeb_Emsc/Emscripten/Helper/html5_mouse.cpp"
-	#include "Lib_GzWeb_Emsc/Emscripten/Helper/html5_keyboard.cpp"
+//	#include "Lib_GzWeb_Emsc/Emscripten/Helper/html5_keyboard.cpp"
 	</cpp>
 	
 	
@@ -268,7 +268,7 @@ package  {
 				
 				
 			fInitialise_Mouse();
-			fInitialise_Keyboard();
+			
 				
 			</cpp>	
 			

@@ -8,7 +8,7 @@ package  {
 	/**
 	 * @author Maeiky
 	 */
-	public class Key  {
+	public overclass Key  {
 		
 		public var aKeyDown : CArray<Bool, 1, 256>
 		public var aKeyPress : CArray<Bool, 1, 256>
@@ -199,7 +199,7 @@ package  {
 			Scroll_Lock  = 0x91;
 			Sleep  = 0x5F;
 			Snapshot  = 0x2C;
-			UP  = 0x26;
+			Up  = 0x26;
 			Down  = 0x28;
 			Left  = 0x25;
 			Right  = 0x27;

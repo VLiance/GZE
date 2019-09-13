@@ -27,6 +27,7 @@ package  {
 		public var oUiTime : UnFloat;
 		public var oUiMouse : UnVec2;
 		public var oUiResolution : UnVec2;
+		public var oUvPosition : UnVec2;
 		
 		public function GzShModel():Void {
 			fLoad();

@@ -12,7 +12,7 @@ package  {
 	import GZ.Base.Perspective;
 	import GZ.Sys.Interface.Context;
 	import GZ.Gpu.ShaderModel.GzModel.GzShModel;
-	
+	import GZ.Input.Key;
 	//import GZ.Base.TestPod;
 	//import GZ.Base.TestPod2;
 	
@@ -281,7 +281,7 @@ mat4 viewMatrix(vec3 eye, vec3 center, vec3 up) {
 void mainImage( out vec4 fragColor, in vec2 fragCoord )
 {
     vec3 viewDir = rayDirection(45.0, iResolution.xy, fragCoord);
-    vec3 eye = vec3(0.0, 0.0, 10.0);
+    vec3 eye = vec3(vPosition.x, vPosition.y, 10.0);
     
     mat4 viewToWorld = viewMatrix(eye, vec3(0.0, 0.0, 0.0), vec3(0.0, 1.0, 0.0));
     
@@ -355,9 +355,12 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 			oUiTime = new UnFloat(oProgram, "iTime");
 			oUiMouse = new UnVec2(oProgram, "iMouse");
 			oUiResolution = new UnVec2(oProgram, "iResolution");
+			oUvPosition = new UnVec2(oProgram, "vPosition");
 			//oUiTime = new UnVec2(oProgram, "iTime");
 			
 			var _oPersv : Perspective = new Perspective();
+			
+			
 			
 			
 			
@@ -384,10 +387,26 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 				oUiTime->nVal = _nTime;
 			</cpp>
 		
-		
 			oUiTime.fSend();
-			 
-			
+		
+		
+			//Key
+			var _nSpeed : Float = 0.1;
+			if(Key.fIsDown(Up)){
+				oUvPosition.vVal.nY += _nSpeed;
+			}
+			if(Key.fIsDown(Down)){
+				oUvPosition.vVal.nY -= _nSpeed;
+			}
+			if(Key.fIsDown(Left)){
+				oUvPosition.vVal.nX -= _nSpeed;
+			//	Debug.fTrace("Left");
+			}
+			if(Key.fIsDown(Right)){
+				oUvPosition.vVal.nX += _nSpeed;
+			}
+			oUvPosition.fSend();
+		
 			//nDestX = oWindow.nMouseX  + nDragX + ( oWindow.nMouseX - oWindow.nLastMouseX)/1.5;
 			//nDestY = oWindow.nMouseY  + nDragY + ( oWindow.nMouseY - oWindow.nLastMouseY)/1.5;
 			//	Debug.fTrace("aaaaa");

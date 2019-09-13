@@ -6,6 +6,7 @@
 	import GZ.File.File;
 	import GZ.Sys.System;
 	import GZ.File.Font;
+	import GZ.Input.Key;
 	
 	import GzOpenGL.OpenGL;
 	import GZ.Gpu.GpuObj.GpuObject;
@@ -23,6 +24,7 @@
 			System = new System();
 			File = new File("Sys|CurrentModule");
 			Font = new Font();
+			Key = new Key();
 			Debug.fInfo("-- New ThreadItf --");
 			
 			OpenGL = new OpenGL();

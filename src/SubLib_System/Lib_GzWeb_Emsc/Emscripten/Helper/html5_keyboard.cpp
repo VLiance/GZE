@@ -5,11 +5,17 @@
  * found in the LICENSE file.
  */
 
+#include "Lib_GzWeb_Emsc/Emscripten/Sys/OpKey.h"
+ 
+#include <emscripten/html5.h>
+
 #include <emscripten/html5.h>
 #include <emscripten/key_codes.h>
 #include <emscripten.h>
 #include <stdio.h>
 #include <string.h>
+
+extern const char *emscripten_event_type_to_string(int eventType);
 /*
 static inline const char *emscripten_event_type_to_string(int eventType) {
   const char *events[] = { "(invalid)", "(none)", "keypress", "keydown", "keyup", "click", "mousedown", "mouseup", "dblclick", "mousemove", "wheel", "resize", 
@@ -51,18 +57,39 @@ int emscripten_key_event_is_printable_character(const EmscriptenKeyboardEvent *k
   return number_of_characters_in_utf8_string(keyEvent->key) == 1;
 }
 
+
+Lib_GzWeb_Emsc::Emscripten::Sys::cOpKey* oKey;
 EM_BOOL key_callback(int eventType, const EmscriptenKeyboardEvent *e, void *userData)
 {
   int dom_pk_code = emscripten_compute_dom_pk_code(e->code);
-
+/*
   printf("%s, key: \"%s\" (printable: %s), code: \"%s\" = %s (%d), location: %lu,%s%s%s%s repeat: %d, locale: \"%s\", char: \"%s\", charCode: %lu (interpreted: %d), keyCode: %s(%lu), which: %lu\n",
     emscripten_event_type_to_string(eventType), e->key, emscripten_key_event_is_printable_character(e) ? "true" : "false", e->code,
     emscripten_dom_pk_code_to_string(dom_pk_code), dom_pk_code, e->location,
     e->ctrlKey ? " CTRL" : "", e->shiftKey ? " SHIFT" : "", e->altKey ? " ALT" : "", e->metaKey ? " META" : "", 
     e->repeat, e->locale, e->charValue, e->charCode, interpret_charcode_for_keyevent(eventType, e), emscripten_dom_vk_to_string(e->keyCode), e->keyCode, e->which);
-
+*/
   if (eventType == EMSCRIPTEN_EVENT_KEYUP) printf("\n"); // Visual cue
 
+	gzUInt key = 0;
+	if(e->which != 0){key = e->which;};
+	if(e->keyCode != 0){key = e->keyCode;};
+  
+    if (eventType == EMSCRIPTEN_EVENT_KEYUP){
+		oKey->aKeyRelease[key] = true;
+		oKey->aKeyDown[key] = false;
+	}
+    if (eventType == EMSCRIPTEN_EVENT_KEYPRESS){
+		oKey->aKeyPress[key] = true;
+	}
+    if (eventType == EMSCRIPTEN_EVENT_KEYDOWN){
+		oKey->aKeyDown[key] = true;
+	}
+  
+  
+  
+  
+  
   // Return true for events we want to suppress default web browser handling for.
   // For testing purposes, want to return false here on most KeyDown messages so that they get transformed to KeyPress messages.
   return e->keyCode == DOM_VK_BACK_SPACE // Don't navigate away from this test page on backspace.
@@ -73,8 +100,9 @@ EM_BOOL key_callback(int eventType, const EmscriptenKeyboardEvent *e, void *user
     || eventType == EMSCRIPTEN_EVENT_KEYPRESS || eventType == EMSCRIPTEN_EVENT_KEYUP; // Don't perform any default actions on these.
 }
 
-void fInitialise_Keyboard()
+void fInitialise_Keyboard(Lib_GzWeb_Emsc::Emscripten::Sys::cOpKey* _oKey)
 {
+  oKey = _oKey;
   printf("Press any keys on the keyboard to test the appropriate generated EmscriptenKeyboardEvent structure.\n");
   emscripten_set_keydown_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, 0, 1, key_callback);
   emscripten_set_keyup_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, 0, 1, key_callback);

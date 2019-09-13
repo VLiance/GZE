@@ -62,6 +62,9 @@ package  {
 					uniform float iTime;
 					uniform vec2 iResolution;
 					uniform vec2 iMouse;
+					
+					uniform vec2 vPosition;
+					
 					///#endif // GZ_tAndroid
 				</glsl>	
 			
