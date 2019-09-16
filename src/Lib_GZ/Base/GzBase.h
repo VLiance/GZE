@@ -183,7 +183,7 @@ struct gzRcFolder{
 #ifdef D_Platform_Web_Emsc
 	#include "Lib_GzWeb_Emsc/Emscripten/EmscHeader.h"
 
-	#define GzNullVal emscripten::val::global("Null");
+	//#define GzNullVal emscripten::val::global("Null")
 	/*
 	class gzVal {
 		public:
@@ -200,7 +200,7 @@ struct gzRcFolder{
 
 #else
 	typedef gzUInt gzVal;
-	#define GzNullVal 0;
+	//#define GzNullVal 0;
 #endif
 
 #include "gzGate.h"

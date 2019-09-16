@@ -22,7 +22,7 @@
 #ifdef D_Platform_Web_Emsc
 	#include "Lib_GzWeb_Emsc/Emscripten/EmscHeader.h"
 
-		#define GzNullVal emscripten::val::global("Null");
+		#define GzNullVal emscripten::val::global("Null")
 
 	
 		class gzVal : public emscripten::val {
@@ -32,14 +32,31 @@
 				inline gzVal( emscripten::val  _oVal) : emscripten::val(_oVal){};
 				inline gzVal(gzVal&  _oVal) : emscripten::val(_oVal.get()){};
 				
+				//GzNullVal
+				//gzVal(const char* v) : emscripten::val(v){};
 				gzVal(const char* v) : emscripten::val(v){};
 				
 				//gzVal(gzStr8 _str) : emscripten::val( (const char* )_str.array() ){};
+				
+				//explicit gzVal(T* value)  : emscripten::val(value?0:value){		
+				
+				template<typename T>
+				gzVal(T* value)  : emscripten::val(GzNullVal){
+					if(value != 0){
+						*this = emscripten::val(value);//Possible? JS accept ptr?
+					}
+				};
+				
+				
 				
 				
 				template<typename T>
 				explicit gzVal(T&& value)  : emscripten::val(value){};
 				 
+				 
+				 
+				
+				
 				
 				const emscripten::val& get() {	
 					return (const emscripten::val&)*this;

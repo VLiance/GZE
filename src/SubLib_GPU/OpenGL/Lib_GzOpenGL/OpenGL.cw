@@ -117,59 +117,59 @@ generate "OpenGL" {
 		
 	//Specifies the format of the pixel data. The following symbolic values are accepted: GL_RED, GL_RG, GL_RGB, GL_BGR, GL_RGBA, GL_BGRA, GL_RED_INTEGER, GL_RG_INTEGER, GL_RGB_INTEGER, GL_BGR_INTEGER, GL_RGBA_INTEGER, GL_BGRA_INTEGER, GL_STENCIL_INDEX, GL_DEPTH_COMPONENT, GL_DEPTH_STENCIL. 	
 		public enum ePixelFormat : Int {	
-			ALPHA                          0x1906;
-			RGB                            0x1907;
-			RGBA                           0x1908;
-			LUMINANCE                      0x1909;
-			LUMINANCE_ALPHA                0x190A;
-			BGR                            0x80E0;
-			BGRA                           0x80E1;
+			ALPHA                          = 0x1906;
+			RGB                            = 0x1907;
+			RGBA                           = 0x1908;
+			LUMINANCE                      = 0x1909;
+			LUMINANCE_ALPHA                = 0x190A;
+			BGR                            = 0x80E0;
+			BGRA                           = 0x80E1;
 			
-			DEPTH_COMPONENT				   0x1902
-			DEPTH_COMPONENT16              0x81A5
-			DEPTH_COMPONENT24              0x81A6
-			DEPTH_COMPONENT32              0x81A7
+			DEPTH_COMPONENT				   = 0x1902
+			DEPTH_COMPONENT16              = 0x81A5
+			DEPTH_COMPONENT24              = 0x81A6
+			DEPTH_COMPONENT32              = 0x81A7
 		}
 
 
 		public enum ePixelStoreParameter : Int {
-			UNPACK_ALIGNMENT               0x0CF5;
-			PACK_ALIGNMENT                 0x0D05;
+			UNPACK_ALIGNMENT               = 0x0CF5;
+			PACK_ALIGNMENT                 = 0x0D05;
 		}
 
 		/* PixelType */
 		//The following symbolic values are accepted: GL_UNSIGNED_BYTE, GL_BYTE, GL_UNSIGNED_SHORT, GL_SHORT, GL_UNSIGNED_INT, GL_INT, GL_HALF_FLOAT, GL_FLOAT, GL_UNSIGNED_BYTE_3_3_2, GL_UNSIGNED_BYTE_2_3_3_REV, GL_UNSIGNED_SHORT_5_6_5, GL_UNSIGNED_SHORT_5_6_5_REV, GL_UNSIGNED_SHORT_4_4_4_4, GL_UNSIGNED_SHORT_4_4_4_4_REV, GL_UNSIGNED_SHORT_5_5_5_1, GL_UNSIGNED_SHORT_1_5_5_5_REV, GL_UNSIGNED_INT_8_8_8_8, GL_UNSIGNED_INT_8_8_8_8_REV, GL_UNSIGNED_INT_10_10_10_2, and GL_UNSIGNED_INT_2_10_10_10_REV. 
 		public enum ePixelType : Int {
-			UNSIGNED_SHORT_4_4_4_4         0x8033;
-			UNSIGNED_SHORT_5_5_5_1         0x8034;
-			UNSIGNED_SHORT_5_6_5           0x8363;
-			BYTE = 0x1400;
-			UNSIGNED_BYTE = 0x1401;
-			FLOAT = 0x1406;
+			UNSIGNED_SHORT_4_4_4_4         = 0x8033;
+			UNSIGNED_SHORT_5_5_5_1         = 0x8034;
+			UNSIGNED_SHORT_5_6_5           = 0x8363;
+			BYTE 						   = 0x1400;
+			UNSIGNED_BYTE				   = 0x1401;
+			FLOAT 					   	   = 0x1406;
 		}
 
 		public enum eShadingModel : Int {
-			FLAT                           0x1D00;
-			SMOOTH                         0x1D01;
+			FLAT                           = 0x1D00;
+			SMOOTH                         = 0x1D01;
 		}
 				
 		public enum eTargetTexture : Int {
-			TEXTURE_1D 0x0DE0
-			TEXTURE_2D 0x0DE1
-			TEXTURE_3D 0x806F
-			TEXTURE_1D_ARRAY 0x8C18
-			TEXTURE_2D_ARRAY 0x8C1A
-			TEXTURE_BUFFER 0x8C2A
-			TEXTURE_CUBE_MAP 0x8513
-			TEXTURE_CUBE_MAP_POSITIVE_X 0x8515
-			TEXTURE_CUBE_MAP_NEGATIVE_X 0x8516
-			TEXTURE_CUBE_MAP_POSITIVE_Y 0x8517
-			TEXTURE_CUBE_MAP_NEGATIVE_Y 0x8518
-			TEXTURE_CUBE_MAP_POSITIVE_Z 0x8519
-			TEXTURE_CUBE_MAP_NEGATIVE_Z 0x851A
-			TEXTURE_RECTANGLE 0x84F5
-			TEXTURE_2D_MULTISAMPLE 0x9100
-			TEXTURE_2D_MULTISAMPLE_ARRAY 0x9102
+			TEXTURE_1D = 0x0DE0
+			TEXTURE_2D = 0x0DE1
+			TEXTURE_3D = 0x806F
+			TEXTURE_1D_ARRAY = 0x8C18
+			TEXTURE_2D_ARRAY = 0x8C1A
+			TEXTURE_BUFFER = 0x8C2A
+			TEXTURE_CUBE_MAP = 0x8513
+			TEXTURE_CUBE_MAP_POSITIVE_X = 0x8515
+			TEXTURE_CUBE_MAP_NEGATIVE_X = 0x8516
+			TEXTURE_CUBE_MAP_POSITIVE_Y = 0x8517
+			TEXTURE_CUBE_MAP_NEGATIVE_Y = 0x8518
+			TEXTURE_CUBE_MAP_POSITIVE_Z = 0x8519
+			TEXTURE_CUBE_MAP_NEGATIVE_Z = 0x851A
+			TEXTURE_RECTANGLE = 0x84F5
+			TEXTURE_2D_MULTISAMPLE = 0x9100
+			TEXTURE_2D_MULTISAMPLE_ARRAY = 0x9102
 		}
 		
 		public enum eDrawMode : Int {
@@ -222,26 +222,26 @@ generate "OpenGL" {
 		}
 		
 		public enum eTextureMinFilter : Int {
-			NEAREST                        0x2600
-			LINEAR                         0x2601
-			NEAREST_MIPMAP_NEAREST         0x2700
-			LINEAR_MIPMAP_NEAREST          0x2701
-			NEAREST_MIPMAP_LINEAR          0x2702
-			LINEAR_MIPMAP_LINEAR           0x2703
+			NEAREST                        = 0x2600
+			LINEAR                         = 0x2601
+			NEAREST_MIPMAP_NEAREST         = 0x2700
+			LINEAR_MIPMAP_NEAREST          = 0x2701
+			NEAREST_MIPMAP_LINEAR          = 0x2702
+			LINEAR_MIPMAP_LINEAR           = 0x2703
 		}
 		
 		/* TextureMagFilter */
 		public enum eTextureMagFilter : Int {
-			NEAREST                        0x2600
-			LINEAR                         0x2601	
+			NEAREST                        = 0x2600
+			LINEAR                         = 0x2601	
 		}	
 		
 		public enum eTextureWrapMode : Int {	
-			REPEAT                         0x2901
-			CLAMP_TO_EDGE                  0x812F
-			MIRRORED_REPEAT                0x8370
-			CLAMP_TO_BORDER                0x812D
-			MIRROR_CLAMP_TO_EDGE           0x8743
+			REPEAT                         = 0x2901
+			CLAMP_TO_EDGE                  = 0x812F
+			MIRRORED_REPEAT                = 0x8370
+			CLAMP_TO_BORDER                = 0x812D
+			MIRROR_CLAMP_TO_EDGE           = 0x8743
 		}
 		
 		public enum eBufferTarget : Int {
@@ -259,62 +259,62 @@ generate "OpenGL" {
  //MAX_COLOR_ATTACHMENTS          0x8CDF;
  
 		public enum eAttachments : Int {
-			COLOR_ATTACHMENT0              0x8CE0;
-			COLOR_ATTACHMENT1              0x8CE1;
-			COLOR_ATTACHMENT2              0x8CE2;
-			COLOR_ATTACHMENT3              0x8CE3;
-			COLOR_ATTACHMENT4              0x8CE4;
-			COLOR_ATTACHMENT5              0x8CE5;
-			COLOR_ATTACHMENT6              0x8CE6;
-			COLOR_ATTACHMENT7              0x8CE7;
-			COLOR_ATTACHMENT8              0x8CE8;
-			COLOR_ATTACHMENT9              0x8CE9;
-			COLOR_ATTACHMENT10             0x8CEA;
-			COLOR_ATTACHMENT11             0x8CEB;
-			COLOR_ATTACHMENT12             0x8CEC;
-			COLOR_ATTACHMENT13             0x8CED;
-			COLOR_ATTACHMENT14             0x8CEE;
-			COLOR_ATTACHMENT15             0x8CEF;
-			DEPTH_ATTACHMENT               0x8D00
-			STENCIL_ATTACHMENT             0x8D20
+			COLOR_ATTACHMENT0              = 0x8CE0;
+			COLOR_ATTACHMENT1              = 0x8CE1;
+			COLOR_ATTACHMENT2              = 0x8CE2;
+			COLOR_ATTACHMENT3              = 0x8CE3;
+			COLOR_ATTACHMENT4              = 0x8CE4;
+			COLOR_ATTACHMENT5              = 0x8CE5;
+			COLOR_ATTACHMENT6              = 0x8CE6;
+			COLOR_ATTACHMENT7              = 0x8CE7;
+			COLOR_ATTACHMENT8              = 0x8CE8;
+			COLOR_ATTACHMENT9              = 0x8CE9;
+			COLOR_ATTACHMENT10             = 0x8CEA;
+			COLOR_ATTACHMENT11             = 0x8CEB;
+			COLOR_ATTACHMENT12             = 0x8CEC;
+			COLOR_ATTACHMENT13             = 0x8CED;
+			COLOR_ATTACHMENT14             = 0x8CEE;
+			COLOR_ATTACHMENT15             = 0x8CEF;
+			DEPTH_ATTACHMENT               = 0x8D00
+			STENCIL_ATTACHMENT             = 0x8D20
 		}
 
 	
 		public enum eTexture : Int {
-			TEXTURE0                       0x84C0;
-			TEXTURE1                       0x84C1;
-			TEXTURE2                       0x84C2;
-			TEXTURE3                       0x84C3;
-			TEXTURE4                       0x84C4;
-			TEXTURE5                       0x84C5;
-			TEXTURE6                       0x84C6;
-			TEXTURE7                       0x84C7;
-			TEXTURE8                       0x84C8;
-			TEXTURE9                       0x84C9;
-			TEXTURE10                      0x84CA;
-			TEXTURE11                      0x84CB;
-			TEXTURE12                      0x84CC;
-			TEXTURE13                      0x84CD;
-			TEXTURE14                      0x84CE;
-			TEXTURE15                      0x84CF;
-			TEXTURE16                      0x84D0;
-			TEXTURE17                      0x84D1;
-			TEXTURE18                      0x84D2;
-			TEXTURE19                      0x84D3;
-			TEXTURE20                      0x84D4;
-			TEXTURE21                      0x84D5;
-			TEXTURE22                      0x84D6;
-			TEXTURE23                      0x84D7;
-			TEXTURE24                      0x84D8;
-			TEXTURE25                      0x84D9;
-			TEXTURE26                      0x84DA;
-			TEXTURE27                      0x84DB;
-			TEXTURE28                      0x84DC;
-			TEXTURE29                      0x84DD;
-			TEXTURE30                      0x84DE;
-			TEXTURE31                      0x84DF;
-			ACTIVE_TEXTURE                 0x84E0;
-			TEXTURE_2D_ARRAY               0x8C1A;
+			TEXTURE0                       = 0x84C0;
+			TEXTURE1                       = 0x84C1;
+			TEXTURE2                       = 0x84C2;
+			TEXTURE3                       = 0x84C3;
+			TEXTURE4                       = 0x84C4;
+			TEXTURE5                       = 0x84C5;
+			TEXTURE6                       = 0x84C6;
+			TEXTURE7                       = 0x84C7;
+			TEXTURE8                       = 0x84C8;
+			TEXTURE9                       = 0x84C9;
+			TEXTURE10                      = 0x84CA;
+			TEXTURE11                      = 0x84CB;
+			TEXTURE12                      = 0x84CC;
+			TEXTURE13                      = 0x84CD;
+			TEXTURE14                      = 0x84CE;
+			TEXTURE15                      = 0x84CF;
+			TEXTURE16                      = 0x84D0;
+			TEXTURE17                      = 0x84D1;
+			TEXTURE18                      = 0x84D2;
+			TEXTURE19                      = 0x84D3;
+			TEXTURE20                      = 0x84D4;
+			TEXTURE21                      = 0x84D5;
+			TEXTURE22                      = 0x84D6;
+			TEXTURE23                      = 0x84D7;
+			TEXTURE24                      = 0x84D8;
+			TEXTURE25                      = 0x84D9;
+			TEXTURE26                      = 0x84DA;
+			TEXTURE27                      = 0x84DB;
+			TEXTURE28                      = 0x84DC;
+			TEXTURE29                      = 0x84DD;
+			TEXTURE30                      = 0x84DE;
+			TEXTURE31                      = 0x84DF;
+			ACTIVE_TEXTURE                 = 0x84E0;
+			TEXTURE_2D_ARRAY               = 0x8C1A;
 		}
 		
 		
@@ -322,21 +322,21 @@ generate "OpenGL" {
 	//For the vector commands (glTexParameter*v), pname can also be one of GL_TEXTURE_BORDER_COLOR or GL_TEXTURE_SWIZZLE_RGBA.	
 	public enum eTextureParameterName : Int {
 
-		TEXTURE_MAG_FILTER             0x2800
-		TEXTURE_MIN_FILTER             0x2801
-		TEXTURE_WRAP_S                 0x2802
-		TEXTURE_WRAP_T                 0x2803
+		TEXTURE_MAG_FILTER             = 0x2800
+		TEXTURE_MIN_FILTER             = 0x2801
+		TEXTURE_WRAP_S                 = 0x2802
+		TEXTURE_WRAP_T                 = 0x2803
 	}
 	
 	
 	
 	public enum eBindFramebuffer  : Int {
-		FRAMEBUFFER                    0x8D40
-		READ_FRAMEBUFFER               0x8CA8
-		DRAW_FRAMEBUFFER               0x8CA9
+		FRAMEBUFFER                    = 0x8D40
+		READ_FRAMEBUFFER               = 0x8CA8
+		DRAW_FRAMEBUFFER               = 0x8CA9
 	}
 	public enum eBindRenderbuffer  : Int {
-		RENDERBUFFER                   0x8D41
+		RENDERBUFFER                   = 0x8D41
 	}	
 	
 
@@ -523,7 +523,8 @@ generate "OpenGL" {
 				#endif
 			</cpp>
 		}
-		gen private static function fShaderSource(_nShaderId : Val, _nCount:Int, _cSourceCode:CArray<UInt8,2>, _pLength:CArray<Int,1> = null):Void;
+		//gen private static function fShaderSource(_nShaderId : Val, _nCount:Int, _cSourceCode:CArray<UInt8,2>, _pLength:CArray<Int,1> = null):Void;
+		gen private static function fShaderSource(_nShaderId : Val, _nCount:Int, _cSourceCode:CArray<UInt8,2>, _pLength:CArray<Int,1> = 0):Void;
 		
 
 		gen public static function fCompileShader(_nShaderId : Val):Void;
@@ -549,21 +550,56 @@ generate "OpenGL" {
 
 		//Texture
 		gen public static function fActiveTexture(_hTexture : eTexture):Void;
-		gen public static function fTexImage2D(_hTarget : eTargetTexture, _nLevel : Int, _hInternalformat : ePixelFormat, _nWidth:Int, _nHeight:Int, _nBorder:Int, _hFormat:ePixelFormat,  _hType: ePixelType, _pPixel:Any ):Void;
+		gen public static function fTexImage2D(_hTarget : eTargetTexture, _nLevel : Int, _hInternalformat : ePixelFormat, _nWidth:Int, _nHeight:Int, _nBorder:Int, _hFormat:ePixelFormat,  _hType: ePixelType, _pPixel:Any ):Void{
+				<cpp>
+				#ifdef D_Platform_Web_Emsc
+					gzUIntX _nSize = 0;
+					if(_pPixel != 0){
+						_nSize = _nWidth * _nHeight*4; //32bits, use the a larger possible size (32bit) to create the array view, TODO check if it's valid for smaller pixel format. 
+					}
+					 oGL.call<void>("texImage2D", gzVal(gzInt(_hTarget)), gzVal(_nLevel), gzVal(gzInt(_hInternalformat)), gzVal(_nWidth), gzVal(_nHeight), gzVal(_nBorder), gzVal(gzInt(_hFormat)), gzVal(gzInt(_hType)), typed_memory_view(_nSize, (gzUInt8*)_pPixel));
+					return;
+				#endif
+				</cpp>
+		}
+		
+		
 		gen public static function fTexImage3D(_hTarget : eTargetTexture, _nLevel : Int, _hInternalformat : ePixelFormat, _nWidth:Int, _nHeight:Int, _nDepth:Int, _nBorder:Int, _hFormat:ePixelFormat,  _hType: ePixelType, _pPixel:Any ):Void;
 		gen public static function fTexSubImage3D(_hTarget : eTargetTexture, _nLevel : Int, _nOffsetX:Int, _nOffsetY:Int, _nOffsetZ:Int,  _nWidth:Int, _nHeight:Int, _nDepth:Int, _hFormat:ePixelFormat,  _hType: ePixelType, _pPixel:Any ):Void;
-		gen public static function fBindTexture(_hTarget : eTargetTexture, _nTextureId : Val):Void;
+		gen public static function fBindTexture(_hTarget : eTargetTexture, _nTextureId : Val):Void{
+			/*
+			<cpp>
+			#ifdef D_Platform_Web_Emsc
+			oGL.call<void>("bindTexture", gzVal(gzInt(_hTarget)), emscripten::val::global("Null"));
+			return;
+			#endif
+			</cpp>
+			*/
+		}
 
 		gen public static function fTexParameterf(_hTarget : eTargetTexture, _hName : eTextureParameterName, _nParam : Float32):Void;
 		gen public static function fTexParameteri(_hTarget : eTargetTexture, _hName : eTextureParameterName, _nParam : Int):Void;
-		gen public static function fGenTextures(_nNb: Int, _aTextures : CArray<UInt>):Void{
+	
+		gen public static function fCreateTexture():Val{
+			<cpp>
+			#ifndef D_Platform_Web_Emsc
+				gzVal _nId;
+				fGenTextures(1, (gzUInt*)(&_nId));
+				return _nId;
+			#endif
+			</cpp>
+		}
+			
+		
+		gen private static function fGenTextures(_nNb: Int, _aTextures : CArray<UInt>):Void{
+			/*
 			<cpp>
 			#ifdef D_Platform_Web_Emsc
 				
-			//	oGL.call<gzVal>("createTexture");	//Can we create multiple textures?
+				*((gzVal*)_aTextures)= oGL.call<val>("createTexture");	//Can we create multiple textures?
 				return;
 			#endif
-			</cpp>
+			</cpp>*/
 		}
 
 		//Draw
@@ -625,12 +661,23 @@ generate "OpenGL" {
 
 		
 		//FBO
-		gen public static function fGenFramebuffers(_nNb : Int, _aFrameBuffers : CArray<UInt>):Void;
-		gen public static function fBindFramebuffer(_hTarget : eBindFramebuffer, _nFrameBufferId : UInt ):Void;
+		//gen public static function fCreateTexture():Val;
+		gen public static function fCreateFramebuffer():Val{
+			<cpp>
+			#ifndef D_Platform_Web_Emsc
+				gzVal _nIdBuff;
+				fGenFramebuffers(1, (gzUInt*)(&_nIdBuff));
+				return _nIdBuff;
+			#endif
+			</cpp>
+		}
+		
+		gen private static function fGenFramebuffers(_nNb : Int, _aFrameBuffers : CArray<UInt>):Void; //Use fCreateFramebuffer instead
+		gen public static function fBindFramebuffer(_hTarget : eBindFramebuffer, _nFrameBufferId : Val ):Void;
 		gen public static function fGenRenderbuffers(_nNb : Int, _aRenderBuffers : CArray<UInt>):Void;
 		gen public static function fBindRenderbuffer(_hTarget : eBindRenderbuffer, _nRenderBufferId : UInt ):Void;
 		gen public static function fRenderbufferStorage(_hTarget : eBindRenderbuffer, _hInternalFormat : ePixelFormat, _nWidth : Int, _nHeight : Int):Void;
-		gen public static function fFramebufferTexture2D(_hTarget : eBindFramebuffer, _hAttachement : eAttachments, _hTextureTarget: eTargetTexture, _nTexture : UInt, _nLevel : Int):Void;
+		gen public static function fFramebufferTexture2D(_hTarget : eBindFramebuffer, _hAttachement : eAttachments, _hTextureTarget: eTargetTexture, _nTexture : Val, _nLevel : Int):Void;
 		gen public static function fFramebufferRenderbuffer(_hTarget : eBindFramebuffer, _hAttachement : eAttachments, _hRenderBufferTarget: eBindRenderbuffer, _nRenderBufferId : UInt):Void;
 		gen public static function fCheckFramebufferStatus(_hTarget : eBindFramebuffer):UInt;
 		gen public static function fDeleteBuffers(_nNb:Int, _aBuffers: CArray<UInt>):Void;

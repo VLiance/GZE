@@ -196,8 +196,8 @@ typedef struct  {  //Auto memory management
 
 struct gzComp{void* oClass; gzPtrFunc fCall; };
 
-//extern Lib_GZ::cDelegate* GZ_NullObj;
-#define GZ_NullObj 0
+//extern Lib_GZ::cDelegate* GZ_NullObj; 
+#define GZ_NullObj ((void*)0)
 
 namespace Lib_GZ{ struct uLib; namespace Lib{extern gzUInt nClass;  extern  uLib* rLastLib;}};
 

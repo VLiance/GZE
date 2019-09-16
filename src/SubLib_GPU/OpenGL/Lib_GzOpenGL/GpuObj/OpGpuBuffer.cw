@@ -20,7 +20,7 @@ package  {
 	
 	public class OpGpuBuffer overplace GpuBuffer  {
 		public var nTexId : Val;
-		public var nIdBuff : Int;
+		public var nIdBuff : Val;
 	
 	/*
     GZ::cBuffer* oBuffer;
@@ -57,44 +57,50 @@ package  {
 		
 		
 		override public function fCreate():Void{
-				return;
+				//return;
 				
 				OpenGL.fActiveTexture(TEXTURE1);
 				
 				//New Texture of buffer size
-				OpenGL.fGenTextures(1, nTexId);
-				
+				//OpenGL.fGenTextures(1, nTexId);
+				nTexId = OpenGL.fCreateTexture();
+				//
 				OpenGL.fBindTexture(TEXTURE_2D, nTexId);
-				/*
+			
 				OpenGL.fTexImage2D(TEXTURE_2D, 0, BGRA, oBuffer.nBuffWidth, oBuffer.nBuffHeight, 0, BGRA, UNSIGNED_BYTE, 0);
+
 				OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_MAG_FILTER , OpenGL.eTextureMagFilter.LINEAR);
 				OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_MIN_FILTER , OpenGL.eTextureMinFilter.LINEAR);
+		
 				OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_WRAP_S, OpenGL.eTextureWrapMode.REPEAT); // Repeat on X axis
-				OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_WRAP_T, OpenGL.eTextureWrapMode.REPEAT);  // Stretch on Y axis
-				OpenGL.fBindTexture(TEXTURE_2D, 0);
+				OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_WRAP_T, OpenGL.eTextureWrapMode.REPEAT);  // Stretch on Y axis 
+				OpenGL.fBindTexture(TEXTURE_2D, null);
 				
+				
+			
 				//FBO
-				OpenGL.fGenFramebuffers(1, nIdBuff);
+				nIdBuff = OpenGL.fCreateFramebuffer();
 				OpenGL.fBindFramebuffer(FRAMEBUFFER, nIdBuff);
 				
+				/*
 				//RENDERBUFFER
 				var _nIdRbo : Int = 0;
 				OpenGL.fGenRenderbuffers(1, _nIdRbo);
 				OpenGL.fBindRenderbuffer(RENDERBUFFER, _nIdRbo);
 				OpenGL.fRenderbufferStorage(RENDERBUFFER, DEPTH_COMPONENT,  oBuffer.nBuffWidth, oBuffer.nBuffHeight); //ES2 requie GL_DEPTH_COMPONENT16?
 				OpenGL.fBindRenderbuffer(RENDERBUFFER, 0);
-				
+				*/
+			
 				//Attach the created texture to FBO color attachement point: nTexId = COLOR_ATTACHMENT0
 				OpenGL.fFramebufferTexture2D(FRAMEBUFFER, COLOR_ATTACHMENT0, TEXTURE_2D, nTexId, 0);
 			   // glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, nLastTexture, 0);
-
+				/*
 				// Attach a renderbuffer object the binded framebuffer object: _nIdRbo => nIdBuff
 				OpenGL.fFramebufferRenderbuffer(FRAMEBUFFER, DEPTH_ATTACHMENT, RENDERBUFFER, _nIdRbo);
 				*/
 				
 				//aTexCoord[0] = 0.0f;   aTexCoord[1] =  oBuffer->nBuffHeight;   aTexCoord[2] =  oBuffer->nBuffWidth;   aTexCoord[3] = oBuffer->nBuffHeight;
 				//aTexCoord[4] = oBuffer->nBuffWidth;   aTexCoord[5] = 0.0f ;   aTexCoord[6] = 0.0f ;       aTexCoord[7] = 0.0f ;
-
 
 				if(bAutoClear){
 					//Clear
@@ -105,10 +111,9 @@ package  {
 					//GL_fBindFramebuffer(GL_FRAMEBUFFER, 0); // unbind
 				}
 
-
-				OpenGL.fBindFramebuffer(FRAMEBUFFER, 0);
-				
-				
+				OpenGL.fBindFramebuffer(FRAMEBUFFER, null);
+	
+				Debug.fPass("Create FBO!");
 				
 					
 				/*
@@ -161,8 +166,8 @@ package  {
 					GL_fBindFramebuffer(GL_FRAMEBUFFER, 0); // unbind
 				}
 
-
-				GL_fBindFramebuffer(GL_FRAMEBUFFER, 0);
+		
+				GL_fBindFramebuffer(GL_FRAMEBUFFER, null);
 			*/
 			
 		}
