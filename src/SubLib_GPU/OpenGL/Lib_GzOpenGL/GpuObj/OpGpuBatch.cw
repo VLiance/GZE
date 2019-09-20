@@ -9,7 +9,6 @@ package  {
 	
 	public class OpGpuBatch overplace GpuBatch {
 		
-		public var aIndice2Tri : CArray<UInt8, 1, 6>;
 		public var aIndice : CArray<UInt8, 1, 6>;
 		
 		<cpp_namespace>
@@ -20,14 +19,6 @@ package  {
 		public function fDraw():Void {
 			
 			//TODO  static char aIndice2Tri[] = {0,1,2, 0,2,3};
-			aIndice2Tri[0] = 0;
-			aIndice2Tri[1] = 1;
-			aIndice2Tri[2] = 2;
-			aIndice2Tri[3] = 0;
-			aIndice2Tri[4] = 2;
-			aIndice2Tri[5] = 3;
-			
-	
 			aIndice[0] = 0;
 			aIndice[1] = 1;
 			aIndice[2] = 2;

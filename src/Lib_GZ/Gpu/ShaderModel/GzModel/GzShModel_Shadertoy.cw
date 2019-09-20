@@ -378,7 +378,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 		
 		
 		
-		public function fDraw():Void {
+		public function fUpdate():Void {
 		
 			
 			<cpp>
@@ -400,7 +400,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 			}
 			if(Key.fIsDown(Left)){
 				oUvPosition.vVal.nX -= _nSpeed;
-			//	Debug.fTrace("Left");
+				//Debug.fTrace("Left");
 			}
 			if(Key.fIsDown(Right)){
 				oUvPosition.vVal.nX += _nSpeed;

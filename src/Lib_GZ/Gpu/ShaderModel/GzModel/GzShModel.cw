@@ -11,7 +11,7 @@ package  {
 	import GZ.Gpu.GpuObj.GpuBatch;
 	import GZ.Base.Perspective;
 	import GZ.Sys.Interface.Context;
-	
+	import GZ.Gpu.GpuObj.GpuBatch;
 	
 	//import GZ.Base.TestPod;
 	//import GZ.Base.TestPod2;
@@ -28,6 +28,9 @@ package  {
 		public var oUiMouse : UnVec2;
 		public var oUiResolution : UnVec2;
 		public var oUvPosition : UnVec2;
+		public var aBatch  : Array<GpuBatch>;
+		
+		
 		
 		public function GzShModel():Void {
 			fLoad();
@@ -37,10 +40,16 @@ package  {
 		}
 		
 
-		public function fDraw():Void {
+		public function fUpdate():Void {
 		
 		}
 		
+		
+		public function fRenderFrame():Void {
+			
+			
+			
+		}
 		
 	}
 }

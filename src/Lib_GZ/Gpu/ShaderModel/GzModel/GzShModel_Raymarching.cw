@@ -357,7 +357,7 @@ package  {
 		
 		
 		
-		public function fDraw():Void {
+		public function fUpdate():Void {
 		
 			
 			//nDestX = oWindow.nMouseX  + nDragX + ( oWindow.nMouseX - oWindow.nLastMouseX)/1.5;

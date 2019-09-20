@@ -105,7 +105,8 @@
 			
 			  </cpp>
 			// Debug.fTrace("fBlit: Gpu");
-			oGzShModel.fDraw();
+			oGzShModel.fUpdate();
+			oGzShModel.fRenderFrame();
 			<cpp>
 			if(!FPSMeter.isUndefined()){
 				FPSMeter.call<Void>("tick");

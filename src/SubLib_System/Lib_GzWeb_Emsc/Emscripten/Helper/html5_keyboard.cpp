@@ -87,9 +87,8 @@ EM_BOOL key_callback(int eventType, const EmscriptenKeyboardEvent *e, void *user
 	}
   
   
-  
-  
-  
+  return false;
+  /*
   // Return true for events we want to suppress default web browser handling for.
   // For testing purposes, want to return false here on most KeyDown messages so that they get transformed to KeyPress messages.
   return e->keyCode == DOM_VK_BACK_SPACE // Don't navigate away from this test page on backspace.
@@ -97,7 +96,8 @@ EM_BOOL key_callback(int eventType, const EmscriptenKeyboardEvent *e, void *user
     || (e->keyCode >= DOM_VK_F1 && e->keyCode <= DOM_VK_F24) // Don't F5 refresh the test page to reload.
     || e->ctrlKey // Don't trigger e.g. Ctrl-B to open bookmarks
     || e->altKey // Don't trigger any alt-X based shortcuts either (Alt-F4 is not overrideable though)
-    || eventType == EMSCRIPTEN_EVENT_KEYPRESS || eventType == EMSCRIPTEN_EVENT_KEYUP; // Don't perform any default actions on these.
+    || eventType == EMSCRIPTEN_EVENT_KEYPRESS || eventType == EMSCRIPTEN_EVENT_KEYUP; // Don't perform any default actions on these
+	*/
 }
 
 void fInitialise_Keyboard(Lib_GzWeb_Emsc::Emscripten::Sys::cOpKey* _oKey)
