@@ -19,6 +19,7 @@ package  {
 		#include "Lib_GzWindows/MainHeader.h"
 	
 		#define GZ_Debug_fError Lib_GZ::Debug::pDebug::fConsole
+		//#define GZ_Debug_fError Lib_GZ::Debug::Debug::GetInst(thread)->fError
 
 	
 		typedef BOOL (WINAPI * PFNWGLCHOOSEPIXELFORMATARBPROC) (HDC hdc, const int *piAttribIList, const gzFloat32 *pfAttribFList, gzUInt32 nMaxFormats, int *piFormats, gzUInt32 *nNumFormats);

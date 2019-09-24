@@ -314,4 +314,24 @@ extern Lib_GZ_OpenGL::csOpenGL* oMainOGL;
 
 typedef void* ArrayPtr;//Temp?
 	
+	
+	#ifdef D_Debug
+		#define GZ_DbgFile ,__FILE__,__LINE__
+		#define GZ_DbgArgP ,const char* _cFile=0,gzUInt _nLine=0
+		#define GZ_DbgArg ,const char* _cFile,gzUInt _nLine
+		#define GZ_DbgFile_  __FILE__,__LINE__
+		#define GZ_DbgArgP_  const char* _cFile=0,gzUInt _nLine=0
+		#define GZ_DbgArg_ const char* _cFile,gzUInt _nLine
+		
+	#else
+		#define GZ_DbgFile
+		#define GZ_DbgArgP
+		#define GZ_DbgArg
+		#define GZ_DbgFile_
+		#define GZ_DbgArgP_
+		#define GZ_DbgArg_
+	#endif
+
+		
+	
 #endif

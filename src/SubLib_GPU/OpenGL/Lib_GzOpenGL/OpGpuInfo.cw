@@ -20,6 +20,9 @@
 		#define GL_STACK_OVERFLOW                 0x0503
 		#define GL_STACK_UNDERFLOW                0x0504
 		#define GL_OUT_OF_MEMORY                  0x0505
+		#define GL_INVALID_FRAMEBUFFER_OPERATION  0x0506
+		#define GL_CONTEXT_LOST 				  0x0507  //with OpenGL 4.5 or ARB_KHR_robustness: Given if the OpenGL context has been lost, due to a graphics card reset.
+		#define GL_TABLE_TOO_LARGE 				  0x8031  //Part of the ARB_imaging extension.
 		
 		
 
@@ -293,8 +296,18 @@
 					return gzU8("GL_STACK_UNDERFLOW");
 				break;
 				case GL_OUT_OF_MEMORY :
-					return gzU8("GL_OUT_OF_MEMORY");
+					return gzU8("GL_OUT_OF_MEMORY: ");
 				break;
+				case GL_INVALID_FRAMEBUFFER_OPERATION :
+					return gzU8("GL_INVALID_FRAMEBUFFER_OPERATION");//: Given when doing anything that would attempt to read from or write/render to a framebuffer that is not complete.
+				break;
+				case GL_CONTEXT_LOST:
+					return gzU8("GL_CONTEXT_LOST");//: Given if the OpenGL context has been lost, due to a graphics card reset.
+				break;
+				case GL_TABLE_TOO_LARGE: //removed in 3.1 core and above
+					return gzU8("GL_TABLE_TOO_LARGE");
+				break;
+				
 				default :
 					return gzU8("GL_UNKNOW(") + gzStrUI(_nError) + gzU8(")");
 				break;
