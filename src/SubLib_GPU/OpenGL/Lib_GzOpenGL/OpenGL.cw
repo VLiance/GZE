@@ -1,3 +1,5 @@
+#addDebugFile
+
 generate "OpenGL" {
 	
 	public class OpenGL {

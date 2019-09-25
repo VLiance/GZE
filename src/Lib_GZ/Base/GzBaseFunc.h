@@ -91,7 +91,7 @@ typedef struct _iobuf
 	
 
 	
-	#ifndef GZ_tDebug
+	#ifndef D_Debug
 		#define NDEBUG
 	#endif
 

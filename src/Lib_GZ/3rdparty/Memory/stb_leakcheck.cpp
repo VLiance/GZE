@@ -118,7 +118,7 @@ void *stb_leakcheck_realloc(void *ptr, size_t sz, const char *file, int line)
 
 void stb_leakcheck_dumpmem(void)
 {
-    #ifdef GZ_tDebug
+    #ifdef D_Debug
 
 
     unsigned int _nTotal = 0;

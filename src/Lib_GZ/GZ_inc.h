@@ -1,7 +1,7 @@
 
 
 //////TEMP DEBUG MODE
-#define GZ_tDebug
+//#define D_Debug
 
 
 

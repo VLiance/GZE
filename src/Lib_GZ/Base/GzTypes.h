@@ -164,7 +164,7 @@ typedef gzUInt16 gzUTF16;
 typedef gzUInt32 gzUTF32;
 
 ////// Default Options //////////
-#ifdef GZ_tDebug
+#ifdef D_Debug
 
 #endif
 #ifdef GZ_tNoTace
@@ -317,11 +317,15 @@ typedef void* ArrayPtr;//Temp?
 	
 	#ifdef D_Debug
 		#define GZ_DbgFile ,__FILE__,__LINE__
-		#define GZ_DbgArgP ,const char* _cFile=0,gzUInt _nLine=0
-		#define GZ_DbgArg ,const char* _cFile,gzUInt _nLine
+		#define GZ_DbgArgP ,const char* _file=0,gzUInt _line=0
+		#define GZ_DbgArg ,const char* _file,gzUInt _line
+		#define GZ_DbgArg_ const char* _file,gzUInt _line
+		
 		#define GZ_DbgFile_  __FILE__,__LINE__
-		#define GZ_DbgArgP_  const char* _cFile=0,gzUInt _nLine=0
-		#define GZ_DbgArg_ const char* _cFile,gzUInt _nLine
+		#define GZ_DbgArgP_  const char* _file=0,gzUInt _line=0
+
+		#define GZ_DbgParam  ,_file, _line
+		#define GZ_DbgParam_  _file, _line
 		
 	#else
 		#define GZ_DbgFile
@@ -330,6 +334,8 @@ typedef void* ArrayPtr;//Temp?
 		#define GZ_DbgFile_
 		#define GZ_DbgArgP_
 		#define GZ_DbgArg_
+		#define GZ_DbgParam 
+		#define GZ_DbgParam_
 	#endif
 
 		

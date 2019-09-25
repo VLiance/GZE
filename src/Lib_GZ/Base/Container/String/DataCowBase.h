@@ -121,9 +121,11 @@
 			///printf("\nFree---xxxxxxxxxxxxxxxxx-: %d", _oRC->nSpaceBef);_oRC->fPrint();
 			GZ_fFree(_oRC->aTab - _oRC->nSpaceBef); 	GZ_nArrayTotalFree++; //Combined array
 		}
-		
+
 		if( gzDataType_IS_DataRC_MUSTFREE(_oRC) ){ //If Not read only
-			#ifdef GZ_tDebug
+			
+			
+			#ifdef D_Debug
 				_oRC->aTab = 0;
 				_oRC->nType = -1;
 				_oRC->nInst = -1;

@@ -38,7 +38,7 @@ public:
 	
 
 	#undef gzp_TestLock 
-	#ifdef GZ_tDebug
+	#ifdef D_Debug
 		#define gzp_TestLock GzAssert(nLock == 0, "Array is locked, no modification are allowed");
 	#else
 		#define gzp_TestLock 

@@ -12,7 +12,7 @@
 #define tHDef_GZ_Debugging
 
 
-#ifdef GZ_tDebug
+#ifdef D_Debug
    // #define GzAssert(expr)   if( !(expr )){ Lib_GZ::fAssertError(__LINE__); }
     #define GzAssert(expr, msg)   if( !(expr )){ Lib_GZ::fAssertError((msg),__FILE__, __func__ , __LINE__); }
     #define GzUnAssert(expr, msg)   if( (expr )){ Lib_GZ::fAssertError((msg),__FILE__, __func__ , __LINE__); }
@@ -23,7 +23,8 @@
 */
 
 #else
-    #define GzAssert(expr)
+    #define GzAssert(expr, msg)
+    #define GzUnAssert(expr, msg)
   //  #define GZ_fSpAssertMsg(expr, msg)
 #endif
 /*

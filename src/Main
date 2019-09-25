@@ -213,7 +213,7 @@ SetConsoleOutputCP(CP_UTF8);
 			if(!FPSMeter.isUndefined()){
 				FPSMeter.call<void>("tick");
 			}
-
+			fflush(stdout);
 
 		}
 	}

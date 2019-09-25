@@ -211,8 +211,8 @@
 		 public function fLoadDefaultShader():Bool {
 			 
 			<cpp>
-			 const char* _cFile = __FILE__; //Temp
-			 gzUInt _nLine = __LINE__; //Temp
+			 const char* _file = __FILE__; //Temp
+			 gzUInt _line = __LINE__; //Temp
 			 //Default options
 			#define GL_BLEND                          0x0BE2
 			GL_fEnable(GL_BLEND);

@@ -107,7 +107,7 @@ package  {
 				InitializeCriticalSection(&_::m_cs); 
 				#endif
 				
-				#ifdef GZ_tDebug
+				#ifdef D_Debug
 				
 					COORD coord;
 					coord.X=_nWidth/8 * 1.5;

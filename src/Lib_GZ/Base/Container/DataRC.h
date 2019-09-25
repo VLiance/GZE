@@ -14,7 +14,7 @@
 
 
 
-#define GZ_tDebug
+//#define D_Debug
 
 
 #ifdef D_Platform_Web_Emsc
@@ -43,7 +43,7 @@
 #define GZ_Array_Expand_Factor 2
 
 
-#ifdef GZ_tDebug
+#ifdef D_Debug
     #define GZ_Assert_Array(expr)   if( !(expr )){\
                 printf("\nE:FatalArrayError: %s:%d", __FILE__, __LINE__);while(1){} \
             }
@@ -77,10 +77,19 @@
 #define gzS16 u
 #define gzS32 U
 
+/*
+	gzUInt8* aTab;
+	gzUIntX nSize;
+	gzUIntX nLimit; //!!ReadOnly? Ok, only readed
+	gzUInt8 nSpaceBef; //!!ReadOnly? ->  only for dynamic allocation (add to prec optimisation) (never rewrited)  //md+
+	gzUInt8 nType; //0 = const / readOnly  (never free)  // 1 =  modifiable (never free) (not used?)   / 2 = volatile, must free of pure data / 3 =  volatile, must free of sub struct/ptr (not used?)
 
-#define gzData8(_aData)   ((gzDataRC){(gzUInt8*)(gzConcat(gzS8 ,_aData)),(gzUIntX)(sizeof(gzConcat(gzS8 ,_aData))-1), (gzUIntX)sizeof(gzConcat(gzS8 ,_aData))-1 ,0,0,(gzUInt)-1 dJsMemIni})
-#define gzData16(_aData)  ((gzDataRC){(gzUInt8*)(gzConcat(gzS16,_aData)),(gzUIntX)(sizeof(gzConcat(gzS16,_aData))-2), (gzUIntX)sizeof(gzConcat(gzS16,_aData))-2 ,0,0,(gzUInt)-1 dJsMemIni})
-#define gzData32(_aData)  ((gzDataRC){(gzUInt8*)(gzConcat(gzS32,_aData)),(gzUIntX)(sizeof(gzConcat(gzS32,_aData))-4), (gzUIntX)sizeof(gzConcat(gzS32,_aData))-4 ,0,0,(gzUInt)-1 dJsMemIni})
+	gzUInt nInst;  //If not readonly ... Test if not const before write
+*/
+
+#define gzData8(_aData)   ((gzDataRC){(gzUInt8*)(gzConcat(gzS8 ,_aData)),(gzUIntX)(sizeof(gzConcat(gzS8 ,_aData))-1), (gzUIntX)sizeof(gzConcat(gzS8 ,_aData))-1 ,0,0,(gzUInt)-1 })
+#define gzData16(_aData)  ((gzDataRC){(gzUInt8*)(gzConcat(gzS16,_aData)),(gzUIntX)(sizeof(gzConcat(gzS16,_aData))-2), (gzUIntX)sizeof(gzConcat(gzS16,_aData))-2 ,0,0,(gzUInt)-1 })
+#define gzData32(_aData)  ((gzDataRC){(gzUInt8*)(gzConcat(gzS32,_aData)),(gzUIntX)(sizeof(gzConcat(gzS32,_aData))-4), (gzUIntX)sizeof(gzConcat(gzS32,_aData))-4 ,0,0,(gzUInt)-1 })
 /*
 #define gzStaticU8(_sName, _aData)  static gzStr8(  gzData8(_aData)  ) _sName;
 #define gzStaticU16(_sName, _aData) static gzStr16(  gzData16(_aData) ) _sName;
