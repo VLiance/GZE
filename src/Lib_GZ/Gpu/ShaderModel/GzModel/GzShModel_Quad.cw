@@ -383,8 +383,8 @@ package  {
 			oGpuBatch = new GpuBatch();
 			
 			
-			var _oAtObjPos : Attribute = oProgram.fAddAttribute("atObjPos");
-			var _oAtVertexID : Attribute = oProgram.fAddAttribute("atVertexID");
+			var _oAtObjPos : Attribute = oProgram.fAddAttribute("in_ObjPos");
+		//	var _oAtVertexID : Attribute = oProgram.fAddAttribute("atVertexID");
 			
 			oUiMouse = new UnVec2(oProgram, "iMouse");
 			

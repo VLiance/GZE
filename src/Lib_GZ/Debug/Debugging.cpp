@@ -11,12 +11,12 @@
 //#include "Lib_GZ/Lib_GZ.h"
 //#include "Lib_GZ/Sys/Debug.h"
 #include "Debugging.h"
-/*
+
 #ifdef GZ_tHaveCallStack
  gzPtr gzaCallStack[GZ_tCallStackSize];
  gzUInt gznCallStackIndex;
 #endif
-*/
+
 
 gzUInt GZ_nArrayTotalFree = 0;
 gzUInt GZ_nArrayTotalAlloc = 0;

@@ -77,15 +77,17 @@
 	
 	gzp_DataType(){
 	
-			m.aData = 0;
+			//m.aData = 0;
 			m.aSubTab =	0;
 			m.nSubSize =	0;
 			m.nSubLimit =	0;
 			
 	 //   static gzDataRC _gzNullStr_dat = GzToDataRC_const(gzConcat(gzS8 ,""));  
 		//static gzStr8 _gzNullStr(&_gzNullStr_dat); 
-		gzp_DataType _gzNullStr(gzp_NullStr);
-		*this = _gzNullStr;
+		
+		//gzp_DataType _gzNullStr(gzp_NullStr);
+		//*this = _gzNullStr;
+		m.aData = (gzDataRC*)&gzp_NullStr;
 	}
 		
 	

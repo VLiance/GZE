@@ -17,6 +17,10 @@ package  {
 			Debug.fTrace("--- OpAttribute Created!! ---");
 			
 			nId = OpenGL.fGetAttribLocation(oProgram.nId,  sName );
+			if(nId == -1){
+				Debug.fError("OpenGL: Unabled to find Attribute : " + sName );
+				return;
+			}
 			
 			bValid = true; //TODO
 			OpenGL.fEnableVertexAttribArray( nId ); //Important

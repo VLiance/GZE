@@ -126,7 +126,6 @@ generate "OpenGL" {
 			LUMINANCE_ALPHA                = 0x190A;
 			BGR                            = 0x80E0;
 			BGRA                           = 0x80E1;
-			
 			DEPTH_COMPONENT				   = 0x1902
 			DEPTH_COMPONENT16              = 0x81A5
 			DEPTH_COMPONENT24              = 0x81A6
@@ -134,6 +133,21 @@ generate "OpenGL" {
 		}
 
 
+		
+		public enum eInternalPixelFormat : Int {	
+			ALPHA                          = 0x1906;
+			RGB                            = 0x1907;
+			RGBA                           = 0x1908;
+			LUMINANCE                      = 0x1909;
+			LUMINANCE_ALPHA                = 0x190A;
+			DEPTH_COMPONENT				   = 0x1902
+			DEPTH_COMPONENT16              = 0x81A5
+			DEPTH_COMPONENT24              = 0x81A6
+			DEPTH_COMPONENT32              = 0x81A7
+		} //TODO add Table 2. Sized Internal Formats
+
+		
+		
 		public enum ePixelStoreParameter : Int {
 			UNPACK_ALIGNMENT               = 0x0CF5;
 			PACK_ALIGNMENT                 = 0x0D05;
@@ -552,7 +566,7 @@ generate "OpenGL" {
 
 		//Texture
 		gen public static function fActiveTexture(_hTexture : eTexture):Void;
-		gen public static function fTexImage2D(_hTarget : eTargetTexture, _nLevel : Int, _hInternalformat : ePixelFormat, _nWidth:Int, _nHeight:Int, _nBorder:Int, _hFormat:ePixelFormat,  _hType: ePixelType, _pPixel:Any ):Void{
+		gen public static function fTexImage2D(_hTarget : eTargetTexture, _nLevel : Int, _hInternalformat : eInternalPixelFormat, _nWidth:Int, _nHeight:Int, _nBorder:Int, _hFormat:ePixelFormat,  _hType: ePixelType, _pPixel:Any ):Void{
 				<cpp>
 				#ifdef D_Platform_Web_Emsc
 					gzUIntX _nSize = 0;

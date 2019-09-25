@@ -257,17 +257,18 @@ namespace Lib_GZ{
 	#define GZ_Crash() DbgCrash();
 #endif
 
-//#define GZ_tHaveCallStack
+
 
 //Must be power of 2
 #ifndef GZ_tCallStackSize
 	#define GZ_tCallStackSize 1024
 #endif
 
-
-
-
 struct gzFuncStack{void* oClass; const char* cName; };
+
+#ifdef D_Debug
+//#define GZ_tHaveCallStack
+#endif
 
 #ifdef GZ_tHaveCallStack
 

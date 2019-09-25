@@ -61,13 +61,14 @@ package  {
 				
 				OpenGL.fActiveTexture(TEXTURE1);
 				
+				
 				//New Texture of buffer size
 				//OpenGL.fGenTextures(1, nTexId);
 				nTexId = OpenGL.fCreateTexture();
 				//
 				OpenGL.fBindTexture(TEXTURE_2D, nTexId);
 			
-				OpenGL.fTexImage2D(TEXTURE_2D, 0, BGRA, oBuffer.nBuffWidth, oBuffer.nBuffHeight, 0, BGRA, UNSIGNED_BYTE, 0);
+				OpenGL.fTexImage2D(TEXTURE_2D, 0, RGBA, oBuffer.nBuffWidth, oBuffer.nBuffHeight, 0, BGRA, UNSIGNED_BYTE, 0);
 
 				OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_MAG_FILTER , OpenGL.eTextureMagFilter.LINEAR);
 				OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_MIN_FILTER , OpenGL.eTextureMinFilter.LINEAR);
