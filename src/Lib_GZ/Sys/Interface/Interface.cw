@@ -58,7 +58,9 @@ package  {
 			Debug.fTrace("IntefaceCreate");
 			
 		//, _hBorder : eWinBorder = eWinBorder.Normal,  _bMinimizeBox : Bool = true, _bMaximizeBox : Bool  = true, _bCloseBox : Bool = true, _bCpuOnly : Bool = false):Void {
-				
+		
+		
+			
 			oItf = this;
 			//oBackground = 0; //TODO auto ini 0
 /*
@@ -179,7 +181,7 @@ package  {
 				fUpdateChild(); 
 				//fUpdateChildToParent(); //Is U sless??
 				     
-			//	Debug.fTrace("Render");
+				//Debug.fTrace("Render");
 				//fDispatchLimit(this);  
 				oContext.fIniRender();  
 				//fDispatchAll(rAllDispacher.qa Render);

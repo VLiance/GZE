@@ -46,10 +46,12 @@ package  {
 		//public static var qaLinks : QArray<ContextLink, 1>;
 	
 		public var bBlitInProgress : Bool = false;
+		//public wvar oItf : Interface;
 		
 		
 		public function Context(_oInterface : Interface, _sWindowName : String, _nFrameWidth : UInt, _nFrameHeight : UInt, _bTransparent : Bool = false, _nBgColor : Int = 0xFFFFFFFF): Void {
-			//Window(_oInterface, _sWindowName, _nFrameWidth, _nFrameHeight, _bTransparent, _nBgColor);
+			
+		//Window(_oInterface, _sWindowName, _nFrameWidth, _nFrameHeight, _bTransparent, _nBgColor);
 					//Debug.fInfo("_sWindowName Name  "  + _sWindowName);
 					//Debug.fInfo("_sWindowName Name  "  + _sWindowName);
 					//var _sTest : String = "_sWindowName "  + _sWindowName;
@@ -185,7 +187,13 @@ package  {
         public function fCpuVSyncOnGpu():Void;
 		
 		public function fIsWindowReady():Bool;
-		public function fIniRender():Void;
+		
+		
+		public function fIniRender():Void {
+			if(bIniDrawZone == true){ // Or jsut registred
+				oGpu.fIniRender();
+			}
+		}
 
 
 		public function fGetMousePosition():Void;

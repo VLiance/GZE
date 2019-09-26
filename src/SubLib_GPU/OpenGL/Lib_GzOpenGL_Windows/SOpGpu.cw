@@ -187,7 +187,9 @@
 			return true;
 		}
 		
-		
+		override public function fIniRender():Void {
+			oGzShModel.fIniRender();
+		}
 				
 		 override public function fBlit():Void {
 			// Debug.fTrace("fBlit: Gpu");

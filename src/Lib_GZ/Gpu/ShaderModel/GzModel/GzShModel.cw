@@ -44,6 +44,8 @@ package  {
 		
 		}
 		
+		public function fIniRender():Void {
+		}
 		
 		public function fRenderFrame():Void {
 			

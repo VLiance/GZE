@@ -6,7 +6,8 @@ package  {
 	import GZ.File.Image;
 	import GZ.Sys.System;
 	import GZ.File.Resource;
-	import GZ.Gpu.GpuObj.GpuObject;
+	//import GZ.Gpu.GpuObj.GpuObject;
+	import GZ.Gpu.GpuObj.GpuRcImg;
 
 
 	/**
@@ -20,10 +21,15 @@ package  {
 		public var nWidth : UInt = 0;
 		public var nHeight : UInt = 0;
 		public var aImg : CArray<Int32, 2>
+		public var oGpuRcImg : GpuRcImg;
+		
+		
 		
 		public function RcImg(_sPath : String ):Void {
 	
 			Resource(_sPath);
+			
+			oGpuRcImg = new GpuRcImg();
 			
 			// hLocation : eLocation = eLocation.Drive;
 			 
@@ -92,7 +98,7 @@ package  {
 			//if(System.bHaveGpu){
 				if(bGpuLoaded == false){
 					bGpuLoaded = true;
-					nGpuTexId = GpuObject.fLoadImg(aImg[0], nWidth, nHeight);
+					nGpuTexId = oGpuRcImg.fLoadImg(aImg[0], nWidth, nHeight);
 				}
 			//}
 			

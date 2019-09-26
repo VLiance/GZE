@@ -18,7 +18,7 @@ package  {
 			
 			nId = OpenGL.fGetAttribLocation(oProgram.nId,  sName );
 			if(nId == -1){
-				Debug.fError("OpenGL: Unabled to find Attribute : " + sName );
+				Debug.fWarning("OpenGL: Unabled to find Attribute (or optimised out): " + sName );
 				return;
 			}
 			
@@ -60,10 +60,18 @@ package  {
 		
 		
 		override public function fSetOffset(_nValOffset : UInt):Void{ 
+			var _nSizeType : Int;
+			<cpp>
+			_nSizeType = sizeof(gzFloat32);
+			</cpp>
+	
 			if(bValid == true){
+				OpenGL.fVertexAttribPointer(nId, Vec4, FLOAT, false, 0, _nSizeType * _nValOffset );
+				/*
 				<cpp>
 				//GL_fVertexAttribPointer(nId,  GL_vec4, fGpuDataType(), GL_FALSE, 0,(Void*)(sizeof(gzFloat32) * (_nValOffset)));
 				</cpp>
+				*/
 			}
 			
 		}
@@ -80,6 +88,9 @@ package  {
 			if(bValid == true){
 				
 				OpenGL.fVertexAttribPointer(nId, Vec4, FLOAT, false, 0, 0);
+				OpenGL.fVertexAttribDivisor(nId, _nDiv);
+				
+				/*
 				<cpp>
 				#ifndef D_Platform_Web_Emsc
 				</cpp>
@@ -87,7 +98,7 @@ package  {
 				<cpp>
 				#endif
 				</cpp>
-
+				*/
 			}
 			
 			Debug.fTrace("SetDivisor");

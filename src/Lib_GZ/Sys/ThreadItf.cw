@@ -28,7 +28,7 @@
 			Debug.fInfo("-- New ThreadItf --");
 			
 			OpenGL = new OpenGL();
-			GpuObject = new GpuObject();
+			//GpuObject = new GpuObject();
 			<cpp>
 			//printf("\n-- New ThreadItf -- %p ", thread);
 			printf("\n-- New ThreadItf -- %p , id: %d", thread, thread->nId);

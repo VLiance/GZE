@@ -28,6 +28,11 @@
 			
 		}
 		
+		
+		override public function fIniRender():Void {
+		}
+		
+		
 		 override public function fBlit():Void {
 		 }
 		 

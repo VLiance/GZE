@@ -32,7 +32,7 @@ package  {
 		public function fLoad():Void {
 		}
 		
-		public function fSetOffset():Void;
+		public function fSetOffset(_nValOffset : UInt):Void;
 		
 		
 

@@ -175,7 +175,7 @@ package  {
 		
 		
 		public function fIsWindowReady():Bool;
-		public function fIniRender():Void;
+	
 
 		public function fGetMousePosition():Void{
 			<cpp>

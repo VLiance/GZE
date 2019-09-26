@@ -27,9 +27,15 @@ package  {
 		}
 		
 		
+		
+		
 		public function fLoadDefaultShader():Bool {
 		}
-		 
+		
+		public function fIniRender():Void {
+		}
+		
+
 		public function fBlit():Void{
 			Debug.fError("Gpu: fBlit: not implemented, unable to draw");
 		}

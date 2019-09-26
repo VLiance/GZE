@@ -25,6 +25,26 @@ package  {
 		public var oVboBatch : Vbo;
 		public var oUiMouse : UnVec2;
 		*/
+		
+		public var oAtObjPos : Attribute;
+		//public var oAtObjSize : Attribute;
+		public var oAtObjRot : Attribute;
+		public var oAtPt1 : Attribute;
+		public var oAtPt2 : Attribute;
+		public var oAtPt3 : Attribute;
+		public var oAtPt4 : Attribute;
+		public var oAtTexSource0 : Attribute;
+		public var oAtTexSource1 : Attribute;
+		public var oAtColor1 : Attribute;
+		public var oAtColor2 : Attribute;
+		public var oAtColor3 : Attribute;
+		public var oAtColor4 : Attribute;
+		public var oAtOffsetHV : Attribute;
+		public var oAtOffsetC : Attribute;
+		
+		
+
+		
 		public function GzShModel():Void {
 			Debug.fTrace("--- GzShModel Created!! ---");
 		}
@@ -48,13 +68,12 @@ package  {
 	layout (location = 3) in vec2 in_TexCoord0;  //Sx1,Sy1,Sx2,Sy2 
 	layout (location = 1) in vec4 in_TexSource0;  //Sx3,Sy3,Sx4,Sy4
 	layout (location = 15)  in vec4 in_TexSource1;  //Sx3,Sy3,Sx4,Sy4
-
 	layout (location = 4) in vec4 in_Color1; //R,G,B,A
 	////  in vec4 in_LimitRender;  //Limit render ... in uniform? <----
 
 	//AylasID, UniformActionID, Type
 
-	////  in vec4 in_AchorRoll;  //pt1,pt2,pt3,pt4  
+	////  in vec4 in_AchorRoll;  //pt1,pt2,pt3,pt4  
 	////  in vec4 in_AchorPt1;  //x1,y1,x2,x2  
 	////  in vec4 in_AchorPt2;  //x1,y1,x2,x2  
 	////  in vec4 in_AchorPt3;  //x1,y1,x2,x2  
@@ -325,7 +344,7 @@ package  {
 			outputColor = pixTex;
 	//		outputColor =  vec4( vCoDist.x, vCoDist.y, vCoDist.z,1.0);
 			
-			
+		//	outputColor =  vec4(0.5,0.5,0.5,0.5);
 			//////////////////////////////////////////////////////
 
 			///////////////////////////////////////////////////////
@@ -383,7 +402,30 @@ package  {
 			oGpuBatch = new GpuBatch();
 			
 			
-			var _oAtObjPos : Attribute = oProgram.fAddAttribute("in_ObjPos");
+			oProgram.nDefaultAttribDivisor = 1;
+			
+			oAtObjPos = oProgram.fAddAttribute("in_ObjPos");
+			//oAtObjSize = oProgram.fAddAttribute("in_ObjSize");
+			oAtObjRot = oProgram.fAddAttribute("in_ObjRot");
+			
+			oAtPt1 = oProgram.fAddAttribute("in_Pt1");
+			oAtPt2 = oProgram.fAddAttribute("in_Pt2");
+			oAtPt3 = oProgram.fAddAttribute("in_Pt3");
+			oAtPt4 = oProgram.fAddAttribute("in_Pt4");
+			
+			oAtTexSource0 = oProgram.fAddAttribute("in_TexSource0");
+			oAtTexSource1 = oProgram.fAddAttribute("in_TexSource1");
+			
+			oAtColor1 = oProgram.fAddAttribute("in_Color1");
+			oAtColor2 = oProgram.fAddAttribute("in_Color2");
+			oAtColor3 = oProgram.fAddAttribute("in_Color3");
+			oAtColor4 = oProgram.fAddAttribute("in_Color4");
+			
+		//	oAtOffsetHV = oProgram.fAddAttribute("in_OffsetHV");
+		//	oAtOffsetC = oProgram.fAddAttribute("in_OffsetC");
+			
+			
+
 		//	var _oAtVertexID : Attribute = oProgram.fAddAttribute("atVertexID");
 			
 			oUiMouse = new UnVec2(oProgram, "iMouse");
@@ -405,9 +447,35 @@ package  {
 		}*/
 		
 		
+		override public function fIniRender():Void {
+			Debug.fTrace("Total Face : "  + Context.oItf.nTotalFaces) ;
+
+			var _nTotalPerAttrib : Int =  Context.oItf.nTotalFaces * 4; //4 = Vec4
+			
+			
+			oAtObjPos.fSetOffset(_nTotalPerAttrib * 0);
+			oAtObjRot.fSetOffset(_nTotalPerAttrib * 1);
+			
+			oAtPt1.fSetOffset(_nTotalPerAttrib * 2);
+			oAtPt2.fSetOffset(_nTotalPerAttrib);
+			oAtPt3.fSetOffset(_nTotalPerAttrib * 4);
+			oAtPt4.fSetOffset(_nTotalPerAttrib * 5);
+			
+			oAtTexSource0.fSetOffset(_nTotalPerAttrib * 6);
+			oAtTexSource1.fSetOffset(_nTotalPerAttrib);
+			
+			oAtColor1.fSetOffset(_nTotalPerAttrib * 8);
+			oAtColor2.fSetOffset(_nTotalPerAttrib * 9);
+			oAtColor3.fSetOffset(_nTotalPerAttrib * 10);
+			oAtColor4.fSetOffset(_nTotalPerAttrib * 11);
+		}
 		
 		public function fUpdate():Void {
 		
+			
+			
+			oVboBatch.fSendData();
+			
 			
 			//nDestX = oWindow.nMouseX  + nDragX + ( oWindow.nMouseX - oWindow.nLastMouseX)/1.5;
 			//nDestY = oWindow.nMouseY  + nDragY + ( oWindow.nMouseY - oWindow.nLastMouseY)/1.5;
@@ -423,7 +491,7 @@ package  {
 		//	}
 			oUiMouse.fSend();
 			
-			oVboBatch.fSendData();
+		
 			oGpuBatch.fDraw();
 		}
 		

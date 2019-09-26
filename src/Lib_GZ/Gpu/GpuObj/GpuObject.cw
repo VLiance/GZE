@@ -4,7 +4,7 @@ package  {
 	import GZ.Gfx.Object;
 	import GZ.Sys.Interface.Interface;
 	
-	public class GpuObject  {
+	public extension GpuObject  {
 	
 
 		public function GpuObject( ):Void;
@@ -15,7 +15,7 @@ package  {
 		public function fFinishRender():Void;
 		
 		
-		public static function fLoadImg(_aImg : CArray<Int, 1>, _nWidth : Int, _nHeight : Int):UInt32;
+		public static function fLoadImg(_aImg : CArray<Int, 1>, _nWidth : Int, _nHeight : Int):Int;
 		
 		public function fDraw( _oSource : Object, _nX_Start : Int, _nX_End : Int, _nY_Start : Int, _nY_End : Int):Void;
 	}
