@@ -188,7 +188,7 @@ extern gzUInt GZ_nArrayTotalAlloc ;
 
 
 
-class gzDataRC {
+class gzDataRC { //gzDataRC must be Pod type with gzVecSized & gzMatSized
 public:
 	gzUInt8* aTab;
 	gzUIntX nSize;

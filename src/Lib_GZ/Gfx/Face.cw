@@ -109,7 +109,7 @@ package  {
 			Debug.fTrace("rPtS4: " +  rPtS4.nX + ", " +rPtS4.nY );
 			*/
 			
-			oGpuObj = new GpuFace();
+			oGpuObj = new GpuFace(this);
 			oGpuObj.fIni(this);
 		}
 		

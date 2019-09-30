@@ -25,7 +25,7 @@ package  {
 		public var oVboBatch : Vbo;
 		public var oUiMouse : UnVec2;
 		*/
-		public function GzShModel():Void {
+		public function GzShModel_Minimal():Void {
 			Debug.fTrace("--- GzShModel Created!! ---");
 		}
 		

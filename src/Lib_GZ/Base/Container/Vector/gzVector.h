@@ -21,17 +21,24 @@
 #define GZ_TabSize(_aTab)  (sizeof(_aTab)/sizeof(T))
 
 template <class T> 
-struct gzVecSized {
+struct gzVecSized {  //gzDataRC must be Pod type with gzVecSized & gzMatSized
 	T* aTab;
-	gzUIntX nSize;
+	union{
+		gzUIntX* aSize[1];
+		struct {gzUIntX nSize;};
+	};
 
 };
 
 template <class T> 
-struct gzMatrixSized {
+struct gzMatrixSized {  //gzDataRC must be Pod type with gzVecSized & gzMatSized
 	T* aTab;
-	gzUIntX nSizeX;
-	gzUIntX nSizeY;
+	union{
+		gzUIntX* aSize[2];
+		struct {gzUIntX nSizeX,nSizeY;};
+	};
+	//gzUIntX nSizeX;
+	//gzUIntX nSizeY;
 
 };
 

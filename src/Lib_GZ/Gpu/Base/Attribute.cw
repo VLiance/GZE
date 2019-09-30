@@ -29,6 +29,11 @@ package  {
 			fLoad();
 		}
 		
+		
+		public function fSet(_oData : CArray<Float>):Void {
+			
+		}
+		
 		public function fLoad():Void {
 		}
 		

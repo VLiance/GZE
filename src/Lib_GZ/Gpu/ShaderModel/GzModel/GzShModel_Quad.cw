@@ -11,6 +11,7 @@ package  {
 	import GZ.Base.Perspective;
 	import GZ.Sys.Interface.Context;
 	import GZ.Gpu.ShaderModel.GzModel.GzShModel;
+	import GZ.Gpu.ShaderModel.AtModel.Attribute_Quad;
 	
 	//import GZ.Base.TestPod;
 	//import GZ.Base.TestPod2;
@@ -26,6 +27,8 @@ package  {
 		public var oUiMouse : UnVec2;
 		*/
 		
+		
+		/*
 		public var oAtObjPos : Attribute;
 		//public var oAtObjSize : Attribute;
 		public var oAtObjRot : Attribute;
@@ -41,12 +44,18 @@ package  {
 		public var oAtColor4 : Attribute;
 		public var oAtOffsetHV : Attribute;
 		public var oAtOffsetC : Attribute;
+		*/
+		
+		public var oAt : Attribute_Quad;
 		
 		
 
 		
-		public function GzShModel():Void {
+		public function GzShModel_Quad():Void {
 			Debug.fTrace("--- GzShModel Created!! ---");
+			
+			oAt = new Attribute_Quad();
+			Attribute_Quad = oAt; //Singleton
 		}
 		
 		public function fLoad():Bool {
@@ -404,6 +413,10 @@ package  {
 			
 			oProgram.nDefaultAttribDivisor = 1;
 			
+			
+			oAt.fLocateAttribute(oProgram);
+			
+			/*
 			oAtObjPos = oProgram.fAddAttribute("in_ObjPos");
 			//oAtObjSize = oProgram.fAddAttribute("in_ObjSize");
 			oAtObjRot = oProgram.fAddAttribute("in_ObjRot");
@@ -420,7 +433,7 @@ package  {
 			oAtColor2 = oProgram.fAddAttribute("in_Color2");
 			oAtColor3 = oProgram.fAddAttribute("in_Color3");
 			oAtColor4 = oProgram.fAddAttribute("in_Color4");
-			
+			*/
 		//	oAtOffsetHV = oProgram.fAddAttribute("in_OffsetHV");
 		//	oAtOffsetC = oProgram.fAddAttribute("in_OffsetC");
 			
@@ -448,11 +461,12 @@ package  {
 		
 		
 		override public function fIniRender():Void {
-			Debug.fTrace("Total Face : "  + Context.oItf.nTotalFaces) ;
+			//Debug.fTrace("Total Face : "  + Context.oItf.nTotalFaces) ;
 
-			var _nTotalPerAttrib : Int =  Context.oItf.nTotalFaces * 4; //4 = Vec4
+			//var _nTotalPerAttrib : Int =  Context.oItf.nTotalFaces * 4; //4 = Vec4
 			
-			
+			oAt.fSetOffset( Context.oItf.nTotalFaces );
+			/*
 			oAtObjPos.fSetOffset(_nTotalPerAttrib * 0);
 			oAtObjRot.fSetOffset(_nTotalPerAttrib * 1);
 			
@@ -468,6 +482,8 @@ package  {
 			oAtColor2.fSetOffset(_nTotalPerAttrib * 9);
 			oAtColor3.fSetOffset(_nTotalPerAttrib * 10);
 			oAtColor4.fSetOffset(_nTotalPerAttrib * 11);
+			*/
+			
 		}
 		
 		public function fUpdate():Void {
