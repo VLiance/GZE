@@ -465,7 +465,7 @@ package  {
 
 			//var _nTotalPerAttrib : Int =  Context.oItf.nTotalFaces * 4; //4 = Vec4
 			
-			oAt.fSetOffset( Context.oItf.nTotalFaces );
+			oAt.fIniData( Context.oItf.nTotalFaces );
 			/*
 			oAtObjPos.fSetOffset(_nTotalPerAttrib * 0);
 			oAtObjRot.fSetOffset(_nTotalPerAttrib * 1);

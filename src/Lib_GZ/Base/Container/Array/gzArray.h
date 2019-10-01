@@ -588,7 +588,9 @@ class gzArray {
 		gzp_Size = 0;
 	}
 	 
-	 
+	 inline void fMaxSize(  gzUIntX _nMaxSize) const { //public
+		m.fIsFit(_nMaxSize);
+	}
 	 
 	 	 
 	inline void f_SubStr(gzUIntX _nBeginIndex, gzUIntX _nEndIndex )  {

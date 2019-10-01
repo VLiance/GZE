@@ -191,7 +191,11 @@ extern gzUInt GZ_nArrayTotalAlloc ;
 class gzDataRC { //gzDataRC must be Pod type with gzVecSized & gzMatSized
 public:
 	gzUInt8* aTab;
-	gzUIntX nSize;
+	//gzUIntX nSize;
+	union{
+		gzUIntX aSize[1]; //gzDataRC must be Pod type with gzVecSized & gzMatSized
+		struct {gzUIntX nSize;};
+	};
 	gzUIntX nLimit; //!!ReadOnly? Ok, only readed
 	gzUInt8 nSpaceBef; //!!ReadOnly? ->  only for dynamic allocation (add to prec optimisation) (never rewrited)  //md+
 	gzUInt8 nType; //0 = const / readOnly  (never free)  // 1 =  modifiable (never free) (not used?)   / 2 = volatile, must free of pure data / 3 =  volatile, must free of sub struct/ptr (not used?)

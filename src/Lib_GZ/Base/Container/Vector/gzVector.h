@@ -24,7 +24,7 @@ template <class T>
 struct gzVecSized {  //gzDataRC must be Pod type with gzVecSized & gzMatSized
 	T* aTab;
 	union{
-		gzUIntX* aSize[1];
+		gzUIntX aSize[1];
 		struct {gzUIntX nSize;};
 	};
 
@@ -34,7 +34,7 @@ template <class T>
 struct gzMatrixSized {  //gzDataRC must be Pod type with gzVecSized & gzMatSized
 	T* aTab;
 	union{
-		gzUIntX* aSize[2];
+		gzUIntX aSize[2];
 		struct {gzUIntX nSizeX,nSizeY;};
 	};
 	//gzUIntX nSizeX;
@@ -71,7 +71,20 @@ namespace GzVector{
 			_aTab[i] = _nVal;
 		}
 	}
+	template<class T, class OtherT=T> inline void fTabAssign(T* _aTab, const gzUIntX _nSize,  OtherT* _aOtherTab, const gzUIntX _nOtherSize){
+		Pragma_Unroll_8
+		for(gzUInt i = 0; i < gzMin( _nSize, _nOtherSize); i++){
+			_aTab[i] = (T)_aOtherTab[i];
+		}
+		
+		Pragma_Unroll_8
+		for(gzUInt i = gzMin( _nSize, _nOtherSize); i < _nSize; i++){
+			_aTab[i] = 0;
+		}
+	}
 	template<class T, class OtherT=T> inline void fTabAssign(T* _aTab, const gzUIntX _nSize,  const gzVecSized<OtherT>&  _vVec){
+		fTabAssign<T, OtherT>(_aTab, _nSize, _vVec.aTab, _vVec.nSize);
+		/*
 		Pragma_Unroll_8
 		for(gzUInt i = 0; i < gzMin( _nSize, _vVec.nSize); i++){
 			_aTab[i] = (T)_vVec.aTab[i];
@@ -80,7 +93,7 @@ namespace GzVector{
 		Pragma_Unroll_8
 		for(gzUInt i = gzMin( _nSize, _vVec.nSize); i < _nSize; i++){
 			_aTab[i] = 0;
-		}
+		}*/
 	}
 	template<class T> inline void fTabAddStride(T* _aNew, const T* _aTab, const gzUIntX _nSize,  const T* _aOtherTab, const gzUIntX _nOtherSize, const gzUIntX _nStride = 1, const gzUIntX _nOtherStride = 1){
 

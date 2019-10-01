@@ -20,20 +20,47 @@
 //#define GZ_TabSize(_aTab)  (sizeof(_aTab)/sizeof(T))
 
 
+#define GZ_EaseStride(_T) sizeof(gzEase<_T>)/ sizeof(_T)
 
 
-template <class T, class SubT = T, gzUInt TDim = 1> 
+
+template <class SubT> 
 class gzArrayView {
 	public:
 		gzDataRC* oData; //Must be compatible with gzVecSized & gzMatrixSized
-		gzUIntX aSize[TDim];
+		gzUIntX nOffset;
+		gzUIntX nSize;
+		gzUInt16 nStride;
+		gzUInt8 nDim;
 		
-		inline gzArrayView(): aSize({0}), oData(0) {
+		
+		inline gzArrayView(): oData(0), nOffset(0), nSize(0), nStride(0), nDim(0)   {
+		}
+		inline gzArrayView(const gzArrayView<SubT>& _o)						 : oData(_o.oData), 		   nOffset(_o.nOffset), nSize(_o.nSize),     nStride(_o.nStride), 		   nDim(_o.nDim)  {
 		}
 		
-		inline gzArrayView(gzVecSized<T> _oVec) : aSize({0}), oData((gzDataRC* )&_oVec) {
-			aSize[0] = _oVec.nSize;
+		inline gzArrayView(gzVecSized<SubT> _oVec)							 : oData((gzDataRC* )&_oVec),  nOffset(0), 		    nSize(_oVec.nSize),  nStride(0), 		 		   nDim(1) {}
+		inline gzArrayView(gzVecSized<gzEase<SubT>> _oVec)					 : oData((gzDataRC* )&_oVec),  nOffset(0), 		    nSize(_oVec.nSize),  nStride(GZ_EaseStride(SubT)), nDim(1) {}
+		
+		inline gzArrayView(gzDataRC* _oData, gzUIntX  _nOffset = 0, gzUIntX _nStride = 0): oData(_oData) , nOffset(_nOffset),   nSize(_oData->nSize), nStride(_nStride),  		   nDim(1) {}
+		
+		
+		/*
+		//READING :: return RVO
+		inline T operator()(gzUIntX _nIndex) const { 
+			return	((T*)m.aData->aTab)[_nIndex]; //Todo not for basic type 
+		}*/
+			
+		
+		//WRITING 
+		inline SubT&  operator[](gzUIntX _nIndex) const {
+			return  ((SubT*)oData->aTab)[ (nOffset + _nIndex) * nStride];
 		}
+		
+		//inline gzArrayView<T, SubT, TDim> operator=(const gzArrayView<SubT>&  _aOther)  const {GzVector::fTabAssign(gzContTab(oData->aTab),oData->aSize[0], _aOther.oData->aTab, _aOther.oData->aTab->aSize[0]);return *this;}
+	
+		
+		
 		
 };
 

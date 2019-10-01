@@ -48,6 +48,9 @@ package  {
 		public var nTotalQuad : UInt = 0;
 
 		
+		public var aData : Array<Float>;
+		
+		
 		public function Attribute_Quad():Void {
 			Debug.fTrace("--- Attribute_Quad Created!! ---");
 		}
@@ -74,8 +77,10 @@ package  {
 			oAtColor4 = oProgram.fAddAttribute("in_Color4");
 		}
 		
-		public function fSetOffset(_nTotalQuad:UInt):Void {
+		public function fIniData(_nTotalQuad:UInt):Void {
 			Debug.fTrace("Total Quad : "  + _nTotalQuad) ;
+			
+
 				
 			nTotalQuad = _nTotalQuad;
 			
@@ -86,17 +91,19 @@ package  {
 			oAtObjRot.fSetOffset(_nTotalPerAttrib * 1);
 			
 			oAtPt1.fSetOffset(_nTotalPerAttrib * 2);
-			oAtPt2.fSetOffset(_nTotalPerAttrib);
+			oAtPt2.fSetOffset(_nTotalPerAttrib * 3);
 			oAtPt3.fSetOffset(_nTotalPerAttrib * 4);
 			oAtPt4.fSetOffset(_nTotalPerAttrib * 5);
 			
 			oAtTexSource0.fSetOffset(_nTotalPerAttrib * 6);
-			oAtTexSource1.fSetOffset(_nTotalPerAttrib);
+			oAtTexSource1.fSetOffset(_nTotalPerAttrib * 7);
 			
 			oAtColor1.fSetOffset(_nTotalPerAttrib * 8);
 			oAtColor2.fSetOffset(_nTotalPerAttrib * 9);
 			oAtColor3.fSetOffset(_nTotalPerAttrib * 10);
 			oAtColor4.fSetOffset(_nTotalPerAttrib * 11);
+			
+			aData.fMaxSize(_nTotalPerAttrib * 12);
 		}
 		
 

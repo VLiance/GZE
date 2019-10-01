@@ -10,6 +10,7 @@ package  {
 	//import GZ.File.RcImg;
 	import GZ.Gpu.ShaderModel.AtModel.Attribute_Quad;
 	import GZ.Gfx.Face;
+	import GZ.Gfx.Shape;
 	
 	
 	public class OpGpuFace overplace GpuFace {
@@ -29,7 +30,14 @@ package  {
 		//fCreateDara();
 		
 		//oAt = Attribute_Quad;
-		Attribute_Quad.oAtObjPos.fSet(oFace.oShape.vPos);
+		//Attribute_Quad.oAtObjPos.fSet(oFace.oShape.vPos);
+		<cpp>
+			gzArrayView<gzFloat> _aTest = oFace->oShape->vPos.get();
+			
+			
+		</cpp>
+		
+		
 		
 		//;
 		

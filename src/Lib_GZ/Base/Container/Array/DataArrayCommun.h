@@ -135,6 +135,8 @@
 		*/
 		fSetArrayAndSize(GZ_fMax(_nNewSize,gzp_DataSize));
 	}
+	
+
 
 	inline void fCopyData(  gzUInt8* _aCopySrc, gzUIntX _nCopySize, gzInt _nDestIndex) const{
 		// Copy Data from other array
