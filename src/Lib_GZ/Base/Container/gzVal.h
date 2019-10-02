@@ -69,6 +69,10 @@
 					return *this;
 				}*/
 				
+				/*
+				inline  operator gzInt()const {
+					return this->as<int>();
+				}*/
 				
 
 				gzVal& operator=(const gzVal& _v) {

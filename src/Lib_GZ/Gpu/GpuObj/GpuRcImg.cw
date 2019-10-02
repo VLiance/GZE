@@ -8,7 +8,7 @@ package  {
 	
 		public function GpuRcImg( ):Void;
 
-		public function fLoadImg(_aImg : CArray<Int, 1>, _nWidth : Int, _nHeight : Int):Int;
+		public function fLoadImg(_aImg : CArray<Int, 1>, _nWidth : Int, _nHeight : Int):Val;
 
 	}
 }

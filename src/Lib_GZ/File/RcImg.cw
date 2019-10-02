@@ -17,7 +17,7 @@ package  {
 	//public atomic RcImg extends Resource {
 	public class RcImg extends Resource {	
 	
-		public var nGpuTexId : UInt32 = 0;
+		public var oGpuTexId : Val = 0;
 		public var nWidth : UInt = 0;
 		public var nHeight : UInt = 0;
 		public var aImg : CArray<Int32, 2>
@@ -98,7 +98,7 @@ package  {
 			//if(System.bHaveGpu){
 				if(bGpuLoaded == false){
 					bGpuLoaded = true;
-					nGpuTexId = oGpuRcImg.fLoadImg(aImg[0], nWidth, nHeight);
+					oGpuTexId = oGpuRcImg.fLoadImg(aImg[0], nWidth, nHeight);
 				}
 			//}
 			

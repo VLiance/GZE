@@ -572,8 +572,12 @@ generate "OpenGL" {
 					gzUIntX _nSize = 0;
 					if(_pPixel != 0){
 						_nSize = _nWidth * _nHeight*4; //32bits, use the a larger possible size (32bit) to create the array view, TODO check if it's valid for smaller pixel format. 
+						oGL.call<void>("texImage2D", gzVal(gzInt(_hTarget)), gzVal(_nLevel), gzVal(gzInt(_hInternalformat)), gzVal(_nWidth), gzVal(_nHeight), gzVal(_nBorder), gzVal(gzInt(_hFormat)), gzVal(gzInt(_hType)), typed_memory_view(_nSize, (gzUInt8*)_pPixel));
+					}else{
+						</cpp>
+						Debug.fError("glTexImage2D have an empty src image");
+						<cpp>
 					}
-					 oGL.call<void>("texImage2D", gzVal(gzInt(_hTarget)), gzVal(_nLevel), gzVal(gzInt(_hInternalformat)), gzVal(_nWidth), gzVal(_nHeight), gzVal(_nBorder), gzVal(gzInt(_hFormat)), gzVal(gzInt(_hType)), typed_memory_view(_nSize, (gzUInt8*)_pPixel));
 					return;
 				#endif
 				</cpp>

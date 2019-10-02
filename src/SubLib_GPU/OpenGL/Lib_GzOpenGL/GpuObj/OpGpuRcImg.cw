@@ -17,18 +17,21 @@ package  {
 		public function fIniRender():Void;
 		public function fFinishRender():Void;
 		
-		public var nTexId : Int = -1;
+		public var oTexId : Val = null;
 			
 		
-		public function fLoadImg(_aImg : CArray<Int, 1>, _nWidth : Int, _nHeight : Int):Int{
+		public function fLoadImg(_aImg : CArray<Int, 1>, _nWidth : Int, _nHeight : Int):Val{
 
 		
-			
 			OpenGL.fActiveTexture(TEXTURE0);
-			nTexId = OpenGL.fCreateTexture();
-			OpenGL.fBindTexture(TEXTURE_2D, nTexId);
-			
-			OpenGL.fTexImage2D(TEXTURE_2D, 0, RGBA, _nWidth+2,_nHeight+2, 0, BGRA, UNSIGNED_BYTE, _aImg);
+			oTexId = OpenGL.fCreateTexture();
+			OpenGL.fBindTexture(TEXTURE_2D, oTexId);
+
+	//WebGL 2.0		
+	//Sized internal formats are supported in WebGL 2.0 and internalformat is no longer required to be the same as format. Instead, the combination of internalformat, format, and type must be listed in the following table:		
+	//RGBA :	RGBA : UNSIGNED_BYTE/UNSIGNED_SHORT_4_4_4_4/UNSIGNED_SHORT_5_5_5_1
+
+			OpenGL.fTexImage2D(TEXTURE_2D, 0, RGBA, _nWidth+2,_nHeight+2, 0, RGBA, UNSIGNED_BYTE, _aImg);
 			
 			OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_MAG_FILTER , OpenGL.eTextureMagFilter.LINEAR);
 			OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_MIN_FILTER , OpenGL.eTextureMinFilter.LINEAR);
@@ -38,12 +41,13 @@ package  {
 
 			OpenGL.fBindTexture(TEXTURE_2D, null);
 			
-			if(nTexId != -1){
-				Debug.fPass("Image Gpu Loaded: " + nTexId);
+			if(oTexId != null){
+				//Debug.fPass("Image Gpu Loaded: " + oTexId);
+				Debug.fPass("Image Gpu Loaded" );
 			}else{
-				Debug.fError("Image Gpu Loaded: " + nTexId);
+				Debug.fError("Image Gpu Loaded Failed");
 			}
-			return nTexId;
+			return oTexId;
 			
 		}
 		

@@ -19,7 +19,7 @@ package  {
 
 	
 	public class OpGpuBuffer overplace GpuBuffer  {
-		public var nTexId : Val;
+		public var oTexId : Val;
 		public var nIdBuff : Val;
 	
 	/*
@@ -32,7 +32,7 @@ package  {
 
     GZ::cShape* oShape;
     gzInt nNbPoints;
-    gzUInt nTexId;
+    gzUInt oTexId;
     gzUInt nAtlasId;
     gzUInt ;
     gzBool bAutoClear;
@@ -63,12 +63,17 @@ package  {
 				
 				
 				//New Texture of buffer size
-				//OpenGL.fGenTextures(1, nTexId);
-				nTexId = OpenGL.fCreateTexture();
+				//OpenGL.fGenTextures(1, oTexId);
+				oTexId = OpenGL.fCreateTexture();
 				//
-				OpenGL.fBindTexture(TEXTURE_2D, nTexId);
+				OpenGL.fBindTexture(TEXTURE_2D, oTexId);
 			
-				OpenGL.fTexImage2D(TEXTURE_2D, 0, RGBA, oBuffer.nBuffWidth, oBuffer.nBuffHeight, 0, BGRA, UNSIGNED_BYTE, 0);
+	//WebGL 2.0		
+	//Sized internal formats are supported in WebGL 2.0 and internalformat is no longer required to be the same as format. Instead, the combination of internalformat, format, and type must be listed in the following table:		
+	//RGBA :	RGBA : UNSIGNED_BYTE/UNSIGNED_SHORT_4_4_4_4/UNSIGNED_SHORT_5_5_5_1
+
+				//OpenGL.fTexImage2D(TEXTURE_2D, 0, RGBA, oBuffer.nBuffWidth, oBuffer.nBuffHeight, 0, BGRA, UNSIGNED_BYTE, 0);
+				OpenGL.fTexImage2D(TEXTURE_2D, 0, RGBA, oBuffer.nBuffWidth, oBuffer.nBuffHeight, 0, RGBA, UNSIGNED_BYTE, 0);
 
 				OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_MAG_FILTER , OpenGL.eTextureMagFilter.LINEAR);
 				OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_MIN_FILTER , OpenGL.eTextureMinFilter.LINEAR);
@@ -92,8 +97,8 @@ package  {
 				OpenGL.fBindRenderbuffer(RENDERBUFFER, 0);
 				*/
 			
-				//Attach the created texture to FBO color attachement point: nTexId = COLOR_ATTACHMENT0
-				OpenGL.fFramebufferTexture2D(FRAMEBUFFER, COLOR_ATTACHMENT0, TEXTURE_2D, nTexId, 0);
+				//Attach the created texture to FBO color attachement point: oTexId = COLOR_ATTACHMENT0
+				OpenGL.fFramebufferTexture2D(FRAMEBUFFER, COLOR_ATTACHMENT0, TEXTURE_2D, oTexId, 0);
 			   // glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, nLastTexture, 0);
 				/*
 				// Attach a renderbuffer object the binded framebuffer object: _nIdRbo => nIdBuff
@@ -122,8 +127,8 @@ package  {
 				GL_fActiveTexture( GL_TEXTURE1 );
 
 				//Create a texture fbo
-				GL_fGenTextures(1, &nTexId);
-				GL_fBindTexture(GL_TEXTURE_2D, nTexId);
+				GL_fGenTextures(1, &oTexId);
+				GL_fBindTexture(GL_TEXTURE_2D, oTexId);
 
 				GL_fTexImage2D(GL_TEXTURE_2D, 0, GL_INTERNAL_FOMAT, oBuffer->nBuffWidth, oBuffer->nBuffHeight, 0, GL_TEXTURE_FOMAT, GL_UNSIGNED_BYTE, 0);
 
@@ -149,7 +154,7 @@ package  {
 				GL_fBindRenderbuffer(GL_RENDERBUFFER, 0);
 
 				// attach a texture to FBO color attachement point
-				GL_fFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, nTexId, 0);
+				GL_fFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, oTexId, 0);
 			   // glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, nLastTexture, 0);
 
 				// attach a renderbuffer to depth attachment point
