@@ -183,7 +183,7 @@ package  {
 			
 			
 			var _oAtObjPos : Attribute = oProgram.fAddAttribute("in_ObjPos");
-		//	var _oAtVertexID : Attribute = oProgram.fAddAttribute("atVertexID");
+		//	var _oAtVertexID : Attribute = oProgram.fAddAttribute("atVertexID",0);
 			
 			oUiMouse = new UnVec2(oProgram, "iMouse");
 			

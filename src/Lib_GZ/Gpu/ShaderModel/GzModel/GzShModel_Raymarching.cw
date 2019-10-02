@@ -330,7 +330,7 @@ package  {
 			
 			
 			var _oAtObjPos : Attribute = oProgram.fAddAttribute("atObjPos");
-			var _oAtVertexID : Attribute = oProgram.fAddAttribute("atVertexID");
+			var _oAtVertexID : Attribute = oProgram.fAddAttribute("atVertexID",0);
 			
 			
 			

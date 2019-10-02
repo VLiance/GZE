@@ -21,7 +21,7 @@ package  {
 				Debug.fTrace("--****************--");
 				
 				<cpp>
-				#ifdef D_Platform_Web_Emsc
+			#ifdef D_Platform_Web_Emsc
 				</cpp>
 				
 				
@@ -58,7 +58,7 @@ package  {
 				////////////////////////////////////////////
 				</glsl>		
 				<cpp>
-				#else
+			#else
 				</cpp>
 				<glsl(this)>	
 					//// Windows ///
@@ -67,14 +67,15 @@ package  {
 					///////////////
 				</glsl>	
 				<cpp>
-				#endif
+			#endif
 				</cpp>
 				
 				<glsl(this)>	
 				///// nVertexID /////
+				#define glVxID /// Remove support of ES2 (always have gl_VertexID )
 				#ifdef glVxID
 					#define nVertexID gl_VertexID
-					in int gl_VertexID;
+					//	in int gl_VertexID; //already declared by default? Don't work in ES3 (redeclaration)
 				#else
 					in vec4 atVertexID;
 					#define nVertexID int(atVertexID.x)

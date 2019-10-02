@@ -348,9 +348,9 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 			oVboBatch  = oProgram.fAddVbo();
 			oGpuBatch = new GpuBatch();
 			
-			
+				
 			var _oAtObjPos : Attribute = oProgram.fAddAttribute("atObjPos");
-			var _oAtVertexID : Attribute = oProgram.fAddAttribute("atVertexID");
+			var _oAtVertexID : Attribute = oProgram.fAddAttribute("atVertexID",0); //Must advance each vertex
 			
 			oUiTime = new UnFloat(oProgram, "iTime");
 			oUiMouse = new UnVec2(oProgram, "iMouse");
@@ -361,7 +361,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 			var _oPersv : Perspective = new Perspective();
 			
 			
-			
+	
 			
 			
 			//	oGpuBatch.fDraw();

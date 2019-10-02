@@ -58,10 +58,14 @@ package  {
 		
 		public function fUse():Bool;
 		
-		public function fAddAttribute(_sName : String):Attribute{
+		public function fAddAttribute(_sName : String, _nDivisor : Int = -1):Attribute{ // -1 = default
 			var _oAttrib : Attribute = new Attribute(this, _sName);
-			if(nDefaultAttribDivisor != 0){
-				_oAttrib.fSetDivisor(nDefaultAttribDivisor);
+			if(_nDivisor >= 0){
+					_oAttrib.fSetDivisor(_nDivisor);
+			}else{
+				if(nDefaultAttribDivisor != 0){
+					_oAttrib.fSetDivisor(nDefaultAttribDivisor);
+				}
 			}
 			return _oAttrib;
 		}
