@@ -73,7 +73,7 @@ package  {
 			Debug.fTrace("fLoadFile ! : " + sFullPath);
 			
 			<cpp>
-				var _sFPath = sFullPath.fReplaceAll(gzU8("/"), gzU8("\\"));
+				gzStr _sFile = sFullPath.fReplaceAll(gzU8("/"), gzU8("\\"));
 
 				gzUInt _nExist = CpcDos->File_exist((char*) _sFile.fToCStr().get());
 				if(_nExist > 0){
@@ -90,7 +90,7 @@ package  {
 					
 					
 					// Recuperer TOUT le contenu
-					CpcDos->File_read_all((char*)_sFullPath.fcStr(), (char*)"RB", (char*)_aData);
+					CpcDos->File_read_all((char*)_sFile.fToCStr().get(), (char*)"RB", (char*)_aData);
 				
 					_oRc->fSetDynamicMemData(_aData, _nSize); //Will be auto free 
 					

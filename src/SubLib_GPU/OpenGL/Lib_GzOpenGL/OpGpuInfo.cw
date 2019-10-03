@@ -9,7 +9,9 @@
 		#define GL_TEXTURE_FOMAT GL_BGRA
 
 		#ifdef D_Platform_Windows
+			#ifndef D_Platform_CpcDos
 		#include "Lib_GzOpenGL_Windows/GlWin.h"
+			#endif
 		#endif
 	
 		#undef GL_NO_ERROR

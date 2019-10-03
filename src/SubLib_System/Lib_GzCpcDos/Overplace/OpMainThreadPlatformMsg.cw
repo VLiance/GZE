@@ -39,7 +39,7 @@ package  {
 			var _nY : UInt = _oWindow.vFrame.nY;
 			
 			<cpp>
-			nIdContextGZE = CpcDos->Create_Context(_oWindow->vFrame.nWidth, _oWindow->vFrame.nHeight);
+			_nHandleId = CpcDos->Create_Context(_oWindow->vFrame.nWidth, _oWindow->vFrame.nHeight);
 			</cpp>
 
 //			ThreadMsg.fSend(new MsgCreateWindow("MonMessage!"));

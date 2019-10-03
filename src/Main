@@ -101,7 +101,7 @@ LRESULT CALLBACK MainHwndProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARA
 
 	#ifdef D_Platform_CpcDos
 //////////////////////////////////////////////////////////
-#include "Lib_GZ/SysUtils/CpcDos/CPC_WPR.cpp"
+#include "CpcDos/CPC_WPR.cpp"
 extern bool bOnCpcDos;
 int main( int argc, const char* argv[] ){
 	if(bOnCpcDos){

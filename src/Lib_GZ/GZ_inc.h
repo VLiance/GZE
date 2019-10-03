@@ -9,6 +9,8 @@
 #ifndef tHDef_GZ
 #define tHDef_GZ
 
+	#include "Lib_GZ/Base/StaticOverride/GZ_Toolchain.h"
+
 	#include "Lib_GZ/Base/Class.h"
 	
 	#include "Lib_GZ/Base/SmartPtr/gzSp.h"
