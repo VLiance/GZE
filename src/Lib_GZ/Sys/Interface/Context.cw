@@ -191,7 +191,9 @@ package  {
 		
 		public function fIniRender():Void {
 			if(bIniDrawZone == true){ // Or jsut registred
-				oGpu.fIniRender();
+				if(bWinGPU ) {
+					oGpu.fIniRender();
+				}
 			}
 		}
 
@@ -218,7 +220,9 @@ package  {
 	
 		public function fGpuBlit():UIntX {
 			if(bIniDrawZone == true){ // Or jsut registred
-				oGpu.fBlit();
+				if(bWinGPU ) {
+					oGpu.fBlit();
+				}
 			}
 			//Debug.fError("fGpuBlit: not implemented, unable to draw");
 			return 0;

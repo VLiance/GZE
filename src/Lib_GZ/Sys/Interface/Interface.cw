@@ -80,8 +80,8 @@ package  {
 			FrameRate(null, _nWeakWidth, _nWeakHeight);
 
 			oThreadItf = _oThreadItf;
-
-			oGpuObj = new GpuBuffer(this);
+			
+		
 
 			sWindowName = _sWindowName;
 			nBgColor = _nBgColor;
@@ -90,6 +90,10 @@ package  {
 			oContext = new Context(this, _sWindowNameTest, _nWeakWidth, _nWeakHeight, _bTransparent, _nBgColor);
 			//, _hBorder, _bMinimizeBox, _bMaximizeBox,_bCloseBox,_bCpuOnly,false);
 			Context = oContext; //Set singleton
+			
+			if(oContext.bWinGPU ) {
+				oGpuObj = new GpuBuffer(this);
+			}
 			
 			oThreadItf.oWindow = oContext; //Will destroy windws when thread finish (shared_ptr)
 			bWIntransparent = _bTransparent;
@@ -137,9 +141,9 @@ package  {
 
 		
 		public function fRegistred():Void {
-			oGpuObj.fIni();
 
 			if(oContext.bWinGPU ) {
+				oGpuObj.fIni();
 				if(fLoadShader() == false){
 					oContext.oGpu.fLoadDefaultShader();
 				}else{

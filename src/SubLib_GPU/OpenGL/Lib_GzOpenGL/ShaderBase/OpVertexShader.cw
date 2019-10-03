@@ -70,9 +70,16 @@ package  {
 			#endif
 				</cpp>
 				
+				//glVxID -> Needed for WebGL firefox ANGLE : n Direct3D 9 stream 0 must be specified as indexed data
+				//and it cannot be instanced. In ANGLE we can work around this by
+				// remapping any other stream that does have indexed data (ie a zero
+				//attribute divisor) to stream 0 in D3D9. This works because the HLSL
+				// vertex shader matches attributes against the stream by using the 
+				// shader semantic index.
+
 				<glsl(this)>	
 				///// nVertexID /////
-				#define glVxID /// Remove support of ES2 (always have gl_VertexID )
+				//#define glVxID /// For ES2 or WebGL Angle if no other attribute with dividor 0 is specified
 				#ifdef glVxID
 					#define nVertexID gl_VertexID
 					//	in int gl_VertexID; //already declared by default? Don't work in ES3 (redeclaration)
