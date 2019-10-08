@@ -19,10 +19,10 @@
 namespace Lib_GZ{namespace Base{ namespace Thread{ namespace ThreadList{
 
   /// gzQElement<gzSp<Base::Thread::cThreadExt>> qeTask = aList.GqeFirst(); //TODO special ini
-    gzQElement<gzSp<Base::Thread::cThreadExt>> qeTask;
+    gzQElement<gzWp<Base::Thread::cThreadExt>> qeTask;
 
  
-    gzQArray<gzSp<Base::Thread::cThreadExt>> aList;
+    gzQArray<gzWp<Base::Thread::cThreadExt>> aList;
    // gzQElement<gzSp<cThreadExt>> qeTask;
 	
   //  gzArray<gzSp<Base::Thread::cThreadExt>> aList; //TODO Atomic queue?

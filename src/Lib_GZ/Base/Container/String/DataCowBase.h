@@ -108,6 +108,11 @@
 
 
 
+// >= 4
+//#define TEST aaaa
+//#define STRING2(x) #x
+//#define STRING1(x) STRING2(x)
+
 
 //Same as Arrray
 	inline void Free(gzDataRC* _oRC) const { //Don't free if we have weak_ptr  alive
@@ -124,17 +129,28 @@
 			GZ_fFree(_oRC->aTab - _oRC->nSpaceBef); 	GZ_nArrayTotalFree++; //Combined array
 		}
 
-		if( gzDataType_IS_DataRC_MUSTFREE(_oRC) ){ //If Not read only
-			
-			
+		if( gzDataType_IS_DataRC_MUSTFREE(_oRC) ){ //If Not read only				
+	//	#pragma message "The value of ABC: "  xstr(foo)
+	
 			#ifdef D_Debug
 				_oRC->aTab = 0;
 				_oRC->nType = -1;
 				_oRC->nInst = -1;
 			#endif
+			
+			//Stupid gcc can't detect constant value that will not delete the object
+			#ifdef __MINGW32__
+			#ifndef __clang__
+			#pragma GCC diagnostic push
+			#pragma GCC diagnostic ignored "-Wfree-nonheap-object"
+			#endif
+			#endif
 			GZ_fFree(_oRC); 	GZ_nArrayTotalFree++; //Combined array
-	
-
+			#ifdef __MINGW32__
+			#ifndef __clang__
+			#pragma GCC diagnostic pop
+			#endif
+			#endif
 		}
 	}
 //Same as Arrray

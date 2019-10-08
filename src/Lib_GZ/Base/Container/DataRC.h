@@ -224,6 +224,8 @@ public:
 			//printf("\n %p: Add: %d  ",aTab, nInst);
 		}
 	}
+	
+	
 	inline void fRemoveInstance() {
 		//printf("\n --%p: Rem:  ",this);
 		if(gzDataType_IS_DataRC_MODIFIABLE(this) ){ //Not ReadOnly

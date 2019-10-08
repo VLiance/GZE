@@ -11,19 +11,31 @@
 	<Compiler>-I "{_pModule}src/SubLib_System/"</Compiler>
 	<Compiler>-I "{_pModule}src/SubLib_GPU/OpenGL/"</Compiler>
 
-	<CompilerLinker type="C++">-std=c++11 </CompilerLinker>
+	<CompilerLinker type="C++">-std=c++11 -fno-exceptions </CompilerLinker>
 	
-	<CWayv>-L "{_pModule}src/Lib_GZ/"  -L "{_pModule}src/SubLib_System/Lib_Gz{_sPlatform}/"  -L "{_pModule}src/SubLib_GPU/OpenGL/Lib_GzOpenGL/"  -L "{_pModule}src/SubLib_GPU/OpenGL/Lib_GzOpenGL_{_sPlatform}/" </CWayv>
+	
+
+	
+	<CWayv>-L "{_pModule}src/Lib_GZ/"  -L "{_pModule}src/SubLib_System/Lib_Gz{_sPlatform}/"  -L "{_pModule}src/SubLib_GPU/OpenGL/Lib_GzOpenGL/"  -L "{_pModule}src/SubLib_GPU/OpenGL/Lib_GzOpenGL_{_sPlatform}/"  </CWayv>
 	<!--  -L "{_pModule}src/SubLib_System/Lib_GzOpenGL/" -->
+	
+
+	<If_Platform name="CpcDos">
+		<CWayv> -L "{_pModule}src/SubLib_System/Lib_GzWindows/"   -L "{_pModule}src/SubLib_GPU/OpenGL/Lib_GzOpenGL_Windows/" </CWayv>
+	</If_Platform>
+	
+
+
+	<If_Platform name="Windows">
+		<Linker_Lib>-luser32 -lgdi32 -lopengl32  </Linker_Lib>
+	</If_Platform>
+
+	<If_Platform name="CpcDos">
+		<Linker_Lib>-luser32  -lgdi32 -lopengl32 </Linker_Lib>
+	</If_Platform>
 	
 </Arguments>
 
-
-<If_Platform name="Windows">
-
-	<Linker_Lib>-lgdi32 -lopengl32 -luser32 </Linker_Lib>
-	
-</If_Platform>
 
 
 </Lib> <!-- End -->

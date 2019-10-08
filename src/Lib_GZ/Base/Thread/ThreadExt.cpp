@@ -51,7 +51,7 @@ namespace Lib_GZ{namespace Base{namespace Thread{
 
     void cThreadExt::Constructor(Lib_GZ::Dlg_r_void_p_gzPtr::DlgP _dCallBack){
 	//printf("\nIni_cThreadExt");
-	
+				printf("\n ---- Create THREAD EXT \n");
 
         ThreadList::fAdd(this);
 	
@@ -102,8 +102,19 @@ namespace Lib_GZ{namespace Base{namespace Thread{
 	void cThreadExt::fClose(){
 
 	}
+	
+	/*
+	virtual void cThreadExt::ViewAddInst() const {
+		printf("\n ---- Add THREAD EXT \n");
+	}
+	
+	virtual void cThreadExt::ViewSubInst() const {
+		printf("\n ---- Sub THREAD EXT \n");
+	}
+	*/
 
     cThreadExt::~cThreadExt(){
+		printf("\n ---- Delete THREAD EXT \n");
 /*
         //Sleep(50);
         if( oThreadObj->bStarted){

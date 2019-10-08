@@ -37,11 +37,11 @@ class SharedCount : gzAny {
 		//	printf("\nnSharedCount: %d", nSharedCount);
 		//}
 		const_cast<SharedCount*>(this)->nSharedCount++;
-		//ViewAddInst();
+		ViewAddInst();
 	}; 
 	inline void SubInst() const {
 		const_cast<SharedCount*>(this)->nSharedCount--;
-		//ViewSubInst(); //Warning bug with emc
+		ViewSubInst(); //Warning bug with emc
 				
 		//if(nSharedCount > 300){
 	//		printf("\nnDelSharedCount: %d", nSharedCount);
@@ -54,10 +54,10 @@ class SharedCount : gzAny {
 	};
 	
 	//Only on debug
-	inline virtual void ViewAddInst() const {
+	 virtual void ViewAddInst() const {
 		
 	}
-	inline virtual void ViewSubInst() const {
+	 virtual void ViewSubInst() const {
 		
 	}
 	

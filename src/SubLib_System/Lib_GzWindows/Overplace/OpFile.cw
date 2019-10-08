@@ -84,6 +84,7 @@ package  {
 		
 		public override  function fGetSystemExePath() : String { //Return the full path with exe name
 			//var _sFullExe : String;
+			Debug.fTrace("\nfGetSystemExePath\n");
 			<cpp>
 			// sFullExePath = GetMainModulePath().fReplaceAll(gzU8("\\"), gzU8("/"));
 			return GetMainModulePath().fReplaceAll(gzU8("\\"), gzU8("/"));

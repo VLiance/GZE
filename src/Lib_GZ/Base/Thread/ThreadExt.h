@@ -55,7 +55,7 @@ class cThreadExt : public Lib_GZ::Base::cClass  {
 	public:
         gzSp<Sys::cThreadObj> oThreadObj;
 
-        gzQElement<gzSp<cThreadExt>> qeInList;
+        gzQElement<gzWp<cThreadExt>> qeInList; //TODO gzSp to control ownship, but i have mem leak in qarray
 
         Base::Thread::cThread* oThread;
 

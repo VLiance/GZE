@@ -190,7 +190,7 @@ void fLoadAllLib(){
 
 	uLib* _rLib = IniLib_Lib_GZ();//Default lib
 		
-    printf("\n--IniLib :"  );   _rLib->sName.fPrint();  
+    printf("\n--IniLib :"  );   _rLib->sName->fPrint();  
 	 printf("\n"  ); 
 	if(_rLib != NULL){
 	

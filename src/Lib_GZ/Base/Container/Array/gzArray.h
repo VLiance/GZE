@@ -156,6 +156,21 @@ public:
 		//}
 	}
 
+	/*
+		inline void fRemoveInstance(const gzDataRC& _oRC) const{
+			if( _oRC.nInst == 1 ){//nType >= 0 Heap data -> must be freed 
+				Delete(_oRC);
+				//if(_oRC->nWeakInst == 0){
+					Free(_oRC);
+				//}
+			}else{
+				_oRC.fRemoveInstance();
+			}
+			
+		}
+	*/
+	
+	
 	inline void fRemoveInstance(gzDataRC* _oRC) const{
 		//printf("\nSub: %d  ", _oRC->nInst);fPrint();
 		
@@ -626,7 +641,7 @@ class gzArray {
 	
 	inline ~gzArray(){
 		if(bCatchMe){
-			printf("\nDelete CatchMe array");
+		//	printf("\nDelete CatchMe array");
 		}
 	}
 	

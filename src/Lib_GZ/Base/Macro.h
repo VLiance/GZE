@@ -181,7 +181,7 @@ void _sLib::_sClass::Thread_Start(GZ_FuncWrapD, gzPtr _pThread){  \
     gzSp<_namespace::c##_class> _oInitialiser = _namespace::_class::Get( ((Lib_GZ::Base::Thread::cThreadExt*)_pThread)->thread  )->New(0);\
    printf("\n_oInitialiser %p ", _oInitialiser.get());\
    _oInitialiser->fLinkThreadExt((Lib_GZ::Base::Thread::cThreadExt*)_pThread); \
-	gzSp<_sLib::c##_sClass>_oTemp = gzSp<_sLib::c##_sClass>(new _sLib::c##_sClass(_oInitialiser.get())); \
+	gzSp<_sLib::c##_sClass>_oTemp(new _sLib::c##_sClass(_oInitialiser.get())); \
 	_oTemp->Constructor((_namespace::c##_class*)_oInitialiser.get());   \
 	_oInitialiser->fStart(_oTemp.get()); \
 	printf("\nEND Thread class: " #_sClass);\
@@ -332,7 +332,7 @@ namespace _Class{\
     inline void* Adr(){\
         return &zDefault;\
     }\
-    inline Lib_GZ::uOverplace AddClass(){ zDefault = {Lib::SetClass(&zDefault), 0, &Create,  &Create, _pIniClass, _OpAdr, sClassName}; return zDefault;}\
+    inline Lib_GZ::uOverplace AddClass(){ zDefault = {Lib::SetClass(&zDefault), 0, &Create,  &Create, _pIniClass, _OpAdr, (gzDataRC* )&sClassName}; return zDefault;}\
     \
 	/* TODO Check if a shared ptr is required */ \
     inline cs##_Class* Get(Lib_GZ::Base::Thread::cThread* _oCurrThread){\
@@ -452,7 +452,7 @@ namespace _LibName{\
 
 
 #define GZ_mCppSetLib(_LibName)\
-		_LibName::zpLib.rPrec = Lib_GZ::fSetLib(&_LibName::zpLib);  _LibName::zpLib.sName = _LibName::sLibName; _LibName::zpLib._rLastClass =  &_LibName::rLastClass; 
+		_LibName::zpLib.rPrec = Lib_GZ::fSetLib(&_LibName::zpLib);  _LibName::zpLib.sName = (gzDataRC*)&_LibName::sLibName; _LibName::zpLib._rLastClass =  &_LibName::rLastClass; 
 		
 		
 //Lib_GZ::uLib zpLib =  {Lib_GZ::fSetLib(&zpLib), _LibName##::sLibName, &rLastClass, &IniLib_##_LibName }

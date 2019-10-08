@@ -128,10 +128,18 @@ package  {
 		}
 		
 		public function fAddSrc(_sSrc : String):Void {
+				//gzCR_8
+			<cpp>
+			gzArray<gzStr> _aSplit = (_sSrc.fSplit(gzCR_8));//gzCR_8
+			for(gzUInt i = 0; i < _aSplit.GnSize(); i++){
+				aLine.fPush((_aSplit(gzUInt(i))));
+			}
+			</cpp>
+			/* Same as ... just for gzCR_8
 			var _aSplit : Array<String> = _sSrc.fSplit("\n");
 			for( var i : UInt = 0; i < _aSplit.nSize; i++){
 				aLine.fPush(_aSplit[i]);
-			}
+			}*/
 		} 
 		
 		/*

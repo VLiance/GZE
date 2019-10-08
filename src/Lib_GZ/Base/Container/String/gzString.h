@@ -49,6 +49,8 @@
 typedef  gzStr8 gzStr;
 //extern gzStr8 gzNullStr;
 //extern static const gzDataRC gzNullStr_Data;
+gzConst_U8(gzCR_8, "\n");
+
 gzConst_U8(gzNullStr_Data_8, "");
 gzConst_U16(gzNullStr_Data_16, "");
 gzConst_U32(gzNullStr_Data_32, "");

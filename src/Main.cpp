@@ -8,6 +8,11 @@
 //- Include an attribution statement somewhere in your project.
 //- If you want to see GZE evolve please help us with a donation.
 
+
+
+
+
+
 #ifndef GZ_tLib_GZ
 	#error Please Include <GZE.h> before <Main>
 #endif
@@ -103,7 +108,31 @@ LRESULT CALLBACK MainHwndProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARA
 //////////////////////////////////////////////////////////
 #include "CpcDos/CPC_WPR.cpp"
 extern bool bOnCpcDos;
-int main( int argc, const char* argv[] ){
+/*
+//extern "C" int cpc_main( int argc, const char* argv[] ){printf("\n\nYeeeee CPC\n\n");}
+extern "C" int cpc_main( int argc, const char* argv[] ){
+
+	puts("\n\nCPC MAIN Yeeeee CPC\n\n");
+	puts("\n\nTry printf\n\n");
+	 fprintf(stdout," TEST  fprintf");
+	 	puts("\n\TEST---\n\n");
+	printf(" TEST  ");
+	puts("\n\nEnd\n\n");
+ return 0;}
+*/
+
+int fBreakMe(){
+	puts("\nBreakMe");
+	return 1;
+}
+int breakme = fBreakMe();
+
+
+
+extern "C" int main( int argc, const char* argv[] ){
+	puts("\nCPC Dos Main\n"); 
+	printf("\n---------\n"); 
+
 	if(bOnCpcDos){
 		nMainIsAlive = Main("");
 		while(nMainIsAlive){

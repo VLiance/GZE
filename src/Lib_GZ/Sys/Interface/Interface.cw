@@ -91,7 +91,7 @@ package  {
 			//, _hBorder, _bMinimizeBox, _bMaximizeBox,_bCloseBox,_bCpuOnly,false);
 			Context = oContext; //Set singleton
 			
-			if(oContext.bWinGPU ) {
+			if(bGpuDraw ) {
 				oGpuObj = new GpuBuffer(this);
 			}
 			
