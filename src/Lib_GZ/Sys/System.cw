@@ -3,12 +3,12 @@
 package  { 
 
 	public overclass System  {
-
+		/*
 		public static var oInst : System;
 		public static var nInstance : UIntX;
 		public static var bHaveGpu : Bool;
 		public static var sCmdLineArguments : String;
-		
+		*/
 		
 		public function System():Void{
 		//	System.oInst = this;

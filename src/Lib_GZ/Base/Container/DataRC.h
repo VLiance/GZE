@@ -233,10 +233,10 @@ public:
 			//printf("\n %p: Rem: %d  ",aTab, nInst);
 		}
 	}
-	
-	inline ~gzDataRC(){
+	/*
+	inline ~gzDataRC(){ ///Don't uncomment don't put a destructor in pod type (just for debugging)
 		//printf("\n---------Delete");
-	}
+	}*/
 
 	inline  gzDataRC* fCloneToHeap() const{
 		return GZ::fDataCopyAlloc(aTab, nSize,nSize,nLimit );

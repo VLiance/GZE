@@ -10,6 +10,7 @@
 	#include "Lib_GZ/Base/SmartPtr/gzSp.h"
 	#include "Lib_GZ/Base/SmartPtr/gzWp.h"
 	#include "Lib_GZ/Base/SmartPtr/gzUp.h"
+	#include "Lib_GZ/Base/SmartPtr/gzGp.h"
 
 
 

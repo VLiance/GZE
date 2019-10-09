@@ -300,8 +300,9 @@ SetConsoleOutputCP(CP_UTF8);
 #endif
 
 #ifndef D_Platform_Web_Emsc
-//#include<conio.h> //getch
+////#include<conio.h> //getch
 #endif
+/*
 struct End { //Place before any global strurt to be sure it was called after everything, note this may not be called at the every end, this can be a false negative
   ~End(){
 	  	printf("\nTotal: Alloc / Free   ---  %d / %d ", GZ_nArrayTotalAlloc, GZ_nArrayTotalFree);
@@ -311,11 +312,11 @@ struct End { //Place before any global strurt to be sure it was called after eve
 			printf("\n\nE:---!!! MEMORY BROKEN !!!---\n\n");
 		}
 	  printf("\n--- End! ---");
-	  /*
-	  #ifndef  D_Platform_Web_Emsc
-	  getch();
-	  #endif
-	  */
+	  
+	 // #ifndef  D_Platform_Web_Emsc
+	 //// getch();
+	  //#endif
+	  
   }
 };End oEnd;
-
+*/

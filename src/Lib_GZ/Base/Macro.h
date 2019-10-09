@@ -275,15 +275,21 @@ GZ_mStaticClassThread(_Class,_Op)
 //////////////////
 
 
-
+/* Use Ugly Static initialiser
 #define    GZ_mCppClass( _Class)      \
 	namespace _Class{\
-		gzUInt zId;\
 		Lib_GZ::uOverplace zDefault = AddClass(); \
 	}
+	*/
+	
+#define    GZ_mCppClass( _Class)      \
+	namespace _Class{\
+		Lib_GZ::uOverplace zDefault; \
+	}	
+	
 //TODO zID in zDefault?
 
-
+		//gzUInt zId;\
 
 
 /*
