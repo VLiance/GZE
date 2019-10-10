@@ -504,6 +504,7 @@ namespace _LibName{ \
 	}\
 }
 
+
 #ifdef GZ_tDebug
 	#define GZ_mIsImplemented(_sMsg)\
 		static gzBool bTraced = false;\
@@ -515,6 +516,22 @@ namespace _LibName{ \
 	#define GZ_mIsImplemented(_sMsg)
 #endif
 
+
+ 
+#define gzAtom(_type, _name) inline _type& _name(){static _type &_name = *new _type(); return _name;} //TODO Destroy at end or just free all malloc from app?
+
+/*
+//#define gzDefAtom(_type, _name) extern _type& _name();
+//#define gzAtom(_type, _name) _type& _name(){static _type _name; return _name;}
+#define gzAtom(_type, _name) _type& _name(){static _type &_name = *new _type(); return _name;} //TODO Destroy at end
+*/
+/*
+A&
+my_A()
+{
+    static A a;
+    return a;
+}*/
 
 
 ///////////////////////////////////////////////////////////

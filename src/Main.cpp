@@ -134,11 +134,14 @@ extern "C" int main( int argc, const char* argv[] ){
 	printf("\n---------\n"); 
 
 	if(bOnCpcDos){
+		printf("CpcDos ver%d.%d ", nCpcVerMajor, _nCpcVerMinor);
 		nMainIsAlive = Main("");
 		while(nMainIsAlive){
 			nMainIsAlive = Update(0);
 		}
 		return nMainIsAlive;
+	}else{
+		printf("--On Windows --- ");
 	}
 
 HINSTANCE hThisInstance = GetModuleHandle(NULL);

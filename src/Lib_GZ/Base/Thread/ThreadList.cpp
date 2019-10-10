@@ -19,10 +19,9 @@
 namespace Lib_GZ{namespace Base{ namespace Thread{ namespace ThreadList{
 
   /// gzQElement<gzSp<Base::Thread::cThreadExt>> qeTask = aList.GqeFirst(); //TODO special ini
-    gzQElement<gzWp<Base::Thread::cThreadExt>> qeTask;
-
- 
-    gzQArray<gzWp<Base::Thread::cThreadExt>> aList;
+	//gzAtom(  gzQElement<gzWp<Base::Thread::cThreadExt>>, qeTask );
+  // gzAtom(  gzQArray<gzWp<Base::Thread::cThreadExt>>, aList);
+   
    // gzQElement<gzSp<cThreadExt>> qeTask;
 	
   //  gzArray<gzSp<Base::Thread::cThreadExt>> aList; //TODO Atomic queue?
@@ -42,8 +41,8 @@ namespace Lib_GZ{namespace Base{ namespace Thread{ namespace ThreadList{
         Lib_GZ::Lib::nThreadCount++;
 		
        //qaList.fPush( gzSCast<cThreadExt>( _opThread->SpFromThis()) );
-       aList.fPush( _opThread );
-        _opThread->qeInList = aList.GqeLast();
+       aList().fPush( _opThread );
+        _opThread->qeInList = aList().GqeLast();
     }
 
     void fRemove(Base::Thread::cThreadExt* _opThread){
@@ -55,13 +54,13 @@ namespace Lib_GZ{namespace Base{ namespace Thread{ namespace ThreadList{
    void fNextTask(){
     // printf("\n fNextTask");
 	 
-       if(aList.GnTotal() > 0){
+       if(aList().GnTotal() > 0){
          //   printf("DoTask %d \n" , Lib_GZ::Lib::nThreadCount);
-            qeTask = aList.GqeFirst();
+            qeTask() = aList().GqeFirst();
 		//	 printf("\n fLoop");
-            qeTask.ref()->oThread->fLoop();
+            qeTask().ref()->oThread->fLoop();
 		//	 printf("\n End");
-            qeTask = qeTask.GqeNext();
+            qeTask() = qeTask().GqeNext();
 			
        }
    }
