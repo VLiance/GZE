@@ -74,14 +74,14 @@ namespace Lib_GZ{namespace Base{namespace Thread{
 	
         #ifndef GZ_D_Monothread
 		
-				printf("\n\n \nlooooll!\n");
+				printf("\n Pas mono \n");
         	if(!oThreadObj->bStarted){
 				printf("\n\n \n Start GThread !\n");
 				oThreadObj->fStart();
 					
             }
         #else
-
+	printf("\n !GZ_D_Monothread! \n");
            oThreadObj->bStarted = true;
             oThreadObj->dCallBack.fCall(this);
 		

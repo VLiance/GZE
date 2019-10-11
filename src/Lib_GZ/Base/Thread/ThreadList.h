@@ -19,8 +19,10 @@ namespace Lib_GZ{namespace Base{namespace Thread{class cThreadList;}}}
 
 namespace Lib_GZ{namespace Base{namespace Thread{
 namespace ThreadList{
-    gzAtom( gzQArray<gzWp<cThreadExt>>, aList);
-    gzAtom( gzQElement<gzWp<cThreadExt>>, qeTask);
+	
+    gzAtom( gzArray<gzSp<cThreadExt>>, aList);
+    //gzAtom( gzQArray<gzWp<cThreadExt>>, aList);
+    //gzAtom( gzQElement<gzWp<cThreadExt>>, qeTask);
     void fAdd(cThreadExt* _opThread);
     void fRemove(cThreadExt* _opThread);
     void Ini_Class();

@@ -37,12 +37,39 @@ namespace Lib_GZ{namespace Base{ namespace Thread{ namespace ThreadList{
 
 
     void fAdd(Base::Thread::cThreadExt* _opThread){
+	
+		aList().fPush(_opThread);
+		
+		//	aList()[0]->oThread->fLoop();
+		/*
+		printf("\n !!!!!!!!!! fAdd!!!!!!!!!");
+		if(_opThread == 0){
+		printf("\n !!!!!!!!!! _opThread == 0 !!!!!!!!!");
+		}
+		if(aList().GnSize() == 0){
+			printf("\n !!!!!!!!!! _opThread == 0 !!!!!!!!!");
+		}*/
+		
+		
+		/*
 	        printf("\n fAdd");
         Lib_GZ::Lib::nThreadCount++;
 		
+			if( _opThread== 0){
+				printf("\nAAAAA!!!!Error %d", aList().GnTotal());
+			}
        //qaList.fPush( gzSCast<cThreadExt>( _opThread->SpFromThis()) );
        aList().fPush( _opThread );
         _opThread->qeInList = aList().GqeLast();
+		
+		    qeTask() = aList().GqeFirst();
+			if( qeTask().ref()->oThread == 0){
+				printf("\nBBBB!!!!!Error %d", aList().GnTotal());
+			}
+			
+			*/
+			
+			
     }
 
     void fRemove(Base::Thread::cThreadExt* _opThread){
@@ -54,14 +81,23 @@ namespace Lib_GZ{namespace Base{ namespace Thread{ namespace ThreadList{
    void fNextTask(){
     // printf("\n fNextTask");
 	 
-       if(aList().GnTotal() > 0){
+       if(aList().GnSize() > 0){
+	   
+			//aList()[0]->oThread->fLoop();
+			aList()[0]->oThread->fLoop();
+			
+			
+	   /*
          //   printf("DoTask %d \n" , Lib_GZ::Lib::nThreadCount);
             qeTask() = aList().GqeFirst();
 		//	 printf("\n fLoop");
+			if( qeTask().ref()->oThread == 0){
+				printf("\nError %d", aList().GnTotal());
+			}
             qeTask().ref()->oThread->fLoop();
 		//	 printf("\n End");
             qeTask() = qeTask().GqeNext();
-			
+			*/
        }
    }
 

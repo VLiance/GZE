@@ -32,6 +32,9 @@ package  {
 			inline void fLinkThreadExt(cThreadExt* _pThreadExt){
 				pThreadExt = _pThreadExt;
 				pThreadExt->oThread = this;
+				
+				printf("\n ---- Link oThread --------  %p", pThreadExt->oThread  );
+				
 			};
 			inline void fStart(Lib_GZ::Base::cClass* _opObj){
 			   oObj  = gzSCastSelf<Lib_GZ::Base::cClass>(_opObj);
@@ -108,6 +111,7 @@ package  {
 		
 		destructor  {
 			<cpp>
+			printf("\n!!!!!!!!!!!DELETE THREAADDD !!!!!!!!!!!");
 				for(int i = 0; i < st.GnSize(); i++){
 					csClass* _ptr = st(i);
 					if(_ptr != 0){
