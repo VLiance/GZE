@@ -12,8 +12,6 @@
 
 
 
-
-
 #ifdef UseCustomHeapFor_stb_image
     #include "Lib_GZ/Lib/Memory/umm_malloc.h"
 	#define stb_img_malloc umm_malloc

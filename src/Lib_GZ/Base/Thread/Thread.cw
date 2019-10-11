@@ -91,9 +91,8 @@ package  {
 		
 		
 		public function fLoop():Void {
-
+	
 			<cpp>
-					
 			#ifndef GZ_D_Monothread
 				nThreadCount++;
 				while(bAppIsAlive && bRun){

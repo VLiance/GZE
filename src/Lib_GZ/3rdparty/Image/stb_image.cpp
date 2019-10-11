@@ -278,6 +278,7 @@ const char *stbi_failure_reason(void)
 
 static int e(const char *str)
 {
+//printf("\nmFAILLL!! %s", str);
    failure_reason = str;
    return 0;
 }
@@ -2477,6 +2478,7 @@ static int parse_png_file(png *z, int scan, int req_comp)
             skip(s, c.length);
             break;
          case PNG_TYPE('I','H','D','R'): {
+
             int depth,color,comp,filter;
             if (!first) return e("multiple IHDR","Corrupt PNG");
             first = 0;
@@ -2501,6 +2503,7 @@ static int parse_png_file(png *z, int scan, int req_comp)
                if ((1 << 30) / s->img_x / 4 < s->img_y) return e("too large","Corrupt PNG");
                // if SCAN_header, have to scan to see if we have a tRNS
             }
+		
             break;
          }
 

@@ -25,14 +25,7 @@ gzUInt nNbFile = 0;
 gzInt pImage::fOpen(File::cRcImg* _oRc) {
 	using namespace Lib_GZ::Debug;
 	
-	
-	
-//#ifndef D_Platform_Web_Emsc
 
-
-//#if ( defined GZ_tWindows || defined  GZ_tLinux || defined  GZ_tAndroid )
-   // sPath = _sPath;
-  //  m_NewWCharFromXStr(_wcPath, _sPath);
     gzUInt8* image_data;
     gzUInt image_nbChannel;
     gzInt32 x,y,n;
@@ -87,21 +80,21 @@ gzInt pImage::fOpen(File::cRcImg* _oRc) {
 		default:
 			Sys::pDebug::fConsole(gzStrL("Error ") + _oRc->sVDrive +  _oRc->sPath);
 		break;
-		
-
+	
     }
 		*/
-		
+
 		if(_oRc->aSrcMemData == 0){
 				pDebug::fConsole(gzU8("IMG LOAD FAIL: Nothing in memory for: ") + _oRc->sVDrive +  _oRc->sPath  );
 				data = 0;
 			}else{
+						printf("-----------stbi_load_from_memory ?? !!!  -----------");
 				data = stbi_load_from_memory(  (stbi_uc*)_oRc->aSrcMemData, _oRc->nSize, &x, &y, &n, 0);
 				
-				
+						printf("-----------fConsole ?? !!!  -----------");
 				pDebug::fConsole(gzU8("IMG  Load: ") + _oRc->sVDrive +  _oRc->sPath  );
 				
-				
+									printf("-----------kkk !!!  -----------");
 		
 				if(data){
 					image_data  = data;

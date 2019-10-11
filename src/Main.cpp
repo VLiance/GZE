@@ -120,29 +120,16 @@ extern "C" int cpc_main( int argc, const char* argv[] ){
 	puts("\n\nEnd\n\n");
  return 0;}
 */
-
+/*
 int fBreakMe(){
 	puts("\nBreakMe");
 	return 1;
 }
 int breakme = fBreakMe();
-
+*/
 
 
 extern "C" int main( int argc, const char* argv[] ){
-	puts("\nCPC Dos Main\n"); 
-	printf("\n---------\n"); 
-
-	if(bOnCpcDos){
-		printf("CpcDos ver%d.%d ", nCpcVerMajor, _nCpcVerMinor);
-		nMainIsAlive = Main("");
-		while(nMainIsAlive){
-			nMainIsAlive = Update(0);
-		}
-		return nMainIsAlive;
-	}else{
-		printf("--On Windows --- ");
-	}
 
 HINSTANCE hThisInstance = GetModuleHandle(NULL);
 int nCmdShow = 10;//SW_SHOWDEFAULT
@@ -219,6 +206,41 @@ SetConsoleOutputCP(CP_UTF8);
 	return _nClose;
     //return messages.wParam;   //The program return-value is 0 - The value that PostQuitMessage() gave
 }
+
+extern "C" Lib_GZ::uLib* IniLib_Lib_GzCpcDos(); //Overplace must be present
+
+	#ifdef D_Platform_CpcDos
+int _nTest = 7;
+extern bool bOnCpcDos;
+extern int nCpcVerMajor;
+extern int nCpcVerMinor;
+extern "C" int cpc_main( int argc, const char* argv[] ){
+		puts("\ncpc_main Dos Main\n"); 
+	printf("\n---------\n"); 
+	_nTest++;
+	printf("\n_nTest: %d \n", _nTest); 
+	
+	Lib_GZ::Base::Thread::Thread::bAppIsAlive = true;
+	Lib_GZ::Lib::fLoadAllLib();
+	if(bOnCpcDos){
+		printf("CpcDos ver%d.%d ", nCpcVerMajor, nCpcVerMinor);
+		Lib_GZ::Lib::fLoadLib(IniLib_Lib_GzCpcDos()); //OverPlace
+	}else{
+		printf("--On Windows-- ");
+		setbuf(stdout, NULL);
+		Lib_GZ::Lib::fLoadLib(IniLib_Lib_GzWindows()); //OverPlace
+		Lib_GZ::Lib::fLoadLib(IniLib_Lib_GzOpenGL()); //OverPlace
+		Lib_GZ::Lib::fLoadLib(IniLib_Lib_GzOpenGL_Windows()); //OverPlace
+	}
+	
+	nMainIsAlive = Main("");
+	while(nMainIsAlive){
+		nMainIsAlive = Update();
+	}
+	printf("--End - ");
+	return nMainIsAlive;
+}
+#endif
 
 
 #elif defined D_Platform_Web_Emsc ////////////////////// Web //////////////////////////////////////
