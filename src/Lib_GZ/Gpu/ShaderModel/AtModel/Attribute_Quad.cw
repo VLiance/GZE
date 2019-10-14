@@ -53,12 +53,49 @@ package  {
 		
 		public function Attribute_Quad():Void {
 			Debug.fTrace("--- Attribute_Quad Created!! ---");
+			
+			
+			oAtObjPos = new Attribute("in_ObjPos", aData);
+			//oAtObjSize = oProgram.fAddAttribute("in_ObjSize");
+			oAtObjRot =new Attribute("in_ObjRot", aData);
+			
+			oAtPt1 = new Attribute("in_Pt1", aData);
+			oAtPt2 = new Attribute("in_Pt2", aData);
+			oAtPt3 = new Attribute("in_Pt3", aData);
+			oAtPt4 = new Attribute("in_Pt4", aData);
+			
+			oAtTexSource0 = new Attribute("in_TexSource0", aData);
+			oAtTexSource1 =new Attribute("in_TexSource1", aData);
+			
+			oAtColor1 = new Attribute("in_Color1", aData);
+			oAtColor2 = new Attribute("in_Color2", aData);
+			oAtColor3 = new Attribute("in_Color3", aData);
+			oAtColor4 = new Attribute("in_Color4", aData);
 		}
 		
 		
 		public function fLocateAttribute(_oProgram:ProgramShader):Void {
 			oProgram = _oProgram;
 
+			oProgram.fAttachAttribute(oAtObjPos);
+			//oAtObjSize = oProgram.fAttachAttribute("in_ObjSize");
+			oProgram.fAttachAttribute(oAtObjRot);
+			
+			oProgram.fAttachAttribute(oAtPt1);
+			oProgram.fAttachAttribute(oAtPt2);
+			oProgram.fAttachAttribute(oAtPt3);
+			oProgram.fAttachAttribute(oAtPt4);
+			
+			oProgram.fAttachAttribute(oAtTexSource0);
+			oProgram.fAttachAttribute(oAtTexSource1);
+			
+			oProgram.fAttachAttribute(oAtColor1);
+			oProgram.fAttachAttribute(oAtColor2);
+			oProgram.fAttachAttribute(oAtColor3);
+			oProgram.fAttachAttribute(oAtColor4);
+			
+			
+			/*
 			oAtObjPos = oProgram.fAddAttribute(aData, "in_ObjPos");
 			//oAtObjSize = oProgram.fAddAttribute("in_ObjSize");
 			oAtObjRot = oProgram.fAddAttribute(aData, "in_ObjRot");
@@ -75,6 +112,8 @@ package  {
 			oAtColor2 = oProgram.fAddAttribute(aData, "in_Color2");
 			oAtColor3 = oProgram.fAddAttribute(aData, "in_Color3");
 			oAtColor4 = oProgram.fAddAttribute(aData, "in_Color4");
+			*/
+			
 		}
 		
 		public function fIniData(_nTotalQuad:UInt):Void {

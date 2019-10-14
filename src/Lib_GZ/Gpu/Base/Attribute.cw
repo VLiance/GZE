@@ -24,6 +24,21 @@ package  {
 		
 		public wvar oProgram : ProgramShader;
 		
+		
+				
+		public function Attribute(_sName : String, _aDataLinked : Array<Float>, _nDivisor : Int = 1):Void {
+			aDataLinked = _aDataLinked;
+			sName = _sName;
+			//oProgram = _oProgram;
+			//oProgram.aAttribute.fPush(this);
+			fSetDivisor(_nDivisor);
+			
+			
+			Debug.fTrace("--- Attribute Created!! ---");
+			//fLoad();
+		}
+		
+		/*
 		public function Attribute(_aDataLinked : Array<Float>, _oProgram : ProgramShader, _sName : String):Void {
 			aDataLinked = _aDataLinked;
 			sName = _sName;
@@ -31,7 +46,7 @@ package  {
 			oProgram.aAttribute.fPush(this);
 			Debug.fTrace("--- Attribute Created!! ---");
 			fLoad();
-		}
+		}*/
 		
 		
 		//public function fSet(_oData : CArray<Float>):Void {

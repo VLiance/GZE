@@ -9,7 +9,7 @@ package  {
 	public class OpAttribute overplace Attribute {
 
 		
-		public function OpAttribute(_aDataLinked : Array<Float>, _oProgram : ProgramShader, _sName : String):Void {
+		public function OpAttribute(_sName : String, _aDataLinked : Array<Float>, _nDivisor : Int = 1):Void {
 		
 		}
 		

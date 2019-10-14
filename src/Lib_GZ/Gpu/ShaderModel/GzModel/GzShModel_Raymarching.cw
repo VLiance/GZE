@@ -329,8 +329,14 @@ package  {
 			oGpuBatch = new GpuBatch();
 			
 			
-			var _oAtObjPos : Attribute = oProgram.fAddAttribute(null, "atObjPos"); //TODO null!
-			var _oAtVertexID : Attribute = oProgram.fAddAttribute(null, "atVertexID",0);//TODO null!
+		//	var _oAtObjPos : Attribute = oProgram.fAddAttribute(null, "atObjPos"); //TODO null!
+		//	var _oAtVertexID : Attribute = oProgram.fAddAttribute(null, "atVertexID",0);//TODO null!
+			
+						
+			var _oAtObjPos : Attribute = new Attribute("atObjPos", null); //TODO null!
+			var _oAtVertexID : Attribute =  new Attribute("atVertexID", null, 0);//TODO null!
+			oProgram.fAttachAttribute(_oAtObjPos);
+			oProgram.fAttachAttribute(_oAtVertexID);
 			
 			
 			

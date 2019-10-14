@@ -60,17 +60,15 @@ package  {
 		
 		
 		public function fAttachAttribute(_oAttribute: Attribute):Attribute{
+			aAttribute.fPush(_oAttribute);
 			_oAttribute.oProgram = this;
+			_oAttribute.fLoad();
 		}
 		
+		/*
 		public function fAddAttribute(_aDataLinked : Array<Float>, _sName : String, _nDivisor : Int = -1):Attribute{ // -1 = default
 			var _oAttrib : Attribute = new Attribute(_aDataLinked, this, _sName);
-			/*
-			var _oAttrib : Attribute ;
-		
-			//_oAttrib = gzSCast<Lib_GZ::Gpu::Base::cAttribute>(Lib_GZ::Gpu::Base::Attribute::Get(thread)->New(this, (_aDataLinked), (Lib_GZ::Gpu::ShaderBase::cProgramShader*)(this), _sName));
-			*/
-			
+	
 			if(_nDivisor >= 0){
 					_oAttrib.fSetDivisor(_nDivisor);
 			}else{
@@ -79,7 +77,8 @@ package  {
 				}
 			}
 			return _oAttrib;
-		}
+		}*/
+		
 		/*
 		public function fAddUniform(_sName : String):ShUniform{
 			var _oUniform: ShUniform = new ShUniform(this, _sName);
