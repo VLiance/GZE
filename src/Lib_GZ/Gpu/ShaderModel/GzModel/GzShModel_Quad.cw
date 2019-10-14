@@ -48,6 +48,8 @@ package  {
 		
 		public var oAt : Attribute_Quad;
 		
+		public var bTest : Bool;
+		
 		
 
 		
@@ -82,7 +84,7 @@ package  {
 
 	//AylasID, UniformActionID, Type
 
-	////  in vec4 in_AchorRoll;  //pt1,pt2,pt3,pt4  
+	////  in vec4 in_AchorRoll;  //pt1,pt2,pt3,pt4  
 	////  in vec4 in_AchorPt1;  //x1,y1,x2,x2  
 	////  in vec4 in_AchorPt2;  //x1,y1,x2,x2  
 	////  in vec4 in_AchorPt3;  //x1,y1,x2,x2  
@@ -509,6 +511,28 @@ package  {
 			
 		
 			oGpuBatch.fDraw();
+			
+			Debug.fTrace(oAt.aData.nSize)
+			
+			
+			Debug.fTrace("!" +  oAt.aData[0]  );
+			
+			
+			//if(bTest == false){
+			//	bTest = true;
+			
+				for(var i : Int = 0; i  < oAt.aData.nSize; i+=4){
+					Debug.fTrace("[" +  oAt.aData[i] + "," +  oAt.aData[i+1] + "," +  oAt.aData[i+2] + "," +  oAt.aData[i+3] + "]" );
+				}
+			//}
+			
+			
+		
+			/*
+			forEach(var _nData : Float in oAt.aData){
+			
+			}*/
+			//Debug.fTrace(oAt.aData);
 		}
 		
 		

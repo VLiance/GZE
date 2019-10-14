@@ -45,11 +45,11 @@ class gzArrayView {
 		inline gzArrayView(gzDataRC* _oData, gzUIntX  _nOffset = 0, gzUIntX _nStride = 0): oData(_oData) , nOffset(_nOffset),   nSize(_oData->nSize), nStride(_nStride),  		   nDim(1) {}
 		
 		
-		/*
+		
 		//READING :: return RVO
-		inline T operator()(gzUIntX _nIndex) const { 
-			return	((T*)m.aData->aTab)[_nIndex]; //Todo not for basic type 
-		}*/
+		inline SubT operator()(gzUIntX _nIndex) const { 
+			return	((SubT*)oData->aTab)[(nOffset + _nIndex) * nStride]; //Todo not for basic type 
+		}
 			
 		
 		//WRITING 

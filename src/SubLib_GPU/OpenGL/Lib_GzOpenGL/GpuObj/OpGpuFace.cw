@@ -32,12 +32,16 @@ package  {
 		//oAt = Attribute_Quad;
 		//Attribute_Quad.oAtObjPos.fSet(oFace.oShape.vPos);
 		<cpp>
-			gzArrayView<gzFloat> _aTest = oFace->oShape->vPos.get();
-			
-			
+			gzArrayView<gzFloat> _aTest = oFace->oShape->vPos.get(); //TODO arrayview
 		</cpp>
 		
+			Debug.fTrace("GPU draw face! " + oFace.oShape.vPos.nX + ", "  + oFace.oShape.vPos.nY );
+					
+		Attribute_Quad.oAtObjPos.fSet(oFace.oShape.vPos);
 		
+		Debug.fTrace("aDataLinked! " + Attribute_Quad.oAtObjPos.aDataLinked[0]  );
+		Debug.fTrace("aDataLinkedSize! " + Attribute_Quad.oAtObjPos.aDataLinked.nSize  );
+				
 		
 		//;
 		

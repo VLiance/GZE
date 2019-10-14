@@ -47,7 +47,7 @@ package  {
 			}
 		}
 		
-		public function fDetachAll(_oShader : ShaderBase):Void {
+		public function fDetachAll(_oShader : ShaderBase):Void { //fDetachAllShader?
 			for( var i : UInt = 0; i < aShaderAttached.nSize; i++){
 				fDetachShader(aShaderAttached[i]);
 			}
@@ -58,8 +58,19 @@ package  {
 		
 		public function fUse():Bool;
 		
-		public function fAddAttribute(_sName : String, _nDivisor : Int = -1):Attribute{ // -1 = default
-			var _oAttrib : Attribute = new Attribute(this, _sName);
+		
+		public function fAttachAttribute(_oAttribute: Attribute):Attribute{
+			_oAttribute.oProgram = this;
+		}
+		
+		public function fAddAttribute(_aDataLinked : Array<Float>, _sName : String, _nDivisor : Int = -1):Attribute{ // -1 = default
+			var _oAttrib : Attribute = new Attribute(_aDataLinked, this, _sName);
+			/*
+			var _oAttrib : Attribute ;
+		
+			//_oAttrib = gzSCast<Lib_GZ::Gpu::Base::cAttribute>(Lib_GZ::Gpu::Base::Attribute::Get(thread)->New(this, (_aDataLinked), (Lib_GZ::Gpu::ShaderBase::cProgramShader*)(this), _sName));
+			*/
+			
 			if(_nDivisor >= 0){
 					_oAttrib.fSetDivisor(_nDivisor);
 			}else{

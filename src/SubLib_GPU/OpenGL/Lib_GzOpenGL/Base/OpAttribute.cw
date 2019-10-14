@@ -9,7 +9,7 @@ package  {
 	public class OpAttribute overplace Attribute {
 
 		
-		public function OpAttribute(_oProgram : ProgramShader, _sName : String):Void {
+		public function OpAttribute(_aDataLinked : Array<Float>, _oProgram : ProgramShader, _sName : String):Void {
 		
 		}
 		
@@ -64,6 +64,8 @@ package  {
 		
 		
 		override public function fSetOffset(_nValOffset : UInt):Void{ 
+			nOffset = _nValOffset;
+			
 			var _nSizeType : Int;
 			<cpp>
 			_nSizeType = sizeof(gzFloat32);
