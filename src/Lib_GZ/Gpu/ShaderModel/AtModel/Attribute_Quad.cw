@@ -55,7 +55,14 @@ package  {
 			Debug.fTrace("--- Attribute_Quad Created!! ---");
 			
 			
+			//aData[0] = 777.0;
+
+			
 			oAtObjPos = new Attribute("in_ObjPos", aData);
+			
+		//	Debug.fTrace("aDataLinked: " + oAtObjPos.aDataLinked[0]);
+			 
+			
 			//oAtObjSize = oProgram.fAddAttribute("in_ObjSize");
 			oAtObjRot =new Attribute("in_ObjRot", aData);
 			
@@ -117,7 +124,7 @@ package  {
 		}
 		
 		public function fIniData(_nTotalQuad:UInt):Void {
-			Debug.fTrace("Total Quad : "  + _nTotalQuad) ;
+			//Debug.fTrace("Total Quad : "  + _nTotalQuad) ;
 			
 
 				
@@ -125,6 +132,7 @@ package  {
 			
 			var _nTotalPerAttrib : Int = _nTotalQuad * 4; //4 = Vec4
 			aData.fMaxSize(_nTotalPerAttrib * 12);
+			aData[0] = 9999;
 			
 			
 			oAtObjPos.fSetOffset(_nTotalPerAttrib * 0);

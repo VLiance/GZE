@@ -103,9 +103,12 @@ public:
 	
 	
 	inline gzArray_(){//TODO TODO Default construction!!!!!!
-		gzConst_Data(gzUInt, gzNull_Data);
-		
-		 aData = (gzDataRC *)&gzNull_Data;
+		//gzConst_Data(gzUInt, gzNull_Data);
+		// aData = (gzDataRC *)&gzNull_Data; ///Cannort do that because it cause detach when assingn on it
+		 aData = fEmptyArray(0,4); //TODO check if inital lenght is good
+	
+		 
+		 
 	}
 	/*
 	inline gzArray_( const gzArray_& _oOther ){//TODO TODO Default construction!!!!!!

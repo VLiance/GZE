@@ -12,6 +12,16 @@
 
 #include "Lib_GZ/Base/Math/MathBit.h"
 
+
+
+
+	inline static gzDataRC* fEmptyArray(gzUInt _nNewSize ) {
+	  return GZ::fDataAlloc( _nNewSize, _nNewSize * GZ_Array_Expand_Factor );
+	}
+	inline static gzDataRC* fEmptyArray(gzUInt _nSize, gzUInt _nMaxSize  ) {
+	  return GZ::fDataAlloc( _nSize, _nMaxSize );
+	}
+	
 	///////////////////////////////////////
 	////////////////////////////////////////
 	inline void fFirstAssign(const gzDataRC* _pOther) const {

@@ -48,7 +48,7 @@ package  {
 		
 		public var oAt : Attribute_Quad;
 		
-		public var bTest : Bool;
+		public var bTest : Bool = false;
 		
 		
 
@@ -490,7 +490,7 @@ package  {
 		
 		public function fUpdate():Void {
 		
-			
+			//return; ///DISAABLE
 			
 			oVboBatch.fSendData();
 			
@@ -515,7 +515,7 @@ package  {
 			Debug.fTrace(oAt.aData.nSize)
 			
 			
-			Debug.fTrace("!" +  oAt.aData[0]  );
+			//Debug.fTrace("!" +  oAt.aData[0]  );
 			
 			
 			//if(bTest == false){

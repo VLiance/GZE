@@ -26,21 +26,29 @@ package  {
 	//	public function fIni(_oFace:Face):Void;
 
 	override public function fDraw( _oSource : Buffer, _nX_Start : Int, _nX_End : Int, _nY_Start : Int, _nY_End : Int):Void{
-		Debug.fTrace("GPU draw face! " );
+		//Debug.fTrace("GPU draw face! " );
 		//fCreateDara();
 		
-		//oAt = Attribute_Quad;
+		oAt = Attribute_Quad;
 		//Attribute_Quad.oAtObjPos.fSet(oFace.oShape.vPos);
+		/*
 		<cpp>
 			gzArrayView<gzFloat> _aTest = oFace->oShape->vPos.get(); //TODO arrayview
 		</cpp>
-		
-			Debug.fTrace("GPU draw face! " + oFace.oShape.vPos.nX + ", "  + oFace.oShape.vPos.nY );
+		*/
+		//Debug.fTrace("GPU draw face! " + oFace.oShape.vPos.nX + ", "  + oFace.oShape.vPos.nY );
 					
-		Attribute_Quad.oAtObjPos.fSet(oFace.oShape.vPos);
+	//	Debug.fTrace("aBefDataLinkedSize! " + Attribute_Quad.oAtObjPos.aDataLinked.nSize  );
+		oAt.oAtObjPos.fSet(oFace.oShape.vPos); //TODO use oGblPt ->  vector
+		//oAtObjSize
+		oAt.oAtObjRot.fSet(oFace.oShape.vGblRot);
+	//	oAt.oAtPt1.fSet(oFace.oPt1);
 		
-		Debug.fTrace("aDataLinked! " + Attribute_Quad.oAtObjPos.aDataLinked[0]  );
-		Debug.fTrace("aDataLinkedSize! " + Attribute_Quad.oAtObjPos.aDataLinked.nSize  );
+		
+		
+		
+	//	Debug.fTrace("aDataLinked! " + Attribute_Quad.oAtObjPos.aDataLinked[0]  );
+	//	Debug.fTrace("aDataLinkedSize! " + Attribute_Quad.oAtObjPos.aDataLinked.nSize  );
 				
 		
 		//;

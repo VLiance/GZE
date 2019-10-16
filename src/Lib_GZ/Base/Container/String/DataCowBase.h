@@ -236,9 +236,7 @@
 	//	printf("\n %p: Set: %d  ",m.aData->aTab, m.aData->nInst);
 	}
 
-	inline static gzDataRC* fEmptyArray(gzUInt _nNewSize ) {
-	  return GZ::fDataAlloc( _nNewSize, _nNewSize * GZ_Array_Expand_Factor );
-	}
+
 
 	inline gzDataRC* fNewArray(gzUInt _nNewSize ) const{
 	  return  GZ::fDataCopyAlloc( m.aSubTab, gzp_DataSize , _nNewSize, _nNewSize* GZ_Array_Expand_Factor );
