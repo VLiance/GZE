@@ -102,13 +102,10 @@ public:
 	#define gzp_ReturnType gzUInt8
 	
 	
-	inline gzArray_(){//TODO TODO Default construction!!!!!!
+	inline gzArray_(){
 		//gzConst_Data(gzUInt, gzNull_Data);
 		// aData = (gzDataRC *)&gzNull_Data; ///Cannort do that because it cause detach when assingn on it
-		 aData = fEmptyArray(0,4); //TODO check if inital lenght is good
-	
-		 
-		 
+		 aData = fEmptyArray(0,4);
 	}
 	/*
 	inline gzArray_( const gzArray_& _oOther ){//TODO TODO Default construction!!!!!!

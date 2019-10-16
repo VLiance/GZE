@@ -18,6 +18,9 @@ package  {
 		public var oTf : Pt<Float>;
 		public var o2d : Pt<Float>;
 		
+		union public var vPt : Pt<Float>;
+		
+		
 		//public var vPt : Pt<Float>;
 		public var nX : Float;
 		public var nY : Float;
