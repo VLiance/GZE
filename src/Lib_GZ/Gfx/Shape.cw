@@ -100,9 +100,9 @@ package  {
 
 		public function fAddPt( _oPt : PtA, _oCenter : Pt<Float> ):Void {
 
-			_oPt.nX = _oPt.nX - _oCenter.nX;
-			_oPt.nY = _oPt.nY - _oCenter.nY;
-			_oPt.nZ =_oPt.nZ - _oCenter.nZ;
+			_oPt.vPt.nX = _oPt.vPt.nX - _oCenter.nX;
+			_oPt.vPt.nY = _oPt.vPt.nY - _oCenter.nY;
+			_oPt.vPt.nZ =_oPt.vPt.nZ - _oCenter.nZ;
 			aNewPt3dOri.fPush(_oPt);
 		}
 
@@ -290,14 +290,14 @@ package  {
 
 			var _nFocal : Float = oDstBuff.oPerspective.nValue;
 			
-			var _nX : Float = oGblPt.nX + 0.25;
-			var _nY : Float = oGblPt.nY - 0.25;
+			var _nX : Float = oGblPt.vPt.nX + 0.25;
+			var _nY : Float = oGblPt.vPt.nY - 0.25;
 			
 			if(oDstBuff.oPerspective.nType == 1){
 				//Debug.fTrace("oDstBuff.oPerspective.nType 1");
 				for( var i : UInt = 0; i < aNewPt3dOri.nSize; i++){
 					var _oPt : PtA = aNewPt3dOri[i];
-					var _nZ : Float = (_oPt.oTf.nZ + oGblPt.nZ) * _nFocal + 1;
+					var _nZ : Float = (_oPt.oTf.nZ + oGblPt.vPt.nZ) * _nFocal + 1;
 					_oPt.o2d.nX = _oPt.oTf.nX / _nZ + _nX;
 					_oPt.o2d.nY = _oPt.oTf.nY / _nZ + _nY;
 					_oPt.o2d.nZ = _nZ;
@@ -311,7 +311,7 @@ package  {
 
 				for( var i : UInt = 0; i < aNewPt3dOri.nSize; i++){
 					var _oPt : PtA = aNewPt3dOri[i];
-					var _nZ : Float = (_oPt.oTf.nZ + oGblPt.nZ) * _nFocal + 1;
+					var _nZ : Float = (_oPt.oTf.nZ + oGblPt.vPt.nZ) * _nFocal + 1;
 					_oPt.o2d.nX = (_oPt.oTf.nX + (_nX - _nFromX)) / _nZ - (_nX - _nFromX) + _nX;
 					_oPt.o2d.nY = (_oPt.oTf.nY + (_nY - _nFromY)) / _nZ - (_nY - _nFromY) + _nY;
 					_oPt.o2d.nZ = _nZ;

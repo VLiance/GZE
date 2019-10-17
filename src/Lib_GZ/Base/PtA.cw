@@ -18,19 +18,20 @@ package  {
 		public var oTf : Pt<Float>;
 		public var o2d : Pt<Float>;
 		
-		union public var vPt : Pt<Float>;
+		//union public var vPt : Pt<Float>;
+		public var vPt : Pt<Float>;
 		
-		
+		/*
 		//public var vPt : Pt<Float>;
 		public var nX : Float;
 		public var nY : Float;
 		public var nZ : Float;
-		
+		*/
 
 		public function PtA(_nX : Float = 0, _nY : Float = 0, _nZ : Float = 0):Void  {
-				nX = _nX;
-				nY = _nY;
-				nZ = _nZ;
+				vPt.nX = _nX;
+				vPt.nY = _nY;
+				vPt.nZ = _nZ;
 				
 			//oTf = new Pt<Float>();
 			//o2d = new Pt<Float>();
@@ -41,9 +42,9 @@ package  {
 		}
 
 		public function fCopyToTf():Void  {
-			oTf.nX = nX;
-			oTf.nY = nY;
-			oTf.nZ = nZ;
+			oTf.nX = vPt.nX;
+			oTf.nY = vPt.nY;
+			oTf.nZ = vPt.nZ;
 		}
 
 

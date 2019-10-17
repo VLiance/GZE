@@ -5,7 +5,7 @@ package  {
 	//import GZ.Gfx.Object;
 	import GZ.Gfx.Buffer;
 	import GZ.File.RcImg;
-
+	import GZ.Gfx.Triangle;
 	import GZ.Gfx.Face;
 	
 	public overclass GpuFace  {

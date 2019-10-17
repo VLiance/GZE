@@ -71,15 +71,15 @@ package  {
 			vSize.fStep();
 			vColor.fStep();
 			
-			oGblPt.nX = vPos.nX  * oParent.vGblSize.nWidth;
-			oGblPt.nY = vPos.nY  * oParent.vGblSize.nHeight;
-			oGblPt.nZ = vPos.nZ  * oParent.vGblSize.nLength;
+			oGblPt.vPt.nX = vPos.nX  * oParent.vGblSize.nWidth;
+			oGblPt.vPt.nY = vPos.nY  * oParent.vGblSize.nHeight;
+			oGblPt.vPt.nZ = vPos.nZ  * oParent.vGblSize.nLength;
 			
 		//	oGblPt.fRotate(oParent.oQuaternion);
 			
-			oGblPt.nX += oParent.oGblPt.nX;
-			oGblPt.nY += oParent.oGblPt.nY;
-			oGblPt.nZ += oParent.oGblPt.nZ;
+			oGblPt.vPt.nX += oParent.oGblPt.vPt.nX;
+			oGblPt.vPt.nY += oParent.oGblPt.vPt.nY;
+			oGblPt.vPt.nZ += oParent.oGblPt.vPt.nZ;
 
 			
 			vGblRot =  vRot + oParent.vGblRot;

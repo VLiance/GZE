@@ -126,17 +126,17 @@ package  {
 			 
 			if(_oPts != 0){  //Ugly Todo
 				
-				oPtTL.nX = _oPts.oPt1.nX;
-				oPtTL.nY = _oPts.oPt1.nY;
+				oPtTL.vPt.nX = _oPts.oPt1.nX;
+				oPtTL.vPt.nY = _oPts.oPt1.nY;
 				
-				oPtTR.nX = _oPts.oPt2.nX;
-				oPtTR.nY = _oPts.oPt2.nY;
+				oPtTR.vPt.nX = _oPts.oPt2.nX;
+				oPtTR.vPt.nY = _oPts.oPt2.nY;
 				
-				oPtBR.nX = _oPts.oPt3.nX;
-				oPtBR.nY = _oPts.oPt3.nY;
+				oPtBR.vPt.nX = _oPts.oPt3.nX;
+				oPtBR.vPt.nY = _oPts.oPt3.nY;
 				
-				oPtBL.nX = _oPts.oPt4.nX;
-				oPtBL.nY = _oPts.oPt4.nY;
+				oPtBL.vPt.nX = _oPts.oPt4.nX;
+				oPtBL.vPt.nY = _oPts.oPt4.nY;
 			}
 			
 			

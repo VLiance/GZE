@@ -42,7 +42,48 @@ package  {
 		oAt.oAtObjPos.fSet(oFace.oShape.vPos); //TODO use oGblPt ->  vector
 		//oAtObjSize
 		oAt.oAtObjRot.fSet(oFace.oShape.vGblRot);
-	//	oAt.oAtPt1.fSet(oFace.oPt1);
+		
+		oAt.oAtPt1.fSet(oFace.oPt1.vPt);
+		oAt.oAtPt2.fSet(oFace.oPt2.vPt);
+		oAt.oAtPt3.fSet(oFace.oPt3.vPt);
+		oAt.oAtPt4.fSet(oFace.oPt4.vPt);
+		
+		//var _aSrc : Array<Float> = new  Array<Float>(oFace.rPtS1);
+		
+		oAt.oAtTexSource0.fSetVal(0, oFace.rPtS1.nX);
+		oAt.oAtTexSource0.fSetVal(1, oFace.rPtS1.nY);
+		oAt.oAtTexSource0.fSetVal(0, oFace.rPtS2.nX);
+		oAt.oAtTexSource0.fSetVal(1, oFace.rPtS2.nY);
+		
+		oAt.oAtTexSource1.fSetVal(0, oFace.rPtS3.nX);
+		oAt.oAtTexSource1.fSetVal(1, oFace.rPtS3.nY);
+		oAt.oAtTexSource1.fSetVal(0, oFace.rPtS4.nX);
+		oAt.oAtTexSource1.fSetVal(1, oFace.rPtS4.nY);
+		
+		//oAt.oAtTexSource1.fSet(oFace.rPtS3);
+		
+		
+		
+		
+		
+		
+		/*
+		oAtObjPos.fSetOffset(_nTotalPerAttrib * 0);
+		oAtObjRot.fSetOffset(_nTotalPerAttrib * 1);
+
+		oAtPt1.fSetOffset(_nTotalPerAttrib * 2);
+		oAtPt2.fSetOffset(_nTotalPerAttrib * 3);
+		oAtPt3.fSetOffset(_nTotalPerAttrib * 4);
+		oAtPt4.fSetOffset(_nTotalPerAttrib * 5);
+
+		oAtTexSource0.fSetOffset(_nTotalPerAttrib * 6);
+		oAtTexSource1.fSetOffset(_nTotalPerAttrib * 7);
+
+		oAtColor1.fSetOffset(_nTotalPerAttrib * 8);
+		oAtColor2.fSetOffset(_nTotalPerAttrib * 9);
+		oAtColor3.fSetOffset(_nTotalPerAttrib * 10);
+		oAtColor4.fSetOffset(_nTotalPerAttrib * 11);
+		*/
 		
 		
 		

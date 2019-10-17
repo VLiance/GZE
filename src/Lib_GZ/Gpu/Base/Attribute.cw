@@ -4,8 +4,16 @@ package  {
 	import GZ.Gpu.ShaderBase.ShaderBase;
 	import GZ.Gpu.ShaderBase.ProgramShader;
 	import GZ.Base.Container.Vector.Vec4;
-	
+	import GZ.Gfx.Triangle;
+	import GZ.Gfx.Shape;
+		
 	public overclass Attribute  {
+		
+				
+		use Triangle.uPoint3D;
+		use Shape.uPoint;
+		
+		
 		
 		public enum eDataType : UInt8 {
 			Float;
@@ -23,6 +31,8 @@ package  {
 		
 		
 		public wvar oProgram : ProgramShader;
+		
+
 		
 		
 				
@@ -51,13 +61,15 @@ package  {
 		
 		//public function fSet(_oData : CArray<Float>):Void {
 		
+		//TODO inline!
 		public function fSet(_aVec : ArrayView<Float>):Void {
-			aDataLinked[nOffset]	 =  _aVec[0];
-			aDataLinked[nOffset+1]   =  _aVec[1];
-			aDataLinked[nOffset+3]   =  _aVec[2];
-			aDataLinked[nOffset+4]   =  _aVec[3];
+			for(var i : UInt = 0; i < _aVec.nSize; i++){
+				aDataLinked[nOffset + i]	 =  _aVec[i];
+			}
 		}
-		
+		public function fSetVal(_nIndex: UInt, _nValue : Float):Void {
+			aDataLinked[nOffset + _nIndex] = _nValue;
+		}
 		
 		
 
