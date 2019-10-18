@@ -11,6 +11,7 @@ package  {
 	import GZ.Gpu.ShaderModel.AtModel.Attribute_Quad;
 	import GZ.Gfx.Face;
 	import GZ.Gfx.Shape;
+	import GZ.Base.Vec4;
 	
 	
 	public class OpGpuFace overplace GpuFace {
@@ -26,7 +27,7 @@ package  {
 	//	public function fIni(_oFace:Face):Void;
 
 	override public function fDraw( _oSource : Buffer, _nX_Start : Int, _nX_End : Int, _nY_Start : Int, _nY_End : Int):Void{
-		//Debug.fTrace("GPU draw face! " );
+		Debug.fTrace("GPU draw face! " );
 		//fCreateDara();
 		
 		oAt = Attribute_Quad;
@@ -59,6 +60,14 @@ package  {
 		oAt.oAtTexSource1.fSetVal(1, oFace.rPtS3.nY);
 		oAt.oAtTexSource1.fSetVal(0, oFace.rPtS4.nX);
 		oAt.oAtTexSource1.fSetVal(1, oFace.rPtS4.nY);
+		
+		var _vColor : Vec4<Float> = new Vec4<Float>(0.5,0.5,0.5,0.5);
+		oAt.oAtColor1.fSet(_vColor);
+		oAt.oAtColor2.fSet(_vColor);
+		oAt.oAtColor3.fSet(_vColor);
+		oAt.oAtColor4.fSet(_vColor);
+		
+		
 		
 		//oAt.oAtTexSource1.fSet(oFace.rPtS3);
 		

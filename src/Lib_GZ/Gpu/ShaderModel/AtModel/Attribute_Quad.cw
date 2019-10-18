@@ -130,9 +130,13 @@ package  {
 				
 			nTotalQuad = _nTotalQuad;
 			
+				Debug.fTrace("nTotalQuad: " +nTotalQuad)
+			
 			var _nTotalPerAttrib : Int = _nTotalQuad * 4; //4 = Vec4
 			aData.fMaxSize(_nTotalPerAttrib * 12);
-			aData[0] = 9999;
+			
+			Debug.fTrace("fMaxSize: " + _nTotalPerAttrib * 12)
+			//aData[0] = 9999;
 			
 			
 			oAtObjPos.fSetOffset(_nTotalPerAttrib * 0);

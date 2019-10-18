@@ -207,8 +207,8 @@ package  {
 			//coord_Texture.x = (in_TexCoord0.x + 0.5) / (nTexDim.x + 4 );  //Not batch
 			//coord_Texture.y = (in_TexCoord0.y + 0.5) / (nTexDim.y + 4) ;  //Not batch
 
-			coord_TextureSource.x = in_TexCoord0.x / nTexDim.x;
-			coord_TextureSource.y = in_TexCoord0.y / nTexDim.y;
+			//coord_TextureSource.x = in_TexCoord0.x / nTexDim.x;
+			//coord_TextureSource.y = in_TexCoord0.y / nTexDim.y;
 
 		
 			//coord_Corner =vec2(0.5,0.5);
@@ -236,16 +236,16 @@ package  {
 			coord_Texture.x = in_TexCoord0.x / nTexDim.x;
 			coord_Texture.y = (in_TexCoord0.y )/ nTexDim.y;
 
-			coord_TextureSource.x = in_TexCoord0.x / nTexDim.x;
-			coord_TextureSource.y = in_TexCoord0.y / nTexDim.y;
+			//coord_TextureSource.x = in_TexCoord0.x / nTexDim.x;
+			//coord_TextureSource.y = in_TexCoord0.y / nTexDim.y;
 		}
 
 		if(nType == 3){ //UniColor
 			gl_Position = vec4(in_PtPos, 1.0) ;
 			gl_Position.x = (gl_Position.x - nWinHalfWidth )/ nWinHalfWidth;
 			gl_Position.y = ((gl_Position.y  )  - nWinHalfHeight)/-nWinHalfHeight;
-			coord_TextureSource.x = in_TexCoord0.x / nTexDim.x;
-			coord_TextureSource.y = in_TexCoord0.y / nTexDim.y;
+			//coord_TextureSource.x = in_TexCoord0.x / nTexDim.x;
+			//coord_TextureSource.y = in_TexCoord0.y / nTexDim.y;
 		}
 
 	}
@@ -281,7 +281,7 @@ package  {
 
 	uniform sampler2DArray TexArray;  
 
-	in vec2 coord_TextureSource;
+	//in vec2 coord_TextureSource;
 	in vec2 coord_Texture;
 	in vec2 coord_Corner;
 
@@ -512,7 +512,7 @@ package  {
 		
 			oGpuBatch.fDraw();
 			
-			Debug.fTrace(oAt.aData.nSize)
+			Debug.fTrace("Size: " + oAt.aData.nSize)
 			
 			
 			//Debug.fTrace("!" +  oAt.aData[0]  );
@@ -522,7 +522,7 @@ package  {
 			//	bTest = true;
 			
 				for(var i : Int = 0; i  < oAt.aData.nSize; i+=4){
-					Debug.fTrace("[" +  oAt.aData[i] + "," +  oAt.aData[i+1] + "," +  oAt.aData[i+2] + "," +  oAt.aData[i+3] + "]" );
+			//		Debug.fTrace("[" +  oAt.aData[i] + "," +  oAt.aData[i+1] + "," +  oAt.aData[i+2] + "," +  oAt.aData[i+3] + "]" );
 				}
 			//}
 			
