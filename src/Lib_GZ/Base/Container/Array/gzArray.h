@@ -106,6 +106,7 @@ public:
 		//gzConst_Data(gzUInt, gzNull_Data);
 		// aData = (gzDataRC *)&gzNull_Data; ///Cannort do that because it cause detach when assingn on it
 		 aData = fEmptyArray(0,4);
+		 aData->nInst = 1;
 	}
 	/*
 	inline gzArray_( const gzArray_& _oOther ){//TODO TODO Default construction!!!!!!

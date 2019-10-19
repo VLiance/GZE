@@ -346,7 +346,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 			oProgram.fSetDefaultAttribDivisor(1);
 	
 			oVboBatch  = oProgram.fAddVbo();
-			oGpuBatch = new GpuBatch();
+			oGpuBatch = new GpuBatch(this);
 			
 				
 			//var _oAtObjPos : Attribute = oProgram.fAddAttribute(null, "atObjPos"); //TODO null
@@ -430,7 +430,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 			oUiResolution.fSend();
 				
 		//		Debug.fTrace("oUiMouse.vVal.nX" + oUiMouse.vVal.nX);
-						
+			oVboBatch.fSetDefaultDataVertexID();
 			oVboBatch.fSendData();
 			oGpuBatch.fDraw();
 		}

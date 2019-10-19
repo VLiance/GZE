@@ -6,6 +6,7 @@ package  {
 	import GZ.Gpu.Base.Attribute;
 	import GZ.Gpu.Base.Uniform;
 	import GZ.Gpu.Base.UnVec2;
+	import GZ.Gpu.Base.UnFloat;
 	import GZ.Gpu.ShaderBase.Vbo;
 	import GZ.Gpu.GpuObj.GpuBatch;
 	import GZ.Base.Perspective;
@@ -124,10 +125,33 @@ package  {
 	flat out vec4 coord_Pt4;
 	///////////////////
 
-	in int gl_VertexID;
+	//in int gl_VertexID;
 
 	void main(){
 
+		
+		if (nVertexID < 2){
+			if(nVertexID == 0){
+				gl_Position.x = -1.0;
+				gl_Position.y = -1.0;
+			}else{
+				gl_Position.x = 1.0;
+				gl_Position.y = -1.0;
+			}
+		}else{
+			if(nVertexID == 2){
+				gl_Position.x = 1.0;
+				gl_Position.y = 1.0;
+			}else{
+				gl_Position.x = -1.0;
+				gl_Position.y = 1.0;
+			}
+		}
+		gl_Position.z = 0.5;
+		gl_Position.w = 1.0;
+	
+	
+/*
 		if(nType == 1){ //Normal 2D
 
 		
@@ -246,7 +270,7 @@ package  {
 			gl_Position.y = ((gl_Position.y  )  - nWinHalfHeight)/-nWinHalfHeight;
 			//coord_TextureSource.x = in_TexCoord0.x / nTexDim.x;
 			//coord_TextureSource.y = in_TexCoord0.y / nTexDim.y;
-		}
+		}*/
 
 	}
 				
@@ -308,7 +332,8 @@ package  {
 
 	void main()
 	{
-
+		FragColor =  vec4(0.5,0.5,0.5,0.5);
+/*
 		if(nType == 1 || nType == 4){ //Normal
 			vec2 coord_Source = gl_FragCoord.xy/vec2(800.0,600.0);
 			vec4 pixFrame = texture(TexSource, coord_Source );
@@ -374,7 +399,7 @@ package  {
 			float nRevAlpha = 1.0 -  pixFrame.a;
 			outputColor = pixFrame + pixTex * nRevAlpha;
 		}
-		
+		*/
 	}
 				
 </glsl>
@@ -410,14 +435,14 @@ package  {
 			oProgram.fSetDefaultAttribDivisor(1);
 	
 			oVboBatch  = oProgram.fAddVbo();
-			oGpuBatch = new GpuBatch();
+			oGpuBatch = new GpuBatch(this);
 			
 			
 			oProgram.nDefaultAttribDivisor = 1;
 			
 			
 			oAt.fLocateAttribute(oProgram);
-			
+		//	Debug.fTrace("Finish fLocateAttribute");
 			/*
 			oAtObjPos = oProgram.fAddAttribute("in_ObjPos");
 			//oAtObjSize = oProgram.fAddAttribute("in_ObjSize");
@@ -442,12 +467,14 @@ package  {
 			
 
 		//	var _oAtVertexID : Attribute = oProgram.fAddAttribute("atVertexID",0);
-			
+	
 			oUiMouse = new UnVec2(oProgram, "iMouse");
-			
 			var _oPersv : Perspective = new Perspective();
 			
 			
+			
+			oUnType = new UnFloat(oProgram, "nType");
+
 			
 			//	oGpuBatch.fDraw();
 		
@@ -490,8 +517,11 @@ package  {
 		
 		public function fUpdate():Void {
 		
+		
+			oAt.fUpdate();
 			//return; ///DISAABLE
 			
+			oVboBatch.fSetDefaultDataVertexID();
 			oVboBatch.fSendData();
 			
 			
@@ -511,22 +541,20 @@ package  {
 			
 		
 			oGpuBatch.fDraw();
-			
-			Debug.fTrace("Size: " + oAt.aData.nSize)
-			
-			
+	
+			Debug.fTrace("Size: " + oAt.oVbo.aData.nSize)
 			//Debug.fTrace("!" +  oAt.aData[0]  );
 			
-			
+					/*
 			//if(bTest == false){
 			//	bTest = true;
 			
-				for(var i : Int = 0; i  < oAt.aData.nSize; i+=4){
+				for(var i : Int = 0; i  < oAt.oVbo.aData.nSize; i+=4){
 			//		Debug.fTrace("[" +  oAt.aData[i] + "," +  oAt.aData[i+1] + "," +  oAt.aData[i+2] + "," +  oAt.aData[i+3] + "]" );
 				}
 			//}
 			
-			
+			*/
 		
 			/*
 			forEach(var _nData : Float in oAt.aData){

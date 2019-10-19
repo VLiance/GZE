@@ -326,7 +326,7 @@ package  {
 			oProgram.fSetDefaultAttribDivisor(1);
 	
 			oVboBatch  = oProgram.fAddVbo();
-			oGpuBatch = new GpuBatch();
+			oGpuBatch = new GpuBatch(this);
 			
 			
 		//	var _oAtObjPos : Attribute = oProgram.fAddAttribute(null, "atObjPos"); //TODO null!
@@ -382,6 +382,7 @@ package  {
 			oUiResolution.vVal.nY  = Context.nFrameHeight;
 			oUiResolution.fSend();
 			
+			oVboBatch.fSetDefaultDataVertexID();
 			oVboBatch.fSendData();
 			oGpuBatch.fDraw();
 		}

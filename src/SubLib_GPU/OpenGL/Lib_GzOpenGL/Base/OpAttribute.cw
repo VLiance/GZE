@@ -2,19 +2,21 @@ package  {
 
 	import GzOpenGL.OpenGL;
 	import GzOpenGL.OpGpuInfo;
-		
+	import GZ.Gpu.ShaderBase.Vbo;
 	import GZ.Gpu.Base.Attribute;
 	import GZ.Gpu.ShaderBase.ProgramShader;
 	
 	public class OpAttribute overplace Attribute {
 
 		
-		public function OpAttribute(_sName : String, _aDataLinked : Array<Float>, _nDivisor : Int = 1):Void {
+		public function OpAttribute(_sName : String, _oVbo : Vbo, _nDivisor : Int = 1):Void {
 		
 		}
 		
 		override public function fLoad():Void {
 			Debug.fTrace("--- OpAttribute Created!! ---");
+			
+			OpenGL.fBindBuffer(ARRAY_BUFFER, oVbo.nId);
 			
 			nId = OpenGL.fGetAttribLocation(oProgram.nId,  sName );
 			<cpp>
@@ -64,6 +66,8 @@ package  {
 		
 		
 		override public function fSetOffset(_nValOffset : UInt):Void{ 
+		
+
 			nOffset = _nValOffset;
 			
 			var _nSizeType : Int;
@@ -72,6 +76,7 @@ package  {
 			</cpp>
 	
 			if(bValid == true){
+				OpenGL.fBindBuffer(ARRAY_BUFFER, oVbo.nId);
 				OpenGL.fVertexAttribPointer(nId, Vec4, FLOAT, false, 0, _nSizeType * _nValOffset );
 				/*
 				<cpp>
@@ -91,8 +96,9 @@ package  {
 		}*/
 
 		override public function fSetDivisor(_nDiv:UInt = 1):Void{
+
 			if(bValid == true){
-				
+				OpenGL.fBindBuffer(ARRAY_BUFFER, oVbo.nId);
 				OpenGL.fVertexAttribPointer(nId, Vec4, FLOAT, false, 0, 0);
 				OpenGL.fVertexAttribDivisor(nId, _nDiv);
 				

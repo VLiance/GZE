@@ -51,7 +51,13 @@ package  {
 			}
 			
 			 void  fMsgPrint(gzPStr _sValue){
+			 
+			 
+			 
 			 	_sValue.fPrint();
+				
+				
+				
 			 /*
 				if(bPipe){
 					gzUTF16 _sPrint16(_sValue);
@@ -137,7 +143,13 @@ package  {
 			
 		public  function fWrite(_sValue:String):Void {
 			<cpp>
+				#ifndef GZ_D_Monothread
+					EnterCriticalSection(&m_cs); 
+				#endif
 				_::fMsgPrint(_sValue);
+				#ifndef GZ_D_Monothread	
+					LeaveCriticalSection(&m_cs);	
+				#endif
 			</cpp>
 		}
 		

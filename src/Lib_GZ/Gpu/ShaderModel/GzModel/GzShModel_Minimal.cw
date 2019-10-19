@@ -179,7 +179,7 @@ package  {
 			oProgram.fSetDefaultAttribDivisor(1);
 	
 			oVboBatch  = oProgram.fAddVbo();
-			oGpuBatch = new GpuBatch();
+			oGpuBatch = new GpuBatch(this);
 			
 			
 			//var _oAtObjPos : Attribute = oProgram.fAddAttribute(null, "in_ObjPos"); //TODO!
@@ -230,7 +230,10 @@ package  {
 		//	}
 			oUiMouse.fSend();
 			
+			
+			oVboBatch.fSetDefaultDataVertexID();
 			oVboBatch.fSendData();
+			
 			oGpuBatch.fDraw();
 		}
 		

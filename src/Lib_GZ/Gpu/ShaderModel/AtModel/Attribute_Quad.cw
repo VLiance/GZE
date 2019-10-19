@@ -11,6 +11,7 @@ package  {
 	import GZ.Base.Perspective;
 	import GZ.Sys.Interface.Context;
 	import GZ.Gpu.ShaderModel.GzModel.GzShModel;
+
 	
 	//import GZ.Base.TestPod;
 	//import GZ.Base.TestPod2;
@@ -48,41 +49,46 @@ package  {
 		public var nTotalQuad : UInt = 0;
 
 		
-		public var aData : Array<Float>;
+		//public var aData : Array<Float>;
+		public var oVbo : Vbo;
 		
 		
 		public function Attribute_Quad():Void {
 			Debug.fTrace("--- Attribute_Quad Created!! ---");
 			
-			
-			//aData[0] = 777.0;
-
-			
-			oAtObjPos = new Attribute("in_ObjPos", aData);
-			
-		//	Debug.fTrace("aDataLinked: " + oAtObjPos.aDataLinked[0]);
-			 
-			
-			//oAtObjSize = oProgram.fAddAttribute("in_ObjSize");
-			oAtObjRot =new Attribute("in_ObjRot", aData);
-			
-			oAtPt1 = new Attribute("in_Pt1", aData);
-			oAtPt2 = new Attribute("in_Pt2", aData);
-			oAtPt3 = new Attribute("in_Pt3", aData);
-			oAtPt4 = new Attribute("in_Pt4", aData);
-			
-			oAtTexSource0 = new Attribute("in_TexSource0", aData);
-			oAtTexSource1 =new Attribute("in_TexSource1", aData);
-			
-			oAtColor1 = new Attribute("in_Color1", aData);
-			oAtColor2 = new Attribute("in_Color2", aData);
-			oAtColor3 = new Attribute("in_Color3", aData);
-			oAtColor4 = new Attribute("in_Color4", aData);
 		}
 		
 		
 		public function fLocateAttribute(_oProgram:ProgramShader):Void {
 			oProgram = _oProgram;
+			
+			oVbo = new Vbo(oProgram);
+
+			
+			oAtObjPos = new Attribute("in_ObjPos", oVbo);
+			
+		//	Debug.fTrace("aDataLinked: " + oAtObjPos.aDataLinked[0]);
+			 
+			//oAtObjSize = oProgram.fAddAttribute("in_ObjSize");
+			oAtObjRot =new Attribute("in_ObjRot", oVbo);
+			
+			oAtPt1 = new Attribute("in_Pt1", oVbo);
+			oAtPt2 = new Attribute("in_Pt2", oVbo);
+			oAtPt3 = new Attribute("in_Pt3", oVbo);
+			oAtPt4 = new Attribute("in_Pt4", oVbo);
+			
+			oAtTexSource0 = new Attribute("in_TexSource0", oVbo);
+			oAtTexSource1 =new Attribute("in_TexSource1", oVbo);
+			
+			oAtColor1 = new Attribute("in_Color1", oVbo);
+			oAtColor2 = new Attribute("in_Color2", oVbo);
+			oAtColor3 = new Attribute("in_Color3", oVbo);
+			oAtColor4 = new Attribute("in_Color4", oVbo);
+			
+			
+			
+			
+			
 
 			oProgram.fAttachAttribute(oAtObjPos);
 			//oAtObjSize = oProgram.fAttachAttribute("in_ObjSize");
@@ -124,7 +130,7 @@ package  {
 		}
 		
 		public function fIniData(_nTotalQuad:UInt):Void {
-			//Debug.fTrace("Total Quad : "  + _nTotalQuad) ;
+			Debug.fTrace("fIniData: Total Quad : "  + _nTotalQuad) ;
 			
 
 				
@@ -133,7 +139,7 @@ package  {
 				Debug.fTrace("nTotalQuad: " +nTotalQuad)
 			
 			var _nTotalPerAttrib : Int = _nTotalQuad * 4; //4 = Vec4
-			aData.fMaxSize(_nTotalPerAttrib * 12);
+			oVbo.aData.fMaxSize(_nTotalPerAttrib * 12);
 			
 			Debug.fTrace("fMaxSize: " + _nTotalPerAttrib * 12)
 			//aData[0] = 9999;
@@ -158,6 +164,11 @@ package  {
 			
 		}
 		
+		
+		public function fUpdate():Void {
+			oVbo.fSendData();
+		
+		}
 
 		
 		

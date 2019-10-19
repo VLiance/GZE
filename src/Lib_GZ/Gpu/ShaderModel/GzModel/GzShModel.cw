@@ -13,6 +13,7 @@ package  {
 	import GZ.Sys.Interface.Context;
 	import GZ.Gpu.GpuObj.GpuBatch;
 	
+	
 	//import GZ.Base.TestPod;
 	//import GZ.Base.TestPod2;
 	
@@ -24,6 +25,7 @@ package  {
 		public var oProgram : ProgramShader;
 		public var oGpuBatch : GpuBatch;
 		public var oVboBatch : Vbo;
+		public var oUnType : UnFloat;
 		public var oUiTime : UnFloat;
 		public var oUiMouse : UnVec2;
 		public var oUiResolution : UnVec2;

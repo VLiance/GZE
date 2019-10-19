@@ -189,6 +189,48 @@ package  {
 		}
 		
 		override public function fDraw( _oSource : Object, _nX_Start : Int, _nX_End : Int, _nY_Start : Int, _nY_End : Int):Void{
+			
+			/*
+			
+			
+			  GL_fBindFramebuffer(GL_FRAMEBUFFER, 0); // unbind
+
+       cSysGpuBuffer* _oBuff = ( cSysGpuBuffer*)oObj;
+    // nTest =  oBuffer->oPerspective->nFromX;
+
+        GL_fUniform4f( oGzSh->nLocPersp, _oBuff->oBuffer->oPerspective->nFromX, _oBuff->oBuffer->oPerspective->nFromY, _oBuff->oBuffer->oPerspective->nValue,  _oBuff->oBuffer->oPerspective->nType);
+        GL_fUniform3fv( oGzSh->nLocArrPt,  4, _oBuff->aPoints);
+        GL_fUniform2fv( oGzSh->nLocArrSrc, 4, _oBuff->aTexCoord);
+
+        GL_fBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA); //Back to front
+        // glBlendFunc(GL_ONE_MINUS_DST_ALPHA, GL_ONE); //Front to back
+
+
+        ///////////////////////////////////////////
+
+        if(_oBuff->nTexId){
+            GL_fActiveTexture( GL_TEXTURE0 );
+            GL_fBindTexture(GL_TEXTURE_2D, _oBuff->nTexId);
+            GL_fUniform2f(oGzSh->nLocTexDim, _oBuff->oBuffer->nBuffWidth, _oBuff->oBuffer->nBuffHeight);
+        }
+
+        GL_fUniform1i(oGzSh->nLocType, 2);
+
+       //Draw
+        GL_fDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, _aIndice2Tri);
+
+        if(_oBuff->bAutoClear){
+            //Clear
+            GL_fBindFramebuffer(GL_FRAMEBUFFER, _oBuff->nIdBuff);
+            GL_fClearColor(0.0, 0.0, 0.0, 0.0);
+            GL_fClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            GL_fBindFramebuffer(GL_FRAMEBUFFER, 0); // unbind
+        }
+
+		
+		*/
+			
+			
 		}
 		
 		

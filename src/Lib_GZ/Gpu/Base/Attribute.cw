@@ -3,6 +3,7 @@ package  {
 
 	import GZ.Gpu.ShaderBase.ShaderBase;
 	import GZ.Gpu.ShaderBase.ProgramShader;
+	import GZ.Gpu.ShaderBase.Vbo;
 	import GZ.Base.Container.Vector.Vec4;
 	import GZ.Gfx.Triangle;
 	import GZ.Gfx.Shape;
@@ -23,7 +24,9 @@ package  {
 		
 		public var hDataType : eDataType = eDataType.Float;
 		
-		public wvar aDataLinked : Array<Float>;
+		//public wvar aDataLinked : Array<Float>;
+		
+		
 		public var nId : Val;
 		public var nOffset : UInt;
 		public var sName : String;
@@ -31,13 +34,15 @@ package  {
 		
 		
 		public wvar oProgram : ProgramShader;
+		public wvar oVbo : Vbo;
 		
 
 		
 		
 				
-		public function Attribute(_sName : String, _aDataLinked : Array<Float>, _nDivisor : Int = 1):Void {
-			aDataLinked = _aDataLinked;
+		public function Attribute(_sName : String, _oVbo : Vbo, _nDivisor : Int = 1):Void {
+			//aDataLinked = _aDataLinked;
+			oVbo = _oVbo;
 			sName = _sName;
 			//oProgram = _oProgram;
 			//oProgram.aAttribute.fPush(this);
@@ -63,12 +68,14 @@ package  {
 		
 		//TODO inline!
 		public function fSet(_aVec : ArrayView<Float>):Void {
+			var _aData : Array<Float> = oVbo.aData;
 			for(var i : UInt = 0; i < _aVec.nSize; i++){
-				aDataLinked[nOffset + i]	 =  _aVec[i];
+				_aData[nOffset + i]	 =  _aVec[i];
 			}
 		}
 		public function fSetVal(_nIndex: UInt, _nValue : Float):Void {
-			aDataLinked[nOffset + _nIndex] = _nValue;
+			var _aData : Array<Float> = oVbo.aData;
+			_aData[nOffset + _nIndex] = _nValue;
 		}
 		
 		
