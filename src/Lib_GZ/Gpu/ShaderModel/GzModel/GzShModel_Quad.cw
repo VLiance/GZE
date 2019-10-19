@@ -438,9 +438,12 @@ package  {
 			oGpuBatch = new GpuBatch(this);
 			
 			
-			oProgram.nDefaultAttribDivisor = 1;
+			//oProgram.nDefaultAttribDivisor = 1;
 			
+			var _oAtVertexID : Attribute =  new Attribute("atVertexID", oVboBatch, 0);//TODO null!
+			//oProgram.fAttachAttribute(_oAtVertexID);
 			
+				
 			oAt.fLocateAttribute(oProgram);
 		//	Debug.fTrace("Finish fLocateAttribute");
 			/*

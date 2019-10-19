@@ -335,8 +335,8 @@ package  {
 						
 			var _oAtObjPos : Attribute = new Attribute("atObjPos", null); //TODO null!
 			var _oAtVertexID : Attribute =  new Attribute("atVertexID", null, 0);//TODO null!
-			oProgram.fAttachAttribute(_oAtObjPos);
-			oProgram.fAttachAttribute(_oAtVertexID);
+			//oProgram.fAttachAttribute(_oAtObjPos);
+			//oProgram.fAttachAttribute(_oAtVertexID);
 			
 			
 			

@@ -48,9 +48,10 @@ package  {
 			//oProgram.aAttribute.fPush(this);
 			fSetDivisor(_nDivisor);
 			
-			
+
+			oVbo.oProgram.fAttachAttribute(this);
+						
 			Debug.fTrace("--- Attribute Created!! ---");
-			//fLoad();
 		}
 		
 		/*

@@ -39,7 +39,7 @@ package  {
 			<glsl(oVertex)>
 				
 				in vec4 atObjPos;
-				xflat out vec4 vColor;
+				//xflat out vec4 vColor;
 				out vec2 ioTexture;
 				
 				
@@ -66,7 +66,7 @@ package  {
 					gl_Position.w = 1.0;
 
 					//gl_Position.xy = atObjPos.xy; //Temp
-					vColor = atObjPos;
+					//vColor = atObjPos;
 					//vColor = vec4(atObjPos.y, 0.0,1.0,1.0 );
 					// vColor = vec4(1.0,0.0,0.0,1.0);
 				}
@@ -352,10 +352,10 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 			//var _oAtObjPos : Attribute = oProgram.fAddAttribute(null, "atObjPos"); //TODO null
 			//var _oAtVertexID : Attribute = oProgram.fAddAttribute(null, "atVertexID",0);  //Must advance each vertex //TODO null
 			
-			var _oAtObjPos : Attribute = new Attribute("atObjPos", null); //TODO null!
-			var _oAtVertexID : Attribute =  new Attribute("atVertexID", null, 0);//TODO null!
-			oProgram.fAttachAttribute(_oAtObjPos);
-			oProgram.fAttachAttribute(_oAtVertexID);
+			//var _oAtObjPos : Attribute = new Attribute("atObjPos", null); //TODO null!
+			var _oAtVertexID : Attribute =  new Attribute("atVertexID", oVboBatch, 0);//TODO null!
+			//oProgram.fAttachAttribute(_oAtObjPos);
+		//	oProgram.fAttachAttribute(_oAtVertexID);
 			
 			
 			oUiTime = new UnFloat(oProgram, "iTime");

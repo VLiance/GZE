@@ -89,7 +89,7 @@ package  {
 			
 			
 			
-
+		/*
 			oProgram.fAttachAttribute(oAtObjPos);
 			//oAtObjSize = oProgram.fAttachAttribute("in_ObjSize");
 			oProgram.fAttachAttribute(oAtObjRot);
@@ -106,7 +106,7 @@ package  {
 			oProgram.fAttachAttribute(oAtColor2);
 			oProgram.fAttachAttribute(oAtColor3);
 			oProgram.fAttachAttribute(oAtColor4);
-			
+			*/
 			
 			/*
 			oAtObjPos = oProgram.fAddAttribute(aData, "in_ObjPos");
