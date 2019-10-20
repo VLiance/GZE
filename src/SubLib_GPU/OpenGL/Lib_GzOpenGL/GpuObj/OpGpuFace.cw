@@ -39,8 +39,15 @@ package  {
 		*/
 		//Debug.fTrace("GPU draw face! " + oFace.oShape.vPos.nX + ", "  + oFace.oShape.vPos.nY );
 					
+		/*		
+		oAt.oAtObjPos.fSetVal(0,oFace.oShape.oGblPt.vPt.nX);
+		oAt.oAtObjPos.fSetVal(1,oFace.oShape.oGblPt.vPt.nY); 
+		oAt.oAtObjPos.fSetVal(2,oFace.oShape.oGblPt.vPt.nZ); 
+		*/
+		
 	//	Debug.fTrace("aBefDataLinkedSize! " + Attribute_Quad.oAtObjPos.aDataLinked.nSize  );
-		oAt.oAtObjPos.fSet(oFace.oShape.vPos); //TODO use oGblPt ->  vector
+		oAt.oAtObjPos.fSet(oFace.oShape.oGblPt.vPt);
+
 		//oAtObjSize
 		oAt.oAtObjRot.fSet(oFace.oShape.vGblRot);
 		

@@ -204,8 +204,8 @@
 		 override public function fSetShader(_oShader: GzShModel):Void {
 			oGzShModel = _oShader;
 			
-			fClear(); //TODO Verify
-			fBlit();  //TODO Verify
+			//fClear(); //TODO Verify
+			//fBlit();  //TODO Verify
 			fClear(); //Double buffer must clear both
 		 }
 		
@@ -222,8 +222,8 @@
 		    </cpp>
 			oGzShModel = new GzShModel_Raymarching();
 			
-			fClear(); //TODO Verify
-			fBlit();  //TODO Verify
+			//fClear(); //TODO Verify
+			//fBlit();  //TODO Verify
 			fClear(); //Double buffer must clear both
 		 }
 		

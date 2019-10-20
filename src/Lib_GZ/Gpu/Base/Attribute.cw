@@ -46,10 +46,12 @@ package  {
 			sName = _sName;
 			//oProgram = _oProgram;
 			//oProgram.aAttribute.fPush(this);
-			fSetDivisor(_nDivisor);
 			
 
 			oVbo.oProgram.fAttachAttribute(this);
+			
+			fSetDivisor(_nDivisor); //Must be after been loaded
+			
 						
 			Debug.fTrace("--- Attribute Created!! ---");
 		}

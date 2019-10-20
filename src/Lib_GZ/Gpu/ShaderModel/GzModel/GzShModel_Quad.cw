@@ -7,6 +7,7 @@ package  {
 	import GZ.Gpu.Base.Uniform;
 	import GZ.Gpu.Base.UnVec2;
 	import GZ.Gpu.Base.UnFloat;
+	import GZ.Gpu.Base.UnInt;
 	import GZ.Gpu.ShaderBase.Vbo;
 	import GZ.Gpu.GpuObj.GpuBatch;
 	import GZ.Base.Perspective;
@@ -49,7 +50,7 @@ package  {
 		
 		public var oAt : Attribute_Quad;
 		
-		public var bTest : Bool = false;
+		public var nTest : Int = 0;
 		
 		
 
@@ -99,8 +100,12 @@ package  {
 
 
 
-	uniform float nWinHalfWidth;
-	uniform float nWinHalfHeight;
+	float nWinHalfWidth;
+	float nWinHalfHeight;
+	
+	
+	//uniform float nWinHalfWidth;
+	//uniform float nWinHalfHeight;
 
 	uniform vec2 nPos;
 	uniform vec2 nTexDim;
@@ -129,7 +134,7 @@ package  {
 
 	void main(){
 
-		
+		/*
 		if (nVertexID < 2){
 			if(nVertexID == 0){
 				gl_Position.x = -1.0;
@@ -149,7 +154,7 @@ package  {
 		}
 		gl_Position.z = 0.5;
 		gl_Position.w = 1.0;
-	
+	*/
 	
 /*
 		if(nType == 1){ //Normal 2D
@@ -178,15 +183,18 @@ package  {
 		}
 		
 		if(nType == 4){ //Normal 3D
-			
+		*/	
 
 			
-			gl_Position.x = in_PtPos.x;
-			gl_Position.y = in_PtPos.y;
-			gl_Position.z = in_PtPos.z;
+			//gl_Position.x = in_PtPos.x;
+			//gl_Position.y = in_PtPos.y;
+			//gl_Position.z = in_PtPos.z;
+			
+			
+			
 			
 			//BATCH ONLY
-			switch(gl_VertexID){
+			switch(nVertexID){
 				case 0 :
 					gl_Position =  in_Pt1;
 					coord_Corner = vec2(0.25,0.25);
@@ -210,6 +218,10 @@ package  {
 				break;
 			}
 		
+			nWinHalfWidth = 400;
+			nWinHalfHeight = 300;
+			
+			
 			
 			///// Rotation ////
 			float _nTx = (gl_Position.x * cos(in_ObjRot.y)) - (gl_Position.z * sin(in_ObjRot.y));
@@ -220,13 +232,40 @@ package  {
 			gl_Position.y = (_nTx * sin(in_ObjRot.x)) + (_nTy * cos(in_ObjRot.x));
 			////////////////////
 			
+			
+			
 			//3D to Screen
 			gl_Position.w  =  gl_Position.z * in_ObjPos.w + 1.0;
 			gl_Position.x = (((gl_Position.x ) + in_ObjPos.x + 0.5) - nWinHalfWidth )/ nWinHalfWidth ;
 			gl_Position.y = (((gl_Position.y ) + in_ObjPos.y + 0.499) - nWinHalfHeight)/-nWinHalfHeight ;
 			gl_Position.z = 0;
-
-		
+			
+			/*
+			if (nVertexID < 2){
+				if(nVertexID == 0){
+					gl_Position.x = -1.0;
+					gl_Position.y = -1.0;
+					gl_Position.xy =  in_Pt1.xy / 800.0 ;
+					//gl_Position.xy = vec2(-139.50,-136.00) / 800.0 ;
+				}else{
+					gl_Position.x = 1.0;
+					gl_Position.y = -1.0;
+					gl_Position.xy =  in_Pt2.xy / 800.0 ;
+				}
+			}else{
+				if(nVertexID == 2){
+					gl_Position.x = 1.0;
+					gl_Position.y = 1.0;
+					gl_Position.xy =  in_Pt3.xy / 800.0 ;
+				}else{
+					gl_Position.x = -1.0;
+					gl_Position.y = 1.0;
+					gl_Position.xy =  in_Pt4.xy / 800.0 ;
+				}
+			}
+			gl_Position.z = 0.5;
+			gl_Position.w = 1.0;
+		*/
 			
 			//coord_Texture.x = (in_TexCoord0.x + 0.5) / (nTexDim.x + 4 );  //Not batch
 			//coord_Texture.y = (in_TexCoord0.y + 0.5) / (nTexDim.y + 4) ;  //Not batch
@@ -246,7 +285,7 @@ package  {
 			coord_Pt2 = in_Pt2;
 			coord_Pt3 = in_Pt3;
 			coord_Pt4 = in_Pt4;
-			
+		/*	
 		}
 		
 		
@@ -270,8 +309,8 @@ package  {
 			gl_Position.y = ((gl_Position.y  )  - nWinHalfHeight)/-nWinHalfHeight;
 			//coord_TextureSource.x = in_TexCoord0.x / nTexDim.x;
 			//coord_TextureSource.y = in_TexCoord0.y / nTexDim.y;
-		}*/
-
+		}
+		*/
 	}
 				
 				
@@ -446,24 +485,7 @@ package  {
 				
 			oAt.fLocateAttribute(oProgram);
 		//	Debug.fTrace("Finish fLocateAttribute");
-			/*
-			oAtObjPos = oProgram.fAddAttribute("in_ObjPos");
-			//oAtObjSize = oProgram.fAddAttribute("in_ObjSize");
-			oAtObjRot = oProgram.fAddAttribute("in_ObjRot");
-			
-			oAtPt1 = oProgram.fAddAttribute("in_Pt1");
-			oAtPt2 = oProgram.fAddAttribute("in_Pt2");
-			oAtPt3 = oProgram.fAddAttribute("in_Pt3");
-			oAtPt4 = oProgram.fAddAttribute("in_Pt4");
-			
-			oAtTexSource0 = oProgram.fAddAttribute("in_TexSource0");
-			oAtTexSource1 = oProgram.fAddAttribute("in_TexSource1");
-			
-			oAtColor1 = oProgram.fAddAttribute("in_Color1");
-			oAtColor2 = oProgram.fAddAttribute("in_Color2");
-			oAtColor3 = oProgram.fAddAttribute("in_Color3");
-			oAtColor4 = oProgram.fAddAttribute("in_Color4");
-			*/
+
 		//	oAtOffsetHV = oProgram.fAddAttribute("in_OffsetHV");
 		//	oAtOffsetC = oProgram.fAddAttribute("in_OffsetC");
 			
@@ -476,7 +498,7 @@ package  {
 			
 			
 			
-			oUnType = new UnFloat(oProgram, "nType");
+			oUnType = new UnInt(oProgram, "nType");
 
 			
 			//	oGpuBatch.fDraw();
@@ -494,28 +516,7 @@ package  {
 		
 		override public function fIniRender():Void {
 			//Debug.fTrace("Total Face : "  + Context.oItf.nTotalFaces) ;
-
-			//var _nTotalPerAttrib : Int =  Context.oItf.nTotalFaces * 4; //4 = Vec4
-			
 			oAt.fIniData( Context.oItf.nTotalFaces );
-			/*
-			oAtObjPos.fSetOffset(_nTotalPerAttrib * 0);
-			oAtObjRot.fSetOffset(_nTotalPerAttrib * 1);
-			
-			oAtPt1.fSetOffset(_nTotalPerAttrib * 2);
-			oAtPt2.fSetOffset(_nTotalPerAttrib);
-			oAtPt3.fSetOffset(_nTotalPerAttrib * 4);
-			oAtPt4.fSetOffset(_nTotalPerAttrib * 5);
-			
-			oAtTexSource0.fSetOffset(_nTotalPerAttrib * 6);
-			oAtTexSource1.fSetOffset(_nTotalPerAttrib);
-			
-			oAtColor1.fSetOffset(_nTotalPerAttrib * 8);
-			oAtColor2.fSetOffset(_nTotalPerAttrib * 9);
-			oAtColor3.fSetOffset(_nTotalPerAttrib * 10);
-			oAtColor4.fSetOffset(_nTotalPerAttrib * 11);
-			*/
-			
 		}
 		
 		public function fUpdate():Void {
@@ -548,16 +549,18 @@ package  {
 			Debug.fTrace("Size: " + oAt.oVbo.aData.nSize)
 			//Debug.fTrace("!" +  oAt.aData[0]  );
 			
-					/*
+			
 			//if(bTest == false){
 			//	bTest = true;
-			
-				for(var i : Int = 0; i  < oAt.oVbo.aData.nSize; i+=4){
-			//		Debug.fTrace("[" +  oAt.aData[i] + "," +  oAt.aData[i+1] + "," +  oAt.aData[i+2] + "," +  oAt.aData[i+3] + "]" );
+			nTest++;
+			if(nTest  < 5){
+				//for(var i : Int = 0; i  < oAt.oVbo.aData.nSize; i+=4){
+				for(var i : Int = 0; i  < oAt.oVbo.aData.nSize; i+=8){
+					Debug.fTrace("[" +  oAt.oVbo.aData[i] + "," +  oAt.oVbo.aData[i+1] + "," +  oAt.oVbo.aData[i+2] + "," +  oAt.oVbo.aData[i+3] + "]" );
 				}
 			//}
+			}
 			
-			*/
 		
 			/*
 			forEach(var _nData : Float in oAt.aData){

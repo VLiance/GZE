@@ -69,7 +69,7 @@ package  {
 			OpenGL.fBindFramebuffer(FRAMEBUFFER, null); //Default?
 			//GL_fUniform1i(oGzSh->nLocType, 4);
 
-
+			
 			//oShModel.oUnType.nVal = 4;
 			
 			

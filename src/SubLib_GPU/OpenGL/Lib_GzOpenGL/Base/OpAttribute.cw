@@ -99,7 +99,8 @@ package  {
 
 			if(bValid == true){
 				OpenGL.fBindBuffer(ARRAY_BUFFER, oVbo.nId);
-				OpenGL.fVertexAttribPointer(nId, Vec4, FLOAT, false, 0, 0);
+				//OpenGL.fVertexAttribPointer(nId, Vec4, FLOAT, false, 0, 0);
+			//	fSetOffset(nOffset);//TODO Not sure
 				OpenGL.fVertexAttribDivisor(nId, _nDiv);
 				
 				/*
