@@ -4,10 +4,12 @@ package  {
 	import GZ.Gpu.ShaderBase.VertexShader;
 	import GZ.Gpu.ShaderBase.ProgramShader;
 	import GZ.Gpu.Base.Attribute;
+	import GZ.Gpu.Base.Texture;
 	import GZ.Gpu.Base.Uniform;
 	import GZ.Gpu.Base.UnVec2;
 	import GZ.Gpu.Base.UnFloat;
 	import GZ.Gpu.Base.UnInt;
+	import GZ.Gpu.Base.Texture;
 	import GZ.Gpu.ShaderBase.Vbo;
 	import GZ.Gpu.GpuObj.GpuBatch;
 	import GZ.Base.Perspective;
@@ -100,8 +102,8 @@ package  {
 
 
 
-	float nWinHalfWidth;
-	float nWinHalfHeight;
+	//float nWinHalfWidth;
+	//float nWinHalfHeight;
 	
 	
 	//uniform float nWinHalfWidth;
@@ -218,11 +220,8 @@ package  {
 				break;
 			}
 		
-			nWinHalfWidth = 400;
-			nWinHalfHeight = 300;
-			
-			
-			
+		
+			//iResolution.y/2.0
 			///// Rotation ////
 			float _nTx = (gl_Position.x * cos(in_ObjRot.y)) - (gl_Position.z * sin(in_ObjRot.y));
 			float _nTz = (gl_Position.x * sin(in_ObjRot.y)) + (gl_Position.z * cos(in_ObjRot.y));
@@ -233,39 +232,13 @@ package  {
 			////////////////////
 			
 			
-			
 			//3D to Screen
 			gl_Position.w  =  gl_Position.z * in_ObjPos.w + 1.0;
-			gl_Position.x = (((gl_Position.x ) + in_ObjPos.x + 0.5) - nWinHalfWidth )/ nWinHalfWidth ;
-			gl_Position.y = (((gl_Position.y ) + in_ObjPos.y + 0.499) - nWinHalfHeight)/-nWinHalfHeight ;
+			gl_Position.x = (((gl_Position.x ) + in_ObjPos.x + 0.5)   - iResolution.x/2) /  (iResolution.x/2);
+			gl_Position.y = (((gl_Position.y ) + in_ObjPos.y + 0.499) - iResolution.y/2) / -(iResolution.y/2) ;
 			gl_Position.z = 0;
 			
-			/*
-			if (nVertexID < 2){
-				if(nVertexID == 0){
-					gl_Position.x = -1.0;
-					gl_Position.y = -1.0;
-					gl_Position.xy =  in_Pt1.xy / 800.0 ;
-					//gl_Position.xy = vec2(-139.50,-136.00) / 800.0 ;
-				}else{
-					gl_Position.x = 1.0;
-					gl_Position.y = -1.0;
-					gl_Position.xy =  in_Pt2.xy / 800.0 ;
-				}
-			}else{
-				if(nVertexID == 2){
-					gl_Position.x = 1.0;
-					gl_Position.y = 1.0;
-					gl_Position.xy =  in_Pt3.xy / 800.0 ;
-				}else{
-					gl_Position.x = -1.0;
-					gl_Position.y = 1.0;
-					gl_Position.xy =  in_Pt4.xy / 800.0 ;
-				}
-			}
-			gl_Position.z = 0.5;
-			gl_Position.w = 1.0;
-		*/
+
 			
 			//coord_Texture.x = (in_TexCoord0.x + 0.5) / (nTexDim.x + 4 );  //Not batch
 			//coord_Texture.y = (in_TexCoord0.y + 0.5) / (nTexDim.y + 4) ;  //Not batch
@@ -371,7 +344,66 @@ package  {
 
 	void main()
 	{
-		FragColor =  vec4(0.5,0.5,0.5,0.5);
+	
+	
+			vec2 coord_Source = gl_FragCoord.xy/vec2(800.0,600.0);
+			vec4 pixFrame = texture(TexSource, coord_Source );
+
+			float nRevAlpha = 1.0 -  pixFrame.a;
+
+			//float nTR = (coord_Texture.x * (1.0-coord_Texture.y));
+			//float nBR = (coord_Texture.x * coord_Texture.y);
+			//float nBL = ((1.0 - coord_Texture.x) * coord_Texture.y);
+			//float nTL = 1.0 - (nBL + nTR + nBR);
+			
+			vec4 vCoDist = texture(TexFragPos, coord_Corner );
+			
+			//vec4 vTL2 = vec4(1.0,0.5,0.5,1.0) * vCoDist.r;
+			//vec4 vTR2 = vec4(0.5,1.0,0.5,1.0) * vCoDist.g;
+			//vec4 vBR2 = vec4(0.5,0.5,1.0,1.0) * vCoDist.b;
+			//vec4 vBL2 = vec4(0.5,0.5,0.5,0.5) * vCoDist.a;
+
+			vec4 vPtDist = clamp(( coord_Color1 * vCoDist.a) + (coord_Color2 * vCoDist.r) + (coord_Color3 * vCoDist.g) + (coord_Color4 * vCoDist.b), 0.0, 1.0);
+			
+			vec4 vLight = max(vPtDist * 2.0 - 1.0, 0); //0 a 1 -> = 0 if Dark
+			vec4 vDark  = min(vPtDist * 2.0 , 1.0); //0 a 1 -> = 1 if bright
+
+			
+			vec4 pixTex = texture(TexCurrent, coord_Texture);
+			//vec4 pixTex = texture(TexArray, vec3(coord_Texture, coord_Pt4.w ));  //Batch only
+		//	vec4 pixTex = texture(TexArray, vec3(coord_Texture, 0 ));  //Batch only
+			//vec4 pixTex = vec4(0.5,0.5,0.5,0.5);  //Batch only
+			
+			
+			//vec4 pixTex = texture(TexCurrent, vec2(vPtDist.r,vPtDist.g ));
+		/*	
+			pixTex.r = (((pixTex.a - pixTex.r) * vLight.r) + pixTex.r) * vPtDist.a * vDark.r;
+			pixTex.g = (((pixTex.a - pixTex.g) * vLight.g) + pixTex.g) * vPtDist.a * vDark.g;
+			pixTex.b = (((pixTex.a - pixTex.b) * vLight.b) + pixTex.b) * vPtDist.a * vDark.b;
+			pixTex.a *= vPtDist.a;
+			
+			//vec4 vPix = pixFrame + pixTex * nRevAlpha;
+			//vec4 vPix = vec4(pixFrame.rgb - nRevAlpha * pixFrame.rgb, 1.0);
+			vec4 vPix = pixFrame + pixTex * (1 - pixFrame.a);
+			//vPix.a = 1.0;
+			*/
+			//FragColor = vPix;
+			FragColor = pixTex;
+			
+			
+	//		FragColor =  vec4( vCoDist.x, vCoDist.y, vCoDist.z,1.0);
+			
+			//FragColor =  vec4(0.5,0.5,0.5,0.5);
+			//////////////////////////////////////////////////////
+
+			///////////////////////////////////////////////////////
+			
+			//FragColor = vec4( (vCoDist.x  + vCoDist.z   ) , 0.0,0.0,1.0);
+	
+	
+	//	FragColor =  vec4(0.5,0.5,0.5,0.5);
+	
+	
 /*
 		if(nType == 1 || nType == 4){ //Normal
 			vec2 coord_Source = gl_FragCoord.xy/vec2(800.0,600.0);
@@ -492,8 +524,12 @@ package  {
 			
 
 		//	var _oAtVertexID : Attribute = oProgram.fAddAttribute("atVertexID",0);
-	
+			oUiTime = new UnFloat(oProgram, "iTime");
 			oUiMouse = new UnVec2(oProgram, "iMouse");
+			oUiResolution = new UnVec2(oProgram, "iResolution");
+			
+			
+
 			var _oPersv : Perspective = new Perspective();
 			
 			
@@ -539,29 +575,32 @@ package  {
 
 			oUiMouse.vVal.nX = Context.nMouseX/Context.nFrameWidth - 0.5;
 			oUiMouse.vVal.nY = Context.nMouseY/Context.nFrameHeight - 0.5;
-				
-		//	}
 			oUiMouse.fSend();
+			
+			oUiResolution.vVal.nX  = Context.nFrameWidth;
+			oUiResolution.vVal.nY  = Context.nFrameHeight;
+			oUiResolution.fSend();
 			
 		
 			oGpuBatch.fDraw();
 	
-			Debug.fTrace("Size: " + oAt.oVbo.aData.nSize)
+		//	Debug.fTrace("Size: " + oAt.oVbo.aData.nSize)
 			//Debug.fTrace("!" +  oAt.aData[0]  );
 			
 			
 			//if(bTest == false){
 			//	bTest = true;
-			nTest++;
-			if(nTest  < 5){
+		
+			if(nTest  < 2){
+				Debug.fTrace("-------------------------------");
 				//for(var i : Int = 0; i  < oAt.oVbo.aData.nSize; i+=4){
 				for(var i : Int = 0; i  < oAt.oVbo.aData.nSize; i+=8){
 					Debug.fTrace("[" +  oAt.oVbo.aData[i] + "," +  oAt.oVbo.aData[i+1] + "," +  oAt.oVbo.aData[i+2] + "," +  oAt.oVbo.aData[i+3] + "]" );
 				}
-			//}
+				nTest++;
 			}
 			
-		
+	
 			/*
 			forEach(var _nData : Float in oAt.aData){
 			

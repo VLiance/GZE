@@ -61,7 +61,7 @@ package  {
 	//	Lib_GzOpenGL::OpenGL::GetInst(thread)->fBufferData(Lib_GzOpenGL::OpenGL::eBufferTarget(Lib_GzOpenGL::OpenGL::eBufferTarget::ARRAY_BUFFER), 4, Lib_GzOpenGL::OpenGL::eTypeSize(Lib_GzOpenGL::OpenGL::eTypeSize::Vec4), aData.get(), Lib_GzOpenGL::OpenGL::eDrawFlow(Lib_GzOpenGL::OpenGL::eDrawFlow::STREAM_DRAW));
 	
 			</cpp>
-			Debug.fTrace("SEND! : "   + aData.nSize/4);
+		//	Debug.fTrace("SEND! : "   + aData.nSize/4);
 			 //Send all data
 			if( aData.nSize != 0){
 				OpenGL.fBindBuffer(ARRAY_BUFFER, nId);

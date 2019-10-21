@@ -87,6 +87,11 @@ package  {
 					in vec4 atVertexID;
 					#define nVertexID int(atVertexID.x)
 				#endif
+				
+				uniform vec2 iResolution;
+				uniform vec2 iMouse;
+				uniform float iTime;
+				
 				</glsl>
 			}
 		}

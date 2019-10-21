@@ -6,6 +6,7 @@ package  {
 	import GZ.Gpu.Base.Attribute;
 	import GZ.Gpu.Base.Uniform;
 	import GZ.Gpu.Base.UnVec2;
+	import GZ.Gpu.Base.Texture;
 	import GZ.Gpu.ShaderBase.Vbo;
 	import GZ.Gpu.GpuObj.GpuBatch;
 	import GZ.Base.Perspective;
@@ -26,6 +27,9 @@ package  {
 		public var oVboBatch : Vbo;
 		public var oUiMouse : UnVec2;
 		*/
+		
+		public var oTexture : Texture;
+		
 		
 		public var oAtObjPos : Attribute;
 		//public var oAtObjSize : Attribute;
@@ -87,7 +91,8 @@ package  {
 			
 			
 			
-			
+			oTexture = new Texture(oProgram, "TexCurrent");
+			oTexture.fSend(0);
 			
 		/*
 			oProgram.fAttachAttribute(oAtObjPos);
@@ -130,18 +135,18 @@ package  {
 		}
 		
 		public function fIniData(_nTotalQuad:UInt):Void {
-			Debug.fTrace("fIniData: Total Quad : "  + _nTotalQuad) ;
+		//	Debug.fTrace("fIniData: Total Quad : "  + _nTotalQuad) ;
 			
 
 				
 			nTotalQuad = _nTotalQuad;
 			
-				Debug.fTrace("nTotalQuad: " +nTotalQuad)
+			//	Debug.fTrace("nTotalQuad: " +nTotalQuad)
 			
 			var _nTotalPerAttrib : Int = _nTotalQuad * 4; //4 = Vec4
 			oVbo.aData.fMaxSize(_nTotalPerAttrib * 12);
 			
-			Debug.fTrace("fMaxSize: " + _nTotalPerAttrib * 12)
+		//	Debug.fTrace("fMaxSize: " + _nTotalPerAttrib * 12)
 			//aData[0] = 9999;
 			
 			
