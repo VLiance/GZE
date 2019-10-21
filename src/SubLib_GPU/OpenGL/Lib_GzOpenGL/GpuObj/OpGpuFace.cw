@@ -31,6 +31,16 @@ package  {
 		//fCreateDara();
 		
 		oAt = Attribute_Quad;
+		<cpp>
+		if(oAt == 0){ //TODO correction in C~ if(oAt == null){
+			return;
+		}
+		</cpp>
+		/*
+		if(oAt == null){
+		//if(oAt == 0){
+			return;
+		}*/
 		//Attribute_Quad.oAtObjPos.fSet(oFace.oShape.vPos);
 		/*
 		<cpp>

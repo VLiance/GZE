@@ -350,7 +350,6 @@ namespace _Class{\
         return static_cast<cs##_Class*>( _oCurrThread->st(zDefault.nId));\
     }\
 	inline gzSp<c##_Class> GetInst(Lib_GZ::Base::Thread::cThread* _oCurrThread){\
-		GzAssert( Get(_oCurrThread)->zInst != 0, "Singleton must be created first, use C~: "#_Class" = new "#_Class"(...);")		\
         return  gzSCast<c##_Class>( Get(_oCurrThread)->zInst );\
     }\
 	inline gzSp<c##_Class> GetInst2(Lib_GZ::Base::Thread::cThread* _oCurrThread){\
@@ -363,6 +362,16 @@ namespace _Class{\
     }
 	
 	   //  return  gzSCast<c##_Class>( ((cs##_Class*) _oCurrThread->st(zDefault.nId))->zInst );\
+	   
+	   		//GzAssert( Get(_oCurrThread)->zInst != 0, "Singleton must be created first, use C~: "#_Class" = new "#_Class"(...);")		\ //We can get a null singleton
+	   /*
+	   
+	   	inline gzSp<c##_Class> GetInst(Lib_GZ::Base::Thread::cThread* _oCurrThread){\
+		GzAssert( Get(_oCurrThread)->zInst != 0, "Singleton must be created first, use C~: "#_Class" = new "#_Class"(...);")		\
+        return  gzSCast<c##_Class>( Get(_oCurrThread)->zInst );\
+    }\
+	*/
+	   
 	   
 	   
 	/*

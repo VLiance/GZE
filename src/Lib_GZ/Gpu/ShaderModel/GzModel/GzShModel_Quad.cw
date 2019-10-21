@@ -388,7 +388,7 @@ package  {
 			//vPix.a = 1.0;
 			*/
 			//FragColor = vPix;
-			FragColor = pixTex;
+		//	FragColor = pixTex;
 			
 			
 	//		FragColor =  vec4( vCoDist.x, vCoDist.y, vCoDist.z,1.0);
@@ -401,7 +401,7 @@ package  {
 			//FragColor = vec4( (vCoDist.x  + vCoDist.z   ) , 0.0,0.0,1.0);
 	
 	
-	//	FragColor =  vec4(0.5,0.5,0.5,0.5);
+		FragColor =  vec4(0.5,0.5,0.5,0.5);
 	
 	
 /*
