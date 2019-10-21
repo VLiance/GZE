@@ -204,9 +204,15 @@
 		 override public function fSetShader(_oShader: GzShModel):Void {
 			oGzShModel = _oShader;
 			
+			OpenGL.fClearColor(0.7, 0.2, 0.2, 0.5);//				gl.call<Void>("clearColor",  0.5, val(0.7), val(0.2), val(1.0));
+			OpenGL.fClear(COLOR_BUFFER_BIT );
+			<cpp>
+			SwapBuffers(hDC); //Window func //Double buffer must clear both
+			</cpp>
+			OpenGL.fClear(COLOR_BUFFER_BIT );  //Double buffer must clear both
 			//fClear(); //TODO Verify
 			//fBlit();  //TODO Verify
-			fClear(); //Double buffer must clear both
+			//fClear();
 		 }
 		
 		
