@@ -2,10 +2,11 @@ package  {
 
 	import GzOpenGL.OpenGL;
 	import GzOpenGL.OpGpuInfo;
-	
+	import GZ.Gpu.Base.UnVec2;
 	import GZ.Gfx.Object;
 	import GZ.Gpu.GpuObj.GpuRcImg;
 	import GZ.Sys.Interface.Interface;
+	import GZ.Gpu.ShaderModel.AtModel.Attribute_Quad;
 	
 	public class OpGpuRcImg overplace GpuRcImg  {
 
@@ -19,6 +20,8 @@ package  {
 		
 		public var oTexId : Val = null;
 			
+		public var oUvTexDim : UnVec2;
+		
 		
 		public function fLoadImg(_aImg : CArray<Int, 1>, _nWidth : Int, _nHeight : Int):Val{
 
@@ -45,9 +48,16 @@ package  {
 			if(oTexId != null){
 				//Debug.fPass("Image Gpu Loaded: " + oTexId);
 				Debug.fPass("Image Gpu Loaded [" + (_nWidth +2) + " x " +  (_nHeight+2) + "]" );
+
+				oUvTexDim = new UnVec2(Attribute_Quad.oProgram, "vTexDim");
+				oUvTexDim.vVal.nX = _nWidth+2;
+				oUvTexDim.vVal.nY = _nHeight+2;
+				oUvTexDim.fSend();
+
 			}else{
 				Debug.fError("Image Gpu Loaded Failed");
 			}
+
 			return oTexId;
 			
 		}

@@ -111,7 +111,7 @@ package  {
 				if(bAutoClear){
 					//Clear
 					OpenGL.fBindFramebuffer(FRAMEBUFFER, nIdBuff);
-					OpenGL.fClearColor(1.0, 1.0, 1.0, 1.0);
+					OpenGL.fClearColor(0.5, 0.5, 0.5, 0.5);
 					OpenGL.fClear(COLOR_BUFFER_BIT );
 					//GL_fClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 					//GL_fBindFramebuffer(GL_FRAMEBUFFER, 0); // unbind

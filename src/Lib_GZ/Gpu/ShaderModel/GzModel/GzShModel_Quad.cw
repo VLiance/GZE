@@ -137,7 +137,7 @@ package  {
 	out vec2 ioCorner;
 	xflat out mat4 iomColor;
 	out vec2 ioTexture;
-	
+	uniform vec2 vTexDim;
 	//in int gl_VertexID;
 
 	void main(){
@@ -287,7 +287,7 @@ package  {
 
 			
 			
-			vec2 vTexDim = vec2(200.0, 200.0);
+			//vec2 vTexDim = vec2(200.0, 200.0);
 
 			
 			ioTexture.x = (vSrc.x + 0.5 ) / (vTexDim.x );
@@ -414,7 +414,8 @@ void main()
 	//	vec4 vCoDist = texture(TexFragPos, ioCorner );
 		//vec4 vPtDist = ( ioColor1 * vCoDist.a) + (ioColor2 * vCoDist.r) + (ioColor3 * vCoDist.b) + (ioColor4 * vCoDist.g);
      //   vec4 vPtDist = iomColor * vCoDist;
-        vec4 vPtDist = vec4(1.0, 0.5,0.5,0.5);
+       // vec4 vPtDist = vec4(1.0, 0.5,0.5,0.5);
+        vec4 vPtDist = vec4(0.0, 0.0, 0.0, 1.0);
 
 		//if(ioSrcType == 1){
 
@@ -567,9 +568,6 @@ pixTex  = texture(TexCurrent, ioTexture);
 
 
 
-
-
-
         //// Custom interpolated color ////
         vDark  = clamp(vPtDist.rgb + 1.0, 0.0, 1.0); //0 a 1 -> = 1 if bright
         vLight = clamp(vPtDist.rgb , 0.0, 1.0); //0 a 1 -> = 0 if Dark
@@ -641,7 +639,7 @@ pixTex  = texture(TexCurrent, ioTexture);
 */
 
    // }
-pixTex.a = 0.5;
+//pixTex.a = 0.5;
 
 
         FragColor =  pixTex;

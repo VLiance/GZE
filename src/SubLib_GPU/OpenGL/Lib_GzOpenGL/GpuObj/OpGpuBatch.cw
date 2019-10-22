@@ -64,7 +64,8 @@ package  {
 	
 			OpenGL.fEnable( BLEND );
 			//OpenGL.fBlendFunc(ONE_MINUS_DST_ALPHA, ONE); //Front to back
-			//OpenGL.fBlendFunc(ONE_MINUS_SRC_ALPHA, ONE); //Back to front
+		//	OpenGL.fBlendFunc(ONE_MINUS_SRC_ALPHA, ONE); //Back to front
+			OpenGL.fBlendFunc(ONE,ONE_MINUS_SRC_ALPHA ); //Back to front
 
 		   // GL_fBindFramebuffer(GL_FRAMEBUFFER, _oDest->oGpuObj->nIdBuff); Temp
 

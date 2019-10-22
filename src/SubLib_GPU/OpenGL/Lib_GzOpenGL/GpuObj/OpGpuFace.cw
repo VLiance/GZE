@@ -70,13 +70,13 @@ package  {
 		
 		oAt.oAtTexSource0.fSetVal(0, oFace.rPtS1.nX);
 		oAt.oAtTexSource0.fSetVal(1, oFace.rPtS1.nY);
-		oAt.oAtTexSource0.fSetVal(0, oFace.rPtS2.nX);
-		oAt.oAtTexSource0.fSetVal(1, oFace.rPtS2.nY);
+		oAt.oAtTexSource0.fSetVal(2, oFace.rPtS2.nX);
+		oAt.oAtTexSource0.fSetVal(3, oFace.rPtS2.nY);
 		
 		oAt.oAtTexSource1.fSetVal(0, oFace.rPtS3.nX);
 		oAt.oAtTexSource1.fSetVal(1, oFace.rPtS3.nY);
-		oAt.oAtTexSource1.fSetVal(0, oFace.rPtS4.nX);
-		oAt.oAtTexSource1.fSetVal(1, oFace.rPtS4.nY);
+		oAt.oAtTexSource1.fSetVal(2, oFace.rPtS4.nX);
+		oAt.oAtTexSource1.fSetVal(3, oFace.rPtS4.nY);
 		
 		var _vColor : Vec4<Float> = new Vec4<Float>(0.5,0.5,0.5,0.5);
 		oAt.oAtColor1.fSet(_vColor);
