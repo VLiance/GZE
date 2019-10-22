@@ -60,19 +60,21 @@ package  {
 	
 		var _nNbElement : Int  = 2;
 
-
-
-			OpenGL.fBlendFunc(ONE_MINUS_DST_ALPHA, ONE); //Front to back
+	OpenGL.fBindFramebuffer(FRAMEBUFFER, null); //Default?
+	
+			OpenGL.fEnable( BLEND );
+			//OpenGL.fBlendFunc(ONE_MINUS_DST_ALPHA, ONE); //Front to back
 			//OpenGL.fBlendFunc(ONE_MINUS_SRC_ALPHA, ONE); //Back to front
 
 		   // GL_fBindFramebuffer(GL_FRAMEBUFFER, _oDest->oGpuObj->nIdBuff); Temp
 
 			//GL_fBindFramebuffer(GL_FRAMEBUFFER, oDest->oGpuObj->nIdBuff);
-			OpenGL.fBindFramebuffer(FRAMEBUFFER, null); //Default?
+		
 			//GL_fUniform1i(oGzSh->nLocType, 4);
 
 			
-			//oShModel.oUnType.nVal = 4;
+			oShModel.oUnType.nVal = 4;
+			oShModel.oUnType.fSend();
 			
 			
 			
@@ -102,9 +104,14 @@ package  {
 			//GL_fBindBuffer(GL_ARRAY_BUFFER,0);
 			
 			
+			//OpenGL.fBlendFunc(ONE_MINUS_SRC_ALPHA, ONE); //Back to front
+					oShModel.oUnType.nVal = 6;
+			oShModel.oUnType.fSend();
+			   OpenGL.fDrawElementsInstanced(TRIANGLES, 6, UNSIGNED_BYTE, aIndice, _nNbElement);
 			
+
 			
-			
+		//	OpenGL.fDisable( BLEND );
 			
 		}
 		

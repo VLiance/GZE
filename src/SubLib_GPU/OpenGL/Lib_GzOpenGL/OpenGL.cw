@@ -32,6 +32,16 @@ generate "OpenGL" {
 		</cpp_class_h>
 		
 
+		/*
+		public enum eBlendFunc : Int {
+				ZERO                    = 0x01;
+				ONE                     = 0x02;
+				SRC_ALPHA               = 0x03;
+				DST_ALPHA               = 0x04;
+				ONE_MINUS_SRC_ALPHA     = 0x05;
+				ONE_MINUS_DST_ALPHA     = 0x06;
+		}*/
+		
 		public enum eBlendFunc : Int {
 				ZERO                    =  0;
 				ONE                     =  1;
@@ -42,6 +52,8 @@ generate "OpenGL" {
 				DST_ALPHA               = 0x0304;
 				ONE_MINUS_DST_ALPHA     = 0x0305;
 		}
+		
+		
 		
 		public enum eShaderInfo : Int {
 			SHADER_TYPE      = 0x8B4F;
@@ -65,6 +77,37 @@ generate "OpenGL" {
 			MAJOR_VERSION = 0x821B;
 			MINOR_VERSION = 0x821C;
 		}
+		public enum eCapability : Int { //TODO all other
+			BLEND	= 0x0BE2;
+		}
+		/*
+#define GL_LIGHTING                       0x0B50
+#define GL_TEXTURE_2D                     0x0DE1
+#define GL_CULL_FACE                      0x0B44
+#define GL_ALPHA_TEST                     0x0BC0
+#define GL_BLEND                          0x0BE2
+#define GL_STENCIL_TEST                   0x0B90
+#define GL_DEPTH_TEST                     0x0B71
+#define GL_LIGHT0                         0x4000
+#define GL_LIGHT1                         0x4001
+#define GL_POINT_SMOOTH                   0x0B10
+#define GL_LINE_STIPPLE                   0x0B24
+#define GL_LINE_SMOOTH                    0x0B20
+#define GL_SCISSOR_TEST                   0x0C11
+#define GL_COLOR_MATERIAL                 0x0B57
+#define GL_NORMALIZE                      0x0BA1
+#define GL_RESCALE_NORMAL                 0x803A
+#define GL_POLYGON_OFFSET_FILL            0x8037
+#define GL_POLYGON_STIPPLE                0x0B42
+#define GL_VERTEX_ARRAY                   0x8074
+#define GL_NORMAL_ARRAY                   0x8075
+#define GL_COLOR_ARRAY                    0x8076
+#define GL_TEXTURE_COORD_ARRAY            0x8078
+*/
+		
+		
+		
+		
 		
 		/*
 	//Specifies the number of color components in the texture.
@@ -369,8 +412,8 @@ generate "OpenGL" {
 		//OGL
 		public static function fGetError():UInt; //Must be first
 		gen public static function fFlush():Void;
-		gen public static function fEnable(_eCapability : UInt):Void;
-		gen public static function fDisable(_eCapability : UInt):Void;
+		gen public static function fEnable(_hName : eCapability):Void;
+		gen public static function fDisable(_hName : eCapability):Void;
 		gen public static function fDepthMask(_bEnable : Bool):Void;
 		gen public static function fDepthFunc(_eFunc : UInt):Void;
 

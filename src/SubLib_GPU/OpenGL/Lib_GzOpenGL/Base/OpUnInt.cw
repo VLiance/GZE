@@ -19,6 +19,15 @@ package  {
 		override public function fLoad():Void {
 			nId = OpenGL.fGetUniformLocation(oProgram.nId, sName);
 			bValid = true; //Todo
+
+			<cpp>
+			if(nId == gzVal(-1) ){
+			</cpp>
+				Debug.fWarning("OpenGL: Unabled to find Uniform (or optimised out): " + sName );
+				return;
+			<cpp>
+			}
+			</cpp>
 		}
 		
 		

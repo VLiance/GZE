@@ -223,8 +223,8 @@
 			 const char* _file = __FILE__; //Temp
 			 gzUInt _line = __LINE__; //Temp
 			 //Default options
-			#define GL_BLEND                          0x0BE2
-			GL_fEnable(GL_BLEND);
+			//#define GL_BLEND                          0x0BE2
+			//GL_fEnable(GL_BLEND);
 			////////////////////
 		    </cpp>
 			oGzShModel = new GzShModel_Raymarching();
