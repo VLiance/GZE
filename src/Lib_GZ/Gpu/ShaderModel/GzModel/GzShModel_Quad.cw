@@ -200,23 +200,23 @@ package  {
 				case 0 :
 					gl_Position =  in_Pt1;
 					coord_Corner = vec2(0.25,0.25);
-					coord_Texture = (in_TexSource0.xy + 0.5)/ 500.0;
+					coord_Texture = (in_TexSource0.xy + 0.5)/ 200.0;
 		
 				break;
 				case 1 :
 					gl_Position =  in_Pt2;
 					coord_Corner = vec2(0.75,0.25);
-					coord_Texture = (in_TexSource0.zw + 0.5)/ 500.0;
+					coord_Texture = (in_TexSource0.zw + 0.5)/ 200.0;
 				break;
 				case 2 :
 					gl_Position =  in_Pt3;
 					coord_Corner = vec2(0.75,0.75);
-					coord_Texture = (in_TexSource1.xy + 0.5)/ 500.0;
+					coord_Texture = (in_TexSource1.xy + 0.5)/ 200.0;
 				break;
 				case 3 :
 					gl_Position =  in_Pt4;
 					coord_Corner = vec2(0.25,0.75);
-					coord_Texture = (in_TexSource1.zw + 0.5)/ 500.0;
+					coord_Texture = (in_TexSource1.zw + 0.5)/ 200.0;
 				break;
 			}
 		
@@ -346,29 +346,30 @@ package  {
 	{
 	
 	
-			vec2 coord_Source = gl_FragCoord.xy/vec2(800.0,600.0);
-			vec4 pixFrame = texture(TexSource, coord_Source );
+		//	vec2 coord_Source = gl_FragCoord.xy/vec2(800.0,600.0);
+		//	vec4 pixFrame = texture(TexSource, coord_Source );
 
-			float nRevAlpha = 1.0 -  pixFrame.a;
-
+		//	float nRevAlpha = 1.0 -  pixFrame.a;
+//
 			//float nTR = (coord_Texture.x * (1.0-coord_Texture.y));
 			//float nBR = (coord_Texture.x * coord_Texture.y);
 			//float nBL = ((1.0 - coord_Texture.x) * coord_Texture.y);
 			//float nTL = 1.0 - (nBL + nTR + nBR);
 			
-			vec4 vCoDist = texture(TexFragPos, coord_Corner );
+		//	vec4 vCoDist = texture(TexFragPos, coord_Corner );
 			
 			//vec4 vTL2 = vec4(1.0,0.5,0.5,1.0) * vCoDist.r;
 			//vec4 vTR2 = vec4(0.5,1.0,0.5,1.0) * vCoDist.g;
 			//vec4 vBR2 = vec4(0.5,0.5,1.0,1.0) * vCoDist.b;
 			//vec4 vBL2 = vec4(0.5,0.5,0.5,0.5) * vCoDist.a;
 
-			vec4 vPtDist = clamp(( coord_Color1 * vCoDist.a) + (coord_Color2 * vCoDist.r) + (coord_Color3 * vCoDist.g) + (coord_Color4 * vCoDist.b), 0.0, 1.0);
+		//	vec4 vPtDist = clamp(( coord_Color1 * vCoDist.a) + (coord_Color2 * vCoDist.r) + (coord_Color3 * vCoDist.g) + (coord_Color4 * vCoDist.b), 0.0, 1.0);
 			
-			vec4 vLight = max(vPtDist * 2.0 - 1.0, 0); //0 a 1 -> = 0 if Dark
-			vec4 vDark  = min(vPtDist * 2.0 , 1.0); //0 a 1 -> = 1 if bright
+	//		vec4 vLight = max(vPtDist * 2.0 - 1.0, 0); //0 a 1 -> = 0 if Dark
+		//	vec4 vDark  = min(vPtDist * 2.0 , 1.0); //0 a 1 -> = 1 if bright
 
 			
+			//vec4 pixTex = texture(TexCurrent, coord_Texture);
 			vec4 pixTex = texture(TexCurrent, coord_Texture);
 			//vec4 pixTex = texture(TexArray, vec3(coord_Texture, coord_Pt4.w ));  //Batch only
 		//	vec4 pixTex = texture(TexArray, vec3(coord_Texture, 0 ));  //Batch only
@@ -388,7 +389,7 @@ package  {
 			//vPix.a = 1.0;
 			*/
 			//FragColor = vPix;
-		//	FragColor = pixTex;
+	FragColor = pixTex;
 			
 			
 	//		FragColor =  vec4( vCoDist.x, vCoDist.y, vCoDist.z,1.0);
@@ -401,7 +402,7 @@ package  {
 			//FragColor = vec4( (vCoDist.x  + vCoDist.z   ) , 0.0,0.0,1.0);
 	
 	
-		FragColor =  vec4(0.5,0.5,0.5,0.5);
+	//	FragColor =  vec4(0.5,0.5,0.5,0.5);
 	
 	
 /*

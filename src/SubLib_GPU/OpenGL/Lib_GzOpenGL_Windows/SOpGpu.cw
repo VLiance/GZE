@@ -198,7 +198,8 @@
 			<cpp>
 			SwapBuffers(hDC); //Window func
 			</cpp>
-	
+			OpenGL.fClearColor(1.0, 1.0,  1.0, 1.0);
+			OpenGL.fClear(COLOR_BUFFER_BIT );
 		 }
 		
 		 override public function fSetShader(_oShader: GzShModel):Void {

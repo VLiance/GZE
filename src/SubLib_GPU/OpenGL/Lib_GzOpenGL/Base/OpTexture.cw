@@ -17,10 +17,11 @@ package  {
 		
 				   // printf("%s" , (gzInt8*)(_sName.sStr->array + 1));
 	//		GL_fUniform1i(GL_fGetUniformLocation(nId, _sName.fcStr() ), _nSlot);
-			Debug.fTrace("--- Texture Created!! ---");
+		
 			nId = OpenGL.fGetUniformLocation(oProgram.nId, sName);
 			bValid = true; //Todo
-			
+			var _nID : Int = nId;
+			Debug.fPass("--- Texture Created!:--- "  + _nID);
 			// _nSlot + GL_TEXTURE0;
 		
 		}

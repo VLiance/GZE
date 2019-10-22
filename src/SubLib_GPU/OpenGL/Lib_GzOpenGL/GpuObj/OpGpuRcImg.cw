@@ -39,11 +39,12 @@ package  {
 			OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_WRAP_S, OpenGL.eTextureWrapMode.REPEAT); // Repeat on X axis
 			OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_WRAP_T, OpenGL.eTextureWrapMode.REPEAT);  // Stretch on Y axis 
 
-			OpenGL.fBindTexture(TEXTURE_2D, null);
+		//	OpenGL.fBindTexture(TEXTURE_2D, null);  //Must keep bounded
+			//TODO Texture must keep being bound to a texture unit ->
 			
 			if(oTexId != null){
 				//Debug.fPass("Image Gpu Loaded: " + oTexId);
-				Debug.fPass("Image Gpu Loaded" );
+				Debug.fPass("Image Gpu Loaded [" + (_nWidth +2) + " x " +  (_nHeight+2) + "]" );
 			}else{
 				Debug.fError("Image Gpu Loaded Failed");
 			}

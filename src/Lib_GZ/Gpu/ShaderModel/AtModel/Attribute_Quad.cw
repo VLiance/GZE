@@ -94,6 +94,9 @@ package  {
 			oTexture = new Texture(oProgram, "TexCurrent");
 			oTexture.fSend(0);
 			
+			var _oTexture2 : Texture = new Texture(oProgram, "TexSource");
+			_oTexture2.fSend(1);
+			
 		/*
 			oProgram.fAttachAttribute(oAtObjPos);
 			//oAtObjSize = oProgram.fAttachAttribute("in_ObjSize");
