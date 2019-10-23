@@ -65,7 +65,7 @@ package  {
 			 //Send all data
 			if( aData.nSize != 0){
 				OpenGL.fBindBuffer(ARRAY_BUFFER, nId);
-				OpenGL.fBufferData(ARRAY_BUFFER,  aData.nSize/4, Vec4, aData, STREAM_DRAW);
+				OpenGL.fBufferData(ARRAY_BUFFER,  aData.nSize, Float32, aData, STREAM_DRAW);
 			}
 			
 			

@@ -5,27 +5,32 @@ package  {
 	
 	import GZ.Gfx.Face;
 	import GZ.Gpu.GpuObj.GpuBatch;
+	import GZ.Gpu.ShaderBase.Evbo;
 	import GZ.Gpu.ShaderModel.GzModel.GzShModel;
 	
 	public class OpGpuBatch overplace GpuBatch {
 		
 		public var aIndice : CArray<UInt8, 1, 6>;
 		
+		public var oEvbo : Evbo;
+		
 		<cpp_namespace>
 		 static char aIndice2TriA[] = {0,1,2, 0,2,3};
 		</cpp_namespace>
 		
 		
-		public function OpGpuBatch( _oShModel : GzShModel ):Void{+
+		public function OpGpuBatch( _oShModel : GzShModel ):Void{
 			
-			
+			oEvbo = new Evbo(_oShModel.oProgram );
+			oEvbo.fSetQuadElement();
+			oEvbo.fSendData();
 		}
 		
 		
 
 		public function fDraw():Void {
 		
-		
+		/*
 	
 			//TODO  static char aIndice2Tri[] = {0,1,2, 0,2,3};
 			aIndice[0] = 0;
@@ -34,13 +39,21 @@ package  {
 			aIndice[3] = 0;
 			aIndice[4] = 2;
 			aIndice[5] = 3;
+			
+			
+			var _nIndice : Val = OpenGL.fCreateBuffer();
+			OpenGL.fBindBuffer(ELEMENT_ARRAY_BUFFER, _nIndice);
+			OpenGL.fBufferData(ELEMENT_ARRAY_BUFFER, 6, Int8, aIndice, STATIC_DRAW);
+			*/
+			
+			oEvbo.fBind();
+			
+			
 				/*
 		//	Debug.fTrace("ValIndice2 : " + aIndice[2]);
 			
 			////
-			var _nIndice : Val = OpenGL.fCreateBuffer();
-			OpenGL.fBindBuffer(ELEMENT_ARRAY_BUFFER, _nIndice);
-			OpenGL.fBufferData(ELEMENT_ARRAY_BUFFER, 3 , Vec4, aIndice, STREAM_DRAW);
+
 			//////
 			
 			//Temp
@@ -58,9 +71,9 @@ package  {
 
 	
 	
-		var _nNbElement : Int  = 2;
+			var _nNbElement : Int  = 2;
 
-	OpenGL.fBindFramebuffer(FRAMEBUFFER, null); //Default?
+			OpenGL.fBindFramebuffer(FRAMEBUFFER, null); //Default?
 	
 			OpenGL.fEnable( BLEND );
 			//OpenGL.fBlendFunc(ONE_MINUS_DST_ALPHA, ONE); //Front to back
@@ -99,16 +112,16 @@ package  {
 			//oGzSh->fSetOffset(nStartIndex);
 
 		  //  printf("\n nTotal : %d", nNbElement);
-		    OpenGL.fDrawElementsInstanced(TRIANGLES, 6, UNSIGNED_BYTE, aIndice, _nNbElement);
+		    OpenGL.fDrawElementsInstanced(TRIANGLES, 6, UNSIGNED_BYTE, 0, _nNbElement);
 			//GL_fDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, _aIndice2Tri, nNbElement );
 		 //   GL_fDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, _aIndice2Tri );
 			//GL_fBindBuffer(GL_ARRAY_BUFFER,0);
 			
 			
 			//OpenGL.fBlendFunc(ONE_MINUS_SRC_ALPHA, ONE); //Back to front
-					oShModel.oUnType.nVal = 6;
+			oShModel.oUnType.nVal = 6;
 			oShModel.oUnType.fSend();
-			   OpenGL.fDrawElementsInstanced(TRIANGLES, 6, UNSIGNED_BYTE, aIndice, _nNbElement);
+			OpenGL.fDrawElementsInstanced(TRIANGLES, 6, UNSIGNED_BYTE, 0, _nNbElement);
 			
 
 			

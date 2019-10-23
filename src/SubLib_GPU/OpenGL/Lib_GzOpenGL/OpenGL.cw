@@ -264,6 +264,11 @@ generate "OpenGL" {
 		
 		
 		public enum eTypeSize : Int {
+			Float32 = 4;
+			Float64 = 8;
+			Int8  =  1;
+			Int16 =  2;
+			Int32 =  4;
 			Vec1  = 1*4;
 			Vec2  = 2*4;
 			Vec3  = 3*4;

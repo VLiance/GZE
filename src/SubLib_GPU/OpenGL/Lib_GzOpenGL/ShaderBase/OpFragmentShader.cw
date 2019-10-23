@@ -48,9 +48,9 @@ package  {
 					#line 2
 					///#ifdef GZ_tAndroid   
 					///#version 100  //WebGl 1 //ES2
-					precision highp float;  //highp only works in fragment shaders if you have the GL_FRAGMENT_PRECISION_HIGH extension enabled.
-					precision highp int;  //highp only works in fragment shaders if you have the GL_FRAGMENT_PRECISION_HIGH extension enabled.
-					#define texture(s,t) texture2D(s, t)
+					precision mediump float;  //highp only works in fragment shaders if you have the GL_FRAGMENT_PRECISION_HIGH extension enabled.
+					precision mediump int;  //highp only works in fragment shaders if you have the GL_FRAGMENT_PRECISION_HIGH extension enabled.
+					//#define texture(s,t) texture2D(s, t) //WebGL2 not required
 					//#define in varying
 					#define FragCoord gl_FragCoord
 					//#define FragColor gl_FragColor

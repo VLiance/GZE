@@ -27,7 +27,7 @@ package  {
 				<glsl(this)>
 					#version 300 es //WebGl 2 / ES3
 					#line 2
-					#define texture(s,t) texture2D(s, t)
+					//#define texture(s,t) texture2D(s, t) //WebGl2 not required
 					
 					///#version 100  //-->ES2/ WebGl 1
 					

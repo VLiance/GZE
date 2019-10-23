@@ -5,6 +5,7 @@ package  {
 	import GZ.Gpu.ShaderBase.ShaderBase;
 	import GZ.Gpu.Base.Attribute;
 	import GZ.Gpu.ShaderBase.Vbo;
+	import GZ.Gpu.ShaderBase.Evbo;
 	import GZ.Gpu.Base.Uniform;
 	
 	public overclass ProgramShader  {
@@ -14,6 +15,7 @@ package  {
 		public var aAttribute : Array<Attribute>;
 		public var aUniform : Array<Uniform>;
 		public var aVbo : Array<Vbo>;
+		public var aEvbo : Array<Evbo>;
 		public var nDefaultAttribDivisor : UInt = 0;
 		
 		public var aShaderAttached : Array<ShaderBase>;

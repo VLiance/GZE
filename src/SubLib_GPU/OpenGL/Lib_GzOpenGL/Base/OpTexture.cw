@@ -20,8 +20,8 @@ package  {
 		
 			nId = OpenGL.fGetUniformLocation(oProgram.nId, sName);
 			bValid = true; //Todo
-			var _nID : Int = nId;
-			Debug.fPass("--- Texture Created!:--- "  + _nID);
+			//var _nID : Int = nId;
+			//Debug.fPass("--- Texture Created!:--- "  + _nID);
 			// _nSlot + GL_TEXTURE0;
 		
 		}

@@ -237,7 +237,7 @@ package  {
 			}
 			
 		if(   nType == 6){
-		gl_Position.x += 40;
+		gl_Position.x += 40.0;
 		}
 			
 			/*
@@ -280,9 +280,9 @@ package  {
 			
 			//3D to Screen
 			gl_Position.w  =  gl_Position.z * in_ObjPos.w + 1.0;
-			gl_Position.x = (((gl_Position.x ) + in_ObjPos.x + 0.5)   - iResolution.x/2) /  (iResolution.x/2);
-			gl_Position.y = (((gl_Position.y ) + in_ObjPos.y + 0.499) - iResolution.y/2) / -(iResolution.y/2) ;
-			gl_Position.z = 0;
+			gl_Position.x = (((gl_Position.x ) + in_ObjPos.x + 0.5)   - iResolution.x/2.0) /  (iResolution.x/2.0);
+			gl_Position.y = (((gl_Position.y ) + in_ObjPos.y + 0.499) - iResolution.y/2.0) / -(iResolution.y/2.0) ;
+			gl_Position.z = 0.0;
 			
 
 			
@@ -363,14 +363,14 @@ package  {
 <glsl(oFragement)>
 				
 					
-	out vec4 outputColor;
+	//out vec4 outputColor;
 
 	uniform sampler2D TexCurrent;
 	uniform sampler2D TexSource;
 	uniform sampler2D TexFragPos;
 	uniform sampler2D TexPixSrc;
 
-	uniform sampler2DArray TexArray;  
+	//uniform sampler2DArray TexArray;  
 
 	//in vec2 coord_TextureSource;
 	in vec2 coord_Texture;
