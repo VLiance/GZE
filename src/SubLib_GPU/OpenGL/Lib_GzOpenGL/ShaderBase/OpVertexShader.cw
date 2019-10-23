@@ -27,6 +27,8 @@ package  {
 				<glsl(this)>
 					#version 300 es //WebGl 2 / ES3
 					#line 2
+					precision mediump float;  //highp only works in fragment shaders if you have the GL_FRAGMENT_PRECISION_HIGH extension enabled.
+					precision mediump int;  //highp only works in fragment shaders if you have the GL_FRAGMENT_PRECISION_HIGH extension enabled.
 					//#define texture(s,t) texture2D(s, t) //WebGl2 not required
 					
 					///#version 100  //-->ES2/ WebGl 1

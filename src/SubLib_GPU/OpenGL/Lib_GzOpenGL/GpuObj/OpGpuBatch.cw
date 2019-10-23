@@ -71,7 +71,7 @@ package  {
 
 	
 	
-			var _nNbElement : Int  = 2;
+			var _nNbElement : Int  = 1;
 
 			OpenGL.fBindFramebuffer(FRAMEBUFFER, null); //Default?
 	
