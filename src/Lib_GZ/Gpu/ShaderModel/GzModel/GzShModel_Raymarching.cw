@@ -11,7 +11,8 @@ package  {
 	import GZ.Base.Perspective;
 	import GZ.Sys.Interface.Context;
 	import GZ.Gpu.ShaderModel.GzModel.GzShModel;
-	
+	import GZ.Gpu.Base.UnInt;
+		
 	//import GZ.Base.TestPod;
 	//import GZ.Base.TestPod2;
 	
@@ -344,6 +345,7 @@ package  {
 			oUiMouse = new UnVec2(oProgram, "iMouse");
 			oUiResolution = new UnVec2(oProgram, "iResolution");
 			//oUiTime = new UnVec2(oProgram, "iTime");
+			oUnType = new UnInt(oProgram, "nType");
 			
 			var _oPersv : Perspective = new Perspective();
 			

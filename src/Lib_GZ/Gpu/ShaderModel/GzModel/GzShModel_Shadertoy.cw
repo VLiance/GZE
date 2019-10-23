@@ -13,6 +13,7 @@ package  {
 	import GZ.Sys.Interface.Context;
 	import GZ.Gpu.ShaderModel.GzModel.GzShModel;
 	import GZ.Input.Key;
+	import GZ.Gpu.Base.UnInt;
 	//import GZ.Base.TestPod;
 	//import GZ.Base.TestPod2;
 	
@@ -363,6 +364,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 			oUiResolution = new UnVec2(oProgram, "iResolution");
 			oUvPosition = new UnVec2(oProgram, "vPosition");
 			//oUiTime = new UnVec2(oProgram, "iTime");
+			oUnType = new UnInt(oProgram, "nType");
 			
 			var _oPersv : Perspective = new Perspective();
 			
