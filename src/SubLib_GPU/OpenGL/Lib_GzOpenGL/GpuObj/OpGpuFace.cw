@@ -36,6 +36,8 @@ package  {
 			return;
 		}
 		</cpp>
+		
+		//Debug.fTrace("GPU draw face! " );
 		/*
 		if(oAt == null){
 		//if(oAt == 0){
@@ -83,6 +85,9 @@ package  {
 		oAt.oAtColor2.fSet(_vColor);
 		oAt.oAtColor3.fSet(_vColor);
 		oAt.oAtColor4.fSet(_vColor);
+
+		
+		//Debug.fTrace("GPU draw face! " + oAt.oAtPt1.oVbo.aData.nSize);
 		
 		
 		

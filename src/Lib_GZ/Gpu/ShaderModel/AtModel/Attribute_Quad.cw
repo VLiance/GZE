@@ -138,7 +138,9 @@ package  {
 		}
 		
 		public function fIniData(_nTotalQuad:UInt):Void {
-		//	Debug.fTrace("fIniData: Total Quad : "  + _nTotalQuad) ;
+			//Debug.fTrace("-----------------------*********************************************************** " ) ;
+			//Debug.fTrace("fIniData: Total Quad : "  + _nTotalQuad) ;
+			//Debug.fTrace("-----------------------*********************************************************** " ) ;
 			
 
 				

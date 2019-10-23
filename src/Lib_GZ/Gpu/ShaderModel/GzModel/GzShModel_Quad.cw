@@ -642,8 +642,9 @@ pixTex  = texture(TexCurrent, ioTexture);
 //pixTex.a = 0.5;
 
 
-        FragColor =  pixTex;
-       // FragColor =  texture(TexCurrent, ioTexture);
+      //  FragColor =  pixTex;
+       // FragColor =  vec4(1.0, 0.5, 0.5, 0.5);
+        FragColor =  texture(TexCurrent, ioTexture);
 
         /*
 		if(ioSrcType == 2.0){
@@ -736,6 +737,7 @@ pixTex  = texture(TexCurrent, ioTexture);
 		
 		
 		override public function fIniRender():Void {
+
 			//Debug.fTrace("Total Face : "  + Context.oItf.nTotalFaces) ;
 			oAt.fIniData( Context.oItf.nTotalFaces );
 		}
@@ -776,8 +778,9 @@ pixTex  = texture(TexCurrent, ioTexture);
 			//if(bTest == false){
 			//	bTest = true;
 		
-			if(nTest  < 2){
-				Debug.fTrace("-------------------------------");
+			if(nTest  < 3){
+				Debug.fTrace("------------------------------- " + nTest);
+				Debug.fTrace("----Size ---- " + oAt.oVbo.aData.nSize);
 				//for(var i : Int = 0; i  < oAt.oVbo.aData.nSize; i+=4){
 				for(var i : Int = 0; i  < oAt.oVbo.aData.nSize; i+=8){
 					Debug.fTrace("[" +  oAt.oVbo.aData[i] + "," +  oAt.oVbo.aData[i+1] + "," +  oAt.oVbo.aData[i+2] + "," +  oAt.oVbo.aData[i+3] + "]" );

@@ -191,7 +191,7 @@ package  {
 		
 		public function fIniRender():Void {
 			if(bIniDrawZone == true){ // Or jsut registred
-				if(bWinGPU ) {
+				if(bWinGPU ) {	
 					oGpu.fIniRender();
 				}
 			}

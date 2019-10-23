@@ -76,8 +76,9 @@
 		
 		
 		
-		
-		
+		override public function fIniRender():Void {
+			oGzShModel.fIniRender();
+		}
 		
 				
 		 override public function fBlit():Void {
