@@ -9,6 +9,10 @@ package  {
 	import GZ.Base.Quaternion;
 	import GZ.Base.Vec2;
 	
+	<cpp_h>
+	#include "Lib_GZ/Base/Math/Math.h"
+	</cpp_h>
+	
 	/**
 	 * @author Maeiky
 	 */

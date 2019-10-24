@@ -5,17 +5,30 @@
 package  {
 
 	import GZ.Base.Math.Math;
-	import GZ.Base.Vec4;
+	//import GZ.Base.Vec4;
+	
+	<cpp_h>
+	#include "Lib_GZ/Base/Math/Math.h"
+	</cpp_h>
 
 	/**
 	 * @author Maeiky
 	 */
-	public vector Quaternion extends Vec4 {
-	
-			public var nTest : Number; //teemp
+	//public vector Quaternion extends Vec4 {
+	public vector Quaternion  {
+	/*
+	    _aFaces[oGzSh->nStObjRot+_nIdx+0] = oShape->oQuaternion->nX;
+    _aFaces[oGzSh->nStObjRot+_nIdx+1] = oShape->oQuaternion->nY;
+    _aFaces[oGzSh->nStObjRot+_nIdx+2] = oShape->oQuaternion->nZ;
+    _aFaces[oGzSh->nStObjRot+_nIdx+3] = oShape->oQuaternion->nW;
+	*/
+			public var nX : Number;
+			public var nY : Number; 
+			public var nZ : Number; 
+			public var nW : Number; 
 
 		public function Quaternion():Void  {
-			Vec4(0,0,0,1);
+			//Vec4(0,0,0,1);
 		}
 
 		public function fReset():Void {

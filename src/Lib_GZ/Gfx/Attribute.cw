@@ -11,6 +11,7 @@ package  {
 	import GZ.Base.Pod.Rotation;
 	import GZ.Base.Pod.Size;
 	import GZ.Base.Pod.Color;
+	import GZ.Base.Quaternion;
 
 	/**
 	 * @author Maeiky
@@ -24,7 +25,7 @@ package  {
 		public  var vGblSize : Size<Float>;		
 		public  var vGblRot : Rotation<Float>;	
 		
-
+		public  var vQuaternion : Quaternion<Float>;	
 	
 		public  var vPos  : Point<EaseFloat>;
 		public  var vRot  : Rotation<EaseFloat>;
@@ -32,13 +33,14 @@ package  {
 		public  var vColor : Color<EaseFloat>;
 		
 		
+
 		
 		public function Attribute( _oParent : Root):Void {
 			Root(_oParent);
 			 oGblPt : PtA = new PtA();
 			//hRotateOrder = eRotateOrder.YawPitchRoll;
 			
-			//oQuaternion = new Quaternion();
+			vQuaternion = new Quaternion<Float>;
 			//oCopyQuater = oQuaternion;
 			
 			vSize.nWidth = 1;
@@ -59,7 +61,34 @@ package  {
 
 		//////////////////////////////
 		public function fApplyColor():Void {
-
+			/*
+			
+			GZ_uEase_fStep(&(ua_nAttX));
+	GZ_uEase_fStep(&(ua_nAttY));
+	GZ_uEase_fStep(&(ua_nAttZ));
+	GZ_uEase_fStep(&(ua_nAttWidth));
+	GZ_uEase_fStep(&(ua_nAttHeight));
+	GZ_uEase_fStep(&(ua_nAttLength));
+	GZ_uEase_fStep(&(ua_nAttRed));
+	GZ_uEase_fStep(&(ua_nAttGreen));
+	GZ_uEase_fStep(&(ua_nAttBlue));
+	GZ_uEase_fStep(&(ua_nAttAlpha));
+	GZ_uEase_fStep(&(ua_nAttRoll));
+	GZ_uEase_fStep(&(ua_nAttYaw));
+	GZ_uEase_fStep(&(ua_nAttPitch));
+	oQuaternion->fReset();
+	if (gzInt(hRotateOrder) == ::GZ::GFX::Attribute::eRotateOrder::RollYawPitch){
+		oQuaternion->fRoll(nAttRoll);
+		oQuaternion->fYaw(nAttYaw);
+		oQuaternion->fPitch(nAttPitch * gzFloat(-1));
+	}else{
+		oQuaternion->fYaw(nAttYaw);
+		oQuaternion->fPitch(nAttPitch * gzFloat(-1));
+		oQuaternion->fRoll(nAttRoll);
+	}
+	oQuaternion->fCombine((::GZ::Base::cQuaternion*)(oParent->oQuaternion.get()));
+	*/
+			
 		}
 
 
@@ -71,10 +100,27 @@ package  {
 			vSize.fStep();
 			vColor.fStep();
 			
+			vQuaternion.fReset();
+
+			//if(hRotateOrder == eRotateOrder.RollYawPitch){
+				vQuaternion.fRoll(vRot.nRoll);
+				vQuaternion.fYaw(vRot.nYaw);
+				vQuaternion.fPitch(vRot.nPitch * -1)
+			//}else{
+			//	oQuaternion.fYaw(nAttYaw);
+			//	oQuaternion.fPitch(nAttPitch * -1)
+			//	oQuaternion.fRoll(nAttRoll);
+			//}
+			vQuaternion.fCombine(oParent.vQuaternion);
+			
+			
+			
+			
 			oGblPt.vPt.nX = vPos.nX  * oParent.vGblSize.nWidth;
 			oGblPt.vPt.nY = vPos.nY  * oParent.vGblSize.nHeight;
 			oGblPt.vPt.nZ = vPos.nZ  * oParent.vGblSize.nLength;
 			
+			//oGblPt->fRotate((::GZ::Base::cQuaternion*)(oParent->oQuaternion.get()));
 		//	oGblPt.fRotate(oParent.oQuaternion);
 			
 			oGblPt.vPt.nX += oParent.oGblPt.vPt.nX;

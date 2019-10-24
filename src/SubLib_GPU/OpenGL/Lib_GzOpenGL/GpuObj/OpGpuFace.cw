@@ -64,6 +64,16 @@ package  {
 		//oAtObjSize
 		oAt.oAtObjRot.fSet(oFace.oShape.vGblRot);
 		
+		/**
+	
+    _aFaces[oGzSh->nStObjRot+_nIdx+0] = oShape->oQuaternion->nX;
+    _aFaces[oGzSh->nStObjRot+_nIdx+1] = oShape->oQuaternion->nY;
+    _aFaces[oGzSh->nStObjRot+_nIdx+2] = oShape->oQuaternion->nZ;
+    _aFaces[oGzSh->nStObjRot+_nIdx+3] = oShape->oQuaternion->nW;
+
+		*/
+		
+		
 		oAt.oAtPt1.fSet(oFace.oPt1.vPt);
 		oAt.oAtPt2.fSet(oFace.oPt2.vPt);
 		oAt.oAtPt3.fSet(oFace.oPt3.vPt);

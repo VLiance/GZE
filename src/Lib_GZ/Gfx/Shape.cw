@@ -278,8 +278,10 @@ package  {
 				_oPt.oTf.nY =y;
 				_oPt.oTf.nZ =z;
 
-			//	_oPt.oTf.fRotate(oQuaternion);
+				_oPt.oTf.fRotate(vQuaternion);
 			}
+			
+			
 			
 			
 		}
