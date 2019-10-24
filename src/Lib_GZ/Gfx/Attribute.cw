@@ -40,7 +40,7 @@ package  {
 			 oGblPt : PtA = new PtA();
 			//hRotateOrder = eRotateOrder.YawPitchRoll;
 			
-			vQuaternion = new Quaternion<Float>;
+			vQuaternion = new Quaternion<Float>();
 			//oCopyQuater = oQuaternion;
 			
 			vSize.nWidth = 1;
@@ -99,7 +99,7 @@ package  {
 			vRot.fStep();
 			vSize.fStep();
 			vColor.fStep();
-			
+			/*
 			vQuaternion.fReset();
 
 			//if(hRotateOrder == eRotateOrder.RollYawPitch){
@@ -112,7 +112,7 @@ package  {
 			//	oQuaternion.fRoll(nAttRoll);
 			//}
 			vQuaternion.fCombine(oParent.vQuaternion);
-			
+			*/
 			
 			
 			
