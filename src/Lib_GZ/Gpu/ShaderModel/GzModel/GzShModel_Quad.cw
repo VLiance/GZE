@@ -7,6 +7,7 @@ package  {
 	import GZ.Gpu.Base.Texture;
 	import GZ.Gpu.Base.Uniform;
 	import GZ.Gpu.Base.UnVec2;
+	import GZ.Gpu.Base.UnVec4;
 	import GZ.Gpu.Base.UnFloat;
 	import GZ.Gpu.Base.UnInt;
 	import GZ.Gpu.Base.Texture;
@@ -22,40 +23,12 @@ package  {
 	
 	
 	public overclass GzShModel_Quad extends GzShModel {
-		/*
-		public var oVertex : VertexShader;
-		public var oFragement : FragmentShader;
-		public var oProgram : ProgramShader;
-		public var oGpuBatch : GpuBatch;
-		public var oVboBatch : Vbo;
-		public var oUiMouse : UnVec2;
-		*/
-		
-		
-		/*
-		public var oAtObjPos : Attribute;
-		//public var oAtObjSize : Attribute;
-		public var oAtObjRot : Attribute;
-		public var oAtPt1 : Attribute;
-		public var oAtPt2 : Attribute;
-		public var oAtPt3 : Attribute;
-		public var oAtPt4 : Attribute;
-		public var oAtTexSource0 : Attribute;
-		public var oAtTexSource1 : Attribute;
-		public var oAtColor1 : Attribute;
-		public var oAtColor2 : Attribute;
-		public var oAtColor3 : Attribute;
-		public var oAtColor4 : Attribute;
-		public var oAtOffsetHV : Attribute;
-		public var oAtOffsetC : Attribute;
-		*/
-		
+
 		public var oAt : Attribute_Quad;
 		
 		public var nTest : Int = 0;
 		
-		
-
+	
 		
 		public function GzShModel_Quad():Void {
 			Debug.fTrace("--- GzShModel Created!! ---");
@@ -74,16 +47,19 @@ package  {
 							
 	uniform int nType;
 
-	layout (location = 8) in vec4 in_ObjPos; //x, y, z, ???? 
-	layout (location = 9) in vec4 in_ObjRot; // Roll, Yaw, Pitch, Focal
-	layout (location = 11) in vec4 in_Pt1;  //x,y,z, Width
-	layout (location = 12) in vec4 in_Pt2;  //x,y,z, Height
-	layout (location = 13) in vec4 in_Pt3;  //x,y,z, Length
-	layout (location = 14) in vec4 in_Pt4;  //x,y,z, ?????
-	layout (location = 3) in vec2 in_TexCoord0;  //Sx1,Sy1,Sx2,Sy2 
-	layout (location = 1) in vec4 in_TexSource0;  //Sx3,Sy3,Sx4,Sy4
-	layout (location = 15)  in vec4 in_TexSource1;  //Sx3,Sy3,Sx4,Sy4
-	layout (location = 4) in vec4 in_Color1; //R,G,B,A
+	in vec4 in_ObjPos; //x, y, z, ???? 
+	in vec4 in_ObjRot; // Roll, Yaw, Pitch, Focal
+	in vec4 in_ObjSize;  //Width,Height,Length, ????
+	
+	in vec4 in_Pt1;  //x,y,z, Width
+	in vec4 in_Pt2;  //x,y,z, Height
+	in vec4 in_Pt3;  //x,y,z, Length
+	in vec4 in_Pt4;  //x,y,z, ?????
+	
+	in vec2 in_TexCoord0;  //Sx1,Sy1,Sx2,Sy2 
+	in vec4 in_TexSource0;  //Sx3,Sy3,Sx4,Sy4
+	in vec4 in_TexSource1;  //Sx3,Sy3,Sx4,Sy4
+	in vec4 in_Color1; //R,G,B,A
 	////  in vec4 in_LimitRender;  //Limit render ... in uniform? <----
 
 	//AylasID, UniformActionID, Type
@@ -94,20 +70,22 @@ package  {
 	////  in vec4 in_AchorPt3;  //x1,y1,x2,x2  
 	////  in vec4 in_AchorPt4;  //x1,y1,x2,x2  
 
-	layout (location = 0) in vec3 in_PtPos;       //Remove     
-	layout (location = 2) in vec2 in_Corner;      //Remove     
-	layout (location = 5) in vec4 in_Color2;   //Remove     
-	layout (location = 6) in vec4 in_Color3;   //Remove     
-	layout (location = 7) in vec4 in_Color4;   //Remove     
+	in vec3 in_PtPos;       //Remove     
+	in vec2 in_Corner;      //Remove     
+	in vec4 in_Color2;   //Remove     
+	in vec4 in_Color3;   //Remove     
+	in vec4 in_Color4;   //Remove     
 
 
-
+	uniform vec4 vPersp;
+	
+	
 	//float nWinHalfWidth;
 	//float nWinHalfHeight;
 	
-	
 	//uniform float nWinHalfWidth;
 	//uniform float nWinHalfHeight;
+
 
 	uniform vec2 nPos;
 	uniform vec2 nTexDim;
@@ -140,30 +118,46 @@ package  {
 	uniform vec2 vTexDim;
 	//in int gl_VertexID;
 
+	
+	
+	
+vec3 fQRot( vec3 pt, vec4 rot)       {
+	return pt + 2.0*cross(rot.xyz, cross(rot.xyz,pt) + rot.w*pt);
+}
+
+//rotate vector
+vec3 fQRot3(vec4 q, vec3 v)       {
+	return v + 2.0*cross(q.xyz, cross(q.xyz,v) + q.w*v);
+}
+//rotate vector (alternative)
+vec3 fQRot_2(vec3 pt, vec4 rot )     {
+	return pt*(rot.w*rot.w - dot(rot.xyz,rot.xyz)) + 2.0*rot.xyz*dot(rot.xyz,pt) + 2.0*rot.w*cross(rot.xyz,pt);
+}
+//combine quaternions
+vec4 fQMul(vec4 a, vec4 b)       {
+	return vec4(cross(a.xyz,b.xyz) + a.xyz*b.w + b.xyz*a.w, a.w*b.w - dot(a.xyz,b.xyz));
+}
+//inverse quaternion
+vec4 fQInv(vec4 q)       {
+	return vec4(-q.xyz,q.w);
+}
+//perspective project
+vec4 get_projection(vec3 v, vec4 pr)    {
+	return vec4( v.xy * pr.xy, v.z*pr.z + pr.w, -v.z);
+}
+//transform by Spatial forward
+vec3 fWoldTrans(vec3 v, vec3 pos, vec4 rot,  vec3 size){
+   // return fQRot(rot, v*size) + pos.xyz;
+	return fQRot3(rot, v) + pos.xyz;
+}
+//transform by Spatial inverse
+vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
+	return fQRot3( vec4(-rot.xyz, rot.w), (v - pos)/size );
+}
+	
+
 	void main(){
 
-		/*
-		if (nVertexID < 2){
-			if(nVertexID == 0){
-				gl_Position.x = -1.0;
-				gl_Position.y = -1.0;
-			}else{
-				gl_Position.x = 1.0;
-				gl_Position.y = -1.0;
-			}
-		}else{
-			if(nVertexID == 2){
-				gl_Position.x = 1.0;
-				gl_Position.y = 1.0;
-			}else{
-				gl_Position.x = -1.0;
-				gl_Position.y = 1.0;
-			}
-		}
-		gl_Position.z = 0.5;
-		gl_Position.w = 1.0;
-	*/
-	
 /*
 		if(nType == 1){ //Normal 2D
 
@@ -193,7 +187,7 @@ package  {
 		if(nType == 4){ //Normal 3D
 		*/	
 
-			float atObjSize = 1.0;
+			//float atObjSize = 1.0;
 			
 			//gl_Position.x = in_PtPos.x;
 			//gl_Position.y = in_PtPos.y;
@@ -208,13 +202,13 @@ package  {
 			if (nVertexID < 2){     // 0 || 1
                 if(nVertexID == 0){
                     //////// Vertex 0 ////////
-                    gl_Position = in_Pt1 * atObjSize; //w is mutliplied, fater than vec3?
+                    gl_Position = in_Pt1; 
 					ioCorner = vec2(0.25,0.25);
 					vSrc.x = in_TexSource0.x;
                     vSrc.y = in_TexSource0.y;
                 }else{
                     //////// Vertex 1 ////////
-                    gl_Position = in_Pt2 * atObjSize;
+                    gl_Position = in_Pt2;
 					ioCorner = vec2(0.75,0.25);
                     vSrc.x = in_TexSource0.z;
                     vSrc.y = in_TexSource0.w;
@@ -222,51 +216,47 @@ package  {
 			}else{                  // 2 || 3
                 if(nVertexID == 2){
                     //////// Vertex 2 ////////
-                    gl_Position = in_Pt3 * atObjSize;
+                    gl_Position = in_Pt3;
                     ioCorner = vec2(0.75,0.75);
                     vSrc.x = in_TexSource1.x;
                     vSrc.y = in_TexSource1.y;
 
                 }else{
                     //////// Vertex 3 ////////
-                    gl_Position = in_Pt4 * atObjSize;
+                    gl_Position = in_Pt4;
 					ioCorner = vec2(0.25,0.75);
                     vSrc.x = in_TexSource1.z;
                     vSrc.y = in_TexSource1.w;
                 }
 			}
-			
-		if(   nType == 6){
-		gl_Position.x += 40.0;
+		
+		gl_Position.xyz *=  in_ObjSize.xyz;
+		
+		
+		
+		/*
+		gl_Position.xyz = fQRot(gl_Position.xyz, atObjRot);
+		//vec3 _vObjPos = fQRot(vec3(400,300,0), atObjPos);
+		//vec3 _vObjPos =  cross(atObjPos.xyz, vec3(400,300,0)) + vec3(400,300,0);
+		vec3 _vObjPos = atObjPos.xyz;
+		
+		//////////// 3D To 2D ////////////////////
+		float nZx = ((gl_Position.z + _vObjPos.z) * vPersp.z) + 1.0;
+		if(vPersp.w == 1.0){ //Self perspective
+			gl_Position.xy = (gl_Position.xy ) / nZx;
+		}else{
+			gl_Position.xy = (gl_Position.xy + (_vObjPos.xy - vPersp.xy) ) / nZx - (_vObjPos.xy - vPersp.xy);
 		}
-			
-			/*
-			//BATCH ONLY
-			switch(nVertexID){
-				case 0 :
-					gl_Position =  in_Pt1;
-					coord_Corner = vec2(0.25,0.25);
-					coord_Texture = (in_TexSource0.xy + 0.5)/ 200.0;
-		
-				break;
-				case 1 :
-					gl_Position =  in_Pt2;
-					coord_Corner = vec2(0.75,0.25);
-					coord_Texture = (in_TexSource0.zw + 0.5)/ 200.0;
-				break;
-				case 2 :
-					gl_Position =  in_Pt3;
-					coord_Corner = vec2(0.75,0.75);
-					coord_Texture = (in_TexSource1.xy + 0.5)/ 200.0;
-				break;
-				case 3 :
-					gl_Position =  in_Pt4;
-					coord_Corner = vec2(0.25,0.75);
-					coord_Texture = (in_TexSource1.zw + 0.5)/ 200.0;
-				break;
-			}
+		///////////// 2D to Screen ////////////////////
+		gl_Position.w = nZx;
+		gl_Position.x = (((gl_Position.x ) + _vObjPos.x  ) - (iResolution.x/2.0) )/ (iResolution.x/2.0) * nZx ;
+		gl_Position.y = (((gl_Position.y ) + _vObjPos.y )  - (iResolution.y/2.0)) / (iResolution.y/2.0) * nZx;
+		gl_Position.z =  0.0;
+		///////////////////////////////////////////////
 		*/
-		
+
+
+			
 			//iResolution.y/2.0
 			///// Rotation ////
 			float _nTx = (gl_Position.x * cos(in_ObjRot.y)) - (gl_Position.z * sin(in_ObjRot.y));
@@ -277,16 +267,13 @@ package  {
 			gl_Position.y = (_nTx * sin(in_ObjRot.x)) + (_nTy * cos(in_ObjRot.x));
 			////////////////////
 			
-			
 			//3D to Screen
 			gl_Position.w  =  gl_Position.z * in_ObjPos.w + 1.0;
 			gl_Position.x = (((gl_Position.x ) + in_ObjPos.x + 0.5)   - iResolution.x/2.0) /  (iResolution.x/2.0);
 			gl_Position.y = (((gl_Position.y ) + in_ObjPos.y + 0.499) - iResolution.y/2.0) / -(iResolution.y/2.0) ;
 			gl_Position.z = 0.0;
-			
+	
 
-			
-			
 			//vec2 vTexDim = vec2(200.0, 200.0);
 
 			
@@ -316,8 +303,6 @@ package  {
 		/*	
 		}
 		
-		
-
 		if(nType == 2){ //Buffer
 		
 			gl_Position = vec4(in_PtPos, 1.0) ;
@@ -714,6 +699,7 @@ pixTex  = texture(TexCurrent, ioTexture);
 			oUiResolution = new UnVec2(oProgram, "iResolution");
 			
 			oUnType = new UnInt(oProgram, "nType");
+			oUvPersp = new UnVec4(oProgram, "vPersp");
 
 			
 
@@ -769,6 +755,12 @@ pixTex  = texture(TexCurrent, ioTexture);
 			oUiResolution.fSend();
 			
 		
+			oUvPersp.vVal.nX = 0;//nFromX
+			oUvPersp.vVal.nY = 0;//nFromY
+			oUvPersp.vVal.nZ = 500; //nValue
+			oUvPersp.vVal.nW = 1; //nType
+			oUvPersp.fSend();
+			
 			oGpuBatch.fDraw();
 	
 		//	Debug.fTrace("Size: " + oAt.oVbo.aData.nSize)

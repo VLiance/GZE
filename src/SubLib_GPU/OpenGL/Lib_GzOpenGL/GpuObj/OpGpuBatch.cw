@@ -78,18 +78,12 @@ package  {
 			OpenGL.fEnable( BLEND );
 			//OpenGL.fBlendFunc(ONE_MINUS_DST_ALPHA, ONE); //Front to back
 		//	OpenGL.fBlendFunc(ONE_MINUS_SRC_ALPHA, ONE); //Back to front
-			OpenGL.fBlendFunc(ONE,ONE_MINUS_SRC_ALPHA ); //Back to front
+			OpenGL.fBlendFunc(ONE,ONE_MINUS_SRC_ALPHA );  //Front to back
 
-		   // GL_fBindFramebuffer(GL_FRAMEBUFFER, _oDest->oGpuObj->nIdBuff); Temp
-
-			//GL_fBindFramebuffer(GL_FRAMEBUFFER, oDest->oGpuObj->nIdBuff);
-		
-			//GL_fUniform1i(oGzSh->nLocType, 4);
 
 			
 			oShModel.oUnType.nVal = 4;
 			oShModel.oUnType.fSend();
-			
 			
 			
 			/*
@@ -109,21 +103,18 @@ package  {
 			   //     GL_fUniform1i(oGzSh->nLocType, 6);
 			   }*/
 
-			//oGzSh->fSetOffset(nStartIndex);
-
-		  //  printf("\n nTotal : %d", nNbElement);
 		    OpenGL.fDrawElementsInstanced(TRIANGLES, 6, UNSIGNED_BYTE, 0, _nNbElement);
 			//GL_fDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, _aIndice2Tri, nNbElement );
 		 //   GL_fDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, _aIndice2Tri );
 			//GL_fBindBuffer(GL_ARRAY_BUFFER,0);
 			
-			
+			/*
 			//OpenGL.fBlendFunc(ONE_MINUS_SRC_ALPHA, ONE); //Back to front
 			oShModel.oUnType.nVal = 6;
 			oShModel.oUnType.fSend();
 			OpenGL.fDrawElementsInstanced(TRIANGLES, 6, UNSIGNED_BYTE, 0, _nNbElement);
 			
-
+*/
 			
 		//	OpenGL.fDisable( BLEND );
 			

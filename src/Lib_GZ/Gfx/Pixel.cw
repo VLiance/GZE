@@ -549,7 +549,7 @@ package  {
 						//inline Pixel.fGetSmoothPixel(_aSource, _nGetX , _nGetY , _aDest, _nRealXPix,  _nRealYPix , _nAlpha, _nPcBrRed,_nPcBrGreen , _nPcBrBlue , _nPcRevRed, _nPcRevGreen, _nPcRevBlue, _nOfRevRed, _nOfRevBlue, _nOfRevGreen);
 						//Pixel.fCopyPixelToDest(_aDest,0xFF000000, (_nX+x)/1024, _nRealY/1024);
 						
-						<cpp>
+						<cpp>						
 							#ifdef GZ_D_CpuRenderer_Reverse_BlueAndRed
 						</cpp>
 							inline Pixel.fGetSmoothPixel(_aSource, _nGetX , _nGetY , _aDest, _nRealXPix,  _nRealYPix , _nAlpha, _nPcBrBlue ,_nPcBrGreen , _nPcBrRed , _nPcRevBlue , _nPcRevGreen, _nPcRevRed, _nOfRevBlue, _nOfRevRed,  _nOfRevGreen);

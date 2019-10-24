@@ -8,6 +8,7 @@ package  {
 	import GZ.Gpu.Base.UnInt;
 	import GZ.Gpu.Base.UnFloat;
 	import GZ.Gpu.Base.UnVec2;
+	import GZ.Gpu.Base.UnVec4;
 	import GZ.Gpu.ShaderBase.Vbo;
 	import GZ.Gpu.GpuObj.GpuBatch;
 	import GZ.Base.Perspective;
@@ -27,6 +28,7 @@ package  {
 		public var oGpuBatch : GpuBatch;
 		public var oVboBatch : Vbo;
 		public var oUnType : UnInt;
+		public var oUvPersp : UnVec4;
 		public var oUiTime : UnFloat;
 		public var oUiMouse : UnVec2;
 		public var oUiResolution : UnVec2;

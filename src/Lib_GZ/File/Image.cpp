@@ -261,6 +261,7 @@ gzInt** pImage::fGetImage(File::cRcImg* _oRc, gzUInt8* image_data, gzUInt image_
 
 										_nFrameGreen = ((_nPixelFrame >> 8) & 0xFF) * _nFrameAlpha >> 8;
 					
+					
 										#ifdef GZ_D_CpuRenderer_Reverse_BlueAndRed
 											_nFrameRed = ((_nPixelFrame >> 16) & 0xFF) * _nFrameAlpha >> 8;
 											_nFrameBlue = (_nPixelFrame & 0xFF)          * _nFrameAlpha >> 8;

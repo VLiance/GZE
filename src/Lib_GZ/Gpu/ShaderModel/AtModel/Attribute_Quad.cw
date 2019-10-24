@@ -34,6 +34,7 @@ package  {
 		public var oAtObjPos : Attribute;
 		//public var oAtObjSize : Attribute;
 		public var oAtObjRot : Attribute;
+		public var oAtObjSize : Attribute;
 		public var oAtPt1 : Attribute;
 		public var oAtPt2 : Attribute;
 		public var oAtPt3 : Attribute;
@@ -75,6 +76,7 @@ package  {
 			 
 			//oAtObjSize = oProgram.fAddAttribute("in_ObjSize");
 			oAtObjRot =new Attribute("in_ObjRot", oVbo);
+			oAtObjSize =new Attribute("in_ObjSize", oVbo);
 			
 			oAtPt1 = new Attribute("in_Pt1", oVbo);
 			oAtPt2 = new Attribute("in_Pt2", oVbo);
@@ -88,7 +90,7 @@ package  {
 			oAtColor2 = new Attribute("in_Color2", oVbo);
 			oAtColor3 = new Attribute("in_Color3", oVbo);
 			oAtColor4 = new Attribute("in_Color4", oVbo);
-			
+
 			
 			
 			oTexture = new Texture(oProgram, "TexCurrent");
@@ -149,27 +151,25 @@ package  {
 			//	Debug.fTrace("nTotalQuad: " +nTotalQuad)
 			
 			var _nTotalPerAttrib : Int = _nTotalQuad * 4; //4 = Vec4
-			oVbo.aData.fMaxSize(_nTotalPerAttrib * 12);
+			oVbo.aData.fMaxSize(_nTotalPerAttrib * 13);
 			
-		//	Debug.fTrace("fMaxSize: " + _nTotalPerAttrib * 12)
-			//aData[0] = 9999;
-			
-			
+
 			oAtObjPos.fSetOffset(_nTotalPerAttrib * 0);
 			oAtObjRot.fSetOffset(_nTotalPerAttrib * 1);
+			oAtObjSize.fSetOffset(_nTotalPerAttrib * 2);
 			
-			oAtPt1.fSetOffset(_nTotalPerAttrib * 2);
-			oAtPt2.fSetOffset(_nTotalPerAttrib * 3);
-			oAtPt3.fSetOffset(_nTotalPerAttrib * 4);
-			oAtPt4.fSetOffset(_nTotalPerAttrib * 5);
+			oAtPt1.fSetOffset(_nTotalPerAttrib * 3);
+			oAtPt2.fSetOffset(_nTotalPerAttrib * 4);
+			oAtPt3.fSetOffset(_nTotalPerAttrib * 5);
+			oAtPt4.fSetOffset(_nTotalPerAttrib * 6);
 			
-			oAtTexSource0.fSetOffset(_nTotalPerAttrib * 6);
-			oAtTexSource1.fSetOffset(_nTotalPerAttrib * 7);
+			oAtTexSource0.fSetOffset(_nTotalPerAttrib * 7);
+			oAtTexSource1.fSetOffset(_nTotalPerAttrib * 8);
 			
-			oAtColor1.fSetOffset(_nTotalPerAttrib * 8);
-			oAtColor2.fSetOffset(_nTotalPerAttrib * 9);
-			oAtColor3.fSetOffset(_nTotalPerAttrib * 10);
-			oAtColor4.fSetOffset(_nTotalPerAttrib * 11);
+			oAtColor1.fSetOffset(_nTotalPerAttrib * 9);
+			oAtColor2.fSetOffset(_nTotalPerAttrib * 10);
+			oAtColor3.fSetOffset(_nTotalPerAttrib * 11);
+			oAtColor4.fSetOffset(_nTotalPerAttrib * 12);
 			
 			
 		}

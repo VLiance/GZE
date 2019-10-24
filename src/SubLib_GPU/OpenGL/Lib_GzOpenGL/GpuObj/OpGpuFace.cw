@@ -59,6 +59,7 @@ package  {
 		
 	//	Debug.fTrace("aBefDataLinkedSize! " + Attribute_Quad.oAtObjPos.aDataLinked.nSize  );
 		oAt.oAtObjPos.fSet(oFace.oShape.oGblPt.vPt);
+		oAt.oAtObjSize.fSet(oFace.oShape.vGblSize);
 
 		//oAtObjSize
 		oAt.oAtObjRot.fSet(oFace.oShape.vGblRot);

@@ -34,7 +34,18 @@ package  {
 	//Sized internal formats are supported in WebGL 2.0 and internalformat is no longer required to be the same as format. Instead, the combination of internalformat, format, and type must be listed in the following table:		
 	//RGBA :	RGBA : UNSIGNED_BYTE/UNSIGNED_SHORT_4_4_4_4/UNSIGNED_SHORT_5_5_5_1
 
+			
+		<cpp>
+		#ifdef GZ_D_CpuRenderer_Reverse_BlueAndRed
+		</cpp>
 			OpenGL.fTexImage2D(TEXTURE_2D, 0, RGBA, _nWidth+2,_nHeight+2, 0, RGBA, UNSIGNED_BYTE, _aImg);
+		<cpp>
+		#else
+		</cpp>
+			OpenGL.fTexImage2D(TEXTURE_2D, 0, RGBA, _nWidth+2,_nHeight+2, 0, BGRA, UNSIGNED_BYTE, _aImg);
+		<cpp>
+		#endif
+		</cpp>
 			
 			OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_MAG_FILTER , OpenGL.eTextureMagFilter.LINEAR);
 			OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_MIN_FILTER , OpenGL.eTextureMinFilter.LINEAR);

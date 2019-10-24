@@ -69,7 +69,6 @@
 			
 			Debug.fTrace("*********** OP Windows!! fContextIni GPU : " + _nHandleId);
 			
-			
 			<cpp>
 		
 				hDC = (HDC)_nHandleId;
