@@ -195,7 +195,7 @@ package  {
 			
 			oUiMouse = new UnVec2(oProgram, "iMouse");
 			
-			var _oPersv : Perspective = new Perspective();
+		//	var _oPersv : Perspective = new Perspective();
 			
 			
 			

@@ -366,7 +366,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 			//oUiTime = new UnVec2(oProgram, "iTime");
 			oUnType = new UnInt(oProgram, "nType");
 			
-			var _oPersv : Perspective = new Perspective();
+		//	var _oPersv : Perspective = new Perspective();
 			
 			
 	

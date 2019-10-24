@@ -48,7 +48,8 @@ package  {
 	uniform int nType;
 
 	in vec4 in_ObjPos; //x, y, z, ???? 
-	in vec4 in_ObjRot; // Roll, Yaw, Pitch, Focal
+	//in vec4 in_ObjRot; // Roll, Yaw, Pitch, Focal
+	in vec4 in_ObjRot; //Quaternion -> x, y, z, w
 	in vec4 in_ObjSize;  //Width,Height,Length, ????
 	
 	in vec4 in_Pt1;  //x,y,z, Width
@@ -234,14 +235,26 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 		
 		
 		
-		/*
-		gl_Position.xyz = fQRot(gl_Position.xyz, atObjRot);
+		//Quaternion
+	//	gl_Position.xyz = fQRot(gl_Position.xyz, in_ObjRot);
+		
+				///// Rotation ////
+			float _nTx = (gl_Position.x * cos(in_ObjRot.y)) - (gl_Position.z * sin(in_ObjRot.y));
+			float _nTz = (gl_Position.x * sin(in_ObjRot.y)) + (gl_Position.z * cos(in_ObjRot.y));
+			float _nTy = (gl_Position.y * cos(in_ObjRot.z)) - (_nTz * sin(in_ObjRot.z));
+			gl_Position.z  = (_nTy * sin(in_ObjRot.z)) - (_nTz * cos(in_ObjRot.z));
+			gl_Position.x = (_nTx * cos(in_ObjRot.x)) - (_nTy * sin(in_ObjRot.x));
+			gl_Position.y = (_nTx * sin(in_ObjRot.x)) + (_nTy * cos(in_ObjRot.x));
+			////////////////////
+		
+		
 		//vec3 _vObjPos = fQRot(vec3(400,300,0), atObjPos);
 		//vec3 _vObjPos =  cross(atObjPos.xyz, vec3(400,300,0)) + vec3(400,300,0);
-		vec3 _vObjPos = atObjPos.xyz;
+		vec3 _vObjPos = in_ObjPos.xyz;
 		
 		//////////// 3D To 2D ////////////////////
 		float nZx = ((gl_Position.z + _vObjPos.z) * vPersp.z) + 1.0;
+		//float nZx =1.0;
 		if(vPersp.w == 1.0){ //Self perspective
 			gl_Position.xy = (gl_Position.xy ) / nZx;
 		}else{
@@ -253,11 +266,11 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 		gl_Position.y = (((gl_Position.y ) + _vObjPos.y )  - (iResolution.y/2.0)) / (iResolution.y/2.0) * nZx;
 		gl_Position.z =  0.0;
 		///////////////////////////////////////////////
-		*/
+		
 
 
-			
-			//iResolution.y/2.0
+			/*
+			//Normal 2D
 			///// Rotation ////
 			float _nTx = (gl_Position.x * cos(in_ObjRot.y)) - (gl_Position.z * sin(in_ObjRot.y));
 			float _nTz = (gl_Position.x * sin(in_ObjRot.y)) + (gl_Position.z * cos(in_ObjRot.y));
@@ -266,30 +279,20 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 			gl_Position.x = (_nTx * cos(in_ObjRot.x)) - (_nTy * sin(in_ObjRot.x));
 			gl_Position.y = (_nTx * sin(in_ObjRot.x)) + (_nTy * cos(in_ObjRot.x));
 			////////////////////
-			
+		
 			//3D to Screen
 			gl_Position.w  =  gl_Position.z * in_ObjPos.w + 1.0;
 			gl_Position.x = (((gl_Position.x ) + in_ObjPos.x + 0.5)   - iResolution.x/2.0) /  (iResolution.x/2.0);
 			gl_Position.y = (((gl_Position.y ) + in_ObjPos.y + 0.499) - iResolution.y/2.0) / -(iResolution.y/2.0) ;
 			gl_Position.z = 0.0;
+				*/
+
+	
 	
 
-			//vec2 vTexDim = vec2(200.0, 200.0);
-
-			
+			//////////////////////////////////////
 			ioTexture.x = (vSrc.x + 0.5 ) / (vTexDim.x );
 			ioTexture.y = (vSrc.y + 0.5 ) / (vTexDim.y );
-			
-			
-			
-			//coord_Texture.x = (in_TexCoord0.x + 0.5) / (nTexDim.x + 4 );  //Not batch
-			//coord_Texture.y = (in_TexCoord0.y + 0.5) / (nTexDim.y + 4) ;  //Not batch
-
-			//coord_TextureSource.x = in_TexCoord0.x / nTexDim.x;
-			//coord_TextureSource.y = in_TexCoord0.y / nTexDim.y;
-
-		
-			//coord_Corner =vec2(0.5,0.5);
 			
 			coord_Color1 = in_Color1;
 			coord_Color2 = in_Color2;
@@ -703,7 +706,7 @@ pixTex  = texture(TexCurrent, ioTexture);
 
 			
 
-			var _oPersv : Perspective = new Perspective();
+		//	var _oPersv : Perspective = new Perspective();
 			
 			
 			
@@ -755,11 +758,16 @@ pixTex  = texture(TexCurrent, ioTexture);
 			oUiResolution.fSend();
 			
 		
-			oUvPersp.vVal.nX = 0;//nFromX
-			oUvPersp.vVal.nY = 0;//nFromY
-			oUvPersp.vVal.nZ = 500; //nValue
-			oUvPersp.vVal.nW = 1; //nType
+		
+			//Default Perspective
+			//TODO get perspective from current buffer!
+			
+			oUvPersp.vVal.nX = Context.oItf.oPerspective.nFromX;//nFromX
+			oUvPersp.vVal.nY = Context.oItf.oPerspective.nFromY;//nFromY
+			oUvPersp.vVal.nZ = Context.oItf.oPerspective.nValue;//nValue
+			oUvPersp.vVal.nW = Context.oItf.oPerspective.nType; //nType
 			oUvPersp.fSend();
+			
 			
 			oGpuBatch.fDraw();
 	
