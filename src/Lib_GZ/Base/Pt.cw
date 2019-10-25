@@ -54,7 +54,7 @@ package  {
 			
 			
 			<cpp>
-		//	fCross(GZ_VecUpCast( Vec3<T>,_oQuat));
+			fCross(GZ_VecUpCast( gzVecVec3<T>,_oQuat)); //TODO autocast in C~
 			</cpp>
 			
 			//fCross(_oQuat)
@@ -66,8 +66,9 @@ package  {
 			nZ += _nTempZ * _oQuat.nW;
 			
 			<cpp>
-		//	fCross(GZ_VecUpCast( Vec3<T>,_oQuat));
+			fCross(GZ_VecUpCast( gzVecVec3<T>,_oQuat)); //TODO autocast in C~
 			</cpp>
+			
 			//fCross(_oQuat);
 			nX = 2 * nX + _nTempX;
 			nY = 2 * nY + _nTempY;

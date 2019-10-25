@@ -187,7 +187,7 @@ inline int fFloatToInt( double d )
     }
 #endif
 
-#define USE_MATH_FUNCTION_INSTEAD
+//#define USE_MATH_FUNCTION_INSTEAD
 #ifdef GZ_tUSE_MATH_FUNCTION_INSTEAD
     #include <math.h>
     gzFloat inline fPow(gzFloat _nVal, gzFloat _nPower){return pow(_nVal, _nPower);}

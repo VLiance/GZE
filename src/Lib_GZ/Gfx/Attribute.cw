@@ -41,6 +41,7 @@ package  {
 			//hRotateOrder = eRotateOrder.YawPitchRoll;
 			
 			vQuaternion = new Quaternion<Float>();
+			vQuaternion.fReset();
 			//oCopyQuater = oQuaternion;
 			
 			vSize.nWidth = 1;
@@ -88,18 +89,12 @@ package  {
 	}
 	oQuaternion->fCombine((::GZ::Base::cQuaternion*)(oParent->oQuaternion.get()));
 	*/
-			
-		}
-
-
-
-		override public function  fApplyPos():Void {
-			
+	
 			vPos.fStep();
 			vRot.fStep();
 			vSize.fStep();
 			vColor.fStep();
-			/*
+			
 			vQuaternion.fReset();
 
 			//if(hRotateOrder == eRotateOrder.RollYawPitch){
@@ -111,9 +106,15 @@ package  {
 			//	oQuaternion.fPitch(nAttPitch * -1)
 			//	oQuaternion.fRoll(nAttRoll);
 			//}
-			vQuaternion.fCombine(oParent.vQuaternion);
-			*/
-			
+
+			vQuaternion.fCombine(oParent.vQuaternion);		
+		//	Debug.fTrace("vSetQuaternion:[" + vQuaternion.nX + ", " + vQuaternion.nY + ", " + vQuaternion.nZ + ", " + vQuaternion.nW + "]");
+				
+		}
+
+
+
+		override public function  fApplyPos():Void {
 			
 			
 			oGblPt.vPt.nX = vPos.nX  * oParent.vGblSize.nWidth;
@@ -121,7 +122,7 @@ package  {
 			oGblPt.vPt.nZ = vPos.nZ  * oParent.vGblSize.nLength;
 			
 			//oGblPt->fRotate((::GZ::Base::cQuaternion*)(oParent->oQuaternion.get()));
-		//	oGblPt.fRotate(oParent.oQuaternion);
+			oGblPt.vPt.fRotate(oParent.vQuaternion);
 			
 			oGblPt.vPt.nX += oParent.oGblPt.vPt.nX;
 			oGblPt.vPt.nY += oParent.oGblPt.vPt.nY;

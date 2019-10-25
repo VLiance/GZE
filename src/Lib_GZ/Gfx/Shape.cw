@@ -264,7 +264,7 @@ package  {
 				var x : Float = _oPt.oTf.nX * vGblSize.nWidth;
 				var y : Float = _oPt.oTf.nY * vGblSize.nHeight;
 				var z : Float = _oPt.oTf.nZ * vGblSize.nLength;
-				
+				/*
 				//////// Rotation /////////
 				var _nTx : Float = (x * Math.fCos(_nYaw)) - (z * Math.fSin(_nYaw));
 				var _nTz : Float = (x * Math.fSin(_nYaw)) + (z * Math.fCos(_nYaw));
@@ -273,12 +273,14 @@ package  {
 				x = (_nTx * Math.fCos(_nRoll)) - (_nTy * Math.fSin(_nRoll));
 				y = (_nTx * Math.fSin(_nRoll)) + (_nTy * Math.fCos(_nRoll));
 				///////////////////////
-				
+				*/
 				_oPt.oTf.nX =x;
 				_oPt.oTf.nY =y;
 				_oPt.oTf.nZ =z;
 
-				//_oPt.oTf.fRotate(vQuaternion);
+				_oPt.oTf.fRotate(vQuaternion);
+				//Debug.fTrace("vQuaternion:[" + vQuaternion.nX + ", " + vQuaternion.nY + ", " + vQuaternion.nZ + ", " + vQuaternion.nW + "]");
+				
 				
 			}
 			
