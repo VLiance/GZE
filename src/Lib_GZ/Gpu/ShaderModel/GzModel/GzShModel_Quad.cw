@@ -118,8 +118,9 @@ package  {
 	out vec2 ioTexture;
 	uniform vec2 vTexDim;
 	//in int gl_VertexID;
-
 	
+
+smooth out vec2 uv;
 	
 	
 vec3 fQRot( vec3 pt, vec4 rot)       {
@@ -213,6 +214,7 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 			
 		//	ivTexDim = ivec2(vTexDim);
 
+
             ///////////////////////////////////////////////////
             ///////////////// Select vertex  ///////////////////
             ///////////////////////////////////////////////////
@@ -220,11 +222,20 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 			if (nVertexID < 2){     // 0 || 1
                 if(nVertexID == 0){
                     //////// Vertex 0 ////////
+					uv = vec2(0,0);
+					//color = in_Color1;
+					//vCoDist = vec4(1.0,0.0,0.0,0.0);
+					
                     gl_Position = in_Pt1; 
 					ioCorner = vec2(0.25,0.25);
 					vSrc.x = in_TexSource0.x;
                     vSrc.y = in_TexSource0.y;
                 }else{
+				
+					uv = vec2(1,0);
+				//	color = in_Color2;
+					//vCoDist = vec4(0.0,1.0,0.0,0.0);
+		
                     //////// Vertex 1 ////////
                     gl_Position = in_Pt2;
 					ioCorner = vec2(0.75,0.25);
@@ -234,6 +245,10 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 			}else{                  // 2 || 3
                 if(nVertexID == 2){
                     //////// Vertex 2 ////////
+					uv = vec2(1,1);
+					//color = in_Color3;
+					//vCoDist = vec4(0.0,0.0,1.0,0.0);
+					
                     gl_Position = in_Pt3;
                     ioCorner = vec2(0.75,0.75);
                     vSrc.x = in_TexSource1.x;
@@ -241,6 +256,10 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 
                 }else{
                     //////// Vertex 3 ////////
+					uv = vec2(0,1);
+					//color = in_Color4;
+					//vCoDist = vec4(0.0,0.0,0.0,1.0);
+					
                     gl_Position = in_Pt4;
 					ioCorner = vec2(0.25,0.75);
                     vSrc.x = in_TexSource1.z;
@@ -279,10 +298,9 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 		
 		//Send color
 		coord_Color1 = in_Color1;
-		
-		//coord_Color2 = in_Color2;
-		//coord_Color3 = in_Color3;
-		//coord_Color4 = in_Color4;
+		coord_Color2 = in_Color2;
+		coord_Color3 = in_Color3;
+		coord_Color4 = in_Color4;
 		
 		coord_Pt1 = in_Pt1;
 		coord_Pt2 = in_Pt2;
@@ -313,6 +331,16 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 			//coord_TextureSource.y = in_TexCoord0.y / nTexDim.y;
 		}
 		*/
+		
+		
+		
+// UV(0, 0), COLOR(YOUR DESIRED COLOR);//	TL:
+// UV(0, 1), COLOR(YOUR DESIRED COLOR);//BL:
+// UV(1, 1), COLOR(YOUR DESIRED COLOR)//BR:
+//UV(1, 0), COLOR(YOUR DESIRED COLOR)//TR: 
+		
+	
+		
 	}
 				
 				
@@ -380,23 +408,27 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 	vec4 pixTex;
 
 
+
+smooth in vec2 uv;
+	
 void main()
 {
+	/// Make a bilinear interpolation from uv ///
+	vec4 _vCoDist = vec4((1.0-uv.x)*(1.0-uv.y), (uv.x)*(1.0-uv.y), (uv.x)*(uv.y), (1.0-uv.x)*(uv.y));
+	////////////////////////////////////////
 	
 	if( nType == 4 ||  nType == 6){ //Normal
 
       //  vec4 vPtDist = vec4(0.0, 0.0, 0.0, 1.0); //No Color
-	//vec4 vPtDist = ( ioColor1 * vCoDist.a) + (ioColor2 * vCoDist.r) + (ioColor3 * vCoDist.b) + (ioColor4 * vCoDist.g);
-	
-	
+		vec4 vPtDist = ( coord_Color1 * _vCoDist.a) + (coord_Color2 * _vCoDist.r) + (coord_Color3 * _vCoDist.b) + (coord_Color4 * _vCoDist.g);
+
 	//	vec4 vCoDist = texture(TexFragPos, ioCorner );
      //   vec4 vPtDist = iomColor * vCoDist;
 	 
 		//vec4 vPtDist = vec4(1.0, 0.0, 0.0, 0.5); //No Color
-		vec4 vPtDist = coord_Color1; 
+	//	vec4 vPtDist = coord_Color1; 
+	//	vec4 vPtDist = _vQuadColor; 
 		
-		
-	
 		//if(ioSrcType == 1){
 
 			//Normal
@@ -637,6 +669,13 @@ pixTex  = texture(TexCurrent, ioTexture);
 		 //FragColor =  vec4( 0, vCoDist.b + vCoDist.r, 0,1.0);
 
 	}
+	
+	
+
+	//FragColor = vec4( _vQuadColor.g, 0.0, 0.0, 1.0);
+	//FragColor = vec4( _vQuadColor.rgb, 1.0);
+	//FragColor = vec4( (1.0-uv.x)*(uv.y), 0.0 ,0.0,  1.0);
+	
 }
 				
 </glsl>
