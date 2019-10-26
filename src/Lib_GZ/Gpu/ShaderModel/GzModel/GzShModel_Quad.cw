@@ -120,8 +120,23 @@ package  {
 	//in int gl_VertexID;
 	
 
-smooth out vec2 uv;
-	
+smooth out vec2 uv; //Current UV
+
+//LIGHT
+int nFrontFacing;
+xflat out vec3 ioPt1;
+xflat out vec3 ioPt2;
+xflat out vec3 ioPt3;
+xflat out vec3 ioPt4;
+xflat out vec3 ioNorm1;
+xflat out vec3 ioNorm2;
+xflat out vec3 ioNorm3;
+xflat out vec3 ioNorm4;
+xflat out mat4 iomWorldPt;
+xflat out mat4 iomNorm;
+/////////
+
+
 	
 vec3 fQRot( vec3 pt, vec4 rot)       {
 	return pt + 2.0*cross(rot.xyz, cross(rot.xyz,pt) + rot.w*pt);
@@ -308,6 +323,69 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 		coord_Pt4 = in_Pt4;
 		
 		
+		
+		///////////////////////////////////
+		//////////// LIGHT ////////////////
+		///////////////////////////////////
+		
+		ioPt1 = in_Pt1.xyz * in_ObjSize.xyz;
+		ioPt2 = in_Pt2.xyz * in_ObjSize.xyz;
+		ioPt3 = in_Pt3.xyz * in_ObjSize.xyz;
+		ioPt4 = in_Pt4.xyz * in_ObjSize.xyz;
+
+		////////////// All Rotation  ///////////
+		ioPt1.xyz = fQRot(ioPt1.xyz, in_ObjRot);
+		ioPt2.xyz = fQRot(ioPt2.xyz, in_ObjRot);
+		ioPt3.xyz = fQRot(ioPt3.xyz, in_ObjRot);
+		ioPt4.xyz = fQRot(ioPt4.xyz, in_ObjRot);
+
+		vec3 pt1 = ioPt1;
+		vec3 pt2 = ioPt2;
+
+		nZx = ((pt1.z + _vObjPos.z) * vPersp.z) + 1.0;\n
+		pt1.x = (pt1.x + (_vObjPos.x - vPersp.x) ) / nZx - (_vObjPos.x - vPersp.x);\n
+		pt1.y = (pt1.y + (_vObjPos.y - vPersp.y) ) / nZx - (_vObjPos.y - vPersp.y);\n
+
+		nZx = ((pt2.z + _vObjPos.z) * vPersp.z) + 1.0;\n
+		pt2.x = (pt2.x + (_vObjPos.x - vPersp.x) ) / nZx - (_vObjPos.x - vPersp.x);\n
+		pt2.y = (pt2.y + (_vObjPos.y - vPersp.y) ) / nZx - (_vObjPos.y - vPersp.y);\n
+
+	   if(cross(pt1, pt2).z < 0 ){
+			nFrontFacing = -1;
+		}else{
+			nFrontFacing = 1;
+		}
+			
+		 //If both = anulation
+		if(in_ObjSize.x < 0){ //Reverse width
+		   nFrontFacing *= -1;
+		}
+		if(in_ObjSize.y < 0){ //Reverse height
+		   nFrontFacing *= -1;
+		}
+
+		ioNorm1 = normalize(vec3(-1.0,-1.0,-9.0 * nFrontFacing ));
+		ioNorm2 = normalize(vec3( 1.0,-1.0,-9.0 * nFrontFacing));
+		ioNorm3 = normalize(vec3( 1.0, 1.0,-9.0 * nFrontFacing ));
+		ioNorm4 = normalize(vec3(-1.0, 1.0,-9.0 * nFrontFacing ));
+
+		ioNorm1.xyz = fQRot_2(ioNorm1.xyz, in_ObjRot);
+		ioNorm2.xyz = fQRot_2(ioNorm2.xyz, in_ObjRot);
+		ioNorm3.xyz = fQRot_2(ioNorm3.xyz, in_ObjRot);
+		ioNorm4.xyz = fQRot_2(ioNorm4.xyz, in_ObjRot);
+
+		iomWorldPt[0] = vec4( ioPt1 + _vObjPos.xyz,0);
+		iomWorldPt[1] = vec4(ioPt2 + _vObjPos.xyz,0);
+		iomWorldPt[2] = vec4(ioPt3 + _vObjPos.xyz,0);
+		iomWorldPt[3] = vec4(ioPt4 + _vObjPos.xyz,0);
+
+		iomNorm[0] = vec4(ioNorm1,0);
+		iomNorm[1] = vec4(ioNorm2,0);
+		iomNorm[2] = vec4(ioNorm3,0);
+		iomNorm[3] = vec4(ioNorm4,0);
+		//////////////////////////////////////////////////////
+		/////////////////////////////////////////////////////
+		
 		/*	
 		}
 		if(nType == 2){ //Buffer
@@ -331,20 +409,11 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 			//coord_TextureSource.y = in_TexCoord0.y / nTexDim.y;
 		}
 		*/
-		
-		
-		
-// UV(0, 0), COLOR(YOUR DESIRED COLOR);//	TL:
-// UV(0, 1), COLOR(YOUR DESIRED COLOR);//BL:
-// UV(1, 1), COLOR(YOUR DESIRED COLOR)//BR:
-//UV(1, 0), COLOR(YOUR DESIRED COLOR)//TR: 
-		
 	
-		
+
 	}
 				
-				
-				
+		
 </glsl>
 
 			oVertex.fLoad();
@@ -409,6 +478,15 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 
 
 
+/////////////
+
+xflat in mat4 iomWorldPt;
+xflat in mat4 iomNorm;
+
+vec4  vColorSpecular = vec4(2.0, 2.0, 0.0, 1.0); //0 to X Can be premultiplied with alpha
+vec4  vColorDiffuse = vec4(0.3,0.3,0.3, 1.0);  // -1 to 1
+////////////
+	
 smooth in vec2 uv;
 	
 void main()
@@ -600,11 +678,12 @@ pixTex  = texture(TexCurrent, ioTexture);
         /////////////////////////////////////////////////////
    // if(nType == 8){ //Unicolo (no Alpha)
         /////////////////////////  Phong light  ///////////////////
-/*
-        vec3 vPtWorld = vec3((iomWorldPt * vCoDist));
-        vec3 vPtNorm =  ((iomNorm * vCoDist).xyz);
 
-        vec3 light_position =  (vec3(1514 ,-384, -600.0));
+        vec3 vPtWorld = vec3((iomWorldPt * _vCoDist));
+        vec3 vPtNorm =  ((iomNorm * _vCoDist).xyz);
+
+       // vec3 light_position =  (vec3(1514 ,-384, -600.0));
+        vec3 light_position =  (vec3(1514 ,-200, -600.0));
         vec3 eye_position =   (vec3(500,384,-1024));
 
 
@@ -636,20 +715,17 @@ pixTex  = texture(TexCurrent, ioTexture);
          // vec3 H = normalize(L + V );//Halfway
          // specular = 0.65 * pow(max(0, dot(H, vPtNorm)), 0.65);
         }
-*/
 
-/*
         //// Diffuse ////
         vColorDiffuse.rgb = (vColorDiffuse.rgb +  1.0) * ((att *diffuse)*vColorDiffuse.a+(1.0-vColorDiffuse.a));
         vDark  = clamp(vColorDiffuse.rgb, 0.0, 1.0); //0 a 1 -> = 1 if bright
         vLight = clamp(vColorDiffuse.rgb - 1.0, 0.0, 1.0); //0 a 1 -> = 0 if Dark
         pixTex.rgb = (((( vec3(pixTex.a) -  pixTex.rgb ) * vLight) + pixTex.rgb) * vDark);
 
-
         // Specular
         vLight = clamp(vColorSpecular.rgb * vColorSpecular.a * att * specular -1.0, 0.0, 1.0); //0 a 1 -> = 0 if Dark
         pixTex.rgb = (((( vec3(pixTex.a) -  pixTex.rgb ) * vLight) + pixTex.rgb)  );
-*/
+
 
    // }
 //pixTex.a = 0.5;
