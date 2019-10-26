@@ -10,7 +10,7 @@ package  {
 	import GZ.Base.Math.Math;
 	import GZ.Gfx.Pixel;
 	import GZ.Gfx.Object;
-	import GZ.Gfx.Perspective;
+	import GZ.Base.Perspective;
 	import GZ.Sys.Interface.Interface;
 	import GZ.Gpu.GpuObj.GpuBuffer;
 

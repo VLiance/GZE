@@ -15,7 +15,7 @@ package  {
 		public var oEvbo : Evbo;
 		
 		<cpp_namespace>
-		 static char aIndice2TriA[] = {0,1,2, 0,2,3};
+		 static char aIndice2TriA[] = {3,2,0, 2,1,0 };
 		</cpp_namespace>
 		
 		

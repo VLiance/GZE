@@ -41,7 +41,7 @@ package  {
 		
 		
 		override public function fSend():Void {
-			OpenGL.fUniform2f(nId, vVal.nX, vVal.nY);
+			OpenGL.fUniform4f(nId, vVal.nX, vVal.nY, vVal.nZ, vVal.nW);
 		}
 		
 		

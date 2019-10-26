@@ -158,6 +158,23 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 	
 
 	void main(){
+			/*
+			//Normal 2D
+			///// Rotation ////
+			float _nTx = (gl_Position.x * cos(in_ObjRot.y)) - (gl_Position.z * sin(in_ObjRot.y));
+			float _nTz = (gl_Position.x * sin(in_ObjRot.y)) + (gl_Position.z * cos(in_ObjRot.y));
+			float _nTy = (gl_Position.y * cos(in_ObjRot.z)) - (_nTz * sin(in_ObjRot.z));
+			gl_Position.z  = (_nTy * sin(in_ObjRot.z)) - (_nTz * cos(in_ObjRot.z));
+			gl_Position.x = (_nTx * cos(in_ObjRot.x)) - (_nTy * sin(in_ObjRot.x));
+			gl_Position.y = (_nTx * sin(in_ObjRot.x)) + (_nTy * cos(in_ObjRot.x));
+			////////////////////
+		
+			//3D to Screen
+			gl_Position.w  =  gl_Position.z * in_ObjPos.w + 1.0;
+			gl_Position.x = (((gl_Position.x ) + in_ObjPos.x + 0.5)   - iResolution.x/2.0) /  (iResolution.x/2.0);
+			gl_Position.y = (((gl_Position.y ) + in_ObjPos.y + 0.499) - iResolution.y/2.0) / -(iResolution.y/2.0) ;
+			gl_Position.z = 0.0;
+				*/
 
 /*
 		if(nType == 1){ //Normal 2D
@@ -232,29 +249,15 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 			}
 		
 		gl_Position.xyz *=  in_ObjSize.xyz;
-		
-		
-		
+
 		//Quaternion
-	//	gl_Position.xyz = fQRot(gl_Position.xyz, in_ObjRot);
-		
-				///// Rotation ////
-			float _nTx = (gl_Position.x * cos(in_ObjRot.y)) - (gl_Position.z * sin(in_ObjRot.y));
-			float _nTz = (gl_Position.x * sin(in_ObjRot.y)) + (gl_Position.z * cos(in_ObjRot.y));
-			float _nTy = (gl_Position.y * cos(in_ObjRot.z)) - (_nTz * sin(in_ObjRot.z));
-			gl_Position.z  = (_nTy * sin(in_ObjRot.z)) - (_nTz * cos(in_ObjRot.z));
-			gl_Position.x = (_nTx * cos(in_ObjRot.x)) - (_nTy * sin(in_ObjRot.x));
-			gl_Position.y = (_nTx * sin(in_ObjRot.x)) + (_nTy * cos(in_ObjRot.x));
-			////////////////////
-		
-		
-		//vec3 _vObjPos = fQRot(vec3(400,300,0), atObjPos);
-		//vec3 _vObjPos =  cross(atObjPos.xyz, vec3(400,300,0)) + vec3(400,300,0);
-		vec3 _vObjPos = in_ObjPos.xyz;
-		
+		gl_Position.xyz = fQRot(gl_Position.xyz, in_ObjRot);
+
 		//////////// 3D To 2D ////////////////////
+		vec3 _vObjPos = in_ObjPos.xyz;
+
 		float nZx = ((gl_Position.z + _vObjPos.z) * vPersp.z) + 1.0;
-		//float nZx =1.0;
+		
 		if(vPersp.w == 1.0){ //Self perspective
 			gl_Position.xy = (gl_Position.xy ) / nZx;
 		}else{
@@ -267,45 +270,28 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 		gl_Position.z =  0.0;
 		///////////////////////////////////////////////
 		
+		gl_Position.y = 1.0 - gl_Position.y - 1.0; //FlipY
 
-
-			/*
-			//Normal 2D
-			///// Rotation ////
-			float _nTx = (gl_Position.x * cos(in_ObjRot.y)) - (gl_Position.z * sin(in_ObjRot.y));
-			float _nTz = (gl_Position.x * sin(in_ObjRot.y)) + (gl_Position.z * cos(in_ObjRot.y));
-			float _nTy = (gl_Position.y * cos(in_ObjRot.z)) - (_nTz * sin(in_ObjRot.z));
-			gl_Position.z  = (_nTy * sin(in_ObjRot.z)) - (_nTz * cos(in_ObjRot.z));
-			gl_Position.x = (_nTx * cos(in_ObjRot.x)) - (_nTy * sin(in_ObjRot.x));
-			gl_Position.y = (_nTx * sin(in_ObjRot.x)) + (_nTy * cos(in_ObjRot.x));
-			////////////////////
+		//////////// SRC ///////////////
+		ioTexture.x = (vSrc.x + 0.5 ) / (vTexDim.x );
+		ioTexture.y = (vSrc.y + 0.5 ) / (vTexDim.y );
+		////////////////////////////////
 		
-			//3D to Screen
-			gl_Position.w  =  gl_Position.z * in_ObjPos.w + 1.0;
-			gl_Position.x = (((gl_Position.x ) + in_ObjPos.x + 0.5)   - iResolution.x/2.0) /  (iResolution.x/2.0);
-			gl_Position.y = (((gl_Position.y ) + in_ObjPos.y + 0.499) - iResolution.y/2.0) / -(iResolution.y/2.0) ;
-			gl_Position.z = 0.0;
-				*/
-
-	
-	
-
-			//////////////////////////////////////
-			ioTexture.x = (vSrc.x + 0.5 ) / (vTexDim.x );
-			ioTexture.y = (vSrc.y + 0.5 ) / (vTexDim.y );
-			
-			coord_Color1 = in_Color1;
-			coord_Color2 = in_Color2;
-			coord_Color3 = in_Color3;
-			coord_Color4 = in_Color4;
-			
-			coord_Pt1 = in_Pt1;
-			coord_Pt2 = in_Pt2;
-			coord_Pt3 = in_Pt3;
-			coord_Pt4 = in_Pt4;
+		//Send color
+		coord_Color1 = in_Color1;
+		
+		//coord_Color2 = in_Color2;
+		//coord_Color3 = in_Color3;
+		//coord_Color4 = in_Color4;
+		
+		coord_Pt1 = in_Pt1;
+		coord_Pt2 = in_Pt2;
+		coord_Pt3 = in_Pt3;
+		coord_Pt4 = in_Pt4;
+		
+		
 		/*	
 		}
-		
 		if(nType == 2){ //Buffer
 		
 			gl_Position = vec4(in_PtPos, 1.0) ;
@@ -399,12 +385,18 @@ void main()
 	
 	if( nType == 4 ||  nType == 6){ //Normal
 
+      //  vec4 vPtDist = vec4(0.0, 0.0, 0.0, 1.0); //No Color
+	//vec4 vPtDist = ( ioColor1 * vCoDist.a) + (ioColor2 * vCoDist.r) + (ioColor3 * vCoDist.b) + (ioColor4 * vCoDist.g);
+	
+	
 	//	vec4 vCoDist = texture(TexFragPos, ioCorner );
-		//vec4 vPtDist = ( ioColor1 * vCoDist.a) + (ioColor2 * vCoDist.r) + (ioColor3 * vCoDist.b) + (ioColor4 * vCoDist.g);
      //   vec4 vPtDist = iomColor * vCoDist;
-       // vec4 vPtDist = vec4(1.0, 0.5,0.5,0.5);
-        vec4 vPtDist = vec4(0.0, 0.0, 0.0, 1.0);
-
+	 
+		//vec4 vPtDist = vec4(1.0, 0.0, 0.0, 0.5); //No Color
+		vec4 vPtDist = coord_Color1; 
+		
+		
+	
 		//if(ioSrcType == 1){
 
 			//Normal
@@ -561,7 +553,8 @@ pixTex  = texture(TexCurrent, ioTexture);
         vLight = clamp(vPtDist.rgb , 0.0, 1.0); //0 a 1 -> = 0 if Dark
         pixTex.rgb = (((( vec3(pixTex.a) -  pixTex.rgb ) * vLight) + pixTex.rgb) * vec3(vPtDist.a) * vDark);
         pixTex.a *= vPtDist.a;
-
+		//////////////////////////////////
+		
 		//if(vCoDist.r + vCoDist.b   > 1.0 - 0.01546875){  //.495 ? Factoriel?  //0.98453125
 			//pixTex = vec4(1,0.0,0.0,1);
 		//}; //Top
@@ -630,9 +623,9 @@ pixTex  = texture(TexCurrent, ioTexture);
 //pixTex.a = 0.5;
 
 
-      //  FragColor =  pixTex;
+        FragColor =  pixTex;
        // FragColor =  vec4(1.0, 0.5, 0.5, 0.5);
-        FragColor =  texture(TexCurrent, ioTexture);
+       // FragColor =  texture(TexCurrent, ioTexture);
 
         /*
 		if(ioSrcType == 2.0){
@@ -771,7 +764,7 @@ pixTex  = texture(TexCurrent, ioTexture);
 			
 			oGpuBatch.fDraw();
 	
-		//	Debug.fTrace("Size: " + oAt.oVbo.aData.nSize)
+			//Debug.fTrace("oUvPersp: " +oUvPersp.vVal.nX + ", " + oUvPersp.vVal.nY + ", " + oUvPersp.vVal.nZ + ", " + oUvPersp.vVal.nW )
 			//Debug.fTrace("!" +  oAt.aData[0]  );
 			
 			

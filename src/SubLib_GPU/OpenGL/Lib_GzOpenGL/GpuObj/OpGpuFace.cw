@@ -62,7 +62,7 @@ package  {
 		oAt.oAtObjSize.fSet(oFace.oShape.vGblSize);
 
 		//oAtObjSize
-		oAt.oAtObjRot.fSet(oFace.oShape.vGblRot);
+		oAt.oAtObjRot.fSet(oFace.oShape.vQuaternion);
 		
 		/**
 	
@@ -91,11 +91,13 @@ package  {
 		oAt.oAtTexSource1.fSetVal(2, oFace.rPtS4.nX);
 		oAt.oAtTexSource1.fSetVal(3, oFace.rPtS4.nY);
 		
-		var _vColor : Vec4<Float> = new Vec4<Float>(0.5,0.5,0.5,0.5);
-		oAt.oAtColor1.fSet(_vColor);
-		oAt.oAtColor2.fSet(_vColor);
-		oAt.oAtColor3.fSet(_vColor);
-		oAt.oAtColor4.fSet(_vColor);
+
+		oAt.oAtColor1.fSet(oFace.oShape.vColor);
+		oAt.oAtColor2.fSet(oFace.oShape.vColor); //Not used
+		oAt.oAtColor3.fSet(oFace.oShape.vColor); //Not used
+		
+		var _vColor4 : Vec4<Float> = new Vec4<Float>(0.0,0.1,0.5,0.5);
+		oAt.oAtColor4.fSet(_vColor4); //Not used
 
 		
 		//Debug.fTrace("GPU draw face! " + oAt.oAtPt1.oVbo.aData.nSize);

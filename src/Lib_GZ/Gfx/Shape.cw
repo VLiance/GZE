@@ -293,6 +293,10 @@ package  {
 
 		public function fConvertTo2d():Void {
 
+		
+			//Debug.fTrace("AAAA: " +oDstBuff.oPerspective.nFromX + ", " +oDstBuff.oPerspective.nFromY + ", " + oDstBuff.oPerspective.nValue + ", " + oDstBuff.oPerspective.nType )
+			
+		
 			var _nFocal : Float = oDstBuff.oPerspective.nValue;
 			
 			var _nX : Float = oGblPt.vPt.nX + 0.25;

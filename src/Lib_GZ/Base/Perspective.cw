@@ -27,6 +27,7 @@ package  {
 		
 		public var nFocal : Float;
 		public var nValue : Float;
+		public var nValueInv : Float;
 		public var nFromX : Float;
 		public var nFromY : Float;
 		public var nType : Int;
@@ -77,6 +78,7 @@ package  {
 			nFocal = _nPcVal;
 			_nPcVal += 10;
 			nValue = 8.0 / (_nPcVal * _nPcVal);
+			nValueInv = 1 / nValue;
 		}
 		
 		/*
