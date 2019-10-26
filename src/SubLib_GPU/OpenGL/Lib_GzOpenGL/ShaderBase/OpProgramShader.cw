@@ -27,9 +27,8 @@ package  {
 		override public function fLink():Bool{
 			
 			OpenGL.fLinkProgram(nId);
-			var _nLinkStatus : UInt;
-			OpenGL.fGetProgramParameter(nId, LINK_STATUS, _nLinkStatus);
-			if(_nLinkStatus != 0){
+
+			if(OpenGL.fIsProgramLinked(nId) ){
 				bLinked = true;
 			}else{
 				var _sError : String = OpenGL.fGetProgramInfoLog(nId);

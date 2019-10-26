@@ -72,7 +72,7 @@ package  {
 	////  in vec4 in_AchorPt4;  //x1,y1,x2,x2  
 
 	in vec3 in_PtPos;       //Remove     
-	in vec2 in_Corner;      //Remove     
+	//in vec2 in_Corner;      //Remove     
 	in vec4 in_Color2;   //Remove     
 	in vec4 in_Color3;   //Remove     
 	in vec4 in_Color4;   //Remove     

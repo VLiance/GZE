@@ -538,16 +538,33 @@ generate "OpenGL" {
 		gen public static function fLinkProgram(_nIdProgram : Val):Void;
 		
 		
-		public static function fGetProgramParameter(_nShaderId : Val, _hInfo : eProgramInfo, _aParams:CArray<Int>):Void{
+		public static function fIsProgramLinked(_nProgId : Val):Bool{
 			<cpp>
 				#ifdef D_Platform_Web_Emsc
-					oGL.call<void>("getProgramParameter", _nShaderId,  val((int)_hInfo) );	 //Not sure
+					return oGL.call<gzBool>("getProgramParameter", _nProgId,  val((int) eProgramInfo::LINK_STATUS) );	 //Not sure
 					
 				#else
-					GL_fGetProgramiv(_nShaderId, _hInfo, _aParams);
+					gzInt _nResult = false;
+					GL_fGetProgramiv(_nProgId, eProgramInfo::LINK_STATUS, &_nResult);
+					return (gzBool)_nResult;
+				#endif
+			</cpp>
+			
+		}
+		
+		
+		
+		public static function fGetProgramParameter(_nProgId : Val, _hInfo : eProgramInfo, _aParams:CArray<Int>):Void{
+			<cpp>
+				#ifdef D_Platform_Web_Emsc
+					oGL.call<void>("getProgramParameter", _nProgId,  val((int)_hInfo) );	 //Not sure
+					
+				#else
+					GL_fGetProgramiv(_nProgId, _hInfo, _aParams);
 				#endif
 			</cpp>
 		}
+		
 		gen private static function fGetProgramiv(_nIdProgram : Val, _hInfo:eProgramInfo, _aParams:CArray<Int>):Void;
 		
 		
