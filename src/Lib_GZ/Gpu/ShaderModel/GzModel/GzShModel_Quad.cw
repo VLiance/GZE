@@ -123,7 +123,8 @@ package  {
 smooth out vec2 uv; //Current UV
 
 //LIGHT
-int nFrontFacing;
+float nFrontFacing;
+
 xflat out vec3 ioPt1;
 xflat out vec3 ioPt2;
 xflat out vec3 ioPt3;
@@ -350,18 +351,18 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 		pt2.x = (pt2.x + (_vObjPos.x - vPersp.x) ) / nZx - (_vObjPos.x - vPersp.x);\n
 		pt2.y = (pt2.y + (_vObjPos.y - vPersp.y) ) / nZx - (_vObjPos.y - vPersp.y);\n
 
-	   if(cross(pt1, pt2).z < 0 ){
-			nFrontFacing = -1;
+	   if(cross(pt1, pt2).z < 0.0 ){
+			nFrontFacing = -1.0;
 		}else{
-			nFrontFacing = 1;
+			nFrontFacing = 1.0;
 		}
 			
 		 //If both = anulation
-		if(in_ObjSize.x < 0){ //Reverse width
-		   nFrontFacing *= -1;
+		if(in_ObjSize.x < 0.0){ //Reverse width
+		   nFrontFacing *= -1.0;
 		}
-		if(in_ObjSize.y < 0){ //Reverse height
-		   nFrontFacing *= -1;
+		if(in_ObjSize.y < 0.0){ //Reverse height
+		   nFrontFacing *= -1.0;
 		}
 
 		ioNorm1 = normalize(vec3(-1.0,-1.0,-9.0 * nFrontFacing ));
@@ -691,7 +692,7 @@ pixTex  = texture(TexCurrent, ioTexture);
         vec3 V = normalize( eye_position - vPtWorld);//view direction
 
 
-        float LdotN = max(0, dot(L,vPtNorm));
+        float LdotN = max(0.0, dot(L,vPtNorm));
 
         float diffuse = 0.85 * LdotN; //0.5 Just a random material
 
@@ -704,12 +705,12 @@ pixTex  = texture(TexCurrent, ioTexture);
         float att = 1.0 / (att_kC + d * att_kL + d*d*att_kQ);
 
 
-        float specular = 0;
+        float specular = 0.0;
 
         if(LdotN > 0.0){
           //choose H or R to see the difference
           vec3 R = -normalize(reflect(L, vPtNorm));//Reflection
-            specular = 0.65 * pow(max(0, dot(R, V)), 0.15);
+            specular = 0.65 * pow(max(0.0, dot(R, V)), 0.15);
 
           //Blinn-Phong
          // vec3 H = normalize(L + V );//Halfway
