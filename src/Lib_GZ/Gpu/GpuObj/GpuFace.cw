@@ -10,7 +10,10 @@ package  {
 	
 	public overclass GpuFace  {
 	
-
+	
+		public static var nCurrent : UInt;
+		
+		
 		public wvar oFace : Face;
 	
 		public function GpuFace( _oFace :Face):Void{

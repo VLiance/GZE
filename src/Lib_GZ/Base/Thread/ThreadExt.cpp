@@ -51,13 +51,12 @@ namespace Lib_GZ{namespace Base{namespace Thread{
 
     void cThreadExt::Constructor(Lib_GZ::Dlg_r_void_p_gzPtr::DlgP _dCallBack){
 	//printf("\nIni_cThreadExt");
-				printf("\n ---- Create THREAD EXT \n");
+		printf("\n ---- Create THREAD EXT \n");
 
         ThreadList::fAdd(this);
 	
        // pSysThread = new cSysThread(_dCallBack, 0);
        oThreadObj = Sys::ThreadObj::Get(thread)->New(this, this, _dCallBack.get()); 
-	    printf("Ini_cThreadExtaaaaa crete\n");
        fStart();
  
 	  
@@ -70,7 +69,7 @@ namespace Lib_GZ{namespace Base{namespace Thread{
 	}*/
 
 	void cThreadExt::fStart(){
-      printf("\nfStarte\n");
+     // printf("\nfStarte\n");
 	
         #ifndef GZ_D_Monothread
 		

@@ -314,9 +314,9 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 		
 		//Send color
 		coord_Color1 = in_Color1;
-		coord_Color2 = in_Color2;
-		coord_Color3 = in_Color3;
-		coord_Color4 = in_Color4;
+		//coord_Color2 = in_Color2;
+		//coord_Color3 = in_Color3;
+		//coord_Color4 = in_Color4;
 		
 		coord_Pt1 = in_Pt1;
 		coord_Pt2 = in_Pt2;
@@ -449,9 +449,9 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 	in vec2 coord_Corner;
 
 	flat in vec4 coord_Color1;
-	flat in vec4 coord_Color2;
-	flat in vec4 coord_Color3;
-	flat in vec4 coord_Color4;
+	//flat in vec4 coord_Color2;
+	//flat in vec4 coord_Color3;
+	//flat in vec4 coord_Color4;
 
 	flat in vec4 coord_Pt1;
 	flat in vec4 coord_Pt2;
@@ -484,8 +484,9 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 xflat in mat4 iomWorldPt;
 xflat in mat4 iomNorm;
 
-vec4  vColorSpecular = vec4(2.0, 2.0, 0.0, 1.0); //0 to X Can be premultiplied with alpha
-vec4  vColorDiffuse = vec4(0.3,0.3,0.3, 1.0);  // -1 to 1
+vec4  vColorSpecular = vec4(2.0, 2.0, 1.5, 1.0); //0 to X Can be premultiplied with alpha
+vec4  vColorDiffuse = vec4(1.5,1.5,1.5, 1.5);  //rgb -1 to 2  no diffuse : vec4(0.0,0.0,0.0, 1.0); normal : vec4(1.0,1.0,1.0, 1.0);
+vec3 vAmbient = vec3(0.0, 0.0, 0.0);
 ////////////
 	
 smooth in vec2 uv;
@@ -499,13 +500,13 @@ void main()
 	if( nType == 4 ||  nType == 6){ //Normal
 
       //  vec4 vPtDist = vec4(0.0, 0.0, 0.0, 1.0); //No Color
-		vec4 vPtDist = ( coord_Color1 * _vCoDist.a) + (coord_Color2 * _vCoDist.r) + (coord_Color3 * _vCoDist.b) + (coord_Color4 * _vCoDist.g);
+		//vec4 vPtDist = ( coord_Color1 * _vCoDist.a) + (coord_Color2 * _vCoDist.r) + (coord_Color3 * _vCoDist.b) + (coord_Color4 * _vCoDist.g);
 
 	//	vec4 vCoDist = texture(TexFragPos, ioCorner );
      //   vec4 vPtDist = iomColor * vCoDist;
 	 
 		//vec4 vPtDist = vec4(1.0, 0.0, 0.0, 0.5); //No Color
-	//	vec4 vPtDist = coord_Color1; 
+		vec4 vPtDist = coord_Color1; 
 	//	vec4 vPtDist = _vQuadColor; 
 		
 		//if(ioSrcType == 1){
@@ -659,11 +660,7 @@ pixTex  = texture(TexCurrent, ioTexture);
 
 
 
-        //// Custom interpolated color ////
-        vDark  = clamp(vPtDist.rgb + 1.0, 0.0, 1.0); //0 a 1 -> = 1 if bright
-        vLight = clamp(vPtDist.rgb , 0.0, 1.0); //0 a 1 -> = 0 if Dark
-        pixTex.rgb = (((( vec3(pixTex.a) -  pixTex.rgb ) * vLight) + pixTex.rgb) * vec3(vPtDist.a) * vDark);
-        pixTex.a *= vPtDist.a;
+    
 		//////////////////////////////////
 		
 		//if(vCoDist.r + vCoDist.b   > 1.0 - 0.01546875){  //.495 ? Factoriel?  //0.98453125
@@ -684,7 +681,7 @@ pixTex  = texture(TexCurrent, ioTexture);
         vec3 vPtNorm =  ((iomNorm * _vCoDist).xyz);
 
        // vec3 light_position =  (vec3(1514 ,-384, -600.0));
-        vec3 light_position =  (vec3(1514 ,-200, -600.0));
+        vec3 light_position =  (vec3(1514 ,-200, -800.0));
         vec3 eye_position =   (vec3(500,384,-1024));
 
 
@@ -700,8 +697,12 @@ pixTex  = texture(TexCurrent, ioTexture);
         float att_kL = 0.0;
         float att_kQ = 0.5;
 
+
+
+
+
         //attenuation
-        float d = distance( light_position,  vPtWorld) / 1024.0;
+        float d = distance( light_position,  vPtWorld) / 800.0;
         float att = 1.0 / (att_kC + d * att_kL + d*d*att_kQ);
 
 
@@ -710,21 +711,44 @@ pixTex  = texture(TexCurrent, ioTexture);
         if(LdotN > 0.0){
           //choose H or R to see the difference
           vec3 R = -normalize(reflect(L, vPtNorm));//Reflection
-            specular = 0.65 * pow(max(0.0, dot(R, V)), 0.15);
+           // specular = 0.65 * pow(max(0.0, dot(R, V)), 512); //https://learnopengl.com/Lighting/Basic-Lighting
+            specular = pow(max(0.0, dot(R, V)), 16.0);//0.15  https://learnopengl.com/Lighting/Basic-Lighting
 
           //Blinn-Phong
          // vec3 H = normalize(L + V );//Halfway
          // specular = 0.65 * pow(max(0, dot(H, vPtNorm)), 0.65);
         }
 
+		
+		  //// Custom interpolated color ////
+        vDark  = clamp(vPtDist.rgb + 1.0, 0.0, 1.0); //0 a 1 -> = 1 if bright
+        vLight = clamp(vPtDist.rgb , 0.0, 1.0); //0 a 1 -> = 0 if Dark
+        pixTex.rgb = (((( vec3(pixTex.a) -  pixTex.rgb ) * vLight) + pixTex.rgb) * vec3(vPtDist.a) * vDark);
+        pixTex.a *= vPtDist.a;
+		
+	
+	
         //// Diffuse ////
-        vColorDiffuse.rgb = (vColorDiffuse.rgb +  1.0) * ((att *diffuse)*vColorDiffuse.a+(1.0-vColorDiffuse.a));
+     
+		vColorDiffuse.rgb = (vColorDiffuse.rgb) * ((att *diffuse)*vColorDiffuse.a+(1.0-vColorDiffuse.a)) + vAmbient;
+		
+		vDark  = clamp(vColorDiffuse.rgb + 1.0, 0.0, 1.0); //0 a 1 -> = 1 if bright
+        vLight = clamp(vColorDiffuse.rgb , 0.0, 1.0); //0 a 1 -> = 0 if Dark
+        pixTex.rgb = (((( vec3(pixTex.a) -  pixTex.rgb ) * vLight) + pixTex.rgb)  * vDark);
+		
+		/*
         vDark  = clamp(vColorDiffuse.rgb, 0.0, 1.0); //0 a 1 -> = 1 if bright
         vLight = clamp(vColorDiffuse.rgb - 1.0, 0.0, 1.0); //0 a 1 -> = 0 if Dark
-        pixTex.rgb = (((( vec3(pixTex.a) -  pixTex.rgb ) * vLight) + pixTex.rgb) * vDark);
-
+        pixTex.rgb = (((( vec3(pixTex.a) -  pixTex.rgb ) * vLight) + pixTex.rgb) * (vDark));
+*/
+		
+		
+		//vPtDist += vColorDiffuse + vec4(vAmbient,0.0);
+		
+	
         // Specular
-        vLight = clamp(vColorSpecular.rgb * vColorSpecular.a * att * specular -1.0, 0.0, 1.0); //0 a 1 -> = 0 if Dark
+      //  vLight = clamp(vColorSpecular.rgb * vColorSpecular.a * att * specular -1.0, 0.0, 1.0); //0 a 1 -> = 0 if Dark
+        vLight = clamp(vColorSpecular.rgb * vColorSpecular.a * specular -1.0, 0.0, 1.0); //0 a 1 -> = 0 if Dark
         pixTex.rgb = (((( vec3(pixTex.a) -  pixTex.rgb ) * vLight) + pixTex.rgb)  );
 
 
@@ -733,6 +757,9 @@ pixTex  = texture(TexCurrent, ioTexture);
 
 
         FragColor =  pixTex;
+       // FragColor =  vColorDiffuse + vec4(vAmbient,0.0);
+		
+		
        // FragColor =  vec4(1.0, 0.5, 0.5, 0.5);
        // FragColor =  texture(TexCurrent, ioTexture);
 
@@ -886,7 +913,7 @@ pixTex  = texture(TexCurrent, ioTexture);
 			
 			//if(bTest == false){
 			//	bTest = true;
-		
+		/*
 			if(nTest  < 3){
 				Debug.fTrace("------------------------------- " + nTest);
 				Debug.fTrace("----Size ---- " + oAt.oVbo.aData.nSize);
@@ -896,7 +923,7 @@ pixTex  = texture(TexCurrent, ioTexture);
 				}
 				nTest++;
 			}
-			
+			*/
 	
 			/*
 			forEach(var _nData : Float in oAt.aData){

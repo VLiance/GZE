@@ -42,7 +42,7 @@ package  {
 		</cpp>
 		
 			oProgram = _oProgram;
-			Debug.fTrace("--- Vbo Created!! ---");
+			//Debug.fTrace("--- Vbo Created!! ---");
 			oProgram.aVbo.fPush(this);
 			
 			fLoad();

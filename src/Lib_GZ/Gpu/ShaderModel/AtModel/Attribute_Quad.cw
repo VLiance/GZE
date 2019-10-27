@@ -170,9 +170,28 @@ package  {
 			oAtColor2.fSetOffset(_nTotalPerAttrib * 10);
 			oAtColor3.fSetOffset(_nTotalPerAttrib * 11);
 			oAtColor4.fSetOffset(_nTotalPerAttrib * 12);
-			
-			
 		}
+		
+		public function fSetIndex(_nIndex:UInt):Void{
+			 
+			oAtObjPos.fSetIndex(_nIndex);
+			oAtObjRot.fSetIndex(_nIndex);
+			oAtObjSize.fSetIndex(_nIndex);
+			
+			oAtPt1.fSetIndex(_nIndex);
+			oAtPt2.fSetIndex(_nIndex);
+			oAtPt3.fSetIndex(_nIndex);
+			oAtPt4.fSetIndex(_nIndex);
+			
+			oAtTexSource0.fSetIndex(_nIndex);
+			oAtTexSource1.fSetIndex(_nIndex);
+			
+			oAtColor1.fSetIndex(_nIndex);
+			oAtColor2.fSetIndex(_nIndex);
+			oAtColor3.fSetIndex(_nIndex);
+			oAtColor4.fSetIndex(_nIndex);
+		}
+		
 		
 		
 		public function fUpdate():Void {

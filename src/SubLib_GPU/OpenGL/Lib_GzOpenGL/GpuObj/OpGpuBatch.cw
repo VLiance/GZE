@@ -7,6 +7,7 @@ package  {
 	import GZ.Gpu.GpuObj.GpuBatch;
 	import GZ.Gpu.ShaderBase.Evbo;
 	import GZ.Gpu.ShaderModel.GzModel.GzShModel;
+	import GZ.Sys.Interface.Context;
 	
 	public class OpGpuBatch overplace GpuBatch {
 		
@@ -71,7 +72,7 @@ package  {
 
 	
 	
-			var _nNbElement : Int  = 1;
+			var _nNbElement : Int  = Context.oItf.nTotalFaces;
 
 			OpenGL.fBindFramebuffer(FRAMEBUFFER, null); //Default?
 	

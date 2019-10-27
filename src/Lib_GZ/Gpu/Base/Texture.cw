@@ -27,7 +27,7 @@ package  {
 			//oProgram.aTex.fPush(this); //Todo
 			
 			fLoad();
-			Debug.fTrace("--- Texture Created!! ---");
+		//	Debug.fTrace("--- Texture Created!! ---");
 		}
 		
 		

@@ -70,10 +70,10 @@ class cThreadExt : public Lib_GZ::Base::cClass  {
 		
 	//Only on debug
 	inline virtual void ViewAddInst() const {
-		printf("\n-----AddThreadInst");
+		//printf("\n-----AddThreadInst");
 	}
 	inline virtual void ViewSubInst() const {
-		printf("\n------SubThreadInst");
+		//printf("\n------SubThreadInst");
 	}
 	
 

@@ -14,7 +14,7 @@ package  {
 		
 
 		public function MainThreadPlatformMsg():Void {
-			Debug.fTrace("MainThreadPlatformMsg!!!!!!!!!!!!!!!!!");
+			Debug.fTrace("MainThreadPlatformMsg!");
 		}
 		
 		

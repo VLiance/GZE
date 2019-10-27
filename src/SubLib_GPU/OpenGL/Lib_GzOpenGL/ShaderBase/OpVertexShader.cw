@@ -18,7 +18,7 @@ package  {
 		
 		override public function fAddHeader():Void {
 			if(hGlsl_ES_Version == eGlsl_ES_Version.Auto){
-				Debug.fTrace("--****************--");
+				//Debug.fTrace("--****************--");
 				
 				<cpp>
 					#ifdef D_Platform_Web_Emsc

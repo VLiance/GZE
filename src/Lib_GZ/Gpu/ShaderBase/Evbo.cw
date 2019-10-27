@@ -27,7 +27,7 @@ package  {
 		</cpp>
 		
 			oProgram = _oProgram;
-			Debug.fTrace("--- Evbo Created!! ---");
+			//Debug.fTrace("--- Evbo Created!! ---");
 			oProgram.aVbo.fPush(this);
 			
 			fLoad();

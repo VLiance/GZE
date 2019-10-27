@@ -19,6 +19,9 @@ package  {
 	public var oAt : Attribute_Quad;
 	
 	
+
+	
+	
 	
 	public function OpGpuFace( _oFace :Face):Void{
 
@@ -36,6 +39,13 @@ package  {
 			return;
 		}
 		</cpp>
+		
+		oAt.fSetIndex(GpuFace.nCurrent);
+		GpuFace.nCurrent++;
+				
+	
+		
+		//GpuFace.nCurrent++;
 		
 		//Debug.fTrace("GPU draw face! " );
 		/*

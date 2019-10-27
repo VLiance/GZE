@@ -33,12 +33,17 @@ package  {
 		public  var vColor : Color<EaseFloat>;
 		
 		
-
+		public enum eRotateOrder : Int {
+			RollYawPitch;
+			YawPitchRoll;
+		}
+		
+		public var hRotateOrder : eRotateOrder;
 		
 		public function Attribute( _oParent : Root):Void {
 			Root(_oParent);
 			 oGblPt : PtA = new PtA();
-			//hRotateOrder = eRotateOrder.YawPitchRoll;
+			hRotateOrder = eRotateOrder.YawPitchRoll;
 			
 			vQuaternion = new Quaternion<Float>();
 			vQuaternion.fReset();
@@ -97,15 +102,15 @@ package  {
 			
 			vQuaternion.fReset();
 
-			//if(hRotateOrder == eRotateOrder.RollYawPitch){
+			if(hRotateOrder == eRotateOrder.RollYawPitch){
 				vQuaternion.fRoll(vRot.nRoll);
 				vQuaternion.fYaw(vRot.nYaw);
 				vQuaternion.fPitch(vRot.nPitch * -1)
-			//}else{
-			//	oQuaternion.fYaw(nAttYaw);
-			//	oQuaternion.fPitch(nAttPitch * -1)
-			//	oQuaternion.fRoll(nAttRoll);
-			//}
+			}else{ //YawPitchRoll
+				vQuaternion.fYaw(vRot.nYaw);
+				vQuaternion.fPitch(vRot.nPitch * -1)
+				vQuaternion.fRoll(vRot.nRoll);
+			}
 
 			vQuaternion.fCombine(oParent.vQuaternion);		
 		//	Debug.fTrace("vSetQuaternion:[" + vQuaternion.nX + ", " + vQuaternion.nY + ", " + vQuaternion.nZ + ", " + vQuaternion.nW + "]");

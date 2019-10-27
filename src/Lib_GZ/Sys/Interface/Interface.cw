@@ -13,6 +13,7 @@ package  {
 	import GZ.Base.Thread.Thread;
 	import GZ.Gfx.Clip.Rectangle;
 	import GZ.Gpu.GpuObj.GpuBuffer;
+	import GZ.Gpu.GpuObj.GpuFace;
 
 	import GZ.Sys.System;
 	import GZ.Sys.ThreadItf;
@@ -171,7 +172,13 @@ package  {
 			
 		//	if (bSreenCreated && oWindow.bBlitInProgress == false) {
 			if (oContext.bIniDrawZone && bSreenCreated && oContext.bBlitInProgress == false) {
-
+			
+			
+				//RESET GpuFace
+				GpuFace.nCurrent = 0; //Reset Quad face count 
+				
+			
+			
 				oContext.fGetWindowSize();
 			
 				aPixelArray = oContext.aDrawZone2D;  //Update pixel array after fliping (If change)
@@ -194,7 +201,7 @@ package  {
 					fDispatchRender(); 
 				}
 				
-				       
+			
 				if (oBackground) { 
 					oBackground.fDraw();
 				//	Debug.fTrace("Draw Background")

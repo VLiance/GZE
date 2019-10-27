@@ -14,7 +14,7 @@ package  {
 		}
 		
 		override public function fLoad():Void {
-			Debug.fTrace("--- OpAttribute Created!! ---");
+			//Debug.fTrace("--- OpAttribute Created!! ---");
 			
 			OpenGL.fBindBuffer(ARRAY_BUFFER, oVbo.nId);
 			
@@ -114,7 +114,7 @@ package  {
 				*/
 			}
 			
-			Debug.fTrace("SetDivisor");
+			//Debug.fTrace("SetDivisor");
 		}
 		
 		

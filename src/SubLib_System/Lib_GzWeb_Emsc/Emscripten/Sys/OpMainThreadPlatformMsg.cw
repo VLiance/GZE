@@ -31,21 +31,20 @@ package  {
 		 }
 		 
 		override public function fRegisterContext(_gFrom : Gate<Context>, _oWindow : Window):Void {
-
+			/*
 			Debug.fTrace("RECTxxxx "  + _oWindow.vFrame.nX);
 			Debug.fTrace("RECTyyyy"  + _oWindow.vFrame.nY);
 			Debug.fTrace("RECTwww"  + _oWindow.vFrame.nWidth);
 			Debug.fTrace("RECThhh"  + _oWindow.vFrame.nHeight);
+		*/
 			
-			
-			
-			
+		
 
 //			ThreadMsg.fSend(new MsgCreateWindow("MonMessage!"));
 			Debug.fTrace("Finsish CreateEmsc " );
 
 			_gFrom.fContextRegistred(0, 0);
-			Debug.fTrace("Fok " );
+			///Debug.fTrace("Fok " );
 		}
 		
 	

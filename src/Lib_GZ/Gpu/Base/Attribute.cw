@@ -29,6 +29,8 @@ package  {
 		
 		public var nId : Val;
 		public var nOffset : UInt;
+		
+		public var nCurrentIndex : UInt;
 		public var sName : String;
 		public var bValid : Bool = false;
 		
@@ -69,16 +71,23 @@ package  {
 		
 		//public function fSet(_oData : CArray<Float>):Void {
 		
+		
+
+		public function fSetIndex(_nIndex : UInt):Void {
+			nCurrentIndex = _nIndex * 4; //Pour vec4?
+		}
+		
+		
 		//TODO inline!
 		public function fSet(_aVec : ArrayView<Float>):Void {
 			var _aData : Array<Float> = oVbo.aData;
 			for(var i : UInt = 0; i < _aVec.nSize; i++){
-				_aData[nOffset + i]	 =  _aVec[i];
+				_aData[nOffset + i + nCurrentIndex]	 =  _aVec[i];
 			}
 		}
 		public function fSetVal(_nIndex: UInt, _nValue : Float):Void {
 			var _aData : Array<Float> = oVbo.aData;
-			_aData[nOffset + _nIndex] = _nValue;
+			_aData[nOffset + _nIndex + nCurrentIndex] = _nValue;
 		}
 		
 		
