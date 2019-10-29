@@ -35,9 +35,18 @@
 		gzUInt _nErr = GetLastError();
 		if(_nErr == 127){
 			SetLastError(0);
+			//const char *_cLibName = "C:\\Windows\\System32\\opengl32.dll";
 			const char *_cLibName = "opengl32.dll";
 			HMODULE _pModule = LoadLibraryA(_cLibName);
-			if(_pModule){
+			
+			/*
+			char *fileExt;
+			char szDir[256]; //dummy buffer
+			GetFullPathNameA(_cLibName, 256, szDir, &fileExt); 
+			printf("\nFull path: %s\nFilename: %s", szDir, fileExt);
+			*/	
+			
+			if(!_pModule){
 				GZ_Debug_fError(gzU8("Can't load Library: ") + gzStrC(_cLibName) + gzU8(" for ") + gzStrC(_cName));
 			}else{
 				p = (void *)GetProcAddress(_pModule, _cName);
