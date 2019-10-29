@@ -35,10 +35,15 @@
 		gzUInt _nErr = GetLastError();
 		if(_nErr == 127){
 			SetLastError(0);
-			HMODULE _pModule = LoadLibraryA("opengl32.dll");
-			p = (void *)GetProcAddress(_pModule, _cName);
-			if(p == 0 && _bRequired){
-				GZ_Debug_fError(gzU8("Error OGL function Missing: ") + gzStrC(_cName));
+			const char *_cLibName = "opengl32.dll";
+			HMODULE _pModule = LoadLibraryA(_cLibName);
+			if(_pModule){
+				GZ_Debug_fError(gzU8("Can't load Library: ") + gzStrC(_cLibName) + gzU8(" for ") + gzStrC(_cName));
+			}else{
+				p = (void *)GetProcAddress(_pModule, _cName);
+				if(p == 0 && _bRequired){
+					GZ_Debug_fError(gzU8("Error OGL function Missing: ") + gzStrC(_cName));
+				}
 			}
 		}else{
 			if(_nErr){ 
