@@ -65,12 +65,12 @@ package  {
 		 }
 		 
 		override public function fRegisterContext(_gFrom : Gate<Context>, _oWindow : Window):Void {
-
+/*
 			Debug.fTrace("RECTxxxx "  + _oWindow.vFrame.nX);
 			Debug.fTrace("RECTyyyy"  + _oWindow.vFrame.nY);
 			Debug.fTrace("RECTwww"  + _oWindow.vFrame.nWidth);
 			Debug.fTrace("RECThhh"  + _oWindow.vFrame.nHeight);
-			
+			*/
 					
 			var _nHandleId : UIntX = 0;
 			var _nWinHandleId : UIntX = 0;

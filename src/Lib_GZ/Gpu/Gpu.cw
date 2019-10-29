@@ -12,7 +12,7 @@ package  {
 		public var oGpuInfo : GpuInfo;
 		
 		public function Gpu(_nHandleId : UIntX, _bGlobalSharedContext : Bool):Void {
-			Debug.fTrace("--- Gpu Created!! ---");
+			//Debug.fTrace("--- Gpu Created!! ---");
 			oGpuInfo = new GpuInfo();
 			
 			fContextIni(_nHandleId, _bGlobalSharedContext);

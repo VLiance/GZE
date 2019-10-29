@@ -8,7 +8,7 @@ package  {
 		
 						
 		public function OpVertexShader(_hGlsl_ES_Version : eGlsl_ES_Version = eGlsl_ES_Version.Auto):Void { 
-			Debug.fTrace("--- OpVertexShader Created!! ---");
+			//Debug.fTrace("--- OpVertexShader Created!! ---");
 			VertexShader(_hGlsl_ES_Version);
 			
 			fAddHeader();

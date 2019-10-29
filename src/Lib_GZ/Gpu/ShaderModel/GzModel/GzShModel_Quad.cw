@@ -486,7 +486,7 @@ xflat in mat4 iomNorm;
 
 vec4  vColorSpecular = vec4(2.0, 2.0, 1.5, 1.0); //0 to X Can be premultiplied with alpha
 vec4  vColorDiffuse = vec4(1.5,1.5,1.5, 1.5);  //rgb -1 to 2  no diffuse : vec4(0.0,0.0,0.0, 1.0); normal : vec4(1.0,1.0,1.0, 1.0);
-vec3 vAmbient = vec3(0.0, 0.0, 0.0);
+vec3 vAmbient = vec3(0.2, 0.2, 0.2);
 ////////////
 	
 smooth in vec2 uv;
@@ -677,12 +677,12 @@ pixTex  = texture(TexCurrent, ioTexture);
    // if(nType == 8){ //Unicolo (no Alpha)
         /////////////////////////  Phong light  ///////////////////
 
-        vec3 vPtWorld = vec3((iomWorldPt * _vCoDist));
-        vec3 vPtNorm =  ((iomNorm * _vCoDist).xyz);
+        vec3 vPtWorld = (iomWorldPt * _vCoDist).xyz;
+        vec3 vPtNorm =  (iomNorm * _vCoDist).xyz;
 
        // vec3 light_position =  (vec3(1514 ,-384, -600.0));
-        vec3 light_position =  (vec3(1514 ,-200, -800.0));
-        vec3 eye_position =   (vec3(500,384,-1024));
+        vec3 light_position = vec3(1514.0 ,-200.0, -800.0);
+        vec3 eye_position =   vec3( 500.0,  384.0,-1024.0);
 
 
         vec3 L = normalize( light_position - vPtWorld);//light direction
@@ -693,18 +693,25 @@ pixTex  = texture(TexCurrent, ioTexture);
 
         float diffuse = 0.85 * LdotN; //0.5 Just a random material
 
-        float att_kC = 0.2;
-        float att_kL = 0.0;
-        float att_kQ = 0.5;
-
+		
+		//http://in2gpu.com/2014/06/19/lighting-vertex-fragment-shader/
+		
+		//0 to 1
+        float att_kC = 0.9; //Kc is the constant attenuation
+        float att_kL = 0.6; //KL is the linear attenuation
+        float att_kQ = 0.8; //KQ is the quadratic attenuation
+ 
 
 
 
 
         //attenuation
-        float d = distance( light_position,  vPtWorld) / 800.0;
-        float att = 1.0 / (att_kC + d * att_kL + d*d*att_kQ);
-
+       // float d = distance( light_position,  vPtWorld) / 800.0;
+        float d = distance( normalize(light_position),  normalize(vPtWorld.xyz) );
+		//d =  1.5;
+       // float att = 1.0 / (att_kC + d * att_kL + d*d*att_kQ); //Do the inverse
+        float att =  (att_kC + d * att_kL + d*d*att_kQ);
+//att = 0.0;
 
         float specular = 0.0;
 
@@ -730,7 +737,8 @@ pixTex  = texture(TexCurrent, ioTexture);
 	
         //// Diffuse ////
      
-		vColorDiffuse.rgb = (vColorDiffuse.rgb) * ((att *diffuse)*vColorDiffuse.a+(1.0-vColorDiffuse.a)) + vAmbient;
+		//vColorDiffuse.rgb = (vColorDiffuse.rgb) * ((att *diffuse)*vColorDiffuse.a+(1.0-vColorDiffuse.a)) + vAmbient;
+		vColorDiffuse.rgb = (vColorDiffuse.rgb) * (( diffuse/ att )*vColorDiffuse.a+(1.0-vColorDiffuse.a)) + vAmbient;
 		
 		vDark  = clamp(vColorDiffuse.rgb + 1.0, 0.0, 1.0); //0 a 1 -> = 1 if bright
         vLight = clamp(vColorDiffuse.rgb , 0.0, 1.0); //0 a 1 -> = 0 if Dark
@@ -758,8 +766,11 @@ pixTex  = texture(TexCurrent, ioTexture);
 
         FragColor =  pixTex;
        // FragColor =  vColorDiffuse + vec4(vAmbient,0.0);
+      //  FragColor =  vec4(diffuse*10.0, 0.0 ,1.0,1.0);
+       // FragColor =  vec4(iomNorm[0].xyz,1.0);
 		
 		
+      //  FragColor =  vec4(vColorDiffuse.rgb+ vec3(1.0,1.0,1.0) , 1.0);
        // FragColor =  vec4(1.0, 0.5, 0.5, 0.5);
        // FragColor =  texture(TexCurrent, ioTexture);
 

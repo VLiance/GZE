@@ -8,7 +8,7 @@ package  {
 	public class OpFragmentShader overplace FragmentShader {
 		
 		public function OpFragmentShader(_hGlsl_ES_Version : eGlsl_ES_Version = eGlsl_ES_Version.Auto):Void { 
-			Debug.fTrace("--- OpFragmentShader Created!! ---");
+			//Debug.fTrace("--- OpFragmentShader Created!! ---");
 			FragmentShader(_hGlsl_ES_Version);
 			
 			fAddHeader();
@@ -75,6 +75,10 @@ package  {
 				<glsl(this)>
 					#version 330  //GL 3.3 minimal
 					#line 2
+					
+					precision lowp float; 
+					
+					
 					#define xflat flat
 					out vec4 FragColor;
 					#define FragCoord gl_FragCoord

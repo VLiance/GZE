@@ -80,8 +80,7 @@ package  {
 		
 		override public function fCpuLoad():Bool {
 		
-		
-			Debug.fTrace("LoadRessource");
+		//	Debug.fTrace("LoadRessource");
 			
 			if(bRcLoaded == false){
 				bRcLoaded = true;

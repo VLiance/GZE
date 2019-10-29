@@ -55,7 +55,7 @@ package  {
 			fSetDivisor(_nDivisor); //Must be after been loaded
 			
 						
-			Debug.fTrace("--- Attribute Created!! ---");
+			//Debug.fTrace("--- Attribute Created!! ---");
 		}
 		
 		/*

@@ -75,7 +75,7 @@ package  {
 			 oPt4 = _oPt4;
 
 			oShape.oItf.nTotalFaces++;
-			Debug.fTrace("Face:" +	oShape.oItf.nTotalFaces );
+			//Debug.fTrace("Face:" +	oShape.oItf.nTotalFaces );
 			nPt1 = 0;
 			nPt2 = 3;
 			nPt3 = 6;
