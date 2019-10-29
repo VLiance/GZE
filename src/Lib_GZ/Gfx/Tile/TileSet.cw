@@ -75,8 +75,8 @@ package  {
 				//var _nWidth : UInt = _oImgNode.fAttributeInt("width");
 				//var _nWidth : UInt = _oImgNode.fAttributeInt("height");
 				
-				oRc = new RcImg();	
-				oRc.fLoadFromDrive(_sSrc);
+				oRc = new RcImg(_sSrc);	
+				//oRc.fLoadFromDrive(_sSrc);
 				oRc.fCpuLoad();
 				oRc.fGpuLoad();	
 			 }
@@ -103,13 +103,13 @@ package  {
 			nTilePerRow = nWidth / nTileWidthB;
 		}
 		
-		public function fGetTilePos(_nId : UInt):Pt {
+		public function fGetTilePos(_nId : UInt):Pt<Float> {
 			var _nTileId : UInt = _nId - nFirstGrid;
 			var _nTileY : UInt = (_nTileId / nTilePerRow);
 			var _nTileX : UInt = (_nTileId - (_nTileY * nTilePerRow));
 			var _nPosX : Float = _nTileX* nTileWidthB + nMargin;
 			var _nPosY : Float = _nTileY* nTileWidthB + nMargin;
-			var _oPt : Pt<Float> = new Pt(_nPosX, _nPosY);
+			var _oPt : Pt<Float> = new Pt<Float>(_nPosX, _nPosY);
 			return _oPt;
 		}
 		

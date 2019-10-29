@@ -63,7 +63,7 @@ package  {
 
 			if(oTileData.oTileset.nTilePerRow > 0){
 				var _oSrcPos : Pt<Float> =  _oTileset.fGetTilePos(oTileData.nId);
-				var _oRegion : Rect = new Rect(_oSrcPos , new Dim(_oTileset.nTileWidth,_oTileset.nTileHeight));
+				var _oRegion : Rect<Float> = new Rect<Float>(_oSrcPos , new Dim(_oTileset.nTileWidth,_oTileset.nTileHeight));
 				
 				if(oTileData.nFlipX < 0){
 					_oRegion.fFlipX();
@@ -75,7 +75,7 @@ package  {
 					_oRegion.fFlipD();
 				}
 				
-				var _oPts : Rect = new Rect(new Pt(oTileData.oTileset.nTileWidth * nCaseX, oTileData.oTileset.nTileHeight * nCaseY), new Dim(32.0,32.0));
+				var _oPts : Rect<Float> = new Rect<Float>(new Pt<Float>(oTileData.oTileset.nTileWidth * nCaseX, oTileData.oTileset.nTileHeight * nCaseY), new Dim<Float>(32.0,32.0));
 
 				//Img(_oParent, oTileData.oTileset.nTileWidth * nCaseX, oTileData.oTileset.nTileHeight * nCaseY, oTileData.oTileset.oRc, false, 0,0,false,false, _oRegion, oTileData.oTileset.nTileWidth, oTileData.oTileset.nTileHeight);
 				Img(_oParent, 0, 0, oTileData.oTileset.oRc, false, 0,0,false,false, _oRegion, oTileData.oTileset.nTileWidth, oTileData.oTileset.nTileHeight, _oPts);
