@@ -11,7 +11,8 @@ package  {
 	import GZ.Gfx.Tile.MapData;
 	import GZ.Gfx.Clip.Img;
 	import GZ.Gfx.Root;
-	import GZ.Base.Rect;
+	//import GZ.Base.Rect;
+	import GZ.Base.Poly.PolyRect;
 	import GZ.Base.Pt;
 	import GZ.Base.Dim;
 	import GZ.Gfx.Tile.LayerData;
@@ -63,7 +64,9 @@ package  {
 
 			if(oTileData.oTileset.nTilePerRow > 0){
 				var _oSrcPos : Pt<Float> =  _oTileset.fGetTilePos(oTileData.nId);
-				var _oRegion : Rect<Float> = new Rect<Float>(_oSrcPos , new Dim(_oTileset.nTileWidth,_oTileset.nTileHeight));
+				var _oDim  : Dim<Float> = new Dim<Float>(_oTileset.nTileWidth,_oTileset.nTileHeight);
+				var _oRegion : PolyRect<Float> = new PolyRect<Float>(_oSrcPos ,_oDim);
+				//var _oRegion : PolyRect<Float> = new PolyRect<Float>(_oSrcPos , new Dim<Float>(_oTileset.nTileWidth,_oTileset.nTileHeight));
 				
 				if(oTileData.nFlipX < 0){
 					_oRegion.fFlipX();
@@ -75,7 +78,13 @@ package  {
 					_oRegion.fFlipD();
 				}
 				
-				var _oPts : Rect<Float> = new Rect<Float>(new Pt<Float>(oTileData.oTileset.nTileWidth * nCaseX, oTileData.oTileset.nTileHeight * nCaseY), new Dim<Float>(32.0,32.0));
+				
+				var _nWidth : Float = oTileData.oTileset.nTileWidth * nCaseX;
+				var _nHeight : Float = oTileData.oTileset.nTileHeight * nCaseY;
+				
+				var _vPt : Pt<Float> = new Pt<Float>(_nWidth, _nHeight);
+				var _oDimPt  : Dim<Float> = new Dim<Float>(_oTileset.nTileWidth,_oTileset.nTileHeight);
+				var _oPts : PolyRect<Float> = new PolyRect<Float>(_vPt, _oDimPt);
 
 				//Img(_oParent, oTileData.oTileset.nTileWidth * nCaseX, oTileData.oTileset.nTileHeight * nCaseY, oTileData.oTileset.oRc, false, 0,0,false,false, _oRegion, oTileData.oTileset.nTileWidth, oTileData.oTileset.nTileHeight);
 				Img(_oParent, 0, 0, oTileData.oTileset.oRc, false, 0,0,false,false, _oRegion, oTileData.oTileset.nTileWidth, oTileData.oTileset.nTileHeight, _oPts);
@@ -107,10 +116,10 @@ package  {
 			var _nWidth : Float = (oTileData.oTileset.oRc.nWidth + 2.0);
 			var _oTileset : TileSet = oTileData.oTileset;
 
-			var _oPtT : Pt<Float> = new Pt();
-			var _oPtR : Pt<Float> = new Pt();
-			var _oPtB : Pt<Float> = new Pt();
-			var _oPtL : Pt<Float> = new Pt();
+			var _oPtT : Pt<Float> = new Pt<Float>();
+			var _oPtR : Pt<Float> = new Pt<Float>();
+			var _oPtB : Pt<Float> = new Pt<Float>();
+			var _oPtL : Pt<Float> = new Pt<Float>();
 			if(_oTileT){
 				_oPtT =  _oTileset.fGetTilePos(_oTileT.nId);
 			}
@@ -199,10 +208,10 @@ package  {
 			var _oTileTR : TileData = _aTileData[nCaseY - 1][nCaseX + 1];
 			var _oTileBR : TileData = _aTileData[nCaseY + 1][nCaseX + 1];
 			var _oTileBL : TileData = _aTileData[nCaseY + 1][nCaseX - 1];
-			var _oPtTL : Pt<Float> = new Pt();
-			var _oPtTR : Pt<Float> = new Pt();
-			var _oPtBR : Pt<Float> = new Pt();
-			var _oPtBL : Pt<Float> = new Pt();
+			var _oPtTL : Pt<Float> = new Pt<Float>();
+			var _oPtTR : Pt<Float> = new Pt<Float>();
+			var _oPtBR : Pt<Float> = new Pt<Float>();
+			var _oPtBL : Pt<Float> = new Pt<Float>();
 			if(_oTileTL){
 				 _oPtTL  =_oTileset.fGetTilePos(_oTileTL.nId);
 			}

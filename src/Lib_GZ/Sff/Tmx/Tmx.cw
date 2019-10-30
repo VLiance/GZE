@@ -25,24 +25,25 @@ package  {
 		public var oMainMap : MapData;
 
 
-		public function Tmx( _sPath : String = ""):Void {
-			Xml(_sPath);
-			//oMainMap = new TmxMap(this);
+		public function Tmx(_oParentNode:XmlNode):Void {
 			oMainMap = new MapData();
 		}
 
 		public function fLoad( _sPath : String = ""):Bool {
 
-			if(xXml.fLoad()){
+			if(xXml.fLoad(_sPath)){
+			
 				oCurrNode = fFirst();
 				if(oCurrNode.hType == XmlNode.eType.Element){
 					var _oElement : XmlElement = oCurrNode;
 					oMainMap.fLoadTxmNode(_oElement);
 				}
+				return false;
 			}
+			
+			Debug.fError("Unable to load:" + _sPath );
 
-
-			return true;
+			return false;
 		}
 
 

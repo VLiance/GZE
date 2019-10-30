@@ -20,12 +20,13 @@ package  {
 		public var aImg : CArray<RcImg>;
 
 
-		public function RcImgSequence(_aImg : CArray<RcImg>, _nTotal : UInt ):Void {
-			aImg = _aImg;
-			nTotal = _nTotal;
+	//	public function RcImgSequence(_aImg : CArray<RcImg>, _nTotal : UInt ):Void {
+		public function RcImgSequence(_sPath : String, _hLocation: eLocation = eLocation.Unknow):Void {
+			//aImg = _aImg;
+			//nTotal = _nTotal;
 		}
 
-
+/*
 		override public function fCpuLoad():Bool {
 			//Image.fOpen(this);
 			for (var i : UInt  = 0; i < nTotal; i++) {
@@ -49,7 +50,7 @@ package  {
 		destructor {
 			//Image.fDelete(this);
 		}
-
+*/
 
 
 	}

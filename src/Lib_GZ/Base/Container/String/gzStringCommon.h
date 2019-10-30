@@ -210,6 +210,30 @@
 			return _sResult;
 	 }
 	 
+	 
+	 
+	 
+	 gzUInt fToUInt() const { //TODO Only gzStr8 => convert? 
+		gzInt c = 0;
+		gzInt sign = 0;
+		gzInt x = 0;
+		gzUInt8* p = &gzp_DataArray[1];
+
+		for(c = *(p++); (c < 48 || c > 57); c = *(p++)) {
+			if (c == 45) {
+				sign = 1; c = *(p++); break;
+			}
+		}; // eat whitespaces and check sign
+
+		for(; c > 47 && c < 58; c = *(p++)){
+			x = (x << 1) + (x << 3) + c - 48;
+		}
+
+		return sign ? -x : x;
+	}
+		 
+	 
+	 
 	/*
 	 gzStr fReplace(const gzp_Type& _pFind, const gzp_Type& _pRemplace, gzUIntX _nFromIndex = 0, gzResult_Search& _rFind ) const {
 			gzStr _sNewStr;

@@ -351,12 +351,10 @@ template<class T> gzSp<T> gzSCast( gzClass _ptr ) //GZ_NoExcept
 }
 */
 
-template<class T, class U> gzSharedCount*  gzSCast( gzSp<U> const & _pOri ) //GZ_NoExcept
-{
+template<class T, class U> gzSharedCount*  gzSCast( gzSp<U> const & _pOri ){ //GZ_NoExcept
 	return _pOri;
 }
-template<class T, class U> gzSharedCount*  gzSCast( U* _pOri ) //GZ_NoExcept
-{
+template<class T, class U> gzSharedCount*  gzSCast( U* _pOri ){ //GZ_NoExcept
 	return _pOri;
 }
 

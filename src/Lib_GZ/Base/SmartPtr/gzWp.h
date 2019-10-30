@@ -97,7 +97,16 @@ class gzWp {
         return *this;
     }*/
 
-
+	//Automatic convert to pointer
+	//Example: Lib_GZ::Sys::Debug::SetInst(oMain->thread) = Lib_GZ::Sys::Debug::Get(oMain->thread)->New(oMain.get());
+	//To: 	  Lib_GZ::Sys::Debug::SetInst(oMain->thread) = Lib_GZ::Sys::Debug::Get(oMain->thread)->New(oMain);
+	template <class R>
+	inline operator  R*()const{
+	    return obj;
+	}
+	
+	
+	
     inline T* operator->() const
     { return const_cast<T*>(obj);}
 
@@ -118,10 +127,22 @@ class gzWp {
      }
      */
 
+
+	 
+	 
+	 
+	 
     inline ~gzWp(){
 		subInst();
 	};
 };
+
+	 
+ template<class T, class U> gzSharedCount*  gzSCast( gzWp<U> const & _pOri ){ //GZ_NoExcept
+
+	return _pOri;
+}
+		 
 
 
 #endif

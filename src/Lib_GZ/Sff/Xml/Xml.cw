@@ -15,7 +15,9 @@ package  {
 
 		//public var nX : Float;
 
-		public function Xml( _sPath : String = ""):Void;
+		//public function Xml( _sPath : String = ""):Void;
+		public function Xml(_oParentNode:XmlNode):Void;
+		
 		public function fLoad( _sPath : String = ""):Bool;
 		
 		

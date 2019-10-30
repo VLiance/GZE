@@ -14,14 +14,14 @@ package  {
 	/**
 	 * @author Maeiky
 	 */
-	public class Rect extends Poly4 {
+	public class PolyRect extends Poly4 {
 
-		public function Rect(_oPos : Pt<Float>, _oDim : Dim):Void  {
+		public function PolyRect(_oPos : Pt<Float>, _oDim : Dim<Float>):Void  {
 
-			var _oTL : Pt<Float> = new Pt(_oPos.nX, _oPos.nY);
-			var _oTR : Pt<Float> = new Pt(_oPos.nX + _oDim.nWidth, _oPos.nY);
-			var _oBR : Pt<Float> = new Pt(_oPos.nX + _oDim.nWidth, _oPos.nY + _oDim.nHeight);
-			var _oBL : Pt<Float> = new Pt(_oPos.nX, _oPos.nY + _oDim.nHeight);
+			var _oTL : Pt<Float> = new Pt<Float>(_oPos.nX, _oPos.nY);
+			var _oTR : Pt<Float> = new Pt<Float>(_oPos.nX + _oDim.nWidth, _oPos.nY);
+			var _oBR : Pt<Float> = new Pt<Float>(_oPos.nX + _oDim.nWidth, _oPos.nY + _oDim.nHeight);
+			var _oBL : Pt<Float> = new Pt<Float>(_oPos.nX, _oPos.nY + _oDim.nHeight);
 			Poly4(_oTL, _oTR, _oBR, _oBL);
 		}
 

@@ -107,6 +107,7 @@ package  {
 
 		public function fNewTile( _sValue : String, _nX:UInt, _nY:UInt ):Void {
 			var _nValue : UInt = _sValue.fToUInt();
+			//var _nValue : UInt = _sValue;
 			if(_nValue != 0){ // Not a Empty Tile
 				var _bFlipD : Bool = _nValue & eFlip.Diagonally;
 				var _bFlipX : Bool = _nValue & eFlip.Horizontally;

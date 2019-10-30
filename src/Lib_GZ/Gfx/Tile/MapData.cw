@@ -64,6 +64,8 @@ package  {
 
 
 		public function MapData():Void {
+			//Debug.fError("!!!!!!!!!!!!!!New! MapData DATA!!!!");
+			//aLayer[0] = new LayerData(this);
 		}
 
 

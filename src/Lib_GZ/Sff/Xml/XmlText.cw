@@ -14,8 +14,6 @@ package  {
 		//public var nX : Float;
 		
 
-		
-		
 		public function XmlText( _oParentNode:XmlNode):Void;
 
 		public function fParse():String {

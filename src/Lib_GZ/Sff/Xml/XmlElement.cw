@@ -13,7 +13,10 @@ package  {
 
 		//public var nX : Float;
 
-		public function XmlElement( _sFile : String = ""):Void;
+		//public function XmlElement( _sFile : String = ""):Void;
+		public function XmlElement(_oParentNode:XmlNode):Void;
+		
+		
 		public function fLoad( _sFile : String = ""):Void;
 		
 		

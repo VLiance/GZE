@@ -23,8 +23,9 @@ package  {
 	public class LayerClip  extends Clip {
 
 
-		public var oLayerData : LayerData;
 		public var aTile : Array<Tile, 2>;
+		public var oLayerData : LayerData;
+		
 
 
 		public function LayerClip(_oParent : Root, _oLayerData : LayerData, _nX: Float, _nY:Float):Void {

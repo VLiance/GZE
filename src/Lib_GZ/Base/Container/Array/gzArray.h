@@ -20,6 +20,16 @@
 #include "Lib_GZ/Base/SmartPtr/SmartPtr.h"
 
 
+#define gzArray2D(_type) gzArray<gzArray<_type>>
+#define gzArray3D(_type) gzArray<gzArray<gzArray<_type>>>
+#define gzArray4D(_type) gzArray<gzArray<gzArray<gzArray<_type>>>>
+#define gzArray5D(_type) gzArray<gzArray<gzArray<gzArray<gzArray<_type>>>>>
+
+#define gzPArray2D(_type) const gzArray<gzArray<_type>>&
+#define gzPArray3D(_type) const gzArray<gzArray<gzArray<_type>>>&
+#define gzPArray4D(_type) const gzArray<gzArray<gzArray<gzArray<_type>>>>&
+#define gzPArray5D(_type) const gzArray<gzArray<gzArray<gzArray<gzArray<_type>>>>>&
+
 //gzDataArrayShared
 
 //#define gzDataObj(_aData) ((gzDataRoot){ (gzDataRC*)&_aData,0,0 })
@@ -466,11 +476,12 @@ class gzArray {
 	
 	
 	inline gzArray():m(){//TODO TODO Default construction!!!!!!
-		bCatchMe = false;
+		//bCatchMe = false;
+		//m.fSetArrayAndSize( (2) * (sizeof(T))  ); //TODO Begin with size of 2?
 	}
 	
 	inline gzArray(gzBool _bCatchMe):m(){//TODO TODO Default construction!!!!!!
-		bCatchMe = true;
+		//bCatchMe = true;
 	}
 	
 	
