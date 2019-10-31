@@ -14,25 +14,49 @@ package  {
 		//public var nX : Float;
 
 		//public function XmlElement( _sFile : String = ""):Void;
-		public function XmlElement(_oParentNode:XmlNode):Void;
+		public function XmlElement(_oParentNode:XmlNode, _oTinyNode:XmlNode):Void{
+			
+			//Ini_cXmlNode(_opParentNode, _oTinyNode);
+			hType = XmlNode.eType.Element;
+			
+		}
 		
 		
-		public function fLoad( _sFile : String = ""):Void;
+	//	public function fLoad( _sFile : String = ""):Void;
 		
 		
-		public function fGetText():String;
+		public function fGetText():String {
+			<cpp>
+				return gzStrC(((tinyxml2::XMLElement*)oTinyNode)->GetText());
+		   </cpp>
+		}
 		
 		public function fAttribute(_sAttribute:String):String {
+			<cpp>
+			 const char* _sGet =  ((tinyxml2::XMLElement*)oTinyNode)->Attribute( (const char*)_sAttribute.fcStr() );
+			return gzStrC(_sGet);
+			</cpp>
 		}
 		public function fAttributeInt(_sAttribute:String):Int {
+			<cpp>
+		    return ((tinyxml2::XMLElement*)oTinyNode)->IntAttribute( (const char*)_sAttribute.fcStr() );
+			</cpp>
 		}
 		public function fAttributeUInt(_sAttribute:String):UInt {
+			<cpp>
+			return 0;
+			</cpp>
 		}
 		public function fAttributeBool(_sAttribute:String):Bool {
+			<cpp>
+			return true;
+			</cpp>
 		}
 		public function fAttributeFloat(_sAttribute:String):Float {
+			<cpp>
+			return true;
+			</cpp>
 		}
-		
 		
 	}
 }

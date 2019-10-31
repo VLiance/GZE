@@ -12,14 +12,15 @@ package  {
 	public class XmlText extends XmlNode {
 
 		//public var nX : Float;
-		
-
-		public function XmlText( _oParentNode:XmlNode):Void;
-
-		public function fParse():String {
-			
+	
+		public function XmlText( _oParentNode:XmlNode, _oTinyNode:XmlNode ):Void {
+		   // Ini_cXmlNode(_opParentNode, _oTinyNode);
+			//hType = XmlNode::eType::Element;
 		}
 
+		public function fParse():String {
+			return "";
+		}
 		
 		
 	}

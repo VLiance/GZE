@@ -325,10 +325,7 @@ gzStr8 gzStrF(gzFloat64 _nFloat, gzUInt8 _nbCharAfter){
 	//_sAfterDot.fShinkBefore(1);
 	 return _sSign + _sFloatInt + gzU8(".") + _sAfterDot.fSubStr(1, _nbCharAfter+1);
 	  
-	  
-	  
-	  
-	  
+
 	  
 	  
     //New array with enough space

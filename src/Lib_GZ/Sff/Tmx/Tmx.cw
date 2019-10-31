@@ -9,6 +9,7 @@ package  {
 	import GZ.Sff.Xml.XmlElement;
 	import GZ.Sff.Xml.XmlText;
 	import GZ.Gfx.Tile.MapData;
+	import GZ.File.RcText;
 
 	/**
 	 * @author Maeiky
@@ -29,9 +30,9 @@ package  {
 			oMainMap = new MapData();
 		}
 
-		public function fLoad( _sPath : String = ""):Bool {
-
-			if(xXml.fLoad(_sPath)){
+		public function fLoad( _oRc : RcText):Bool {
+			
+			if(xXml.fLoad(_oRc)){
 			
 				oCurrNode = fFirst();
 				if(oCurrNode.hType == XmlNode.eType.Element){
@@ -41,7 +42,7 @@ package  {
 				return false;
 			}
 			
-			Debug.fError("Unable to load:" + _sPath );
+			Debug.fError("Unable to load:" + _oRc.sPath );
 
 			return false;
 		}

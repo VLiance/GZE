@@ -5,8 +5,11 @@
 package  {
 
 	import GZ.Sff.Xml.XmlNode;
+	import GZ.File.RcText;
 
-
+	<cpp_h>
+		#include "Lib_GZ/3rdparty/Xml/tinyxml2.h"
+	</cpp_h>
 	
 	/**
 	 * @author Maeiky
@@ -14,12 +17,81 @@ package  {
 	public class Xml extends XmlNode {
 
 		//public var nX : Float;
+		
+		<cpp_class_h>
+		tinyxml2::XMLDocument* doc;
+        gzStr sPath;
+        gzBool bLoaded;
+       // gzUInt nErrCode;
+        gzStr sError;
+		</cpp_class_h>
+		
 
 		//public function Xml( _sPath : String = ""):Void;
-		public function Xml(_oParentNode:XmlNode):Void;
+		public function Xml(_oParentNode:XmlNode, _oTinyNode:XmlNode = null):Void {
+			
+			<cpp>
+				
+			doc = new tinyxml2::XMLDocument();
+
+			sPath = _sPath;
+		//	Ini_cXmlNode(this, doc);
+			
+			</cpp>
+		}
 		
-		public function fLoad( _sPath : String = ""):Bool;
+		public function fLoad(_oRc : RcText) : Bool {
+		
+		
+		   var _sPath : String = _oRc.sPath; //TODO don't load 2 times
+		  
+		  
+			<cpp>
+				if(_sPath.GnSize() > 0){
+					doc->LoadFile( (const char*)_sPath.fcStr());
+				}else{
+					doc->LoadFile( (const char*)sPath.fcStr());
+				}
+
+				if (doc->Error()) {
+					sError = gzStrC(doc->ErrorName());
+					const char* _sError1 = doc->GetErrorStr1();
+					if(_sError1){
+						sError +=  gzStrL(" : ") + gzStrC(_sError1);
+					}
+					const char* _sError2 = doc->GetErrorStr2();
+					if(_sError2){
+						sError +=  gzStrL(" : ") + gzStrC(_sError2);
+					}
+					
+					</cpp>
+						Debug.fError("Xml Error");
+						return false;
+					<cpp>
+					
+					//GZ::Sys::Debug::Get(thread)->fError(sError);
+					//return false;
+				}
+				bLoaded = true;
+				//GZ::Sys::Debug::Get(thread)->fTrace1(gzStrL("Success"));
+				///return true;
+							
+			</cpp>
+			
+			Debug.fPass("Xml Success");
+			return true;
+		}
 		
 		
 	}
+	
+	
+	//TODO destructor
+	/*
+	cXml::~cXml(){
+		delete doc;
+	}
+	*/
+	
+	
 }
