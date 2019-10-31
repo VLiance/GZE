@@ -5,14 +5,16 @@
 package  {
 
 	//import GZ.Base.Math;
-
+	<cpp_h>
+		#include "Lib_GZ/3rdparty/Xml/tinyxml2.h"
+	</cpp_h>
 	/**
 	 * @author Maeiky
 	 */
 	public extension XmlNode  {
 
 		public wvar oParentNode : XmlNode;
-		public wvar oTinyNode : XmlNode;
+		public wvar oTinyNode : Any;
 		
 		
 		public enum eType : Int {
@@ -28,7 +30,7 @@ package  {
 		
 
 		
-		public function XmlNode(_oParentNode:XmlNode, _oTinyNode:XmlNode = null):Void{
+		public function XmlNode(_oParentNode:XmlNode, _oTinyNode:Any = null):Void{  //Any = tinyxml2::XMLNode*
 			oParentNode = _oParentNode;
 			oTinyNode = _oTinyNode;
 		}
@@ -40,7 +42,7 @@ package  {
 				
 		public function fName():String{
 			<cpp>
-			 return gzStrC(oTinyNode->Value());
+			 return gzStrC(((tinyxml2::XMLNode*)oTinyNode)->Value());
 			 </cpp>
 		}
 	
@@ -48,9 +50,9 @@ package  {
 			<cpp>
 			tinyxml2::XMLNode* _oNode;
 			if(_sElement.GnSize() > 0){
-				_oNode =  oTinyNode->FirstChildElement((const char*)_sElement.fToCStr().get());
+				_oNode =  ((tinyxml2::XMLNode*)oTinyNode)->FirstChildElement((const char*)_sElement.fToCStr().get());
 			}else{
-				_oNode =  oTinyNode->FirstChildElement(0);
+				_oNode =  ((tinyxml2::XMLNode*)oTinyNode)->FirstChildElement(0);
 			}
 
 			if(_oNode && _oNode->ToElement()){
@@ -73,7 +75,7 @@ package  {
 		
 		public function fNext( _sElement : String = ""):XmlNode{
 			<cpp>
-		    tinyxml2::XMLNode* _oNode =  oTinyNode->NextSibling();
+		    tinyxml2::XMLNode* _oNode =  ((tinyxml2::XMLNode*)oTinyNode)->NextSibling();
 			if(_oNode){
 				return gzSCast<::GZ::Sff::Xml::cXmlNode>( XmlElement::New(this, this, _oNode) );
 			}
@@ -85,7 +87,7 @@ package  {
 		
 		public function fPrevious( _sElement : String = ""):XmlNode{
 			<cpp>
-				tinyxml2::XMLNode* _oNode =  oTinyNode->PreviousSibling();
+				tinyxml2::XMLNode* _oNode =  ((tinyxml2::XMLNode*)oTinyNode)->PreviousSibling();
 				if(_oNode){
 					return gzSCast<::GZ::Sff::Xml::cXmlNode>( XmlElement::New(this, this, _oNode) );
 				}

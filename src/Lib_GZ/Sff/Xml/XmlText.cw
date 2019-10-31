@@ -13,7 +13,7 @@ package  {
 
 		//public var nX : Float;
 	
-		public function XmlText( _oParentNode:XmlNode, _oTinyNode:XmlNode ):Void {
+		public function XmlText( _oParentNode:XmlNode, _oTinyNode:Any ):Void { //Any = tinyxml2::XMLNode*
 		   // Ini_cXmlNode(_opParentNode, _oTinyNode);
 			//hType = XmlNode::eType::Element;
 		}

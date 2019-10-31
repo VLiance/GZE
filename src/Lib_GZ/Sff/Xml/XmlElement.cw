@@ -14,7 +14,7 @@ package  {
 		//public var nX : Float;
 
 		//public function XmlElement( _sFile : String = ""):Void;
-		public function XmlElement(_oParentNode:XmlNode, _oTinyNode:XmlNode):Void{
+		public function XmlElement(_oParentNode:XmlNode, _oTinyNode:Any):Void{
 			
 			//Ini_cXmlNode(_opParentNode, _oTinyNode);
 			hType = XmlNode.eType.Element;

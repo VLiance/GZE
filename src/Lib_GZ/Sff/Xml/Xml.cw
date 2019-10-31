@@ -20,7 +20,7 @@ package  {
 		
 		<cpp_class_h>
 		tinyxml2::XMLDocument* doc;
-        gzStr sPath;
+      //  gzStr sPath;
         gzBool bLoaded;
        // gzUInt nErrCode;
         gzStr sError;
@@ -28,13 +28,13 @@ package  {
 		
 
 		//public function Xml( _sPath : String = ""):Void;
-		public function Xml(_oParentNode:XmlNode, _oTinyNode:XmlNode = null):Void {
+		public function Xml(_oParentNode:XmlNode, _oTinyNode:Any = null):Void {
 			
 			<cpp>
 				
 			doc = new tinyxml2::XMLDocument();
 
-			sPath = _sPath;
+			//sPath = _sPath;
 		//	Ini_cXmlNode(this, doc);
 			
 			</cpp>
@@ -48,20 +48,20 @@ package  {
 		  
 			<cpp>
 				if(_sPath.GnSize() > 0){
-					doc->LoadFile( (const char*)_sPath.fcStr());
+					doc->LoadFile( (const char*)_sPath.fToCStr().get());
 				}else{
-					doc->LoadFile( (const char*)sPath.fcStr());
+					doc->LoadFile( (const char*)_sPath.fToCStr().get());
 				}
 
 				if (doc->Error()) {
 					sError = gzStrC(doc->ErrorName());
 					const char* _sError1 = doc->GetErrorStr1();
 					if(_sError1){
-						sError +=  gzStrL(" : ") + gzStrC(_sError1);
+						sError +=  gzU8(" : ") + gzStrC(_sError1);
 					}
 					const char* _sError2 = doc->GetErrorStr2();
 					if(_sError2){
-						sError +=  gzStrL(" : ") + gzStrC(_sError2);
+						sError +=  gzU8(" : ") + gzStrC(_sError2);
 					}
 					
 					</cpp>
