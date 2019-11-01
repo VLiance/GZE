@@ -75,7 +75,7 @@ package  {
 
 		public function fLoadTxmNode( _oMapNode : XmlElement ):Void {
 
-			Debug.fTrace("Tmx Map : " + _oMapNode.fAttribute("map"));
+			Debug.fTrace("Tmx Map : " );
 
 			nWidth =  _oMapNode.fAttributeInt("width");
 			nHeight =  _oMapNode.fAttributeInt("height");

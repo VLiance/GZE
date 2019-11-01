@@ -24,6 +24,8 @@ package  {
 
 		//public var nX : Float;
 		
+		
+		public var oDoc : Any;
 		<cpp_class_h>
 		tinyxml2::XMLDocument* doc;
       //  gzStr sPath;
@@ -36,14 +38,20 @@ package  {
 		//public function Xml( _sPath : String = ""):Void;
 		public function Xml(_oParentNode:XmlNode, _oTinyNode:Any = null):Void {
 			
+			
+			
 			<cpp>
 				
 			doc = new tinyxml2::XMLDocument();
-
+			oDoc = doc;
 			//sPath = _sPath;
 		//	Ini_cXmlNode(this, doc);
 			
 			</cpp>
+			
+			XmlNode(_oParentNode, oDoc );
+			
+			
 		}
 		
 		public function fLoad(_oRc : RcText) : Bool {
