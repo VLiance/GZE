@@ -33,13 +33,13 @@ package  {
 		
 		public function fAttribute(_sAttribute:String):String {
 			<cpp>
-			 const char* _sGet =  ((tinyxml2::XMLElement*)oTinyNode)->Attribute( (const char*)_sAttribute.fcStr() );
+			 const char* _sGet =  ((tinyxml2::XMLElement*)oTinyNode)->Attribute( (const char*)_sAttribute.fToCStr().get() );
 			return gzStrC(_sGet);
 			</cpp>
 		}
 		public function fAttributeInt(_sAttribute:String):Int {
 			<cpp>
-		    return ((tinyxml2::XMLElement*)oTinyNode)->IntAttribute( (const char*)_sAttribute.fcStr() );
+		    return ((tinyxml2::XMLElement*)oTinyNode)->IntAttribute( (const char*)_sAttribute.fToCStr().get() );
 			</cpp>
 		}
 		public function fAttributeUInt(_sAttribute:String):UInt {

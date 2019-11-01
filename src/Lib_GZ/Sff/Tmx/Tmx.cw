@@ -42,7 +42,7 @@ package  {
 				return false;
 			}
 			
-			Debug.fError("Unable to load:" + _oRc.sPath );
+			Debug.fError("Unable to load:" + _oRc.oFile.sFullPath );
 
 			return false;
 		}

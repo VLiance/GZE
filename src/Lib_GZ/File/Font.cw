@@ -137,7 +137,8 @@ package  {
 		overable static function fOpen(_oRc : RcFont): Int {
 			Debug.fWarning("Open");
 			if(_oRc.aSrcMemData == 0){
-				Debug.fTrace("Font LOAD FAIL: Nothing in memory for: " + _oRc.sVDrive +  _oRc.sPath  );
+				Debug.fTrace("Font LOAD FAIL: Nothing in memory for: " + _oRc.sVDrive +  _oRc.sPath  ); //TODO Not good use _oRc.oFile.sFullPath 
+		//		Debug.fTrace("Font LOAD FAIL: Nothing in memory for: " + _oRc.oFile.sFullPath  ); BUG!!!??&??
 				return 0;
 			}
 			

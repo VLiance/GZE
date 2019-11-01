@@ -11,7 +11,8 @@ package  {
 	/**
 	 * @author Maeiky
 	 */
-	public extension XmlNode  {
+//	public extension XmlNode  {
+	public class XmlNode  {
 
 		public wvar oParentNode : XmlNode;
 		public wvar oTinyNode : Any;
@@ -47,16 +48,22 @@ package  {
 		}
 	
 		public function fFirst( _sElement : String = ""):XmlNode {
+			var _oCwNode : Any;
 			<cpp>
 			tinyxml2::XMLNode* _oNode;
+
 			if(_sElement.GnSize() > 0){
 				_oNode =  ((tinyxml2::XMLNode*)oTinyNode)->FirstChildElement((const char*)_sElement.fToCStr().get());
 			}else{
 				_oNode =  ((tinyxml2::XMLNode*)oTinyNode)->FirstChildElement(0);
 			}
-
+			_oCwNode = _oNode;
+			
 			if(_oNode && _oNode->ToElement()){
-				return gzSCast<::GZ::Sff::Xml::cXmlNode>( XmlElement::New(this, this, _oNode) );
+				</cpp>
+				return new XmlNode(this, _oCwNode);
+				<cpp>
+			//	return gzSCast<::GZ::Sff::Xml::cXmlNode>( XmlElement::New(this, this, _oNode) );
 			}
 
 			//Unknow
@@ -74,10 +81,14 @@ package  {
 		}
 		
 		public function fNext( _sElement : String = ""):XmlNode{
+			var _oCwNode : Any;
 			<cpp>
 		    tinyxml2::XMLNode* _oNode =  ((tinyxml2::XMLNode*)oTinyNode)->NextSibling();
+			_oCwNode = _oNode;
 			if(_oNode){
-				return gzSCast<::GZ::Sff::Xml::cXmlNode>( XmlElement::New(this, this, _oNode) );
+				</cpp>
+				return new XmlNode(this, _oCwNode);
+				<cpp>
 			}
 			//Empty
 			gzSp<cXmlNode> _oXmlNode;
@@ -86,10 +97,14 @@ package  {
 		}
 		
 		public function fPrevious( _sElement : String = ""):XmlNode{
+			var _oCwNode : Any;
 			<cpp>
 				tinyxml2::XMLNode* _oNode =  ((tinyxml2::XMLNode*)oTinyNode)->PreviousSibling();
+				_oCwNode = _oNode;
 				if(_oNode){
-					return gzSCast<::GZ::Sff::Xml::cXmlNode>( XmlElement::New(this, this, _oNode) );
+					</cpp>
+					return new XmlNode(this, _oCwNode);
+					<cpp>
 				}
 				//Empty
 				gzSp<cXmlNode> _oXmlNode;

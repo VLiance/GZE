@@ -7,6 +7,12 @@ package  {
 	import GZ.Sff.Xml.XmlNode;
 	import GZ.File.RcText;
 
+	
+	<cpp>
+		#include "Lib_GZ/3rdparty/Xml/tinyxml2.cpp"
+	</cpp>
+	
+	
 	<cpp_h>
 		#include "Lib_GZ/3rdparty/Xml/tinyxml2.h"
 	</cpp_h>
@@ -43,9 +49,9 @@ package  {
 		public function fLoad(_oRc : RcText) : Bool {
 		
 		
-		   var _sPath : String = _oRc.sPath; //TODO don't load 2 times
+		   var _sPath : String = _oRc.oFile.sFullPath; //TODO don't load 2 times
 		  
-		  
+		//  + _oRc.oFile.sFullPath
 			<cpp>
 				if(_sPath.GnSize() > 0){
 					doc->LoadFile( (const char*)_sPath.fToCStr().get());
@@ -65,7 +71,7 @@ package  {
 					}
 					
 					</cpp>
-						Debug.fError("Xml Error");
+						Debug.fError("Xml Error: " + _sPath);
 						return false;
 					<cpp>
 					
