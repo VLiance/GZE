@@ -75,7 +75,8 @@ package  {
 
 		public function fLoadTxmNode( _oMapNode : XmlElement ):Void {
 
-			Debug.fTrace("Tmx Map : " );
+			//Debug.fTrace("Tmx Map : " );
+		//	Debug.fTrace("Tmx Map : " + _oMapNode.fAttribute("map"));
 
 			nWidth =  _oMapNode.fAttributeInt("width");
 			nHeight =  _oMapNode.fAttributeInt("height");
@@ -83,6 +84,13 @@ package  {
 			nTileHeight =  _oMapNode.fAttributeInt("tileheight");
 			nBackgroundcolor =  _oMapNode.fAttributeInt("backgroundcolor");
 			nTileHeight =  _oMapNode.fAttributeInt("backgroundcolor");
+			
+			
+	Debug.fTrace("!!!nWidth!!: " + nWidth);		
+	Debug.fTrace("!!!nTileHeight!!: " + nTileHeight);		
+	Debug.fTrace("!!!nTileWidth!!: " + nTileWidth);		
+	Debug.fTrace("!!!nBackgroundcolor!!: " + nBackgroundcolor);		
+	_oMapNode.fAttribute("orientation");		
 
 			var _sOri : String = _oMapNode.fAttribute("orientation");
 			if(_sOri == "orthogonal"){

@@ -7,6 +7,7 @@
 	import GZ.Sys.System;
 	import GZ.File.Font;
 	import GZ.Input.Key;
+	import GZ.Base.Property.Property;
 	
 	import GzOpenGL.OpenGL;
 	import GZ.Gpu.GpuObj.GpuObject;
@@ -21,6 +22,7 @@
 		</cpp>	
 			//Create default debug singleton for this new thread
 			Debug = new Debug();
+			Property = new Property(""); //TODO pure func? Passing thread info?
 			System = new System();
 			File = new File("Sys|CurrentModule");
 			Font = new Font();

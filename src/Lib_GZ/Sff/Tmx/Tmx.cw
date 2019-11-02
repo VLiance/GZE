@@ -36,8 +36,10 @@ package  {
 			
 				oCurrNode = fFirst();
 				if(oCurrNode.hType == XmlNode.eType.Element){
-					var _oElement : XmlElement = oCurrNode;
+					var _oElement : XmlElement = oCurrNode; //Cast is not good
 					oMainMap.fLoadTxmNode(_oElement);
+				}else{
+					Debug.fError("First node is not a Element");
 				}
 				return false;
 			}

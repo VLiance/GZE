@@ -17,8 +17,8 @@ package  {
 		public function XmlElement(_oParentNode:XmlNode, _oTinyNode:Any):Void{
 			
 			//Ini_cXmlNode(_opParentNode, _oTinyNode);
-			hType = XmlNode.eType.Element;
-			
+			XmlNode(_oParentNode, _oTinyNode);
+			hType = XmlNode.eType.Element; //Must be after
 		}
 		
 		
@@ -36,6 +36,7 @@ package  {
 			 const char* _sGet =  ((tinyxml2::XMLElement*)oTinyNode)->Attribute( (const char*)_sAttribute.fToCStr().get() );
 			return gzStrC(_sGet);
 			</cpp>
+			//return "Test";
 		}
 		public function fAttributeInt(_sAttribute:String):Int {
 			<cpp>

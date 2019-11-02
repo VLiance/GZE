@@ -75,7 +75,9 @@ package  {
 				//var _nWidth : UInt = _oImgNode.fAttributeInt("width");
 				//var _nWidth : UInt = _oImgNode.fAttributeInt("height");
 				
-				oRc = new RcImg(_sSrc);	
+				Debug.fTrace("Open: "  + _sSrc);
+				oRc = new RcImg("Exe|Rc/Tiled/" + _sSrc);	
+				
 				//oRc.fLoadFromDrive(_sSrc);
 				oRc.fCpuLoad();
 				oRc.fGpuLoad();	

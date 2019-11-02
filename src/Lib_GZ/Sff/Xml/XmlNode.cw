@@ -5,6 +5,10 @@
 package  {
 
 	//import GZ.Base.Math;
+	
+	import GZ.Sff.Xml.XmlElement;
+	import GZ.Sff.Xml.XmlText;
+	
 	<cpp_h>
 		#include "Lib_GZ/3rdparty/Xml/tinyxml2.h"
 	</cpp_h>
@@ -19,8 +23,8 @@ package  {
 		
 		
 		public enum eType : Int {
-			Element;
 			Text;
+			Element;
 			Comment;
 			Document;
 			Declaration;
@@ -34,7 +38,43 @@ package  {
 		public function XmlNode(_oParentNode:XmlNode, _oTinyNode:Any = null):Void{  //Any = tinyxml2::XMLNode*
 			oParentNode = _oParentNode;
 			oTinyNode = _oTinyNode;
+			hType = eType.Unknown;
 		}
+/*
+var _oXmlElement : XmlElement = new XmlElement(this, _oNode);
+return _oXmlElement;
+*/
+			
+		public function fNewCwNode(_oNode : Any):XmlNode {
+			<cpp>
+			if(((tinyxml2::XMLNode*)_oNode)->ToElement()){
+				</cpp>
+				return new XmlElement(this, _oNode);
+				<cpp>
+			}
+			if(((tinyxml2::XMLNode*)_oNode)->ToText()){
+				</cpp>
+				return new XmlText(this, _oNode);
+				<cpp>
+			}
+			if(((tinyxml2::XMLNode*)_oNode)->ToComment()){
+				//TODO
+			}
+			if(((tinyxml2::XMLNode*)_oNode)->ToDocument()){
+				//TODO
+			}
+			if(((tinyxml2::XMLNode*)_oNode)->ToDeclaration()){
+				//return new XmlNode(this, _oNode);
+			}
+			//if(_oNode->ToUnknown()){	
+			//}
+			</cpp>
+			return new XmlNode(this, _oNode);
+		}
+		
+		
+		
+		
 		/*
 		public function fSetNode(_oTinyNode :XmlNode):String {
 		
@@ -61,11 +101,17 @@ package  {
 			
 			if(_oNode && _oNode->ToElement()){
 				</cpp>
-				return new XmlNode(this, _oCwNode);
+				Debug.fPass("New XML node!");
+				return fNewCwNode(_oCwNode);
 				<cpp>
 			//	return gzSCast<::GZ::Sff::Xml::cXmlNode>( XmlElement::New(this, this, _oNode) );
 			}
-
+			
+			</cpp>
+				Debug.fError("Unknow Node!");
+			<cpp>
+			
+			
 			//Unknow
 			gzSp<cXmlNode> _oXmlNode;
 			return _oXmlNode;
@@ -87,7 +133,7 @@ package  {
 			_oCwNode = _oNode;
 			if(_oNode){
 				</cpp>
-				return new XmlNode(this, _oCwNode);
+				return fNewCwNode(_oCwNode);
 				<cpp>
 			}
 			//Empty
@@ -103,7 +149,7 @@ package  {
 				_oCwNode = _oNode;
 				if(_oNode){
 					</cpp>
-					return new XmlNode(this, _oCwNode);
+					return fNewCwNode(_oCwNode);
 					<cpp>
 				}
 				//Empty
