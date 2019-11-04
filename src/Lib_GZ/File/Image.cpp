@@ -109,7 +109,7 @@ gzInt pImage::fOpen(File::cRcImg* _oRc) {
 					//Fail
 				   // Sys::Debug::fError(gzStrL("IMG LOAD FAIL: ") + gzStrC(stbi_failure_reason())  + gzStrL(" ") +  _oRc->sRoot +  _oRc->sSubPath  );
 					 pDebug::fConsole(gzU8("IMG LOAD FAIL: ") + gzStrC(stbi_failure_reason())  + gzU8(" ") +  _oRc->sVDrive +  _oRc->sPath  );
-
+					return 0;
 				 //   printf("\n IMG %s LOAD FAIL: %s\n", , stbi_failure_reason());
 				}
 		}
@@ -179,6 +179,10 @@ gzInt pImage::fOpen(File::cRcImg* _oRc) {
 			p2DArray[y + nBORDER] =  &_pAdr[(y + 1) * nExtWidth] ;
 
 #endif
+
+	if(data == 0){ //Someting wrong, don't free
+		return 0;
+	}
 
     pImage::fGetImage(_oRc, image_data, image_nbChannel); //Data must be copied
 	stbi_image_free(image_data);

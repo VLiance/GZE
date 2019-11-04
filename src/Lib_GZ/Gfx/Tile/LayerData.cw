@@ -93,7 +93,7 @@ package  {
 
 
 		public function fExtractDataCSV( _sData : String ):Void {
-
+		
 			var _aData : Array<String> = _sData.fSplit(",");
 			var i : UInt = 0;
 		
@@ -106,6 +106,7 @@ package  {
 		}
 
 		public function fNewTile( _sValue : String, _nX:UInt, _nY:UInt ):Void {
+			//Debug.fTrace("fNewTile: " + _sValue);
 			var _nValue : UInt = _sValue.fToUInt();
 			//var _nValue : UInt = _sValue;
 			if(_nValue != 0){ // Not a Empty Tile

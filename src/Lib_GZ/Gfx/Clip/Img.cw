@@ -53,7 +53,7 @@ package  {
 			//nEase = 5;
 			//nEase.to(10);
 			//nEase.speed(5);
-			//Debug.fTrace("LoadImg");
+			
 
 			//oImage = new Image();
 			//oImage.fOpen(_oRc);

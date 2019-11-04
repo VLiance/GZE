@@ -520,9 +520,13 @@ class gzArray {
 	inline T&  operator[](gzUIntX _nIndex) const {
 		//GzAssert(m.aData->nType != 0, "DataArray is readOnly, use () instead if you reading only values"); //IF READONLY WE RECREATE ONE (COW), TODO VERIFY?
 		//GzUnAssert(_nIndex >=  gzp_length , "Writing m Out of bound"); //OUT OF BOUND REALLOC ARRAY
-		
+		gzIntX _nLength = gzp_length;
 		m.fSetArrayAndSize( (_nIndex+1) * (sizeof(T))  );
 		 //return  *((T*)(&m.aData->aTab[_nIndex * GzS]));
+		if(_nIndex >= _nLength){
+			((T*)m.aData->aTab)[_nIndex] = T();
+		}
+		 
 		return  ((T*)m.aData->aTab)[_nIndex];
 		
 	}

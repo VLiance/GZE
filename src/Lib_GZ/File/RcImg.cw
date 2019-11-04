@@ -2,7 +2,7 @@
 
 package  { 
 
-	
+	import GZ.Sys.Interface.Context;
 	import GZ.File.Image;
 	import GZ.Sys.System;
 	import GZ.File.Resource;
@@ -95,13 +95,17 @@ package  {
 		override public function fGpuLoad():Bool {
 			
 			//if(System.bHaveGpu){
-				if(bGpuLoaded == false){
+				if(Context.oItf.bGpuDraw && bGpuLoaded == false){
 					bGpuLoaded = true;
-					oGpuTexId = oGpuRcImg.fLoadImg(aImg[0], nWidth, nHeight);
+					if(aImg != null){
+						oGpuTexId = oGpuRcImg.fLoadImg(aImg[0], nWidth, nHeight);
+					}
+					
+					return true;
 				}
 			//}
 			
-			return true;
+			return false;
 		}
 		
 		destructor {

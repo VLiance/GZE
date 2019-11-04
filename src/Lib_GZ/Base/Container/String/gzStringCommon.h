@@ -217,7 +217,8 @@
 		gzInt c = 0;
 		gzInt sign = 0;
 		gzInt x = 0;
-		gzUInt8* p = &gzp_DataArray[1];
+		gzUInt8* p = &gzp_DataArray[0];
+
 
 		for(c = *(p++); (c < 48 || c > 57); c = *(p++)) {
 			if (c == 45) {

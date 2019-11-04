@@ -37,7 +37,7 @@ package  {
 
 		public function fLoadLayer(_oLayerData : LayerData):Void {
 
-
+			//Debug.fTrace("************fLoadLayer********** ");
 			var _aTileData : Array<TileData,2> = _oLayerData.aTile;
 
 			for(var _nY : Int = 0; _nY < _oLayerData.nHeight; _nY++){

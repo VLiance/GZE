@@ -40,8 +40,9 @@ package  {
 					oMainMap.fLoadTxmNode(_oElement);
 				}else{
 					Debug.fError("First node is not a Element");
+					return false;
 				}
-				return false;
+				return true;
 			}
 			
 			Debug.fError("Unable to load:" + _oRc.oFile.sFullPath );

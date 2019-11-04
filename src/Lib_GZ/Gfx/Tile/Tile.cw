@@ -59,6 +59,7 @@ package  {
 			hType = Root.eType.Tile;
 
 
+			
 			nCaseX = _nCaseX;
 			nCaseY = _nCaseY;
 

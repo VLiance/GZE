@@ -24,7 +24,12 @@ package  {
 		
 		
 		public function fLoadImg(_aImg : CArray<Int, 1>, _nWidth : Int, _nHeight : Int):Val{
-
+				
+				
+			if(_nWidth = 0 && _nHeight == 0){
+				return null;
+			}
+			
 		
 			OpenGL.fActiveTexture(TEXTURE0);
 			oTexId = OpenGL.fCreateTexture();
