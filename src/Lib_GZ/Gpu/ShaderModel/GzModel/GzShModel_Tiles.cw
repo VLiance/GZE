@@ -16,25 +16,30 @@ package  {
 	import GZ.Base.Perspective;
 	import GZ.Sys.Interface.Context;
 	import GZ.Gpu.ShaderModel.GzModel.GzShModel;
+	import GZ.Gpu.ShaderModel.AtModel.Attribute_Tiles;
 	import GZ.Gpu.ShaderModel.AtModel.Attribute_Quad;
 	
 	//import GZ.Base.TestPod;
 	//import GZ.Base.TestPod2;
 	
 	
-	public overclass GzShModel_Quad extends GzShModel {
+	public overclass GzShModel_Tiles extends GzShModel {
 
-		public var oAt : Attribute_Quad;
+		public var oAtQuad : Attribute_Quad;
+		public var oAtTiles : Attribute_Tiles;
 		
 		public var nTest : Int = 0;
 		
 	
 		
-		public function GzShModel_Quad():Void {
+		public function GzShModel_Tiles():Void {
 			Debug.fTrace("--- GzShModel Created!! ---");
 			
-			oAt = new Attribute_Quad();
-			Attribute_Quad = oAt; //Singleton
+			oAtQuad = new Attribute_Quad();
+			Attribute_Quad = oAtQuad; //Singleton
+			
+			oAtTiles = new Attribute_Tiles();
+			Attribute_Tiles = oAtTiles; //Singleton
 		}
 		
 		public function fLoad():Bool {
@@ -61,6 +66,14 @@ package  {
 	in vec4 in_TexSource0;  //Sx3,Sy3,Sx4,Sy4
 	in vec4 in_TexSource1;  //Sx3,Sy3,Sx4,Sy4
 	in vec4 in_Color1; //R,G,B,A
+	
+	///TILES 
+	in vec4 in_TilesHV; //Vertical
+	in vec4 in_TilesC;  //Horizontal
+	
+	
+	
+	
 	////  in vec4 in_LimitRender;  //Limit render ... in uniform? <----
 
 	//AylasID, UniformActionID, Type
@@ -508,16 +521,16 @@ void main()
 		//vec4 vPtDist = vec4(1.0, 0.0, 0.0, 0.5); //No Color
 		vec4 vPtDist = coord_Color1; 
 	//	vec4 vPtDist = _vQuadColor; 
-		
+		/*
 	if( nType == 6){
 
 			//Normal
 			//pixTex = texture(TexCurrent, ioTexture);
 
-			/*
-			vec2 _vPosTex = vec2( (ioPtSrc1.x + (vCoDist.b + vCoDist.r)*32.0)/511.0  ,  (ioPtSrc1.y + (vCoDist.b + vCoDist.g )*32.0)/514.0  );
-			pixTex = texture(TexCurrent, _vPosTex);
-			*/
+			
+			//vec2 _vPosTex = vec2( (ioPtSrc1.x + (vCoDist.b + vCoDist.r)*32.0)/511.0  ,  (ioPtSrc1.y + (vCoDist.b + vCoDist.g )*32.0)/514.0  );
+			//pixTex = texture(TexCurrent, _vPosTex);
+			
 
 
 			//float _nFactor =  1.0 - 0.01859375;  //.499/32 or .495
@@ -529,26 +542,21 @@ void main()
 				//Work
 				//vec2 vPosTex = vec2(ioTexture.x * vTexDim.x, ioTexture.y  * vTexDim.y) - 0.5; //+2 px border
 
-				/*
 			vec2 vRetroR = vec2(2.0,2.0);
 			vec2 vFlip = vec2(1.0,10);
 			vec2 ioOffsetTL = vec2(0.0,0);
 			vec2 ioOffsetTL = vec2(0.0,0);
-			*/
 			
-/*
+
+				//vec2 vPosTex = ioTexture * vTexDim * float(1 << nRetroRatio) - 0.5;
+				//ivec2 _vIPosTex = ivec2(vPosTex );
+				//vPosTL = (_vIPosTex) >> nRetroRatio;
+				//vPosTR = (_vIPosTex + ivec2(1, 0)) >> nRetroRatio;
+				//vPosBR = (_vIPosTex + ivec2(1, 1)) >> nRetroRatio;
+				//vPosBL = (_vIPosTex + ivec2(0, 1)) >> nRetroRatio;
 
 
 
-				vec2 vPosTex = ioTexture * vTexDim * float(1 << nRetroRatio) - 0.5;
-				ivec2 _vIPosTex = ivec2(vPosTex );
-				vPosTL = (_vIPosTex) >> nRetroRatio;
-				vPosTR = (_vIPosTex + ivec2(1, 0)) >> nRetroRatio;
-				vPosBR = (_vIPosTex + ivec2(1, 1)) >> nRetroRatio;
-				vPosBL = (_vIPosTex + ivec2(0, 1)) >> nRetroRatio;
-*/
-
-/*
 				//float _nRatio = float(nRetroRatio);
 				vec2 vPosTex = (ioTexture * vTexDim * vRetroR  - 0.5);
 				ivec2 _vIPosTex = ivec2(vPosTex );
@@ -621,13 +629,13 @@ void main()
 
 				pixTex = vPixTL * _nRAlphaTL +  vPixTR * _nRAlphaTR +  vPixBR * _nRAlphaBR +  vPixBL * _nRAlphaBL;
 				
-		*/
+		
 		
 			//pixTex = vec4(0.5,0.5,0.5,0.5);
 			}else{
-			//	pixTex = texture(TexCurrent, ioTexture);
+				pixTex = texture(TexCurrent, ioTexture);
 			}
-
+*/
 pixTex  = texture(TexCurrent, ioTexture);
 
 
@@ -838,19 +846,19 @@ pixTex  = texture(TexCurrent, ioTexture);
 			
 			//oProgram.nDefaultAttribDivisor = 1;
 			
-			var _oAtVertexID : Attribute =  new Attribute("atVertexID", oVboBatch, 0);//TODO null!
-			//oProgram.fAttachAttribute(_oAtVertexID);
+			var _oAtQuadVertexID : Attribute =  new Attribute("atVertexID", oVboBatch, 0);//TODO null!
+			//oProgram.fAttachAttribute(_oAtQuadVertexID);
 			
 				
-			oAt.fLocateAttribute(oProgram);
+			oAtQuad.fLocateAttribute(oProgram);
 		//	Debug.fTrace("Finish fLocateAttribute");
 
-		//	oAtOffsetHV = oProgram.fAddAttribute("in_OffsetHV");
-		//	oAtOffsetC = oProgram.fAddAttribute("in_OffsetC");
+		//	oAtQuadOffsetHV = oProgram.fAddAttribute("in_OffsetHV");
+		//	oAtQuadOffsetC = oProgram.fAddAttribute("in_OffsetC");
 			
 			
 
-		//	var _oAtVertexID : Attribute = oProgram.fAddAttribute("atVertexID",0);
+		//	var _oAtQuadVertexID : Attribute = oProgram.fAddAttribute("atVertexID",0);
 			oUiTime = new UnFloat(oProgram, "iTime");
 			oUiMouse = new UnVec2(oProgram, "iMouse");
 			oUiResolution = new UnVec2(oProgram, "iResolution");
@@ -882,13 +890,13 @@ pixTex  = texture(TexCurrent, ioTexture);
 		override public function fIniRender():Void {
 
 			//Debug.fTrace("Total Face : "  + Context.oItf.nTotalFaces) ;
-			oAt.fIniData( Context.oItf.nTotalFaces );
+			oAtQuad.fIniData( Context.oItf.nTotalFaces );
 		}
 		
 		public function fUpdate():Void {
 		
 		
-			oAt.fUpdate();
+			oAtQuad.fUpdate();
 			//return; ///DISAABLE
 			
 			oVboBatch.fSetDefaultDataVertexID();
@@ -926,7 +934,7 @@ pixTex  = texture(TexCurrent, ioTexture);
 			oGpuBatch.fDraw();
 	
 			//Debug.fTrace("oUvPersp: " +oUvPersp.vVal.nX + ", " + oUvPersp.vVal.nY + ", " + oUvPersp.vVal.nZ + ", " + oUvPersp.vVal.nW )
-			//Debug.fTrace("!" +  oAt.aData[0]  );
+			//Debug.fTrace("!" +  oAtQuad.aData[0]  );
 			
 			
 			//if(bTest == false){
@@ -934,20 +942,20 @@ pixTex  = texture(TexCurrent, ioTexture);
 		/*
 			if(nTest  < 3){
 				Debug.fTrace("------------------------------- " + nTest);
-				Debug.fTrace("----Size ---- " + oAt.oVbo.aData.nSize);
-				//for(var i : Int = 0; i  < oAt.oVbo.aData.nSize; i+=4){
-				for(var i : Int = 0; i  < oAt.oVbo.aData.nSize; i+=8){
-					Debug.fTrace("[" +  oAt.oVbo.aData[i] + "," +  oAt.oVbo.aData[i+1] + "," +  oAt.oVbo.aData[i+2] + "," +  oAt.oVbo.aData[i+3] + "]" );
+				Debug.fTrace("----Size ---- " + oAtQuad.oVbo.aData.nSize);
+				//for(var i : Int = 0; i  < oAtQuad.oVbo.aData.nSize; i+=4){
+				for(var i : Int = 0; i  < oAtQuad.oVbo.aData.nSize; i+=8){
+					Debug.fTrace("[" +  oAtQuad.oVbo.aData[i] + "," +  oAtQuad.oVbo.aData[i+1] + "," +  oAtQuad.oVbo.aData[i+2] + "," +  oAtQuad.oVbo.aData[i+3] + "]" );
 				}
 				nTest++;
 			}
 			*/
 	
 			/*
-			forEach(var _nData : Float in oAt.aData){
+			forEach(var _nData : float in oAtQuad.aData){
 			
 			}*/
-			//Debug.fTrace(oAt.aData);
+			//Debug.fTrace(oAtQuad.aData);
 		}
 		
 		

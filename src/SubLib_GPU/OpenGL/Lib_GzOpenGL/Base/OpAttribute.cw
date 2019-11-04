@@ -63,7 +63,10 @@ package  {
 			
 		}
 		
-		
+		public function fVboSetOffset():Void{ //overided
+			
+		//	fSetOffset(oVbo.);
+		}
 		
 		override public function fSetOffset(_nValOffset : UInt):Void{ 
 		

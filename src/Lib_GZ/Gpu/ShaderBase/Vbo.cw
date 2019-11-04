@@ -11,7 +11,13 @@ package  {
 
 	//public var aData : DArray<Float, 1, 50>;
 				
-				
+		public var nCurrentAttributeSetOffset : Int;
+		public var nTotalPerAttrib : Int;
+		
+		public var nTotalAttribute : Int;
+		
+		
+		
 		public var aData : Array<Float32>;
 				
 		public enum eVecType : UInt {
@@ -49,6 +55,13 @@ package  {
 		}
 		
 		public function fLoad():Void {
+		}
+		
+		
+
+		public function fSetSize(_nTotalElement:Int, _nSize:Int):Void {
+			nTotalPerAttrib = _nTotalElement * _nSize;
+			aData.fMaxSize(nTotalPerAttrib * nTotalAttribute);
 		}
 		
 

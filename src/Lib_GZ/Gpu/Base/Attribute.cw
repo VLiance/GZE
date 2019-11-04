@@ -96,6 +96,10 @@ package  {
 		public function fLoad():Void {
 		}
 		
+		
+		public function fVboSetOffset():Void{ //overided
+		}
+		
 		public function fSetOffset(_nValOffset : UInt):Void{ //overided
 			nOffset = _nValOffset;
 		}

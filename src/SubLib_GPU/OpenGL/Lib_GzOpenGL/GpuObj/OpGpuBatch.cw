@@ -83,7 +83,9 @@ package  {
 
 
 			
-			oShModel.oUnType.nVal = 4;
+			//oShModel.oUnType.nVal = 4;
+			oShModel.oUnType.nVal = 6;//Tiles
+			
 			oShModel.oUnType.fSend();
 			
 			

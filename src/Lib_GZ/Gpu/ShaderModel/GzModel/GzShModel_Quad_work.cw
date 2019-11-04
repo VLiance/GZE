@@ -467,7 +467,7 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 	uniform mat4 mColor;
 
 	uniform int nType;
-	uniform vec2 vTexDim;
+
 	
 	
 	xflat in mat4 iomColor;
@@ -509,7 +509,7 @@ void main()
 		vec4 vPtDist = coord_Color1; 
 	//	vec4 vPtDist = _vQuadColor; 
 		
-	if( nType == 6){
+		//if(ioSrcType == 1){
 
 			//Normal
 			//pixTex = texture(TexCurrent, ioTexture);
@@ -523,22 +523,12 @@ void main()
 			//float _nFactor =  1.0 - 0.01859375;  //.499/32 or .495
 		//	if(vCoDist.a + vCoDist.r   > _nFactor  ||  vCoDist.r + vCoDist.b   > _nFactor ||  vCoDist.g + vCoDist.b   > _nFactor || vCoDist.g + vCoDist.a   > _nFactor){
 
-				//int _nRatio = 0;
-				//int nRetroRatio = 4;
+			//	int _nRatio = 0;
 
 				//Work
 				//vec2 vPosTex = vec2(ioTexture.x * vTexDim.x, ioTexture.y  * vTexDim.y) - 0.5; //+2 px border
 
-				/*
-			vec2 vRetroR = vec2(2.0,2.0);
-			vec2 vFlip = vec2(1.0,10);
-			vec2 ioOffsetTL = vec2(0.0,0);
-			vec2 ioOffsetTL = vec2(0.0,0);
-			*/
-			
 /*
-
-
 
 				vec2 vPosTex = ioTexture * vTexDim * float(1 << nRetroRatio) - 0.5;
 				ivec2 _vIPosTex = ivec2(vPosTex );
@@ -563,33 +553,33 @@ void main()
 					vPosTL = ioOffsetTL; //Corner TL
 				}else if(vPosTL.y == ioSrcTL.y){
 					//vPosTL += ivec2(ioOffsetT1); //TOP
-					vPosTL = ioOffsetT1 +  abs( ivec2(vPosTL.x - ioSrcOT.x, vPosTL.x - ioSrcOT.x) * vFlip.xy ) ;  //TOP
+					vPosTL = ioOffsetT1 +  abs( ivec2(vPosTL.x - ioSrcOT.x, vPosTL.x - ioSrcOT.x) * nFlipD.xy ) ;  //TOP
 					
 				}else if(vPosTL.x == ioSrcTL.x){
 					//vPosTL += ivec2(ioOffsetL1);  //Left
-					vPosTL =  ioOffsetL1 + abs( ivec2(vPosTL.y - ioSrcOL.y,vPosTL.y - ioSrcOL.y) * vFlip.yx  ) ;  //Left
+					vPosTL =  ioOffsetL1 + abs( ivec2(vPosTL.y - ioSrcOL.y,vPosTL.y - ioSrcOL.y) * nFlipD.yx  ) ;  //Left
 				}
 
 				if(vPosTR == ioSrcTR ){
 					vPosTR = ioOffsetTR; //Corner TR
 				}else if(vPosTR.y == ioSrcTR.y){
 					//vPosTR += ivec2(ioOffsetT1); //Top
-					vPosTR =  ioOffsetT1 +  abs(ivec2(vPosTR.x - ioSrcOT.x,vPosTR.x - ioSrcOT.x )* vFlip.xy ) ;  //TOP
+					vPosTR =  ioOffsetT1 +  abs(ivec2(vPosTR.x - ioSrcOT.x,vPosTR.x - ioSrcOT.x )* nFlipD.xy ) ;  //TOP
 					
 				}else if(vPosTR.x == ioSrcTR.x){
 					//vPosTR += ivec2(ioOffsetR1); //RIGHT
-					vPosTR = ioOffsetR1 + abs( ivec2(vPosTR.y - ioSrcOR.y,vPosTR.y - ioSrcOR.y )* vFlip.yx  ) ; //RIGHT
+					vPosTR = ioOffsetR1 + abs( ivec2(vPosTR.y - ioSrcOR.y,vPosTR.y - ioSrcOR.y )* nFlipD.yx  ) ; //RIGHT
 				}
 
 				if(vPosBR == ioSrcBR ){
 					vPosBR = ioOffsetBR; //Corner BR
 				}else if(vPosBR.y == ioSrcBR.y){
 
-					vPosBR = ioOffsetB1 +  abs( ivec2(vPosBR.x - ioSrcOB.x, vPosBR.x - ioSrcOB.x) * vFlip.xy  ) ;  //BOT
+					vPosBR = ioOffsetB1 +  abs( ivec2(vPosBR.x - ioSrcOB.x, vPosBR.x - ioSrcOB.x) * nFlipD.xy  ) ;  //BOT
 					
 				}else if(vPosBR.x == ioSrcBR.x){
 
-					vPosBR = ioOffsetR1 + abs( ivec2(vPosBR.y - ioSrcOR.y,vPosBR.y - ioSrcOR.y) * vFlip.yx  ) ; //Right
+					vPosBR = ioOffsetR1 + abs( ivec2(vPosBR.y - ioSrcOR.y,vPosBR.y - ioSrcOR.y) * nFlipD.yx  ) ; //Right
 				}
 
 
@@ -597,10 +587,10 @@ void main()
 					vPosBL = ioOffsetBL; //Corner BL
 					
 				}else if(vPosBL.y == ioSrcBL.y){
-					vPosBL = ioOffsetB1 +  abs( ivec2(vPosBL.x - ioSrcOB.x,vPosBL.x - ioSrcOB.x ) * vFlip.xy ) ;  //BOT
+					vPosBL = ioOffsetB1 +  abs( ivec2(vPosBL.x - ioSrcOB.x,vPosBL.x - ioSrcOB.x ) * nFlipD.xy ) ;  //BOT
 					
 				}else if(vPosBL.x == ioSrcBL.x){
-					vPosBL =  ioOffsetL1 + abs( ivec2(vPosBL.y - ioSrcOL.y,vPosBL.y - ioSrcOL.y) * vFlip.yx   );  //Left
+					vPosBL =  ioOffsetL1 + abs( ivec2(vPosBL.y - ioSrcOL.y,vPosBL.y - ioSrcOL.y) * nFlipD.yx   );  //Left
 				}
 		
 
@@ -620,13 +610,11 @@ void main()
 				float _nRAlphaTL = 1.0 - (_nRAlphaTR +_nRAlphaBR + _nRAlphaBL) ;
 
 				pixTex = vPixTL * _nRAlphaTL +  vPixTR * _nRAlphaTR +  vPixBR * _nRAlphaBR +  vPixBL * _nRAlphaBL;
-				
-		*/
-		
-			//pixTex = vec4(0.5,0.5,0.5,0.5);
+				*/
+		/*
 			}else{
-			//	pixTex = texture(TexCurrent, ioTexture);
-			}
+				pixTex = texture(TexCurrent, ioTexture);
+			}*/
 
 pixTex  = texture(TexCurrent, ioTexture);
 
@@ -756,7 +744,12 @@ pixTex  = texture(TexCurrent, ioTexture);
         vLight = clamp(vColorDiffuse.rgb , 0.0, 1.0); //0 a 1 -> = 0 if Dark
         pixTex.rgb = (((( vec3(pixTex.a) -  pixTex.rgb ) * vLight) + pixTex.rgb)  * vDark);
 		
-
+		/*
+        vDark  = clamp(vColorDiffuse.rgb, 0.0, 1.0); //0 a 1 -> = 1 if bright
+        vLight = clamp(vColorDiffuse.rgb - 1.0, 0.0, 1.0); //0 a 1 -> = 0 if Dark
+        pixTex.rgb = (((( vec3(pixTex.a) -  pixTex.rgb ) * vLight) + pixTex.rgb) * (vDark));
+*/
+		
 		
 		//vPtDist += vColorDiffuse + vec4(vAmbient,0.0);
 		
