@@ -28,19 +28,25 @@ package  {
 		
 		public var nTest : Int = 0;
 		
+		public var oVbo : Vbo;
+		
 	
 		
 		public function GzShModel_Quad():Void {
 			Debug.fTrace("--- GzShModel Created!! ---");
 			
-			oAt = new Attribute_Quad();
-			Attribute_Quad = oAt; //Singleton
+		
 		}
 		
 		public function fLoad():Bool {
 			oVertex = new VertexShader();
 			oFragement = new FragmentShader();
 			oProgram = new ProgramShader();
+			
+			oVbo = new Vbo(oProgram);
+			
+			oAt = new Attribute_Quad(oVbo);
+			Attribute_Quad = oAt; //Singleton
 			
 	
 <glsl(oVertex)>
@@ -882,7 +888,9 @@ pixTex  = texture(TexCurrent, ioTexture);
 		override public function fIniRender():Void {
 
 			//Debug.fTrace("Total Face : "  + Context.oItf.nTotalFaces) ;
-			oAt.fIniData( Context.oItf.nTotalFaces );
+			oVbo.fIniData(Context.oItf.nTotalFaces, 4, 13);
+		
+			oAt.fIniData( );
 		}
 		
 		public function fUpdate():Void {

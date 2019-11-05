@@ -59,7 +59,12 @@ package  {
 		
 		
 
-		public function fSetSize(_nTotalElement:Int, _nSize:Int):Void {
+			
+
+		
+		public function fIniData(_nTotalElement:Int, _nSize:Int, _nTotalAttribute:Int):Void {
+			nTotalAttribute = _nTotalAttribute;
+			nCurrentAttributeSetOffset = 0;
 			nTotalPerAttrib = _nTotalElement * _nSize;
 			aData.fMaxSize(nTotalPerAttrib * nTotalAttribute);
 		}

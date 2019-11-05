@@ -56,8 +56,7 @@ package  {
 		
 		
 		public wvar oProgram : ProgramShader
-		
-		
+
 		public var nTotalQuad : UInt = 0;
 
 		
@@ -65,7 +64,8 @@ package  {
 		public wvar oVbo : Vbo;
 		
 		
-		public function Attribute_Tiles():Void {
+		public function Attribute_Tiles(_oVbo : Vbo):Void {
+			oVbo = _oVbo;
 			Debug.fTrace("--- Attribute_Tiles Created!! ---");
 			
 		}
@@ -85,7 +85,7 @@ package  {
 		}
 		
 		public function fIniData(_nTotalQuad:UInt, _nCurrentAttribte:Int ):Void {
-	
+			
 	/*
 			nTotalQuad = _nTotalQuad;
 			

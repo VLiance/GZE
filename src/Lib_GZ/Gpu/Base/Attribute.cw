@@ -97,11 +97,18 @@ package  {
 		}
 		
 		
-		public function fVboSetOffset():Void{ //overided
+		public function fVboSetOffset():Void{ 
+	
+			var _nOffset : Int = oVbo.nTotalPerAttrib *  oVbo.nCurrentAttributeSetOffset;
+					//Debug.fTrace("!" + oVbo.nTotalPerAttrib)
+			//		Debug.fTrace("*" + oVbo.nCurrentAttributeSetOffset + " " + nOffset)
+			fSetOffset(_nOffset); //overided
+			oVbo.nCurrentAttributeSetOffset++;
 		}
 		
 		public function fSetOffset(_nValOffset : UInt):Void{ //overided
 			nOffset = _nValOffset;
+			Debug.fTrace("*" + nOffset);
 		}
 		
 		

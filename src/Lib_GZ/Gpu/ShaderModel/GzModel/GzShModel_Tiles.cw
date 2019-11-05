@@ -25,6 +25,8 @@ package  {
 	
 	public overclass GzShModel_Tiles extends GzShModel {
 
+		public var oVbo : Vbo;
+		
 		public var oAtQuad : Attribute_Quad;
 		public var oAtTiles : Attribute_Tiles;
 		
@@ -35,17 +37,25 @@ package  {
 		public function GzShModel_Tiles():Void {
 			Debug.fTrace("--- GzShModel Created!! ---");
 			
-			oAtQuad = new Attribute_Quad();
-			Attribute_Quad = oAtQuad; //Singleton
-			
-			oAtTiles = new Attribute_Tiles();
-			Attribute_Tiles = oAtTiles; //Singleton
+
 		}
 		
 		public function fLoad():Bool {
 			oVertex = new VertexShader();
 			oFragement = new FragmentShader();
 			oProgram = new ProgramShader();
+			
+			
+			oVbo = new Vbo(oProgram);
+			
+			oAtQuad = new Attribute_Quad(oVbo);
+			Attribute_Quad = oAtQuad; //Singleton
+			
+			oAtTiles = new Attribute_Tiles(oVbo);
+			Attribute_Tiles = oAtTiles; //Singleton
+			
+			
+			
 			
 	
 <glsl(oVertex)>
@@ -890,13 +900,21 @@ pixTex  = texture(TexCurrent, ioTexture);
 		override public function fIniRender():Void {
 
 			//Debug.fTrace("Total Face : "  + Context.oItf.nTotalFaces) ;
-			oAtQuad.fIniData( Context.oItf.nTotalFaces );
+	
+			oVbo.fIniData(Context.oItf.nTotalFaces , 4, 13 );
+		
+			oAtQuad.fIniData();
+			
 		}
 		
 		public function fUpdate():Void {
 		
 		
-			oAtQuad.fUpdate();
+			oVbo.fSendData();
+		
+		//	oAtQuad.fUpdate();
+			
+			
 			//return; ///DISAABLE
 			
 			oVboBatch.fSetDefaultDataVertexID();

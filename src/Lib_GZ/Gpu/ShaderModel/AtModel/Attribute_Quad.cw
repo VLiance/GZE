@@ -58,7 +58,8 @@ package  {
 		public var oVbo : Vbo;
 		
 		
-		public function Attribute_Quad():Void {
+		public function Attribute_Quad(_oVbo : Vbo):Void {
+			oVbo = _oVbo;
 			Debug.fTrace("--- Attribute_Quad Created!! ---");
 			
 		}
@@ -67,7 +68,7 @@ package  {
 		public function fLocateAttribute(_oProgram:ProgramShader):Void {
 			oProgram = _oProgram;
 			
-			oVbo = new Vbo(oProgram);
+		//	oVbo = new Vbo(oProgram);
 
 			
 			oAtObjPos = new Attribute("in_ObjPos", oVbo);
@@ -139,21 +140,39 @@ package  {
 			
 		}
 		
-		public function fIniData(_nTotalQuad:UInt):Void {
+		public function fIniData():Void {
+		
+					
+		
+			var _nTotalQuad : Int = Context.oItf.nTotalFaces;
+			
+			//	Debug.fTrace("nTotalQuad: " +nTotalQuad)
+			var _nTotalPerAttrib : Int = _nTotalQuad * 4; //4 = Vec4
+			oVbo.aData.fMaxSize(_nTotalPerAttrib * 13);
+			
+			
 			//Debug.fTrace("-----------------------*********************************************************** " ) ;
 			//Debug.fTrace("fIniData: Total Quad : "  + _nTotalQuad) ;
 			//Debug.fTrace("-----------------------*********************************************************** " ) ;
 			
+			oAtObjPos.fVboSetOffset();
+			oAtObjRot.fVboSetOffset();
+			oAtObjSize.fVboSetOffset();
+			
+			oAtPt1.fVboSetOffset();
+			oAtPt2.fVboSetOffset();
+			oAtPt3.fVboSetOffset();
+			oAtPt4.fVboSetOffset();
+			
+			oAtTexSource0.fVboSetOffset();
+			oAtTexSource1.fVboSetOffset();
+			
+			oAtColor1.fVboSetOffset();
+			oAtColor2.fVboSetOffset();
+			oAtColor3.fVboSetOffset();
+			oAtColor4.fVboSetOffset();
 
-				
-			nTotalQuad = _nTotalQuad;
-			
-			//	Debug.fTrace("nTotalQuad: " +nTotalQuad)
-			
-			var _nTotalPerAttrib : Int = _nTotalQuad * 4; //4 = Vec4
-			oVbo.aData.fMaxSize(_nTotalPerAttrib * 13);
-			
-
+/*
 			oAtObjPos.fSetOffset(_nTotalPerAttrib * 0);
 			oAtObjRot.fSetOffset(_nTotalPerAttrib * 1);
 			oAtObjSize.fSetOffset(_nTotalPerAttrib * 2);
@@ -170,6 +189,12 @@ package  {
 			oAtColor2.fSetOffset(_nTotalPerAttrib * 10);
 			oAtColor3.fSetOffset(_nTotalPerAttrib * 11);
 			oAtColor4.fSetOffset(_nTotalPerAttrib * 12);
+		*/	
+			
+			
+			
+			
+			
 		}
 		
 		public function fSetIndex(_nIndex:UInt):Void{
@@ -195,7 +220,7 @@ package  {
 		
 		
 		public function fUpdate():Void {
-			oVbo.fSendData();
+		//	oVbo.fSendData();
 		
 		}
 
