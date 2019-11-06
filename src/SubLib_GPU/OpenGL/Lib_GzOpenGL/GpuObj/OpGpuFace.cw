@@ -102,7 +102,7 @@ package  {
 			
 			var _oTile : Tile = oFace.oShape; //Cast to tile 
 			//if(_oTile == 0){		return;}
-			Debug.fTrace("Update tiles : " + _oTile.nPosL);
+		//	Debug.fTrace("Update tiles : " + _oTile.nPosL);
 			
 			oAtTiles.oAtTilesHV.fSetVal(0, _oTile.nPosL);
 			oAtTiles.oAtTilesHV.fSetVal(1, _oTile.nPosT);

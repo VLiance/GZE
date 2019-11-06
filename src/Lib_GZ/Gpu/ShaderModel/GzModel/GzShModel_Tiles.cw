@@ -429,7 +429,7 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 		if(in_ObjSize.y < 0.0){ //Reverse height
 		   nFrontFacing *= -1.0;
 		}
-
+nFrontFacing = 1.0;
 		ioNorm1 = normalize(vec3(-1.0,-1.0,-9.0 * nFrontFacing ));
 		ioNorm2 = normalize(vec3( 1.0,-1.0,-9.0 * nFrontFacing));
 		ioNorm3 = normalize(vec3( 1.0, 1.0,-9.0 * nFrontFacing ));
@@ -1036,7 +1036,7 @@ void main()
 
        // FragColor =  pixTex;
 
-FragColor =  pixTex; //Disable light
+//FragColor =  pixTex; //Disable light
         /////////////////////////////////////////////////////
         /////////////////////// LIGHT  /////////////////////
         /////////////////////////////////////////////////////
@@ -1044,7 +1044,9 @@ FragColor =  pixTex; //Disable light
         /////////////////////////  Phong light  ///////////////////
 
         vec3 vPtWorld = (iomWorldPt * _vCoDist).xyz;
-        vec3 vPtNorm =  (iomNorm * _vCoDist).xyz;
+        //vec3 vPtNorm =  (iomNorm * _vCoDist).xyz;
+		vec3 vPtNorm =  iomNorm[0].xyz;
+		//vec3 vPtNorm = vec3(0.0,1.0,0.0);
 
        // vec3 light_position =  (vec3(1514 ,-384, -600.0));
         vec3 light_position = vec3(1514.0 ,-200.0, -800.0);
@@ -1085,8 +1087,8 @@ FragColor =  pixTex; //Disable light
             specular = pow(max(0.0, dot(R, V)), 16.0);//0.15  https://learnopengl.com/Lighting/Basic-Lighting
 
           //Blinn-Phong
-         // vec3 H = normalize(L + V );//Halfway
-         // specular = 0.65 * pow(max(0, dot(H, vPtNorm)), 0.65);
+          vec3 H = normalize(L + V );//Halfway
+          specular = 0.65 * pow(max(0, dot(H, vPtNorm)), 0.65);
         }
 
 		
@@ -1122,7 +1124,7 @@ FragColor =  pixTex; //Disable light
 //pixTex.a = 0.5;
 
 
-// FragColor =  pixTex;
+FragColor =  pixTex;
 		
        // FragColor =  vColorDiffuse + vec4(vAmbient,0.0);
       //  FragColor =  vec4(diffuse*10.0, 0.0 ,1.0,1.0);
