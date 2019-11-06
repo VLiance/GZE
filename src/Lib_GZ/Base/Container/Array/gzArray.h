@@ -521,9 +521,14 @@ class gzArray {
 		//GzAssert(m.aData->nType != 0, "DataArray is readOnly, use () instead if you reading only values"); //IF READONLY WE RECREATE ONE (COW), TODO VERIFY?
 		//GzUnAssert(_nIndex >=  gzp_length , "Writing m Out of bound"); //OUT OF BOUND REALLOC ARRAY
 		gzIntX _nLength = gzp_length;
-		m.fSetArrayAndSize( (_nIndex+1) * (sizeof(T))  );
+		//	m.fSetArrayAndSize( (_nIndex+1) * (sizeof(T))  );
 		 //return  *((T*)(&m.aData->aTab[_nIndex * GzS]));
 		if(_nIndex >= _nLength){
+			gzUIntX _nMax = -1;
+			if(_nIndex > _nMax/2){ //If it's a negative value (or increddibly high) just return a dummy element. (use max index to return a temp value (so it can be overrited but it's a temp value))//TODO max can be affected ex:var _oTileT : TileData = _aTileData[nCaseY - 1][nCaseX];
+				_nIndex = _nLength;
+			}
+			m.fSetArrayAndSize( (_nIndex+1) * (sizeof(T))  );
 			((T*)m.aData->aTab)[_nIndex] = T();
 		}
 		 

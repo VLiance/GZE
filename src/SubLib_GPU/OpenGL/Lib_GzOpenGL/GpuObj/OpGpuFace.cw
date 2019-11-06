@@ -95,11 +95,14 @@ package  {
 		
 		oAtTiles.fSetIndex(GpuFace.nCurrent - 1);
 		
-		if (oFace.oShape.hType == Root.eType.Tile){
+		//if(oAtTiles.oAtTilesHV == 0){return;}
+	
 		
-			var _oTile : Tile = oFace; //Cast to tile 
+		if (oFace.oShape.hType == Root.eType.Tile){
 			
-			// Debug.fTrace("Update tiles : " + _oTile.nPosL);
+			var _oTile : Tile = oFace.oShape; //Cast to tile 
+			//if(_oTile == 0){		return;}
+			Debug.fTrace("Update tiles : " + _oTile.nPosL);
 			
 			oAtTiles.oAtTilesHV.fSetVal(0, _oTile.nPosL);
 			oAtTiles.oAtTilesHV.fSetVal(1, _oTile.nPosT);

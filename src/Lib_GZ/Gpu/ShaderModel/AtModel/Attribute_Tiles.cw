@@ -44,6 +44,7 @@ package  {
 
 			oAtTilesHV = new Attribute("in_TilesHV", oVbo);
 			oAtTilesC = new Attribute("in_TilesC", oVbo);
+			Debug.fTrace("fLocateAttribute: oAtTilesHV" );
 			
 		}
 		

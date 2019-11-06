@@ -953,8 +953,10 @@ void main()
 					vPosBL =  ioOffsetL1 + abs( ivec2(vPosBL.y - ioSrcOL.y,vPosBL.y - ioSrcOL.y) * vFlip.yx   );  //Left
 				}
 		
-		
-		
+		/*
+		if(vPosBL.y == ioSrcBL.y){
+		vPosBL = ivec2(1,1);
+		}*/
 
 				vec4 vPixTL = texelFetch(TexCurrent, vPosTL,0);
 				vec4 vPixTR = texelFetch(TexCurrent, vPosTR,0);
