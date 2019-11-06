@@ -78,8 +78,8 @@ package  {
 	in vec4 in_Color1; //R,G,B,A
 	
 	///TILES 
-	in vec4 in_TilesHV; //Vertical
-	in vec4 in_TilesC;  //Horizontal
+	in vec4 in_TilesHV; //Vertical //Horizontal
+	in vec4 in_TilesC; //Corner
 	
 	
 	
@@ -159,6 +159,48 @@ xflat out vec3 ioNorm4;
 xflat out mat4 iomWorldPt;
 xflat out mat4 iomNorm;
 /////////
+
+//// TILES ///////
+xflat out vec2 ioPtSrc1;
+xflat out vec2 ioPtSrc2;
+xflat out vec2 ioPtSrc3;
+xflat out vec2 ioPtSrc4;
+
+xflat out ivec2 ioSrcTL;
+xflat out ivec2 ioSrcTR;
+xflat out ivec2 ioSrcBR;
+xflat out ivec2 ioSrcBL;
+
+xflat out ivec2 ioSrcOT;
+xflat out ivec2 ioSrcOR;
+xflat out ivec2 ioSrcOB;
+xflat out ivec2 ioSrcOL;
+
+xflat out ivec2 ioOffsetL1;
+xflat out ivec2 ioOffsetT1;
+xflat out ivec2 ioOffsetR1;
+xflat out ivec2 ioOffsetB1;
+
+xflat out ivec2 ioOffsetL2;
+xflat out ivec2 ioOffsetT2;
+xflat out ivec2 ioOffsetR2;
+xflat out ivec2 ioOffsetB2;
+
+xflat out ivec2 ioOffsetTL;
+xflat out ivec2 ioOffsetTR;
+xflat out ivec2 ioOffsetBR;
+xflat out ivec2 ioOffsetBL;
+
+xflat out ivec2 ivTexDim;
+	
+xflat out ivec2 vFlip; //Sure?
+
+int nOriTX;
+int nOriBX;
+int nOriLY;
+int nOriRY;
+//////////////////
+
 
 
 	
@@ -409,7 +451,244 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 		iomNorm[3] = vec4(ioNorm4,0);
 		//////////////////////////////////////////////////////
 		/////////////////////////////////////////////////////
-		
+	
+
+/////////////////////////// TILES ///////////////////////////////////////////
+	//in vec4 in_TilesHV; //Vertical
+	//in vec4 in_TilesC;  //Horizontal
+	//in vec4 in_TexSource0;  //Sx3,Sy3,Sx4,Sy4
+	//in vec4 in_TexSource1;  //Sx3,Sy3,Sx4,Sy4
+//TILESET SRC
+
+ivTexDim = ivec2(vTexDim);
+
+int nOTL =  int(in_TilesC.x); 
+
+
+float _nRevX = 1.0;
+float _nRevY = 1.0;
+float _nRevD = 1.0;
+int _nIRevX = 1;
+int _nIRevY = 1;
+int _nIRevD = 1;
+
+if(in_TexSource0.x > in_TexSource1.x){
+	_nRevX = -1.0;
+	_nIRevX = -1;
+}
+
+if(in_TexSource0.y > in_TexSource1.y){
+	_nRevY = -1.0;
+	_nIRevY = -1;
+	//vRetroR *= 0;
+}
+if(nOTL < 0){
+	nOTL *= -1;
+	_nRevD = -1.0;
+	_nIRevD = -1;
+}
+
+nOriTX = 1;
+nOriBX = 1;
+nOriLY = 1;
+nOriRY = 1;
+
+ioPtSrc1 = in_TexSource0.xy;
+ioPtSrc2 = in_TexSource0.zw;
+ioPtSrc3 = in_TexSource1.xy;
+ioPtSrc4 = in_TexSource1.zw;
+			
+
+vec2 _vTL = ioPtSrc1;
+vec2 _vTR = ioPtSrc2;
+vec2 _vBR = ioPtSrc3;
+vec2 _vBL = ioPtSrc4;
+
+if(_nRevX < 0){ //Reverse X
+	_vTL = ioPtSrc2;
+	_vTR = ioPtSrc1;
+	_vBR = ioPtSrc4;
+	_vBL = ioPtSrc3;
+}
+if(_nRevY < 0){ //Reverse Y
+
+	vec2 _vTemp = _vTL;
+	_vTL = _vBL;
+	_vBL = _vTemp;
+	_vTemp = _vTR;
+	_vTR = _vBR;
+	_vBR = _vTemp;
+}
+
+if(_nRevD < 0){ //Reverse D
+	float _nTemp = _vTL.x;
+	_vTL.x = _vTL.y;
+	_vTL.y = _nTemp; 
+	 
+	 _nTemp = _vTR.x;
+	 _vTR.x = _vTR.y;
+	 _vTR.y = _nTemp;  
+	
+	 _nTemp = _vBR.x;
+	 _vBR.x = _vBR.y;
+	 _vBR.y = _nTemp; 
+	
+	 _nTemp = _vBL.x;
+	 _vBL.x = _vBL.y;
+	 _vBL.y = _nTemp; 
+	
+}
+
+
+ioSrcTL = ivec2(_vTL + vec2(-0.5,-0.5) + 0.5);
+ioSrcTR = ivec2(_vTR + vec2(0.5,-0.5) + 0.5);
+ioSrcBR = ivec2(_vBR + vec2(0.5,0.5) + 0.5);
+ioSrcBL = ivec2(_vBL + vec2(-0.5,0.5) + 0.5);
+
+
+int nOL =  int(in_TilesHV.x);
+if(nOL < 0){
+	nOL *= -1;
+	nOriLY *= -1 ;
+}
+ioOffsetL1.y = nOL /  ivTexDim.x;
+ioOffsetL1.x = nOL - ioOffsetL1.y * ivTexDim.x;
+
+
+int nOT =  int(in_TilesHV.y);
+if(nOT < 0){
+	nOT *= -1;
+	nOriTX *= -1 ;
+}
+ioOffsetT1.y = nOT /  ivTexDim.x;
+ioOffsetT1.x = nOT - ioOffsetT1.y * ivTexDim.x;
+
+
+
+int nOR =  int(in_TilesHV.z);
+if(nOR < 0){
+	nOR *= -1;
+	nOriRY *= -1 ;
+}
+ioOffsetR1.y = nOR /  ivTexDim.x;
+ioOffsetR1.x = nOR - ioOffsetR1.y * ivTexDim.x;
+
+
+int nOB =  int(in_TilesHV.w);
+if(nOB < 0){
+	nOB *= -1;
+	nOriBX *= -1;
+}
+ioOffsetB1.y = nOB /  ivTexDim.x;
+ioOffsetB1.x = nOB - ioOffsetB1.y * ivTexDim.x;
+
+
+if(_nRevX < 0){ //Reverse
+	ivec2 _vTemp = ioOffsetL1;
+	ioOffsetL1 = ioOffsetR1; 
+	ioOffsetR1 = _vTemp; 
+	
+
+	
+	nOriTX *= -1;
+	nOriBX *= -1;
+	
+	int _nTemp = nOriLY ;
+	nOriLY = nOriRY;
+	nOriRY = _nTemp;
+}
+
+if(_nRevY < 0){ //Reverse
+	ivec2 _vTemp = ioOffsetT1;
+	ioOffsetT1 = ioOffsetB1; 
+	ioOffsetB1 = _vTemp; 
+
+	nOriLY *= -1;
+	nOriRY *= -1;
+	
+	int _nTemp = nOriTX ;
+	nOriTX = nOriBX;
+	nOriBX = _nTemp;
+}
+
+
+
+
+
+if(nOriTX > 0){
+	ioSrcOT = ioSrcTL;
+}else{
+	ioSrcOT = ioSrcTR;
+}
+
+if(nOriRY > 0){
+	ioSrcOR = ioSrcTR;
+}else{
+	ioSrcOR = ioSrcBR;
+}
+
+if(nOriBX > 0){
+	ioSrcOB = ioSrcBL;
+}else{
+	ioSrcOB = ioSrcBR;
+}
+
+if(nOriLY > 0){
+	ioSrcOL = ioSrcTL;
+}else{
+	ioSrcOL = ioSrcBL;
+}
+
+////////  CORNER  //////////
+//int nOTL =  int(in_TilesC.x); Save rotate flipping
+ioOffsetTL.y = nOTL /  ivTexDim.x;
+ioOffsetTL.x = nOTL - ioOffsetTL.y * ivTexDim.x;
+
+int nOTR =  int(in_TilesC.y);
+ioOffsetTR.y = nOTR /  ivTexDim.x;
+ioOffsetTR.x = nOTR - ioOffsetTR.y * ivTexDim.x;
+
+int nOBR =  int(in_TilesC.z);
+ioOffsetBR.y = nOBR /  ivTexDim.x;
+ioOffsetBR.x = nOBR - ioOffsetBR.y * ivTexDim.x;
+
+int nOBL =  int(in_TilesC.w);
+ioOffsetBL.y = nOBL /  ivTexDim.x;
+ioOffsetBL.x = nOBL - ioOffsetBL.y * ivTexDim.x;
+
+
+	/*	
+	//Clamp			
+ioOffsetT =  ivec2(0,1);
+ioOffsetR =  ivec2(-1,0);
+ioOffsetB =  ivec2(0,-1);
+ioOffsetL =  ivec2(1,0);
+
+	
+ioOffsetTL =  ivec2(1,1);
+ioOffsetTR =  ivec2(-1,1);
+ioOffsetBR =  ivec2(-1,-1);
+ioOffsetBL =  ivec2(1,-1);
+*/
+
+vFlip =  ivec2(1,0);
+if(_nIRevD < 0){
+	//vFlip =  ivec2(0,1);
+	
+}
+
+
+
+//gl_Position.x +=  in_TilesHV.x;
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
 		/*	
 		}
 		if(nType == 2){ //Buffer
@@ -456,8 +735,59 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 			
 			///////////// Fragment Shader //////////////
 <glsl(oFragement)>
-				
-					
+	
+//////////////////  TILES /////////////////////////
+
+xflat in vec2 ioPtSrc1;
+xflat in vec2 ioPtSrc2;
+xflat in vec2 ioPtSrc3;
+xflat in vec2 ioPtSrc4;
+
+xflat in ivec2 ioSrcTL;
+xflat in ivec2 ioSrcTR;
+xflat in ivec2 ioSrcBR;
+xflat in ivec2 ioSrcBL;
+
+xflat in ivec2 ioSrcOT;
+xflat in ivec2 ioSrcOR;
+xflat in ivec2 ioSrcOB;
+xflat in ivec2 ioSrcOL;
+
+xflat in ivec2 ioOffsetL1;
+xflat in ivec2 ioOffsetT1;
+xflat in ivec2 ioOffsetR1;
+xflat in ivec2 ioOffsetB1;
+
+xflat in ivec2 ioOffsetL2;
+xflat in ivec2 ioOffsetT2;
+xflat in ivec2 ioOffsetR2;
+xflat in ivec2 ioOffsetB2;
+
+xflat in ivec2 ioOffsetTL;
+xflat in ivec2 ioOffsetTR;
+xflat in ivec2 ioOffsetBR;
+xflat in ivec2 ioOffsetBL;
+
+xflat in ivec2 ivTexDim;
+	
+xflat in ivec2 vFlip; //Sure?
+
+
+
+vec4 vPixTL;
+vec4 vPixTR;
+vec4 vPixBR;
+vec4 vPixBL;
+
+
+ivec2 vPosTL;
+ivec2 vPosTR;
+ivec2 vPosBR;
+ivec2 vPosBL;
+
+/////////////////////////////////////////////
+
+		
 	//out vec4 outputColor;
 
 	uniform sampler2D TexCurrent;
@@ -500,6 +830,8 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 	vec3 vLight;
 	vec4 pixTex;
 
+	
+
 
 
 /////////////
@@ -531,7 +863,7 @@ void main()
 		//vec4 vPtDist = vec4(1.0, 0.0, 0.0, 0.5); //No Color
 		vec4 vPtDist = coord_Color1; 
 	//	vec4 vPtDist = _vQuadColor; 
-		/*
+		
 	if( nType == 6){
 
 			//Normal
@@ -552,10 +884,10 @@ void main()
 				//Work
 				//vec2 vPosTex = vec2(ioTexture.x * vTexDim.x, ioTexture.y  * vTexDim.y) - 0.5; //+2 px border
 
-			vec2 vRetroR = vec2(2.0,2.0);
-			vec2 vFlip = vec2(1.0,10);
-			vec2 ioOffsetTL = vec2(0.0,0);
-			vec2 ioOffsetTL = vec2(0.0,0);
+			vec2 vRetroR = vec2(4.0,4.0);
+			//ivec2 vFlip = ivec2(1,1);
+			//vec2 ioOffsetTL = vec2(0.0,0);
+			//vec2 ioOffsetTL = vec2(0.0,0);
 			
 
 				//vec2 vPosTex = ioTexture * vTexDim * float(1 << nRetroRatio) - 0.5;
@@ -621,6 +953,8 @@ void main()
 					vPosBL =  ioOffsetL1 + abs( ivec2(vPosBL.y - ioSrcOL.y,vPosBL.y - ioSrcOL.y) * vFlip.yx   );  //Left
 				}
 		
+		
+		
 
 				vec4 vPixTL = texelFetch(TexCurrent, vPosTL,0);
 				vec4 vPixTR = texelFetch(TexCurrent, vPosTR,0);
@@ -645,8 +979,8 @@ void main()
 			}else{
 				pixTex = texture(TexCurrent, ioTexture);
 			}
-*/
-pixTex  = texture(TexCurrent, ioTexture);
+
+//pixTex  = texture(TexCurrent, ioTexture);
 
 
 
@@ -700,7 +1034,7 @@ pixTex  = texture(TexCurrent, ioTexture);
 
        // FragColor =  pixTex;
 
-
+FragColor =  pixTex; //Disable light
         /////////////////////////////////////////////////////
         /////////////////////// LIGHT  /////////////////////
         /////////////////////////////////////////////////////
@@ -731,9 +1065,6 @@ pixTex  = texture(TexCurrent, ioTexture);
         float att_kL = 0.6; //KL is the linear attenuation
         float att_kQ = 0.8; //KQ is the quadratic attenuation
  
-
-
-
 
         //attenuation
        // float d = distance( light_position,  vPtWorld) / 800.0;
@@ -789,7 +1120,8 @@ pixTex  = texture(TexCurrent, ioTexture);
 //pixTex.a = 0.5;
 
 
-        FragColor =  pixTex;
+// FragColor =  pixTex;
+		
        // FragColor =  vColorDiffuse + vec4(vAmbient,0.0);
       //  FragColor =  vec4(diffuse*10.0, 0.0 ,1.0,1.0);
        // FragColor =  vec4(iomNorm[0].xyz,1.0);
@@ -861,6 +1193,7 @@ pixTex  = texture(TexCurrent, ioTexture);
 			
 				
 			oAtQuad.fLocateAttribute(oProgram);
+			oAtTiles.fLocateAttribute(oProgram);
 		//	Debug.fTrace("Finish fLocateAttribute");
 
 		//	oAtQuadOffsetHV = oProgram.fAddAttribute("in_OffsetHV");
@@ -901,9 +1234,11 @@ pixTex  = texture(TexCurrent, ioTexture);
 
 			//Debug.fTrace("Total Face : "  + Context.oItf.nTotalFaces) ;
 	
-			oVbo.fIniData(Context.oItf.nTotalFaces , 4, 13 );
+			//oVbo.fIniData(Context.oItf.nTotalFaces , 4, 13 );
+			oVbo.fIniData(Context.oItf.nTotalFaces , 4, 15 );
 		
 			oAtQuad.fIniData();
+			oAtTiles.fIniData();
 			
 		}
 		
@@ -957,17 +1292,18 @@ pixTex  = texture(TexCurrent, ioTexture);
 			
 			//if(bTest == false){
 			//	bTest = true;
-		/*
-			if(nTest  < 3){
+		
+			if(nTest  < 4){
 				Debug.fTrace("------------------------------- " + nTest);
-				Debug.fTrace("----Size ---- " + oAtQuad.oVbo.aData.nSize);
+				Debug.fTrace("----Size ---- " + oVbo.aData.nSize);
 				//for(var i : Int = 0; i  < oAtQuad.oVbo.aData.nSize; i+=4){
-				for(var i : Int = 0; i  < oAtQuad.oVbo.aData.nSize; i+=8){
-					Debug.fTrace("[" +  oAtQuad.oVbo.aData[i] + "," +  oAtQuad.oVbo.aData[i+1] + "," +  oAtQuad.oVbo.aData[i+2] + "," +  oAtQuad.oVbo.aData[i+3] + "]" );
+				//for(var i : Int = 0; i  < oVbo.aData.nSize; i+=8){
+				for(var i : Int = 0; i  < 15 * Context.oItf.nTotalFaces; i+=Context.oItf.nTotalFaces){
+					Debug.fTrace("[" +  oVbo.aData[i] + "," +  oVbo.aData[i+1] + "," +  oAtQuad.oVbo.aData[i+2] + "," +  oAtQuad.oVbo.aData[i+3] + "]" );
 				}
 				nTest++;
 			}
-			*/
+			
 	
 			/*
 			forEach(var _nData : float in oAtQuad.aData){

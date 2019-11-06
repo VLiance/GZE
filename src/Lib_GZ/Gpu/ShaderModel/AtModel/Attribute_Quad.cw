@@ -142,14 +142,13 @@ package  {
 		
 		public function fIniData():Void {
 		
-					
-		
+			/*	
 			var _nTotalQuad : Int = Context.oItf.nTotalFaces;
 			
 			//	Debug.fTrace("nTotalQuad: " +nTotalQuad)
 			var _nTotalPerAttrib : Int = _nTotalQuad * 4; //4 = Vec4
 			oVbo.aData.fMaxSize(_nTotalPerAttrib * 13);
-			
+			*/
 			
 			//Debug.fTrace("-----------------------*********************************************************** " ) ;
 			//Debug.fTrace("fIniData: Total Quad : "  + _nTotalQuad) ;

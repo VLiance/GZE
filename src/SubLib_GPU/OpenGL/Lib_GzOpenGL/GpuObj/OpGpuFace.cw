@@ -9,14 +9,19 @@ package  {
 	import GZ.Gfx.Buffer;
 	//import GZ.File.RcImg;
 	import GZ.Gpu.ShaderModel.AtModel.Attribute_Quad;
+	import GZ.Gpu.ShaderModel.AtModel.Attribute_Tiles;
 	import GZ.Gfx.Face;
 	import GZ.Gfx.Shape;
+	import GZ.Gfx.Root;
 	import GZ.Base.Vec4;
+	
+	import GZ.Gfx.Tile.Tile;
 	
 	
 	public class OpGpuFace overplace GpuFace {
 	
 	public var oAt : Attribute_Quad;
+	public var oAtTiles : Attribute_Tiles;
 	
 	
 
@@ -43,30 +48,7 @@ package  {
 		oAt.fSetIndex(GpuFace.nCurrent);
 		GpuFace.nCurrent++;
 				
-	
-		
-		//GpuFace.nCurrent++;
-		
-		//Debug.fTrace("GPU draw face! " );
-		/*
-		if(oAt == null){
-		//if(oAt == 0){
-			return;
-		}*/
-		//Attribute_Quad.oAtObjPos.fSet(oFace.oShape.vPos);
-		/*
-		<cpp>
-			gzArrayView<gzFloat> _aTest = oFace->oShape->vPos.get(); //TODO arrayview
-		</cpp>
-		*/
-		//Debug.fTrace("GPU draw face! " + oFace.oShape.vPos.nX + ", "  + oFace.oShape.vPos.nY );
-					
-		/*		
-		oAt.oAtObjPos.fSetVal(0,oFace.oShape.oGblPt.vPt.nX);
-		oAt.oAtObjPos.fSetVal(1,oFace.oShape.oGblPt.vPt.nY); 
-		oAt.oAtObjPos.fSetVal(2,oFace.oShape.oGblPt.vPt.nZ); 
-		*/
-		
+
 	//	Debug.fTrace("aBefDataLinkedSize! " + Attribute_Quad.oAtObjPos.aDataLinked.nSize  );
 		oAt.oAtObjPos.fSet(oFace.oShape.oGblPt.vPt);
 		oAt.oAtObjSize.fSet(oFace.oShape.vGblSize);
@@ -74,15 +56,7 @@ package  {
 		//oAtObjSize
 		oAt.oAtObjRot.fSet(oFace.oShape.vQuaternion);
 		
-		/**
-	
-    _aFaces[oGzSh->nStObjRot+_nIdx+0] = oShape->oQuaternion->nX;
-    _aFaces[oGzSh->nStObjRot+_nIdx+1] = oShape->oQuaternion->nY;
-    _aFaces[oGzSh->nStObjRot+_nIdx+2] = oShape->oQuaternion->nZ;
-    _aFaces[oGzSh->nStObjRot+_nIdx+3] = oShape->oQuaternion->nW;
 
-		*/
-		
 		
 		oAt.oAtPt1.fSet(oFace.oPt1.vPt);
 		oAt.oAtPt2.fSet(oFace.oPt2.vPt);
@@ -111,52 +85,55 @@ package  {
 		oAt.oAtColor4.fSet(oFace.oShape.vColor); //Not used
 
 		
-		//Debug.fTrace("GPU draw face! " + oAt.oAtPt1.oVbo.aData.nSize);
 		
+		oAtTiles = Attribute_Tiles;
+		<cpp>
+		if(oAtTiles == 0){ //TODO correction in C~ if(oAt == null){
+			return;
+		}
+		</cpp>
 		
+		oAtTiles.fSetIndex(GpuFace.nCurrent - 1);
 		
-		//oAt.oAtTexSource1.fSet(oFace.rPtS3);
+		if (oFace.oShape.hType == Root.eType.Tile){
 		
-		
-		
-		
-		
-		
-		/*
-		oAtObjPos.fSetOffset(_nTotalPerAttrib * 0);
-		oAtObjRot.fSetOffset(_nTotalPerAttrib * 1);
-
-		oAtPt1.fSetOffset(_nTotalPerAttrib * 2);
-		oAtPt2.fSetOffset(_nTotalPerAttrib * 3);
-		oAtPt3.fSetOffset(_nTotalPerAttrib * 4);
-		oAtPt4.fSetOffset(_nTotalPerAttrib * 5);
-
-		oAtTexSource0.fSetOffset(_nTotalPerAttrib * 6);
-		oAtTexSource1.fSetOffset(_nTotalPerAttrib * 7);
-
-		oAtColor1.fSetOffset(_nTotalPerAttrib * 8);
-		oAtColor2.fSetOffset(_nTotalPerAttrib * 9);
-		oAtColor3.fSetOffset(_nTotalPerAttrib * 10);
-		oAtColor4.fSetOffset(_nTotalPerAttrib * 11);
-		*/
-		
-		
-		
-		
-	//	Debug.fTrace("aDataLinked! " + Attribute_Quad.oAtObjPos.aDataLinked[0]  );
-	//	Debug.fTrace("aDataLinkedSize! " + Attribute_Quad.oAtObjPos.aDataLinked.nSize  );
-				
-		
-		//;
+			var _oTile : Tile = oFace; //Cast to tile 
+			
+			// Debug.fTrace("Update tiles : " + _oTile.nPosL);
+			
+			oAtTiles.oAtTilesHV.fSetVal(0, _oTile.nPosL);
+			oAtTiles.oAtTilesHV.fSetVal(1, _oTile.nPosT);
+			oAtTiles.oAtTilesHV.fSetVal(2, _oTile.nPosR);
+			oAtTiles.oAtTilesHV.fSetVal(3, _oTile.nPosB);
+			
+			oAtTiles.oAtTilesC.fSetVal(0, _oTile.nNPosTL);
+			oAtTiles.oAtTilesC.fSetVal(1, _oTile.nNPosTR);
+			oAtTiles.oAtTilesC.fSetVal(2, _oTile.nNPosBR);
+			oAtTiles.oAtTilesC.fSetVal(3, _oTile.nNPosBL);
+		}
 		
 		/*
-		_aFaces[oGzSh->nStObjPos+_nIdx+0] = oShape->oGblPt->nX;
-		_aFaces[oGzSh->nStObjPos+_nIdx+1] = oShape->oGblPt->nY;
-		_aFaces[oGzSh->nStObjPos+_nIdx+2] = oShape->oGblPt->nZ;
+   cTile* _oTile = (cTile*)oShape;
+   
+        //Left
+        _aFaces[oGzSh->nStOffsetHV+_nIdx+0] = _oTile->nPosL;
+        //Top
+        _aFaces[oGzSh->nStOffsetHV+_nIdx+1] = _oTile->nPosT;
+        //Right
+        _aFaces[oGzSh->nStOffsetHV+_nIdx+2] = _oTile->nPosR;
+        //Bottom
+        _aFaces[oGzSh->nStOffsetHV+_nIdx+3] = _oTile->nPosB;
+
+
+        //TL
+        _aFaces[oGzSh->nStOffsetC+_nIdx+0] = _oTile->nNPosTL;
+        //TR
+        _aFaces[oGzSh->nStOffsetC+_nIdx+1] = _oTile->nNPosTR;
+        //BR
+        _aFaces[oGzSh->nStOffsetC+_nIdx+2] = _oTile->nNPosBR;
+        //BL
+        _aFaces[oGzSh->nStOffsetC+_nIdx+3] = _oTile->nNPosBL;
 		*/
-	//	Context.oGpu.oGzSh
-		
-		
 		
 		
 		
