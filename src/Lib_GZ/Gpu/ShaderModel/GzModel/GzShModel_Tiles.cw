@@ -1095,7 +1095,7 @@ vPtNorm = cross(vPtNorm.xyz, _vMyNorm.xyz);
         vec3 light_position = vec3(  300.0, 300.0, -100.0);
        // vec3 light_position = vec3(  300.0, 300.0, -500.0);
         //vec3 light_position = vec3(  300.0, 400.0, 200.0);
-        vec3 eye_position =   vec3( 300.0,300.0, -200.0);
+        vec3 eye_position =   vec3( 300.0,900.0, -200.0);
 		
 		
 		
