@@ -430,10 +430,10 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 		   nFrontFacing *= -1.0;
 		}
 nFrontFacing = 1.0;
-		ioNorm1 = normalize(vec3(-1.0,-1.0,-9.0 * nFrontFacing ));
-		ioNorm2 = normalize(vec3( 1.0,-1.0,-9.0 * nFrontFacing));
-		ioNorm3 = normalize(vec3( 1.0, 1.0,-9.0 * nFrontFacing ));
-		ioNorm4 = normalize(vec3(-1.0, 1.0,-9.0 * nFrontFacing ));
+		ioNorm1 = normalize(vec3(-1.0,-1.0,-1.0 * nFrontFacing ));
+		ioNorm2 = normalize(vec3( 1.0,-1.0,-1.0 * nFrontFacing));
+		ioNorm3 = normalize(vec3( 1.0, 1.0,-1.0 * nFrontFacing ));
+		ioNorm4 = normalize(vec3(-1.0, 1.0,-1.0 * nFrontFacing ));
 
 		ioNorm1.xyz = fQRot_2(ioNorm1.xyz, in_ObjRot);
 		ioNorm2.xyz = fQRot_2(ioNorm2.xyz, in_ObjRot);
@@ -791,9 +791,10 @@ ivec2 vPosBL;
 	//out vec4 outputColor;
 
 	uniform sampler2D TexCurrent;
-	uniform sampler2D TexSource;
-	uniform sampler2D TexFragPos;
-	uniform sampler2D TexPixSrc;
+	uniform sampler2D TexNormal;
+	//uniform sampler2D TexSource;
+	//uniform sampler2D TexFragPos;
+	//uniform sampler2D TexPixSrc;
 
 	//uniform sampler2DArray TexArray;  
 
@@ -981,6 +982,8 @@ void main()
 			}else{
 				pixTex = texture(TexCurrent, ioTexture);
 			}
+			
+			
 
 //pixTex  = texture(TexCurrent, ioTexture);
 
@@ -1046,12 +1049,42 @@ void main()
         vec3 vPtWorld = (iomWorldPt * _vCoDist).xyz;
         //vec3 vPtNorm =  (iomNorm * _vCoDist).xyz;
 		vec3 vPtNorm =  iomNorm[0].xyz;
+/*
+vec4 pixNormal = texture(TexNormal, ioTexture);		 
+//vPtNorm = vPtNorm * pixNormal.xyz;
+vPtNorm = cross(vPtNorm.xyz, pixNormal.xyz);
+*/ 
+	 
+/////// MY AUTO Bump //////////
+float _nMonoCrome = (pixTex.r + pixTex.g + pixTex.b)/3.0;
+vec3 _vMyNorm = vec3(_nMonoCrome-0.5, 0.5 -  _nMonoCrome,  _nMonoCrome  );
+
+vPtNorm = cross(vPtNorm.xyz, _vMyNorm.xyz);
+
+
+////////////////////////// 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+		
 		//vec3 vPtNorm = vec3(0.0,1.0,0.0);
 
-       // vec3 light_position =  (vec3(1514 ,-384, -600.0));
-        vec3 light_position = vec3(1514.0 ,-200.0, -800.0);
-        vec3 eye_position =   vec3( 500.0,  384.0,-1024.0);
 
+      //  vec3 light_position = vec3(1514.0 ,-600.0, -800.0);
+       // vec3 eye_position =   vec3( 500.0,  384.0,-1024.0);
+		
+	 
+        vec3 light_position = vec3(  300.0, 300.0, -500.0);
+       // vec3 light_position = vec3(  300.0, 400.0, 200.0);
+        vec3 eye_position =   vec3( 300.0,300.0, 5000.0);
+		
+		
+		
 
         vec3 L = normalize( light_position - vPtWorld);//light direction
         vec3 V = normalize( eye_position - vPtWorld);//view direction
@@ -1085,10 +1118,11 @@ void main()
           vec3 R = -normalize(reflect(L, vPtNorm));//Reflection
            // specular = 0.65 * pow(max(0.0, dot(R, V)), 512); //https://learnopengl.com/Lighting/Basic-Lighting
             specular = pow(max(0.0, dot(R, V)), 16.0);//0.15  https://learnopengl.com/Lighting/Basic-Lighting
-
+		/*
           //Blinn-Phong
           vec3 H = normalize(L + V );//Halfway
           specular = 0.65 * pow(max(0, dot(H, vPtNorm)), 0.65);
+		  */
         }
 
 		

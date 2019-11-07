@@ -8,7 +8,7 @@ package  {
 	import GZ.File.Resource;
 	//import GZ.Gpu.GpuObj.GpuObject;
 	import GZ.Gpu.GpuObj.GpuRcImg;
-
+	import GZ.Gpu.Base.Texture;
 
 	/**
 	 * @author Maeiky
@@ -17,6 +17,9 @@ package  {
 	//public atomic RcImg extends Resource {
 	public class RcImg extends Resource {	
 	
+		public var oGpuTexLayer : Texture;
+		
+		
 		public var oGpuTexId : Val = 0;
 		public var nWidth : UInt = 0;
 		public var nHeight : UInt = 0;
@@ -32,8 +35,12 @@ package  {
 			oGpuRcImg = new GpuRcImg();
 			
 			// hLocation : eLocation = eLocation.Drive;
-			 
 		}
+		
+		public function fSetGpuTexLayer(_oGpuTexLayer : Texture):Void {
+			oGpuTexLayer = _oGpuTexLayer;
+		}
+		
 		
 		//Embed
 		
@@ -98,7 +105,7 @@ package  {
 				if(Context.oItf.bGpuDraw && bGpuLoaded == false){
 					bGpuLoaded = true;
 					if(aImg != null){
-						oGpuTexId = oGpuRcImg.fLoadImg(aImg[0], nWidth, nHeight);
+						oGpuTexId = oGpuRcImg.fLoadImg(aImg[0], nWidth, nHeight, oGpuTexLayer);
 					}
 					
 					return true;

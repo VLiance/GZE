@@ -7,6 +7,7 @@ package  {
 	import GZ.Gpu.GpuObj.GpuRcImg;
 	import GZ.Sys.Interface.Interface;
 	import GZ.Gpu.ShaderModel.AtModel.Attribute_Quad;
+	import GZ.Gpu.Base.Texture;
 	
 	public class OpGpuRcImg overplace GpuRcImg  {
 
@@ -23,15 +24,22 @@ package  {
 		public var oUvTexDim : UnVec2;
 		
 		
-		public function fLoadImg(_aImg : CArray<Int, 1>, _nWidth : Int, _nHeight : Int):Val{
-				
+		public function fLoadImg(_aImg : CArray<Int, 1>, _nWidth : Int, _nHeight : Int, _oGpuTexLayer : Texture):Val{
+		
+			oGpuTexLayer = _oGpuTexLayer;
 				
 			if(_nWidth = 0 && _nHeight == 0){
 				return null;
 			}
 			
-		
-			OpenGL.fActiveTexture(TEXTURE0);
+
+			if(oGpuTexLayer == null){ //TODO link text layer
+				OpenGL.fActiveTexture(TEXTURE0);
+			}else{
+				OpenGL.fActiveTexture(TEXTURE1);
+				Debug.fInfo("Enable TEXTURE1 !!!!!!!!");
+			}
+			
 			oTexId = OpenGL.fCreateTexture();
 			OpenGL.fBindTexture(TEXTURE_2D, oTexId);
 
@@ -52,12 +60,23 @@ package  {
 		#endif
 		</cpp>
 			
+			
+		if(oGpuTexLayer == null){
 			OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_MAG_FILTER , OpenGL.eTextureMagFilter.LINEAR);
 			OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_MIN_FILTER , OpenGL.eTextureMinFilter.LINEAR);
+	
+		}else{
+			OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_MAG_FILTER , OpenGL.eTextureMagFilter.NEAREST);
+			OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_MIN_FILTER , OpenGL.eTextureMinFilter.NEAREST);
+		}	
+			
+	
 	
 			OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_WRAP_S, OpenGL.eTextureWrapMode.REPEAT); // Repeat on X axis
 			OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_WRAP_T, OpenGL.eTextureWrapMode.REPEAT);  // Stretch on Y axis 
 
+	
+			
 		//	OpenGL.fBindTexture(TEXTURE_2D, null);  //Must keep bounded
 			//TODO Texture must keep being bound to a texture unit ->
 			
