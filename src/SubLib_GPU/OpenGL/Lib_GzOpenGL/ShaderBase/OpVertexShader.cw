@@ -46,7 +46,7 @@ package  {
 					
 					//#define in attribute
 					//#define out varying
-					#define xflat
+					#define xflat flat
 				////////////////////////////////////////////
 				</glsl>		
 				<cpp>

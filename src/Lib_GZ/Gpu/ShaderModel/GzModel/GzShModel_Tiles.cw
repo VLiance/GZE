@@ -94,11 +94,11 @@ package  {
 	////  in vec4 in_AchorPt3;  //x1,y1,x2,x2  
 	////  in vec4 in_AchorPt4;  //x1,y1,x2,x2  
 
-	in vec3 in_PtPos;       //Remove     
 	//in vec2 in_Corner;      //Remove     
-	in vec4 in_Color2;   //Remove     
-	in vec4 in_Color3;   //Remove     
-	in vec4 in_Color4;   //Remove     
+	//in vec3 in_PtPos;       //Remove     
+	//in vec4 in_Color2;   //Remove     
+	//in vec4 in_Color3;   //Remove     
+	//in vec4 in_Color4;   //Remove     
 
 
 	uniform vec4 vPersp;
@@ -515,13 +515,13 @@ vec2 _vTR = ioPtSrc2;
 vec2 _vBR = ioPtSrc3;
 vec2 _vBL = ioPtSrc4;
 
-if(_nRevX < 0){ //Reverse X
+if(_nRevX < 0.0){ //Reverse X
 	_vTL = ioPtSrc2;
 	_vTR = ioPtSrc1;
 	_vBR = ioPtSrc4;
 	_vBL = ioPtSrc3;
 }
-if(_nRevY < 0){ //Reverse Y
+if(_nRevY < 0.0){ //Reverse Y
 
 	vec2 _vTemp = _vTL;
 	_vTL = _vBL;
@@ -531,7 +531,7 @@ if(_nRevY < 0){ //Reverse Y
 	_vBR = _vTemp;
 }
 
-if(_nRevD < 0){ //Reverse D
+if(_nRevD < 0.0){ //Reverse D
 	float _nTemp = _vTL.x;
 	_vTL.x = _vTL.y;
 	_vTL.y = _nTemp; 
@@ -594,7 +594,7 @@ ioOffsetB1.y = nOB /  ivTexDim.x;
 ioOffsetB1.x = nOB - ioOffsetB1.y * ivTexDim.x;
 
 
-if(_nRevX < 0){ //Reverse
+if(_nRevX < 0.0){ //Reverse
 	ivec2 _vTemp = ioOffsetL1;
 	ioOffsetL1 = ioOffsetR1; 
 	ioOffsetR1 = _vTemp; 
@@ -609,7 +609,7 @@ if(_nRevX < 0){ //Reverse
 	nOriRY = _nTemp;
 }
 
-if(_nRevY < 0){ //Reverse
+if(_nRevY < 0.0){ //Reverse
 	ivec2 _vTemp = ioOffsetT1;
 	ioOffsetT1 = ioOffsetB1; 
 	ioOffsetB1 = _vTemp; 

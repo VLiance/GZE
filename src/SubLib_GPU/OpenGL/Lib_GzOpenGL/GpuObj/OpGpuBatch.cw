@@ -72,7 +72,8 @@ package  {
 
 	
 	
-			var _nNbElement : Int  = Context.oItf.nTotalFaces;
+			//var _nNbElement : Int  = Context.oItf.nTotalFaces;
+			var _nNbElement : Int  = Context.oItf.nTotalFaces-1;
 
 			OpenGL.fBindFramebuffer(FRAMEBUFFER, null); //Default?
 	

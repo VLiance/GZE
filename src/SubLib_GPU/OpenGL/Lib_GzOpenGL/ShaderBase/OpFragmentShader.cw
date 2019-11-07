@@ -57,7 +57,7 @@ package  {
 					#define FragData gl_FragData
 					out vec4 FragColor; // output fragment color
 					//#define fragColor FragColor
-					#define xflat
+					#define xflat flat
 					//#define iTime 5.0
 					uniform float iTime;
 					uniform vec2 iResolution;
