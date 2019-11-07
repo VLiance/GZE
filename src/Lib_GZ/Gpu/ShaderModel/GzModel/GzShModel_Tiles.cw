@@ -1056,8 +1056,8 @@ vPtNorm = cross(vPtNorm.xyz, pixNormal.xyz);
 */ 
 	 
 /////// MY AUTO Bump //////////
-float _nMonoCrome = (pixTex.r + pixTex.g + pixTex.b)/3.0;
-vec3 _vMyNorm = vec3(_nMonoCrome-0.5, 0.5 -  _nMonoCrome,  _nMonoCrome  );
+float _nMonoCrome =   0.5-(pixTex.r + pixTex.g + pixTex.b)/3.0;
+vec3 _vMyNorm = vec3((_nMonoCrome-0.5)*2.0, (0.5 - _nMonoCrome)*2.0,  _nMonoCrome  );
 
 vPtNorm = cross(vPtNorm.xyz, _vMyNorm.xyz);
 
@@ -1079,8 +1079,8 @@ vPtNorm = cross(vPtNorm.xyz, _vMyNorm.xyz);
        // vec3 eye_position =   vec3( 500.0,  384.0,-1024.0);
 		
 	 
-        vec3 light_position = vec3(  300.0, 300.0, -500.0);
-       // vec3 light_position = vec3(  300.0, 400.0, 200.0);
+        //vec3 light_position = vec3(  300.0, 300.0, -500.0);
+        vec3 light_position = vec3(  300.0, 400.0, 200.0);
         vec3 eye_position =   vec3( 300.0,300.0, 5000.0);
 		
 		
@@ -1118,11 +1118,11 @@ vPtNorm = cross(vPtNorm.xyz, _vMyNorm.xyz);
           vec3 R = -normalize(reflect(L, vPtNorm));//Reflection
            // specular = 0.65 * pow(max(0.0, dot(R, V)), 512); //https://learnopengl.com/Lighting/Basic-Lighting
             specular = pow(max(0.0, dot(R, V)), 16.0);//0.15  https://learnopengl.com/Lighting/Basic-Lighting
-		/*
+		
           //Blinn-Phong
           vec3 H = normalize(L + V );//Halfway
           specular = 0.65 * pow(max(0, dot(H, vPtNorm)), 0.65);
-		  */
+		  
         }
 
 		
