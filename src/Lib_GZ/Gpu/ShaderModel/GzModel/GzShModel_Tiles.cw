@@ -152,12 +152,15 @@ xflat out vec3 ioPt1;
 xflat out vec3 ioPt2;
 xflat out vec3 ioPt3;
 xflat out vec3 ioPt4;
-xflat out vec3 ioNorm1;
-xflat out vec3 ioNorm2;
-xflat out vec3 ioNorm3;
-xflat out vec3 ioNorm4;
+
+xflat out vec3 ioNorm;
+//xflat out vec3 ioNorm1;
+//xflat out vec3 ioNorm2;
+//xflat out vec3 ioNorm3;
+//xflat out vec3 ioNorm4;
+
 xflat out mat4 iomWorldPt;
-xflat out mat4 iomNorm;
+//xflat out mat4 iomNorm;
 /////////
 
 //// TILES ///////
@@ -416,12 +419,15 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 		pt2.x = (pt2.x + (_vObjPos.x - vPersp.x) ) / nZx - (_vObjPos.x - vPersp.x);\n
 		pt2.y = (pt2.y + (_vObjPos.y - vPersp.y) ) / nZx - (_vObjPos.y - vPersp.y);\n
 
+		
+	nFrontFacing = 1.0;
+		/*
 	   if(cross(pt1, pt2).z < 0.0 ){
 			nFrontFacing = -1.0;
 		}else{
 			nFrontFacing = 1.0;
 		}
-			
+			*/
 		 //If both = anulation
 		if(in_ObjSize.x < 0.0){ //Reverse width
 		   nFrontFacing *= -1.0;
@@ -429,7 +435,12 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 		if(in_ObjSize.y < 0.0){ //Reverse height
 		   nFrontFacing *= -1.0;
 		}
-nFrontFacing = 1.0;
+		//nFrontFacing = 1.0;
+
+		ioNorm = normalize(vec3(-1.0,-1.0,-1.0 * nFrontFacing ));
+		ioNorm.xyz = fQRot_2(ioNorm.xyz, in_ObjRot);
+		
+		/*
 		ioNorm1 = normalize(vec3(-1.0,-1.0,-1.0 * nFrontFacing ));
 		ioNorm2 = normalize(vec3( 1.0,-1.0,-1.0 * nFrontFacing));
 		ioNorm3 = normalize(vec3( 1.0, 1.0,-1.0 * nFrontFacing ));
@@ -440,19 +451,19 @@ nFrontFacing = 1.0;
 		ioNorm3.xyz = fQRot_2(ioNorm3.xyz, in_ObjRot);
 		ioNorm4.xyz = fQRot_2(ioNorm4.xyz, in_ObjRot);
 
-		iomWorldPt[0] = vec4( ioPt1 + _vObjPos.xyz,0);
-		iomWorldPt[1] = vec4(ioPt2 + _vObjPos.xyz,0);
-		iomWorldPt[2] = vec4(ioPt3 + _vObjPos.xyz,0);
-		iomWorldPt[3] = vec4(ioPt4 + _vObjPos.xyz,0);
-
 		iomNorm[0] = vec4(ioNorm1,0);
 		iomNorm[1] = vec4(ioNorm2,0);
 		iomNorm[2] = vec4(ioNorm3,0);
 		iomNorm[3] = vec4(ioNorm4,0);
 		//////////////////////////////////////////////////////
 		/////////////////////////////////////////////////////
-	
-
+	*/
+		iomWorldPt[0] = vec4(ioPt1 + _vObjPos.xyz,0);
+		iomWorldPt[1] = vec4(ioPt2 + _vObjPos.xyz,0);
+		iomWorldPt[2] = vec4(ioPt3 + _vObjPos.xyz,0);
+		iomWorldPt[3] = vec4(ioPt4 + _vObjPos.xyz,0);
+		
+		
 /////////////////////////// TILES ///////////////////////////////////////////
 	//in vec4 in_TilesHV; //Vertical
 	//in vec4 in_TilesC;  //Horizontal
@@ -839,9 +850,10 @@ ivec2 vPosBL;
 
 xflat in mat4 iomWorldPt;
 xflat in mat4 iomNorm;
+xflat in vec3 ioNorm;
 
-vec4  vColorSpecular = vec4(2.0, 2.0, 1.5, 1.0); //0 to X Can be premultiplied with alpha
-vec4  vColorDiffuse = vec4(1.5,0.5,1.5, 1.5);  //rgb -1 to 2  no diffuse : vec4(0.0,0.0,0.0, 1.0); normal : vec4(1.0,1.0,1.0, 1.0);
+vec4  vColorSpecular = vec4(1.0,0.0,0.0 , 1.0); //0 to X Can be premultiplied with alpha
+vec4  vColorDiffuse = vec4(1.0, 1.0, 0.7, 1.9);  //rgb -1 to 2  no diffuse : vec4(0.0,0.0,0.0, 1.0); normal : vec4(1.0,1.0,1.0, 1.0);
 vec3 vAmbient = vec3(0.2, 0.2, 0.2);
 ////////////
 	
@@ -885,7 +897,7 @@ void main()
 				//Work
 				//vec2 vPosTex = vec2(ioTexture.x * vTexDim.x, ioTexture.y  * vTexDim.y) - 0.5; //+2 px border
 
-			vec2 vRetroR = vec2(4.0,4.0);
+			vec2 vRetroR = vec2(1.0,1.0);
 			//ivec2 vFlip = ivec2(1,1);
 			//vec2 ioOffsetTL = vec2(0.0,0);
 			//vec2 ioOffsetTL = vec2(0.0,0);
@@ -1048,7 +1060,8 @@ void main()
 
         vec3 vPtWorld = (iomWorldPt * _vCoDist).xyz;
         //vec3 vPtNorm =  (iomNorm * _vCoDist).xyz;
-		vec3 vPtNorm =  iomNorm[0].xyz;
+		//vec3 vPtNorm =  iomNorm[0].xyz;
+		vec3 vPtNorm =  ioNorm.xyz;
 /*
 vec4 pixNormal = texture(TexNormal, ioTexture);		 
 //vPtNorm = vPtNorm * pixNormal.xyz;
@@ -1057,7 +1070,7 @@ vPtNorm = cross(vPtNorm.xyz, pixNormal.xyz);
 	 
 /////// MY AUTO Bump //////////
 float _nMonoCrome =   0.5-(pixTex.r + pixTex.g + pixTex.b)/3.0;
-vec3 _vMyNorm = vec3((_nMonoCrome-0.5)*2.0, (0.5 - _nMonoCrome)*2.0,  _nMonoCrome  );
+vec3 _vMyNorm = vec3((_nMonoCrome-0.5)*3.0, (_nMonoCrome),  _nMonoCrome );
 
 vPtNorm = cross(vPtNorm.xyz, _vMyNorm.xyz);
 
@@ -1079,9 +1092,10 @@ vPtNorm = cross(vPtNorm.xyz, _vMyNorm.xyz);
        // vec3 eye_position =   vec3( 500.0,  384.0,-1024.0);
 		
 	 
-        //vec3 light_position = vec3(  300.0, 300.0, -500.0);
-        vec3 light_position = vec3(  300.0, 400.0, 200.0);
-        vec3 eye_position =   vec3( 300.0,300.0, 5000.0);
+        vec3 light_position = vec3(  300.0, 300.0, -100.0);
+       // vec3 light_position = vec3(  300.0, 300.0, -500.0);
+        //vec3 light_position = vec3(  300.0, 400.0, 200.0);
+        vec3 eye_position =   vec3( 300.0,300.0, -200.0);
 		
 		
 		
@@ -1118,11 +1132,11 @@ vPtNorm = cross(vPtNorm.xyz, _vMyNorm.xyz);
           vec3 R = -normalize(reflect(L, vPtNorm));//Reflection
            // specular = 0.65 * pow(max(0.0, dot(R, V)), 512); //https://learnopengl.com/Lighting/Basic-Lighting
             specular = pow(max(0.0, dot(R, V)), 16.0);//0.15  https://learnopengl.com/Lighting/Basic-Lighting
-		
+		/*
           //Blinn-Phong
           vec3 H = normalize(L + V );//Halfway
           specular = 0.65 * pow(max(0, dot(H, vPtNorm)), 0.65);
-		  
+		  */
         }
 
 		
