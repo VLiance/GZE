@@ -852,8 +852,8 @@ xflat in mat4 iomWorldPt;
 xflat in mat4 iomNorm;
 xflat in vec3 ioNorm;
 
-vec4  vColorSpecular = vec4(1.0,0.0,0.0 , 1.0); //0 to X Can be premultiplied with alpha
-vec4  vColorDiffuse = vec4(1.0, 1.0, 0.7, 1.9);  //rgb -1 to 2  no diffuse : vec4(0.0,0.0,0.0, 1.0); normal : vec4(1.0,1.0,1.0, 1.0);
+vec4  vColorSpecular = vec4(2.0,2.0,0.0 , 4.0); //0 to X Can be premultiplied with alpha
+vec4  vColorDiffuse = vec4(1.0, 1.0, 0.8, 1.8);  //rgb -1 to 2  no diffuse : vec4(0.0,0.0,0.0, 1.0); normal : vec4(1.0,1.0,1.0, 1.0);
 vec3 vAmbient = vec3(0.2, 0.2, 0.2);
 ////////////
 	
@@ -1070,7 +1070,7 @@ vPtNorm = cross(vPtNorm.xyz, pixNormal.xyz);
 	 
 /////// MY AUTO Bump //////////
 float _nMonoCrome =   0.5-(pixTex.r + pixTex.g + pixTex.b)/3.0;
-vec3 _vMyNorm = vec3((_nMonoCrome-0.5)*3.0, (_nMonoCrome),  _nMonoCrome );
+vec3 _vMyNorm = vec3((_nMonoCrome-0.5)*3.0, (_nMonoCrome), (0.5- _nMonoCrome)*3.0 );
 
 vPtNorm = cross(vPtNorm.xyz, _vMyNorm.xyz);
 
