@@ -67,7 +67,7 @@ package  {
 		public static function fExtractPath(_sPath : String) : Void {
 			sFullPath = _sPath;
 			
-			Debug.fTrace("****fExtractPath " + _sPath);
+			//Debug.fTrace("****fExtractPath " + _sPath);
 			
 			var _aSplitArg : Array<String> = _sPath.fSplit("|");
 			if(_aSplitArg.nSize > 1){
@@ -97,19 +97,19 @@ package  {
 			sName =  sFullName.fSubStr(0, _oResult.nVal);
 			sExt =  sFullName.fSubStr(_oResult.nValEnd );
 			
-				Debug.fTrace("****sVDrive " + sVDrive);
+			//	Debug.fTrace("****sVDrive " + sVDrive);
 			if(sVDrive == "Exe"){
-					Debug.fTrace("****Have EXE " );
+				//	Debug.fTrace("****Have EXE " );
 				sFullPath = File.sFullRealDrive + File.sFolder + sFolder + sFullName;
 			}
-			
+			/*
 				Debug.fTrace("--- " );
 				Debug.fTrace("sFullPath: " + sFullPath);
 				Debug.fTrace("sFullName: " + sFullName);
 				Debug.fTrace("sFolder: " + sFolder);
 				Debug.fTrace("sName: " +  sName);
 				Debug.fTrace("sExt: " +  sExt);
-				Debug.fTrace("sVDrive: " +  sVDrive);
+				Debug.fTrace("sVDrive: " +  sVDrive);*/
 		}
 		
 

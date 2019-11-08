@@ -65,6 +65,8 @@ gzConst_U32(gzZeroStrChar_32, "\0");
 #undef gzp_ReturnType 
 #define gzp_ReturnType gzUTF8
 
+#undef gzp_gzUX
+#define gzp_gzUX gzU8
 #undef gzp_nByte
 #define gzp_nByte 1
 #undef gzZeroStrChar
@@ -136,6 +138,8 @@ gzConst_U32(gzZeroStrChar_32, "\0");
 #undef gzp_ReturnType 
 #define gzp_ReturnType gzUTF16
 
+#undef gzp_gzUX
+#define gzp_gzUX gzU16
 #undef gzp_nByte
 #define gzp_nByte 2
 #undef gzZeroStrChar
@@ -196,6 +200,8 @@ gzConst_U32(gzZeroStrChar_32, "\0");
 #undef gzp_ReturnType 
 #define gzp_ReturnType gzUTF32
 
+#undef gzp_gzUX
+#define gzp_gzUX gzU32
 #undef gzp_nByte
 #define gzp_nByte 4
 #undef gzZeroStrChar

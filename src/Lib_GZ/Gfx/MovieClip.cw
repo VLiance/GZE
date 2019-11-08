@@ -33,6 +33,8 @@ package  {
 
 		public var qaTest : QArray<Root>;
 		
+		
+		
 		public function MovieClip( _oParent : Root, _nX: Float, _nY:Float):Void {
 			Clip(_oParent, _nX , _nY);
 		}
@@ -47,7 +49,11 @@ package  {
 				nCurrInTimeline -= nLimit;
 			}
 			var _nIntIndex : UInt = Math.fAbs(nCurrInTimeline);
-			qaChild = aTimeline[_nIntIndex % aTimeline.nSize];
+			
+		//	Debug.fTrace("Size: " + aTimeline.nSize);
+			if(aTimeline.nSize != 0){
+				qaChild = aTimeline[_nIntIndex % aTimeline.nSize];
+			}
 		}
 		
 		
