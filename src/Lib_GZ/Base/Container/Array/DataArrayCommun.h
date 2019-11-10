@@ -19,11 +19,13 @@
 	#endif
 	*/
 	
+	
+	
+	
+	
 	inline  gzDataRC* fEmptyArray(gzUInt _nSize, gzUInt _nMaxSize  ) {
 		gzDataRC* _oData =  GZ::fDataAlloc( _nSize, _nMaxSize );
-		#ifdef GZ_D_ArrayHaveConstructor
-			fIniConstructor((void*)_oData->aTab, 0, _nMaxSize);
-		#endif
+		fIniConstructor((void*)_oData->aTab, 0, _nMaxSize);
 		return _oData;
 	}
 	

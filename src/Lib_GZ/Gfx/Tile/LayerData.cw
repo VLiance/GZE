@@ -69,6 +69,8 @@ package  {
 			nWidth = _oFromNode.fAttributeInt("width");
 			nHeight = _oFromNode.fAttributeInt("height");
 
+
+			
 			var _oNode : XmlNode = _oFromNode.fFirst();
 			while( _oNode ){
 

@@ -117,13 +117,30 @@ public:
 	
 	
 		
-	inline  void fIniConstructor(void* _aTab, gzUInt _nFrom, gzUInt _nTo  ) {
+	inline  void fIniConstructor(void* _aTab, gzUIntX _nFrom, gzUIntX _nTo  ) const {
+
 		if(T_HaveConstructor){
-			((T*)_aTab)[_nFrom] = T(); //TODO check if we can explicitly constructor to save some useless instance counting
+			
+			//for(gzUIntX i = _nFrom/sizeof(T); i < _nTo/sizeof(T); i++){
+			for(gzUIntX i = _nFrom / sizeof(T); i < _nTo / sizeof(T); i++){
+				((T*)_aTab)[i] = T(); //TODO check if we can explicitly constructor to save some useless instance counting
+			}
 		}
 	}
 	
-	
+	inline void Delete(gzDataRC* _oRC) const {
+		///if(_oRC->nType == gzDataType_Both_HEAP_AND_SUBFREE){ //Cond before func? Remove all sub instances & sub free
+		if( gzDataType_IS_Array_MUSTFREE(_oRC) ){  //Cond before func? Remove all sub instances & sub free
+			for(gzUInt i = 0; i < _oRC->nSize / sizeof(T); i++){
+				//(Base* ) aTab[i]->Delete(); 
+				((T*) aData->aTab)[i] = T(); //TODO not for basic type  + check for explicit destructor
+			}
+		}
+		
+	//	printf("\Delete:");fPrint();
+		//printf("\nFree:");fPrint();
+		//GZ_fFree((void*)this); //Combined array
+	}
 	
 	
 	
@@ -141,7 +158,8 @@ public:
 	
 	/////Clone array
 	inline gzp_DataType(gzp_DataType* _oOther, gzBool _bClone){
-		aData =  GZ::fDataCopyAlloc(_oOther->aData->aTab, _oOther->aData->nSize, _oOther->aData->nSize,  _oOther->aData->nLimit );
+	//	aData =  GZ::fDataCopyAlloc(_oOther->aData->aTab, _oOther->aData->nSize, _oOther->aData->nSize,  _oOther->aData->nLimit );
+		aData =  GZ::fDataCopyAlloc(_oOther->aData->aTab, _oOther->aData->nLimit, _oOther->aData->nSize,  _oOther->aData->nLimit ); //Clone must copy constructor behound limit
 		aData->nInst = 1;
 		//printf("\n %p: Set: %d  ",aData->aTab, aData->nInst);
 	}
@@ -153,19 +171,7 @@ public:
 	   return *this;
 	}*/
 
-	inline void Delete(gzDataRC* _oRC) const {
-		///if(_oRC->nType == gzDataType_Both_HEAP_AND_SUBFREE){ //Cond before func? Remove all sub instances & sub free
-		if( gzDataType_IS_Array_MUSTFREE(_oRC) ){  //Cond before func? Remove all sub instances & sub free
-			for(gzUInt i = 0; i < _oRC->nSize / sizeof(T); i++){
-				//(Base* ) aTab[i]->Delete(); 
-				((T*) aData->aTab)[i] = T(); //Todo not for basic type 
-			}
-		}
-		
-	//	printf("\Delete:");fPrint();
-		//printf("\nFree:");fPrint();
-		//GZ_fFree((void*)this); //Combined array
-	}
+	
 	
 	inline void Free(gzDataRC* _oRC) const { //Don't free if we have weak_ptr  alive
 		//printf("\nTestfrreee!");
@@ -256,9 +262,10 @@ public:
 	
 		GZ_fFree(_aOldTab);	GZ_nArrayTotalFree++;
 	
-		#ifdef GZ_D_ArrayHaveConstructor
-			fIniConstructor((void*)aData->aTab, _nOldSize, _nSize);
-		#endif
+
+		fIniConstructor((void*)aData->aTab, _nOldSize, _nSize);
+
+		
 		/* //Always nType > 1
 		 if(aData->nType > 1){
 			GZ_fFree(_aOldTab);	GZ_nArrayTotalFree++;
@@ -313,9 +320,8 @@ public:
 			gzDtThis->aData  =  (gzDataRC*)GZ::fDataCopyAlloc(aData->aTab, aData->nSize, _nNewSize, _nMaxSize);
 			aData->nInst = 1;
 			
-			#ifdef GZ_D_ArrayHaveConstructor
-				fIniConstructor((void*)aData->aTab, _nOldSize, _nMaxSize);
-			#endif
+			fIniConstructor((void*)aData->aTab, _nOldSize, _nMaxSize);
+		
 			//printf("\n %p: Set: %d  ",aData->aTab, aData->nInst);
 			//gzp_DataSize = GZ_fMax(_nNewSize,gzp_DataSize);
 		}else{

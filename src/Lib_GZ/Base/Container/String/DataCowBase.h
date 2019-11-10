@@ -307,8 +307,11 @@
 		return &gzp_DataArray[_nIndex ];
 	}
 	*/
+	inline  void fIniConstructor(void* _aTab, gzUIntX _nFrom, gzUIntX _nTo  ) const {
+	}
+	
+	
 
-	#undef GZ_D_ArrayHaveConstructor
 	#include "Lib_GZ/Base/Container/Array/DataArrayCommun.h"
 
 

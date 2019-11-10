@@ -288,8 +288,7 @@ inline gzDataRC* fDataCopyAlloc( gzUInt8* _aData, gzUIntX _nCopySize, gzUIntX _n
 
 
 	//TODO _nNewSize m must be >  _nCopySize ... ASSERT?
-	gzDataRC* _oRc  = fDataAlloc(_nNewSize,_nLimit );
-
+	gzDataRC* _oRc  = fDataAlloc(_nNewSize,_nLimit ); //TODO don't memset when _nCopySize is larger than _nNewSize
 	memcpy( _oRc->aTab, _aData, _nCopySize);
 
 	return _oRc;

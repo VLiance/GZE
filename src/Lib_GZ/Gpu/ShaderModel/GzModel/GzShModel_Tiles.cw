@@ -995,7 +995,7 @@ void main()
 				pixTex = texture(TexCurrent, ioTexture);
 			}
 			
-			
+	//	pixTex = vec4(0.5,0.5,0.5,0.5);	
 
 //pixTex  = texture(TexCurrent, ioTexture);
 
