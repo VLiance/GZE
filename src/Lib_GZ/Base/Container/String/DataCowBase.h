@@ -90,14 +90,14 @@
 		m.aData = (gzDataRC*)&gzp_NullStr;
 	}
 		
-		
+		/*
    #ifdef  gzp_IsUTF8
 	gzp_DataType(gzUInt _nChar){ //TODO UTF16 / 32
 		*this = gzp_gzUX(&_nChar);
 		
 	}
 	#endif
-		
+		*/
 	
 	inline void Delete(gzDataRC* _oRC) const {
 		/*  Not applicable for datacow
@@ -308,7 +308,7 @@
 	}
 	*/
 
-
+	#undef GZ_D_ArrayHaveConstructor
 	#include "Lib_GZ/Base/Container/Array/DataArrayCommun.h"
 
 

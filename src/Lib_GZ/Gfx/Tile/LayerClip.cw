@@ -37,18 +37,21 @@ package  {
 
 		public function fLoadLayer(_oLayerData : LayerData):Void {
 
-			//Debug.fTrace("************fLoadLayer********** ");
+			Debug.fWarning("************fLoadLayer********** ");
+			Debug.fWarning("************fLoadLayer********** ");
 			var _aTileData : Array<TileData,2> = _oLayerData.aTile;
-
+			Debug.fWarning("************_aTileData********** ");
 			for(var _nY : Int = 0; _nY < _oLayerData.nHeight; _nY++){
 				for(var _nX : Int = 0; _nX < _oLayerData.nWidth; _nX++){
+				//	if(_aTileData[_nY] != null){
 					var _oTileData : TileData = _aTileData[_nY][_nX];
 					if(_oTileData ){
 						aTile[_nY][_nX] = new Tile(this, _oLayerData, _oTileData, _nX, _nY));
 					}
+					//}
 				}
 			}
-
+	Debug.fWarning("************End ********** ");
 			/*
 			for(var i : Int = 0; i < _aTileData.nSize; i++){
 				var _oTileData : TileData = _aTileData[i];

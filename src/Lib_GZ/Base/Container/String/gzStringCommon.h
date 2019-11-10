@@ -45,9 +45,13 @@
 	#define gzp_IsUTF32 (sizeof(ASS) == 4)
 	*/
 	
+
+	
 	#include "DataCowBase.h"
 	#include "Lib_GZ/Base/Container/Array/ArrayContainerCommun.h"
 	
+	
+
 	
 	
 	#define gzp_NewAssing(_Func, _nMaxPossibleSize, _nStride)\
@@ -61,7 +65,7 @@
 			
 			
 			
-			
+		
 			
 			
 			

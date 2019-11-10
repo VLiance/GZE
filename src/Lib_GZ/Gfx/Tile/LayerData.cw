@@ -13,6 +13,7 @@ package  {
 	import GZ.Base.Property.Property;
 	import GZ.Gfx.Tile.MapData;
 	import GZ.Gfx.Tile.TileData;
+	import GZ.Gfx.Tile.LayerData;
 
 	/**
 	 * @author Maeiky

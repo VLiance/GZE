@@ -11,17 +11,27 @@
 #ifndef	gzp_OWNER
 
 #include "Lib_GZ/Base/Math/MathBit.h"
-
-
-
-
-	inline static gzDataRC* fEmptyArray(gzUInt _nNewSize ) {
-	  return GZ::fDataAlloc( _nNewSize, _nNewSize * GZ_Array_Expand_Factor );
+/*
+	#ifdef GZ_D_ArrayHaveConstructor
+	inline  void fIniConstructor(void* _aTab, gzUInt _nFrom, gzUInt _nTo  ) {
+			((T*)_aTab)[_nFrom] = T();
 	}
-	inline static gzDataRC* fEmptyArray(gzUInt _nSize, gzUInt _nMaxSize  ) {
-	  return GZ::fDataAlloc( _nSize, _nMaxSize );
+	#endif
+	*/
+	
+	inline  gzDataRC* fEmptyArray(gzUInt _nSize, gzUInt _nMaxSize  ) {
+		gzDataRC* _oData =  GZ::fDataAlloc( _nSize, _nMaxSize );
+		#ifdef GZ_D_ArrayHaveConstructor
+			fIniConstructor((void*)_oData->aTab, 0, _nMaxSize);
+		#endif
+		return _oData;
 	}
 	
+	
+	inline  gzDataRC* fEmptyArray(gzUInt _nNewSize ) {
+		return fEmptyArray(_nNewSize, _nNewSize * GZ_Array_Expand_Factor );
+	}
+
 	///////////////////////////////////////
 	////////////////////////////////////////
 	inline void fFirstAssign(const gzDataRC* _pOther) const {
@@ -107,14 +117,24 @@
 	  	  		//printf("\n --%p: NewDataType&: %d  ",this, gzp_Data->nInst);fPrint();
 	}
 
-
+/*
+	gzp_DataType& fConstruct(const gzp_DataType& _oOther) const {
+	
+	 fFirstAssign(_oOther.gzp_Data);
+	 gzp_Additional_fAssignType
+	   return *gzDtThis;
+	}*/
+	
+	
+	
 	gzp_DataType& operator=(const gzp_DataType& _oOther) const {
 		
-	
 		fAssign(_oOther.gzp_Data);
 		gzp_Additional_fAssignType
 	   return *gzDtThis;
 	}
+	
+	
 	
 	gzp_DataType operator+=(const gzp_DataType& _oOther) const {
 		f_Add(_oOther);

@@ -12,6 +12,8 @@
 #if !( defined tHDef_Lib_GZ_Array)
 #define tHDef_Lib_GZ_Array
 
+#undef GZ_D_ArrayHaveConstructor
+
 #include "Lib_GZ/Base/Container/DataRC.h"
 #include "Lib_GZ/Base/Container/Array/DataArray.h"
 #include "Lib_GZ/Base/Result/gzResult.h"
@@ -41,7 +43,7 @@ namespace Lib_GZ{namespace Base{class csClass;}}
 
 
 
-template <class T>
+template <class T, gzBool T_HaveConstructor >
 class gzArray_ {
 public:
 	
@@ -90,7 +92,7 @@ public:
 	#define gzp_Data aData
 	
 	#define gzp_nS  *_nS
-	#define gzp_DataType gzArray_<T>
+	#define gzp_DataType gzArray_<T, T_HaveConstructor>
 	#define gzp_DataSize aData->nSize
 	#define gzp_DataArray aData->aTab
 	#define gzp_DataLimit  aData->nLimit
@@ -112,10 +114,23 @@ public:
 	#define gzp_ReturnType gzUInt8
 	
 	
+	
+	
+		
+	inline  void fIniConstructor(void* _aTab, gzUInt _nFrom, gzUInt _nTo  ) {
+		if(T_HaveConstructor){
+			((T*)_aTab)[_nFrom] = T(); //TODO check if we can explicitly constructor to save some useless instance counting
+		}
+	}
+	
+	
+	
+	
+	
 	inline gzArray_(){
 		//gzConst_Data(gzUInt, gzNull_Data);
 		// aData = (gzDataRC *)&gzNull_Data; ///Cannort do that because it cause detach when assingn on it
-		 aData = fEmptyArray(0,4);
+		 aData = fEmptyArray(0, sizeof(T) * 4);//4 is a random value
 		 aData->nInst = 1;
 	}
 	/*
@@ -241,6 +256,9 @@ public:
 	
 		GZ_fFree(_aOldTab);	GZ_nArrayTotalFree++;
 	
+		#ifdef GZ_D_ArrayHaveConstructor
+			fIniConstructor((void*)aData->aTab, _nOldSize, _nSize);
+		#endif
 		/* //Always nType > 1
 		 if(aData->nType > 1){
 			GZ_fFree(_aOldTab);	GZ_nArrayTotalFree++;
@@ -288,10 +306,16 @@ public:
 			
 			//TODO Check if we can never use both readOnly array to remove this condition
 			//DETATCH!!!! ALL OTHER RC will no longuer point to sames values (Only espected in COW principe)
+
+			gzUIntX _nOldSize = aData->nSize;
+			gzUIntX _nMaxSize = _nNewSize * GZ_Array_Expand_Factor;
 			
-			gzDtThis->aData  =  (gzDataRC*)GZ::fDataCopyAlloc(aData->aTab, aData->nSize, _nNewSize, _nNewSize * GZ_Array_Expand_Factor);
+			gzDtThis->aData  =  (gzDataRC*)GZ::fDataCopyAlloc(aData->aTab, aData->nSize, _nNewSize, _nMaxSize);
 			aData->nInst = 1;
 			
+			#ifdef GZ_D_ArrayHaveConstructor
+				fIniConstructor((void*)aData->aTab, _nOldSize, _nMaxSize);
+			#endif
 			//printf("\n %p: Set: %d  ",aData->aTab, aData->nInst);
 			//gzp_DataSize = GZ_fMax(_nNewSize,gzp_DataSize);
 		}else{
@@ -361,8 +385,9 @@ public:
 		return &aData->aTab[_nIndex ];
 	}*/
 	
-	
+	#define GZ_D_ArrayHaveConstructor
 	#include "DataArrayCommun.h"
+	#undef GZ_D_ArrayHaveConstructor
 };
 
 
@@ -371,15 +396,15 @@ public:
 #define GzS (sizeof(T))
 #define gzp_length (m.aData->nSize / (sizeof(T)))
 
-template <class T>
+template <class T, gzBool T_HaveConstructor = true>
 class gzPodLock{
 	
 	 public:
-	 gzArray_<T>* array;
+	 gzArray_<T, T_HaveConstructor>* array;
 	// T* element;
 	 
 	 
-	  gzPodLock(gzArray_<T>* _array):array(_array){
+	  gzPodLock(gzArray_<T, T_HaveConstructor>* _array):array(_array){
 		 printf("\n***CreateLock***");
 		 array->nLock ++;
 	 }
@@ -431,7 +456,7 @@ class gzPodLock{
 	#define gzp_Data  m.aData
 	
 	#undef gzp_DataType
-	#define gzp_DataType gzArray_<T>
+	#define gzp_DataType gzArray_<T, T_HaveConstructor >
 	
 	#undef gzp_DataSize
 	#define gzp_DataSize  aData->nSize
@@ -464,12 +489,15 @@ class gzPodLock{
 		
 		
 	
-template <class T>
+template <class T, gzBool T_HaveConstructor = true >
 class gzArray {
 	public:
-	gzArray_<T> m;
+	gzArray_<T, T_HaveConstructor> m;
 	
 	gzBool bCatchMe;
+	
+
+	
 	
 	#include "ArrayContainerCommun.h"
 	
@@ -583,7 +611,7 @@ class gzArray {
 	
 	
 
-	gzArray(const gzArray_<T>& _oOther):m(_oOther){}
+	gzArray(const gzArray_<T, T_HaveConstructor>& _oOther):m(_oOther){}
 
 	gzArray(gzDataRC* _oOther):m(_oOther){}
 /*
@@ -592,11 +620,11 @@ class gzArray {
 	}*/
 	
 
-	gzArray<T> operator=(const gzArray_<T>& _oOther) {
+	gzArray<T> operator=(const gzArray_<T, T_HaveConstructor>& _oOther) {
 		m = _oOther;
 	   return *this;
 	}
-	gzArray operator+=(const gzArray_<T>& _oOther) {
+	gzArray operator+=(const gzArray_<T, T_HaveConstructor>& _oOther) {
 		m += _oOther;
 	   return *gzDtThis;
 	}

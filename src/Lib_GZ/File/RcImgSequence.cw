@@ -37,7 +37,7 @@ package  {
 				if(_nChar >= 48 && _nChar <= 57 ){ //It's a numbewr
 					nTotalNumber++;
 				}
-				_sNum  += _nChar;
+			//	_sNum  += _nChar;
 				//Debug.fWarning(oFile.sName[i]);
 			}
 			
