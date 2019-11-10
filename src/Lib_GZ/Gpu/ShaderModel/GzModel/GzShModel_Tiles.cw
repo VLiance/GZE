@@ -376,8 +376,10 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 		gl_Position.y = 1.0 - gl_Position.y - 1.0; //FlipY
 
 		//////////// SRC ///////////////
-		ioTexture.x = (vSrc.x + 0.5 ) / (vTexDim.x );
-		ioTexture.y = (vSrc.y + 0.5 ) / (vTexDim.y );
+		//ioTexture.x = (vSrc.x + 0.5 ) / (vTexDim.x );
+		//ioTexture.y = (vSrc.y + 0.5 ) / (vTexDim.y );
+		ioTexture.x = (vSrc.x  ) ;
+		ioTexture.y = (vSrc.y );
 		////////////////////////////////
 		
 		//Send color
@@ -913,69 +915,100 @@ void main()
 
 
 				//float _nRatio = float(nRetroRatio);
-				vec2 vPosTex = (ioTexture * vTexDim * vRetroR  - 0.5);
+				vec2 vPosTex = (ioTexture  * vRetroR  );
+//vec2 vPosTex = (ioTexture * vTexDim * vRetroR  - 0.5);
 				ivec2 _vIPosTex = ivec2(vPosTex );
 
-				vPosTL = ivec2(vPosTex / vRetroR);
-				vPosTR =  ivec2((vPosTex + vec2(1.0-0.0001, 0.0))  / vRetroR);
-				vPosBR =  ivec2((vPosTex + vec2(1.0-0.0001, 1.0-0.0001)) / vRetroR);
-				vPosBL =  ivec2((vPosTex + vec2(0.0, 1.0-0.0001)) / vRetroR);
 
+
+float _nPrec = 0.0001;
+//float _nPrec = 0.0001;
+
+				vPosTL = ivec2(vPosTex       / vRetroR);
+				vPosTR =  ivec2((vPosTex    + vec2(1.0-_nPrec, 0.0       )) / vRetroR);
+				vPosBR =  ivec2((vPosTex    + vec2(1.0-_nPrec, 1.0-_nPrec)) / vRetroR);
+				vPosBL =  ivec2((vPosTex    + vec2(0.0       , 1.0-_nPrec)) / vRetroR );
+
+
+//float _nPrec = 0.0001;
+/*
+				vPosTL =  ivec2((vPosTex + vec2(0.0 + _nPrec, 0.0 + _nPrec)) / vRetroR);
+				vPosTR =  ivec2((vPosTex + vec2(1.0 - _nPrec, 0.0 + _nPrec)) / vRetroR);
+				vPosBR =  ivec2((vPosTex + vec2(1.0 - _nPrec, 1.0 - _nPrec)) / vRetroR);
+				vPosBL =  ivec2((vPosTex + vec2(0.0 + _nPrec, 1.0 - _nPrec)) / vRetroR);
+*/
 
 				if(vPosTL == ioSrcTL){
 					vPosTL = ioOffsetTL; //Corner TL
-				}else if(vPosTL.y == ioSrcTL.y){
+				}else if(vPosTL.y <= ioSrcTL.y ){
 					//vPosTL += ivec2(ioOffsetT1); //TOP
 					vPosTL = ioOffsetT1 +  abs( ivec2(vPosTL.x - ioSrcOT.x, vPosTL.x - ioSrcOT.x) * vFlip.xy ) ;  //TOP
-					
-				}else if(vPosTL.x == ioSrcTL.x){
+				}else if(vPosTL.x <= ioSrcTL.x ){
 					//vPosTL += ivec2(ioOffsetL1);  //Left
 					vPosTL =  ioOffsetL1 + abs( ivec2(vPosTL.y - ioSrcOL.y,vPosTL.y - ioSrcOL.y) * vFlip.yx  ) ;  //Left
 				}
+				//TR Clamp oposite side (on device with not enogh precision)
+				if(vPosTL.y >= ioSrcBR.y){vPosTL.y = ioSrcBR.y - 1;}
+				if(vPosTL.x >= ioSrcBR.x){vPosTL.x = ioSrcBR.x - 1;}
+
+
 
 				if(vPosTR == ioSrcTR ){
 					vPosTR = ioOffsetTR; //Corner TR
-				}else if(vPosTR.y == ioSrcTR.y){
+				}else if(vPosTR.y <= ioSrcTR.y ){
 					//vPosTR += ivec2(ioOffsetT1); //Top
-					vPosTR =  ioOffsetT1 +  abs(ivec2(vPosTR.x - ioSrcOT.x,vPosTR.x - ioSrcOT.x )* vFlip.xy ) ;  //TOP
+					vPosTR =  ioOffsetT1 +  abs(ivec2(vPosTR.x - ioSrcOT.x,vPosTR.x - ioSrcOT.x )* vFlip.xy ) ;  //TOP	
 					
-				}else if(vPosTR.x == ioSrcTR.x){
+				}else if(vPosTR.x >= ioSrcTR.x ){
 					//vPosTR += ivec2(ioOffsetR1); //RIGHT
-					vPosTR = ioOffsetR1 + abs( ivec2(vPosTR.y - ioSrcOR.y,vPosTR.y - ioSrcOR.y )* vFlip.yx  ) ; //RIGHT
+					vPosTR = ioOffsetR1 + abs( ivec2(vPosTR.y - ioSrcOR.y,vPosTR.y - ioSrcOR.y )* vFlip.yx  ) ; //RIGHT	
 				}
+				//TR Clamp oposite side (on device with not enogh precision)
+				if(vPosTR.y >= ioSrcBR.y){vPosTR.y = ioSrcBR.y - 1;}
+				if(vPosTR.x <= ioSrcBL.x){vPosTR.x = ioSrcBL.x + 1;}
+
+
 
 				if(vPosBR == ioSrcBR ){
 					vPosBR = ioOffsetBR; //Corner BR
-				}else if(vPosBR.y == ioSrcBR.y){
-
+				}else if(vPosBR.y >= ioSrcBR.y){
 					vPosBR = ioOffsetB1 +  abs( ivec2(vPosBR.x - ioSrcOB.x, vPosBR.x - ioSrcOB.x) * vFlip.xy  ) ;  //BOT
-					
-				}else if(vPosBR.x == ioSrcBR.x){
 
+				}else if(vPosBR.x >= ioSrcBR.x){
 					vPosBR = ioOffsetR1 + abs( ivec2(vPosBR.y - ioSrcOR.y,vPosBR.y - ioSrcOR.y) * vFlip.yx  ) ; //Right
 				}
+				// BR Clamp oposite side
+				if(vPosBR.y <= ioSrcTR.y){vPosBR.y = ioSrcTR.y + 1;}
+				if(vPosBR.x <= ioSrcBL.x){vPosBR.x = ioSrcBL.x + 1;}
+
 
 
 				if(vPosBL == ioSrcBL){
 					vPosBL = ioOffsetBL; //Corner BL
 					
-				}else if(vPosBL.y == ioSrcBL.y){
+				}else if(vPosBL.y >= ioSrcBL.y ){
 					vPosBL = ioOffsetB1 +  abs( ivec2(vPosBL.x - ioSrcOB.x,vPosBL.x - ioSrcOB.x ) * vFlip.xy ) ;  //BOT
 					
-				}else if(vPosBL.x == ioSrcBL.x){
+				}else if(vPosBL.x <= ioSrcBL.x){
 					vPosBL =  ioOffsetL1 + abs( ivec2(vPosBL.y - ioSrcOL.y,vPosBL.y - ioSrcOL.y) * vFlip.yx   );  //Left
 				}
+				// BL Clamp oposite side
+				if(vPosBL.y <= ioSrcTR.y){vPosBL.y = ioSrcTR.y + 1;}
+				if(vPosBL.x >= ioSrcBR.x){vPosBL.x = ioSrcBR.x - 1;}
 		
-		/*
-		if(vPosBL.y == ioSrcBL.y){
-		vPosBL = ivec2(1,1);
-		}*/
+	
 
 				vec4 vPixTL = texelFetch(TexCurrent, vPosTL,0);
 				vec4 vPixTR = texelFetch(TexCurrent, vPosTR,0);
 				vec4 vPixBR = texelFetch(TexCurrent, vPosBR,0);
 				vec4 vPixBL = texelFetch(TexCurrent, vPosBL,0);
 
+/*
+				vec4 vPixTL = texture(TexCurrent, (vec2(vPosTL) + 0.5) /vTexDim );
+				vec4 vPixTR = texture(TexCurrent, (vec2(vPosTR) + 0.5) /vTexDim);
+				vec4 vPixBR = texture(TexCurrent, (vec2(vPosBR) + 0.5)/vTexDim);
+				vec4 vPixBL = texture(TexCurrent, (vec2(vPosBL) + 0.5) /vTexDim);
+*/
 
 				vec2 vFracTL = 1.0 - fract(vPosTex );
 				vec2 vFracBR = fract(vPosTex + 1.0 );
@@ -988,11 +1021,14 @@ void main()
 
 				pixTex = vPixTL * _nRAlphaTL +  vPixTR * _nRAlphaTR +  vPixBR * _nRAlphaBR +  vPixBL * _nRAlphaBL;
 				
-		
+
+//pixTex = vPixBL;
+	//pixTex.w = 1.0;
+	//pixTex = texelFetch(TexCurrent, _vIPosTex,0);
 		
 			//pixTex = vec4(0.5,0.5,0.5,0.5);
 			}else{
-				pixTex = texture(TexCurrent, ioTexture);
+				pixTex = texture(TexCurrent, ioTexture);// ( + 0.5 )  / (vTexDim
 			}
 			
 	//	pixTex = vec4(0.5,0.5,0.5,0.5);	
