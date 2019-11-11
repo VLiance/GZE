@@ -422,7 +422,7 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 		pt2.y = (pt2.y + (_vObjPos.y - vPersp.y) ) / nZx - (_vObjPos.y - vPersp.y);\n
 
 		
-	nFrontFacing = 1.0;
+	nFrontFacing = -1.0;
 		/*
 	   if(cross(pt1, pt2).z < 0.0 ){
 			nFrontFacing = -1.0;
@@ -856,8 +856,8 @@ xflat in mat4 iomWorldPt;
 xflat in mat4 iomNorm;
 xflat in vec3 ioNorm;
 
-vec4  vColorSpecular = vec4(1.0,1.0,0.0 , 1.0); //0 to X Can be premultiplied with alpha
-vec4  vColorDiffuse = vec4(0.1, 0.1, 0.1, 1.0);  //rgb -1 to 2  no diffuse : vec4(0.0,0.0,0.0, 1.0); normal : vec4(1.0,1.0,1.0, 1.0);
+vec4  vColorSpecular = vec4(1.0,1.0,0.0 , 2.0); //0 to X Can be premultiplied with alpha
+vec4  vColorDiffuse = vec4(1.0, 1.0, 1.0, 2.0);  //rgb -1 to 2  no diffuse : vec4(0.0,0.0,0.0, 1.0); normal : vec4(1.0,1.0,1.0, 1.0);
 vec3 vAmbient = vec3(0.0, 0.0, 0.0);
 ////////////
 	
@@ -923,9 +923,7 @@ void main()
 
 
 
-float _nPrec = 0.0001;
-//float _nPrec = 0.0001;
-
+				float _nPrec = 0.0001;
 				vPosTL = ivec2(vPosTex       / vRetroR);
 				vPosTR =  ivec2((vPosTex    + vec2(1.0-_nPrec, 0.0       )) / vRetroR);
 				vPosBR =  ivec2((vPosTex    + vec2(1.0-_nPrec, 1.0-_nPrec)) / vRetroR);
@@ -983,6 +981,7 @@ float _nPrec = 0.0001;
 				}
 			
 
+
 				// BL Clamp oposite side
 				if(vPosBL.y <= ioSrcTR.y){vPosBL.y = ioSrcTR.y + 1;}
 				if(vPosBL.x >= ioSrcBR.x){vPosBL.x = ioSrcBR.x - 1;}
@@ -1021,11 +1020,6 @@ float _nPrec = 0.0001;
 				pixTex = vPixTL * _nRAlphaTL +  vPixTR * _nRAlphaTR +  vPixBR * _nRAlphaBR +  vPixBL * _nRAlphaBL;
 				
 
-//pixTex = vPixBL;
-	//pixTex.w = 1.0;
-	//pixTex = texelFetch(TexCurrent, _vIPosTex,0);
-		
-			//pixTex = vec4(0.5,0.5,0.5,0.5);
 			}else{
 				pixTex = texture(TexCurrent, ioTexture);// ( + 0.5 )  / (vTexDim
 			}
@@ -1116,8 +1110,9 @@ vec3 _vMyNorm =  vec3(_nMonoCrome*2.0, _nRevMonoCrome , _nRevMonoCrome + _nMonoC
 
 
 //vPtNorm = _vMyNorm;
-//vPtNorm = cross(  normalize( _vMyNorm.xyz), normalize( vPtNorm.xyz ) );
-vPtNorm =  vPtNorm.xyz *  _vMyNorm ;
+vPtNorm = cross( normalize( vPtNorm.xyz ) ,  normalize( _vMyNorm.xyz));
+//vPtNorm =   normalize( vPtNorm.xyz) *  normalize(  _vMyNorm) ;
+//vPtNorm =  vPtNorm.xyz  ;
 
 
 ////////////////////////// 
@@ -1132,10 +1127,10 @@ vPtNorm =  vPtNorm.xyz *  _vMyNorm ;
        // vec3 eye_position =   vec3( 500.0,  384.0,-1024.0);
 		
 	 
-        vec3 light_position = vec3(  300.0, 300.0, -1000.0);
+        vec3 light_position = vec3(  300.0, -300.0, -700.0);
        // vec3 light_position = vec3(  300.0, 300.0, -500.0);
         //vec3 light_position = vec3(  300.0, 400.0, 200.0);
-        vec3 eye_position =   vec3( 300.0,300.0, 400.0);
+        vec3 eye_position =   vec3( 300.0,800.0, 400.0);
 		
 		
 		
@@ -1151,23 +1146,23 @@ vPtNorm =  vPtNorm.xyz *  _vMyNorm ;
 
         float LdotN = max(0.0, dot(L,vPtNorm));
 
-        float diffuse = 0.85 * LdotN; //0.5 Just a random material
+        float diffuse = 0.50 * LdotN; //0.5 Just a random material
 
 		
 		//http://in2gpu.com/2014/06/19/lighting-vertex-fragment-shader/
 		
 		//0 to 1
-        float att_kC = 0.9; //Kc is the constant attenuation
-        float att_kL = 0.6; //KL is the linear attenuation
-        float att_kQ = 0.8; //KQ is the quadratic attenuation
+        float att_kC = 0.002; //Kc is the constant attenuation
+        float att_kL = 0.0002; //KL is the linear attenuation
+        float att_kQ = 0.002; //KQ is the quadratic attenuation
  
 
         //attenuation
        // float d = distance( light_position,  vPtWorld) / 800.0;
-        float d = distance( normalize(light_position),  normalize(vPtWorld.xyz) );
+        float d = distance( (light_position),  (vPtWorld.xyz) );
 		//d =  1.5;
-       // float att = 1.0 / (att_kC + d * att_kL + d*d*att_kQ); //Do the inverse
-        float att =  (att_kC + d * att_kL + d*d*att_kQ);
+        float att = 1.0 / (att_kC + d * att_kL + d*d*att_kQ); //Do the inverse
+       // float att =  (att_kC + d * att_kL + d*d*att_kQ);
 //att = 0.0;
 
         float specular = 0.0;
@@ -1176,12 +1171,13 @@ vPtNorm =  vPtNorm.xyz *  _vMyNorm ;
           //choose H or R to see the difference
           vec3 R = -normalize(reflect(L, vPtNorm));//Reflection
            // specular = 0.65 * pow(max(0.0, dot(R, V)), 512); //https://learnopengl.com/Lighting/Basic-Lighting
-            specular = pow(max(0.0, dot(R, V)), 16.0);//0.15  https://learnopengl.com/Lighting/Basic-Lighting
-		/*
+		//specular = material_kd * pow(max(0, dot(H, world_normal)), material_shininess);
+            specular = 0.65 *  pow(max(0.0, dot(R, V)), 0.65);//0.15  https://learnopengl.com/Lighting/Basic-Lighting
+		
           //Blinn-Phong
           vec3 H = normalize(L + V );//Halfway
-          specular = 0.65 * pow(max(0, dot(H, vPtNorm)), 0.65);
-		  */
+          specular = 0.65 * pow(max(0, dot(H, vPtNorm)), 0.45);
+		  
         }
 
 		
@@ -1196,7 +1192,7 @@ vPtNorm =  vPtNorm.xyz *  _vMyNorm ;
         //// Diffuse ////
      
 		//vColorDiffuse.rgb = (vColorDiffuse.rgb) * ((att *diffuse)*vColorDiffuse.a+(1.0-vColorDiffuse.a)) + vAmbient;
-		vColorDiffuse.rgb = (vColorDiffuse.rgb) * (( diffuse/ att )*vColorDiffuse.a+(1.0-vColorDiffuse.a)) + vAmbient;
+		vColorDiffuse.rgb = (vColorDiffuse.rgb) * (( diffuse* att )*vColorDiffuse.a+(1.0-vColorDiffuse.a)) + vAmbient;
 		
 		vDark  = clamp(vColorDiffuse.rgb + 1.0, 0.0, 1.0); //0 a 1 -> = 1 if bright
         vLight = clamp(vColorDiffuse.rgb , 0.0, 1.0); //0 a 1 -> = 0 if Dark
@@ -1217,8 +1213,18 @@ vPtNorm =  vPtNorm.xyz *  _vMyNorm ;
 //pixTex.a = 0.5;
 
 
-//FragColor =  pixTex;
+//float light = att * diffuse;
+//FragColor =  vec4(light,light, light,1);
+
+
+FragColor =  pixTex;
+
+
+
 //FragColor =  vec4(vPtNorm, 1.0);
+
+
+
 		
        // FragColor =  vColorDiffuse + vec4(vAmbient,0.0);
       //  FragColor =  vec4(diffuse*10.0, 0.0 ,1.0,1.0);
