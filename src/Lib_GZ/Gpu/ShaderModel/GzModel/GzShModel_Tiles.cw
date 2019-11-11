@@ -875,21 +875,22 @@ xflat in vec4 ioObjRot;
 
 
 
-vec4  vColorSpecular = vec4(1.0,1.0,0.0 , 2.0); //0 to X Can be premultiplied with alpha
-vec4  vColorDiffuse = vec4(1.0, 1.0, 1.0, 1.0);  //rgb -1 to 2  no diffuse : vec4(0.0,0.0,0.0, 1.0); normal : vec4(1.0,1.0,1.0, 1.0);
+vec4  vColorSpecular = vec4(1.0,1.0,0.0 , 1.0); //0 to X Can be premultiplied with alpha
+vec4  vColorDiffuse = vec4(1.0, 1.0, 1.0, 1.4);  //rgb -1 to 2  no diffuse : vec4(0.0,0.0,0.0, 1.0); normal : vec4(1.0,1.0,1.0, 1.0);
 //vec3 vAmbient = vec3(-1.0, -1.0, -1.0);
 //vec3 vAmbient = vec3(0.0, 0.0, 0.0);
 vec3 vAmbient = vec3(-1.0, -1.0, -1.0); // -1.0 to 1.0
 
 //0 to 1
-float att_kC = 0.008; //Kc is the constant attenuation
-float att_kL = 0.008; //KL is the linear attenuation
+float att_kC = 0.08; //Kc is the constant attenuation
+float att_kL = 0.08; //KL is the linear attenuation
 float att_kQ = 0.002; //KQ is the quadratic attenuation
 ////////////
 	
 	 
-        vec3 eye_position = vec3(  400.0, 1600.0, -300.0);
-        vec3 light_position  =   vec3( 400.0,200.0, -500.0);
+       // vec3 eye_position = vec3(  400.0, 1600.0, -300.0);
+        vec3 eye_position = vec3(  400.0, 300.0, 0.0);
+        vec3 light_position  =   vec3( 400.0,300.0, -500.0);
 
 
 
@@ -1135,7 +1136,7 @@ vPtNorm = cross(vPtNorm.xyz, pixNormal.xyz);
 //vec3 _vMyNorm = vec3((_nMonoCrome-0.5)*3.0, (_nMonoCrome), (0.5- _nMonoCrome)*3.0 );
 
 
-float _nMonoCrome =  ((pixTex.r + pixTex.g + pixTex.b)/3.0) * 4.0;
+float _nMonoCrome =  ((pixTex.r + pixTex.g + pixTex.b)/3.0) ;
 float _nRevMonoCrome =   (1.0 - _nMonoCrome);
 //vec3 _vMyNorm =  vec3(_nMonoCrome*2.0, _nRevMonoCrome , _nRevMonoCrome + _nMonoCrome*2.0);
 vec3 _vMyNorm =  vec3(0.0, _nRevMonoCrome , _nMonoCrome*2.0);
@@ -1150,7 +1151,7 @@ vPtNorm = fQRot_2(_vMyNorm.xyz, ioObjRot);
 //vPtNorm.z *= -1.0;
 ////////////////////////// 
 
-vPtNorm =  ioNorm.xyz;
+//vPtNorm =  ioNorm.xyz;
 
 
 
@@ -1208,11 +1209,11 @@ vPtNorm =  ioNorm.xyz;
           vec3 R = -normalize(reflect(L, vPtNorm));//Reflection
            // specular = 0.65 * pow(max(0.0, dot(R, V)), 512); //https://learnopengl.com/Lighting/Basic-Lighting
 		//specular = material_kd * pow(max(0, dot(H, world_normal)), material_shininess);
-            specular = 0.65 *  pow(max(0.0, dot(R, V)), 0.9);//0.15  https://learnopengl.com/Lighting/Basic-Lighting
+            specular = 0.20 *  pow(max(0.0, dot(R, V)), 1.9);//0.15  https://learnopengl.com/Lighting/Basic-Lighting
 		
           //Blinn-Phong
           vec3 H = normalize(L + V );//Halfway
-          specular = 0.65 * pow(max(0, dot(H, vPtNorm)), 0.8);
+          specular = 100.65 * pow(max(0, dot(H, vPtNorm)), 104.8);
 		  
         }
 
@@ -1238,27 +1239,28 @@ vPtNorm =  ioNorm.xyz;
 
 		
 		//vPtDist += vColorDiffuse + vec4(vAmbient,0.0);
-	/*	
+	
 
         // Specular
       //  vLight = clamp(vColorSpecular.rgb * vColorSpecular.a * att * specular -1.0, 0.0, 1.0); //0 a 1 -> = 0 if Dark
       //  vLight = clamp(vColorSpecular.rgb * vColorSpecular.a * specular -1.0, 0.0, 1.0); //0 a 1 -> = 0 if Dark
        // vLight = clamp(vColorSpecular.rgb * vColorSpecular.a * (specular *att)  -1.0, 0.0, 1.0); //0 a 1 -> = 0 if Dark
-        vLight = clamp(vColorSpecular.rgb * vColorSpecular.a * (1.0-(specular *att)-1.0), 0.0, 1.0); //0 a 1 -> = 0 if Dark
+      //  vLight = clamp(vColorSpecular.rgb * vColorSpecular.a * ((specular *att)-1.0), 0.0, 1.0); //0 a 1 -> = 0 if Dark
+        vLight = clamp(vColorSpecular.rgb * vColorSpecular.a * ((specular *att)), 0.0, 1.0); //0 a 1 -> = 0 if Dark
         pixTex.rgb = (((( vec3(pixTex.a) -  pixTex.rgb ) * vLight) + pixTex.rgb)  );
-*/
+
 
    // }
 //pixTex.a = 0.5;
 
 
 float light =  att * diffuse + att * specular;
-////FragColor =  vec4(att * diffuse,  att *specular, 0.0,1);
+FragColor =  vec4(att * diffuse,  att *specular, 0.0,1);
 
 
+
+FragColor =  vec4( att *specular,  att *specular,  att *specular,1);
 FragColor =  pixTex;
-
-
 
 //FragColor =  vec4(vPtNorm, 1.0);
 
