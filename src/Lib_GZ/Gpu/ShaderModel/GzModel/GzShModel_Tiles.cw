@@ -1133,10 +1133,10 @@ vec3 _vMyNorm =  vec3(_nMonoCrome*2.0, _nRevMonoCrome , _nRevMonoCrome + _nMonoC
 //vPtNorm =   normalize( vPtNorm.xyz) *  normalize(  _vMyNorm) ;
 //vPtNorm =  vPtNorm.xyz  ;
 vPtNorm = fQRot_2(_vMyNorm.xyz, ioObjRot);
-//vPtNorm.z *= -1.0;
+vPtNorm.z *= -1.0;
 ////////////////////////// 
-	vPtNorm =  ioNorm.xyz;
-	 vPtNorm*=-1.0;
+//	vPtNorm =  ioNorm.xyz;
+	// vPtNorm*=-1.0;
 	 
 		
 		//vec3 vPtNorm = vec3(0.0,1.0,0.0);
@@ -1154,8 +1154,11 @@ vPtNorm = fQRot_2(_vMyNorm.xyz, ioObjRot);
 		
 		
 
-        vec3 L = ( vPtWorld - light_position );//light direction
-        vec3 V = (  vPtWorld - eye_position );//view direction
+     //   vec3 L = ( vPtWorld - light_position );//light direction
+       // vec3 V = (  vPtWorld - eye_position );//view direction
+
+        vec3 L = ( light_position - vPtWorld   );//light direction
+        vec3 V = (  eye_position - vPtWorld   );//view direction
 
 
        // vec3 L = normalize( light_position - vPtWorld);//light direction
