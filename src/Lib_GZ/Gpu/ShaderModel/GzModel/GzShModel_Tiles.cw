@@ -153,6 +153,7 @@ xflat out vec3 ioPt2;
 xflat out vec3 ioPt3;
 xflat out vec3 ioPt4;
 
+xflat out vec4 ioObjRot;
 xflat out vec3 ioNorm;
 //xflat out vec3 ioNorm1;
 //xflat out vec3 ioNorm2;
@@ -443,7 +444,7 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 		ioNorm = normalize(vec3(0.0,0.0,1.0 * nFrontFacing  ));
 		//ioNorm.xyz = fQRot_2(ioNorm.xyz, in_ObjRot);
 		ioNorm.xyz = fQRot_2(ioNorm.xyz, in_ObjRot);
-		
+		ioObjRot = in_ObjRot;
 		/*
 		ioNorm1 = normalize(vec3(-1.0,-1.0,-1.0 * nFrontFacing ));
 		ioNorm2 = normalize(vec3( 1.0,-1.0,-1.0 * nFrontFacing));
@@ -751,6 +752,21 @@ if(_nIRevD < 0){
 			///////////// Fragment Shader //////////////
 <glsl(oFragement)>
 	
+
+
+vec3 fQRot( vec3 pt, vec4 rot)       {
+	return pt + 2.0*cross(rot.xyz, cross(rot.xyz,pt) + rot.w*pt);
+}
+
+//rotate vector
+vec3 fQRot3(vec4 q, vec3 v)       {
+	return v + 2.0*cross(q.xyz, cross(q.xyz,v) + q.w*v);
+}
+//rotate vector (alternative)
+vec3 fQRot_2(vec3 pt, vec4 rot )     {
+	return pt*(rot.w*rot.w - dot(rot.xyz,rot.xyz)) + 2.0*rot.xyz*dot(rot.xyz,pt) + 2.0*rot.w*cross(rot.xyz,pt);
+}
+
 //////////////////  TILES /////////////////////////
 
 xflat in vec2 ioPtSrc1;
@@ -855,6 +871,9 @@ ivec2 vPosBL;
 xflat in mat4 iomWorldPt;
 xflat in mat4 iomNorm;
 xflat in vec3 ioNorm;
+xflat in vec4 ioObjRot;
+
+
 
 vec4  vColorSpecular = vec4(1.0,1.0,0.0 , 2.0); //0 to X Can be premultiplied with alpha
 vec4  vColorDiffuse = vec4(1.0, 1.0, 1.0, 2.0);  //rgb -1 to 2  no diffuse : vec4(0.0,0.0,0.0, 1.0); normal : vec4(1.0,1.0,1.0, 1.0);
@@ -1110,11 +1129,11 @@ vec3 _vMyNorm =  vec3(_nMonoCrome*2.0, _nRevMonoCrome , _nRevMonoCrome + _nMonoC
 
 
 //vPtNorm = _vMyNorm;
-vPtNorm = cross( normalize( vPtNorm.xyz ) ,  normalize( _vMyNorm.xyz));
+//vPtNorm = cross( normalize( vPtNorm.xyz ) ,  normalize( _vMyNorm.xyz));
 //vPtNorm =   normalize( vPtNorm.xyz) *  normalize(  _vMyNorm) ;
 //vPtNorm =  vPtNorm.xyz  ;
-
-
+vPtNorm = fQRot_2(_vMyNorm.xyz, ioObjRot);
+//vPtNorm.z *= -1.0;
 ////////////////////////// 
 	 
 	 
@@ -1127,16 +1146,16 @@ vPtNorm = cross( normalize( vPtNorm.xyz ) ,  normalize( _vMyNorm.xyz));
        // vec3 eye_position =   vec3( 500.0,  384.0,-1024.0);
 		
 	 
-        vec3 light_position = vec3(  300.0, -300.0, -700.0);
+        vec3 eye_position = vec3(  300.0, 1500.0, 300.0);
        // vec3 light_position = vec3(  300.0, 300.0, -500.0);
         //vec3 light_position = vec3(  300.0, 400.0, 200.0);
-        vec3 eye_position =   vec3( 300.0,800.0, 400.0);
+        vec3 light_position  =   vec3( 350.0,150.0, -300.0);
 		
 		
 		
 
-        vec3 L = ( light_position - vPtWorld);//light direction
-        vec3 V = ( eye_position - vPtWorld);//view direction
+        vec3 L = ( vPtWorld -light_position );//light direction
+        vec3 V = ( vPtWorld - eye_position);//view direction
 
 
        // vec3 L = normalize( light_position - vPtWorld);//light direction
@@ -1152,8 +1171,8 @@ vPtNorm = cross( normalize( vPtNorm.xyz ) ,  normalize( _vMyNorm.xyz));
 		//http://in2gpu.com/2014/06/19/lighting-vertex-fragment-shader/
 		
 		//0 to 1
-        float att_kC = 0.002; //Kc is the constant attenuation
-        float att_kL = 0.0002; //KL is the linear attenuation
+        float att_kC = 0.8; //Kc is the constant attenuation
+        float att_kL = 0.8; //KL is the linear attenuation
         float att_kQ = 0.002; //KQ is the quadratic attenuation
  
 
@@ -1172,7 +1191,7 @@ vPtNorm = cross( normalize( vPtNorm.xyz ) ,  normalize( _vMyNorm.xyz));
           vec3 R = -normalize(reflect(L, vPtNorm));//Reflection
            // specular = 0.65 * pow(max(0.0, dot(R, V)), 512); //https://learnopengl.com/Lighting/Basic-Lighting
 		//specular = material_kd * pow(max(0, dot(H, world_normal)), material_shininess);
-            specular = 0.65 *  pow(max(0.0, dot(R, V)), 0.65);//0.15  https://learnopengl.com/Lighting/Basic-Lighting
+            specular = 0.90 *  pow(max(0.0, dot(R, V)), 0.15);//0.15  https://learnopengl.com/Lighting/Basic-Lighting
 		
           //Blinn-Phong
           vec3 H = normalize(L + V );//Halfway
@@ -1202,12 +1221,13 @@ vPtNorm = cross( normalize( vPtNorm.xyz ) ,  normalize( _vMyNorm.xyz));
 		
 		//vPtDist += vColorDiffuse + vec4(vAmbient,0.0);
 		
-	
+/*
         // Specular
       //  vLight = clamp(vColorSpecular.rgb * vColorSpecular.a * att * specular -1.0, 0.0, 1.0); //0 a 1 -> = 0 if Dark
+      //  vLight = clamp(vColorSpecular.rgb * vColorSpecular.a * specular -1.0, 0.0, 1.0); //0 a 1 -> = 0 if Dark
         vLight = clamp(vColorSpecular.rgb * vColorSpecular.a * specular -1.0, 0.0, 1.0); //0 a 1 -> = 0 if Dark
         pixTex.rgb = (((( vec3(pixTex.a) -  pixTex.rgb ) * vLight) + pixTex.rgb)  );
-
+*/
 
    // }
 //pixTex.a = 0.5;
