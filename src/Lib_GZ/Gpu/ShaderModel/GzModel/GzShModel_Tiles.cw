@@ -875,9 +875,9 @@ xflat in vec4 ioObjRot;
 
 
 
-vec4  vColorSpecular = vec4(1.0,1.0,0.0 , 2.0); //0 to X Can be premultiplied with alpha
-vec4  vColorDiffuse = vec4(1.0, 1.0, 1.0, 2.0);  //rgb -1 to 2  no diffuse : vec4(0.0,0.0,0.0, 1.0); normal : vec4(1.0,1.0,1.0, 1.0);
-vec3 vAmbient = vec3(0.0, 0.0, 0.0);
+vec4  vColorSpecular = vec4(1.0,1.0,0.0 , 1.0); //0 to X Can be premultiplied with alpha
+vec4  vColorDiffuse = vec4(1.0, 1.0, 1.0, 1.0);  //rgb -1 to 2  no diffuse : vec4(0.0,0.0,0.0, 1.0); normal : vec4(1.0,1.0,1.0, 1.0);
+vec3 vAmbient = vec3(-1.0, -1.0, -1.0);
 ////////////
 	
 smooth in vec2 uv;
@@ -1135,8 +1135,8 @@ vec3 _vMyNorm =  vec3(_nMonoCrome*2.0, _nRevMonoCrome , _nRevMonoCrome + _nMonoC
 vPtNorm = fQRot_2(_vMyNorm.xyz, ioObjRot);
 //vPtNorm.z *= -1.0;
 ////////////////////////// 
-	//vPtNorm =  ioNorm.xyz;
-	// vPtNorm*=-1.0;
+	vPtNorm =  ioNorm.xyz;
+	 vPtNorm*=-1.0;
 	 
 		
 		//vec3 vPtNorm = vec3(0.0,1.0,0.0);
@@ -1149,7 +1149,7 @@ vPtNorm = fQRot_2(_vMyNorm.xyz, ioObjRot);
         vec3 eye_position = vec3(  300.0, 400.0, -300.0);
        // vec3 light_position = vec3(  300.0, 300.0, -500.0);
         //vec3 light_position = vec3(  300.0, 400.0, 200.0);
-        vec3 light_position  =   vec3( 350.0,250.0, -350.0);
+        vec3 light_position  =   vec3( 350.0,250.0, -1050.0);
 		
 		
 		
@@ -1171,9 +1171,9 @@ vPtNorm = fQRot_2(_vMyNorm.xyz, ioObjRot);
 		//http://in2gpu.com/2014/06/19/lighting-vertex-fragment-shader/
 		
 		//0 to 1
-        float att_kC = 0.08; //Kc is the constant attenuation
-        float att_kL = 0.08; //KL is the linear attenuation
-        float att_kQ = 0.02; //KQ is the quadratic attenuation
+        float att_kC = 0.008; //Kc is the constant attenuation
+        float att_kL = 0.008; //KL is the linear attenuation
+        float att_kQ = 0.002; //KQ is the quadratic attenuation
  
 
         //attenuation
@@ -1197,7 +1197,7 @@ vPtNorm = fQRot_2(_vMyNorm.xyz, ioObjRot);
 		
           //Blinn-Phong
           vec3 H = normalize(L + V );//Halfway
-          specular = 150.65 * pow(max(0, dot(H, vPtNorm)), 0.95);
+          specular = 1.65 * pow(max(0, dot(H, vPtNorm)), 0.95);
 		  
         }
 
