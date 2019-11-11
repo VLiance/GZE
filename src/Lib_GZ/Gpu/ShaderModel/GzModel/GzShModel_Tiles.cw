@@ -439,7 +439,9 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 		}
 		//nFrontFacing = 1.0;
 
-		ioNorm = normalize(vec3(-1.0,-1.0,-1.0 * nFrontFacing ));
+		//ioNorm = normalize(vec3(0.0,0.0,1.0 * nFrontFacing ));
+		ioNorm = normalize(vec3(0.0,0.0,1.0 * nFrontFacing  ));
+		//ioNorm.xyz = fQRot_2(ioNorm.xyz, in_ObjRot);
 		ioNorm.xyz = fQRot_2(ioNorm.xyz, in_ObjRot);
 		
 		/*
@@ -854,9 +856,9 @@ xflat in mat4 iomWorldPt;
 xflat in mat4 iomNorm;
 xflat in vec3 ioNorm;
 
-vec4  vColorSpecular = vec4(2.0,2.0,0.0 , 4.0); //0 to X Can be premultiplied with alpha
-vec4  vColorDiffuse = vec4(1.0, 1.0, 0.8, 1.8);  //rgb -1 to 2  no diffuse : vec4(0.0,0.0,0.0, 1.0); normal : vec4(1.0,1.0,1.0, 1.0);
-vec3 vAmbient = vec3(0.2, 0.2, 0.2);
+vec4  vColorSpecular = vec4(1.0,1.0,0.0 , 1.0); //0 to X Can be premultiplied with alpha
+vec4  vColorDiffuse = vec4(0.1, 0.1, 0.1, 1.0);  //rgb -1 to 2  no diffuse : vec4(0.0,0.0,0.0, 1.0); normal : vec4(1.0,1.0,1.0, 1.0);
+vec3 vAmbient = vec3(0.0, 0.0, 0.0);
 ////////////
 	
 smooth in vec2 uv;
@@ -937,7 +939,9 @@ float _nPrec = 0.0001;
 				vPosBR =  ivec2((vPosTex + vec2(1.0 - _nPrec, 1.0 - _nPrec)) / vRetroR);
 				vPosBL =  ivec2((vPosTex + vec2(0.0 + _nPrec, 1.0 - _nPrec)) / vRetroR);
 */
-
+				//TR Clamp oposite side (on device with not enogh precision)
+				if(vPosTL.y >= ioSrcBR.y){vPosTL.y = ioSrcBR.y - 1;}
+				if(vPosTL.x >= ioSrcBR.x){vPosTL.x = ioSrcBR.x - 1;}
 				if(vPosTL == ioSrcTL){
 					vPosTL = ioOffsetTL; //Corner TL
 				}else if(vPosTL.y <= ioSrcTL.y ){
@@ -947,12 +951,12 @@ float _nPrec = 0.0001;
 					//vPosTL += ivec2(ioOffsetL1);  //Left
 					vPosTL =  ioOffsetL1 + abs( ivec2(vPosTL.y - ioSrcOL.y,vPosTL.y - ioSrcOL.y) * vFlip.yx  ) ;  //Left
 				}
+		
+
+
 				//TR Clamp oposite side (on device with not enogh precision)
-				if(vPosTL.y >= ioSrcBR.y){vPosTL.y = ioSrcBR.y - 1;}
-				if(vPosTL.x >= ioSrcBR.x){vPosTL.x = ioSrcBR.x - 1;}
-
-
-
+				if(vPosTR.y >= ioSrcBR.y){vPosTR.y = ioSrcBR.y - 1;}
+				if(vPosTR.x <= ioSrcBL.x){vPosTR.x = ioSrcBL.x + 1;}
 				if(vPosTR == ioSrcTR ){
 					vPosTR = ioOffsetTR; //Corner TR
 				}else if(vPosTR.y <= ioSrcTR.y ){
@@ -963,12 +967,12 @@ float _nPrec = 0.0001;
 					//vPosTR += ivec2(ioOffsetR1); //RIGHT
 					vPosTR = ioOffsetR1 + abs( ivec2(vPosTR.y - ioSrcOR.y,vPosTR.y - ioSrcOR.y )* vFlip.yx  ) ; //RIGHT	
 				}
-				//TR Clamp oposite side (on device with not enogh precision)
-				if(vPosTR.y >= ioSrcBR.y){vPosTR.y = ioSrcBR.y - 1;}
-				if(vPosTR.x <= ioSrcBL.x){vPosTR.x = ioSrcBL.x + 1;}
+			
 
 
-
+				// BR Clamp oposite side
+				if(vPosBR.y <= ioSrcTR.y){vPosBR.y = ioSrcTR.y + 1;}
+				if(vPosBR.x <= ioSrcBL.x){vPosBR.x = ioSrcBL.x + 1;}
 				if(vPosBR == ioSrcBR ){
 					vPosBR = ioOffsetBR; //Corner BR
 				}else if(vPosBR.y >= ioSrcBR.y){
@@ -977,12 +981,11 @@ float _nPrec = 0.0001;
 				}else if(vPosBR.x >= ioSrcBR.x){
 					vPosBR = ioOffsetR1 + abs( ivec2(vPosBR.y - ioSrcOR.y,vPosBR.y - ioSrcOR.y) * vFlip.yx  ) ; //Right
 				}
-				// BR Clamp oposite side
-				if(vPosBR.y <= ioSrcTR.y){vPosBR.y = ioSrcTR.y + 1;}
-				if(vPosBR.x <= ioSrcBL.x){vPosBR.x = ioSrcBL.x + 1;}
+			
 
-
-
+				// BL Clamp oposite side
+				if(vPosBL.y <= ioSrcTR.y){vPosBL.y = ioSrcTR.y + 1;}
+				if(vPosBL.x >= ioSrcBR.x){vPosBL.x = ioSrcBR.x - 1;}
 				if(vPosBL == ioSrcBL){
 					vPosBL = ioOffsetBL; //Corner BL
 					
@@ -992,11 +995,7 @@ float _nPrec = 0.0001;
 				}else if(vPosBL.x <= ioSrcBL.x){
 					vPosBL =  ioOffsetL1 + abs( ivec2(vPosBL.y - ioSrcOL.y,vPosBL.y - ioSrcOL.y) * vFlip.yx   );  //Left
 				}
-				// BL Clamp oposite side
-				if(vPosBL.y <= ioSrcTR.y){vPosBL.y = ioSrcTR.y + 1;}
-				if(vPosBL.x >= ioSrcBR.x){vPosBL.x = ioSrcBR.x - 1;}
-		
-	
+			
 
 				vec4 vPixTL = texelFetch(TexCurrent, vPosTL,0);
 				vec4 vPixTR = texelFetch(TexCurrent, vPosTR,0);
@@ -1087,7 +1086,7 @@ float _nPrec = 0.0001;
 
        // FragColor =  pixTex;
 
-//FragColor =  pixTex; //Disable light
+FragColor =  pixTex; //Disable light
         /////////////////////////////////////////////////////
         /////////////////////// LIGHT  /////////////////////
         /////////////////////////////////////////////////////
@@ -1105,18 +1104,23 @@ vPtNorm = cross(vPtNorm.xyz, pixNormal.xyz);
 */ 
 	 
 /////// MY AUTO Bump //////////
-float _nMonoCrome =   0.5-(pixTex.r + pixTex.g + pixTex.b)/3.0;
-vec3 _vMyNorm = vec3((_nMonoCrome-0.5)*3.0, (_nMonoCrome), (0.5- _nMonoCrome)*3.0 );
 
-vPtNorm = cross(vPtNorm.xyz, _vMyNorm.xyz);
+//float _nMonoCrome =   0.5-(pixTex.r + pixTex.g + pixTex.b)/3.0;
+//vec3 _vMyNorm = vec3((_nMonoCrome-0.5)*3.0, (_nMonoCrome), (0.5- _nMonoCrome)*3.0 );
+
+
+float _nMonoCrome =  ((pixTex.r + pixTex.g + pixTex.b)/3.0);
+float _nRevMonoCrome =   1.0 - _nMonoCrome;
+vec3 _vMyNorm =  vec3(_nMonoCrome*2.0, _nRevMonoCrome , _nRevMonoCrome + _nMonoCrome*2.0);
+
+
+
+//vPtNorm = _vMyNorm;
+//vPtNorm = cross(  normalize( _vMyNorm.xyz), normalize( vPtNorm.xyz ) );
+vPtNorm =  vPtNorm.xyz *  _vMyNorm ;
 
 
 ////////////////////////// 
-	 
-	 
-	 
-	 
-	 
 	 
 	 
 	 
@@ -1128,16 +1132,21 @@ vPtNorm = cross(vPtNorm.xyz, _vMyNorm.xyz);
        // vec3 eye_position =   vec3( 500.0,  384.0,-1024.0);
 		
 	 
-        vec3 light_position = vec3(  300.0, 300.0, -100.0);
+        vec3 light_position = vec3(  300.0, 300.0, -1000.0);
        // vec3 light_position = vec3(  300.0, 300.0, -500.0);
         //vec3 light_position = vec3(  300.0, 400.0, 200.0);
-        vec3 eye_position =   vec3( 300.0,900.0, -200.0);
+        vec3 eye_position =   vec3( 300.0,300.0, 400.0);
 		
 		
 		
 
-        vec3 L = normalize( light_position - vPtWorld);//light direction
-        vec3 V = normalize( eye_position - vPtWorld);//view direction
+        vec3 L = ( light_position - vPtWorld);//light direction
+        vec3 V = ( eye_position - vPtWorld);//view direction
+
+
+       // vec3 L = normalize( light_position - vPtWorld);//light direction
+       // vec3 V = normalize( eye_position - vPtWorld);//view direction
+
 
 
         float LdotN = max(0.0, dot(L,vPtNorm));
@@ -1208,7 +1217,8 @@ vPtNorm = cross(vPtNorm.xyz, _vMyNorm.xyz);
 //pixTex.a = 0.5;
 
 
-FragColor =  pixTex;
+//FragColor =  pixTex;
+//FragColor =  vec4(vPtNorm, 1.0);
 		
        // FragColor =  vColorDiffuse + vec4(vAmbient,0.0);
       //  FragColor =  vec4(diffuse*10.0, 0.0 ,1.0,1.0);
