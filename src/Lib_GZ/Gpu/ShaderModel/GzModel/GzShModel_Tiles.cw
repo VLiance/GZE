@@ -423,7 +423,7 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 		pt2.y = (pt2.y + (_vObjPos.y - vPersp.y) ) / nZx - (_vObjPos.y - vPersp.y);\n
 
 		
-	nFrontFacing = -1.0;
+	nFrontFacing = 1.0;
 		/*
 	   if(cross(pt1, pt2).z < 0.0 ){
 			nFrontFacing = -1.0;
@@ -875,11 +875,24 @@ xflat in vec4 ioObjRot;
 
 
 
-vec4  vColorSpecular = vec4(1.0,1.0,0.0 , 1.0); //0 to X Can be premultiplied with alpha
+vec4  vColorSpecular = vec4(1.0,1.0,0.0 , 2.0); //0 to X Can be premultiplied with alpha
 vec4  vColorDiffuse = vec4(1.0, 1.0, 1.0, 1.0);  //rgb -1 to 2  no diffuse : vec4(0.0,0.0,0.0, 1.0); normal : vec4(1.0,1.0,1.0, 1.0);
-vec3 vAmbient = vec3(-1.0, -1.0, -1.0);
+//vec3 vAmbient = vec3(-1.0, -1.0, -1.0);
+//vec3 vAmbient = vec3(0.0, 0.0, 0.0);
+vec3 vAmbient = vec3(-1.0, -1.0, -1.0); // -1.0 to 1.0
+
+//0 to 1
+float att_kC = 0.008; //Kc is the constant attenuation
+float att_kL = 0.008; //KL is the linear attenuation
+float att_kQ = 0.002; //KQ is the quadratic attenuation
 ////////////
 	
+	 
+        vec3 eye_position = vec3(  400.0, 1600.0, -300.0);
+        vec3 light_position  =   vec3( 400.0,200.0, -500.0);
+
+
+
 smooth in vec2 uv;
 	
 void main()
@@ -1124,7 +1137,8 @@ vPtNorm = cross(vPtNorm.xyz, pixNormal.xyz);
 
 float _nMonoCrome =  ((pixTex.r + pixTex.g + pixTex.b)/3.0) * 4.0;
 float _nRevMonoCrome =   (1.0 - _nMonoCrome);
-vec3 _vMyNorm =  vec3(_nMonoCrome*2.0, _nRevMonoCrome , _nRevMonoCrome + _nMonoCrome*2.0);
+//vec3 _vMyNorm =  vec3(_nMonoCrome*2.0, _nRevMonoCrome , _nRevMonoCrome + _nMonoCrome*2.0);
+vec3 _vMyNorm =  vec3(0.0, _nRevMonoCrome , _nMonoCrome*2.0);
 
 
 
@@ -1133,10 +1147,15 @@ vec3 _vMyNorm =  vec3(_nMonoCrome*2.0, _nRevMonoCrome , _nRevMonoCrome + _nMonoC
 //vPtNorm =   normalize( vPtNorm.xyz) *  normalize(  _vMyNorm) ;
 //vPtNorm =  vPtNorm.xyz  ;
 vPtNorm = fQRot_2(_vMyNorm.xyz, ioObjRot);
-vPtNorm.z *= -1.0;
+//vPtNorm.z *= -1.0;
 ////////////////////////// 
-//	vPtNorm =  ioNorm.xyz;
-	// vPtNorm*=-1.0;
+
+vPtNorm =  ioNorm.xyz;
+
+
+
+
+	 //vPtNorm.z*=-1.0;
 	 
 		
 		//vec3 vPtNorm = vec3(0.0,1.0,0.0);
@@ -1145,11 +1164,7 @@ vPtNorm.z *= -1.0;
       //  vec3 light_position = vec3(1514.0 ,-600.0, -800.0);
        // vec3 eye_position =   vec3( 500.0,  384.0,-1024.0);
 		
-	 
-        vec3 eye_position = vec3(  300.0, 400.0, -300.0);
-       // vec3 light_position = vec3(  300.0, 300.0, -500.0);
-        //vec3 light_position = vec3(  300.0, 400.0, 200.0);
-        vec3 light_position  =   vec3( 350.0,250.0, -1050.0);
+
 		
 		
 		
@@ -1157,8 +1172,8 @@ vPtNorm.z *= -1.0;
      //   vec3 L = ( vPtWorld - light_position );//light direction
        // vec3 V = (  vPtWorld - eye_position );//view direction
 
-        vec3 L = ( light_position - vPtWorld   );//light direction
-        vec3 V = (  eye_position - vPtWorld   );//view direction
+        vec3 L = ( vPtWorld -light_position     );//light direction
+        vec3 V = ( vPtWorld - eye_position  );//view direction
 
 
        // vec3 L = normalize( light_position - vPtWorld);//light direction
@@ -1173,10 +1188,7 @@ vPtNorm.z *= -1.0;
 		
 		//http://in2gpu.com/2014/06/19/lighting-vertex-fragment-shader/
 		
-		//0 to 1
-        float att_kC = 0.008; //Kc is the constant attenuation
-        float att_kL = 0.008; //KL is the linear attenuation
-        float att_kQ = 0.002; //KQ is the quadratic attenuation
+
  
 
         //attenuation
@@ -1200,7 +1212,7 @@ vPtNorm.z *= -1.0;
 		
           //Blinn-Phong
           vec3 H = normalize(L + V );//Halfway
-          specular = 1.65 * pow(max(0, dot(H, vPtNorm)), 0.95);
+          specular = 0.65 * pow(max(0, dot(H, vPtNorm)), 0.8);
 		  
         }
 
@@ -1216,7 +1228,8 @@ vPtNorm.z *= -1.0;
         //// Diffuse ////
      
 		//vColorDiffuse.rgb = (vColorDiffuse.rgb) * ((att *diffuse)*vColorDiffuse.a+(1.0-vColorDiffuse.a)) + vAmbient;
-		vColorDiffuse.rgb = (vColorDiffuse.rgb) * (( diffuse*att )*vColorDiffuse.a+(1.0-vColorDiffuse.a)) + vAmbient;
+	//	vColorDiffuse.rgb = (vColorDiffuse.rgb) * (( diffuse*att )*vColorDiffuse.a+(1.0-vColorDiffuse.a)) + vAmbient;
+		vColorDiffuse.rgb = (vColorDiffuse.rgb) * (( diffuse*att )*vColorDiffuse.a) + vAmbient;
 		
 		vDark  = clamp(vColorDiffuse.rgb + 1.0, 0.0, 1.0); //0 a 1 -> = 1 if bright
         vLight = clamp(vColorDiffuse.rgb , 0.0, 1.0); //0 a 1 -> = 0 if Dark
@@ -1225,21 +1238,22 @@ vPtNorm.z *= -1.0;
 
 		
 		//vPtDist += vColorDiffuse + vec4(vAmbient,0.0);
-		
+	/*	
 
         // Specular
       //  vLight = clamp(vColorSpecular.rgb * vColorSpecular.a * att * specular -1.0, 0.0, 1.0); //0 a 1 -> = 0 if Dark
       //  vLight = clamp(vColorSpecular.rgb * vColorSpecular.a * specular -1.0, 0.0, 1.0); //0 a 1 -> = 0 if Dark
-        vLight = clamp(vColorSpecular.rgb * vColorSpecular.a * (specular *att)  -1.0, 0.0, 1.0); //0 a 1 -> = 0 if Dark
+       // vLight = clamp(vColorSpecular.rgb * vColorSpecular.a * (specular *att)  -1.0, 0.0, 1.0); //0 a 1 -> = 0 if Dark
+        vLight = clamp(vColorSpecular.rgb * vColorSpecular.a * (1.0-(specular *att)-1.0), 0.0, 1.0); //0 a 1 -> = 0 if Dark
         pixTex.rgb = (((( vec3(pixTex.a) -  pixTex.rgb ) * vLight) + pixTex.rgb)  );
-
+*/
 
    // }
 //pixTex.a = 0.5;
 
 
 float light =  att * diffuse + att * specular;
-//FragColor =  vec4(att * diffuse,  att *specular, 0.0,1);
+////FragColor =  vec4(att * diffuse,  att *specular, 0.0,1);
 
 
 FragColor =  pixTex;
