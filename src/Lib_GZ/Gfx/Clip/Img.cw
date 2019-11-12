@@ -16,7 +16,7 @@ package  {
 	import GZ.Base.Pt;
 	import GZ.Base.Poly4;
 
-
+	import GZ.Sys.Interface.Context;
 
 	/**
 	 * @author Maeiky
@@ -85,7 +85,7 @@ package  {
 			}
 
 			//oGpuObj.fSetImg(aPixelArray[0], nWidth, nHeight);
-			if(oItf.bGpuDraw){
+			if(Context.oItf.bGpuDraw){
 				_oRc.fGpuLoad();
 			}
 

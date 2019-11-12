@@ -10,6 +10,7 @@ package  {
 	import GZ.Gfx.Tile.TileData;
 	import GZ.Gfx.Tile.MapData;
 	import GZ.Gfx.Clip.Img;
+	import GZ.Gfx.Clip;
 	import GZ.Gfx.Root;
 	//import GZ.Base.Rect;
 	import GZ.Base.Poly.PolyRect;
@@ -21,7 +22,7 @@ package  {
 	/**
 	 * @author Maeiky
 	 */
-	public class Tile  extends Img {
+	public class Tile  extends Clip {
 
 		public var oOffsetL : Pt<Float>;
 		public var oOffsetT : Pt<Float>;
@@ -48,7 +49,10 @@ package  {
 
 		public var oTileData : TileData;
 		public var oLayerData : LayerData;
-
+		
+		public var oImg : Img;
+		
+		
 
 
 		public function Tile(_oParent : Root, _oLayerData : LayerData, _oTileData : TileData, _nCaseX : UInt, _nCaseY : UInt): Void {
@@ -88,9 +92,22 @@ package  {
 				var _oPts : PolyRect<Float> = new PolyRect<Float>(_vPt, _oDimPt);
 
 				//Img(_oParent, oTileData.oTileset.nTileWidth * nCaseX, oTileData.oTileset.nTileHeight * nCaseY, oTileData.oTileset.oRc, false, 0,0,false,false, _oRegion, oTileData.oTileset.nTileWidth, oTileData.oTileset.nTileHeight);
-				Img(_oParent, 0, 0, oTileData.oTileset.oRc, false, 0,0,false,false, _oRegion, oTileData.oTileset.nTileWidth, oTileData.oTileset.nTileHeight, _oPts);
-
+				//oImg = new Img(_oParent, 0, 0, oTileData.oTileset.oRc, false, 0,0,false,false, _oRegion, oTileData.oTileset.nTileWidth, oTileData.oTileset.nTileHeight, _oPts);
+			
+				
 				fSetNeighbor(_oSrcPos);
+				
+				
+				
+				Clip(_oParent, _vPt.nX, _vPt.nY );
+				
+					oImg = new Img(this, 0, 0, oTileData.oTileset.oRc, false, 0,0,false,false, _oRegion, oTileData.oTileset.nTileWidth, oTileData.oTileset.nTileHeight);
+
+				///fApplyPos();
+			//	vPos.nX = 1000;
+				//vPos.nY = _vPt.nY;
+				
+				
 			}
 
 			//oOffsetL = oTileData.oTileset.fGetTilePos(oTileData.nId)
