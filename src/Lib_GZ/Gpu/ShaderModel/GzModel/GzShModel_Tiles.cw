@@ -875,16 +875,22 @@ xflat in vec4 ioObjRot;
 
 
 
-vec4  vColorSpecular = vec4(1.0,1.0,0.0 , 1.0); //0 to X Can be premultiplied with alpha
-vec4  vColorDiffuse = vec4(1.0, 1.0, 1.0, 1.4);  //rgb -1 to 2  no diffuse : vec4(0.0,0.0,0.0, 1.0); normal : vec4(1.0,1.0,1.0, 1.0);
+vec4  vColorSpecular = vec4(1.0,1.0,0.2 , 0.5); //0 to X Can be premultiplied with alpha
+vec4  vColorDiffuse = vec4(1.0, 1.0, 1.0, 2.75);  //rgb -1 to 2  no diffuse : vec4(0.0,0.0,0.0, 1.0); normal : vec4(1.0,1.0,1.0, 1.0);
 //vec3 vAmbient = vec3(-1.0, -1.0, -1.0);
 //vec3 vAmbient = vec3(0.0, 0.0, 0.0);
 vec3 vAmbient = vec3(-1.0, -1.0, -1.0); // -1.0 to 1.0
 
 //0 to 1
+float att_kC = 1.02; //Kc is the constant attenuation
+float att_kL = 0.60; //KL is the linear attenuation
+float att_kQ = 0.002; //KQ is the quadratic attenuation
+
+/*
 float att_kC = 0.08; //Kc is the constant attenuation
 float att_kL = 0.08; //KL is the linear attenuation
 float att_kQ = 0.002; //KQ is the quadratic attenuation
+*/
 ////////////
 	
 	 
@@ -1132,15 +1138,31 @@ vPtNorm = cross(vPtNorm.xyz, pixNormal.xyz);
 	 
 /////// MY AUTO Bump //////////
 
+float _nMonoCrome =   0.5-(pixTex.r + pixTex.g + pixTex.b)/3.0;
+vec3 _vMyNorm = (  vec3((_nMonoCrome-0.5)*3.0, (_nMonoCrome), (0.5- _nMonoCrome)*3.0 ));
+
 //float _nMonoCrome =   0.5-(pixTex.r + pixTex.g + pixTex.b)/3.0;
 //vec3 _vMyNorm = vec3((_nMonoCrome-0.5)*3.0, (_nMonoCrome), (0.5- _nMonoCrome)*3.0 );
 
 
-float _nMonoCrome =  ((pixTex.r + pixTex.g + pixTex.b)/3.0) ;
-float _nRevMonoCrome =   (1.0 - _nMonoCrome);
-//vec3 _vMyNorm =  vec3(_nMonoCrome*2.0, _nRevMonoCrome , _nRevMonoCrome + _nMonoCrome*2.0);
-vec3 _vMyNorm =  vec3(0.0, _nRevMonoCrome , _nMonoCrome*2.0);
+/*
+float _nMonoCrome =  ((pixTex.r + pixTex.g + pixTex.b)/1.5)-1.0 ;
+float _nRevMonoCrome =   _nMonoCrome * -1.0;
+*/
 
+/*
+float _nMonoCrome =  ((pixTex.r + pixTex.g + pixTex.b)/3.0) ;
+float _nRevMonoCrome =   (1.0 - _nMonoCrome)-0.5;
+*/
+//vec3 _vMyNorm =  vec3(_nMonoCrome*2.0, _nRevMonoCrome , _nRevMonoCrome + _nMonoCrome*2.0);
+
+//
+//vec3 _vMyNorm =  vec3(_nRevMonoCrome/ 2.0, 0.0 , 1.0 - _nRevMonoCrome / 2.0); //Good
+//vec3 _vMyNorm = normalize( vec3(_nRevMonoCrome*-1.0, _nRevMonoCrome, (1.0 - (  (_nRevMonoCrome *-1.0) / 1.0)) / 3.0  )); //Good
+
+//vec3 _vMyNorm =  vec3(_nRevMonoCrome/ 8.0, _nRevMonoCrome/ 8.0, 1.0 - (  _nRevMonoCrome / 4.0  * 2.0 )); //Good
+//vec3 _vMyNorm =  vec3(0.0, 0.0 , _nMonoCrome*2.0);
+//vec3 _vMyNorm =  vec3(0.0, 0.0 , 1.0);
 
 
 //vPtNorm = _vMyNorm;
@@ -1184,7 +1206,7 @@ vPtNorm = fQRot_2(_vMyNorm.xyz, ioObjRot);
 
         float LdotN = max(0.0, dot(L,vPtNorm));
 
-        float diffuse = 0.85 * LdotN; //0.5 Just a random material
+        float diffuse = 0.50 * LdotN; //0.5 Just a random material
 
 		
 		//http://in2gpu.com/2014/06/19/lighting-vertex-fragment-shader/
@@ -1213,7 +1235,7 @@ vPtNorm = fQRot_2(_vMyNorm.xyz, ioObjRot);
 		
           //Blinn-Phong
           vec3 H = normalize(L + V );//Halfway
-          specular = 100.65 * pow(max(0, dot(H, vPtNorm)), 104.8);
+          specular = 100.65 * pow(max(0, dot(H, vPtNorm)), 7.8);
 		  
         }
 
