@@ -26,29 +26,37 @@ package  {
 		public var aTile : Array<Tile, 2>;
 		public var oLayerData : LayerData;
 		
+		public enum eOrientation: Int {
+			Normal;
+			Floor;
+			SideWall;
 
+		}
+		public var hOrientation : eOrientation;
 
-		public function LayerClip(_oParent : Root, _oLayerData : LayerData, _nX: Float, _nY:Float):Void {
+		public function LayerClip(_oParent : Root, _oLayerData : LayerData, _nX: Float, _nY:Float, _hOrientation:eOrientation = eOrientation.Normal ):Void {
 			Clip(_oParent, _nX , _nY);
 			oLayerData = _oLayerData;
-
+			hOrientation = _hOrientation;
 			fLoadLayer(_oLayerData);
 		}
 
 		public function fLoadLayer(_oLayerData : LayerData):Void {
 
 			Debug.fWarning("************fLoadLayer********** ");
-			Debug.fWarning("************fLoadLayer********** ");
 			var _aTileData : Array<TileData,2> = _oLayerData.aTile;
 			Debug.fWarning("************_aTileData********** ");
 			for(var _nY : Int = 0; _nY < _oLayerData.nHeight; _nY++){
-					Debug.fTrace("_nY: " + _nY);
 				for(var _nX : Int = 0; _nX < _oLayerData.nWidth; _nX++){
 				//	if(_aTileData[_nY] != null){
 		
 					var _oTileData : TileData = _aTileData[_nY][_nX];
 					if(_oTileData ){
-						aTile[_nY][_nX] = new Tile(this, _oLayerData, _oTileData, _nX, _nY));
+						var _oTile : Tile = new Tile(this, _oLayerData, _oTileData, _nX, _nY));
+						aTile[_nY][_nX] = _oTile;
+						if(hOrientation == eOrientation.Floor){
+							_oTile.vRot.nPitch =  1.5708; //Rotate
+						}
 					}
 					//}
 				}
