@@ -1235,7 +1235,7 @@ vPtNorm = fQRot_2(_vMyNorm.xyz, ioObjRot);
 		
           //Blinn-Phong
           vec3 H = normalize(L + V );//Halfway
-          specular = 100.65 * pow(max(0, dot(H, vPtNorm)), 7.8);
+          specular = 100.65 * pow(max(0.0, dot(H, vPtNorm)), 7.8);
 		  
         }
 
@@ -1276,12 +1276,12 @@ vPtNorm = fQRot_2(_vMyNorm.xyz, ioObjRot);
 //pixTex.a = 0.5;
 
 
-float light =  att * diffuse + att * specular;
-FragColor =  vec4(att * diffuse,  att *specular, 0.0,1);
+//float light =  att * diffuse + att * specular;
+//FragColor =  vec4(att * diffuse,  att *specular, 0.0,1.0);
 
 
 
-FragColor =  vec4( att *specular,  att *specular,  att *specular,1);
+//FragColor =  vec4( att *specular,  att *specular,  att *specular,1.0);
 FragColor =  pixTex;
 
 //FragColor =  vec4(vPtNorm, 1.0);
