@@ -50,18 +50,18 @@ package  {
 				
 
 	//	Debug.fTrace("aBefDataLinkedSize! " + Attribute_Quad.oAtObjPos.aDataLinked.nSize  );
-		oAt.oAtObjPos.fSet(oFace.oShape.oGblPt.vPt);
-		oAt.oAtObjSize.fSet(oFace.oShape.vGblSize);
+		oAt.oAtObjPos.fSet(oFace.oShape.oParent.oGblPt.vPt);
+		oAt.oAtObjSize.fSet(oFace.oShape.oParent.vGblSize);
 
 		//oAtObjSize
-		oAt.oAtObjRot.fSet(oFace.oShape.vQuaternion);
+		oAt.oAtObjRot.fSet(oFace.oShape.oParent.vQuaternion);
 		
 
 		
-		oAt.oAtPt1.fSet(oFace.oPt1.vPt);
-		oAt.oAtPt2.fSet(oFace.oPt2.vPt);
-		oAt.oAtPt3.fSet(oFace.oPt3.vPt);
-		oAt.oAtPt4.fSet(oFace.oPt4.vPt);
+		oAt.oAtPt1.fSet(oFace.oPt1.vTf);
+		oAt.oAtPt2.fSet(oFace.oPt2.vTf);
+		oAt.oAtPt3.fSet(oFace.oPt3.vTf);
+		oAt.oAtPt4.fSet(oFace.oPt4.vTf);
 		
 		//var _aSrc : Array<Float> = new  Array<Float>(oFace.rPtS1);
 		

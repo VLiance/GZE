@@ -4,7 +4,7 @@
 
 package  {
 
-
+	import GZ.Base.PtA;
 	import GZ.Gfx.Tile.TileInfo;
 	import GZ.Gfx.Tile.TileSet;
 	import GZ.Gfx.Tile.TileData;
@@ -108,6 +108,18 @@ package  {
 				///fApplyPos();
 			//	vPos.nX = 1000;
 				//vPos.nY = _vPt.nY;
+				
+				for( var i : UInt = 0; i < aNewPt3dOri.nSize; i++){
+					var _oPt : PtA = aNewPt3dOri[i];
+					_oPt.fCopyToTf();
+					_oPt.vTf.nX += _nX;
+					_oPt.vTf.nY += _nY;
+					_oPt.vTf.nZ += vPos.nZ;
+					
+				}
+				
+				
+				
 				
 				
 			}
