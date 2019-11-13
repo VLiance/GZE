@@ -23,7 +23,7 @@ package  {
 				
 		public  var vGblColor : Color<Float>;		
 		public  var vGblSize : Size<Float>;		
-		public  var vGblRot : Rotation<Float>;	
+		//public  var vGblRot : Rotation<Float>;	
 		
 		public  var vQuaternion : Quaternion<Float>;	
 	
@@ -105,58 +105,50 @@ package  {
 
 		override public function  fApplyPos():Void {
 		
-		
+			////////////////////////// COMMUN /////////////////
 			vPos.fStep();
 			vRot.fStep();
 			vSize.fStep();
 			vColor.fStep();
 			
-			vQuaternion.fReset();
+			vGblColor.nRed  = vColor.nRed  + oParent.vGblColor.nRed;
+			vGblColor.nGreen =  vColor.nGreen + oParent.vGblColor.nGreen ;
+			vGblColor.nBlue =  vColor.nBlue + oParent.vGblColor.nBlue;
+			vGblColor.nAlpha =  vColor.nAlpha * oParent.vGblColor.nAlpha;
 			
-			if(hRotateOrder == eRotateOrder.RollYawPitch){
+
+			//// Rotate ////
+			vQuaternion.fReset();
+			if(hRotateOrder == eRotateOrder.RollYawPitch){ 
 				vQuaternion.fRoll(vRot.nRoll);
 				vQuaternion.fYaw(vRot.nYaw);
 				vQuaternion.fPitch(vRot.nPitch * -1)
 			}else{ //YawPitchRoll
 				vQuaternion.fYaw(vRot.nYaw);
 				vQuaternion.fPitch(vRot.nPitch * -1)
-				vQuaternion.fRoll(vRot.nRoll);
+				vQuaternion.fRoll(vRot.nRoll);					
 			}
+			////////////////////////////////////////////////////////////////////////////////////////
+			
+			//////////////////////////////// SKIP ////////////////////////////
 
-			vQuaternion.fCombine(oParent.vQuaternion);		
-			
-			
-			
-			oGblPt.vPt.nX = vPos.nX  * oParent.vGblSize.nWidth;
+			oGblPt.vPt.nX = vPos.nX  * oParent.vGblSize.nWidth; 
 			oGblPt.vPt.nY = vPos.nY  * oParent.vGblSize.nHeight;
 			oGblPt.vPt.nZ = vPos.nZ  * oParent.vGblSize.nLength;
 			
-			//oGblPt->fRotate((::GZ::Base::cQuaternion*)(oParent->oQuaternion.get()));
+			vQuaternion.fCombine(oParent.vQuaternion);	 //THIS leaf to not execute
 			oGblPt.vPt.fRotate(oParent.vQuaternion);
+			//////////////
 			
 			oGblPt.vPt.nX += oParent.oGblPt.vPt.nX;
 			oGblPt.vPt.nY += oParent.oGblPt.vPt.nY;
 			oGblPt.vPt.nZ += oParent.oGblPt.vPt.nZ;
 
-			
-			vGblRot =  vRot + oParent.vGblRot;
-			
-			
-			
-			
-			//vGblSize = vSize * oParent.vGblSize;
-
+			//vGblRot =  vRot + oParent.vGblRot;
 			vGblSize = vSize * oParent.vGblSize;
-	
-			vGblColor.nRed  = vColor.nRed  + oParent.vGblColor.nRed;
-			vGblColor.nGreen =  vColor.nGreen + oParent.vGblColor.nGreen ;
-			vGblColor.nBlue =  vColor.nBlue + oParent.vGblColor.nBlue;
-			
-			vGblColor.nAlpha =  vColor.nAlpha * oParent.vGblColor.nAlpha;
 			
 		//	vGblColor = vGblColor * oParent.vGblColor;
-			
-
+		
 		}
 	}
 }

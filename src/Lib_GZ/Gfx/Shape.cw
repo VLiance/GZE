@@ -243,9 +243,9 @@ package  {
 
 		public function fTransform():Void {
 
-			var _nRoll : Float = vGblRot.nRoll;
-			var _nPitch : Float = vGblRot.nPitch;
-			var _nYaw : Float = vGblRot.nYaw;
+			//var _nRoll : Float = vGblRot.nRoll;
+			///var _nPitch : Float = vGblRot.nPitch;
+			//var _nYaw : Float = vGblRot.nYaw;
 
 			//var _nFocal : Float = 1.0 / 270.0;
 

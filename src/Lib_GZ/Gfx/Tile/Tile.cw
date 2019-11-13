@@ -84,10 +84,11 @@ package  {
 				}
 				
 				
-				var _nWidth : Float = oTileData.oTileset.nTileWidth * nCaseX;
-				var _nHeight : Float = oTileData.oTileset.nTileHeight * nCaseY;
+				var _nX : Float = oTileData.oTileset.nTileWidth * nCaseX;
+				var _nY : Float = oTileData.oTileset.nTileHeight * nCaseY;
 				
-				var _vPt : Pt<Float> = new Pt<Float>(_nWidth, _nHeight);
+				var _vPt : Pt<Float> = new Pt<Float>(0, 0);
+			//	var _vPt : Pt<Float> = new Pt<Float>(_nX, _nY);
 				var _oDimPt  : Dim<Float> = new Dim<Float>(_oTileset.nTileWidth,_oTileset.nTileHeight);
 				var _oPts : PolyRect<Float> = new PolyRect<Float>(_vPt, _oDimPt);
 
@@ -102,7 +103,7 @@ package  {
 			//	Clip(_oParent, _vPt.nX, _vPt.nY );
 				
 			//		oImg = new Img(this, 0, 0, oTileData.oTileset.oRc, false, 0,0,false,false, _oRegion, oTileData.oTileset.nTileWidth, oTileData.oTileset.nTileHeight);
-			Img(_oParent, 0, 0, oTileData.oTileset.oRc, false, 0,0,false,false, _oRegion, oTileData.oTileset.nTileWidth, oTileData.oTileset.nTileHeight, _oPts);
+			Img(_oParent, _nX, _nY, oTileData.oTileset.oRc, false, 0,0,false,false, _oRegion, oTileData.oTileset.nTileWidth, oTileData.oTileset.nTileHeight, _oPts);
 
 				///fApplyPos();
 			//	vPos.nX = 1000;
