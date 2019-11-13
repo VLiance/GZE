@@ -56,7 +56,8 @@ package  {
 						var _oTile : Tile = new Tile(this, _oLayerData, _oTileData, _nX, _nY));
 						aTile[_nY][_nX] = _oTile;
 						if(hOrientation == eOrientation.Floor){
-							_oTile.oImg.vRot.nPitch =  1.5708; //Rotate
+							//_oTile.oImg.vRot.nPitch =  1.5708; //Rotate
+							_oTile.vRot.nPitch =  1.5708; //Rotate
 						}
 					}
 					//}

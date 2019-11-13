@@ -152,6 +152,11 @@ package  {
 		public function fContextResume():Void {
 		}
 		
+		//Overited
+		public function fGetTypeName():String {
+			return "Root";
+		}
+		
 		
 		
 	}

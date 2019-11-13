@@ -95,13 +95,24 @@ package  {
 	oQuaternion->fCombine((::GZ::Base::cQuaternion*)(oParent->oQuaternion.get()));
 	*/
 	
+		
+	
+		//	Debug.fTrace("vSetQuaternion:[" + vQuaternion.nX + ", " + vQuaternion.nY + ", " + vQuaternion.nZ + ", " + vQuaternion.nW + "]");
+				
+		}
+
+
+
+		override public function  fApplyPos():Void {
+		
+		
 			vPos.fStep();
 			vRot.fStep();
 			vSize.fStep();
 			vColor.fStep();
 			
 			vQuaternion.fReset();
-
+			
 			if(hRotateOrder == eRotateOrder.RollYawPitch){
 				vQuaternion.fRoll(vRot.nRoll);
 				vQuaternion.fYaw(vRot.nYaw);
@@ -113,13 +124,7 @@ package  {
 			}
 
 			vQuaternion.fCombine(oParent.vQuaternion);		
-		//	Debug.fTrace("vSetQuaternion:[" + vQuaternion.nX + ", " + vQuaternion.nY + ", " + vQuaternion.nZ + ", " + vQuaternion.nW + "]");
-				
-		}
-
-
-
-		override public function  fApplyPos():Void {
+			
 			
 			
 			oGblPt.vPt.nX = vPos.nX  * oParent.vGblSize.nWidth;
@@ -135,6 +140,9 @@ package  {
 
 			
 			vGblRot =  vRot + oParent.vGblRot;
+			
+			
+			
 			
 			//vGblSize = vSize * oParent.vGblSize;
 

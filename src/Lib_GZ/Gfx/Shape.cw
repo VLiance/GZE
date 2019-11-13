@@ -103,6 +103,7 @@ package  {
 			_oPt.vPt.nX = _oPt.vPt.nX - _oCenter.nX;
 			_oPt.vPt.nY = _oPt.vPt.nY - _oCenter.nY;
 			_oPt.vPt.nZ =_oPt.vPt.nZ - _oCenter.nZ;
+			_oPt.fCopyToTf();
 			aNewPt3dOri.fPush(_oPt);
 		}
 
@@ -250,20 +251,20 @@ package  {
 
 			for( var i : UInt = 0; i < aNewPt3dOri.nSize; i++){
 				var _oPt : PtA = aNewPt3dOri[i];
-				_oPt.fCopyToTf();
+				_oPt.fCopyToFinal();
 				
-				//var _oTf : Pt = _oPt.oTf;
+				//var _vFinal : Pt = _oPt.vFinal;
 				
 				/*
-				_oPt.oTf.nX *= nGAttWidth;
-				_oPt.oTf.nY *= nGAttHeight;
-				_oPt.oTf.nZ *= nGAttLength;
+				_oPt.vFinal.nX *= nGAttWidth;
+				_oPt.vFinal.nY *= nGAttHeight;
+				_oPt.vFinal.nZ *= nGAttLength;
 				*/
 				
 				////// SCALE //////
-				var x : Float = _oPt.oTf.nX * vGblSize.nWidth;
-				var y : Float = _oPt.oTf.nY * vGblSize.nHeight;
-				var z : Float = _oPt.oTf.nZ * vGblSize.nLength;
+				var x : Float = _oPt.vFinal.nX * vGblSize.nWidth;
+				var y : Float = _oPt.vFinal.nY * vGblSize.nHeight;
+				var z : Float = _oPt.vFinal.nZ * vGblSize.nLength;
 				/*
 				//////// Rotation /////////
 				var _nTx : Float = (x * Math.fCos(_nYaw)) - (z * Math.fSin(_nYaw));
@@ -274,11 +275,11 @@ package  {
 				y = (_nTx * Math.fSin(_nRoll)) + (_nTy * Math.fCos(_nRoll));
 				///////////////////////
 				*/
-				_oPt.oTf.nX =x;
-				_oPt.oTf.nY =y;
-				_oPt.oTf.nZ =z;
+				_oPt.vFinal.nX =x;
+				_oPt.vFinal.nY =y;
+				_oPt.vFinal.nZ =z;
 
-				_oPt.oTf.fRotate(vQuaternion);
+				_oPt.vFinal.fRotate(vQuaternion);
 				//Debug.fTrace("vQuaternion:[" + vQuaternion.nX + ", " + vQuaternion.nY + ", " + vQuaternion.nZ + ", " + vQuaternion.nW + "]");
 				
 				
@@ -306,9 +307,9 @@ package  {
 				//Debug.fTrace("oDstBuff.oPerspective.nType 1");
 				for( var i : UInt = 0; i < aNewPt3dOri.nSize; i++){
 					var _oPt : PtA = aNewPt3dOri[i];
-					var _nZ : Float = (_oPt.oTf.nZ + oGblPt.vPt.nZ) * _nFocal + 1;
-					_oPt.o2d.nX = _oPt.oTf.nX / _nZ + _nX;
-					_oPt.o2d.nY = _oPt.oTf.nY / _nZ + _nY;
+					var _nZ : Float = (_oPt.vFinal.nZ + oGblPt.vPt.nZ) * _nFocal + 1;
+					_oPt.o2d.nX = _oPt.vFinal.nX / _nZ + _nX;
+					_oPt.o2d.nY = _oPt.vFinal.nY / _nZ + _nY;
 					_oPt.o2d.nZ = _nZ;
 				}
 				
@@ -320,9 +321,9 @@ package  {
 
 				for( var i : UInt = 0; i < aNewPt3dOri.nSize; i++){
 					var _oPt : PtA = aNewPt3dOri[i];
-					var _nZ : Float = (_oPt.oTf.nZ + oGblPt.vPt.nZ) * _nFocal + 1;
-					_oPt.o2d.nX = (_oPt.oTf.nX + (_nX - _nFromX)) / _nZ - (_nX - _nFromX) + _nX;
-					_oPt.o2d.nY = (_oPt.oTf.nY + (_nY - _nFromY)) / _nZ - (_nY - _nFromY) + _nY;
+					var _nZ : Float = (_oPt.vFinal.nZ + oGblPt.vPt.nZ) * _nFocal + 1;
+					_oPt.o2d.nX = (_oPt.vFinal.nX + (_nX - _nFromX)) / _nZ - (_nX - _nFromX) + _nX;
+					_oPt.o2d.nY = (_oPt.vFinal.nY + (_nY - _nFromY)) / _nZ - (_nY - _nFromY) + _nY;
 					_oPt.o2d.nZ = _nZ;
 				}
 			

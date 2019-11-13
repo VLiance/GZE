@@ -22,7 +22,7 @@ package  {
 	/**
 	 * @author Maeiky
 	 */
-	public class Tile  extends Clip {
+	public class Tile  extends Img {
 
 		public var oOffsetL : Pt<Float>;
 		public var oOffsetT : Pt<Float>;
@@ -99,9 +99,10 @@ package  {
 				
 				
 				
-				Clip(_oParent, _vPt.nX, _vPt.nY );
+			//	Clip(_oParent, _vPt.nX, _vPt.nY );
 				
-					oImg = new Img(this, 0, 0, oTileData.oTileset.oRc, false, 0,0,false,false, _oRegion, oTileData.oTileset.nTileWidth, oTileData.oTileset.nTileHeight);
+			//		oImg = new Img(this, 0, 0, oTileData.oTileset.oRc, false, 0,0,false,false, _oRegion, oTileData.oTileset.nTileWidth, oTileData.oTileset.nTileHeight);
+			Img(_oParent, 0, 0, oTileData.oTileset.oRc, false, 0,0,false,false, _oRegion, oTileData.oTileset.nTileWidth, oTileData.oTileset.nTileHeight, _oPts);
 
 				///fApplyPos();
 			//	vPos.nX = 1000;
@@ -336,8 +337,17 @@ package  {
 				nNPosTL *= -1;
 			}
 			
+			
+			
 
 			/////////////////////////////////////////////////////////////////
 		}
+		
+			//Overited
+		public function fGetTypeName():String {
+			return "Tile";
+		}
+		
+		
 	}
 }

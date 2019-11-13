@@ -1283,7 +1283,7 @@ vPtNorm = fQRot_2(_vMyNorm.xyz, ioObjRot);
 
 //FragColor =  vec4( att *specular,  att *specular,  att *specular,1.0);
 FragColor =  pixTex;
-
+//FragColor =  vec4(0.0, 0.0, 0.0, 0.8);
 //FragColor =  vec4(vPtNorm, 1.0);
 
 
@@ -1314,6 +1314,10 @@ FragColor =  pixTex;
 	//FragColor = vec4( _vQuadColor.g, 0.0, 0.0, 1.0);
 	//FragColor = vec4( _vQuadColor.rgb, 1.0);
 	//FragColor = vec4( (1.0-uv.x)*(uv.y), 0.0 ,0.0,  1.0);
+	
+	
+//	FragColor =  vec4(1.0, 0.5, 0.5, 0.5);
+	
 	
 }
 				

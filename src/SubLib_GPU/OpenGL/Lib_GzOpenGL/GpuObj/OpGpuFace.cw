@@ -98,9 +98,14 @@ package  {
 		//if(oAtTiles.oAtTilesHV == 0){return;}
 	
 		
-		if (oFace.oShape.hType == Root.eType.Tile){
-			
-			var _oTile : Tile = oFace.oShape; //Cast to tile 
+		//if (oFace.oShape.oParent.hType == Root.eType.Tile){//BAD evil Cast
+		if (oFace.oShape.hType == Root.eType.Tile){//BAD evil Cast
+	
+
+			//var _oTile : Tile = oFace.oShape.oParent; //Cast to tile  //BAD evil Cast
+			var _oTile : Tile = oFace.oShape; //Cast to tile  //BAD evil Cast
+		
+				//	Debug.fWarning(oFace.oShape.oParent.fGetTypeName());
 			//if(_oTile == 0){		return;}
 		//	Debug.fTrace("Update tiles : " + _oTile.nPosL);
 			
