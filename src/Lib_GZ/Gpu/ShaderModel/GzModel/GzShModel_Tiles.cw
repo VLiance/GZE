@@ -895,8 +895,8 @@ float att_kQ = 0.002; //KQ is the quadratic attenuation
 	
 	 
        // vec3 eye_position = vec3(  400.0, 1600.0, -300.0);
-        vec3 eye_position = vec3(  400.0, 300.0, 0.0);
-        vec3 light_position  =   vec3( 400.0,300.0, -500.0);
+        vec3 eye_position = vec3(  400.0, 300.0, -500.0);
+        vec3 light_position  =   vec3( 400.0,300.0, 0.0);
 
 
 
@@ -1133,13 +1133,14 @@ FragColor =  pixTex; //Disable light
 /*
 vec4 pixNormal = texture(TexNormal, ioTexture);		 
 //vPtNorm = vPtNorm * pixNormal.xyz;
+
 vPtNorm = cross(vPtNorm.xyz, pixNormal.xyz);
 */ 
 	 
 /////// MY AUTO Bump //////////
 
 float _nMonoCrome =   0.5-(pixTex.r + pixTex.g + pixTex.b)/3.0;
-vec3 _vMyNorm = (  vec3((_nMonoCrome-0.5)*3.0, (_nMonoCrome), (0.5- _nMonoCrome)*3.0 ));
+vec3 _vMyNorm = (  vec3((_nMonoCrome-0.5)*-3.0, (_nMonoCrome), (0.5- _nMonoCrome)*3.0 ));
 
 //float _nMonoCrome =   0.5-(pixTex.r + pixTex.g + pixTex.b)/3.0;
 //vec3 _vMyNorm = vec3((_nMonoCrome-0.5)*3.0, (_nMonoCrome), (0.5- _nMonoCrome)*3.0 );
@@ -1164,12 +1165,28 @@ float _nRevMonoCrome =   (1.0 - _nMonoCrome)-0.5;
 //vec3 _vMyNorm =  vec3(0.0, 0.0 , _nMonoCrome*2.0);
 //vec3 _vMyNorm =  vec3(0.0, 0.0 , 1.0);
 
+//_vMyNorm =  vec3(0.0, 0.0 , -1.0);
 
 //vPtNorm = _vMyNorm;
 //vPtNorm = cross( normalize( vPtNorm.xyz ) ,  normalize( _vMyNorm.xyz));
 //vPtNorm =   normalize( vPtNorm.xyz) *  normalize(  _vMyNorm) ;
 //vPtNorm =  vPtNorm.xyz  ;
-vPtNorm = fQRot_2(_vMyNorm.xyz, ioObjRot);
+//vPtNorm = fQRot_2(_vMyNorm.xyz, ioObjRot);
+//vPtNorm = fQRot_2(_vMyNorm.xyz, ioObjRot);
+//vPtNorm = cross( normalize( vPtNorm.xyz ) ,  normalize( _vMyNorm.xyz));
+
+
+//GOOD
+//vPtNorm = fQRot(normalize(_vMyNorm.xyz), ioObjRot);
+//vPtNorm = fQRot(_vMyNorm.xyz, ioObjRot);
+//vPtNorm =  normalize( vPtNorm.xyz ) *  normalize( _vMyNorm.xyz);
+vPtNorm =  ( vPtNorm.xyz ) *  ( _vMyNorm.xyz);
+
+
+
+
+
+
 //vPtNorm.z *= -1.0;
 ////////////////////////// 
 
@@ -1221,7 +1238,7 @@ vPtNorm = fQRot_2(_vMyNorm.xyz, ioObjRot);
         float att = 1.0 / (att_kC + d * att_kL + d*d*att_kQ); //Do the inverse
      //   float att =  (att_kC + d * att_kL + d*d*att_kQ);
 
-
+//att = 0.0009;
 //att = 0.0;
 
         float specular = 0.0;
