@@ -18,14 +18,13 @@ package  {
 	 */
 	public extension Attribute extends Root {
 
-		public var oGblPt : PtA;
-				
-				
 		public  var vGblColor : Color<Float>;		
-		public  var vGblSize : Size<Float>;		
-		//public  var vGblRot : Rotation<Float>;	
 		
+		////////
+		public var oGblPt : PtA;
+		public  var vGblSize : Size<Float>;		
 		public  var vQuaternion : Quaternion<Float>;	
+		/////////
 	
 		public  var vPos  : Point<EaseFloat>;
 		public  var vRot  : Rotation<EaseFloat>;
@@ -60,7 +59,19 @@ package  {
 			vGblSize.nHeight = 1;
 			vGblSize.nLength = 1;
 			
+			//gzFloat _nSpeed = 10, gzFloat _nLimit = 999999999
+			//Temp
+			//TODO call constructor!!
+			vColor.fSetSpeed(10);
+			vPos.fSetSpeed(10);
+			vRot.fSetSpeed(10);
+			vSize.fSetSpeed(10);
 
+	
+			vColor.fSetLimit(999999999);
+			vPos.fSetLimit(999999999);
+			vRot.fSetLimit(999999999);
+			vSize.fSetLimit(999999999);
 		}
 
 		
@@ -129,7 +140,11 @@ package  {
 				vQuaternion.fRoll(vRot.nRoll);					
 			}
 			////////////////////////////////////////////////////////////////////////////////////////
+			fApplyGlobalPos();
 			
+		}
+		
+		public function  fApplyGlobalPos():Void { //Can be overeided
 			//////////////////////////////// SKIP ////////////////////////////
 
 			oGblPt.vPt.nX = vPos.nX  * oParent.vGblSize.nWidth; 
@@ -148,7 +163,7 @@ package  {
 			vGblSize = vSize * oParent.vGblSize;
 			
 		//	vGblColor = vGblColor * oParent.vGblColor;
-		
 		}
+		
 	}
 }

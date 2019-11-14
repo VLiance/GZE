@@ -109,25 +109,32 @@ package  {
 			//	vPos.nX = 1000;
 				//vPos.nY = _vPt.nY;
 				
-				for( var i : UInt = 0; i < aNewPt3dOri.nSize; i++){
-					var _oPt : PtA = aNewPt3dOri[i];
-					_oPt.fCopyToTf();
-					_oPt.vTf.nX += _nX;
-					_oPt.vTf.nY += _nY;
-					_oPt.vTf.nZ += vPos.nZ;
-					
-				}
-				
-				
-				
-				
+			
 				
 			}
 
 			//oOffsetL = oTileData.oTileset.fGetTilePos(oTileData.nId)
-
 		}
 
+		
+		override public function  fApplyGlobalPos():Void {
+			for( var i : UInt = 0; i < aNewPt3dOri.nSize; i++){
+				var _oPt : PtA = aNewPt3dOri[i];
+					
+				_oPt.vTf.nX = _oPt.vPt.nX * vSize.nWidth ;
+				_oPt.vTf.nY = _oPt.vPt.nY * vSize.nHeight;
+				_oPt.vTf.nZ = _oPt.vPt.nZ * vSize.nLength;
+
+				_oPt.vTf.fRotate(vQuaternion);
+
+				_oPt.vTf.nX += vPos.nX ;
+				_oPt.vTf.nY += vPos.nY ;
+				_oPt.vTf.nZ += vPos.nZ ;
+				
+			}
+		}
+
+		
 		public function fSetNeighbor(_oSrcPos : Pt<Float>):Void{
 
 
