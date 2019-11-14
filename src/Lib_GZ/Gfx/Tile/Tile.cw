@@ -53,6 +53,12 @@ package  {
 		public var oImg : Img;
 		
 		
+		public var bActivate : Bool = false;
+		public var nTime : Int = 0;
+		public var nOriYaw : Float = 0;
+		public var nOriPitch : Float = 0;
+		public var nColor : Float = 1.0;
+		
 
 
 		public function Tile(_oParent : Root, _oLayerData : LayerData, _oTileData : TileData, _nCaseX : UInt, _nCaseY : UInt): Void {
@@ -103,7 +109,7 @@ package  {
 			//	Clip(_oParent, _vPt.nX, _vPt.nY );
 				
 			//		oImg = new Img(this, 0, 0, oTileData.oTileset.oRc, false, 0,0,false,false, _oRegion, oTileData.oTileset.nTileWidth, oTileData.oTileset.nTileHeight);
-			Img(_oParent, _nX, _nY, oTileData.oTileset.oRc, false, 0,0,false,false, _oRegion, oTileData.oTileset.nTileWidth, oTileData.oTileset.nTileHeight, _oPts);
+			Img(_oParent, _nX, _nY, oTileData.oTileset.oRc, true, 0,0,false,false, _oRegion, oTileData.oTileset.nTileWidth, oTileData.oTileset.nTileHeight);
 
 				///fApplyPos();
 			//	vPos.nX = 1000;
@@ -113,11 +119,92 @@ package  {
 				
 			}
 
+			vSize.nWidth = 0;
+			vSize.nHeight = 0;
+			vSize.nWidth.fTo(1.0);
+			vSize.nHeight.fTo(1.0);
+			vSize.fSetSpeed(20);
+			
+
+			
+			vColor.nAlpha = 0;
+			vColor.fSetSpeed(60);
+			vColor.nAlpha.fTo(1.0);
+			
+			vRot.nRoll.fTo(3.1416 * 2.0);
+			vRot.fSetSpeed(30);
 			//oOffsetL = oTileData.oTileset.fGetTilePos(oTileData.nId)
 		}
 
+	
+		override public function fUpdateParentToChild():Void {
+
+			nTime++;
+
+			if(vRot.nRoll > 3.13 * 2.0){
+				vRot.nRoll = 0.0;
+			}
+			if(vSize.nWidth > 0.99){
+				vSize.nWidth = 1.0;
+			}
+
+			if(vSize.nHeight > 0.99){
+				vSize.nHeight = 1.0;
+			}
+
+			if(nTime > 600){
+				bActivate = true;
+				nTime = 0;
+				nColor = nColor * -1.0;
+			}
+			if(bActivate == false){
+				return;
+			}
+/*
+			if(nTime > 1000){
+				nTime = 0;
+		
+			}*/
+
+			
+			var _nPosY : Int = vPos.nY/32;
+			
+
+			if(_nPosY % 2 == 0 ){
+				if(nTime  == vPos.nX / 2  ){
+					vRot.fSetSpeed(40);
+					vRot.nYaw.fTo(nOriYaw + 3.1416 * 2.0);
+					
+				}
+				if(vRot.nYaw > nOriYaw + 3.10 * 2.0){
+					vRot.nYaw = nOriYaw;
+				}
+			}else{
+				
+
+			}
+
+
+			if(nTime  == vPos.nY / 2  ){
+				vRot.fSetSpeed(40);
+				vRot.nPitch.fTo(nOriPitch + 3.1416 * 2.0);
+				vColor.nRed.fTo(nColor);
+				
+			}
+			if(vRot.nPitch > nOriPitch + 3.10 * 2.0){
+				vRot.nPitch = nOriPitch;
+			}
+
+			//vRot.nYaw = vRot.nYaw + 0.1;
+		}
+
+
+
 		
 		override public function  fApplyGlobalPos():Void {
+
+	//vRot.nYaw = vRot.nYaw + 0.1;
+
 			for( var i : UInt = 0; i < aNewPt3dOri.nSize; i++){
 				var _oPt : PtA = aNewPt3dOri[i];
 					

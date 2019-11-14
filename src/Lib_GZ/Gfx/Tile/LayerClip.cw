@@ -56,9 +56,21 @@ package  {
 						var _oTile : Tile = new Tile(this, _oLayerData, _oTileData, _nX, _nY));
 						aTile[_nY][_nX] = _oTile;
 						if(hOrientation == eOrientation.Floor){
-							//_oTile.oImg.vRot.nPitch =  1.5708; //Rotate
+
+							_oTile.vPos.nY = _oTile.vPos.nY - 16;
+							_oTile.vPos.nZ = _oTile.vPos.nZ - 16;
 							_oTile.vRot.nPitch =  1.5708; //Rotate
 						}
+						if(hOrientation == eOrientation.SideWall){
+
+							_oTile.vPos.nX = _oTile.vPos.nX - 16;
+							_oTile.vPos.nZ = _oTile.vPos.nZ - 16;
+							_oTile.vRot.nYaw =  1.5708; //Rotate
+						}
+						
+						_oTile.nOriYaw = _oTile.vRot.nYaw;						
+						_oTile.nOriPitch = _oTile.vRot.nPitch;			
+
 					}
 					//}
 				}
