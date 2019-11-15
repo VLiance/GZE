@@ -139,7 +139,7 @@ package  {
 	
 	
 	//out vec2 ioCorner;
-	xflat out mat4 iomColor;
+	//xflat out mat4 iomColor;
 	out vec2 ioTexture;
 	uniform vec2 vTexDim;
 	//in int gl_VertexID;
@@ -863,7 +863,7 @@ flat in vec4 coord_Color1;
 
 //14 variyng vector	
 	
-xflat in mat4 iomColor;
+//xflat in mat4 iomColor;
 //18 variyng vector	
 	
 /////////////
@@ -874,8 +874,8 @@ xflat in mat4 iomWorldPt;
 //xflat in mat4 iomNorm;
 in vec2 ioTexture;
 
-xflat in vec3 ioNorm;
-xflat in vec4 ioObjRot;
+xflat in vec3 ioNorm; // Maybe if we get it from world norm
+xflat in vec4 ioObjRot;//-
 //24 variyng vector	
 
 
@@ -982,6 +982,8 @@ void main()
 				//float _nRatio = float(nRetroRatio);
 				vec2 vPosTex = (ioTexture  * vRetroR  );
 //vec2 vPosTex = (ioTexture * vTexDim * vRetroR  - 0.5);
+
+
 				ivec2 _vIPosTex = ivec2(vPosTex );
 
 
