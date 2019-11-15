@@ -54,6 +54,50 @@ generate "OpenGL" {
 		}
 		
 		
+		public enum eParameter_Int  : Int {
+			MAX_COMBINED_TEXTURE_IMAGE_UNITS  =  0x8B4D;
+			MAX_CUBE_MAP_TEXTURE_SIZE  =  0x851C;
+			MAX_FRAGMENT_UNIFORM_VECTORS  =  0x8DFD;
+			MAX_RENDERBUFFER_SIZE  =  0x84E8;
+			MAX_TEXTURE_IMAGE_UNITS  =  0x8872;
+			MAX_TEXTURE_SIZE   =  0x0D33;
+			MAX_VARYING_VECTORS  =  0x8DFC;
+			MAX_VERTEX_ATTRIBS  =  0x8869;
+			MAX_VERTEX_TEXTURE_IMAGE_UNITS  = 0x8B4C;	
+			MAX_VERTEX_UNIFORM_VECTORS  =  0x8DFB;
+			MAX_3D_TEXTURE_SIZE  =  0x8073;//WebGL2
+			MAX_ARRAY_TEXTURE_LAYERS  =  0x88FF;
+			MAX_CLIENT_WAIT_TIMEOUT_WEBGL  =  0x9247;
+			MAX_COLOR_ATTACHMENTS  =  0x8CDF;
+			MAX_COMBINED_FRAGMENT_UNIFORM_COMPONENTS  =  0x8A33;
+			MAX_COMBINED_UNIFORM_BLOCKS  =  0x8A2E;
+			MAX_COMBINED_VERTEX_UNIFORM_COMPONENTS  =  0x8A31;
+			MAX_DRAW_BUFFERS  =  0x8824;
+			MAX_ELEMENT_INDEX  =  0x8D6B;
+			MAX_ELEMENTS_INDICES  =  0x80E9;
+			MAX_ELEMENTS_VERTICES  =  0x80E8;
+			MAX_FRAGMENT_INPUT_COMPONENTS  =  0x9125;
+			MAX_FRAGMENT_UNIFORM_BLOCKS  =  0x8A2D;
+			MAX_FRAGMENT_UNIFORM_COMPONENTS  =  0x8B49;
+			MAX_PROGRAM_TEXEL_OFFSET  =  0x8905;
+			MAX_SAMPLES  =  0x8D57;
+			MAX_SERVER_WAIT_TIMEOUT  =  0x9111;
+			MAX_TEXTURE_LOD_BIAS  =  0x84FD;
+			MAX_TRANSFORM_FEEDBACK_INTERLEAVED_COMPONENTS  =  0x8C8A;
+			MAX_TRANSFORM_FEEDBACK_SEPARATE_ATTRIBS  =  0x8C8B;
+			MAX_TRANSFORM_FEEDBACK_SEPARATE_COMPONENTS  =  0x8C80;
+			MAX_UNIFORM_BLOCK_SIZE  =  0x8A30;
+			MAX_UNIFORM_BUFFER_BINDINGS  =  0x8A2F;
+			MAX_VARYING_COMPONENTS  =  0x8B4B;
+			MAX_VERTEX_OUTPUT_COMPONENTS  = 0x9122;
+			MAX_VERTEX_UNIFORM_BLOCKS  =  0x8A2B;
+			MAX_VERTEX_UNIFORM_COMPONENTS  = 0x8B4A;
+			MIN_PROGRAM_TEXEL_OFFSET  =  0x8904;
+			MAJOR_VERSION = 0x821B;  //Others
+			MINOR_VERSION = 0x821C;
+		}
+		
+		
 		
 		public enum eShaderInfo : Int {
 			SHADER_TYPE      = 0x8B4F;
@@ -62,6 +106,7 @@ generate "OpenGL" {
 			INFO_LOG_LENGTH  = 0x8B84;
 			SHADER_SOURCE_LENGTH = 0x8B88;
 		}
+		
 		
 		public enum eProgramInfo : Int {
 			LINK_STATUS      = 0x8B82;
@@ -74,9 +119,10 @@ generate "OpenGL" {
 		}
 
 		public enum eGetName : Int {
-			MAJOR_VERSION = 0x821B;
-			MINOR_VERSION = 0x821C;
+			TODO;
 		}
+		
+		
 		public enum eCapability : Int { //TODO all other
 			BLEND	= 0x0BE2;
 		}
@@ -425,7 +471,7 @@ generate "OpenGL" {
 		gen public static function fGetBooleanv(_hName : eGetName, _pData:CArray<Bool>):Void;
 		gen public static function fGetDoublev(_hName : eGetName, _pData:CArray<Float64>):Void;
 		gen public static function fGetFloatv(_hName : eGetName, _pData:CArray<Float32>):Void;
-		gen public static function fGetIntegerv(_hName : eGetName, _pData:CArray<Int32>):Void;
+		gen public static function fGetIntegerv(_hName : eParameter_Int, _pData:CArray<Int32>):Void;
 		gen public static function fGetInteger64v(_hName : eGetName, _pData:CArray<Int64>):Void;
 
 		gen public static function fGetBooleani_v(_hTarget : UInt, _nIndex:UInt, _pData:CArray<Bool>)):Void;
@@ -550,6 +596,20 @@ generate "OpenGL" {
 				#endif
 			</cpp>
 			
+		}
+		
+		
+		
+		public static function fGetParameter_Int(_hParam : eParameter_Int):Int{
+			<cpp>
+				#ifdef D_Platform_Web_Emsc
+					oGL.call<void>("getParameter",  val((int)_hParam) );
+				#else
+					gzInt _nResult = 0;
+					GL_fGetIntegerv( _hParam, &_nResult);
+					return _nResult;
+				#endif
+			</cpp>
 		}
 		
 		
