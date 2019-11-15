@@ -128,10 +128,12 @@ package  {
 	flat out vec4 coord_Color3;
 	flat out vec4 coord_Color4;
 
+	/*
 	flat out vec4 coord_Pt1;
 	flat out vec4 coord_Pt2;
 	flat out vec4 coord_Pt3;
 	flat out vec4 coord_Pt4;
+	*/
 	///////////////////
 
 	
@@ -148,10 +150,17 @@ smooth out vec2 uv; //Current UV
 //LIGHT
 float nFrontFacing;
 
+
+  vec3 ioPt1; //Out?
+  vec3 ioPt2;
+  vec3 ioPt3;
+  vec3 ioPt4;
+/*
 xflat out vec3 ioPt1;
 xflat out vec3 ioPt2;
 xflat out vec3 ioPt3;
 xflat out vec3 ioPt4;
+*/
 
 xflat out vec4 ioObjRot;
 xflat out vec3 ioNorm;
@@ -165,11 +174,12 @@ xflat out mat4 iomWorldPt;
 /////////
 
 //// TILES ///////
+/*
 xflat out vec2 ioPtSrc1;
 xflat out vec2 ioPtSrc2;
 xflat out vec2 ioPtSrc3;
 xflat out vec2 ioPtSrc4;
-
+*/
 xflat out ivec2 ioSrcTL;
 xflat out ivec2 ioSrcTR;
 xflat out ivec2 ioSrcBR;
@@ -389,11 +399,12 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 		//coord_Color3 = in_Color3;
 		//coord_Color4 = in_Color4;
 		
+		/*
 		coord_Pt1 = in_Pt1;
 		coord_Pt2 = in_Pt2;
 		coord_Pt3 = in_Pt3;
 		coord_Pt4 = in_Pt4;
-		
+		*/
 		
 		
 		///////////////////////////////////
@@ -508,23 +519,23 @@ nOriTX = 1;
 nOriBX = 1;
 nOriLY = 1;
 nOriRY = 1;
-
+/*
 ioPtSrc1 = in_TexSource0.xy;
 ioPtSrc2 = in_TexSource0.zw;
 ioPtSrc3 = in_TexSource1.xy;
 ioPtSrc4 = in_TexSource1.zw;
-			
+*/	
 
-vec2 _vTL = ioPtSrc1;
-vec2 _vTR = ioPtSrc2;
-vec2 _vBR = ioPtSrc3;
-vec2 _vBL = ioPtSrc4;
+vec2 _vTL = in_TexSource0.xy;
+vec2 _vTR = in_TexSource0.zw;
+vec2 _vBR = in_TexSource1.xy;
+vec2 _vBL = in_TexSource1.zw;
 
 if(_nRevX < 0.0){ //Reverse X
-	_vTL = ioPtSrc2;
-	_vTR = ioPtSrc1;
-	_vBR = ioPtSrc4;
-	_vBL = ioPtSrc3;
+	_vTL = in_TexSource0.zw;;
+	_vTR = in_TexSource0.xy;
+	_vBR = in_TexSource1.zw;
+	_vBL = in_TexSource1.xy;
 }
 if(_nRevY < 0.0){ //Reverse Y
 
@@ -768,12 +779,12 @@ vec3 fQRot_2(vec3 pt, vec4 rot )     {
 }
 
 //////////////////  TILES /////////////////////////
-
+/*
 xflat in vec2 ioPtSrc1;
 xflat in vec2 ioPtSrc2;
 xflat in vec2 ioPtSrc3;
 xflat in vec2 ioPtSrc4;
-
+*/
 xflat in ivec2 ioSrcTL;
 xflat in ivec2 ioSrcTR;
 xflat in ivec2 ioSrcBR;
@@ -837,11 +848,12 @@ ivec2 vPosBL;
 	//flat in vec4 coord_Color2;
 	//flat in vec4 coord_Color3;
 	//flat in vec4 coord_Color4;
-
+/*
 	flat in vec4 coord_Pt1;
 	flat in vec4 coord_Pt2;
 	flat in vec4 coord_Pt3;
 	flat in vec4 coord_Pt4;
+*/
 
 	uniform vec4 vColorTL;
 	uniform vec4 vColorTR;
