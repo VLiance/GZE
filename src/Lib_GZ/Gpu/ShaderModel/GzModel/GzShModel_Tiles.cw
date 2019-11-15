@@ -1184,9 +1184,15 @@ float _nRevMonoCrome =   (1.0 - _nMonoCrome)-0.5;
 
 //_vMyNorm =  vec3(0.0, 0.0 , -1.0);
 
+
+
+
+////////////
 //_vMyNorm.z *= -1.0; vPtNorm =  normalize(normalize( vPtNorm.xyz ) +  normalize( _vMyNorm.xyz)); //Same as
 //vPtNorm = fQRot(normalize(_vMyNorm.xyz), ioObjRot);                                             //Same as
-vPtNorm =  ( vPtNorm.xyz ) *  ( _vMyNorm.xyz);//good effect
+//vPtNorm =  ( vPtNorm.xyz ) *  ( _vMyNorm.xyz);//good effect
+////////////
+//_vMyNorm *= 2.0;
 
 
 //vPtNorm.z *= -1.0;
