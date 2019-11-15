@@ -603,7 +603,7 @@ generate "OpenGL" {
 		public static function fGetParameter_Int(_hParam : eParameter_Int):Int{
 			<cpp>
 				#ifdef D_Platform_Web_Emsc
-					oGL.call<void>("getParameter",  val((int)_hParam) );
+					return oGL.call<int>("getParameter",  val((int)_hParam) );
 				#else
 					gzInt _nResult = 0;
 					GL_fGetIntegerv( _hParam, &_nResult);

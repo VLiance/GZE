@@ -32,7 +32,7 @@ package  {
 				bLinked = true;
 			}else{
 				var _sError : String = OpenGL.fGetProgramInfoLog(nId);
-				Debug.fError("Error linking OpenGL Program: \n" + _sError);
+				Debug.fError("Error linking OpenGL Program:: \n" + _sError);
 				Debug.fWarning("MAX_COMBINED_TEXTURE_IMAGE_UNITS:" + OpenGL.fGetParameter_Int(MAX_COMBINED_TEXTURE_IMAGE_UNITS));
 				Debug.fWarning("MAX_CUBE_MAP_TEXTURE_SIZE:" + OpenGL.fGetParameter_Int(MAX_CUBE_MAP_TEXTURE_SIZE));
 				Debug.fWarning("MAX_FRAGMENT_UNIFORM_VECTORS:" + OpenGL.fGetParameter_Int(MAX_FRAGMENT_UNIFORM_VECTORS));
