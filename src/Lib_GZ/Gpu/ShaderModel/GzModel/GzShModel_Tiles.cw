@@ -72,7 +72,7 @@ package  {
 	in vec4 in_Pt3;  //x,y,z, Length
 	in vec4 in_Pt4;  //x,y,z, ?????
 	
-	in vec2 in_TexCoord0;  //Sx1,Sy1,Sx2,Sy2 
+	//in vec2 in_TexCoord0;  //Sx1,Sy1,Sx2,Sy2 
 	in vec4 in_TexSource0;  //Sx3,Sy3,Sx4,Sy4
 	in vec4 in_TexSource1;  //Sx3,Sy3,Sx4,Sy4
 	in vec4 in_Color1; //R,G,B,A
@@ -119,9 +119,9 @@ package  {
 	uniform mat4 mColor;
 	/////////////////
 
-	out vec2 coord_Texture;
+	//out vec2 coord_Texture;
 	out vec2 coord_TextureSource;
-	out vec2 coord_Corner;
+//	out vec2 coord_Corner;
 
 	flat out vec4 coord_Color1;
 	flat out vec4 coord_Color2;
@@ -138,7 +138,7 @@ package  {
 
 	
 	
-	out vec2 ioCorner;
+	//out vec2 ioCorner;
 	xflat out mat4 iomColor;
 	out vec2 ioTexture;
 	uniform vec2 vTexDim;
@@ -322,7 +322,7 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 					//vCoDist = vec4(1.0,0.0,0.0,0.0);
 					
                     gl_Position = in_Pt1; 
-					ioCorner = vec2(0.25,0.25);
+					//ioCorner = vec2(0.25,0.25);
 					vSrc.x = in_TexSource0.x;
                     vSrc.y = in_TexSource0.y;
                 }else{
@@ -333,7 +333,7 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 		
                     //////// Vertex 1 ////////
                     gl_Position = in_Pt2;
-					ioCorner = vec2(0.75,0.25);
+					//ioCorner = vec2(0.75,0.25);
                     vSrc.x = in_TexSource0.z;
                     vSrc.y = in_TexSource0.w;
                 }
@@ -345,7 +345,7 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 					//vCoDist = vec4(0.0,0.0,1.0,0.0);
 					
                     gl_Position = in_Pt3;
-                    ioCorner = vec2(0.75,0.75);
+                   // ioCorner = vec2(0.75,0.75);
                     vSrc.x = in_TexSource1.x;
                     vSrc.y = in_TexSource1.y;
 
@@ -356,7 +356,7 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 					//vCoDist = vec4(0.0,0.0,0.0,1.0);
 					
                     gl_Position = in_Pt4;
-					ioCorner = vec2(0.25,0.75);
+					//ioCorner = vec2(0.25,0.75);
                     vSrc.x = in_TexSource1.z;
                     vSrc.y = in_TexSource1.w;
                 }
@@ -489,9 +489,9 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 
 ivTexDim = ivec2(vTexDim);
 
+
+/////////////////////////////////////////////////////
 int nOTL =  int(in_TilesC.x); 
-
-
 float _nRevX = 1.0;
 float _nRevY = 1.0;
 float _nRevD = 1.0;
@@ -563,7 +563,6 @@ if(_nRevD < 0.0){ //Reverse D
 	 _nTemp = _vBL.x;
 	 _vBL.x = _vBL.y;
 	 _vBL.y = _nTemp; 
-	
 }
 
 
@@ -581,7 +580,6 @@ if(nOL < 0){
 ioOffsetL1.y = nOL /  ivTexDim.x;
 ioOffsetL1.x = nOL - ioOffsetL1.y * ivTexDim.x;
 
-
 int nOT =  int(in_TilesHV.y);
 if(nOT < 0){
 	nOT *= -1;
@@ -589,8 +587,6 @@ if(nOT < 0){
 }
 ioOffsetT1.y = nOT /  ivTexDim.x;
 ioOffsetT1.x = nOT - ioOffsetT1.y * ivTexDim.x;
-
-
 
 int nOR =  int(in_TilesHV.z);
 if(nOR < 0){
@@ -639,9 +635,6 @@ if(_nRevY < 0.0){ //Reverse
 }
 
 
-
-
-
 if(nOriTX > 0){
 	ioSrcOT = ioSrcTL;
 }else{
@@ -666,7 +659,7 @@ if(nOriLY > 0){
 	ioSrcOL = ioSrcBL;
 }
 
-////////  CORNER  //////////
+//////////////  CORNER  //////////
 //int nOTL =  int(in_TilesC.x); Save rotate flipping
 ioOffsetTL.y = nOTL /  ivTexDim.x;
 ioOffsetTL.x = nOTL - ioOffsetTL.y * ivTexDim.x;
@@ -682,10 +675,15 @@ ioOffsetBR.x = nOBR - ioOffsetBR.y * ivTexDim.x;
 int nOBL =  int(in_TilesC.w);
 ioOffsetBL.y = nOBL /  ivTexDim.x;
 ioOffsetBL.x = nOBL - ioOffsetBL.y * ivTexDim.x;
+/////////////////////////////////////////
 
 
-	/*	
-	//Clamp			
+
+
+
+
+/*	
+//Clamp			
 ioOffsetT =  ivec2(0,1);
 ioOffsetR =  ivec2(-1,0);
 ioOffsetB =  ivec2(0,-1);
@@ -785,34 +783,10 @@ xflat in vec2 ioPtSrc2;
 xflat in vec2 ioPtSrc3;
 xflat in vec2 ioPtSrc4;
 */
-xflat in ivec2 ioSrcTL;
-xflat in ivec2 ioSrcTR;
-xflat in ivec2 ioSrcBR;
-xflat in ivec2 ioSrcBL;
 
-xflat in ivec2 ioSrcOT;
-xflat in ivec2 ioSrcOR;
-xflat in ivec2 ioSrcOB;
-xflat in ivec2 ioSrcOL;
 
-xflat in ivec2 ioOffsetL1;
-xflat in ivec2 ioOffsetT1;
-xflat in ivec2 ioOffsetR1;
-xflat in ivec2 ioOffsetB1;
+//11 variyng vector
 
-xflat in ivec2 ioOffsetL2;
-xflat in ivec2 ioOffsetT2;
-xflat in ivec2 ioOffsetR2;
-xflat in ivec2 ioOffsetB2;
-
-xflat in ivec2 ioOffsetTL;
-xflat in ivec2 ioOffsetTR;
-xflat in ivec2 ioOffsetBR;
-xflat in ivec2 ioOffsetBL;
-
-xflat in ivec2 ivTexDim;
-	
-xflat in ivec2 vFlip; //Sure?
 
 
 
@@ -841,49 +815,86 @@ ivec2 vPosBL;
 	//uniform sampler2DArray TexArray;  
 
 	//in vec2 coord_TextureSource;
-	in vec2 coord_Texture;
-	in vec2 coord_Corner;
+	
+xflat in ivec2 ioSrcTL;
+xflat in ivec2 ioSrcTR;
+xflat in ivec2 ioSrcBR;
+xflat in ivec2 ioSrcBL;
 
-	flat in vec4 coord_Color1;
-	//flat in vec4 coord_Color2;
-	//flat in vec4 coord_Color3;
-	//flat in vec4 coord_Color4;
-/*
-	flat in vec4 coord_Pt1;
-	flat in vec4 coord_Pt2;
-	flat in vec4 coord_Pt3;
-	flat in vec4 coord_Pt4;
-*/
+xflat in ivec2 ioSrcOT;
+xflat in ivec2 ioSrcOR;
+xflat in ivec2 ioSrcOB;
+xflat in ivec2 ioSrcOL;
 
-	uniform vec4 vColorTL;
-	uniform vec4 vColorTR;
-	uniform vec4 vColorBR;
-	uniform vec4 vColorBL;
+xflat in ivec2 ioOffsetL1;
+xflat in ivec2 ioOffsetT1;
+xflat in ivec2 ioOffsetR1;
+xflat in ivec2 ioOffsetB1;
 
-	uniform vec4 v1Color;
-	uniform mat4 mColor;
+xflat in ivec2 ioOffsetL2;
+xflat in ivec2 ioOffsetT2;
+xflat in ivec2 ioOffsetR2;
+xflat in ivec2 ioOffsetB2;
 
-	uniform int nType;
-	uniform vec2 vTexDim;
+xflat in ivec2 ioOffsetTL;
+xflat in ivec2 ioOffsetTR;
+xflat in ivec2 ioOffsetBR;
+xflat in ivec2 ioOffsetBL;
+//10 variyng vector
+
+
+xflat in ivec2 ivTexDim;
+xflat in ivec2 vFlip; //Sure?
 	
 	
-	xflat in mat4 iomColor;
-	in vec2 ioCorner;
-	in vec2 ioTexture;
-	vec3 vDark;
-	vec3 vLight;
-	vec4 pixTex;
+	
+//in vec2 coord_Texture;
+//in vec2 coord_Corner;
+//12 variyng vector
 
 	
+flat in vec4 coord_Color1;
+//flat in vec4 coord_Color2;
+//flat in vec4 coord_Color3;
+//flat in vec4 coord_Color4;
+//13 variyng vector	
+	
+//in vec2 ioCorner;
 
-
-
+//14 variyng vector	
+	
+xflat in mat4 iomColor;
+//18 variyng vector	
+	
 /////////////
-
 xflat in mat4 iomWorldPt;
+//22 variyng vector	
+
+
 //xflat in mat4 iomNorm;
+in vec2 ioTexture;
+
 xflat in vec3 ioNorm;
 xflat in vec4 ioObjRot;
+//24 variyng vector	
+
+
+
+uniform vec4 vColorTL;
+uniform vec4 vColorTR;
+uniform vec4 vColorBR;
+uniform vec4 vColorBL;
+
+uniform vec4 v1Color;
+uniform mat4 mColor;
+
+uniform int nType;
+uniform vec2 vTexDim;
+
+
+vec3 vDark;
+vec3 vLight;
+vec4 pixTex;
 
 
 
@@ -981,14 +992,7 @@ void main()
 				vPosBR =  ivec2((vPosTex    + vec2(1.0-_nPrec, 1.0-_nPrec)) / vRetroR);
 				vPosBL =  ivec2((vPosTex    + vec2(0.0       , 1.0-_nPrec)) / vRetroR );
 
-
-//float _nPrec = 0.0001;
-/*
-				vPosTL =  ivec2((vPosTex + vec2(0.0 + _nPrec, 0.0 + _nPrec)) / vRetroR);
-				vPosTR =  ivec2((vPosTex + vec2(1.0 - _nPrec, 0.0 + _nPrec)) / vRetroR);
-				vPosBR =  ivec2((vPosTex + vec2(1.0 - _nPrec, 1.0 - _nPrec)) / vRetroR);
-				vPosBL =  ivec2((vPosTex + vec2(0.0 + _nPrec, 1.0 - _nPrec)) / vRetroR);
-*/
+				
 				//TR Clamp oposite side (on device with not enogh precision)
 				if(vPosTL.y >= ioSrcBR.y){vPosTL.y = ioSrcBR.y - 1;}
 				if(vPosTL.x >= ioSrcBR.x){vPosTL.x = ioSrcBR.x - 1;}
@@ -1180,24 +1184,9 @@ float _nRevMonoCrome =   (1.0 - _nMonoCrome)-0.5;
 
 //_vMyNorm =  vec3(0.0, 0.0 , -1.0);
 
-//vPtNorm = _vMyNorm;
-//vPtNorm = cross( normalize( vPtNorm.xyz ) ,  normalize( _vMyNorm.xyz));
-//vPtNorm =   normalize( vPtNorm.xyz) *  normalize(  _vMyNorm) ;
-//vPtNorm =  vPtNorm.xyz  ;
-//vPtNorm = fQRot_2(_vMyNorm.xyz, ioObjRot);
-//vPtNorm = fQRot_2(_vMyNorm.xyz, ioObjRot);
-//vPtNorm = cross( normalize( vPtNorm.xyz ) ,  normalize( _vMyNorm.xyz));
-
-
-//GOOD
-//vPtNorm = fQRot(normalize(_vMyNorm.xyz), ioObjRot);
-//vPtNorm = fQRot(_vMyNorm.xyz, ioObjRot);
-//vPtNorm =  normalize( vPtNorm.xyz ) *  normalize( _vMyNorm.xyz);
-vPtNorm =  ( vPtNorm.xyz ) *  ( _vMyNorm.xyz);
-
-
-
-
+//_vMyNorm.z *= -1.0; vPtNorm =  normalize(normalize( vPtNorm.xyz ) +  normalize( _vMyNorm.xyz)); //Same as
+//vPtNorm = fQRot(normalize(_vMyNorm.xyz), ioObjRot);                                             //Same as
+vPtNorm =  ( vPtNorm.xyz ) *  ( _vMyNorm.xyz);//good effect
 
 
 //vPtNorm.z *= -1.0;
