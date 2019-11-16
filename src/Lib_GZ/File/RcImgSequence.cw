@@ -18,7 +18,10 @@ package  {
 
 		public var nTotal: UInt = 0;
 		public var nTotalNumber: UInt = 0;
+		public var nStartValue: UInt = 0;
 		public var aImg : CArray<RcImg>;
+		public var sFolder : String;
+		public var sSeqName : String;
 
 		
 		public var aFile : Array<File>;
@@ -27,6 +30,10 @@ package  {
 	//	public function RcImgSequence(_aImg : CArray<RcImg>, _nTotal : UInt ):Void {
 		public function RcImgSequence(_sPath : String, _hLocation: eLocation = eLocation.Unknow):Void {
 			Resource(_sPath);
+			
+			sFolder =  File.sFullRealDrive + File.sFolder + oFile.sFolder;
+			
+			
 			Debug.fTrace("*************!!Load: " + oFile.sFullPath);
 			//fIsSysFileExist
 				Debug.fWarning(oFile.sName);
@@ -38,13 +45,42 @@ package  {
 				if(_nChar >= 48 && _nChar <= 57 ){ //It's a numbewr
 					nTotalNumber++;
 					_sNum  += _nChar;
-				}
+				}else if(nTotalNumber > 0){
+					<cpp>
+					break;
+					</cpp>
+				}	
 			}
-
+			nStartValue = _sNum.fToUInt();
+			sSeqName =  oFile.sName.fSubStr(0, nTotalNumber);
+			/*
+			Debug.fWarning("sSeqName: " +  sSeqName);
 			Debug.fWarning("_sNum: " + _sNum);
-			var _nVal : UInt = _sNum.fToUInt();
-			Debug.fWarning("Found Value: " + _nVal);
+			Debug.fWarning("nStartValue: " + nStartValue);
 			Debug.fWarning("nTotalNumber: " + nTotalNumber);
+			Debug.fWarning("Folder: " +  sFolder);
+			*/
+			var _nVal : Int = nStartValue;
+			while(_nVal >= 0){
+				var _sValNum : String = _nVal;
+				_nVal++;
+				
+				var _sFullNum : String = _sValNum;
+				for(var i : Int = _sValNum.nSize; i < nTotalNumber; i++){
+					_sFullNum = "0" + _sFullNum;
+				}
+				var _sFullPath : String = sFolder + sSeqName + _sFullNum  + "." +  oFile.sExt;
+				
+				Debug.fWarning("FullNum: " + _sFullPath); 
+				if(File.fIsSysFileExist(_sFullPath )){
+					Debug.fWarning("EXIST!"); 
+					
+				}else{
+					_nVal = -1;
+				}
+			
+			}
+			
 		}
 
 /*
