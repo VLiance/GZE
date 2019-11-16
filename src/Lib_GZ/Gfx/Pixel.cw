@@ -235,6 +235,12 @@ package  {
 			if(_oPtSegT.nY + 0.01 > _oPtSegL.nY){ //Ignore segment triangle < 1px height
 				return;
 			}
+			var _nLimit : Float = 0.1;
+			if(	 _oPtSegT.nZ  < _nLimit || _oPtSegL.nZ  < _nLimit  || _oPtT.nZ  < _nLimit  || _oPtL.nZ  < _nLimit){
+					return;
+			}
+			
+			
 			/*
 				Debug.fConsole("--*******");
 			Debug.fConsole("--_rPtST: " +  _rPtST.nX + ", " +_rPtST.nY );
@@ -361,6 +367,12 @@ package  {
 			var _nFHeight : Int =  (_nFBy - _nFTy) ; //+1 Seem to remove bug when value are too fit to check futer
 			var _nFHeightSlope : Int =  (_nSlopeLy  - _nSlopeTy ) ; //+1 Seem to remove bug when value are too fit to check futer
 			
+			if(_nFHeight == 0 || _nFHeightSlope == 0){ 
+				return;
+			}
+			
+			
+			
 			//var _nFHeight : Int =  (_nFBy - _nFTy)  + (1); //+1 Seem to remove bug when value are too fit to check futer
 			//var _nFHeightSlope : Int =  (_nSlopeLy  - _nSlopeTy ) + (1); //+1 Seem to remove bug when value are too fit to check futer
 
@@ -443,9 +455,14 @@ package  {
 			</cpp>
 			*/
 			
+			
+			if(_nRealY <= 0){ //Don't render negaative Y, maybe useless if we put bounding
+				_nRealY = 0;
+			}
+
 			while (_nRealY < _nToY) {
 			
-	
+
 				//_nTest = _nToY >> Math.nSP;
 				////Debug.fConsole("_nTest:   " + _nTest );
 				////////////////////////////////////////////////
@@ -521,8 +538,6 @@ package  {
 				_nXLimit = Math.fITronc(_nXLimit - x ) + x;
 				if (_nDirX == 1 && x < _nXLimit || _nDirX == -1 && x > _nXLimit) {//Remove bug
 				
-		
-	
 					for (; x != _nXLimit; x += _nXAdd) {
 
 						var _n1OnZ : Float = _nSLz + (_nXFloat * _nDif_SLRz );
@@ -576,10 +591,12 @@ package  {
 						_nXFloat += _nXAddFloat;
 					}
 				}
+		
 				_nYFloat += 1;
 				y += Math.nPrec;
 				_nRealY += Math.nPrec;
 				_nRealYPix++;
+			
 			}
 		}
 

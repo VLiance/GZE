@@ -77,9 +77,6 @@
 
 
 
-
-
-
 	gzp_DataType(gzDataRC* _oOther){
 	  fFirstAssign(_oOther);
 	  	   //  		printf("\n --%p: New*: %d  ",this, gzp_Data->nInst);fPrint();

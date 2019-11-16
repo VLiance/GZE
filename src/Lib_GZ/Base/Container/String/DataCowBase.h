@@ -89,6 +89,36 @@
 		//*this = _gzNullStr;
 		m.aData = (gzDataRC*)&gzp_NullStr;
 	}
+	
+	
+	gzp_DataType(gzUInt _nChar){
+
+	//	m.aSubTab =	0;
+	//	m.nSubSize =	0;
+	//	m.nSubLimit =	0;
+		//m.aData = (gzDataRC*)&gzp_NullStr;
+		m.aData = fEmptyArray(gzp_nByte * 1, gzp_nByte * 4);//TODO UTF8 //4 is a random value 
+		m.aData->nInst = 1;
+		
+		gzp_Additional_fAssign
+		
+		m.aData->aTab[0] = _nChar;	//TODO UTF8
+	
+		printf("\nCaalll %d", _nChar);
+		
+		//gzStr8 _sNewStr( ::GZ::fDataAlloc(_nSize, _nSize));
+       // _aArray  = _sNewStr.m.aData->aTab;
+	   
+	   /*
+	   gzStr8 _sNewStr( ::GZ::fDataAlloc(1, 1));
+	//	_sNewStr.m.aData->nInst = 1;
+		_aArray  = _sNewStr.m.aData->aTab;
+        _aArray[0] = 0x30;
+        _nSize = 1;
+		return _sNewStr;
+	   */
+	}
+
 		
 		/*
    #ifdef  gzp_IsUTF8

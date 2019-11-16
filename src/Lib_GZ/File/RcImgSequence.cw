@@ -32,20 +32,19 @@ package  {
 				Debug.fWarning(oFile.sName);
 			
 			var _sNum : String = "";
-			for(var i : Int = oFile.sName.nSize - 1; i >= 0; i--){
+			//for(var i : Int = oFile.sName.nSize - 1; i >= 0; i--){
+			for(var i : Int =0; i <=  oFile.sName.nSize; i++){
 				var _nChar : UInt = oFile.sName[i];
 				if(_nChar >= 48 && _nChar <= 57 ){ //It's a numbewr
 					nTotalNumber++;
+					_sNum  += _nChar;
 				}
-			//	_sNum  += _nChar;
-				//Debug.fWarning(oFile.sName[i]);
 			}
-			
-			
-			
+
+			Debug.fWarning("_sNum: " + _sNum);
+			var _nVal : UInt = _sNum.fToUInt();
+			Debug.fWarning("Found Value: " + _nVal);
 			Debug.fWarning("nTotalNumber: " + nTotalNumber);
-			//aImg = _aImg;
-			//nTotal = _nTotal;
 		}
 
 /*

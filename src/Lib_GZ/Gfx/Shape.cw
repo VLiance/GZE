@@ -189,11 +189,11 @@ package  {
 		override public function fCpuDraw(_nPosX: Int, _nPosY:Int, _nX_Start : Int, _nX_End : Int, _nY_Start : Int, _nY_End : Int):Bool {
 		
 			//Debug.fTrace("---------BeginDraw!");
-/*
-			if(	oGblPt.nZ < oItf.nHalfFrameHeight * -1){ //Todo find better way
+			/*
+			if(	oGblPt.vPt.nZ < oItf.nHalfFrameHeight * -1){ //Todo find better way
 				return false;
-			}
-*/
+			}*/
+
 
 
 			fTransform();
