@@ -14,12 +14,11 @@ package  {
 
 	public class RcImgSequence extends Resource {
 
-
-
-		public var nTotal: UInt = 0;
+	//	public var nTotal: UInt = 0;
 		public var nTotalNumber: UInt = 0;
 		public var nStartValue: UInt = 0;
-		public var aImg : CArray<RcImg>;
+		//public var aImg : CArray<RcImg>;
+		public var aImg : Array<RcImg>;
 		public var sFolder : String;
 		public var sSeqName : String;
 
@@ -69,16 +68,23 @@ package  {
 				for(var i : Int = _sValNum.nSize; i < nTotalNumber; i++){
 					_sFullNum = "0" + _sFullNum;
 				}
-				var _sFullPath : String = sFolder + sSeqName + _sFullNum  + "." +  oFile.sExt;
 				
+				var _sFullPath : String = sFolder + sSeqName + _sFullNum  + "." +  oFile.sExt;
 				Debug.fWarning("FullNum: " + _sFullPath); 
+				
 				if(File.fIsSysFileExist(_sFullPath )){
-					Debug.fWarning("EXIST!"); 
+				
+					//var _oFile : File = new File(_sFullPath);
+					var _oRessource : RcImg = new RcImg(_sFullPath);
+					_oRessource.fCpuLoad();
 					
+					aImg.fPush(_oRessource);
+					
+					Debug.fWarning("EXIST!"); 
+					//File.fLoadFileFromVDrive(_sFullPath);
 				}else{
 					_nVal = -1;
 				}
-			
 			}
 			
 		}

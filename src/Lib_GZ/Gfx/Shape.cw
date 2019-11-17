@@ -249,6 +249,9 @@ package  {
 
 			//var _nFocal : Float = 1.0 / 270.0;
 
+			
+			var _oGblTf : Shape = oParent;
+			
 			for( var i : UInt = 0; i < aNewPt3dOri.nSize; i++){
 				var _oPt : PtA = aNewPt3dOri[i];
 				_oPt.fCopyToFinal();
@@ -262,9 +265,9 @@ package  {
 				*/
 				
 				////// SCALE //////
-				var x : Float = _oPt.vFinal.nX * vGblSize.nWidth;
-				var y : Float = _oPt.vFinal.nY * vGblSize.nHeight;
-				var z : Float = _oPt.vFinal.nZ * vGblSize.nLength;
+				var x : Float = _oPt.vFinal.nX *  _oGblTf.vGblSize.nWidth;
+				var y : Float = _oPt.vFinal.nY *  _oGblTf.vGblSize.nHeight;
+				var z : Float = _oPt.vFinal.nZ *  _oGblTf.vGblSize.nLength;
 				/*
 				//////// Rotation /////////
 				var _nTx : Float = (x * Math.fCos(_nYaw)) - (z * Math.fSin(_nYaw));
@@ -279,7 +282,7 @@ package  {
 				_oPt.vFinal.nY =y;
 				_oPt.vFinal.nZ =z;
 
-				_oPt.vFinal.fRotate(vQuaternion);
+				_oPt.vFinal.fRotate( _oGblTf.vQuaternion);
 				//Debug.fTrace("vQuaternion:[" + vQuaternion.nX + ", " + vQuaternion.nY + ", " + vQuaternion.nZ + ", " + vQuaternion.nW + "]");
 				
 				
@@ -300,14 +303,21 @@ package  {
 		
 			var _nFocal : Float = oDstBuff.oPerspective.nValue;
 			
-			var _nX : Float = oGblPt.vPt.nX + 0.25;
-			var _nY : Float = oGblPt.vPt.nY - 0.25;
+			//var _nX : Float = oGblPt.vPt.nX + 0.25;
+			//var _nY : Float = oGblPt.vPt.nY - 0.25;
+			
+			
+			var _oGblPt : PtA = oParent.oGblPt;
+						
+			var _nX : Float = _oGblPt.vPt.nX + 0.25;
+			var _nY : Float = _oGblPt.vPt.nY - 0.25;
+			
 			
 			if(oDstBuff.oPerspective.nType == 1){
 				//Debug.fTrace("oDstBuff.oPerspective.nType 1");
 				for( var i : UInt = 0; i < aNewPt3dOri.nSize; i++){
 					var _oPt : PtA = aNewPt3dOri[i];
-					var _nZ : Float = (_oPt.vFinal.nZ + oGblPt.vPt.nZ) * _nFocal + 1;
+					var _nZ : Float = (_oPt.vFinal.nZ + _oGblPt.vPt.nZ) * _nFocal + 1;
 					_oPt.o2d.nX = _oPt.vFinal.nX / _nZ + _nX;
 					_oPt.o2d.nY = _oPt.vFinal.nY / _nZ + _nY;
 					_oPt.o2d.nZ = _nZ;
@@ -321,7 +331,8 @@ package  {
 
 				for( var i : UInt = 0; i < aNewPt3dOri.nSize; i++){
 					var _oPt : PtA = aNewPt3dOri[i];
-					var _nZ : Float = (_oPt.vFinal.nZ + oGblPt.vPt.nZ) * _nFocal + 1;
+					//var _nZ : Float = (_oPt.vFinal.nZ + oGblPt.vPt.nZ) * _nFocal + 1;
+					var _nZ : Float = (_oPt.vFinal.nZ + _oGblPt.vPt.nZ) * _nFocal + 1;
 					_oPt.o2d.nX = (_oPt.vFinal.nX + (_nX - _nFromX)) / _nZ - (_nX - _nFromX) + _nX;
 					_oPt.o2d.nY = (_oPt.vFinal.nY + (_nY - _nFromY)) / _nZ - (_nY - _nFromY) + _nY;
 					_oPt.o2d.nZ = _nZ;

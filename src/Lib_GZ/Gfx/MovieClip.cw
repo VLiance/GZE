@@ -20,23 +20,27 @@ package  {
 		
 		//public var aTimeline : Array;
 		
-		public var oImg : Img;
+		public var oImg2 : Img;
 		public var aTest : Array<Img>;
 		
 		public var nCurrInTimeline : Float = 0;
 		 
-		public var aTimeline : Array< QArray<Root> >;
+		//public var aTimeline : Array< QArray<Root> >;
+		public var aTimeline : Array< Clip >;
 		public var nLimit : Float;
 		
 		public var nAnimSpeed : Float = 0.5;
 		
+		public var aOwnTest : Array<Root>;
+		
 
-		public var qaTest : QArray<Root>;
+		//public var qaTest : QArray<Root>;
 		
 		
 		
 		public function MovieClip( _oParent : Root, _nX: Float, _nY:Float):Void {
 			Clip(_oParent, _nX , _nY);
+			//aOwnTest = aChild;
 		}
 	
 				
@@ -49,11 +53,14 @@ package  {
 				nCurrInTimeline -= nLimit;
 			}
 			var _nIntIndex : UInt = Math.fAbs(nCurrInTimeline);
+
 			
-		//	Debug.fTrace("Size: " + aTimeline.nSize);
 			if(aTimeline.nSize != 0){
-				qaChild = aTimeline[_nIntIndex % aTimeline.nSize];
+				var _oClip : Clip =  aTimeline[_nIntIndex % aTimeline.nSize];
+				 aChild.fClear();
+				 aChild.fPush(_oClip);
 			}
+			
 		}
 		
 		
@@ -65,10 +72,13 @@ package  {
 		
 		override public function fAddSequence( _oRc : RcImgSequence, _nX: Float = 0, _nY:Float = 0, _bCenter:Bool = true, _nCenterX:Int = 0, _nCenterY:Int = 0):Void {
 
-			for (var i : UInt = 0; i < _oRc.nTotal; i++) {
-				qaChild = aTimeline[i];
-				aTest[i] = new Img(this, _nX, _nY, _oRc.aImg[i], _bCenter, _nCenterX, _nCenterY);
+			for (var i : UInt = 0; i < _oRc.aImg.nSize; i++) {
+				var _oClip : Clip = new Clip(this, 0 , 0);
+				aTimeline[i] = _oClip;
+				aTest[i] = new Img(_oClip, _nX, _nY, _oRc.aImg[i], _bCenter, _nCenterX, _nCenterY);
+				Debug.fWarning("ADD Sequences");
 			}
+			
 			nLimit = aTimeline.nSize;
 		}
 		

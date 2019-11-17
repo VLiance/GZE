@@ -134,9 +134,10 @@ package  {
 //			Debug.fTrace("RECTx "  + vRect.nX);
 			
 			oItf.fRegistred();
-		
-			
 		 }	
+		
+		
+		
 		
 		public function fInitialised():Void {
 		}
@@ -162,9 +163,7 @@ package  {
 			return 0;
 		}
 
-		
-        public function fKeyIsDown(_nKeyVal : Int):Int;
-		
+	
         public function fClear():Void{
 
 			if(bIniDrawZone){
@@ -244,6 +243,30 @@ package  {
 			delete[] aDrawZone2D;
 			</cpp>
 		}
+		
+	
+		//////////////////////////////////////
+		/////////////// Messages /////////////
+		//////////////////////////////////////
+		
+		atomic function fKeyIsDown(_nKeyVal : Int):Void{
+			Key.aKeyDown[_nKeyVal] = true;
+		//	Debug.fWarning("Key Pressed!!");
+		}
+		atomic function fKeyIsUp(_nKeyVal : Int):Void{
+			Key.aKeyDown[_nKeyVal] = false;
+		}
+		
+		///////////////////////////////////////
+		//////////////////////////////////////
+		
+		
+		
+		
+		
+		
+		
+		
 		
 	}
 }

@@ -14,7 +14,8 @@ package  {
 	 * @author Maeiky
 	 */	
 	
-	public extension Clip extends Object {
+	//public extension Clip extends Object {
+	public class Clip extends Object {
 		
 		//public var aTimeline : Array;
 		

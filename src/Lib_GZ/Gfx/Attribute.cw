@@ -144,7 +144,7 @@ package  {
 			
 		}
 		
-		public function  fApplyGlobalPos():Void { //Can be overeided
+		public function  fApplyGlobalPos():Void { //Can be overwrided
 			//////////////////////////////// SKIP ////////////////////////////
 
 			oGblPt.vPt.nX = vPos.nX  * oParent.vGblSize.nWidth; 

@@ -139,7 +139,7 @@ package  {
         public function fIniPixelZone():Void;
         public function drawPixel():Void;
        // public function fBlit():Void;
-        public function fKeyIsDown(_nKeyVal : Int):Int;
+      //  public function fKeyIsDown(_nKeyVal : Int):Int;
         public function fClear():Void;
         public function fCpuVSyncOnGpu():Void;
 		

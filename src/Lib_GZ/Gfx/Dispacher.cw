@@ -18,7 +18,9 @@ package  {
 
 
 
-		public var qaChild : QArray<Root>;
+		//public var qaChild : QArray<Root>;
+		
+		public var aChild : Array<Root>;
 
 
 
@@ -73,30 +75,37 @@ package  {
 		}
 		
 		public function fClearChild() :Void {
-			qaChild.fClear();
+			aChild.fClear();
 		}
 
 		public function fAddChild(_oObj:Root) :Void {
-			qaChild.fPush(_oObj);
+			aChild.fPush(_oObj);
 		}
 
 
 		public function fDispatchUpdate() :Void {
-			forEach(var _oChild : Root  in  qaChild){
+			for(var i : Int = 0; i< aChild.nSize; i++){
+				var _oChild : Root = aChild[i];
+			
+			//forEach(var _oChild : Root  in  aChild){
 				_oChild.fUpdateRoot();
 			}
 		}
 
 		public function fDispatchRender() :Void {
 
-			forEach(var _oChild : Root  in  qaChild){
+			for(var i : Int = 0; i< aChild.nSize; i++){
+				var _oChild : Root = aChild[i];
+			//forEach(var _oChild : Root  in  aChild){
 				_oChild.fRender();
 			}
 		}
 
 		public function fDispatchContextResume() :Void {
 
-			forEach(var _oChild : Root  in  qaChild){
+			for(var i : Int = 0; i< aChild.nSize; i++){
+				var _oChild : Root = aChild[i];
+				//forEach(var _oChild : Root  in  aChild){
 				_oChild.fContextResume();
 			}
 		}

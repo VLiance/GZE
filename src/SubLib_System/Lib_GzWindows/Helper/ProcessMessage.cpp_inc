@@ -3,12 +3,13 @@ void fProcessMessage(Lib_GZ::cHoldGate* _pGate, HWND _hWnd, gzUInt uMsg, WPARAM 
 	using namespace Lib_GZ::Sys::Interface::Context;
 	gzGate<Lib_GZ::Sys::Interface::cContext> _gFrom(_pGate); 
 	
-		
+	
 	switch(uMsg){
-		 case WM_KEYDOWN:
-		//	_gFrom.Send(new cfContextRegistred());
-           // _this->KeyDown[wParam] = true;
-			
+		case WM_KEYDOWN:
+			_gFrom.Send(new cfKeyIsDown(wParam));
+        break;
+		case WM_KEYUP:
+			_gFrom.Send(new cfKeyIsUp(wParam));
         break;
 	}
 				
