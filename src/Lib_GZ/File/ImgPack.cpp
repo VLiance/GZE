@@ -222,14 +222,10 @@ stbrp_rect* fIniRectList(File::cFont* _oFont, uPackContext *spc, int* _nTotal){
          _aRanges[i].aData[j]->nW =
          _aRanges[i].aData[j]->nH = 0;
 
-		 
 	  }
-		 
-   }	 
-		 
+   }
 		 
 		 
-
    n = 0;
    for (i=0; i < _nNbRange; ++i)
       n += _aRanges[i].nNbChar;
@@ -331,8 +327,6 @@ using namespace Font;
 //spc->width
 
 		
-
-
 			 /* FREE_TYPE
             if (FT_Load_Char(oFace,  _aRanges[i].nFirstChar + j,FT_LOAD_RENDER )){
                 Debug::fError(gzStrL("ERROR::FREETYPE: Failed to load char"));
@@ -357,7 +351,6 @@ using namespace Font;
                 }
             }
 */
-
 
             _rChar->rRect = (uRectPack*)r;
 

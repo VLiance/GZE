@@ -98,10 +98,6 @@ namespace File{class cRcFont;class cRcImg;}
 			stbrp_context* fPackBegin(File::cFont* _oFont, uPackContext *spc, int pw, int ph, int stride_in_bytes, int padding, void *alloc_context);
 			void fPackEnd  (File::cFont* _oFont, uPackContext *spc);
 
-
-
-
-
     }
 	
 	/*

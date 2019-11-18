@@ -16,13 +16,9 @@ package  {
 	#include "Lib_GZ/3rdparty/Font/stb_truetype.h"
 	#include "Lib_GZ/File/ImgPack.h"
 
-	
-
-	
 	#define nBitmap_H 512
 	#define nBitmap_W 512
 	</cpp>
-	
 	
 	
 	
@@ -142,7 +138,6 @@ package  {
 				return 0;
 			}
 			
-			//Debug.fWarning("YEEEEEEEEEEEEEEEEEEEEEEEEE");
 			<cpp>
 			 stbtt_InitFont(&font, (const unsigned char*)_oRc->aSrcMemData, 0);
 			//fontscale = stbtt_ScaleForPixelHeight(&font, 13); //13 for ProggyClean!!
@@ -151,8 +146,7 @@ package  {
 			
 			using namespace ImgPack;
 			
-		
-			printf("\n My fontscale: %f " , fontscale);
+			//printf("\n My fontscale: %f " , fontscale);
 			
 			
 			uPackContext pc;
@@ -160,8 +154,7 @@ package  {
 			fAddFontRange(this, &pc, _oRc->nDefaultScale, 32, 95);
 			
 			
-			
-printf("\nfSetSquaresDim");
+
     int _nTotal;
 	fDeleteRect();
 	myrects = fIniRectList(this, &pc, &_nTotal);
@@ -169,18 +162,17 @@ printf("\nfSetSquaresDim");
 	
 	stbrp_pack_rects((stbrp_context *) pc.pack_info, myrects, _nTotal); //do pack
 	
-	
 	unsigned char aBmpPack[nBitmap_H][nBitmap_W] = { {0}};
-	printf("\nffDrawRect");
+	//printf("\nffDrawRect");
 	fDrawRect(this, &pc,aBmpPack[0],myrects );
     fPackEnd(this, &pc);
 
-printf("\nfCreateImage");
+
     fCreateImage(_oRc, (gzUInt8*) &aBmpPack[0][0] );
 
 	
 			</cpp>
-			Debug.fPass("FINISH FONT!!!");
+			//Debug.fPass("FINISH FONT!!!");
 		
 		}
 		
