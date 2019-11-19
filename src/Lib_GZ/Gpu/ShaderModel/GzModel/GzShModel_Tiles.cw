@@ -808,6 +808,7 @@ ivec2 vPosBL;
 
 	uniform sampler2D TexCurrent;
 	uniform sampler2D TexNormal;
+	uniform sampler2D TexSprites;
 	//uniform sampler2D TexSource;
 	//uniform sampler2D TexFragPos;
 	//uniform sampler2D TexPixSrc;

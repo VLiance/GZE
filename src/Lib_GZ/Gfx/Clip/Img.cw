@@ -148,11 +148,21 @@ package  {
 			
 			var _oSrc : Poly4;
 	
+	
+			var _nOff_X : Float = oRc.vOffset.nX; //TODO maybe calculate offset dynamicly after
+			var _nOff_Y : Float = oRc.vOffset.nY; //TODO maybe calculate offset dynamicly after
+			
+			Debug.fWarning("_nOff_X: " + _nOff_X + "  _nOff_Y:"  +_nOff_Y );
+			
+			
+			//_nOff_X = 30;
+			//_nOff_Y = 0;
+			
 			if(_oSrcRegion == 0){
-				var _oPtSrc1 : Pt<Float> = new Pt<Float>(0 - _nBorder, 0 - _nBorder);
-				var _oPtSrc2 : Pt<Float> = new Pt<Float>(nWidth  +_nBorder, 0 -_nBorder);
-				var _oPtSrc3 : Pt<Float> = new Pt<Float>(nWidth  +_nBorder, nHeight +_nBorder);
-				var _oPtSrc4 : Pt<Float> = new Pt<Float>(0 - _nBorder, nHeight  + _nBorder);								
+				var _oPtSrc1 : Pt<Float> = new Pt<Float>(_nOff_X + 0 - _nBorder     , _nOff_Y + 0 - _nBorder);
+				var _oPtSrc2 : Pt<Float> = new Pt<Float>(_nOff_X + nWidth  +_nBorder, _nOff_Y + 0 -_nBorder);
+				var _oPtSrc3 : Pt<Float> = new Pt<Float>(_nOff_X + nWidth  +_nBorder, _nOff_Y + nHeight +_nBorder);
+				var _oPtSrc4 : Pt<Float> = new Pt<Float>(_nOff_X + 0 - _nBorder	    , _nOff_Y + nHeight  + _nBorder);								
 								
 				_oSrc  = new Poly4(_oPtSrc1, _oPtSrc2, _oPtSrc3, _oPtSrc4);
 

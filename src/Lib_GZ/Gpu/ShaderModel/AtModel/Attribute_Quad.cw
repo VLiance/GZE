@@ -29,7 +29,8 @@ package  {
 		*/
 		
 		public var oTexture : Texture;
-		public var oTexNormal : Texture;
+		public var oTexSprites : Texture;
+		
 		
 		
 		public var oAtObjPos : Attribute;
@@ -99,8 +100,8 @@ package  {
 			oTexture.fSend(0);
 			
 			//TODO Normals in AtQuad?
-			oTexNormal = new Texture(oProgram, "TexNormal");
-			oTexNormal.fSend(1);
+			oTexSprites = new Texture(oProgram, "TexSprites");
+			oTexSprites.fSend(1);
 			
 			
 			

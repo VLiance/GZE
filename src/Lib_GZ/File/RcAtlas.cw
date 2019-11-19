@@ -143,7 +143,7 @@ package  {
 		}
 		
 		public function fCopy(_oImg: RcImg, _nX: UInt, _nY: UInt) : Bool {
-			Debug.fWarning("COPOY! "  + _nX);
+
 			for(var y : UInt = 0; y < _oImg.nHeight; y++){
 				for(var x : UInt = 0; x < _oImg.nWidth; x++){
 					aImg[RcAtlas.nBorder + _nY + y][RcAtlas.nBorder + _nX + x] = _oImg.aImg[y][x];
@@ -157,6 +157,27 @@ package  {
 			return true;
 		}
 		
+		
+		public function fTransposeAll() : Void {
+			for(var i : UInt = 0; i < aSubImg.nSize; i++){
+				var _oImg : RcImg = aSubImg[i];
+				_oImg.aImg = aImg;
+				_oImg.nWidth  = nWidth;
+				_oImg.nHeight  = nHeight;
+				
+				var _nOff_X : Int = 0;
+				var _nOff_Y : Int = 0;
+				<cpp>
+					stbrp_rect* _rect = &aStbRect[i];
+					_nOff_X = _rect->x;
+					_nOff_Y = _rect->y;
+				</cpp>
+				_oImg.vOffset.nX = _nOff_X;
+				_oImg.vOffset.nY = _nOff_Y;
+				
+				Debug.fWarning("--------SEt: " + _nOff_X );
+			}
+		}
 		
 		destructor {
 			<cpp>

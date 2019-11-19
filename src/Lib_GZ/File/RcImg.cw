@@ -9,6 +9,7 @@ package  {
 	//import GZ.Gpu.GpuObj.GpuObject;
 	import GZ.Gpu.GpuObj.GpuRcImg;
 	import GZ.Gpu.Base.Texture;
+	import GZ.Base.Vec2;
 
 	/**
 	 * @author Maeiky
@@ -21,6 +22,9 @@ package  {
 		
 		
 		public var oGpuTexId : Val = 0;
+		
+		public var vOffset : Vec2<Float>;
+		
 		public var nWidth : UInt = 0;
 		public var nHeight : UInt = 0;
 		public var aImg : CArray<Int32, 2>

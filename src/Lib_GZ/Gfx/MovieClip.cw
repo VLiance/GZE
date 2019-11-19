@@ -76,7 +76,6 @@ package  {
 				var _oClip : Clip = new Clip(this, 0 , 0);
 				aTimeline[i] = _oClip;
 				aTest[i] = new Img(_oClip, _nX, _nY, _oRc.aImg[i], _bCenter, _nCenterX, _nCenterY);
-				Debug.fWarning("ADD Sequences");
 			}
 			
 			nLimit = aTimeline.nSize;
