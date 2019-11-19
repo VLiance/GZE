@@ -15,6 +15,7 @@ package  {
 		stbrp_context context;
 	</cpp_class>
 	
+
 	
 	/**
 	 * @author Maeiky
@@ -22,6 +23,7 @@ package  {
 	public class RcAtlas extends RcImg {
 	
 		public var aSubImg : Array<RcImg>; 
+		public const var nBorder : Int = 1; 
 		
 		<cpp_class>
 		gzArray<stbrp_rect> aStbRect;
@@ -41,6 +43,12 @@ package  {
 		
 
 		public function fCreate(_nWidth:Int, _nHeight:Int) : Bool {
+		
+			nWidth = _nWidth;
+			nHeight = _nHeight;
+			
+	//	var _nW : Int;
+	//	var _nH : Int;
 			<cpp>
 			if(nodes != 0){
 				GZ_fFree(nodes);
@@ -51,20 +59,33 @@ package  {
 			//nodes = GZ_fSafeMalloc( _nTotalNode, stbrp_node); //TODO free
 			stbrp_init_target(&context, _nWidth, _nHeight, nodes, _nTotalNode);
 			
+			
 
+			gzUInt nExtWidth = _nWidth + nBorder*2;
+			gzUInt nExtHeight = _nHeight + nBorder*2;
+
+			
 			///// Alloc ////////
-			gzUInt _nSizeOfPtr = _nHeight * sizeof(void*);
-			gzInt32* _a1dArray = (gzInt32*)GZ_fCalloc(_nWidth * (_nHeight) + _nSizeOfPtr, sizeof(gzInt32));
-			gzUIntX _n2dIndex = _nWidth * _nHeight;
+			gzUInt _nSizeOfPtr = nExtHeight * sizeof(void*);
+			gzInt32* _a1dArray = (gzInt32*)GZ_fCalloc((nExtWidth * nExtHeight) + _nSizeOfPtr, sizeof(gzInt32));
+			gzUIntX _n2dIndex = nExtWidth * nExtHeight;
 			aImg = (gzInt32**)&_a1dArray[_n2dIndex];
-			for(gzUInt i = 0; i < _nHeight; i++){
-				aImg[i] = _a1dArray +  _nWidth * i;
+			for(gzUInt i = 0; i < nExtHeight; i++){
+				//aImg[i] = _a1dArray +  _nWidth * i;
+				aImg[i] = &_a1dArray[i * nExtWidth];
 			}
-			nWidth = _nWidth;
-			nHeight = _nHeight;
+	
 			///////////////////
 			
+			
+		//	&p1DArray[ nExtWidth * (image_height + nBORDER)];
+			
 			</cpp>
+			/*
+			Debug.fTrace("Border: " + RcAtlas.nBorder);
+			Debug.fTrace("nExtWidth: " + _nW);
+			Debug.fTrace("nExtHeight: " + _nH);
+			*/
 		}
 	
 	
@@ -91,13 +112,19 @@ package  {
 		}
 		
 		public function fPack() : Bool {	
+			/*
 			<cpp>
-			stbrp_pack_rects(&context, (stbrp_rect*)aStbRect.m.array(), aStbRect.GnSize());
+			//stbrp_pack_rects(&context, (stbrp_rect*)aStbRect.m.array(), aStbRect.GnSize());
 			</cpp>
+			*/
 			return fCpuLoad();
 		}
 	
 		override public function fCpuLoad():Bool {
+			<cpp>
+			stbrp_pack_rects(&context, (stbrp_rect*)aStbRect.m.array(), aStbRect.GnSize());
+			</cpp>
+			
 			for(var i : UInt = 0; i < aSubImg.nSize; i++){
 				var _nX : Int;
 				var _nY : Int;
@@ -116,9 +143,10 @@ package  {
 		}
 		
 		public function fCopy(_oImg: RcImg, _nX: UInt, _nY: UInt) : Bool {
+			Debug.fWarning("COPOY! "  + _nX);
 			for(var y : UInt = 0; y < _oImg.nHeight; y++){
 				for(var x : UInt = 0; x < _oImg.nWidth; x++){
-					aImg[_nX + y][_nY + x] = _oImg.aImg[y][x];
+					aImg[RcAtlas.nBorder + _nY + y][RcAtlas.nBorder + _nX + x] = _oImg.aImg[y][x];
 				}
 			}
 		}
