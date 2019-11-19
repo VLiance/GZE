@@ -152,7 +152,7 @@ package  {
 			var _nOff_X : Float = oRc.vOffset.nX; //TODO maybe calculate offset dynamicly after
 			var _nOff_Y : Float = oRc.vOffset.nY; //TODO maybe calculate offset dynamicly after
 			
-			Debug.fWarning("_nOff_X: " + _nOff_X + "  _nOff_Y:"  +_nOff_Y );
+		//	Debug.fWarning("_nOff_X: " + _nOff_X + "  _nOff_Y:"  +_nOff_Y );
 			
 			
 			//_nOff_X = 30;
