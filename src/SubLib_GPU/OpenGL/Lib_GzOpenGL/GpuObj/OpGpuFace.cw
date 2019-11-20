@@ -97,11 +97,14 @@ package  {
 		
 		//if(oAtTiles.oAtTilesHV == 0){return;}
 	
-		
+		var _nType : UInt = 4;
+
 		//if (oFace.oShape.oParent.hType == Root.eType.Tile){//BAD evil Cast
 		if (oFace.oShape.hType == Root.eType.Tile){//BAD evil Cast
 	
+			_nType = 6;
 
+			
 			//var _oTile : Tile = oFace.oShape.oParent; //Cast to tile  //BAD evil Cast
 			var _oTile : Tile = oFace.oShape; //Cast to tile  //BAD evil Cast
 		
@@ -119,6 +122,10 @@ package  {
 			oAtTiles.oAtTilesC.fSetVal(2, _oTile.nNPosBR);
 			oAtTiles.oAtTilesC.fSetVal(3, _oTile.nNPosBL);
 		}
+		
+
+		oAt.oAtObjPos.fSetVal(3, _nType); //Merge pos and type to save space
+		
 		
 		/*
    cTile* _oTile = (cTile*)oShape;

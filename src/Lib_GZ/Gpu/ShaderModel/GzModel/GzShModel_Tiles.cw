@@ -62,7 +62,7 @@ package  {
 							
 	uniform int nType;
 
-	in vec4 in_ObjPos; //x, y, z, ???? 
+	in vec4 in_ObjPos; //x, y, z, nType 
 	//in vec4 in_ObjRot; // Roll, Yaw, Pitch, Focal
 	in vec4 in_ObjRot; //Quaternion -> x, y, z, w
 	in vec4 in_ObjSize;  //Width,Height,Length, ????
@@ -141,7 +141,7 @@ package  {
 	//out vec2 ioCorner;
 	//xflat out mat4 iomColor;
 	out vec2 ioTexture;
-	uniform vec2 vTexDim;
+	uniform vec2 vTexDimFetch;
 	//in int gl_VertexID;
 	
 
@@ -307,7 +307,7 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 			//gl_Position.y = in_PtPos.y;
 			//gl_Position.z = in_PtPos.z;
 			
-		//	ivTexDim = ivec2(vTexDim);
+		//	ivTexDim = ivec2(vTexDimFetch);
 
 
             ///////////////////////////////////////////////////
@@ -387,8 +387,8 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 		gl_Position.y = 1.0 - gl_Position.y - 1.0; //FlipY
 
 		//////////// SRC ///////////////
-		//ioTexture.x = (vSrc.x + 0.5 ) / (vTexDim.x );
-		//ioTexture.y = (vSrc.y + 0.5 ) / (vTexDim.y );
+		//ioTexture.x = (vSrc.x + 0.5 ) / (vTexDimFetch.x );
+		//ioTexture.y = (vSrc.y + 0.5 ) / (vTexDimFetch.y );
 		ioTexture.x = (vSrc.x  ) ;
 		ioTexture.y = (vSrc.y );
 		////////////////////////////////
@@ -474,7 +474,7 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 		//////////////////////////////////////////////////////
 		/////////////////////////////////////////////////////
 	*/
-		iomWorldPt[0] = vec4(ioPt1 + _vObjPos.xyz,0);
+		iomWorldPt[0] = vec4(ioPt1 + _vObjPos.xyz, in_ObjPos.w); // in_ObjPos.w = nType
 		iomWorldPt[1] = vec4(ioPt2 + _vObjPos.xyz,0);
 		iomWorldPt[2] = vec4(ioPt3 + _vObjPos.xyz,0);
 		iomWorldPt[3] = vec4(ioPt4 + _vObjPos.xyz,0);
@@ -487,7 +487,7 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 	//in vec4 in_TexSource1;  //Sx3,Sy3,Sx4,Sy4
 //TILESET SRC
 
-ivTexDim = ivec2(vTexDim);
+ivTexDim = ivec2(vTexDimFetch);
 
 
 /////////////////////////////////////////////////////
@@ -889,8 +889,9 @@ uniform vec4 vColorBL;
 uniform vec4 v1Color;
 uniform mat4 mColor;
 
-uniform int nType;
-uniform vec2 vTexDim;
+
+uniform vec2 vTexDimFetch;
+uniform vec2 vTexDimNorm;
 
 
 vec3 vDark;
@@ -927,8 +928,15 @@ float att_kQ = 0.002; //KQ is the quadratic attenuation
 
 smooth in vec2 uv;
 	
+float nType;
+	
 void main()
 {
+
+nType = iomWorldPt[0].w;
+
+
+
 	/// Make a bilinear interpolation from uv ///
 	vec4 _vCoDist = vec4((1.0-uv.x)*(1.0-uv.y), (uv.x)*(1.0-uv.y), (uv.x)*(uv.y), (1.0-uv.x)*(uv.y));
 	////////////////////////////////////////
@@ -963,7 +971,7 @@ void main()
 				//int nRetroRatio = 4;
 
 				//Work
-				//vec2 vPosTex = vec2(ioTexture.x * vTexDim.x, ioTexture.y  * vTexDim.y) - 0.5; //+2 px border
+				//vec2 vPosTex = vec2(ioTexture.x * vTexDimFetch.x, ioTexture.y  * vTexDimFetch.y) - 0.5; //+2 px border
 
 			vec2 vRetroR = vec2(1.0,1.0);
 			//ivec2 vFlip = ivec2(1,1);
@@ -971,7 +979,7 @@ void main()
 			//vec2 ioOffsetTL = vec2(0.0,0);
 			
 
-				//vec2 vPosTex = ioTexture * vTexDim * float(1 << nRetroRatio) - 0.5;
+				//vec2 vPosTex = ioTexture * vTexDimFetch * float(1 << nRetroRatio) - 0.5;
 				//ivec2 _vIPosTex = ivec2(vPosTex );
 				//vPosTL = (_vIPosTex) >> nRetroRatio;
 				//vPosTR = (_vIPosTex + ivec2(1, 0)) >> nRetroRatio;
@@ -982,7 +990,7 @@ void main()
 
 				//float _nRatio = float(nRetroRatio);
 				vec2 vPosTex = (ioTexture  * vRetroR  );
-//vec2 vPosTex = (ioTexture * vTexDim * vRetroR  - 0.5);
+//vec2 vPosTex = (ioTexture * vTexDimFetch * vRetroR  - 0.5);
 
 
 				ivec2 _vIPosTex = ivec2(vPosTex );
@@ -1061,10 +1069,10 @@ void main()
 				vec4 vPixBL = texelFetch(TexCurrent, vPosBL,0);
 
 /*
-				vec4 vPixTL = texture(TexCurrent, (vec2(vPosTL) + 0.5) /vTexDim );
-				vec4 vPixTR = texture(TexCurrent, (vec2(vPosTR) + 0.5) /vTexDim);
-				vec4 vPixBR = texture(TexCurrent, (vec2(vPosBR) + 0.5)/vTexDim);
-				vec4 vPixBL = texture(TexCurrent, (vec2(vPosBL) + 0.5) /vTexDim);
+				vec4 vPixTL = texture(TexCurrent, (vec2(vPosTL) + 0.5) /vTexDimFetch );
+				vec4 vPixTR = texture(TexCurrent, (vec2(vPosTR) + 0.5) /vTexDimFetch);
+				vec4 vPixBR = texture(TexCurrent, (vec2(vPosBR) + 0.5)/vTexDimFetch);
+				vec4 vPixBL = texture(TexCurrent, (vec2(vPosBL) + 0.5) /vTexDimFetch);
 */
 
 				vec2 vFracTL = 1.0 - fract(vPosTex );
@@ -1080,7 +1088,8 @@ void main()
 				
 
 			}else{
-				pixTex = texture(TexCurrent, ioTexture);// ( + 0.5 )  / (vTexDim
+				//pixTex = texture(TexSprites, ioTexture);// ( + 0.5 )  / (vTexDimFetch
+				pixTex = texture(TexSprites, (ioTexture + 0.5)/ vTexDimNorm );// ( + 0.5 )  / (vTexDimFetch
 			}
 			
 	//	pixTex = vec4(0.5,0.5,0.5,0.5);	

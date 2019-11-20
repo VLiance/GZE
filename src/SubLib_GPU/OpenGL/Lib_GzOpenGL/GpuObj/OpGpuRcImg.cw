@@ -21,7 +21,8 @@ package  {
 		
 		public var oTexId : Val = null;
 			
-		public var oUvTexDim : UnVec2;
+		public var oUvTexDimFetch : UnVec2;
+		public var oUvTexDimNorm : UnVec2;
 		
 		
 		public function fLoadImg(_aImg : CArray<Int, 1>, _nWidth : Int, _nHeight : Int, _oGpuTexLayer : Texture):Val{
@@ -84,10 +85,17 @@ package  {
 				//Debug.fPass("Image Gpu Loaded: " + oTexId);
 				Debug.fPass("Image Gpu Loaded [" + (_nWidth +2) + " x " +  (_nHeight+2) + "]" );
 
-				oUvTexDim = new UnVec2(Attribute_Quad.oProgram, "vTexDim");
-				oUvTexDim.vVal.nX = _nWidth+2;
-				oUvTexDim.vVal.nY = _nHeight+2;
-				oUvTexDim.fSend();
+			if(oGpuTexLayer != null){ /
+				oUvTexDimNorm = new UnVec2(Attribute_Quad.oProgram, "vTexDimNorm");
+				oUvTexDimNorm.vVal.nX = _nWidth+2;
+				oUvTexDimNorm.vVal.nY = _nHeight+2;
+				oUvTexDimNorm.fSend();
+			}
+				
+				oUvTexDimFetch = new UnVec2(Attribute_Quad.oProgram, "vTexDimFetch");
+				oUvTexDimFetch.vVal.nX = _nWidth+2;
+				oUvTexDimFetch.vVal.nY = _nHeight+2;
+				oUvTexDimFetch.fSend();
 
 			}else{
 				Debug.fError("Image Gpu Loaded Failed");
