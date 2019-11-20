@@ -22,13 +22,17 @@ package  {
 		
 		
 		public var oGpuTexId : Val = 0;
-		
-		public var vOffset : Vec2<Float>;
+
 		
 		public var nWidth : UInt = 0;
 		public var nHeight : UInt = 0;
 		public var aImg : CArray<Int32, 2>
+		
 		public var oGpuRcImg : GpuRcImg;
+				
+		public var vOffset : Vec2<Float>;
+		public var vFullSize : Vec2<UInt>;
+	
 		
 		
 		
@@ -99,7 +103,11 @@ package  {
 						Debug.fTrace("Image.fOpen");
 				Image.fOpen(this); //Set aImg
 				Debug.fTrace("Finish TODO");
+				
+				vFullSize.nX = nWidth; //TODO nW or w ?
+				vFullSize.nY = nHeight; //TODO nH or height ?
 			}
+
 			return true;
 		}
 		

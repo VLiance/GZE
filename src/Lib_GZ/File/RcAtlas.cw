@@ -94,8 +94,8 @@ package  {
 			<cpp>
 			stbrp_rect _rect;
 			_rect.id = aStbRect.GnSize();
-			_rect.w = _oImg->nWidth;
-			_rect.h = _oImg->nHeight;
+			_rect.w = _oImg->nWidth + nBorder*2;
+			_rect.h = _oImg->nHeight + nBorder*2;
 			_rect.x = 0;
 			_rect.y = 0;
 			
@@ -143,7 +143,7 @@ package  {
 		}
 		
 		public function fCopy(_oImg: RcImg, _nX: UInt, _nY: UInt) : Bool {
-
+			//TODO don't copy border?
 			for(var y : UInt = 0; y < _oImg.nHeight; y++){
 				for(var x : UInt = 0; x < _oImg.nWidth; x++){
 					aImg[RcAtlas.nBorder + _nY + y][RcAtlas.nBorder + _nX + x] = _oImg.aImg[y][x];
@@ -161,10 +161,8 @@ package  {
 		public function fTransposeAll() : Void {
 			for(var i : UInt = 0; i < aSubImg.nSize; i++){
 				var _oImg : RcImg = aSubImg[i];
-				_oImg.aImg = aImg;
-				_oImg.nWidth  = nWidth;
-				_oImg.nHeight  = nHeight;
-				
+				_oImg.aImg = aImg; //TODO delete original?
+			
 				var _nOff_X : Int = 0;
 				var _nOff_Y : Int = 0;
 				<cpp>
@@ -174,6 +172,9 @@ package  {
 				</cpp>
 				_oImg.vOffset.nX = _nOff_X;
 				_oImg.vOffset.nY = _nOff_Y;
+				
+				_oImg.vFullSize.nX = nWidth; //TODO nW or w ?
+				_oImg.vFullSize.nY = nHeight; //TODO nH or height ?
 				
 				Debug.fWarning("--------SEt: " + _nOff_X );
 			}
