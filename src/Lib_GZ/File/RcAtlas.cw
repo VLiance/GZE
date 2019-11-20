@@ -46,6 +46,8 @@ package  {
 		
 			nWidth = _nWidth;
 			nHeight = _nHeight;
+			vFullSize.nX = nWidth;
+			vFullSize.nY = nHeight;
 			
 	//	var _nW : Int;
 	//	var _nH : Int;
@@ -143,9 +145,9 @@ package  {
 		}
 		
 		public function fCopy(_oImg: RcImg, _nX: UInt, _nY: UInt) : Bool {
-			//TODO don't copy border?
-			for(var y : UInt = 0; y < _oImg.nHeight; y++){
-				for(var x : UInt = 0; x < _oImg.nWidth; x++){
+			//TODO don't copy border? --> done
+			for(var y : UInt = 1; y < _oImg.nHeight + RcAtlas.nBorder; y++){
+				for(var x : UInt = 1; x < _oImg.nWidth + RcAtlas.nBorder; x++){
 					aImg[RcAtlas.nBorder + _nY + y][RcAtlas.nBorder + _nX + x] = _oImg.aImg[y][x];
 				}
 			}

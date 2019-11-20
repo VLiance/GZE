@@ -73,7 +73,7 @@ package  {
 	
 	
 			//var _nNbElement : Int  = Context.oItf.nTotalFaces;
-			var _nNbElement : Int  = Context.oItf.nTotalFaces-1;
+			var _nNbElement : Int  = Context.oItf.nTotalFaces-1; //TODO bakcround (-1)
 
 			OpenGL.fBindFramebuffer(FRAMEBUFFER, null); //Default?
 	
