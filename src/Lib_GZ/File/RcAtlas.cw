@@ -46,8 +46,8 @@ package  {
 		
 			nWidth = _nWidth;
 			nHeight = _nHeight;
-			vFullSize.nX = nWidth;
-			vFullSize.nY = nHeight;
+		//	vFullSize.nX = nWidth;
+		//	vFullSize.nY = nHeight;
 			
 	//	var _nW : Int;
 	//	var _nH : Int;
@@ -175,9 +175,10 @@ package  {
 				_oImg.vOffset.nX = _nOff_X;
 				_oImg.vOffset.nY = _nOff_Y;
 				
-				_oImg.vFullSize.nX = nWidth; //TODO nW or w ?
-				_oImg.vFullSize.nY = nHeight; //TODO nH or height ?
+				//_oImg.vFullSize.nX = nWidth; //TODO nW or w ?
+				//_oImg.vFullSize.nY = nHeight; //TODO nH or height ?
 				
+				_oImg.oLinkRc = this;
 				Debug.fWarning("--------SEt: " + _nOff_X );
 			}
 		}

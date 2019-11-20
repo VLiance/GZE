@@ -30,10 +30,12 @@ package  {
 		
 		public var oGpuRcImg : GpuRcImg;
 				
-		public var vOffset : Vec2<Float>;
-		public var vFullSize : Vec2<UInt>;
-	
 		
+		public var vOffset : Vec2<Float>;
+		
+		public wvar oLinkRc : RcImg;
+	//	public var vFullSize : Vec2<UInt>;
+	
 		
 		
 		public function RcImg(_sPath : String ):Void {
@@ -41,7 +43,7 @@ package  {
 			Resource(_sPath);
 			
 			oGpuRcImg = new GpuRcImg();
-			
+			oLinkRc = this;
 			// hLocation : eLocation = eLocation.Drive;
 		}
 		
@@ -104,20 +106,20 @@ package  {
 				Image.fOpen(this); //Set aImg
 				Debug.fTrace("Finish TODO");
 				
-				vFullSize.nX = nWidth; //TODO nW or w ?
-				vFullSize.nY = nHeight; //TODO nH or height ?
+			//	vFullSize.nX = nWidth; //TODO nW or w ?
+			//	vFullSize.nY = nHeight; //TODO nH or height ?
 			}
 
 			return true;
 		}
 		
 		override public function fGpuLoad():Bool {
-			
+				//TODO Call direct function with  oLinkRc
 			//if(System.bHaveGpu){
-				if(Context.oItf.bGpuDraw && bGpuLoaded == false){
-					bGpuLoaded = true;
-					if(aImg != null){
-						oGpuTexId = oGpuRcImg.fLoadImg(aImg[0], nWidth, nHeight, oGpuTexLayer);
+				if(Context.oItf.bGpuDraw && oLinkRc.bGpuLoaded == false){
+					oLinkRc.bGpuLoaded = true;
+					if(oLinkRc.aImg != null){
+						oLinkRc.oGpuTexId = oLinkRc.oGpuRcImg.fLoadImg(oLinkRc.aImg[0], oLinkRc.nWidth,  oLinkRc.nHeight, oLinkRc.oGpuTexLayer);
 					}
 					
 					return true;
