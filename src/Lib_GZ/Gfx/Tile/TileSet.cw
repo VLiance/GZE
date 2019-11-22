@@ -12,6 +12,8 @@ package  {
 	import GZ.File.RcImg;
 	import GZ.Gfx.Tile.TileInfo;
 	import GZ.Base.Pt;
+	import GZ.Sys.Interface.Context;
+	import GZ.Gpu.ShaderModel.AtModel.Attribute_Quad;
 	
 	/**
 	 * @author Maeiky
@@ -77,6 +79,10 @@ package  {
 				
 				Debug.fTrace("Open: "  + _sSrc);
 				oRc = new RcImg("Exe|Rc/Tiled/" + _sSrc);	
+				
+				if(Context.oItf.bGpuDraw){
+					oRc.fSetGpuTexLayer(Attribute_Quad.oTexture);
+				}
 				
 				//oRc.fLoadFromDrive(_sSrc);
 				oRc.fCpuLoad();

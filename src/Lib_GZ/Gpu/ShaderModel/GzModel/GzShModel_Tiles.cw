@@ -216,6 +216,17 @@ int nOriRY;
 //////////////////
 
 
+//uniform sampler2D TexCurrent; 
+	uniform vec2 vTexCurrent;
+	
+//uniform sampler2D TexNormal;
+	uniform vec2 vTexNormal;
+	
+//uniform sampler2D TexSprites;
+	uniform vec2 vTexSprites;
+
+
+
 
 	
 vec3 fQRot( vec3 pt, vec4 rot)       {
@@ -487,7 +498,8 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 	//in vec4 in_TexSource1;  //Sx3,Sy3,Sx4,Sy4
 //TILESET SRC
 
-ivTexDim = ivec2(vTexDimFetch);
+ivTexDim = ivec2(vTexCurrent);
+//ivTexDim = ivec2(vTexDimFetch);
 
 
 /////////////////////////////////////////////////////
@@ -806,9 +818,15 @@ ivec2 vPosBL;
 		
 	//out vec4 outputColor;
 
-	uniform sampler2D TexCurrent;
+	uniform sampler2D TexCurrent; 
+		uniform vec2 vTexCurrent;
+		
 	uniform sampler2D TexNormal;
+		uniform vec2 vTexNormal;
+		
 	uniform sampler2D TexSprites;
+		uniform vec2 vTexSprites;
+		
 	//uniform sampler2D TexSource;
 	//uniform sampler2D TexFragPos;
 	//uniform sampler2D TexPixSrc;
@@ -890,8 +908,8 @@ uniform vec4 v1Color;
 uniform mat4 mColor;
 
 
-uniform vec2 vTexDimFetch;
-uniform vec2 vTexDimNorm;
+//uniform vec2 vTexDimFetch;
+
 
 
 vec3 vDark;
@@ -1089,7 +1107,7 @@ nType = iomWorldPt[0].w;
 
 			}else{
 				//pixTex = texture(TexSprites, ioTexture);// ( + 0.5 )  / (vTexDimFetch
-				pixTex = texture(TexSprites, (ioTexture + 0.5)/ vTexDimNorm );// ( + 0.5 )  / (vTexDimFetch
+				pixTex = texture(TexSprites, (ioTexture + 0.5)/ vTexSprites );// ( + 0.5 )  / (vTexDimFetch
 			}
 			
 	//	pixTex = vec4(0.5,0.5,0.5,0.5);	

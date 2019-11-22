@@ -32,14 +32,26 @@ package  {
 			if(_nWidth = 0 && _nHeight == 0){
 				return null;
 			}
+			if(oGpuTexLayer == null){
+				Debug.fError("Error, you must specify a Texture Layer to send Image on GPU");
+				return null;
+			}
 			
-
+			if(oGpuTexLayer.nSlot == 0){
+				OpenGL.fActiveTexture(TEXTURE0);
+			}
+			if(oGpuTexLayer.nSlot == 1){
+				OpenGL.fActiveTexture(TEXTURE1);
+			}
+			
+			/*
 			if(oGpuTexLayer == null){ //TODO link text layer
 				OpenGL.fActiveTexture(TEXTURE0);
 			}else{
 				OpenGL.fActiveTexture(TEXTURE1);
 				Debug.fInfo("Enable TEXTURE1 !!!!!!!!");
-			}
+			}*/
+			
 			
 			oTexId = OpenGL.fCreateTexture();
 			OpenGL.fBindTexture(TEXTURE_2D, oTexId);
@@ -85,17 +97,22 @@ package  {
 				//Debug.fPass("Image Gpu Loaded: " + oTexId);
 				Debug.fPass("Image Gpu Loaded [" + (_nWidth +2) + " x " +  (_nHeight+2) + "]" );
 
-			if(oGpuTexLayer != null){ /
+			//if(oGpuTexLayer != null){
+				
+				oGpuTexLayer.fSendSize(_nWidth+2, _nHeight+2);
+				/*
 				oUvTexDimNorm = new UnVec2(Attribute_Quad.oProgram, "vTexDimNorm");
 				oUvTexDimNorm.vVal.nX = _nWidth+2;
 				oUvTexDimNorm.vVal.nY = _nHeight+2;
 				oUvTexDimNorm.fSend();
-			}
-				
+				*/
+			//}
+				/*
 				oUvTexDimFetch = new UnVec2(Attribute_Quad.oProgram, "vTexDimFetch");
 				oUvTexDimFetch.vVal.nX = _nWidth+2;
 				oUvTexDimFetch.vVal.nY = _nHeight+2;
 				oUvTexDimFetch.fSend();
+				*/
 
 			}else{
 				Debug.fError("Image Gpu Loaded Failed");

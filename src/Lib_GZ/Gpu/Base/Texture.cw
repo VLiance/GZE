@@ -12,17 +12,21 @@ package  {
 
 		
 		public var nId : Val;
+		public var nSizeId : Val;
 		public var sName : String;
+		public var sSizeName : String;
 		public var bValid : Bool = false;
 		
+		public var nSlot : Float;
 		
 		public wvar oProgram : ProgramShader;
 
 		
 				
-		public function Texture(_oProgram : ProgramShader, _sName : String):Void {
+		public function Texture(_oProgram : ProgramShader, _sName : String,  _sSizeName : String):Void {
 
 			sName = _sName;
+			sSizeName = _sSizeName;
 			oProgram = _oProgram;
 			//oProgram.aTex.fPush(this); //Todo
 			
@@ -37,6 +41,11 @@ package  {
 		
 		public function fSend(_nSlot : UInt):Void {
 		}
+		
+		public function fSendSize(_nWidth : Float, _nHeight : Float):Void {	
+		}
+		
+		
 		
 	}
 }

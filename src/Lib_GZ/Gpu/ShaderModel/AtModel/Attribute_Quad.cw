@@ -96,11 +96,11 @@ package  {
 
 			
 			
-			oTexture = new Texture(oProgram, "TexCurrent");
+			oTexture = new Texture(oProgram, "TexCurrent", "vTexCurrent");
 			oTexture.fSend(0);
 			
 			//TODO Normals in AtQuad?
-			oTexSprites = new Texture(oProgram, "TexSprites");
+			oTexSprites = new Texture(oProgram, "TexSprites", "vTexSprites");
 			oTexSprites.fSend(1);
 			
 			
