@@ -22,7 +22,26 @@ package  {
 		
 			nId = OpenGL.fGetUniformLocation(oProgram.nId, sName);
 			nSizeId = OpenGL.fGetUniformLocation(oProgram.nId, sSizeName);
-			bValid = true; //Todo
+			bValid = true;
+			
+			<cpp>
+			if(nId == gzVal(-1) ){
+			</cpp>
+				Debug.fWarning("OpenGL: Unabled to find Uniform (or optimised out): " + sName );
+				bValid = false;
+			<cpp>
+			}
+			</cpp>
+			
+			<cpp>
+			if(nSizeId == gzVal(-1) ){
+			</cpp>
+				Debug.fWarning("OpenGL: Unabled to find Uniform (or optimised out): " + sSizeName );
+				bValid = false;
+			<cpp>
+			}
+			</cpp>
+			
 			//var _nID : Int = nId;
 			//Debug.fPass("--- Texture Created!:--- "  + _nID);
 			// _nSlot + GL_TEXTURE0;

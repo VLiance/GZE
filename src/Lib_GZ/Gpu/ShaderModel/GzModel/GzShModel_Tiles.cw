@@ -936,11 +936,11 @@ float att_kQ = 0.002; //KQ is the quadratic attenuation
 */
 ////////////
 	
-	 
-       // vec3 eye_position = vec3(  400.0, 1600.0, -300.0);
-        vec3 eye_position = vec3(  400.0, 300.0, -500.0);
-      //  vec3 light_position  =   vec3( 400.0,300.0, 0.0);
-        vec3 light_position  =   vec3( 400.0,300.0, -300.0);
+
+// vec3 eye_position = vec3(  400.0, 1600.0, -300.0);
+vec3 eye_position = vec3(  400.0, 300.0, -500.0);
+//  vec3 light_position  =   vec3( 400.0,300.0, 0.0);
+vec3 light_position  =   vec3( 400.0,300.0, -300.0);
 
 
 

@@ -21,6 +21,18 @@ package  {
 			nId = OpenGL.fGetUniformLocation(oProgram.nId, sName);
 			
 			bValid = true; //Todo
+			
+			
+			<cpp>
+			if(nId == gzVal(-1) ){
+			</cpp>
+				Debug.fWarning("OpenGL: Unabled to find Uniform (or optimised out): " + sName );
+				bValid = false
+				return;
+			<cpp>
+			}
+			</cpp>
+			
 			/*
 			if(nId >= 0){
 				Debug.fWarning(" *** bValid ---- " );

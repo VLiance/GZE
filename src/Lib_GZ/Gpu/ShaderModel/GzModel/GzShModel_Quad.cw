@@ -50,7 +50,19 @@ package  {
 			
 	
 <glsl(oVertex)>
-							
+				
+
+//uniform sampler2D TexCurrent; 
+	uniform vec2 vTexCurrent;
+	
+//uniform sampler2D TexNormal;
+	uniform vec2 vTexNormal;
+	
+//uniform sampler2D TexSprites;
+	uniform vec2 vTexSprites;
+
+
+				
 	uniform int nType;
 
 	in vec4 in_ObjPos; //x, y, z, ???? 
@@ -122,7 +134,7 @@ package  {
 	out vec2 ioCorner;
 	xflat out mat4 iomColor;
 	out vec2 ioTexture;
-	uniform vec2 vTexDim;
+	//uniform vec2 vTexDim;
 	//in int gl_VertexID;
 	
 
@@ -135,10 +147,14 @@ xflat out vec3 ioPt1;
 xflat out vec3 ioPt2;
 xflat out vec3 ioPt3;
 xflat out vec3 ioPt4;
+
+xflat out vec3 ioNorm;
+/*
 xflat out vec3 ioNorm1;
 xflat out vec3 ioNorm2;
 xflat out vec3 ioNorm3;
 xflat out vec3 ioNorm4;
+*/
 xflat out mat4 iomWorldPt;
 xflat out mat4 iomNorm;
 /////////
@@ -314,8 +330,8 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 		gl_Position.y = 1.0 - gl_Position.y - 1.0; //FlipY
 
 		//////////// SRC ///////////////
-		ioTexture.x = (vSrc.x + 0.5 ) / (vTexDim.x );
-		ioTexture.y = (vSrc.y + 0.5 ) / (vTexDim.y );
+		ioTexture.x = (vSrc.x + 0.5 ) / (vTexCurrent.x );
+		ioTexture.y = (vSrc.y + 0.5 ) / (vTexCurrent.y );
 		////////////////////////////////
 		
 		//Send color
@@ -357,12 +373,16 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 		pt2.x = (pt2.x + (_vObjPos.x - vPersp.x) ) / nZx - (_vObjPos.x - vPersp.x);\n
 		pt2.y = (pt2.y + (_vObjPos.y - vPersp.y) ) / nZx - (_vObjPos.y - vPersp.y);\n
 
-	   if(cross(pt1, pt2).z < 0.0 ){
+		
+		
+		nFrontFacing = 1.0;
+		/*
+	   if(cross(pt1, pt2).z < 1.0 ){
 			nFrontFacing = -1.0;
 		}else{
 			nFrontFacing = 1.0;
 		}
-			
+			*/
 		 //If both = anulation
 		if(in_ObjSize.x < 0.0){ //Reverse width
 		   nFrontFacing *= -1.0;
@@ -371,25 +391,32 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 		   nFrontFacing *= -1.0;
 		}
 
+		ioNorm = normalize(vec3(0.0,0.0,1.0 * nFrontFacing  ));
+		ioNorm.xyz = fQRot_2(ioNorm.xyz, in_ObjRot);
+		/*
 		ioNorm1 = normalize(vec3(-1.0,-1.0,-9.0 * nFrontFacing ));
 		ioNorm2 = normalize(vec3( 1.0,-1.0,-9.0 * nFrontFacing));
 		ioNorm3 = normalize(vec3( 1.0, 1.0,-9.0 * nFrontFacing ));
 		ioNorm4 = normalize(vec3(-1.0, 1.0,-9.0 * nFrontFacing ));
+	
 
 		ioNorm1.xyz = fQRot_2(ioNorm1.xyz, in_ObjRot);
 		ioNorm2.xyz = fQRot_2(ioNorm2.xyz, in_ObjRot);
 		ioNorm3.xyz = fQRot_2(ioNorm3.xyz, in_ObjRot);
 		ioNorm4.xyz = fQRot_2(ioNorm4.xyz, in_ObjRot);
-
+		
+		iomNorm[0] = vec4(ioNorm1,0);
+		iomNorm[1] = vec4(ioNorm2,0);
+		iomNorm[2] = vec4(ioNorm3,0);
+		iomNorm[3] = vec4(ioNorm4,0);
+	*/
+	
 		iomWorldPt[0] = vec4( ioPt1 + _vObjPos.xyz,0);
 		iomWorldPt[1] = vec4(ioPt2 + _vObjPos.xyz,0);
 		iomWorldPt[2] = vec4(ioPt3 + _vObjPos.xyz,0);
 		iomWorldPt[3] = vec4(ioPt4 + _vObjPos.xyz,0);
 
-		iomNorm[0] = vec4(ioNorm1,0);
-		iomNorm[1] = vec4(ioNorm2,0);
-		iomNorm[2] = vec4(ioNorm3,0);
-		iomNorm[3] = vec4(ioNorm4,0);
+
 		//////////////////////////////////////////////////////
 		/////////////////////////////////////////////////////
 		
@@ -440,13 +467,23 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 			///////////// Fragment Shader //////////////
 <glsl(oFragement)>
 				
-					
+	uniform sampler2D TexCurrent; 
+	uniform vec2 vTexCurrent;
+	
+	uniform sampler2D TexNormal;
+	uniform vec2 vTexNormal;
+	
+	uniform sampler2D TexSprites;
+	uniform vec2 vTexSprites;
+
+
+	
 	//out vec4 outputColor;
 
-	uniform sampler2D TexCurrent;
-	uniform sampler2D TexSource;
-	uniform sampler2D TexFragPos;
-	uniform sampler2D TexPixSrc;
+//	uniform sampler2D TexCurrent;
+//	uniform sampler2D TexSource;
+	//uniform sampler2D TexFragPos;
+	//uniform sampler2D TexPixSrc;
 
 	//uniform sampler2DArray TexArray;  
 
@@ -473,7 +510,7 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 	uniform mat4 mColor;
 
 	uniform int nType;
-	uniform vec2 vTexDim;
+	//uniform vec2 vTexDim;
 	
 	
 	xflat in mat4 iomColor;
@@ -488,11 +525,33 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 /////////////
 
 xflat in mat4 iomWorldPt;
-xflat in mat4 iomNorm;
+//xflat in mat4 iomNorm;
+xflat in vec3 ioNorm; // Maybe if we get it from world norm
 
-vec4  vColorSpecular = vec4(2.0, 2.0, 1.5, 1.0); //0 to X Can be premultiplied with alpha
-vec4  vColorDiffuse = vec4(1.5,1.5,1.5, 1.5);  //rgb -1 to 2  no diffuse : vec4(0.0,0.0,0.0, 1.0); normal : vec4(1.0,1.0,1.0, 1.0);
-vec3 vAmbient = vec3(0.2, 0.2, 0.2);
+//vec4  vColorSpecular = vec4(2.0, 2.0, 1.5, 1.0); //0 to X Can be premultiplied with alpha
+//vec4  vColorDiffuse = vec4(1.5,1.5,1.5, 1.5);  //rgb -1 to 2  no diffuse : vec4(0.0,0.0,0.0, 1.0); normal : vec4(1.0,1.0,1.0, 1.0);
+//vec3 vAmbient = vec3(0.2, 0.2, 0.2);
+
+
+
+vec4  vColorSpecular = vec4(1.0,1.0,0.2 , 2.5); //0 to X Can be premultiplied with alpha
+vec4  vColorDiffuse = vec4(1.0, 1.0, 1.0, 3.75);  //rgb -1 to 2  no diffuse : vec4(0.0,0.0,0.0, 1.0); normal : vec4(1.0,1.0,1.0, 1.0);
+vec3 vAmbient = vec3(-1.0, -1.0, -1.0); // -1.0 to 1.0
+
+//0 to 1
+float att_kC = 1.02; //Kc is the constant attenuation
+float att_kL = 0.20; //KL is the linear attenuation
+float att_kQ = 0.002; //KQ is the quadratic attenuation
+
+vec3 eye_position = vec3(  400.0, 300.0, -500.0);
+//vec3 light_position  =   vec3( 400.0,300.0, -300.0);
+vec3 light_position  =   vec3( 200.0, -100.0, -400.0);
+
+
+
+
+
+
 ////////////
 	
 smooth in vec2 uv;
@@ -517,131 +576,21 @@ void main()
 		
 	if( nType == 6){
 
-			//Normal
-			//pixTex = texture(TexCurrent, ioTexture);
-
-			/*
-			vec2 _vPosTex = vec2( (ioPtSrc1.x + (vCoDist.b + vCoDist.r)*32.0)/511.0  ,  (ioPtSrc1.y + (vCoDist.b + vCoDist.g )*32.0)/514.0  );
-			pixTex = texture(TexCurrent, _vPosTex);
-			*/
-
-
-			//float _nFactor =  1.0 - 0.01859375;  //.499/32 or .495
-		//	if(vCoDist.a + vCoDist.r   > _nFactor  ||  vCoDist.r + vCoDist.b   > _nFactor ||  vCoDist.g + vCoDist.b   > _nFactor || vCoDist.g + vCoDist.a   > _nFactor){
-
-				//int _nRatio = 0;
-				//int nRetroRatio = 4;
-
-				//Work
-				//vec2 vPosTex = vec2(ioTexture.x * vTexDim.x, ioTexture.y  * vTexDim.y) - 0.5; //+2 px border
-
-				/*
-			vec2 vRetroR = vec2(2.0,2.0);
-			vec2 vFlip = vec2(1.0,10);
-			vec2 ioOffsetTL = vec2(0.0,0);
-			vec2 ioOffsetTL = vec2(0.0,0);
-			*/
-			
-/*
-
-
-
-				vec2 vPosTex = ioTexture * vTexDim * float(1 << nRetroRatio) - 0.5;
-				ivec2 _vIPosTex = ivec2(vPosTex );
-				vPosTL = (_vIPosTex) >> nRetroRatio;
-				vPosTR = (_vIPosTex + ivec2(1, 0)) >> nRetroRatio;
-				vPosBR = (_vIPosTex + ivec2(1, 1)) >> nRetroRatio;
-				vPosBL = (_vIPosTex + ivec2(0, 1)) >> nRetroRatio;
-*/
-
-/*
-				//float _nRatio = float(nRetroRatio);
-				vec2 vPosTex = (ioTexture * vTexDim * vRetroR  - 0.5);
-				ivec2 _vIPosTex = ivec2(vPosTex );
-
-				vPosTL = ivec2(vPosTex / vRetroR);
-				vPosTR =  ivec2((vPosTex + vec2(1.0-0.0001, 0.0))  / vRetroR);
-				vPosBR =  ivec2((vPosTex + vec2(1.0-0.0001, 1.0-0.0001)) / vRetroR);
-				vPosBL =  ivec2((vPosTex + vec2(0.0, 1.0-0.0001)) / vRetroR);
-
-
-				if(vPosTL == ioSrcTL){
-					vPosTL = ioOffsetTL; //Corner TL
-				}else if(vPosTL.y == ioSrcTL.y){
-					//vPosTL += ivec2(ioOffsetT1); //TOP
-					vPosTL = ioOffsetT1 +  abs( ivec2(vPosTL.x - ioSrcOT.x, vPosTL.x - ioSrcOT.x) * vFlip.xy ) ;  //TOP
-					
-				}else if(vPosTL.x == ioSrcTL.x){
-					//vPosTL += ivec2(ioOffsetL1);  //Left
-					vPosTL =  ioOffsetL1 + abs( ivec2(vPosTL.y - ioSrcOL.y,vPosTL.y - ioSrcOL.y) * vFlip.yx  ) ;  //Left
-				}
-
-				if(vPosTR == ioSrcTR ){
-					vPosTR = ioOffsetTR; //Corner TR
-				}else if(vPosTR.y == ioSrcTR.y){
-					//vPosTR += ivec2(ioOffsetT1); //Top
-					vPosTR =  ioOffsetT1 +  abs(ivec2(vPosTR.x - ioSrcOT.x,vPosTR.x - ioSrcOT.x )* vFlip.xy ) ;  //TOP
-					
-				}else if(vPosTR.x == ioSrcTR.x){
-					//vPosTR += ivec2(ioOffsetR1); //RIGHT
-					vPosTR = ioOffsetR1 + abs( ivec2(vPosTR.y - ioSrcOR.y,vPosTR.y - ioSrcOR.y )* vFlip.yx  ) ; //RIGHT
-				}
-
-				if(vPosBR == ioSrcBR ){
-					vPosBR = ioOffsetBR; //Corner BR
-				}else if(vPosBR.y == ioSrcBR.y){
-
-					vPosBR = ioOffsetB1 +  abs( ivec2(vPosBR.x - ioSrcOB.x, vPosBR.x - ioSrcOB.x) * vFlip.xy  ) ;  //BOT
-					
-				}else if(vPosBR.x == ioSrcBR.x){
-
-					vPosBR = ioOffsetR1 + abs( ivec2(vPosBR.y - ioSrcOR.y,vPosBR.y - ioSrcOR.y) * vFlip.yx  ) ; //Right
-				}
-
-
-				if(vPosBL == ioSrcBL){
-					vPosBL = ioOffsetBL; //Corner BL
-					
-				}else if(vPosBL.y == ioSrcBL.y){
-					vPosBL = ioOffsetB1 +  abs( ivec2(vPosBL.x - ioSrcOB.x,vPosBL.x - ioSrcOB.x ) * vFlip.xy ) ;  //BOT
-					
-				}else if(vPosBL.x == ioSrcBL.x){
-					vPosBL =  ioOffsetL1 + abs( ivec2(vPosBL.y - ioSrcOL.y,vPosBL.y - ioSrcOL.y) * vFlip.yx   );  //Left
-				}
-		
-
-				vec4 vPixTL = texelFetch(TexCurrent, vPosTL,0);
-				vec4 vPixTR = texelFetch(TexCurrent, vPosTR,0);
-				vec4 vPixBR = texelFetch(TexCurrent, vPosBR,0);
-				vec4 vPixBL = texelFetch(TexCurrent, vPosBL,0);
-
-
-				vec2 vFracTL = 1.0 - fract(vPosTex );
-				vec2 vFracBR = fract(vPosTex + 1.0 );
-
-				float _nRAlphaTR = (vFracBR.x * vFracTL.y);
-				float _nRAlphaBR = (vFracBR.x * vFracBR.y);
-				float _nRAlphaBL = (vFracTL.x * vFracBR.y);
-				//float _nRAlphaTL = (vFracTL.x * vFracTL.y) ;
-				float _nRAlphaTL = 1.0 - (_nRAlphaTR +_nRAlphaBR + _nRAlphaBL) ;
-
-				pixTex = vPixTL * _nRAlphaTL +  vPixTR * _nRAlphaTR +  vPixBR * _nRAlphaBR +  vPixBL * _nRAlphaBL;
-				
-		*/
-		
-			//pixTex = vec4(0.5,0.5,0.5,0.5);
-			}else{
-			//	pixTex = texture(TexCurrent, ioTexture);
-			}
+	//Normal
+	//pixTex = texture(TexCurrent, ioTexture);
+	//pixTex = vec4(0.5,0.5,0.5,0.5);
+	}else{
+	//	pixTex = texture(TexCurrent, ioTexture);
+	}
 
 pixTex  = texture(TexCurrent, ioTexture);
 
 
 
-/*
-			ivec2 _vNearest = ivec2(int(ioTexture.x * 511.0 + 0.0001), int(ioTexture.y  * 514.0 + 0.0001 ));  //Text size + 2
-	    	pixTex = texelFetch(TexCurrent, _vNearest,0);
-			*/
+	/*
+	ivec2 _vNearest = ivec2(int(ioTexture.x * 511.0 + 0.0001), int(ioTexture.y  * 514.0 + 0.0001 ));  //Text size + 2
+	pixTex = texelFetch(TexCurrent, _vNearest,0);
+	*/
 
 
 
@@ -696,52 +645,54 @@ pixTex  = texture(TexCurrent, ioTexture);
         /////////////////////////  Phong light  ///////////////////
 
         vec3 vPtWorld = (iomWorldPt * _vCoDist).xyz;
-        vec3 vPtNorm =  (iomNorm * _vCoDist).xyz;
+       // vec3 vPtNorm =  (iomNorm * _vCoDist).xyz;
+		vec3 vPtNorm =  ioNorm.xyz;
+		// vPtNorm.z =  vPtNorm.z * -1.0;
 
        // vec3 light_position =  (vec3(1514 ,-384, -600.0));
-        vec3 light_position = vec3(1514.0 ,-200.0, -800.0);
-        vec3 eye_position =   vec3( 500.0,  384.0,-1024.0);
+       // vec3 light_position = vec3(1514.0 ,-200.0, -800.0);
+        //vec3 eye_position =   vec3( 500.0,  384.0,-1024.0);
 
 
-        vec3 L = normalize( light_position - vPtWorld);//light direction
-        vec3 V = normalize( eye_position - vPtWorld);//view direction
+           vec3 L = ( vPtWorld -light_position     );//light direction
+        vec3 V = ( vPtWorld - eye_position  );//view direction
+
+
+       // vec3 L = normalize( light_position - vPtWorld);//light direction
+       // vec3 V = normalize( eye_position - vPtWorld);//view direction
+
 
 
         float LdotN = max(0.0, dot(L,vPtNorm));
 
-        float diffuse = 0.85 * LdotN; //0.5 Just a random material
+        float diffuse = 0.50 * LdotN; //0.5 Just a random material
 
 		
 		//http://in2gpu.com/2014/06/19/lighting-vertex-fragment-shader/
 		
-		//0 to 1
-        float att_kC = 0.9; //Kc is the constant attenuation
-        float att_kL = 0.6; //KL is the linear attenuation
-        float att_kQ = 0.8; //KQ is the quadratic attenuation
+
  
-
-
-
 
         //attenuation
        // float d = distance( light_position,  vPtWorld) / 800.0;
-        float d = distance( normalize(light_position),  normalize(vPtWorld.xyz) );
+        float d = distance( (light_position),  (vPtWorld.xyz) );
 		//d =  1.5;
-       // float att = 1.0 / (att_kC + d * att_kL + d*d*att_kQ); //Do the inverse
-        float att =  (att_kC + d * att_kL + d*d*att_kQ);
-//att = 0.0;
+        float att = 1.0 / (att_kC + d * att_kL + d*d*att_kQ); //Do the inverse
+     //   float att =  (att_kC + d * att_kL + d*d*att_kQ);
+
 
         float specular = 0.0;
-
-        if(LdotN > 0.0){
+ if(LdotN > 0.0){
           //choose H or R to see the difference
           vec3 R = -normalize(reflect(L, vPtNorm));//Reflection
            // specular = 0.65 * pow(max(0.0, dot(R, V)), 512); //https://learnopengl.com/Lighting/Basic-Lighting
-            specular = pow(max(0.0, dot(R, V)), 16.0);//0.15  https://learnopengl.com/Lighting/Basic-Lighting
-
+		//specular = material_kd * pow(max(0, dot(H, world_normal)), material_shininess);
+            specular = 0.20 *  pow(max(0.0, dot(R, V)), 1.9);//0.15  https://learnopengl.com/Lighting/Basic-Lighting
+		
           //Blinn-Phong
-         // vec3 H = normalize(L + V );//Halfway
-         // specular = 0.65 * pow(max(0, dot(H, vPtNorm)), 0.65);
+          vec3 H = normalize(L + V );//Halfway
+          specular = 100.65 * pow(max(0.0, dot(H, vPtNorm)), 7.8);
+		  
         }
 
 		
@@ -756,7 +707,8 @@ pixTex  = texture(TexCurrent, ioTexture);
         //// Diffuse ////
      
 		//vColorDiffuse.rgb = (vColorDiffuse.rgb) * ((att *diffuse)*vColorDiffuse.a+(1.0-vColorDiffuse.a)) + vAmbient;
-		vColorDiffuse.rgb = (vColorDiffuse.rgb) * (( diffuse/ att )*vColorDiffuse.a+(1.0-vColorDiffuse.a)) + vAmbient;
+	//	vColorDiffuse.rgb = (vColorDiffuse.rgb) * (( diffuse*att )*vColorDiffuse.a+(1.0-vColorDiffuse.a)) + vAmbient;
+		vColorDiffuse.rgb = (vColorDiffuse.rgb) * (( diffuse*att )*vColorDiffuse.a) + vAmbient;
 		
 		vDark  = clamp(vColorDiffuse.rgb + 1.0, 0.0, 1.0); //0 a 1 -> = 1 if bright
         vLight = clamp(vColorDiffuse.rgb , 0.0, 1.0); //0 a 1 -> = 0 if Dark
@@ -765,12 +717,16 @@ pixTex  = texture(TexCurrent, ioTexture);
 
 		
 		//vPtDist += vColorDiffuse + vec4(vAmbient,0.0);
-		
 	
+
         // Specular
       //  vLight = clamp(vColorSpecular.rgb * vColorSpecular.a * att * specular -1.0, 0.0, 1.0); //0 a 1 -> = 0 if Dark
-        vLight = clamp(vColorSpecular.rgb * vColorSpecular.a * specular -1.0, 0.0, 1.0); //0 a 1 -> = 0 if Dark
+      //  vLight = clamp(vColorSpecular.rgb * vColorSpecular.a * specular -1.0, 0.0, 1.0); //0 a 1 -> = 0 if Dark
+       // vLight = clamp(vColorSpecular.rgb * vColorSpecular.a * (specular *att)  -1.0, 0.0, 1.0); //0 a 1 -> = 0 if Dark
+      //  vLight = clamp(vColorSpecular.rgb * vColorSpecular.a * ((specular *att)-1.0), 0.0, 1.0); //0 a 1 -> = 0 if Dark
+        vLight = clamp(vColorSpecular.rgb * vColorSpecular.a * ((specular *att)), 0.0, 1.0); //0 a 1 -> = 0 if Dark
         pixTex.rgb = (((( vec3(pixTex.a) -  pixTex.rgb ) * vLight) + pixTex.rgb)  );
+
 
 
    // }
@@ -895,8 +851,8 @@ pixTex  = texture(TexCurrent, ioTexture);
 		
 		public function fUpdate():Void {
 		
-		
-			oAt.fUpdate();
+			oVbo.fSendData();
+			//oAt.fUpdate();
 			//return; ///DISAABLE
 			
 			oVboBatch.fSetDefaultDataVertexID();

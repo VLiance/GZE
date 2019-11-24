@@ -200,7 +200,7 @@ package  {
 
 
 
-		
+		//TODO Already in IMG ???!
 		override public function  fApplyGlobalPos():Void {
 
 	//vRot.nYaw = vRot.nYaw + 0.1;
