@@ -535,7 +535,7 @@ xflat in vec3 ioNorm; // Maybe if we get it from world norm
 
 
 vec4  vColorSpecular = vec4(1.0,1.0,0.2 , 2.5); //0 to X Can be premultiplied with alpha
-vec4  vColorDiffuse = vec4(1.0, 1.0, 1.0, 3.75);  //rgb -1 to 2  no diffuse : vec4(0.0,0.0,0.0, 1.0); normal : vec4(1.0,1.0,1.0, 1.0);
+vec4  vColorDiffuse = vec4(1.0, 1.0, 1.0, 1.75);  //rgb -1 to 2  no diffuse : vec4(0.0,0.0,0.0, 1.0); normal : vec4(1.0,1.0,1.0, 1.0);
 vec3 vAmbient = vec3(-1.0, -1.0, -1.0); // -1.0 to 1.0
 
 //0 to 1

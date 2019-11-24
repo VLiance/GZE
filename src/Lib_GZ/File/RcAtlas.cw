@@ -11,9 +11,9 @@ package  {
 		#include "Lib_GZ/3rdparty/Image/stb_rect_pack.h"
 	</cpp_h>
 	
-	<cpp_class>
+	<cpp_class_h>
 		stbrp_context context;
-	</cpp_class>
+	</cpp_class_h>
 	
 
 	
@@ -25,10 +25,10 @@ package  {
 		public var aSubImg : Array<RcImg>; 
 		public const var nBorder : Int = 1; 
 		
-		<cpp_class>
+		<cpp_class_h>
 		gzArray<stbrp_rect> aStbRect;
 		stbrp_node* nodes;
-		</cpp_class>
+		</cpp_class_h>
 			
 			
 		public function RcAtlas(_nSize:Int = 0):Void {
@@ -92,7 +92,8 @@ package  {
 	
 	
 		public function fAdd(_oImg : RcImg) : Bool {
-			
+			_oImg.fCpuLoad();
+				
 			<cpp>
 			stbrp_rect _rect;
 			_rect.id = aStbRect.GnSize();
@@ -123,28 +124,34 @@ package  {
 		}
 	
 		override public function fCpuLoad():Bool {
-			<cpp>
-			stbrp_pack_rects(&context, (stbrp_rect*)aStbRect.m.array(), aStbRect.GnSize());
-			</cpp>
+			if(bRcLoaded == false){
+				bRcLoaded = true;
+		
 			
-			for(var i : UInt = 0; i < aSubImg.nSize; i++){
-				var _nX : Int;
-				var _nY : Int;
-				var  _bIsPack : Bool;
 				<cpp>
-					stbrp_rect* _rect = &aStbRect[i];
-					//printf("\n _rect->x %d : %d", _rect->x, _rect->y );
-					_nX = _rect->x;
-					_nY = _rect->y;
-					_bIsPack = _rect->was_packed;
+				stbrp_pack_rects(&context, (stbrp_rect*)aStbRect.m.array(), aStbRect.GnSize());
 				</cpp>
-				if(_bIsPack){}
-					fCopy(aSubImg[i], _nX, _nY);
+				
+				for(var i : UInt = 0; i < aSubImg.nSize; i++){
+					var _nX : Int;
+					var _nY : Int;
+					var  _bIsPack : Bool;
+					<cpp>
+						stbrp_rect* _rect = &aStbRect[i];
+						//printf("\n _rect->x %d : %d", _rect->x, _rect->y );
+						_nX = _rect->x;
+						_nY = _rect->y;
+						_bIsPack = _rect->was_packed;
+					</cpp>
+					if(_bIsPack){
+						fCopy(aSubImg[i], _nX, _nY);
+					}
 				}
 			}
 		}
 		
 		public function fCopy(_oImg: RcImg, _nX: UInt, _nY: UInt) : Bool {
+		
 			//TODO don't copy border? --> done
 			for(var y : UInt = 1; y < _oImg.nHeight + RcAtlas.nBorder; y++){
 				for(var x : UInt = 1; x < _oImg.nWidth + RcAtlas.nBorder; x++){
