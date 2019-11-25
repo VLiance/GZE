@@ -69,20 +69,16 @@ package  {
 			
 			///// Alloc ////////
 			gzUInt _nSizeOfPtr = nExtHeight * sizeof(void*);
-			gzInt32* _a1dArray = (gzInt32*)GZ_fCalloc((nExtWidth * nExtHeight) + _nSizeOfPtr, sizeof(gzInt32)); //TODO _nSizeOfPtr is too large
+			gzInt32* _a1dArray = (gzInt32*)GZ_fCalloc(sizeof(gzUInt32), (nExtWidth * nExtHeight) + _nSizeOfPtr); //TODO _nSizeOfPtr is too large
 			gzUIntX _n2dIndex = nExtWidth * nExtHeight;
-		//	aImg = (gzInt32**)&_a1dArray[_n2dIndex];
-			aImg = (gzInt32**)_a1dArray + _n2dIndex;
-			//aImg = (gzInt32**) GZ_fCalloc((nExtHeight)  , sizeof(gzInt32*));
-		//	Debug.fTrace("nExtHeight " + nExtHeight);
+
+			aImg = (gzInt32**)&_a1dArray[_n2dIndex];
 			for(gzUInt i = 0; i < nExtHeight; i++){
-				//aImg[i] = _a1dArray +  _nWidth * i;
 				aImg[i] = &_a1dArray[i * nExtWidth]; 
 			}
 	
 			///////////////////
-			
-			
+
 		//	&p1DArray[ nExtWidth * (image_height + nBORDER)];
 			
 			</cpp>
@@ -165,6 +161,7 @@ package  {
 				//Debug.fTrace("---Y:" + RcAtlas.nBorder + _nY + y);
 				for(var x : UInt = 1; x < _oImg.nWidth + RcAtlas.nBorder; x++){
 			
+					//aImg[0][0] = 0;
 					aImg[RcAtlas.nBorder + _nY + y][RcAtlas.nBorder + _nX + x] = _oImg.aImg[y][x];
 					//aImg[RcAtlas.nBorder + _nY + y][RcAtlas.nBorder + _nX + x] = 0;
 				}

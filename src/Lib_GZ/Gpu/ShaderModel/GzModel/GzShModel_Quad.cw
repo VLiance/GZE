@@ -534,7 +534,7 @@ xflat in vec3 ioNorm; // Maybe if we get it from world norm
 
 
 
-vec4  vColorSpecular = vec4(1.0,1.0,0.2 , 2.5); //0 to X Can be premultiplied with alpha
+vec4  vColorSpecular = vec4(1.0,1.0, 0.8 , 2.5); //0 to X Can be premultiplied with alpha
 vec4  vColorDiffuse = vec4(1.0, 1.0, 1.0, 1.75);  //rgb -1 to 2  no diffuse : vec4(0.0,0.0,0.0, 1.0); normal : vec4(1.0,1.0,1.0, 1.0);
 vec3 vAmbient = vec3(-1.0, -1.0, -1.0); // -1.0 to 1.0
 
@@ -638,6 +638,99 @@ pixTex  = texture(TexCurrent, ioTexture);
        // FragColor =  pixTex;
 
 
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   float _nDepth = 0.0;
+	   
+		
+		///////////////// DEPTH TEST ////////////////
+		vec2 vSrcPos =	ioTexture * vTexCurrent - 0.5;
+		float _nPosX = iomWorldPt[0].x;
+		//vec2 _vRelBush = vec2(_nPosX - 478.0, iomWorldPt[0].y);
+		vec2 _vRelBush = vec2(_nPosX + vSrcPos.x  - 478.0, iomWorldPt[0].y + vSrcPos.y);
+	
+
+		if(vSrcPos.x > 478.0){  //Im a Rock
+		
+		
+			vec4 pixDepthRock  = texture(TexSprites, ioTexture);
+			//pixDepthRock.r *= 4.0 - 2.5; //Amplitude
+			//pixDepthRock.r *= 2.0; //Amplitude
+			pixDepthRock.r *= 3.0; //Amplitude
+		//	pixDepthRock.r -= 0.5; //Amplitude
+			pixDepthRock.r -= 1.0; //Amplitude
+			//pixDepthRock.r *= 1.0  - 0.0; //Amplitude
+		//	pixDepthRock.r *= 6.0 - 4.5; //Amplitude
+		
+		_nDepth = pixDepthRock.r / 10.0 ;
+		
+			
+			//vec4 pixDepthBush  = texture(TexSprites, vec2(ioTexture.x  - iomWorldPt[0].x/(iomWorldPt[0].x - iomWorldPt[1].x),   ioTexture.y )    );
+			vec4 pixDepthBush  = texture(TexSprites,  (_vRelBush + 0.5) / vTexCurrent );
+			
+			vec4 _pixBush = texture(TexCurrent,  (_vRelBush + 0.5) / vTexCurrent );
+			//pixDepthBush.r *= _pixBush.a;
+			//pixDepthRock.r *=  pixTex.a;
+			
+			
+			//if(_pixBush.a > 0.0){ //Discard or not the lower level
+				if(pixDepthRock.r < pixDepthBush.r){
+					discard;
+				}else{
+					float _nDiff = vPtDist.a;
+					vPtDist.a =   min((    (pixDepthRock.r - pixDepthBush.r) ) *8.0, pixTex.a) ;
+					_nDiff = _nDiff - vPtDist.a;
+					vPtDist.rgb -= _nDiff*4.0;
+				}
+			//}
+			
+			
+		}else{ //Im a Bush
+		
+			vec4 pixDepthBush  = texture(TexSprites, ioTexture);
+			_nDepth = pixDepthBush.r / 5.0 ;
+			
+			vPtDist.rgb -=_nDepth * 3.0;
+			/*
+			vec4 pixDepthRock  = texture(TexSprites, ioTexture);
+			pixDepthRock.r *= 4.0 - 2.5; //Amplitude
+			
+			//vec4 pixDepthBush  = texture(TexSprites, vec2(ioTexture.x  - iomWorldPt[0].x/(iomWorldPt[0].x - iomWorldPt[1].x),   ioTexture.y )    );
+			vec4 pixDepthBush  = texture(TexSprites, ioTexture);
+		
+		
+		
+		
+			float _nDiff = vPtDist.a;
+			vPtDist.a =   min((    (pixDepthRock.r - pixDepthBush.r)   )*8.0, pixTex.a) ;
+			_nDiff = _nDiff - vPtDist.a;
+			vPtDist.rgb -= _nDiff*1.0;
+			*/
+
+			//vPtDist.rgb -= 0.5;
+		}
+		///////////////// 		///////////////// 		///////////////// 
+		
+		
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
         /////////////////////////////////////////////////////
         /////////////////////// LIGHT  /////////////////////
         /////////////////////////////////////////////////////
@@ -647,6 +740,8 @@ pixTex  = texture(TexCurrent, ioTexture);
         vec3 vPtWorld = (iomWorldPt * _vCoDist).xyz;
        // vec3 vPtNorm =  (iomNorm * _vCoDist).xyz;
 		vec3 vPtNorm =  ioNorm.xyz;
+		
+		vPtNorm.z += _nDepth;
 		// vPtNorm.z =  vPtNorm.z * -1.0;
 
        // vec3 light_position =  (vec3(1514 ,-384, -600.0));
@@ -698,76 +793,6 @@ pixTex  = texture(TexCurrent, ioTexture);
 		
 		
 		
-		vec2 vSrcPos =	ioTexture * vTexCurrent - 0.5;
-		float _nPosX = iomWorldPt[0].x;
-		//vec2 _vRelBush = vec2(_nPosX - 478.0, iomWorldPt[0].y);
-		vec2 _vRelBush = vec2(_nPosX + vSrcPos.x  - 478.0, iomWorldPt[0].y + vSrcPos.y);
-		
-		
-		
-		
-		
-		
-		
-		///////////////// DEPTH TEST ////////////////
-		if(vSrcPos.x > 478.0){  //Im a Rock
-		
-		
-			vec4 pixDepthRock  = texture(TexSprites, ioTexture);
-			//pixDepthRock.r *= 4.0 - 2.5; //Amplitude
-			//pixDepthRock.r *= 2.0; //Amplitude
-			pixDepthRock.r *= 3.0; //Amplitude
-		//	pixDepthRock.r -= 0.5; //Amplitude
-			pixDepthRock.r -= 1.0; //Amplitude
-			//pixDepthRock.r *= 1.0  - 0.0; //Amplitude
-		//	pixDepthRock.r *= 6.0 - 4.5; //Amplitude
-			
-			//vec4 pixDepthBush  = texture(TexSprites, vec2(ioTexture.x  - iomWorldPt[0].x/(iomWorldPt[0].x - iomWorldPt[1].x),   ioTexture.y )    );
-			vec4 pixDepthBush  = texture(TexSprites,  (_vRelBush + 0.5) / vTexCurrent );
-			
-			vec4 _pixBush = texture(TexCurrent,  (_vRelBush + 0.5) / vTexCurrent );
-			//pixDepthBush.r *= _pixBush.a;
-			//pixDepthRock.r *=  pixTex.a;
-			
-			
-			//if(_pixBush.a > 0.0){ //Discard or not the lower level
-				if(pixDepthRock.r < pixDepthBush.r){
-					discard;
-				}else{
-					float _nDiff = vPtDist.a;
-					vPtDist.a =   min((    (pixDepthRock.r - pixDepthBush.r) ) *8.0, pixTex.a) ;
-					_nDiff = _nDiff - vPtDist.a;
-					vPtDist.rgb -= _nDiff*4.0;
-				}
-			//}
-			
-			
-		}else{ //Im a Bush
-		
-			
-			/*
-			vec4 pixDepthRock  = texture(TexSprites, ioTexture);
-			pixDepthRock.r *= 4.0 - 2.5; //Amplitude
-			
-			//vec4 pixDepthBush  = texture(TexSprites, vec2(ioTexture.x  - iomWorldPt[0].x/(iomWorldPt[0].x - iomWorldPt[1].x),   ioTexture.y )    );
-			vec4 pixDepthBush  = texture(TexSprites, ioTexture);
-		
-		
-		
-		
-			float _nDiff = vPtDist.a;
-			vPtDist.a =   min((    (pixDepthRock.r - pixDepthBush.r)   )*8.0, pixTex.a) ;
-			_nDiff = _nDiff - vPtDist.a;
-			vPtDist.rgb -= _nDiff*1.0;
-			*/
-
-			//vPtDist.rgb -= 0.5;
-		}
-		///////////////// 		///////////////// 		///////////////// 
-		
-		
-		
-		
 		
 		
 		
@@ -783,7 +808,7 @@ pixTex  = texture(TexCurrent, ioTexture);
         pixTex.a *= vPtDist.a;
 		
 	
-	/*
+	
         //// Diffuse ////
      
 		//vColorDiffuse.rgb = (vColorDiffuse.rgb) * ((att *diffuse)*vColorDiffuse.a+(1.0-vColorDiffuse.a)) + vAmbient;
@@ -807,7 +832,7 @@ pixTex  = texture(TexCurrent, ioTexture);
         vLight = clamp(vColorSpecular.rgb * vColorSpecular.a * ((specular *att)), 0.0, 1.0); //0 a 1 -> = 0 if Dark
         pixTex.rgb = (((( vec3(pixTex.a) -  pixTex.rgb ) * vLight) + pixTex.rgb)  );
 
-*/
+
 		
 		
 		
