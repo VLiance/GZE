@@ -33,15 +33,18 @@ package  {
 		
 		
 		public  function File(_sFile : String):Void{
-			Debug.fTrace("New File!: " + _sFile);
-			if(_sFile == "Sys|CurrentModule"){
+			if(_sFile.nSize > 0){
+				Debug.fTrace("New File!: " + _sFile);
+				if(_sFile == "Sys|CurrentModule"){
 
-				Debug.fTrace("Requiere systeme module");
-			//	fExtractPath("Sys|" + fGetSystemExePath());
-				fExtractPath("Sys|" + fGetSystemExePath());
-			}else{
-				fExtractPath(_sFile);
+					Debug.fTrace("Requiere systeme module");
+				//	fExtractPath("Sys|" + fGetSystemExePath());
+					fExtractPath("Sys|" + fGetSystemExePath());
+				}else{
+					fExtractPath(_sFile);
+				}
 			}
+			
 		}
 	
 		overable static function fGetSystemExePath() : String {

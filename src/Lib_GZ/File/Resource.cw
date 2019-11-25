@@ -75,7 +75,12 @@ package  {
 				Debug.fTrace("Fail"  );
 			}
 			*/
+			
+			
 			oFile = new File(_sPath);
+			
+			
+			
 			/*
 			var _aPath : Array<String> = _sPath.fSplit(":/");
 			
