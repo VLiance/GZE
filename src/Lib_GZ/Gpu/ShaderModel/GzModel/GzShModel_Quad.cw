@@ -61,7 +61,9 @@ package  {
 //uniform sampler2D TexSprites;
 	uniform vec2 vTexSprites;
 
-
+//uniform sampler2D TexFont;
+	uniform vec2 vTexFont;
+	
 				
 	uniform int nType;
 
@@ -476,7 +478,8 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 	uniform sampler2D TexSprites;
 	uniform vec2 vTexSprites;
 
-
+	uniform sampler2D TexFont;
+	uniform vec2 vTexFont;
 	
 	//out vec4 outputColor;
 
@@ -578,9 +581,14 @@ void main()
 	//Normal
 	//pixTex = texture(TexCurrent, ioTexture);
 	//pixTex = vec4(0.5,0.5,0.5,0.5);
-	}else{
-	//	pixTex = texture(TexCurrent, ioTexture);
+	}else if( nType == 7){ //Font
+		pixTex = texture(TexFont, ioTexture);
 	}
+	
+	
+	
+	
+	
 
 pixTex  = texture(TexCurrent, ioTexture);
 
@@ -739,21 +747,10 @@ pixTex  = texture(TexCurrent, ioTexture);
 		vec3 vPtNorm =  ioNorm.xyz;
 		
 		vPtNorm.z += _nDepth;
-		// vPtNorm.z =  vPtNorm.z * -1.0;
-
-       // vec3 light_position =  (vec3(1514 ,-384, -600.0));
-       // vec3 light_position = vec3(1514.0 ,-200.0, -800.0);
-        //vec3 eye_position =   vec3( 500.0,  384.0,-1024.0);
 
 //http://in2gpu.com/2014/06/19/lighting-vertex-fragment-shader/
 		
 
-      
-       // vec3 L = normalize( light_position - vPtWorld);//light direction
-       // vec3 V = normalize( eye_position - vPtWorld);//view direction
-	   
-//vec3 eye_position = vec3(  400.0, 300.0, -500.0);      //0.8, 0.6, -1.0
-//vec3 light_position  =   vec3( 200.0, -100.0, -400.0); //0.5, 0.25, 1.0;
 
 		vec3 L = normalize( vPtWorld -light_position     );//light direction
         vec3 V = normalize( vPtWorld - eye_position  );    //view direction

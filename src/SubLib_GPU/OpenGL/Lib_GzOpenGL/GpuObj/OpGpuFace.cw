@@ -99,9 +99,14 @@ package  {
 	
 		var _nType : UInt = 4;
 
+		
+		if (oFace.oShape.hType == Root.eType.Font){
+			_nType = 7; //7 is font
+		
+		}
+		
 		//if (oFace.oShape.oParent.hType == Root.eType.Tile){//BAD evil Cast
 		if (oFace.oShape.hType == Root.eType.Tile){//BAD evil Cast
-	
 			_nType = 6;
 
 			

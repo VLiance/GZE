@@ -26,6 +26,7 @@ package  {
 		public enum eType : Int {
 			None;
 			Tile;
+			Font;
 			Img;
 		}
 		

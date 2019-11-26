@@ -52,6 +52,10 @@ package  {
 		public function Letter( _oParent : Root, _oRc : RcFont, _nX: Float, _nY:Float, _nChar : UInt):Void {
 	
 			Shape(_oParent, _nX, _nY, 4, true);
+			
+			hType = Root.eType.Font;
+			
+			
 			//nEase = 5;
 			//nEase.to(10);
 			//nEase.speed(5);
