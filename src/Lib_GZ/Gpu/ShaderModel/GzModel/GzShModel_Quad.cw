@@ -534,7 +534,7 @@ xflat in vec3 ioNorm; // Maybe if we get it from world norm
 
 
 
-vec4  vColorSpecular = vec4(0.5,1.0, 0.8 , 2.5); //0 to X Can be premultiplied with alpha
+vec4  vColorSpecular = vec4(1.0,1.0, 0.85 , 0.7); //0 to X Can be premultiplied with alpha
 vec4  vColorDiffuse = vec4(1.0, 1.0, 1.0, 1.75);  //rgb -1 to 2  no diffuse : vec4(0.0,0.0,0.0, 1.0); normal : vec4(1.0,1.0,1.0, 1.0);
 vec3 vAmbient = vec3(-1.0, -1.0, -1.0); // -1.0 to 1.0
 
@@ -662,7 +662,7 @@ pixTex  = texture(TexCurrent, ioTexture);
 			//pixDepthRock.r *= 1.0  - 0.0; //Amplitude
 		//	pixDepthRock.r *= 6.0 - 4.5; //Amplitude
 		
-		_nDepth = pixDepthRock.r / 10.0 ;
+		_nDepth = pixDepthRock.r / 8.5 ;
 		
 			
 			//vec4 pixDepthBush  = texture(TexSprites, vec2(ioTexture.x  - iomWorldPt[0].x/(iomWorldPt[0].x - iomWorldPt[1].x),   ioTexture.y )    );
@@ -678,7 +678,7 @@ pixTex  = texture(TexCurrent, ioTexture);
 					discard;
 				}else{
 					float _nDiff = vPtDist.a;
-					vPtDist.a =   min((    (pixDepthRock.r - pixDepthBush.r) ) *8.0, pixTex.a) ;
+					vPtDist.a =   min((    (pixDepthRock.r - pixDepthBush.r) ) *6.0, pixTex.a) ;
 					_nDiff = _nDiff - vPtDist.a;
 					vPtDist.rgb -= _nDiff*4.0;
 				}
@@ -688,9 +688,12 @@ pixTex  = texture(TexCurrent, ioTexture);
 		}else{ //Im a Bush
 		
 			vec4 pixDepthBush  = texture(TexSprites, ioTexture);
-			_nDepth = pixDepthBush.r / 5.0 ;
+			//_nDepth = pixDepthBush.r / 5.0 ;
+			_nDepth = pixDepthBush.r / 4.0 ;
 			
-			vPtDist.rgb -=_nDepth * 3.0;
+			//vPtDist.rgb -=_nDepth * 3.0;
+			vPtDist.rgb -= (1.0 - pixDepthBush.r)/5.0 ;
+			
 			/*
 			vec4 pixDepthRock  = texture(TexSprites, ioTexture);
 			pixDepthRock.r *= 4.0 - 2.5; //Amplitude
