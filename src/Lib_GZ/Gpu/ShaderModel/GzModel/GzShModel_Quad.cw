@@ -534,7 +534,7 @@ xflat in vec3 ioNorm; // Maybe if we get it from world norm
 
 
 
-vec4  vColorSpecular = vec4(1.0,1.0, 0.8 , 2.5); //0 to X Can be premultiplied with alpha
+vec4  vColorSpecular = vec4(0.5,1.0, 0.8 , 2.5); //0 to X Can be premultiplied with alpha
 vec4  vColorDiffuse = vec4(1.0, 1.0, 1.0, 1.75);  //rgb -1 to 2  no diffuse : vec4(0.0,0.0,0.0, 1.0); normal : vec4(1.0,1.0,1.0, 1.0);
 vec3 vAmbient = vec3(-1.0, -1.0, -1.0); // -1.0 to 1.0
 
@@ -543,11 +543,10 @@ float att_kC = 1.02; //Kc is the constant attenuation
 float att_kL = 0.20; //KL is the linear attenuation
 float att_kQ = 0.002; //KQ is the quadratic attenuation
 
-vec3 eye_position = vec3(  400.0, 300.0, -500.0);
+
 //vec3 light_position  =   vec3( 400.0,300.0, -300.0);
+vec3 eye_position = vec3(  400.0, 300.0, -500.0);
 vec3 light_position  =   vec3( 200.0, -100.0, -400.0);
-
-
 
 
 
@@ -638,11 +637,6 @@ pixTex  = texture(TexCurrent, ioTexture);
        // FragColor =  pixTex;
 
 
-	   
-	   
-	   
-	   
-	   
 	   
 	   
 	   
@@ -748,57 +742,54 @@ pixTex  = texture(TexCurrent, ioTexture);
        // vec3 light_position = vec3(1514.0 ,-200.0, -800.0);
         //vec3 eye_position =   vec3( 500.0,  384.0,-1024.0);
 
+//http://in2gpu.com/2014/06/19/lighting-vertex-fragment-shader/
+		
 
-           vec3 L = ( vPtWorld -light_position     );//light direction
-        vec3 V = ( vPtWorld - eye_position  );//view direction
-
-
+      
        // vec3 L = normalize( light_position - vPtWorld);//light direction
        // vec3 V = normalize( eye_position - vPtWorld);//view direction
+	   
+//vec3 eye_position = vec3(  400.0, 300.0, -500.0);      //0.8, 0.6, -1.0
+//vec3 light_position  =   vec3( 200.0, -100.0, -400.0); //0.5, 0.25, 1.0;
 
-
+		vec3 L = normalize( vPtWorld -light_position     );//light direction
+        vec3 V = normalize( vPtWorld - eye_position  );    //view direction
+        //float d = distance( (light_position),  (vPtWorld.xyz) ) / 800.0;
+       // float d = distance( normalize(light_position),  normalize(vPtWorld.xyz) ) ;
+        float d = distance( (light_position)/ 800.0,  (vPtWorld.xyz)/ 800.0 ); 
+		
+		
 
         float LdotN = max(0.0, dot(L,vPtNorm));
-
         float diffuse = 0.50 * LdotN; //0.5 Just a random material
 
-		
-		//http://in2gpu.com/2014/06/19/lighting-vertex-fragment-shader/
-		
-
- 
-
         //attenuation
-       // float d = distance( light_position,  vPtWorld) / 800.0;
-        float d = distance( (light_position),  (vPtWorld.xyz) );
-		//d =  1.5;
-        float att = 1.0 / (att_kC + d * att_kL + d*d*att_kQ); //Do the inverse
+
+		
+		
+	
+        float att =  (att_kC + d * att_kL + d*d*att_kQ); //Do the inverse
      //   float att =  (att_kC + d * att_kL + d*d*att_kQ);
-
-
+	
+	 
+	 
         float specular = 0.0;
- if(LdotN > 0.0){
+		
+		if(LdotN > 0.0){
           //choose H or R to see the difference
           vec3 R = -normalize(reflect(L, vPtNorm));//Reflection
-           // specular = 0.65 * pow(max(0.0, dot(R, V)), 512); //https://learnopengl.com/Lighting/Basic-Lighting
-		//specular = material_kd * pow(max(0, dot(H, world_normal)), material_shininess);
-            specular = 0.20 *  pow(max(0.0, dot(R, V)), 1.9);//0.15  https://learnopengl.com/Lighting/Basic-Lighting
+          specular = 0.20 *  pow(max(0.0, dot(R, V)), 1.9);//0.15  https://learnopengl.com/Lighting/Basic-Lighting
 		
           //Blinn-Phong
           vec3 H = normalize(L + V );//Halfway
-          specular = 100.65 * pow(max(0.0, dot(H, vPtNorm)), 7.8);
-		  
+          specular = 0.3 * pow(max(0.0, dot(H, vPtNorm)), 7.8);
         }
 
 		
 		
 		
 		
-		
-		
-		
-
-		
+	
 		
 		
 		  //// Custom interpolated color ////
@@ -813,7 +804,7 @@ pixTex  = texture(TexCurrent, ioTexture);
      
 		//vColorDiffuse.rgb = (vColorDiffuse.rgb) * ((att *diffuse)*vColorDiffuse.a+(1.0-vColorDiffuse.a)) + vAmbient;
 	//	vColorDiffuse.rgb = (vColorDiffuse.rgb) * (( diffuse*att )*vColorDiffuse.a+(1.0-vColorDiffuse.a)) + vAmbient;
-		vColorDiffuse.rgb = (vColorDiffuse.rgb) * (( diffuse*att )*vColorDiffuse.a) + vAmbient;
+		vColorDiffuse.rgb = (vColorDiffuse.rgb) * (( diffuse/att )*vColorDiffuse.a) + vAmbient;
 		
 		vDark  = clamp(vColorDiffuse.rgb + 1.0, 0.0, 1.0); //0 a 1 -> = 1 if bright
         vLight = clamp(vColorDiffuse.rgb , 0.0, 1.0); //0 a 1 -> = 0 if Dark
@@ -829,7 +820,7 @@ pixTex  = texture(TexCurrent, ioTexture);
       //  vLight = clamp(vColorSpecular.rgb * vColorSpecular.a * specular -1.0, 0.0, 1.0); //0 a 1 -> = 0 if Dark
        // vLight = clamp(vColorSpecular.rgb * vColorSpecular.a * (specular *att)  -1.0, 0.0, 1.0); //0 a 1 -> = 0 if Dark
       //  vLight = clamp(vColorSpecular.rgb * vColorSpecular.a * ((specular *att)-1.0), 0.0, 1.0); //0 a 1 -> = 0 if Dark
-        vLight = clamp(vColorSpecular.rgb * vColorSpecular.a * ((specular *att)), 0.0, 1.0); //0 a 1 -> = 0 if Dark
+        vLight = clamp(vColorSpecular.rgb * vColorSpecular.a * ((specular /att)), 0.0, 1.0); //0 a 1 -> = 0 if Dark
         pixTex.rgb = (((( vec3(pixTex.a) -  pixTex.rgb ) * vLight) + pixTex.rgb)  );
 
 
