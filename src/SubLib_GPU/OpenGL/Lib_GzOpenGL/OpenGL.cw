@@ -553,6 +553,10 @@ generate "OpenGL" {
 		
 		
 		public static function fGetShaderInfoLog(_nShaderId : Val):String {
+			if(_nShaderId == 0){
+				return "Invalid Shader ID: 0";
+			}
+		
 			<cpp>
 			#ifdef D_Platform_Web_Emsc
 				std::string _sTest = oGL.call<std::string>("getShaderInfoLog", _nShaderId);	 //N

@@ -124,7 +124,7 @@ package  {
 				//GL_fCompileShader(nId);
 				//gzInt _nCompilationStatus = 0;
 				//GL_fGetShaderiv(nId, GL_COMPILE_STATUS, &_nCompilationStatus);
-				if(_nCompilationStatus == 0){
+				if(_nCompilationStatus != 1){
 					return false;
 				}
 				bReady = true;
