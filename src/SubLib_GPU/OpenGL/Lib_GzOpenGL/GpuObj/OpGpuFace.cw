@@ -76,13 +76,15 @@ package  {
 		oAt.oAtTexSource1.fSetVal(3, oFace.rPtS4.nY);
 		
 
-		oAt.oAtColor1.fSet(oFace.oShape.vColor);
-		oAt.oAtColor2.fSet(oFace.oShape.vColor); //Not used
-		oAt.oAtColor3.fSet(oFace.oShape.vColor); //Not used
+		
+		
+		oAt.oAtColor1.fSet(oFace.oShape.vGblColor);
+		oAt.oAtColor2.fSet(oFace.oShape.vGblColor); //Not used
+		oAt.oAtColor3.fSet(oFace.oShape.vGblColor); //Not used
 		
 		var _vColor4 : Vec4<Float> = new Vec4<Float>(0.0,1.0,0.5,1.0);
 	//	oAt.oAtColor4.fSet(_vColor4); //Not used
-		oAt.oAtColor4.fSet(oFace.oShape.vColor); //Not used
+		oAt.oAtColor4.fSet(oFace.oShape.vGblColor); //Not used
 
 		
 		

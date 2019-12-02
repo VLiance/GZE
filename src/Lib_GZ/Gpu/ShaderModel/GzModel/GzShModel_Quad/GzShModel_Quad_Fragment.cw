@@ -150,7 +150,7 @@ void main()
 	}
 
 pixTex  = texture(TexCurrent, ioTexture);
-float _nDepth = 0;
+float _nDepth = 0.0;
 
 </glsl>
 	fInsert_Body_Fragment();
