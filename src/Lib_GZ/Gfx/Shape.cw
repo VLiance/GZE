@@ -339,18 +339,36 @@ package  {
 				}
 			
 			}
-			
-			
-			
-			
+		
 		}
 
 
 		public function fContextResume():Void {
 		//	oGpuObj.fRecreate();
 		}
+		
+		
+		//TODO Verify with tiles
+		override public function  fApplyGlobalPos():Void {
 
+	//vRot.nYaw = vRot.nYaw + 0.1;
 
+			for( var i : UInt = 0; i < aNewPt3dOri.nSize; i++){
+				var _oPt : PtA = aNewPt3dOri[i];
+					
+				_oPt.vTf.nX = _oPt.vPt.nX * vSize.nWidth ;
+				_oPt.vTf.nY = _oPt.vPt.nY * vSize.nHeight;
+				_oPt.vTf.nZ = _oPt.vPt.nZ * vSize.nLength;
 
+				_oPt.vTf.fRotate(vQuaternion);
+
+				_oPt.vTf.nX += vPos.nX ;
+				_oPt.vTf.nY += vPos.nY ;
+				_oPt.vTf.nZ += vPos.nZ ;
+				
+			}
+		}
+		
+		
 	}
 }

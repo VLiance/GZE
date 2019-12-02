@@ -150,22 +150,17 @@ void main()
 	}
 
 pixTex  = texture(TexCurrent, ioTexture);
-
+float _nDepth = 0;
 
 </glsl>
 	fInsert_Body_Fragment();
 <glsl(oFragement)>
 
 
-
-
-
 	/*
 	ivec2 _vNearest = ivec2(int(ioTexture.x * 511.0 + 0.0001), int(ioTexture.y  * 514.0 + 0.0001 ));  //Text size + 2
 	pixTex = texelFetch(TexCurrent, _vNearest,0);
 	*/
-
-
 
 
 			//Normal
@@ -238,7 +233,13 @@ pixTex  = texture(TexCurrent, ioTexture);
        // vec3 vPtNorm =  (iomNorm * _vCoDist).xyz;
 		vec3 vPtNorm =  ioNorm.xyz;
 		
+		
+		
+		
 		vPtNorm.z += _nDepth;
+		
+		
+		
 		// vPtNorm.z =  vPtNorm.z * -1.0;
 
        // vec3 light_position =  (vec3(1514 ,-384, -600.0));
@@ -335,6 +336,7 @@ pixTex  = texture(TexCurrent, ioTexture);
    // }
 //pixTex.a = 0.5;
 
+//FragColor = vec4( 0.5, 0.5, 0.5, 1.0);
 
         FragColor =  pixTex;
        // FragColor =  vColorDiffuse + vec4(vAmbient,0.0);

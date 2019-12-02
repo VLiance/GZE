@@ -43,6 +43,10 @@ package  {
 			if(oGpuTexLayer.nSlot == 1){
 				OpenGL.fActiveTexture(TEXTURE1);
 			}
+			if(oGpuTexLayer.nSlot == 2){
+				OpenGL.fActiveTexture(TEXTURE2);
+			}
+			
 			
 			/*
 			if(oGpuTexLayer == null){ //TODO link text layer
@@ -64,14 +68,15 @@ package  {
 		<cpp>
 		#ifdef GZ_D_CpuRenderer_Reverse_BlueAndRed
 		</cpp>
-			OpenGL.fTexImage2D(TEXTURE_2D, 0, RGBA, _nWidth+2,_nHeight+2, 0, RGBA, UNSIGNED_BYTE, _aImg);
+			OpenGL.fTexImage2D(TEXTURE_2D, 0, RGBA, _nWidth+2 ,_nHeight+2, 0, RGBA, UNSIGNED_BYTE, _aImg);
 		<cpp>
 		#else
 		</cpp>
-			OpenGL.fTexImage2D(TEXTURE_2D, 0, RGBA, _nWidth+2,_nHeight+2, 0, BGRA, UNSIGNED_BYTE, _aImg);
+			OpenGL.fTexImage2D(TEXTURE_2D, 0, RGBA, _nWidth+2 ,_nHeight+2, 0, BGRA, UNSIGNED_BYTE, _aImg);
 		<cpp>
 		#endif
 		</cpp>
+			
 			
 			
 		if(oGpuTexLayer == null){

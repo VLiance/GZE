@@ -6,7 +6,7 @@
 	import GZ.Gpu.Gpu;
 	import GZ.Gpu.GpuInfo;
 	import GZ.Gpu.ShaderModel.GzModel.GzShModel;
-	import GZ.Gpu.ShaderModel.GzModel.GzShModel_Quad;
+	//import GZ.Gpu.ShaderModel.GzModel.GzShModel_Quad;
 	import GZ.Gpu.ShaderModel.GzModel.GzShModel_Raymarching;
 	import GzOpenGL_Windows.GlWin;
 	import GzOpenGL.OpGpu;

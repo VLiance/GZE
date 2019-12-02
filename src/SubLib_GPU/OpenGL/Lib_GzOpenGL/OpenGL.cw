@@ -553,7 +553,9 @@ generate "OpenGL" {
 		
 		
 		public static function fGetShaderInfoLog(_nShaderId : Val):String {
-			if(_nShaderId == 0){
+			
+			
+			if(_nShaderId == null){
 				return "Invalid Shader ID: 0";
 			}
 		

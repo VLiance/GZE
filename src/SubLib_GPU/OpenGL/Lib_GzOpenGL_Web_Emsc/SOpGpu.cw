@@ -4,7 +4,7 @@
 	
 	import GZ.Gpu.Gpu;
 	import GZ.Gpu.GpuInfo;
-	import GZ.Gpu.ShaderModel.GzModel.GzShModel_Quad;
+//	import GZ.Gpu.ShaderModel.GzModel.GzShModel_Quad;
 	import GZ.Gpu.ShaderModel.GzModel.GzShModel_Raymarching;
 	import GzOpenGL.OpGpu;
 	import GZ.Gpu.ShaderBase.FragmentShader;

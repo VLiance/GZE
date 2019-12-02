@@ -22,13 +22,14 @@ package  {
 		public var oRc : RcFont;
 		public var aLetter : Array<Letter>;
 		public var nCursorX : Float = 0;
+		public var sText : String;
 
 		public function TextRange(_oParent : Root, _oRc : RcFont, _nX: Float, _nY:Float, _sText : String = ""):Void {
 			Clip(_oParent, _nX , _nY);
 
 			oRc = _oRc;
 
-
+			sText = _sText;
 			fAdd(_sText);
 		}
 		

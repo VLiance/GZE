@@ -58,6 +58,7 @@ package  {
 			//oImage = new Image();
 			//oImage.fOpen(_oRc);
 			_oRc.fCpuLoad();
+
 		//	Debug.fTrace("Finish");
 
 			//oPng.fOpenFromMemory(aFile, 512000);
@@ -188,6 +189,7 @@ package  {
 			//fApplyPos();
 		}
 		
+		/*
 		//TODO Verify with tiles
 		override public function  fApplyGlobalPos():Void {
 
@@ -207,7 +209,7 @@ package  {
 				_oPt.vTf.nZ += vPos.nZ ;
 				
 			}
-		}
+		}*/
 
 
 

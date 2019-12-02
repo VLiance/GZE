@@ -87,65 +87,18 @@ package  {
 			var _oChar : CharData = _oRc.fGetCharRect(_nChar); 
 			
 
-			
-			//	Debug.fInfo("Value X :" + _oChar.nX);
-			//Debug.fInfo("Value Y :" + _oChar.nY);
-
-			//var _nCenterX  : Float =  _oChar.nHoriBeringX / -64.0;
-			//var _nCenterY  : Float =  _oChar.nHoriBeringX / -64.0;
-	
-			/*
-					
-			
-
-			var _oChar : uCharData = _oRc.fGetCharRect(_nChar);
-			var _rRect : uRectPack = _oChar.rRect;
-*/
-		///	Debug.fTrace("Value X0 :" + _oChar.nX0);
-		//	Debug.fTrace2("Value Y0 :" + _oChar.nY0);
-
-       //    var _nCenterX  : Float = nWidth / 2;
-       //   var  _nCenterY  : Float = nHeight / 2;
-	   
-	   
-	//		var _nCenterX  : Float =  _oChar.nHoriBeringX / -64.0;
-	//		var _nCenterY  : Float =  _oChar.nHoriBeringY / 64.0;
-			
-	
-		//	var _nCenterX  : Float =  _oChar.nHoriBeringX / (-64.0 * 2.0);
-		//	var _nCenterY  : Float =  _oChar.nHoriBeringY / (64.0 * 2.0);
-			
 			var _nCenterX  : Float =  _oChar.nHoriBeringX;
 			var _nCenterY  : Float =  _oChar.nHoriBeringY;
-			///var _nCenterX  : Float =  0;
-			//var _nCenterY  : Float =  0;	
-			
-		//	var _nCenterX  : Float =  _oChar.nX;
-		//	var _nCenterY  : Float =  _oChar.nY;		
-		
-			//nAdvance = _oChar.nHoriAdvance/ (64.0 * 2.0);
+
 			nAdvance = _oChar.nHoriAdvance;
 			
-			
-
-		//	nAdvance = 10;
-		
-		
-
 
 			var	_nBorder : Float = 1;
-	//	var _nRectX : UInt = _oChar.nX ;
-	///		var _nRectY : UInt = _oChar.nY ;
 
 			nWidth =  _oChar.nW - 2;
 			nHeight =  _oChar.nH - 2;
 
 		 
-		 
-//			rPtTL = addPoint(0 - _nBorder, 0 -_nBorder,               _nCenterX, _nCenterY);
-//			rPtTR = addPoint(nWidth  +_nBorder, 0 -_nBorder,         _nCenterX, _nCenterY);
-//			rPtBR = addPoint(nWidth  +_nBorder, nHeight  +_nBorder, _nCenterX, _nCenterY);
-//			rPtBL = addPoint(0 -_nBorder, nHeight  +_nBorder,        _nCenterX, _nCenterY);
 
 
 			var _oCenter  : Pt<Float> = new Pt<Float>(_nCenterX, _nCenterY );
@@ -174,12 +127,7 @@ package  {
 			fCreateFace(_oRc, _oSrc);
 			
 
-			//fCreateLines();
-			//fCreateFace(_oRc, rPtTL, rPtTR, rPtBR, rPtBL, _nRectX - _nBorder, _nRectY - _nBorder,  _nRectX + nWidth  +_nBorder, _nRectY -_nBorder, _nRectX + nWidth  +_nBorder, _nRectY + nHeight +_nBorder,  _nRectX - _nBorder,  _nRectY + nHeight  + _nBorder );
-
-			//fCreateFace(_oRc, rPtTL, rPtTR, rPtBR, rPtBL, _nRectX , _rRect.nY,  _nRectX + nWidth, _rRect.nY, _nRectX +  nWidth, _rRect.nY + nHeight ,  _nRectX, _rRect.nY + nHeight );
 			oFace.oGpuObj.fSetImg(_oRc);
-			
 		}
 
 
