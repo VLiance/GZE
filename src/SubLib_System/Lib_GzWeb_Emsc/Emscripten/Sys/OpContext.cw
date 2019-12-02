@@ -29,8 +29,8 @@ package  {
 	</cpp_namespace_h>
 	
 	<cpp_namespace>
-		gzInt nEvtMouseX = 0;
-		gzInt nEvtMouseY = 0;
+		gzInt nEvtMouseX = -1; //Default value is out of screen
+		gzInt nEvtMouseY = -1; //Default value is out of screen
 	</cpp_namespace>
 	
 	
