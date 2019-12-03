@@ -11,10 +11,13 @@ package  {
 	public overclass Texture  {
 
 		
-		public var nId : Val;
+	//	public var nId : Val;
 		public var nSizeId : Val;
+		public var nNumId : Val;
+		
+		
 		public var sName : String;
-		public var sSizeName : String;
+		//public var sSizeName : String;
 		public var bValid : Bool = false;
 		
 		public var nSlot : UInt;
@@ -23,13 +26,21 @@ package  {
 
 		
 				
-		public function Texture(_oProgram : ProgramShader, _sName : String,  _sSizeName : String):Void {
+	//	public function Texture(_oProgram : ProgramShader, _sName : String,  _sSizeName : String):Void {
+		public function Texture(_oProgram : ProgramShader, _sName : String):Void {
 
 			sName = _sName;
-			sSizeName = _sSizeName;
+		//	nSlot = _nSlot;
+			//sSizeName = _sSizeName;
+			
 			oProgram = _oProgram;
+			
+			
+			nSlot =  oProgram.fAttachTexture(this);
+			
 			//oProgram.aTex.fPush(this); //Todo
 			
+
 			fLoad();
 		//	Debug.fTrace("--- Texture Created!! ---");
 		}

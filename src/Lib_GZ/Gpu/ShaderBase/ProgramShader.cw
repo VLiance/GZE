@@ -4,6 +4,7 @@ package  {
 
 	import GZ.Gpu.ShaderBase.ShaderBase;
 	import GZ.Gpu.Base.Attribute;
+	import GZ.Gpu.Base.Texture;
 	import GZ.Gpu.ShaderBase.Vbo;
 	import GZ.Gpu.ShaderBase.Evbo;
 	import GZ.Gpu.Base.Uniform;
@@ -14,9 +15,12 @@ package  {
 		public var bLinked : Bool;
 		public var aAttribute : Array<Attribute>;
 		public var aUniform : Array<Uniform>;
+		public var aTexture : Array<Texture>;
 		public var aVbo : Array<Vbo>;
 		public var aEvbo : Array<Evbo>;
 		public var nDefaultAttribDivisor : UInt = 0;
+		
+		//public var nTotalTexture : UInt = 0;
 		
 		public var aShaderAttached : Array<ShaderBase>;
 		
@@ -61,6 +65,10 @@ package  {
 		public function fUse():Bool;
 		
 		
+		public function fAttachTexture(_oTex: Texture):UInt {
+			aTexture.fPush(_oTex);
+			return aTexture.nSize;
+		}
 		public function fAttachAttribute(_oAttribute: Attribute):Attribute{
 			aAttribute.fPush(_oAttribute);
 			_oAttribute.oProgram = this;

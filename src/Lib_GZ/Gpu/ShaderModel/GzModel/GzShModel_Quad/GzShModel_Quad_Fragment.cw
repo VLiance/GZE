@@ -33,17 +33,14 @@ package  {
 			
 			///////////// Fragment Shader //////////////
 <glsl(oFragement)>
-				
-	uniform sampler2D TexCurrent; 
-	uniform vec2 vTexCurrent;
-	
-	uniform sampler2D TexNormal;
-	uniform vec2 vTexNormal;
-	
-	uniform sampler2D TexSprites;
-	uniform vec2 vTexSprites;
+		
+	uniform int ID_TexCurrent; 
+	uniform int ID_TexNormal; 
+	uniform int ID_TexSprites; 
+	uniform int ID_TexFont; 
 
-
+	uniform vec2 	  TexSize[16];
+	uniform sampler2D Texture[16];
 	
 	//out vec4 outputColor;
 
@@ -149,8 +146,12 @@ void main()
 	//	pixTex = texture(TexCurrent, ioTexture);
 	}
 
-pixTex  = texture(TexCurrent, ioTexture);
+//pixTex  = texture(TexCurrent, ioTexture);
+pixTex  = texture(Texture[0], ioTexture);
 float _nDepth = 0.0;
+
+
+
 
 </glsl>
 	fInsert_Body_Fragment();

@@ -31,16 +31,15 @@ package  {
 	
 <glsl(oVertex)>
 				
+	uniform int ID_TexCurrent; 
+	uniform int ID_TexNormal; 
+	uniform int ID_TexSprites; 
+	uniform int ID_TexFont; 
 
-//uniform sampler2D TexCurrent; 
-	uniform vec2 vTexCurrent;
+	uniform vec2 	  TexSize[16];
+	//uniform sampler2D Texture[16];
 	
-//uniform sampler2D TexNormal;
-	uniform vec2 vTexNormal;
 	
-//uniform sampler2D TexSprites;
-	uniform vec2 vTexSprites;
-
 
 				
 	uniform int nType;
@@ -310,8 +309,8 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 		gl_Position.y = 1.0 - gl_Position.y - 1.0; //FlipY
 
 		//////////// SRC ///////////////
-		ioTexture.x = (vSrc.x + 0.5 ) / (vTexCurrent.x );
-		ioTexture.y = (vSrc.y + 0.5 ) / (vTexCurrent.y );
+		ioTexture.x = (vSrc.x + 0.5 ) / (TexSize[ID_TexCurrent].x );
+		ioTexture.y = (vSrc.y + 0.5 ) / (TexSize[ID_TexCurrent].y );
 		////////////////////////////////
 		
 		//Send color
