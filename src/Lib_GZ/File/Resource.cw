@@ -76,9 +76,9 @@ package  {
 			}
 			*/
 			
-			
-			oFile = new File(_sPath);
-			
+			if(_sPath.nSize > 0){
+				oFile = new File(_sPath);
+			}
 			
 			
 			/*

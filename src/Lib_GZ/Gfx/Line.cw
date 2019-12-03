@@ -24,9 +24,6 @@ package  {
 			
 		}
 	
-		
-
-		
 		override public function fDrawObject(_oSource : Object, _nX_Start:Int, _nX_End:Int, _nY_Start:Int, _nY_End:Int ):Void {
 			
 			Debug.fTrace3("Draw line");
@@ -48,9 +45,10 @@ package  {
 				aSourcePixel[_nY][_nX] = 0xFF000000; //Noir
 			
 			}
-			
-			
 		}
+		
+		
+		
 	
 	}
 }

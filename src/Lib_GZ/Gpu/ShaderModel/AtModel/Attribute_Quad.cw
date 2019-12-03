@@ -96,19 +96,11 @@ package  {
 			oAtColor4 = new Attribute("in_Color4", oVbo);
 
 			
-			
 			oTexture = new Texture(oProgram, "ID_TexCurrent");
-			///oTexture.fSend(0);
+			oTexSprites = new Texture(oProgram, "ID_TexSprites");
+			oTexFont = new Texture(oProgram, "ID_TexFont");
 			
 			//TODO Normals in AtQuad?
-			oTexSprites = new Texture(oProgram, "ID_TexSprites");
-			//oTexSprites.fSend(1);
-			
-			
-			oTexFont = new Texture(oProgram, "ID_TexFont");
-			//oTexFont.fSend(2);
-			
-			
 			
 			//var _oTexture2 : Texture = new Texture(oProgram, "TexSource");
 			//_oTexture2.fSend(1);

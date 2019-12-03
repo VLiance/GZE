@@ -54,8 +54,9 @@ package  {
 		oAt.oAtObjSize.fSet(oFace.oShape.oParent.vGblSize);
 		
 		//Set Texture location
-		oAt.oAtObjSize.fSetVal(3, oFace.oShape.oRc.oGpuTexLayer.nSlot);  //Use 4e value ObjSize var to save space
-		
+		if(oFace.oShape.oRc.oGpuTexLayer != null){
+			oAt.oAtObjSize.fSetVal(3, oFace.oShape.oRc.oGpuTexLayer.nSlot);  //Use 4e value ObjSize var to save space
+		}
 
 		//oAtObjSize
 		oAt.oAtObjRot.fSet(oFace.oShape.oParent.vQuaternion);
