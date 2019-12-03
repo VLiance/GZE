@@ -17,7 +17,7 @@ package  {
 		public var sSizeName : String;
 		public var bValid : Bool = false;
 		
-		public var nSlot : Float;
+		public var nSlot : UInt;
 		
 		public wvar oProgram : ProgramShader;
 

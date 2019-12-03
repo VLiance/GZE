@@ -142,6 +142,9 @@ package  {
 			}
 			
 			
+			//	oPtTR.vPt.nX += 150;
+			//	oPtTR.vPt.nY -= 150;
+			
 
 			fAddPt(oPtTL, _oCenter);
 			fAddPt(oPtTR, _oCenter);

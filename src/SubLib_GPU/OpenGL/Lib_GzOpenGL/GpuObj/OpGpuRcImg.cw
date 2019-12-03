@@ -37,6 +37,9 @@ package  {
 				return null;
 			}
 			
+			OpenGL.fActiveTexture(TEXTURE0 + oGpuTexLayer.nSlot);
+			OpenGL.fActiveTexture(TEXTURE0);
+			/*
 			if(oGpuTexLayer.nSlot == 0){
 				OpenGL.fActiveTexture(TEXTURE0);
 			}
@@ -45,7 +48,7 @@ package  {
 			}
 			if(oGpuTexLayer.nSlot == 2){
 				OpenGL.fActiveTexture(TEXTURE2);
-			}
+			}*/
 			
 			
 			/*
