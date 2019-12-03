@@ -38,7 +38,7 @@ package  {
 */
 		
 		public var nTest : Int;
-		public var oRc : RcImg;
+		
 
 		public var oPtTL : PtA;
 		public var oPtTR : PtA;

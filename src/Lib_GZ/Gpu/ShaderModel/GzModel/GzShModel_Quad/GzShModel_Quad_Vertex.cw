@@ -39,7 +39,7 @@ package  {
 	uniform vec2 	  TexSize[16];
 	//uniform sampler2D Texture[16];
 	
-	
+	#define nTexID int(in_ObjSize.w)
 
 				
 	uniform int nType;
@@ -47,7 +47,7 @@ package  {
 	in vec4 in_ObjPos; //x, y, z, ???? 
 	//in vec4 in_ObjRot; // Roll, Yaw, Pitch, Focal
 	in vec4 in_ObjRot; //Quaternion -> x, y, z, w
-	in vec4 in_ObjSize;  //Width,Height,Length, ????
+	in vec4 in_ObjSize;  //Width,Height,Length, TextureLocationID
 	
 	in vec4 in_Pt1;  //x,y,z, Width
 	in vec4 in_Pt2;  //x,y,z, Height
@@ -309,8 +309,8 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 		gl_Position.y = 1.0 - gl_Position.y - 1.0; //FlipY
 
 		//////////// SRC ///////////////
-		ioTexture.x = (vSrc.x + 0.5 ) / (TexSize[ID_TexCurrent].x );
-		ioTexture.y = (vSrc.y + 0.5 ) / (TexSize[ID_TexCurrent].y );
+		ioTexture.x = (vSrc.x + 0.5 ) / (TexSize[nTexID].x );
+		ioTexture.y = (vSrc.y + 0.5 ) / (TexSize[nTexID].y );
 		////////////////////////////////
 		
 		//Send color

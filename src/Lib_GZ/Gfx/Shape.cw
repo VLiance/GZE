@@ -19,6 +19,7 @@ package  {
 
 
 
+
 	/**
 	 * @author Maeiky
 	 */
@@ -50,7 +51,7 @@ package  {
 
 	//	public var oGpuObj : SysGpuShape;
 
-
+		public var oRc : RcImg;
 		///////////////////////////////////////////////
 
 		public unit uSPoint {

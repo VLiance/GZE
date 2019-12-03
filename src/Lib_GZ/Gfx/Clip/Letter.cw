@@ -35,7 +35,7 @@ package  {
 		public var rPtBR : Mapped<uPoint3D>;
 		public var rPtBL : Mapped<uPoint3D>;*/
 		public var nTest : Int;
-		public var oRc : RcFont;
+	//	public var oRc : RcFont;
 		public var nAdvance : Float;
 
 

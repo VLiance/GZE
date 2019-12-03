@@ -52,6 +52,10 @@ package  {
 	//	Debug.fTrace("aBefDataLinkedSize! " + Attribute_Quad.oAtObjPos.aDataLinked.nSize  );
 		oAt.oAtObjPos.fSet(oFace.oShape.oParent.oGblPt.vPt);
 		oAt.oAtObjSize.fSet(oFace.oShape.oParent.vGblSize);
+		
+		//Set Texture location
+		oAt.oAtObjSize.fSetVal(3, oFace.oShape.oRc.oGpuTexLayer.nSlot);  //Use 4e value ObjSize var to save space
+		
 
 		//oAtObjSize
 		oAt.oAtObjRot.fSet(oFace.oShape.oParent.vQuaternion);
@@ -104,7 +108,7 @@ package  {
 		
 		if (oFace.oShape.hType == Root.eType.Font){
 			_nType = 7; //7 is font
-		
+			
 		}
 		
 		//if (oFace.oShape.oParent.hType == Root.eType.Tile){//BAD evil Cast
@@ -132,6 +136,8 @@ package  {
 		
 
 		oAt.oAtObjPos.fSetVal(3, _nType); //Merge pos and type to save space
+		
+		
 		
 		
 		/*
