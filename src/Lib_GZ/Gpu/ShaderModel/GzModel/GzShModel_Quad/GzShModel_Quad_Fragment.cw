@@ -73,8 +73,12 @@ package  {
 	uniform vec4 v1Color;
 	uniform mat4 mColor;
 
-	uniform int nType;
+	//uniform int nType;
 	//uniform vec2 vTexDim;
+	
+	
+	
+	
 	
 	
 	xflat in mat4 iomColor;
@@ -91,6 +95,11 @@ package  {
 xflat in mat4 iomWorldPt;
 //xflat in mat4 iomNorm;
 xflat in vec3 ioNorm; // Maybe if we get it from world norm
+
+#define nType iomWorldPt[0].w
+#define iTexID int(iomWorldPt[1].w)
+
+
 
 //vec4  vColorSpecular = vec4(2.0, 2.0, 1.5, 1.0); //0 to X Can be premultiplied with alpha
 //vec4  vColorDiffuse = vec4(1.5,1.5,1.5, 1.5);  //rgb -1 to 2  no diffuse : vec4(0.0,0.0,0.0, 1.0); normal : vec4(1.0,1.0,1.0, 1.0);
@@ -125,7 +134,7 @@ void main()
 	vec4 _vCoDist = vec4((1.0-uv.x)*(1.0-uv.y), (uv.x)*(1.0-uv.y), (uv.x)*(uv.y), (1.0-uv.x)*(uv.y));
 	////////////////////////////////////////
 	
-	if( nType == 4 ||  nType == 6){ //Normal
+	if(   nType == 4 ||  nType == 6 ||  nType == 7 ){ //Normal
 
       //  vec4 vPtDist = vec4(0.0, 0.0, 0.0, 1.0); //No Color
 		//vec4 vPtDist = ( coord_Color1 * _vCoDist.a) + (coord_Color2 * _vCoDist.r) + (coord_Color3 * _vCoDist.b) + (coord_Color4 * _vCoDist.g);
@@ -136,18 +145,18 @@ void main()
 		//vec4 vPtDist = vec4(1.0, 0.0, 0.0, 0.5); //No Color
 		vec4 vPtDist = coord_Color1; 
 	//	vec4 vPtDist = _vQuadColor; 
-		
-	if( nType == 6){
+			
+		if( nType == 6){
 
-	//Normal
-	//pixTex = texture(TexCurrent, ioTexture);
-	//pixTex = vec4(0.5,0.5,0.5,0.5);
-	}else{
-	//	pixTex = texture(TexCurrent, ioTexture);
-	}
+		//Normal
+		//pixTex = texture(TexCurrent, ioTexture);
+		//pixTex = vec4(0.5,0.5,0.5,0.5);
+		}else{
+		//	pixTex = texture(TexCurrent, ioTexture);
+		}
 
 //pixTex  = texture(TexCurrent, ioTexture);
-pixTex  = texture(Texture[0], ioTexture);
+pixTex  = texture(Texture[iTexID], ioTexture);
 float _nDepth = 0.0;
 
 

@@ -37,8 +37,12 @@ package  {
 				return null;
 			}
 			
+		
 			OpenGL.fActiveTexture(TEXTURE0 + oGpuTexLayer.nSlot);
-			OpenGL.fActiveTexture(TEXTURE0);
+			
+			//Debug.fDebug(TEXTURE0 + oGpuTexLayer.nSlot);
+			
+			//OpenGL.fActiveTexture(TEXTURE2);
 			/*
 			if(oGpuTexLayer.nSlot == 0){
 				OpenGL.fActiveTexture(TEXTURE0);
@@ -103,7 +107,7 @@ package  {
 			
 			if(oTexId != null){
 				//Debug.fPass("Image Gpu Loaded: " + oTexId);
-				Debug.fPass("Image Gpu Loaded [" + (_nWidth +2) + " x " +  (_nHeight+2) + "]" );
+				Debug.fPass("Image Gpu Loaded |" + oGpuTexLayer.nSlot + "| [" + (_nWidth +2) + " x " +  (_nHeight+2) + "]" );
 
 			//if(oGpuTexLayer != null){
 				

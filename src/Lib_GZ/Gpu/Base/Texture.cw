@@ -11,7 +11,7 @@ package  {
 	public overclass Texture  {
 
 		
-	//	public var nId : Val;
+		public var nId : Val;
 		public var nSizeId : Val;
 		public var nNumId : Val;
 		

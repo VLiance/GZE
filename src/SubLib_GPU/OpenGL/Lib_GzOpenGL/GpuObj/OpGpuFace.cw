@@ -92,15 +92,9 @@ package  {
 		oAt.oAtColor4.fSet(oFace.oShape.vGblColor); //Not used
 
 		
+
 		
-		oAtTiles = Attribute_Tiles;
-		<cpp>
-		if(oAtTiles == 0){ //TODO correction in C~ if(oAt == null){
-			return;
-		}
-		</cpp>
-		
-		oAtTiles.fSetIndex(GpuFace.nCurrent - 1);
+	
 		
 		//if(oAtTiles.oAtTilesHV == 0){return;}
 	
@@ -114,6 +108,16 @@ package  {
 		
 		//if (oFace.oShape.oParent.hType == Root.eType.Tile){//BAD evil Cast
 		if (oFace.oShape.hType == Root.eType.Tile){//BAD evil Cast
+		
+			oAtTiles = Attribute_Tiles;
+			<cpp>
+			if(oAtTiles == 0){ //TODO correction in C~ if(oAt == null){
+				return;
+			}
+			</cpp>
+		
+			oAtTiles.fSetIndex(GpuFace.nCurrent - 1);
+		
 			_nType = 6;
 
 			

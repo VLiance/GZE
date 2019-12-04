@@ -67,7 +67,7 @@ package  {
 		
 		public function fAttachTexture(_oTex: Texture):UInt {
 			aTexture.fPush(_oTex);
-			return aTexture.nSize;
+			return aTexture.nSize - 1;
 		}
 		public function fAttachAttribute(_oAttribute: Attribute):Attribute{
 			aAttribute.fPush(_oAttribute);
