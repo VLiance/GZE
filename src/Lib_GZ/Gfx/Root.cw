@@ -28,6 +28,7 @@ package  {
 			Tile;
 			Font;
 			Img;
+			Line;
 		}
 		
 		public var hType : eType;

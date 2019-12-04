@@ -101,6 +101,11 @@ package  {
 		var _nType : UInt = 4;
 
 		
+		if (oFace.oShape.hType == Root.eType.Line){
+			_nType = 8; //8 is Line
+		}
+		
+
 		if (oFace.oShape.hType == Root.eType.Font){
 			_nType = 7; //7 is font
 			

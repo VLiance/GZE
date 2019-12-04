@@ -76,6 +76,16 @@ package  {
 		}
 		//////////////////////////////////////////////////
 		
+		public function fSetDist(_vPtFrom : Pt<Number>, _nAngle : Float, _nDistance : Float):Void {
+			nX = _vPtFrom.nX + Math.fSin(_nAngle) * _nDistance;
+			nY = _vPtFrom.nY + Math.fCos(_nAngle) * _nDistance;
+		}
+		
+		
+		
+		
+		
+		
 
 	}
 }

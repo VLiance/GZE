@@ -134,7 +134,8 @@ void main()
 	vec4 _vCoDist = vec4((1.0-uv.x)*(1.0-uv.y), (uv.x)*(1.0-uv.y), (uv.x)*(uv.y), (1.0-uv.x)*(uv.y));
 	////////////////////////////////////////
 	
-	if(   nType == 4 ||  nType == 6 ||  nType == 7 ){ //Normal
+	
+	if(   nType == 4 ||  nType == 6 ||  nType == 7 || nType == 8){ //Normal
 
       //  vec4 vPtDist = vec4(0.0, 0.0, 0.0, 1.0); //No Color
 		//vec4 vPtDist = ( coord_Color1 * _vCoDist.a) + (coord_Color2 * _vCoDist.r) + (coord_Color3 * _vCoDist.b) + (coord_Color4 * _vCoDist.g);
@@ -154,9 +155,20 @@ void main()
 		}else{
 		//	pixTex = texture(TexCurrent, ioTexture);
 		}
+		
+			
+		if( nType == 8 ){
+			//pixTex = vec4(0.0, 0.5, 0.5, 1.0);
+			pixTex = vPtDist;
+			pixTex.a =1.0- (uv.y*uv.y);
+			
+			
+		}else{
+			
+		//pixTex  = texture(TexCurrent, ioTexture);
+			pixTex  = texture(Texture[iTexID], ioTexture);
+		}
 
-//pixTex  = texture(TexCurrent, ioTexture);
-pixTex  = texture(Texture[iTexID], ioTexture);
 float _nDepth = 0.0;
 
 
@@ -368,6 +380,9 @@ float _nDepth = 0.0;
 		 //FragColor =  vec4( 0, vCoDist.b + vCoDist.r, 0,1.0);
 
 	}
+	
+	
+	
 	
 	
 
