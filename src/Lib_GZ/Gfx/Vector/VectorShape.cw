@@ -86,6 +86,9 @@ package  {
 			
 			//Connect Lines
 			for(var i : Int = 0; i < aLine.nSize; i++){
+			
+	
+			
 				var _nNext : Int = i + 1;
 				if(_nNext == aLine.nSize){
 					_nNext = 0;
@@ -93,9 +96,25 @@ package  {
 				var _oLine1 : Line = aLine[i];
 				var _oLine2 : Line = aLine[_nNext];
 				
-				
-				var _nResultAngle : Float = (_oLine1.nAngle + _oLine2.nAngle)/2;
-				
+				var _nFirstAngle : Float = _oLine1.nAngle; 
+				var _nNextAngle : Float = _oLine2.nAngle; 
+				/*
+				if(_nNext == 0){
+					_nNextAngle += Math.nPI * 2;
+				}
+				if(_nFirstAngle <  0){
+					_nFirstAngle += Math.nPI * 2;
+				}	
+				*/
+				if(_nNextAngle <  0){
+					_nNextAngle += Math.nPI * 2;
+				}
+			
+			
+				var _nResultAngle : Float = (_nNextAngle - _nFirstAngle)/2;
+				Debug.fPass("_nFirstAngle " + _nFirstAngle);
+				Debug.fPass("_nNextAngle " + _nNextAngle);
+				Debug.fPass("_nResultAngle " + _nResultAngle);
 				
 				_oLine1.fSetCapR(_nResultAngle);
 				_oLine2.fSetCapL_Pos(_oLine1 );
@@ -108,7 +127,15 @@ package  {
 		}
 		
 		
+		/*
 		
+		inline double getAbsoluteDiff2Angles(const double x, const double y, const double c)
+{
+    // c can be PI (for radians) or 180.0 (for degrees);
+    return c - fabs(fmod(fabs(x - y), 2*c) - c);
+}
+
+*/
 	
 		override public function fUpdateChildToParent():Void {
 

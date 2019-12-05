@@ -35,6 +35,7 @@ package  {
 		public var oHLine2 : HalfLine;
 		
 		public var nAngle : Float;
+		public var nDir : Float;
 
 
 		public function Line( _oParent : Root, _oPt1 : PtA,  _oPt2 : PtA, _nSize : Float = 1):Void {
@@ -46,7 +47,16 @@ package  {
 			oPt1 = _oPt1;
 			oPt2 = _oPt2;
 			
-			nAngle = Math.fATan2(oPt1.vPt.nY - oPt2.vPt.nY, oPt1.vPt.nX - oPt2.vPt.nX);
+			nAngle = Math.fATan2(oPt2.vPt.nY - oPt1.vPt.nY, oPt2.vPt.nX - oPt1.vPt.nX);
+			/*
+			nDir = 1;
+			if(oPt2.vPt.nX < oPt1.vPt.nX){
+				nDir = nDir *-1;
+			}
+			if(oPt2.vPt.nY < oPt1.vPt.nY){
+				nDir = nDir *-1;
+			}*/
+			
 			/*
 			if(nAngle > 3.1416*2.0) {
 				nAngle -=  3.1416*2.0;
@@ -69,12 +79,13 @@ package  {
 		
 		
 		public function fSetCapL(_nAngle : Float):Void {
-			oHLine1.fSetCapL( _nAngle + Math.nR90 , nSize);
-			oHLine2.fSetCapL( _nAngle + Math.nR90, nSize * -1);
+			oHLine1.fSetCapL( nAngle  + Math.nR90 - _nAngle , nSize);
+			oHLine2.fSetCapL( nAngle  + Math.nR90 - _nAngle, nSize * -1);
 		}
+		
 		public function fSetCapR(_nAngle : Float):Void{
-			oHLine1.fSetCapR( _nAngle + Math.nR90, nSize);
-			oHLine2.fSetCapR( _nAngle + Math.nR90, nSize * -1);
+			oHLine1.fSetCapR(nAngle  - _nAngle , nSize);
+			oHLine2.fSetCapR(nAngle  - _nAngle , nSize * -1);
 		}
 		
 		
