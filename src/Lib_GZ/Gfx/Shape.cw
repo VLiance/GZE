@@ -23,7 +23,7 @@ package  {
 	/**
 	 * @author Maeiky
 	 */
-	public extension Shape extends Object {   //Not shape but square form
+	public class Shape extends Object {   //Not shape but square form
 
 		public const var nBorder : UInt = 1; //Must be same ase png.h
 
@@ -146,7 +146,9 @@ package  {
 
 
 		override public function fGpuDraw():Bool {
-			oFace.fGpuDraw();
+			if(oFace != null){
+				oFace.fGpuDraw();
+			}
 			return true;
 		}
 
@@ -226,8 +228,9 @@ package  {
 				 _nY_Start = oDstBuff.nBuffPLimT;
 				 _nY_End = oDstBuff.nBuffPLimB;
 */
-				oFace.fCpuDraw( oDstBuff, Math.nHPrec, Math.nHPrec, _nX_Start, _nX_End, _nY_Start, _nY_End,  _nRsAlpha , _nRsBrRed , _nRsBrGreen , _nRsBrBlue , 256 , 256 , 256 , 0 , 0 ,0 );
-			
+				if(oFace != null){
+					oFace.fCpuDraw( oDstBuff, Math.nHPrec, Math.nHPrec, _nX_Start, _nX_End, _nY_Start, _nY_End,  _nRsAlpha , _nRsBrRed , _nRsBrGreen , _nRsBrBlue , 256 , 256 , 256 , 0 , 0 ,0 );
+				}
 			//Debug.fTrace("----------FinishDraw!");
 				return true;
 

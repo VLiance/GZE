@@ -53,7 +53,7 @@ package  {
 		//public easeOut var nEase :Int;
 
 
-		public function HalfLine( _oParent : Root, _oPt1 : PtA,  _oPt2 : PtA):Void {
+		public function HalfLine( _oParent : Root, _oPt1 : PtA,  _oPt2 : PtA, _nSize : Float, _nAngle: Float):Void {
 			Shape(_oParent, 0 , 0, 4, false);
 			hType = Root.eType.Line;
 			
@@ -93,21 +93,12 @@ package  {
 			oPtBL = new PtA(oPt1.vPt.nX, oPt1.vPt.nY));
 			 
 			
-			var _nAngle : Float = Math.fATan2(oPt1.vPt.nY - oPt2.vPt.nY, oPt1.vPt.nX - oPt2.vPt.nX);
-			_nAngle += Math.nR90;
-			
-			
-			oPtBR.vPt.fSetDist(oPtBR.vPt, _nAngle, 5);
-			oPtBL.vPt.fSetDist(oPtBL.vPt, _nAngle, 5);
-			
-			//fSetPos(oPtBR, oPtBR, _nAngle, 10);
-			//fSetPos(oPtBL, oPtBL, _nAngle, 10);
-			//oPtBR.vPt.nX = oPtBR.vPt.nX  * Math.fCos(_nAngle) + oPtBR.vPt.nX  * Math.fSin(_nAngle);
-			//oPtBR.vPt.nX = oPtBR.vPt.nX  * Math.fCos(_nAngle) + oPtBR.vPt.nX  * Math.fSin(_nAngle);
-			
 		
-			
-				
+			_nAngle += Math.nR90;
+
+			oPtBR.vPt.fSetDist(oPtBR.vPt, _nAngle, _nSize);
+			oPtBL.vPt.fSetDist(oPtBL.vPt, _nAngle, _nSize);
+
 			
 			
 			fAddPt(oPtTL, _oCenter);
@@ -147,12 +138,34 @@ package  {
 
 		}
 		
-		
-		
-		public function fSetPos(_oPt : PtA, _oPtFrom : PtA , _nAngle : Float, _nDistance : Float):Void {
-			_oPt.vPt.nX = _oPtFrom.vPt.nX + Math.fSin(_nAngle) * _nDistance;
-			_oPt.vPt.nY = _oPtFrom.vPt.nY + Math.fCos(_nAngle) * _nDistance;
+			
+		public function fSetCapL_Pos(_oLine : HalfLine):Void {
+			oPtBL.vPt.nX = _oLine.oPtBR.vPt.nX;
+			oPtBL.vPt.nY = _oLine.oPtBR.vPt.nY;
 		}
+		
+			
+		public function fSetCapL(_nAngle : Float, _nSize : Float ):Void {
+			//oPtBR.vPt.fSetDist(oPt2.vPt, _nAngle, _nSize);
+			oPtBL.vPt.fSetDist(oPt1.vPt, _nAngle, _nSize);
+		}
+		public function fSetCapR(_nAngle : Float, _nSize : Float ):Void {
+			oPtBR.vPt.fSetDist(oPt2.vPt, _nAngle, _nSize);
+			//oPtBL.vPt.fSetDist(oPt1.vPt, _nAngle, _nSize);
+		}
+		
+		/*
+		public function fSetPos(_oPt : PtA, _oPtFrom : PtA , _nAngle : Float, _nDistance : Float):Void {
+			Debug.fWarning("Bef" +_oPt.vPt.nX);
+			_oPt.vPt.nX = _oPtFrom.vPt.nX + Math.fCos(_nAngle) * _nDistance;
+			_oPt.vPt.nY = _oPtFrom.vPt.nY + Math.fSin(_nAngle) * _nDistance;
+			
+			Debug.fWarning("aft" + _oPt.vPt.nX);
+			Debug.fWarning(" Math.fSin(_nAngle)" +  Math.fSin(_nAngle));
+			Debug.fWarning(" Math.fCos(_nAngle)" +  Math.fCos(_nAngle));
+			Debug.fWarning("_nDistance" +  _nDistance);
+		}
+		*/
 
 
 		override public function fUpdateChildToParent():Void {

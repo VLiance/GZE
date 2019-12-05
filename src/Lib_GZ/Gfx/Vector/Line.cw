@@ -10,6 +10,7 @@ package  {
 	import GZ.Gfx.Shape;
 	import GZ.Gfx.Face;
 	import GZ.Gfx.Root;
+	import GZ.Gfx.Clip;
 	import GZ.Base.Math.Math;
 	import GZ.Gfx.Triangle;
 	import GZ.File.RcImg;
@@ -23,31 +24,58 @@ package  {
 	/**
 	 * @author Maeiky
 	 */
-	public class Line extends Object {
+	public class Line extends Clip {
 
+		public var nSize : Float;
 		
 		public var oPt1 : PtA;
 		public var oPt2 : PtA;
 		
 		public var oHLine1 : HalfLine;
 		public var oHLine2 : HalfLine;
+		
+		public var nAngle : Float;
 
 
-		public function Line( _oParent : Root, _oPt1 : PtA,  _oPt2 : PtA):Void {
+		public function Line( _oParent : Root, _oPt1 : PtA,  _oPt2 : PtA, _nSize : Float = 1):Void {
 				
-			Object(_oParent, 0 , 0);
+			nSize = _nSize;
+				
+			Clip(_oParent, 0 , 0);
 			
 			oPt1 = _oPt1;
 			oPt2 = _oPt2;
 			
-			oHLine1 = new HalfLine(this, oPt1, oPt2);
-		//	oHLine2 = new HalfLine(this, oPt1, oPt2);
-	
+			nAngle = Math.fATan2(oPt1.vPt.nY - oPt2.vPt.nY, oPt1.vPt.nX - oPt2.vPt.nX);
+			/*
+			if(nAngle > 3.1416*2.0) {
+				nAngle -=  3.1416*2.0;
+			}
+			if(nAngle < 0) {
+				nAngle +=  3.1416*2.0;
+			}
+			*/
 			
-			
+			oHLine1 = new HalfLine(this, oPt1, oPt2, nSize, nAngle);
+			oHLine2 = new HalfLine(this, oPt1, oPt2, nSize * -1, nAngle);
 
 		}
 		
+		
+		public function fSetCapL_Pos(_oLine : Line):Void {
+			oHLine1.fSetCapL_Pos( _oLine.oHLine1);
+			oHLine2.fSetCapL_Pos( _oLine.oHLine2);
+		}
+		
+		
+		public function fSetCapL(_nAngle : Float):Void {
+			oHLine1.fSetCapL( _nAngle + Math.nR90 , nSize);
+			oHLine2.fSetCapL( _nAngle + Math.nR90, nSize * -1);
+		}
+		public function fSetCapR(_nAngle : Float):Void{
+			oHLine1.fSetCapR( _nAngle + Math.nR90, nSize);
+			oHLine2.fSetCapR( _nAngle + Math.nR90, nSize * -1);
+		}
 		
 		
 	
