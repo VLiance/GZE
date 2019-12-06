@@ -131,7 +131,6 @@ package  {
 					setlocale(LC_ALL, ".65001");
 					SetConsoleOutputCP(CP_UTF8);
 					//Color(FOREGROUND_RED|FOREGROUND_INTENSITY);
-				    wprintf(L"ÉTAGE île noël âtre forêt repère être ça\n");
 					_::Color(FOREGROUND_WHITE);
 					
 				#endif

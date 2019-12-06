@@ -22,7 +22,7 @@ package  {
 
 		
 		public function OpMainThreadPlatformMsg() : Void{
-			Debug.fTrace("--OpMainThreadPlatformMsg--");
+			//Debug.fTrace("--OpMainThreadPlatformMsg--");
 			MainThreadPlatformMsg();
 		}
 		 

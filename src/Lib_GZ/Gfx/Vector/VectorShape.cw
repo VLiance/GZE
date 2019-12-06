@@ -41,7 +41,7 @@ package  {
 			
 			
 			
-			var _oCenter  : Pt<Float> = new Pt<Float>(200, 200);
+			var _oCenter  : Pt<Float> = new Pt<Float>(0.5, 0.5);
 			//var _oCenter  : Pt<Float> = new Pt<Float>(0, 0);
 			
 			
