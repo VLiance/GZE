@@ -18,6 +18,8 @@ package  {
 		public var bReady : Bool;
 		public  var bTransparent  : Bool = false;
 		
+		
+
 		public var oGpu : Gpu;
 		
 		public enum ePositioning : Int {
@@ -64,8 +66,9 @@ package  {
 		//public var nHandleId : UInt;
 		public var nLastMouseX : Float;
 		public var nLastMouseY : Float;
-		public static var bMouseDrag : Bool;
-		public static var bFirstMouseOver : Bool;
+		
+		public var bMouseDrag : Bool;
+		public var bFirstMouseOver : Bool;
 		
 		
 		public var vFrame : Rect<Int>;

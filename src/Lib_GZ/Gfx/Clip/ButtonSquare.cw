@@ -63,12 +63,12 @@ package  {
 			var _nPosY:Int = nPosY;
 		
 			if (bDrag) {
-				if (oWindow.fKeyIsDown( 0x01 ) == 0) { //LEFT MOUSE LEAVE
+				if (Context.fKeyIsDown( 0x01 ) == 0) { //LEFT MOUSE LEAVE
 					fStopDrag();
 				}
-			}else if (bMouseOver && oWindow.bMouseDrag == false) { //Over
+			}else if (bMouseOver && Context.bMouseDrag == false) { //Over
 				oRectangle.fSetColor1(0xFF775566);
-				if (oWindow.fKeyIsDown( 0x01 ) ) { //LEFT MOUSE
+				if (Context.fKeyIsDown( 0x01 ) ) { //LEFT MOUSE
 					oRectangle.fSetColor1(0xFFFF5500);
 					fStartDrag();
 				}

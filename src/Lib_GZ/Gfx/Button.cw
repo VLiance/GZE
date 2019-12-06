@@ -9,11 +9,12 @@ package  {
 	import GZ.Gfx.Object;
 	import GZ.Gfx.Root;
 	import GZ.Base.Math.Math;
+	import GZ.Sys.Interface.Context;
 	
 	/**
 	 * @author Maeiky
 	 */	
-	public extension Button extends Clip {
+	public class Button extends Clip {
 		
 		public var bPress : Bool = false;
 		public var bRelease : Bool = false;
@@ -43,6 +44,12 @@ package  {
 		public var nDestY:Float;
 		
 		public static var oLastBottonFirstOver : Button;
+		
+	
+	public var nClipX : Float = 0; //TODO Better place
+	public var nClipY : Float = 0;
+public var nLastClipX : Float = 0; //TODO Better place
+public var nLastClipY : Float = 0;
 	
 		
 		public function Button( _oParent : Root, _nX: Int, _nY:Int):Void {
@@ -54,7 +61,7 @@ package  {
 		
 		//Overited
 		override public function fUpdateParentToChild():Void {
-			//oWindow.fGetMousePosition(); //Maybe si upder entre temps or not
+			//Context.fGetMousePosition(); //Maybe si upder entre temps or not
 			
 			bPress = false;
 			bRelease = false;
@@ -62,8 +69,8 @@ package  {
 			if (bDrag) {
 				
 				/*
-				nDestX = oWindow.nMouseX  + nDragX + ( oWindow.nMouseX - oWindow.nLastMouseX)/1.5;
-				nDestY = oWindow.nMouseY  + nDragY + ( oWindow.nMouseY - oWindow.nLastMouseY)/1.5;
+				nDestX = Context.nMouseX  + nDragX + ( Context.nMouseX - Context.nLastMouseX)/1.5;
+				nDestY = Context.nMouseY  + nDragY + ( Context.nMouseY - Context.nLastMouseY)/1.5;
 				
 				var _nDiffX : Float = (nDestX - nX) / 1.7;
 				var _nDiffY : Float = (nDestY - nY) / 1.7;
@@ -73,21 +80,21 @@ package  {
 				
 				if (  Math.fAbs(_nDiffX)  < 0.5 ) {
 					_nDiffX = 0;
-					nX = oWindow.nMouseX + nDragX;
+					nX = Context.nMouseX + nDragX;
 				}
 				if (  Math.fAbs(_nDiffY)  < 0.5 ) {
 					_nDiffY = 0;
-					nY = oWindow.nMouseY + nDragY;
+					nY = Context.nMouseY + nDragY;
 				}*/
 
 				
-				nX = oWindow.nMouseX + nDragX;
-				nY = oWindow.nMouseY + nDragY;
-				fApplyPosGlobalToLocal();
+				vPos.nX = Context.nMouseX + nDragX;
+				vPos.nY = Context.nMouseY + nDragY;
+		//		fApplyPosGlobalToLocal();
 				
 				//Only one axe
 				if(bUseX == false){
-				//	nClipX = nLastClipX;
+					nClipX = nLastClipX;
 				}
 				if (bUseY == false) {
 					nClipY = nLastClipY;
@@ -112,16 +119,20 @@ package  {
 				fDrag(); //Overrited
 				
 			}else{
-				//if (oWindow.nMouseX >=  nX + nLimL &&  oWindow.nMouseX <= nX + nLimR  && oWindow.nMouseY >= nY + nLimT  &&  oWindow.nMouseY <=  nY + nLimB) { //Over
-				if(fIsPtOver(oWindow.nMouseX, oWindow.nMouseY)){
-					if (oWindow.bFirstMouseOver == false) {
-						oWindow.bFirstMouseOver = true;
+				//if (Context.nMouseX >=  nX + nLimL &&  Context.nMouseX <= nX + nLimR  && Context.nMouseY >= nY + nLimT  &&  Context.nMouseY <=  nY + nLimB) { //Over
+				if(fIsPtOver(Context.nMouseX, Context.nMouseY)){
+					if (Context.bFirstMouseOver == false) {
+						Context.bFirstMouseOver = true;
 						bMouseOver = true;
-						if (oLastBottonFirstOver != null && oLastBottonFirstOver != this) {  //Remove multiple button over
-							oLastBottonFirstOver.bMouseOver = false;
+						/*
+						if (Button.oLastBottonFirstOver != null && oLastBottonFirstOver != this) {  //Remove multiple button over
+							Button.oLastBottonFirstOver.bMouseOver = false;
 						}
-						oLastBottonFirstOver = this;
+						Button.oLastBottonFirstOver = this;
+						*/
+						
 					}
+					
 				}else {
 					bMouseOver = false;
 				}
@@ -153,13 +164,13 @@ package  {
 		
 		
 		public function fStartDrag():Void {
-			if (bDrag == false && oWindow.bMouseDrag == false) {
+			if (bDrag == false && Context.bMouseDrag == false) {
 				bDrag = true;
 				bPress = true;
-				oWindow.bMouseDrag = true;
-				oWindow.fStartCaptureOutside();
-				nDragX = nX - oWindow.nMouseX;
-				nDragY = nY - oWindow.nMouseY;
+				Context.bMouseDrag = true;
+				Context.fStartCaptureOutside();
+				nDragX = vPos.nX - Context.nMouseX;
+				nDragY = vPos.nY - Context.nMouseY;
 			}
 		}
 		
@@ -167,12 +178,12 @@ package  {
 			if(bDrag == true){
 				bDrag = false;
 				bRelease = true;
-				oWindow.bMouseDrag = false;
-				oWindow.fStopCaptureOutside();
-				nX = oWindow.nMouseX  + nDragX;
-				nY = oWindow.nMouseY  + nDragY;
-				nDestX = nX;
-				nDestY = nY;
+				Context.bMouseDrag = false;
+				Context.fStopCaptureOutside();
+				vPos.nX = Context.nMouseX  + nDragX;
+				vPos.nY = Context.nMouseY  + nDragY;
+				nDestX = vPos.nX;
+				nDestY = vPos.nY;
 			}
 			
 		}

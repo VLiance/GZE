@@ -10,6 +10,9 @@ package  {
 	import GZ.Gfx.Root;
 	import GZ.Gfx.Clip.Img;
 	import GZ.Base.Math.Math;
+	import GZ.File.RcImg;
+	import GZ.Sys.Interface.Context;
+	import GZ.Input.Key;
 
 	/**
 	 * @author Maeiky
@@ -29,14 +32,13 @@ package  {
 		public var nPressB : Int = -128;
 		
 	
-		public function ButtonImg( _oParent : Root, _nX: Int, _nY:Int, _sPath:String, _bDrawLine:Bool = false):Void {
+		public function ButtonImg( _oParent : Root, _nX: Int, _nY:Int, _oRc:RcImg, _bDrawLine:Bool = false):Void {
 			Button(_oParent, _nX , _nY);
 			//Clip(_oParent, _nX , _nY);
 			
-			oImg = new Img(this, 0, 0, _sPath, true, 0, 0, true, _bDrawLine);
+			oImg = new Img(this, 0, 0, _oRc, true, 0, 0, true, _bDrawLine);
 			
 			//oImg.nEase.to(15);
-			
 			
 			nWidth = oImg.nWidth;
 			nHeight = oImg.nHeight;
@@ -114,10 +116,10 @@ package  {
 			//var _nPosY:Int = nPosY;
 		
 			if (bDrag) {
-				if (oWindow.fKeyIsDown( 0x01 ) == 0) { //LEFT MOUSE LEAVE
+				if (Key.fIsDown( 0x01 ) == 0) { //LEFT MOUSE LEAVE
 					fStopDrag();
 				}
-			}else if (bMouseOver && oWindow.bMouseDrag == false) { //Over
+			}else if (bMouseOver && Context.bMouseDrag == false) { //Over
 				/*
 				oImg.nAlpha.to(50);
 				oImg.nDkBlue.to(256);
@@ -133,7 +135,7 @@ package  {
 				//oRectangle.fSetColor1(0xFF775566);
 				//nClipX += 1p;
 							
-				if (oWindow.fKeyIsDown( 0x01 ) ) { //LEFT MOUSE
+				if (Key.fIsDown( 0x01 ) ) { //LEFT MOUSE
 					
 					//oImg.fToBrRGB(nPressR, nPressG, nPressB, nSpeed);
 					
