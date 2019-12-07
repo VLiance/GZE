@@ -289,12 +289,7 @@ package  {
 				_oPt.vFinal.fRotate( _oGblTf.vQuaternion);
 				//Debug.fTrace("vQuaternion:[" + vQuaternion.nX + ", " + vQuaternion.nY + ", " + vQuaternion.nZ + ", " + vQuaternion.nW + "]");
 				
-				
 			}
-			
-			
-			
-			
 		}
 
 

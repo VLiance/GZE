@@ -13,6 +13,7 @@ package  {
 	import GZ.File.RcImg;
 	import GZ.Sys.Interface.Context;
 	import GZ.Input.Key;
+	import GZ.Base.PtA;
 
 	/**
 	 * @author Maeiky
@@ -88,7 +89,54 @@ package  {
 		}
 		*/
 		
-		override public function fIsPtOver(_nPtx :Float, _nPty :Float) : Bool {
+		//http://alienryderflex.com/polygon/
+		override public function fIsPtOver(_nX :Float, _nY :Float) : Bool {
+			
+			//Debug.fPass("Test!! " + _nX + ": "  + _nY );
+			//TODO need to calculate parents?
+			oImg.fTransform();
+			oImg.fConvertTo2d();
+			
+			var _aPoint : Array<PtA> =	oImg.aNewPt3dOri;
+			var _bOddNodes : Bool = false;
+			var j : Int = _aPoint.nSize - 1;
+			
+			
+			//Debug.fPass("0!! " + _aPoint[0].o2d.nX + ": "  + _aPoint[0].o2d.nY );
+			//Debug.fPass("1!! " + _aPoint[1].o2d.nX + ": "  + _aPoint[1].o2d.nY );
+			
+			for(var i : Int = 0; i <  _aPoint.nSize; i++){
+				
+				var _nPolyX_i : Float = _aPoint[i].o2d.nX;
+				var _nPolyX_j : Float = _aPoint[j].o2d.nX;
+				
+				var _nPolyY_i : Float = _aPoint[i].o2d.nY;
+				var _nPolyY_j : Float = _aPoint[j].o2d.nY;
+				
+				
+				
+				if (_nPolyY_i < _nY && _nPolyY_j >= _nY ||  _nPolyY_j < _nY && _nPolyY_i >= _nY) {
+					if (_nPolyX_i <= _nX || _nPolyX_j <= _nX) {
+					
+						if ( _nPolyX_i+(_nY - _nPolyY_i)/(_nPolyY_j -_nPolyY_i)*(_nPolyX_j-_nPolyX_i) < _nX) {
+							//_bOddNodes = !_bOddNodes;
+							if(_bOddNodes == false){
+								_bOddNodes = true;
+							}else{
+								_bOddNodes = false;
+							}
+							
+						}
+					}
+				}
+				j = i;
+			}
+			
+			
+			return 	_bOddNodes;
+		}
+			
+			
 			/* TODO
 			_nPtx -= nX;
 			_nPty -= nY;
@@ -106,8 +154,29 @@ package  {
 		
 		
 		
+		
+		
+		
+		
+		
+		
+		
 		override public function fButtonUpdate():Void {
 			
+			oImg.vColor.fSetSpeed(3);
+			 if (bMouseOver ){
+				oImg.vColor.nAlpha.fTo(0.8);
+				oImg.vColor.nRed.fTo(1.0);
+				oImg.vColor.nBlue.fTo(1.0);
+				oImg.vColor.nGreen.fTo(1.0);
+				
+			 }else{
+			 	oImg.vColor.nAlpha.fTo(1.0);
+				oImg.vColor.nRed.fTo(0.0);
+				oImg.vColor.nBlue.fTo(0.0);
+				oImg.vColor.nGreen.fTo(0.0);
+			 }
+			 
 			//oImg.nSkewY += 0.001;
 			
 			//nPosY += 0.01p;
@@ -116,10 +185,19 @@ package  {
 			//var _nPosY:Int = nPosY;
 		
 			if (bDrag) {
+			
+				oImg.vColor.nRed.fTo(1.0);
+				oImg.vColor.nBlue.fTo(0.0);
+				oImg.vColor.nGreen.fTo(0.0);
+			
+			
 				if (Key.fIsDown( 0x01 ) == 0) { //LEFT MOUSE LEAVE
 					fStopDrag();
 				}
 			}else if (bMouseOver && Context.bMouseDrag == false) { //Over
+			
+			
+			
 				/*
 				oImg.nAlpha.to(50);
 				oImg.nDkBlue.to(256);
@@ -134,7 +212,7 @@ package  {
 				
 				//oRectangle.fSetColor1(0xFF775566);
 				//nClipX += 1p;
-							
+							Debug.fTrace("SAAG!!");	
 				if (Key.fIsDown( 0x01 ) ) { //LEFT MOUSE
 					
 					//oImg.fToBrRGB(nPressR, nPressG, nPressB, nSpeed);
@@ -148,7 +226,7 @@ package  {
 					oImg.nDkGreen.to(80)
 					oImg.nDkRed.to(80)
 					*/
-					
+					Debug.fTrace("STart DRAG!!");
 					//oRectangle.fSetColor1(0xFFFF5500);
 					fStartDrag();
 				}

@@ -124,6 +124,8 @@ public var nLastClipY : Float = 0;
 					if (Context.bFirstMouseOver == false) {
 						Context.bFirstMouseOver = true;
 						bMouseOver = true;
+						
+						//Debug.fPass("OVER!!!");
 						/*
 						if (Button.oLastBottonFirstOver != null && oLastBottonFirstOver != this) {  //Remove multiple button over
 							Button.oLastBottonFirstOver.bMouseOver = false;
@@ -145,6 +147,7 @@ public var nLastClipY : Float = 0;
 		
 		//Overited in button img
 		public function fIsPtOver(_nPtx :Float, _nPty :Float) : Bool {
+			
 			/*
 			_nPtx -= nX;
 			_nPty -= nY;

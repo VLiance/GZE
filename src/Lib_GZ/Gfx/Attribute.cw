@@ -121,6 +121,7 @@ package  {
 			vRot.fStep();
 			vSize.fStep();
 			vColor.fStep();
+			////////////////////////////////
 			
 			vGblColor.nRed  = vColor.nRed  + oParent.vGblColor.nRed;
 			vGblColor.nGreen =  vColor.nGreen + oParent.vGblColor.nGreen ;
