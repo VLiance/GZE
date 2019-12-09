@@ -11,6 +11,115 @@ void fProcessMessage(Lib_GZ::cHoldGate* _pGate, HWND _hWnd, gzUInt uMsg, WPARAM 
 		case WM_KEYUP:
 			_gFrom.Send(new cfKeyIsUp(wParam));
         break;
+		
+		case WM_LBUTTONDOWN:
+			_gFrom.Send(new cfKeyIsDown(VK_LBUTTON));
+		break;
+		case WM_LBUTTONUP:
+			_gFrom.Send(new cfKeyIsUp(VK_LBUTTON));
+		break;
+		
+		
+		/*
+	
+		////////////// MOUSE /////////////////////
+        case WM_LBUTTONDOWN:
+            _this->KeyDown[VK_LBUTTON] = true;
+
+            if(_this->bCaptureOut){
+                RECT rc;
+                POINT pt;
+                GetWindowRect(_hWnd,&rc);
+                GetCursorPos(&pt);
+                if(!PtInRect(&rc,pt)){
+                    _this->KeyDown[VK_LBUTTON] = false;
+                    _this->KeyDown[VK_RBUTTON] = false;
+                    _this->KeyDown[VK_MBUTTON] = false;
+                    _this->KeyDown[VK_XBUTTON1] = false;
+                    _this->KeyDown[VK_XBUTTON2] = false;
+                    _this->fStopCaptureOutside();
+                }
+            }
+
+        break;
+
+
+        case WM_RBUTTONDOWN:
+             _this->KeyDown[VK_RBUTTON] = true;
+        break;
+
+        case WM_MBUTTONDOWN:
+             _this->KeyDown[VK_MBUTTON] = true;
+        break;
+
+        case WM_LBUTTONUP:
+             _this->KeyDown[VK_LBUTTON] = false;
+
+        break;
+
+        case WM_RBUTTONUP:
+            _this->KeyDown[VK_RBUTTON] = false;
+        break;
+
+        case WM_MBUTTONUP:
+            _this->KeyDown[VK_MBUTTON] = false;
+        break;
+
+        case WM_XBUTTONDOWN   :
+            if(HIWORD(wParam) == 0x01){ //XBUTTON1
+                _this->KeyDown[VK_XBUTTON1] = true;
+            }else if(HIWORD(wParam) == 0x02){  //XBUTTON2
+                _this->KeyDown[VK_XBUTTON2] = true;
+            }else{
+                _this->KeyDown[0x07] = true; //Undefined XBUTTON3??
+            }
+        break;
+        case WM_XBUTTONUP:
+            if(HIWORD(wParam) == 0x01){        //XBUTTON1
+                _this->KeyDown[VK_XBUTTON1] = false;
+            }else if(HIWORD(wParam) == 0x02){  //XBUTTON2
+                _this->KeyDown[VK_XBUTTON2] = false;
+            }else{
+                _this->KeyDown[0x07] = false; //Undefined XBUTTON3??
+            }
+        break;
+
+        case WM_ACTIVATE:
+         _this->bActive = (gzBool)LOWORD(wParam);
+            //printf("\n Active: %d", _this->bActive );
+            return 0;
+        break;
+
+
+        case WM_CAPTURE:
+             SetCapture(_hWnd);
+        break;
+
+        case WM_CAPTURE_RELEASE:
+            ReleaseCapture();
+        break;
+
+        case  WM_CLOSE :
+            _this->hWinClickNew = eWinClick::Close;
+
+        break;
+
+        case  WM_DESTROY :
+            if(_this->bNoManager){
+               // _this->tDelete();
+             _this->oInterface->oThreadItf->bRun = false;
+            }
+        break;
+		
+		*/
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 				
 }

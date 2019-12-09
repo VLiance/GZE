@@ -92,7 +92,21 @@ package  {
 			nZ = _nTempZ;
 		}
 		
-		
+		public function fInverse():Void {
+		/*
+			var _v180 : Quaternion<Number> = new Quaternion<Number>();
+			_v180.nY = 1;
+			*/
+			<cpp>
+			gzVecQuaternion<T> _oQuat({0,0,-1,1});
+			//_oQuat.fPitch(3.1416);
+			//_oQuat.fYaw(3.1416);
+			//_oQuat.fRoll(3.1416);
+			
+			fCombine(_oQuat);
+			</cpp>
+			
+		}
 		
 		
 	}

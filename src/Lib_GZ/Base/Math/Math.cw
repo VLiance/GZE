@@ -47,11 +47,14 @@ package  {
 		pure public function fATan(_nRad:Float):Float;
 		pure public function fATan2(_nY:Float,_nX:Float):Float;
 		
+		
 		pure public function fSqrt(_nVal:Float):Float;
 		pure public function fPow(_nVal:Float, _nPower:Float):Float;
 		pure public function fPow2(_nVal:Float, _nPower:Float):Float;
-		pure public function fFloatToInt(_nVal:Float):Int;
 		
+		
+		pure public function fFloatToInt(_nVal:Float):Int;
+
 		
 		
 		pure changeRem GZ_M_fFrac function fFrac(_nVal:Float):Float;	
@@ -71,9 +74,10 @@ package  {
 		static changeRem GZ_M_fTan function fTan(_nRad:Float):Float;
 		static changeRem GZ_M_fATan2 function fATan2(_nY:Float,_nX:Float):Float;
 		*/
-		pure changeRem GZ_M_fSqrt function fSqrt(_nVal:Float):Float;
+		/*
 		pure changeRem GZ_M_fPow  function fPow(_nVal:Float, _nPower:Float):Float;
 		pure changeRem GZ_M_fPow2  function fPow2(_nVal:Float, _nPower:Float):Float;
+		*/
 		pure changeRem GZ_M_fToRadian  function fToRadian(_nDegree:Float):Float;
 		pure changeRem GZ_M_fToDegree  function fToDegree(_nRad:Float):Float;
 		//static changeRem GZ_M_fFloatToInt function fFloatToInt(_nVal:Float):Int;

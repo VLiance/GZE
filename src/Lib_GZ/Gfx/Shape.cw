@@ -16,7 +16,7 @@ package  {
 	import GZ.Base.PtA;
 	import GZ.Base.Pt;
 	import GZ.Base.Poly4;
-
+	import GZ.Base.Quaternion;
 
 
 
@@ -242,6 +242,65 @@ package  {
 		}
 
 
+		public function fReversePtTransform(_vPt : Pt<Float> ):Pt<Float> {
+			
+			//TODO not work, use this intead https://rosettacode.org/wiki/Find_the_intersection_of_a_line_with_a_plane
+			
+			var _oGblTf : Shape = oParent;
+			
+			var _oGblPt : PtA = _oGblTf.oGblPt;
+			var _nX : Float = _oGblPt.vPt.nX + 0.25;
+			var _nY : Float = _oGblPt.vPt.nY - 0.25;
+			
+			_vPt.nX -= _nX;
+			_vPt.nY -= _nY;
+			
+			
+		//	Debug.fTrace("_vPt" +  _vPt.nX +"," +  _vPt.nX );
+					
+			var x : Float = _vPt.nX *  _oGblTf.vGblSize.nWidth;
+			var y : Float = _vPt.nY *  _oGblTf.vGblSize.nHeight;
+			var z : Float = _vPt.nZ *  _oGblTf.vGblSize.nLength;
+			
+			_vPt.nX =x;
+			_vPt.nY =y;
+			_vPt.nZ =z;
+			
+			//var _vQuat : Quaternion<Float> =  _oGblTf.vQuaternion;
+			//_vQuat.fInverse();
+			///_vPt.fRotate(_vQuat);
+			
+			_vPt.fRotate( _oGblTf.vQuaternion);
+			
+			//_vPt.nZ *= 1;
+		
+			//_vPt.fRotate( _oGblTf.vQuaternion);  //TODO verify
+
+		 	_vPt.nX =x;
+			_vPt.nY =y;
+		
+			//_vPt.nX *= 1;
+			//_vPt.nY *= 1;
+		
+				//Perspective
+			var _nFocal : Float = oDstBuff.oPerspective.nValue;
+			//var _oPt : PtA = aNewPt3dOri[i];
+			var _nZ : Float = (_vPt.nZ + _oGblPt.vPt.nZ) * _nFocal + 1;
+			//var _nZ : Float = 1 - ((_vPt.nZ + _oGblPt.vPt.nZ) * _nFocal) ;
+		//	var _nZ : Float = 1 / (1-((_vPt.nZ + _oGblPt.vPt.nZ) * _nFocal)) ;
+		//	var _nZ : Float = 1 / (1-((_vPt.nZ + _oGblPt.vPt.nZ) * _nFocal)) ;
+			//Debug.fTrace("_nZ " + _nZ);
+		
+			 //Math.fSqrt Math.fSqrt
+			_vPt.nX *=(_nZ);
+			_vPt.nY *=(_nZ);
+			//_oPt.o2d.nZ = _nZ;
+			
+			return _vPt;
+		}
+		
+		
+		
 		
 		
 

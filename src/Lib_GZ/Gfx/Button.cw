@@ -66,6 +66,7 @@ public var nLastClipY : Float = 0;
 			bPress = false;
 			bRelease = false;
 			
+			bDrag = true;
 			if (bDrag) {
 				
 				/*
@@ -88,8 +89,14 @@ public var nLastClipY : Float = 0;
 				}*/
 
 				
-				vPos.nX = Context.nMouseX + nDragX;
-				vPos.nY = Context.nMouseY + nDragY;
+			//	vPos.nX = Context.nMouseX + nDragX;
+			//	vPos.nY = Context.nMouseY + nDragY;
+				
+			
+				
+				
+				
+				
 		//		fApplyPosGlobalToLocal();
 				
 				//Only one axe
@@ -115,8 +122,8 @@ public var nLastClipY : Float = 0;
 						nClipY = nRightBoundY;
 					}
 				}
-				fApplyPos();
-				fDrag(); //Overrited
+			//	fApplyPos();
+				fDrag(Context.nMouseX, Context.nMouseY); //Overrited
 				
 			}else{
 				//if (Context.nMouseX >=  nX + nLimL &&  Context.nMouseX <= nX + nLimR  && Context.nMouseY >= nY + nLimT  &&  Context.nMouseY <=  nY + nLimB) { //Over
@@ -183,8 +190,8 @@ public var nLastClipY : Float = 0;
 				bRelease = true;
 				Context.bMouseDrag = false;
 				Context.fStopCaptureOutside();
-				vPos.nX = Context.nMouseX  + nDragX;
-				vPos.nY = Context.nMouseY  + nDragY;
+			//	vPos.nX = Context.nMouseX  + nDragX;
+			//	vPos.nY = Context.nMouseY  + nDragY;
 				nDestX = vPos.nX;
 				nDestY = vPos.nY;
 			}
@@ -218,7 +225,7 @@ public var nLastClipY : Float = 0;
 			}
 		}
 		
-		public function fDrag():Void {
+		public function fDrag(_nPtx :Float, _nPty :Float):Void {
 		}
 		
 		

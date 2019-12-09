@@ -14,6 +14,7 @@ package  {
 	import GZ.Sys.Interface.Context;
 	import GZ.Input.Key;
 	import GZ.Base.PtA;
+	import GZ.Base.Pt;
 
 	/**
 	 * @author Maeiky
@@ -97,6 +98,18 @@ package  {
 			oImg.fTransform();
 			oImg.fConvertTo2d();
 			
+			
+			var _vPt : Pt<Float> = new Pt<Float>(_nX, _nY );
+		//	_vPt = oImg.fReversePtTransform(_vPt);
+			_nX = _vPt.nX;
+			_nY = _vPt.nY;
+			
+			
+			//Debug.fPass("PTMouse: " + _nX + " : " +  _nY);
+		
+			
+			
+			
 			var _aPoint : Array<PtA> =	oImg.aNewPt3dOri;
 			var _bOddNodes : Bool = false;
 			var j : Int = _aPoint.nSize - 1;
@@ -106,6 +119,15 @@ package  {
 			//Debug.fPass("1!! " + _aPoint[1].o2d.nX + ": "  + _aPoint[1].o2d.nY );
 			
 			for(var i : Int = 0; i <  _aPoint.nSize; i++){
+				/*
+				var _nPolyX_i : Float = _aPoint[i].vPt.nX;
+				var _nPolyX_j : Float = _aPoint[j].vPt.nX;
+				
+				var _nPolyY_i : Float = _aPoint[i].vPt.nY;
+				var _nPolyY_j : Float = _aPoint[j].vPt.nY;
+				*/
+			//	Debug.fPass("Shape[" + i + "]" + _nPolyX_i + " : " +  _nPolyY_i);
+				
 				
 				var _nPolyX_i : Float = _aPoint[i].o2d.nX;
 				var _nPolyX_j : Float = _aPoint[j].o2d.nX;
@@ -157,8 +179,21 @@ package  {
 		
 		
 		
-		
-		
+		public function fDrag(_nX :Float, _nY :Float):Void {
+			
+			
+			var _vPt : Pt<Float> = new Pt<Float>(_nX, _nY );
+			_vPt = oImg.fReversePtTransform(_vPt);
+			_nX = _vPt.nX;
+			_nY = _vPt.nY;
+			
+			
+			oImg.vPos.nX = _nX;
+			oImg.vPos.nY = _nY;
+				
+			
+				
+		}
 		
 		
 		override public function fButtonUpdate():Void {
@@ -212,7 +247,7 @@ package  {
 				
 				//oRectangle.fSetColor1(0xFF775566);
 				//nClipX += 1p;
-							Debug.fTrace("SAAG!!");	
+				
 				if (Key.fIsDown( 0x01 ) ) { //LEFT MOUSE
 					
 					//oImg.fToBrRGB(nPressR, nPressG, nPressB, nSpeed);
@@ -226,7 +261,7 @@ package  {
 					oImg.nDkGreen.to(80)
 					oImg.nDkRed.to(80)
 					*/
-					Debug.fTrace("STart DRAG!!");
+
 					//oRectangle.fSetColor1(0xFFFF5500);
 					fStartDrag();
 				}
