@@ -21,6 +21,7 @@ package  {
 		
 		public function Clip( _oParent : Root, _nX: Float=0, _nY:Float=0):Void {
 			Object(_oParent, _nX , _nY);
+			
 		}
 	
 		

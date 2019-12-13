@@ -2,6 +2,12 @@
 
 <cmd>@{_pModule}Lib.cwc</cmd>
 
+
+<Exe>
+    <CWayv>{_pModule}bin/CWayv.exe</CWayv>
+</Exe>
+
+
 <Arguments>
 
 
