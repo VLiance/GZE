@@ -30,14 +30,16 @@ package  {
 		
 	
 <glsl(oVertex)>
-				
+			
+	#define nMaxTextures 8
+			
 	uniform int ID_TexCurrent; 
 	uniform int ID_TexNormal; 
 	uniform int ID_TexSprites; 
 	uniform int ID_TexFont; 
 
-	uniform vec2 	  TexSize[16];
-	//uniform sampler2D Texture[16];
+	uniform vec2 	  TexSize[nMaxTextures];
+	//uniform sampler2D Texture[nMaxTextures];
 	
 	#define iTexID int(in_ObjSize.w)
 	#define nTexID in_ObjSize.w

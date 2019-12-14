@@ -34,13 +34,15 @@ package  {
 			///////////// Fragment Shader //////////////
 <glsl(oFragement)>
 		
+	#define nMaxTextures 8
+		
 	uniform int ID_TexCurrent; 
 	uniform int ID_TexNormal; 
 	uniform int ID_TexSprites; 
 	uniform int ID_TexFont; 
 
-	uniform vec2 	  TexSize[16];
-	uniform sampler2D Texture[16];
+	uniform vec2 	  TexSize[nMaxTextures];
+	uniform sampler2D Texture[nMaxTextures];
 	
 	//out vec4 outputColor;
 
@@ -130,23 +132,24 @@ vec3 light_position  =   vec3( 200.0, -100.0, -400.0);
 smooth in vec2 uv;
 	
 	
-#define numTextures 4
+
 	
 //E:Error linking OpenGL Program:: 
 //error X3512: sampler array index must be a literal expression
 //Warning: D3D shader compilation failed with default flags. (ps_5_0)
 //--> A variable of sampler can only be defined in one of two ways. It can be defined as a function parameter or as a uniform variable.
-// Ony for Angle?	
+// Ony for Angle?	 Only D3D9?
 //vec4 fGetPixel(sampler2D textures[4], int ndx, vec2 uv) {
-vec4 fGetPixel(int ndx, vec2 uv) {
-	vec4 color = vec4(0);
-    for (int i = 0; i < numTextures; ++i) {
-      vec4 c = texture(Texture[i], uv);
-      if (i == ndx) {
-        color += c;
-      }
-    }
-    return color;
+vec4 fTexture(int ndx, vec2 uv) {
+	#ifdef d_WebGL
+		for (int i = 0; i < nMaxTextures; ++i) {
+			if (i == ndx) {
+				return texture(Texture[i], uv);
+			}
+		}
+	#else
+		return texture(Texture[ndx], ioTexture);
+	#endif
 }
 	
 void main()
@@ -188,7 +191,7 @@ void main()
 			
 		//pixTex  = texture(TexCurrent, ioTexture);
 			//pixTex  = texture(Texture[iTexID], ioTexture);
-			pixTex  = fGetPixel(iTexID, ioTexture);
+			pixTex = fTexture(iTexID, ioTexture);
 
 		}
 

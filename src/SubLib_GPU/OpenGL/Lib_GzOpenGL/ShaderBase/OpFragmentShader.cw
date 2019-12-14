@@ -46,6 +46,8 @@ package  {
 				<glsl(this)>
 					#version 300 es //WebGl 2 / ES3
 					#line 2
+					#define d_WebGL
+					
 					///#ifdef GZ_tAndroid   
 					///#version 100  //WebGl 1 //ES2
 					precision mediump float;  //highp only works in fragment shaders if you have the GL_FRAGMENT_PRECISION_HIGH extension enabled.
@@ -75,8 +77,7 @@ package  {
 				<glsl(this)>
 					#version 330  //GL 3.3 minimal
 					#line 2
-					
-					precision lowp float; 
+					#define d_Desktop
 					
 					
 					#define xflat flat
