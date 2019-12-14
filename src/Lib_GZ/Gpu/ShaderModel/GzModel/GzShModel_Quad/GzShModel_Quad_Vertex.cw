@@ -198,7 +198,7 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 				*/
 
 /*
-		if(nType == 1){ //Normal 2D
+		if(nType == 1.0){ //Normal 2D
 
 		
 		
@@ -223,7 +223,7 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 			coord_Color4 = in_Color4;
 		}
 		
-		if(nType == 4){ //Normal 3D
+		if(nType == 4.0){ //Normal 3D
 		*/	
 
 			//float atObjSize = 1.0;
@@ -404,7 +404,7 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 		
 		/*	
 		}
-		if(nType == 2){ //Buffer
+		if(nType == 2.0){ //Buffer
 		
 			gl_Position = vec4(in_PtPos, 1.0) ;
 			gl_Position.x = (gl_Position.x - nWinHalfWidth )/ nWinHalfWidth;
@@ -417,7 +417,7 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 			//coord_TextureSource.y = in_TexCoord0.y / nTexDim.y;
 		}
 
-		if(nType == 3){ //UniColor
+		if(nType == 3.0){ //UniColor
 			gl_Position = vec4(in_PtPos, 1.0) ;
 			gl_Position.x = (gl_Position.x - nWinHalfWidth )/ nWinHalfWidth;
 			gl_Position.y = ((gl_Position.y  )  - nWinHalfHeight)/-nWinHalfHeight;

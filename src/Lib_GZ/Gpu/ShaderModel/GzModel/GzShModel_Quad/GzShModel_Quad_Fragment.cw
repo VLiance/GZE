@@ -98,6 +98,7 @@ xflat in vec3 ioNorm; // Maybe if we get it from world norm
 
 #define nType iomWorldPt[0].w
 #define iTexID int(iomWorldPt[1].w)
+//#define iTexID 0
 
 
 
@@ -128,6 +129,26 @@ vec3 light_position  =   vec3( 200.0, -100.0, -400.0);
 	
 smooth in vec2 uv;
 	
+	
+#define numTextures 4
+	
+//E:Error linking OpenGL Program:: 
+//error X3512: sampler array index must be a literal expression
+//Warning: D3D shader compilation failed with default flags. (ps_5_0)
+//--> A variable of sampler can only be defined in one of two ways. It can be defined as a function parameter or as a uniform variable.
+// Ony for Angle?	
+//vec4 fGetPixel(sampler2D textures[4], int ndx, vec2 uv) {
+vec4 fGetPixel(int ndx, vec2 uv) {
+	vec4 color = vec4(0);
+    for (int i = 0; i < numTextures; ++i) {
+      vec4 c = texture(Texture[i], uv);
+      if (i == ndx) {
+        color += c;
+      }
+    }
+    return color;
+}
+	
 void main()
 {
 	/// Make a bilinear interpolation from uv ///
@@ -135,7 +156,7 @@ void main()
 	////////////////////////////////////////
 	
 	
-	if(   nType == 4 ||  nType == 6 ||  nType == 7 || nType == 8){ //Normal
+	if(   nType == 4.0 ||  nType == 6.0 ||  nType == 7.0 || nType == 8.0){ //Normal
 
       //  vec4 vPtDist = vec4(0.0, 0.0, 0.0, 1.0); //No Color
 		//vec4 vPtDist = ( coord_Color1 * _vCoDist.a) + (coord_Color2 * _vCoDist.r) + (coord_Color3 * _vCoDist.b) + (coord_Color4 * _vCoDist.g);
@@ -147,7 +168,7 @@ void main()
 		vec4 vPtDist = coord_Color1; 
 	//	vec4 vPtDist = _vQuadColor; 
 			
-		if( nType == 6){
+		if( nType == 6.0){
 
 		//Normal
 		//pixTex = texture(TexCurrent, ioTexture);
@@ -157,7 +178,7 @@ void main()
 		}
 		
 			
-		if( nType == 8 ){
+		if( nType == 8.0 ){
 			//pixTex = vec4(0.0, 1.0, 0.5, 1.0);
 			pixTex = vPtDist;
 			pixTex.a =1.0- (uv.y*uv.y);
@@ -166,7 +187,9 @@ void main()
 		}else{
 			
 		//pixTex  = texture(TexCurrent, ioTexture);
-			pixTex  = texture(Texture[iTexID], ioTexture);
+			//pixTex  = texture(Texture[iTexID], ioTexture);
+			pixTex  = fGetPixel(iTexID, ioTexture);
+
 		}
 
 float _nDepth = 0.0;
