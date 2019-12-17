@@ -1,0 +1,14 @@
+﻿<Lib> <!-- Nima Cwc Config -->
+
+<cmd>@{_pModule}Nima.cwc</cmd>
+
+
+<Arguments>
+
+
+	
+</Arguments>
+
+
+
+</Lib> <!-- End -->
