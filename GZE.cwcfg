@@ -28,8 +28,12 @@
 	<!--  -L "{_pModule}src/SubLib_System/Lib_GzOpenGL/" -->
 	
 
+	<CWayv> -L "{_pModule}src/SubLib_3rdparty/Lib_GzNima/"  </CWayv>
+
+	
+	
 	<If_Platform name="CpcDos">
-		<CWayv> -L "{_pModule}src/SubLib_System/Lib_GzWindows/"   -L "{_pModule}src/SubLib_GPU/OpenGL/Lib_GzOpenGL_Windows/" </CWayv>
+		<CWayv> -L "{_pModule}src/SubLib_3rdparty/Lib_GzWindows/"   -L "{_pModule}src/SubLib_GPU/OpenGL/Lib_GzOpenGL_Windows/" </CWayv>
 	</If_Platform>
 	
 
