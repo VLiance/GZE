@@ -47,7 +47,7 @@ BlockReader* BlockReader::readNextBlock()
 
 	if(m_DataPosition + length > m_DataLength)
 	{
-		throw OverflowException("Block length is invalid and would cause overflow in BlockReader::readNextBlock.");
+		THROW(throw OverflowException("Block length is invalid and would cause overflow in BlockReader::readNextBlock."),"Block length is invalid and would cause overflow in BlockReader::readNextBlock.");
 	}
 	unsigned char* blockData = m_Data + m_DataPosition;
 

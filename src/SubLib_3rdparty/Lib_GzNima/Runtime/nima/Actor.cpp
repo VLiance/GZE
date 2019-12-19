@@ -209,12 +209,12 @@ void Actor::load(unsigned char* bytes, unsigned int length)
 	// Make sure it's a nima file.
 	if (N != 78 || I != 73 || M != 77 || A != 65)
 	{
-		throw UnsupportedVersionException("Unsupported file version", 0, 12);
+		THROW(throw UnsupportedVersionException("Unsupported file version", 0, 12) , "Unsupported file version");
 	}
 	// And of supported version...
 	if (version < 13)
 	{
-		throw UnsupportedVersionException("Unsupported file version", version, 12);
+		THROW(throw UnsupportedVersionException("Unsupported file version", version, 12), "Unsupported file version");
 	}
 
 	m_Root = new ActorNode();
@@ -259,7 +259,7 @@ void Actor::load(const std::string& filename)
 	FILE* fp = fopen(filename.c_str(), "rb");
 	if (fp == nullptr)
 	{
-		throw MissingFileException("nima file is missing", filename);
+		THROW(throw MissingFileException("nima file is missing", filename), "nima file is missing");
 	}
 	fseek(fp, 0, SEEK_END);
 	long length = ftell(fp);
@@ -269,15 +269,15 @@ void Actor::load(const std::string& filename)
 	fread(bytes, length, 1, fp);
 	fclose(fp);
 
-	try
+	TRY(try)
 	{
 		load(bytes, (unsigned int)length);
 		delete [] bytes;
 	}
-	catch (OverflowException ex)
+	CATCH(catch (OverflowException ex))
 	{
 		delete [] bytes;
-		throw ex;
+		NOTHROW(throw ex;)
 	}
 }
 

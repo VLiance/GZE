@@ -1,6 +1,7 @@
 #include "ActorTransformConstraint.hpp"
 #include "BlockReader.hpp"
 #include "ActorNode.hpp"
+#define _USE_MATH_DEFINES
 #include <cmath>
 
 using namespace nima;

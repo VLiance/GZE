@@ -1,5 +1,8 @@
 #include "CubicSolver.hpp"
+#define _USE_MATH_DEFINES
 #include <cmath>
+
+
 
 using namespace nima;
 static const float Epsilon = 1e-8f;

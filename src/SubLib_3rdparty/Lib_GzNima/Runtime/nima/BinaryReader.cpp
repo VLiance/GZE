@@ -26,7 +26,7 @@ unsigned char BinaryReader::readByte()
 {
 	if(m_DataPosition+1 > m_DataLength)
 	{
-		throw OverflowException("Attempt to read past end of data in BinaryReader::readByte.");
+		THROW(throw OverflowException("Attempt to read past end of data in BinaryReader::readByte."), "Attempt to read past end of data in BinaryReader::readByte.");
 	}
 
 	unsigned char byte = m_Data[m_DataPosition];
@@ -50,7 +50,7 @@ void BinaryReader::readFloatArray(float* numbers, unsigned int length)
 {
 	if(m_DataPosition+4*length > m_DataLength)
 	{
-		throw OverflowException("Attempt to read past end of data in BinaryReader::readFloatArray.");
+		THROW(throw OverflowException("Attempt to read past end of data in BinaryReader::readFloatArray."), "Attempt to read past end of data in BinaryReader::readFloatArray." );
 	}
 	for(int i = 0; i < length; i++)
 	{
@@ -74,7 +74,7 @@ void BinaryReader::readUnsignedShortArray(unsigned short* numbers, unsigned int 
 {
 	if(m_DataPosition+2*length > m_DataLength)
 	{
-		throw OverflowException("Attempt to read past end of data in BinaryReader::readUnsignedShortArray.");
+		THROW(throw OverflowException("Attempt to read past end of data in BinaryReader::readUnsignedShortArray."),"Attempt to read past end of data in BinaryReader::readUnsignedShortArray.");;
 	}
 	for(int i = 0; i < length; i++)
 	{
@@ -98,7 +98,7 @@ int BinaryReader::readInt()
 {
 	if(m_DataPosition+4 > m_DataLength)
 	{
-		throw OverflowException("Attempt to read past end of data in BinaryReader::readInt.");
+		THROW(throw OverflowException("Attempt to read past end of data in BinaryReader::readInt."), "Attempt to read past end of data in BinaryReader::readInt.");
 	}
 
 	unsigned char* bytes = &m_Data[m_DataPosition];
@@ -116,7 +116,7 @@ unsigned int BinaryReader::readUnsignedInt()
 {
 	if(m_DataPosition+4 > m_DataLength)
     {
-        throw OverflowException("Attempt to read past end of data in BinaryReader::readUnsignedInt.");
+        THROW(throw OverflowException("Attempt to read past end of data in BinaryReader::readUnsignedInt."), "Attempt to read past end of data in BinaryReader::readUnsignedInt.");
     }
     unsigned char* bytes = &m_Data[m_DataPosition];
     m_DataPosition += 4;
@@ -133,7 +133,7 @@ float BinaryReader::readFloat()
 {
 	if(m_DataPosition+4 > m_DataLength)
 	{
-		throw OverflowException("Attempt to read past end of data in BinaryReader::readFloat.");
+		THROW(throw OverflowException("Attempt to read past end of data in BinaryReader::readFloat."), "Attempt to read past end of data in BinaryReader::readFloat.");
 	}
 	unsigned char* bytes = &m_Data[m_DataPosition];
 	m_DataPosition += 4;
@@ -153,7 +153,7 @@ double BinaryReader::readDouble()
 {
 	if(m_DataPosition+8 > m_DataLength)
 	{
-		throw OverflowException("Attempt to read past end of data in BinaryReader::readDouble.");
+		THROW(throw OverflowException("Attempt to read past end of data in BinaryReader::readDouble."), "Attempt to read past end of data in BinaryReader::readDouble.");
 	}
 	unsigned char* bytes = &m_Data[m_DataPosition];
 	m_DataPosition += 8;
@@ -173,7 +173,7 @@ short BinaryReader::readShort()
 {
 	if(m_DataPosition+2 > m_DataLength)
 	{
-		throw OverflowException("Attempt to read past end of data in BinaryReader::readShort.");
+		THROW(throw OverflowException("Attempt to read past end of data in BinaryReader::readShort."), "Attempt to read past end of data in BinaryReader::readShort.");
 	}
 	unsigned char* bytes = &m_Data[m_DataPosition];
 	m_DataPosition += 2;
@@ -190,7 +190,7 @@ unsigned short BinaryReader::readUnsignedShort()
 {
 	if(m_DataPosition+2 > m_DataLength)
 	{
-		throw OverflowException("Attempt to read past end of data in BinaryReader::readUnsignedShort.");
+		THROW(throw OverflowException("Attempt to read past end of data in BinaryReader::readUnsignedShort."), "Attempt to read past end of data in BinaryReader::readUnsignedShort.");
 	}
 	unsigned char* bytes = &m_Data[m_DataPosition];
 	m_DataPosition += 2;
@@ -220,7 +220,7 @@ unsigned long BinaryReader::readUnsignedLong()
 {
 	if(m_DataPosition+4 > m_DataLength)
     {
-        throw OverflowException("Attempt to read past end of data in BinaryReader::readUnsignedLong.");
+       THROW( throw OverflowException("Attempt to read past end of data in BinaryReader::readUnsignedLong."),"Attempt to read past end of data in BinaryReader::readUnsignedLong.");
     }
     unsigned char* bytes = &m_Data[m_DataPosition];
     m_DataPosition += 8;

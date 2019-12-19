@@ -1,5 +1,6 @@
 #include "ActorIKConstraint.hpp"
 #include "Actor.hpp"
+#define _USE_MATH_DEFINES
 #include <cmath>
 #include <algorithm> 
 
