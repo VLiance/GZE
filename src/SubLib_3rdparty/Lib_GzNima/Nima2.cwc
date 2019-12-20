@@ -1,0 +1,15 @@
+-{vFlag}=""
+;-D_PLATFORM_WINDOWS
+>
+-{vIncl}=
+-I {_pModule}/
+-I {_pModule}/NimaMath/ 
+>
+;Build Nima
+-c {_pModule}/Runtime/nima/ -o {_pOutput}obj/cpp_{_sPlatform}_{_sOpt}/lib/Nima/
+-{vIncl}
+>
+;Build NimaMath
+-c {_pModule}/NimaMath/nima/ -o {_pOutput}obj/cpp_{_sPlatform}_{_sOpt}/lib/NimaMath/
+-{vIncl}
+>

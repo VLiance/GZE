@@ -7,6 +7,10 @@ ActorBoneBase::ActorBoneBase(ComponentType type) : ActorNode(type), m_Length(0.0
 {
 }
 
+bool ActorBoneBase::Is_ActorBonesBase() const{
+	return true;
+}
+
 float ActorBoneBase::length() const
 {
 	return m_Length;
@@ -21,12 +25,19 @@ void ActorBoneBase::length(float l)
 	m_Length = l;
 	for(ActorNode* node : m_Children)
 	{
+		//////////////////////////////////////
+		if(node->Is_ActorBonesBase()){
+			ActorBoneBase* bone = static_cast<ActorBoneBase*>(node);
+			bone->x(l);
+		}
+		/*
         ActorBoneBase* bone = dynamic_cast<ActorBoneBase*>(node);
         if(bone == nullptr)
         {
             continue;
         }
 		bone->x(l);
+		*/
 	}
 }
 

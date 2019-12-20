@@ -19,6 +19,7 @@ namespace nima
 
 		public:
 			ActorBoneBase(ComponentType type);
+			virtual bool Is_ActorBonesBase() const;
 			float length() const;
 			void length(float l);
 			bool isConnectedToImage() const;

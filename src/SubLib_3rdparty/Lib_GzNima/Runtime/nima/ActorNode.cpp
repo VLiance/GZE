@@ -5,6 +5,10 @@
 #include <cassert>
 using namespace nima;
 
+bool ActorNode::Is_ActorBonesBase() const{
+	return false;
+}
+
 ActorNode::ActorNode(Actor* actor) : ActorNode(actor, ComponentType::ActorNode)
 {
 
