@@ -29,6 +29,7 @@
 	
 
 	<CWayv> -L "{_pModule}src/SubLib_3rdparty/Lib_GzNima/"  </CWayv>
+	<CWayv> -L "{_pModule}src/SubLib_3rdparty/Lib_GzBox2D/"  </CWayv>
 
 	
 	

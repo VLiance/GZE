@@ -1,0 +1,10 @@
+-{vFlag}=""
+;-D_PLATFORM_WINDOWS
+>
+-{vIncl}=
+-I {_pModule}/src/
+>
+;Build Box2D
+-c {_pModule}/src/ -o {_pOutput}obj/cpp_{_sPlatform}_{_sOpt}/lib/Box2D/
+-{vIncl}
+>

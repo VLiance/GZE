@@ -1,0 +1,14 @@
+﻿<Lib> <!-- Box2D Cwc Config -->
+
+<cmd>@{_pModule}Box2D.cwc</cmd>
+
+
+<Arguments>
+
+
+	
+</Arguments>
+
+
+
+</Lib> <!-- End -->
