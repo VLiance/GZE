@@ -17,6 +17,7 @@
 	<!--<Compiler>-Werror=global-constructors</Compiler>-->
 	<Compiler>-I "{_pModule}src/"</Compiler>
 	<Compiler>-I "{_pModule}src/SubLib_System/"</Compiler>
+	<Compiler>-I "{_pModule}src/SubLib_3rdparty/"</Compiler>
 	<Compiler>-I "{_pModule}src/SubLib_GPU/OpenGL/"</Compiler>
 
 	<CompilerLinker type="C++">-std=c++11 -fno-exceptions </CompilerLinker>

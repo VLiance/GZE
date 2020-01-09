@@ -1,0 +1,20 @@
+﻿-{vFlag}=""
+;-D_PLATFORM_WINDOWS
+>
+-{vIncl}=
+-I {_pModule}Runtime/
+-I {_pModule}NimaMath/ 
+>
+;Build Nima
+-c {_pModule}Runtime/ -o {_pOutput}Cpp/Nima/
+-{vIncl}
+>
+;Build NimaMath
+-c {_pModule}NimaMath/ -o {_pOutput}Cpp/Nima/NimaMath/
+-{vIncl}
+>
+;Generate Dynamic Lib
+;-o obj/cpp_{_sPlatform}_{_sOpt}/lib/ -#To Lib/{_sPlatform}_{_sOpt}/Nima.{_sDynamic}
+>
+;Generate Static Lib
+;-o obj/cpp_{_sPlatform}_{_sOpt}/lib/ -#To Lib/{_sPlatform}_{_sOpt}/Nima.a
