@@ -11,6 +11,10 @@ package  {
 	#include "Lib_GzBox2D/src/Box2D/Common/b2Math.h"
 	</cpp_h>
 	
+	<cpp_vec_union>
+		b2Vec2 vB2d;
+	</cpp_vec_union>
+	
 	/**
 	 * @author Maeiky
 	 */
@@ -19,10 +23,13 @@ package  {
 		public var nX : Float32;
 		public var nY : Float32;
 		
-		public function Vec2(_nX : Float32 = 0, _nY : Float32 = 0):Void  {
+		public function B2Vec2(_nX : Float32 = 0, _nY : Float32 = 0):Void  {
 			//nX = _nX;
 			//nY = _nY;
 		}
+		
+		
+		
 		
 	}
 }
