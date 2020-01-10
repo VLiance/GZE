@@ -44,30 +44,26 @@ package  {
 			var _oCenter  : Pt<Float> = new Pt<Float>(0.5, 0.5);
 			//var _oCenter  : Pt<Float> = new Pt<Float>(0, 0);
 			
-			
+			oShape = _oShape;
 			if(oShape == null){
 				oShape = new Shape(this, 0,0,0,false);
+			
+				var _nWidth : Float = 300;
+				var _nHeight : Float = 200;
+				
+				
+				var _oPtTL : PtA = new PtA(0 , 0 );
+				var _oPtTR : PtA = new PtA(_nWidth, 0 );
+				var _oPtBR : PtA = new PtA(_nWidth , _nHeight );
+				var _oPtBL : PtA = new PtA(0, _nHeight );
+				
+				oShape.fAddPt(_oPtTL, _oCenter);
+				oShape.fAddPt(_oPtTR, _oCenter);
+				oShape.fAddPt(_oPtBR, _oCenter);
+				oShape.fAddPt(_oPtBL, _oCenter);
 			}
 			
 			
-		
-			
-			
-			var _nWidth : Float = 300;
-			var _nHeight : Float = 200;
-			
-			
-			var _oPtTL : PtA = new PtA(0 , 0 );
-			var _oPtTR : PtA = new PtA(_nWidth, 0 );
-			var _oPtBR : PtA = new PtA(_nWidth , _nHeight );
-			var _oPtBL : PtA = new PtA(0, _nHeight );
-			
-			oShape.fAddPt(_oPtTL, _oCenter);
-			oShape.fAddPt(_oPtTR, _oCenter);
-			oShape.fAddPt(_oPtBR, _oCenter);
-			oShape.fAddPt(_oPtBL, _oCenter);
-			
-
 			
 			for(var i : Int = 0; i < oShape.aNewPt3dOri.nSize; i++){
 				var _oPt1 : PtA = oShape.aNewPt3dOri[i];
