@@ -80,6 +80,23 @@ package  {
 				//Debug.fWarning("CreateLines[|" + i + "|] " + _oPt2.vPt.nX + " , "  + _oPt2.vPt.nY );
 			}
 			
+			fUpdateLines();
+			
+			
+		}
+		
+		
+		/*
+		
+		inline double getAbsoluteDiff2Angles(const double x, const double y, const double c)
+{
+    // c can be PI (for radians) or 180.0 (for degrees);
+    return c - fabs(fmod(fabs(x - y), 2*c) - c);
+}
+
+*/
+
+		override public function fUpdateLines():Void {
 			//Connect Lines
 			for(var i : Int = 0; i < aLine.nSize; i++){
 			
@@ -108,9 +125,9 @@ package  {
 			
 			
 				var _nResultAngle : Float = (_nNextAngle - _nFirstAngle)/2;
-				Debug.fPass("_nFirstAngle " + _nFirstAngle);
-				Debug.fPass("_nNextAngle " + _nNextAngle);
-				Debug.fPass("_nResultAngle " + _nResultAngle);
+				///Debug.fPass("_nFirstAngle " + _nFirstAngle);
+				//Debug.fPass("_nNextAngle " + _nNextAngle);
+				//Debug.fPass("_nResultAngle " + _nResultAngle);
 				
 				_oLine1.fSetCapR(_nResultAngle);
 				_oLine2.fSetCapL_Pos(_oLine1 );
@@ -118,20 +135,11 @@ package  {
 		
 				
 			}
+		}	
 			
-			
+		override public function fUpdateParentToChild():Void {
+			fUpdateLines();
 		}
-		
-		
-		/*
-		
-		inline double getAbsoluteDiff2Angles(const double x, const double y, const double c)
-{
-    // c can be PI (for radians) or 180.0 (for degrees);
-    return c - fabs(fmod(fabs(x - y), 2*c) - c);
-}
-
-*/
 	
 		override public function fUpdateChildToParent():Void {
 
