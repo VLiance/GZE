@@ -87,8 +87,8 @@ package  {
 			sWindowName = _sWindowName;
 			nBgColor = _nBgColor;
 
-			var _sWindowNameTest : String = "abcde";
-			oContext = new Context(this, _sWindowNameTest, _nWeakWidth, _nWeakHeight, _bTransparent, _nBgColor);
+			//var _sWindowNameTest : String = "abcde";
+			oContext = new Context(this, sWindowName, _nWeakWidth, _nWeakHeight, _bTransparent, _nBgColor);
 			//, _hBorder, _bMinimizeBox, _bMaximizeBox,_bCloseBox,_bCpuOnly,false);
 			Context = oContext; //Set singleton
 			
