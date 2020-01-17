@@ -111,14 +111,14 @@ package  {
 				
 				var _nFirstAngle : Float = _oLine1.nAngle; 
 				var _nNextAngle : Float = _oLine2.nAngle; 
-				/*
+				///
 				if(_nNext == 0){
 					_nNextAngle += Math.nPI * 2;
 				}
 				if(_nFirstAngle <  0){
 					_nFirstAngle += Math.nPI * 2;
 				}	
-				*/
+				///
 				if(_nNextAngle <  0){
 					_nNextAngle += Math.nPI * 2;
 				}
@@ -138,7 +138,7 @@ package  {
 		}	
 			
 		override public function fUpdateParentToChild():Void {
-			fUpdateLines();
+			fUpdateLines(); //TODO only when on changing shape?
 		}
 	
 		override public function fUpdateChildToParent():Void {
