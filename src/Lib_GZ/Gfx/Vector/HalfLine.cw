@@ -60,13 +60,36 @@ package  {
 			oPt1 = _oPt1;
 			oPt2 = _oPt2;
 			
-			
 			oRc = new RcImg("");
-			nWidth = 100;
-			nHeight = 100;
+			nWidth = 3.0;
+			nHeight = 3.0;
+			
+			<cpp>
+			static gzUInt32 _aDixArray_1[] = {0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000};
+			static gzUInt32 _aDixArray_2[] = {0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000};
+			static gzUInt32 _aDixArray_3[] = {0xFF000000,0xFF000000,0xFF000000,0xFF000000,0xFF000000,0xFF000000,0xFF000000,0xFF000000,0xFF000000};
+			static gzUInt32 _aDixArray_4[] = {0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000};
+			static gzUInt32 _aDixArray_5[] = {0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000};
+			static gzUInt32 _aDixArray_6[] = {0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000};
 			
 			
-			var _nBorder : Float = 0;
+			
+			static gzInt32* _aDixArray3[] = {(gzInt32*)&_aDixArray_1, (gzInt32*)&_aDixArray_2,(gzInt32*)&_aDixArray_3,(gzInt32*)&_aDixArray_4,(gzInt32*)&_aDixArray_5,(gzInt32*)&_aDixArray_6};
+			
+			//static gzInt32* _aLineDixArray = (gzInt32*)&_aDixArray[4];
+			//static gzInt32 _aDixArray[3][4] = {{0,1,2,3}, {4,5,6,7}, {8,9,10,11}};
+			
+			oRc->aImg = (gzInt32**)&_aDixArray3[0];
+			oRc->nWidth = 3;
+			oRc->nHeight = 3;
+			
+			</cpp>
+			
+			
+		
+			
+			
+			var _nBorder : Float = 1;
 
 /*
 			if(_oSrcRegion == 0){
@@ -121,11 +144,14 @@ package  {
 
 			var _oPtSrc1 : Pt<Float> = new Pt<Float>(_nOff_X + 0 - _nBorder     , _nOff_Y + 0 - _nBorder);
 			var _oPtSrc2 : Pt<Float> = new Pt<Float>(_nOff_X + nWidth  +_nBorder, _nOff_Y + 0 -_nBorder);
-			var _oPtSrc3 : Pt<Float> = new Pt<Float>(_nOff_X + nWidth  +_nBorder, _nOff_Y + nHeight +_nBorder);
+			var _oPtSrc3 : Pt<Float> = new Pt<Float>(_nOff_X + nWidth  +_nBorder, _nOff_Y + nHeight + _nBorder);
 			var _oPtSrc4 : Pt<Float> = new Pt<Float>(_nOff_X + 0 - _nBorder	    , _nOff_Y + nHeight  + _nBorder);								
-							
-			_oSrc  = new Poly4(_oPtSrc1, _oPtSrc2, _oPtSrc3, _oPtSrc4);
-
+			
+			if(_nSize > 0){
+				_oSrc  = new Poly4(_oPtSrc1, _oPtSrc2, _oPtSrc3, _oPtSrc4);
+			}else{
+				_oSrc  = new Poly4(_oPtSrc3, _oPtSrc4, _oPtSrc1, _oPtSrc2);
+			}
 			
 			
 			
