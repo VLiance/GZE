@@ -65,28 +65,18 @@ package  {
 			nHeight = 3.0;
 			
 			<cpp>
-			static gzUInt32 _aDixArray_1[] = {0xFF000000,0xFF000000,0xFF000000,0xFF000000,0xFF000000,0xFF000000,0xFF000000,0xFF000000,0xFF000000};
-			static gzUInt32 _aDixArray_2[] = {0xFF000000,0xFF000000,0xFF000000,0xFF000000,0xFF000000,0xFF000000,0xFF000000,0xFF000000,0xFF000000};
-			static gzUInt32 _aDixArray_3[] = {0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000};
-			static gzUInt32 _aDixArray_4[] = {0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000};
-			static gzUInt32 _aDixArray_5[] = {0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000};
-			static gzUInt32 _aDixArray_6[] = {0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000};
-			
-			
-			
-			static gzInt32* _aDixArray3[] = {(gzInt32*)&_aDixArray_1, (gzInt32*)&_aDixArray_2,(gzInt32*)&_aDixArray_3,(gzInt32*)&_aDixArray_4,(gzInt32*)&_aDixArray_5,(gzInt32*)&_aDixArray_6};
-			
-			//static gzInt32* _aLineDixArray = (gzInt32*)&_aDixArray[4];
-			//static gzInt32 _aDixArray[3][4] = {{0,1,2,3}, {4,5,6,7}, {8,9,10,11}};
-			
-			oRc->aImg = (gzInt32**)&_aDixArray3[0];
-			oRc->nWidth = 100; //Limit 
-			oRc->nHeight = 100;
-			
+			#define _nW 3
+			static gzUInt32 _aPix[] =  {0xFF000000,0xFF000000,0xFF000000
+										,0xEF000000,0xEF000000,0xEF000000
+										,0xCF000000,0xCF000000,0xCF000000
+										,0x00000000,0x00000000,0x00000000
+										,0x00000000,0x00000000,0x00000000};
+			static gzInt32* _a2DPix[] = {(gzInt32*)&_aPix[0*_nW], (gzInt32*)&_aPix[1*_nW],(gzInt32*)&_aPix[2*_nW],(gzInt32*)&_aPix[3*_nW],(gzInt32*)&_aPix[4*_nW]};
+
+			oRc->aImg = (gzInt32**)_a2DPix;
+			oRc->nWidth = 3; //Limit 
+			oRc->nHeight = 5;//Limit 
 			</cpp>
-			
-			
-		
 			
 			
 			var _nBorder : Float = 0;
