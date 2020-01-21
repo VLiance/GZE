@@ -62,15 +62,15 @@ package  {
 			
 			oRc = new RcImg("");
 			nWidth = 1.0;
-			nHeight = 1.0;
+			nHeight = 2.0;
 			
 			<cpp>
-			static gzUInt32 _aDixArray_1[] = {0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000};
-			static gzUInt32 _aDixArray_2[] = {0xFF000000,0xFF000000,0xFF000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000};
-			static gzUInt32 _aDixArray_3[] = {0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0xFF000000,0xFF000000};
-			static gzUInt32 _aDixArray_4[] = {0x00000000,0xFF000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000};
-			static gzUInt32 _aDixArray_5[] = {0x00000000,0xFF000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000};
-			static gzUInt32 _aDixArray_6[] = {0x00000000,0xFF000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000};
+			static gzUInt32 _aDixArray_1[] = {0xFF000000,0xFF000000,0xFF000000,0xFF000000,0xFF000000,0xFF000000,0xFF000000,0xFF000000,0xFF000000};
+			static gzUInt32 _aDixArray_2[] = {0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000};
+			static gzUInt32 _aDixArray_3[] = {0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000};
+			static gzUInt32 _aDixArray_4[] = {0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000};
+			static gzUInt32 _aDixArray_5[] = {0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000};
+			static gzUInt32 _aDixArray_6[] = {0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000};
 			
 			
 			
@@ -80,8 +80,8 @@ package  {
 			//static gzInt32 _aDixArray[3][4] = {{0,1,2,3}, {4,5,6,7}, {8,9,10,11}};
 			
 			oRc->aImg = (gzInt32**)&_aDixArray3[0];
-			oRc->nWidth = 1000;
-			oRc->nHeight = 1000;
+			oRc->nWidth = 100; //Limit 
+			oRc->nHeight = 100;
 			
 			</cpp>
 			
@@ -89,7 +89,7 @@ package  {
 		
 			
 			
-			var _nBorder : Float = 1;
+			var _nBorder : Float = 0;
 
 /*
 			if(_oSrcRegion == 0){
@@ -147,10 +147,10 @@ package  {
 			var _oPtSrc3 : Pt<Float> = new Pt<Float>(_nOff_X + nWidth  +_nBorder, _nOff_Y + nHeight + _nBorder);
 			var _oPtSrc4 : Pt<Float> = new Pt<Float>(_nOff_X + 0 - _nBorder	    , _nOff_Y + nHeight  + _nBorder);								
 			
-			if(_nSize > 0){
+			if(_nSize < 0){
 				_oSrc  = new Poly4(_oPtSrc1, _oPtSrc2, _oPtSrc3, _oPtSrc4);
 			}else{
-				_oSrc  = new Poly4(_oPtSrc3, _oPtSrc4, _oPtSrc1, _oPtSrc2);
+				_oSrc  = new Poly4(_oPtSrc1, _oPtSrc2, _oPtSrc3, _oPtSrc4);
 			}
 			
 			
