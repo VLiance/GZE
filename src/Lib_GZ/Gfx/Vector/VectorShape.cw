@@ -48,8 +48,8 @@ package  {
 			if(oShape == null){
 				oShape = new Shape(this, 0,0,0,false);
 			
-				var _nWidth : Float = 300;
-				var _nHeight : Float = 200;
+				var _nWidth : Float = 100;
+				var _nHeight : Float = 100;
 				
 				
 				var _oPtTL : PtA = new PtA(0 , 0 );
