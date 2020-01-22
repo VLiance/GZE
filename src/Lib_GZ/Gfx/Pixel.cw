@@ -233,7 +233,7 @@ package  {
 
 
 			if(_oPtSegT.nY + 0.01 > _oPtSegL.nY){ //Ignore segment triangle < 1px height
-				return;
+			//	return; //Visible GLitch
 			}
 			var _nLimit : Float = 0.1;
 			if(	 _oPtSegT.nZ  < _nLimit || _oPtSegL.nZ  < _nLimit  || _oPtT.nZ  < _nLimit  || _oPtL.nZ  < _nLimit){
@@ -446,8 +446,8 @@ package  {
 			var x:Int;
 			var _nXLimit : Int;
 
-			_nLimW -= 128;
-			_nLimH -= 128;
+	//		_nLimW -= 128;
+	//		_nLimH -= 128;
 /*
 			<cpp>
 			printf("\nASSS %d", _nToY);

@@ -256,8 +256,12 @@ package  {
 			}
 		//Debug.fConsole("-----------***************-");
 			//We keep same slope for both segment to have precisly exact same dawing pixels
-			_nSWidth = (_nSWidth + (2 * 1.0))  * 256.0  - 129;  //*256
-			_nSHeight = (_nSHeight + (2 * 1.0))  * 256.0  - 129;
+			//_nSWidth = (_nSWidth + (2 * 1.0))  * 256.0  - 129;  //*256
+			//_nSHeight = (_nSHeight + (2 * 1.0))  * 256.0  - 129;
+			
+			_nSWidth = (_nSWidth + (2 * 1.0) - 1)  * 256.0  - 1;  //*256
+			_nSHeight = (_nSHeight + (2 * 1.0) - 1)  * 256.0  - 1;
+			
 			var _nFirst : Int = 0;
 			Pixel.fDrawSegTri(_nDrawDir,  _oPtT, _oPtL,  _aPtST, _aPtSL,  _oPtT,_oPtM,_aPtST,_aPtSM, _oSource.aPixelArray, _aPixelArray, _nPosX, _nPosY, _nX_Start, _nX_End, _nY_Start, _nY_End, _nSWidth , _nSHeight,0, _nRsAlpha, _nRsBrRed, _nRsBrGreen  , _nRsBrBlue, _nRsRevRed, _nRsRevBlue, _nRsRevGreen, _nOfRevRed, _nOfRevBlue, _nOfRevGreen, _nFirst, _bNothingRight);
 			_nFirst = Math.nPrec;

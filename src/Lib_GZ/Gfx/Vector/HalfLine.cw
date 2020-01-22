@@ -74,8 +74,8 @@ package  {
 			static gzInt32* _a2DPix[] = {(gzInt32*)&_aPix[0*_nW], (gzInt32*)&_aPix[1*_nW],(gzInt32*)&_aPix[2*_nW],(gzInt32*)&_aPix[3*_nW],(gzInt32*)&_aPix[4*_nW]};
 
 			oRc->aImg = (gzInt32**)_a2DPix;
-			oRc->nWidth = 3; //Limit 
-			oRc->nHeight = 5;//Limit 
+			oRc->nWidth = 1; //Limit 
+			oRc->nHeight = 3;//Limit 
 			</cpp>
 			
 			
