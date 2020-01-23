@@ -20,6 +20,7 @@ package  {
 
 	import GZ.Sys.Interface.Context;
 	import GZ.Gfx.Vector.Line;
+	import GZ.Gfx.Vector.VectorShape;
 
 	/**
 	 * @author Maeiky
@@ -27,11 +28,11 @@ package  {
 	public class Box extends VectorShape {
 
 		//public var nSize : Float;
-		public var oShape : Shape;
-		public var aLine : Array<Line>;
+	//	public var oShape : Shape;
+	//	public var aLine : Array<Line>;
 
 		
-		public var oLine : Line;
+//		public var oLine : Line;
 
 		public function Box( _oParent : Root, _nWidth : UInt, _nHeight: UInt, _nSize : Float = 1):Void {
 					
