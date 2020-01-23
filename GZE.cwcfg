@@ -29,8 +29,8 @@
 	<!--  -L "{_pModule}src/SubLib_System/Lib_GzOpenGL/" -->
 	
 
-	<CWayv> -L "{_pModule}src/SubLib_3rdparty/Lib_GzNima/"  </CWayv>
-	<CWayv> -L "{_pModule}src/SubLib_3rdparty/Lib_GzBox2D/"  </CWayv>
+	<CWayv> -L "{_pModule}src/SubLib_3rdparty/[Lib_Gz]Nima/(VLiance/GZE)"  </CWayv>
+	<CWayv> -L "{_pModule}src/SubLib_3rdparty/[Lib_Gz]Box2D/(VLiance/GZE)"  </CWayv>
 
 	
 	
