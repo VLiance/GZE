@@ -37,7 +37,7 @@ package  {
 		public function Box( _oParent : Root, _nWidth : UInt, _nHeight: UInt, _nSize : Float = 1):Void {
 					
 			var _oCenter  : Pt<Float> = new Pt<Float>(0.0, 0.0);
-
+/*
 			
 			oShape = new Shape(this, 0,0,0,false);
 		
@@ -51,8 +51,8 @@ package  {
 			oShape.fAddPt(_oPtTR, _oCenter);
 			oShape.fAddPt(_oPtBR, _oCenter);
 			oShape.fAddPt(_oPtBL, _oCenter);
-		
-			VectorShape(_oParent, _nSize , oShape);
+		*/
+			VectorShape(_oParent, _nSize );
 		}
 		
 	

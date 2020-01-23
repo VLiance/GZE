@@ -39,9 +39,16 @@ class gzWp {
 	
 
 	inline gzWp& operator = ( const gzWp<T> _oOther){
+	
+		_oOther.addInst();
+		subInst();
+		obj = _oOther.get();
+		
+
+		/*
 		if(obj != 0) {subInst();};
 		obj = _oOther.get();
-		addInst();
+		addInst();*/
 		return *this;
 	}
 	/////////////////////////////////
