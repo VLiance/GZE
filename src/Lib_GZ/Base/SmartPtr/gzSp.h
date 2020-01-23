@@ -102,9 +102,10 @@ class gzSp {
 
 	inline gzSp& operator = ( const gzSp<T>& _oOther){
 		//if(obj != 0) {subInst();};
+		_oOther.addInst();
 		subInst();
 		obj = _oOther.get();
-		addInst();
+		
 		return *this;
 	}
 	/*
@@ -122,9 +123,10 @@ class gzSp {
 	template <class R>
 	inline gzSp& operator = (const gzSp<R>& _oOther){
 	
+		_oOther.addInst();
 		subInst();
 			obj = _oOther.get(); //Copy
-		addInst();
+	
 		return *this;
 	}
 	/*
