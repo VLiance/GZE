@@ -36,10 +36,12 @@ package  {
 
 		public function Box( _oParent : Root, _nWidth : UInt, _nHeight: UInt, _nSize : Float = 1):Void {
 					
+			Clip(_oParent, 0 , 0);
+					
 			var _oCenter  : Pt<Float> = new Pt<Float>(0.0, 0.0);
-/*
+
 			
-			oShape = new Shape(this, 0,0,0,false);
+			var _oShape:Shape = new Shape(this, 0,0,0,false);
 		
 
 			var _oPtTL : PtA = new PtA(0 , 0 );
@@ -47,12 +49,12 @@ package  {
 			var _oPtBR : PtA = new PtA(_nWidth , _nHeight );
 			var _oPtBL : PtA = new PtA(0, _nHeight );
 			
-			oShape.fAddPt(_oPtTL, _oCenter);
-			oShape.fAddPt(_oPtTR, _oCenter);
-			oShape.fAddPt(_oPtBR, _oCenter);
-			oShape.fAddPt(_oPtBL, _oCenter);
-		*/
-			VectorShape(_oParent, _nSize );
+			_oShape.fAddPt(_oPtTL, _oCenter);
+			_oShape.fAddPt(_oPtTR, _oCenter);
+			_oShape.fAddPt(_oPtBR, _oCenter);
+			_oShape.fAddPt(_oPtBL, _oCenter);
+		
+			VectorShape(_oParent, _nSize,_oShape );
 		}
 		
 	
