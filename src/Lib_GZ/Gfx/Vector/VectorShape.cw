@@ -35,7 +35,7 @@ package  {
 
 		public function VectorShape( _oParent : Root,  _nSize : Float = 1, _oShape : Shape = null):Void {
 			
-			Clip(_oParent, 0 , 0);
+			Clip(_oParent, vPos.nX , vPos.nY); //Keep pos unchange if already set
 			
 			//var _oLine : Line = new Line(this, new PtA(0 ,0), new PtA(200 , 100));
 			

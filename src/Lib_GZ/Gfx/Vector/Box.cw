@@ -34,11 +34,11 @@ package  {
 		
 //		public var oLine : Line;
 
-		public function Box( _oParent : Root, _nWidth : UInt, _nHeight: UInt, _nSize : Float = 1):Void {
+		public function Box( _oParent : Root, _nX : Float, _nY: Float,  _nWidth : Float, _nHeight: Float, _nLineSize : Float = 1):Void {
 					
-			Clip(_oParent, 0 , 0);
+			Clip(_oParent, _nX , _nY);
 					
-			var _oCenter  : Pt<Float> = new Pt<Float>(0.0, 0.0);
+			var _oCenter  : Pt<Float> = new Pt<Float>(_nWidth/2, _nHeight/2);
 
 			
 			var _oShape:Shape = new Shape(this, 0,0,0,false);
@@ -54,7 +54,7 @@ package  {
 			_oShape.fAddPt(_oPtBR, _oCenter);
 			_oShape.fAddPt(_oPtBL, _oCenter);
 		
-			VectorShape(_oParent, _nSize,_oShape );
+			VectorShape(_oParent, _nLineSize,_oShape );
 		}
 		
 	

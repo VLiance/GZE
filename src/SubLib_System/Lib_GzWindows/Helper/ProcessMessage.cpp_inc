@@ -1,3 +1,5 @@
+//void PaintCustomCaption(HWND hWnd, HDC hdc);
+//void ChangeColor();
 
 void fProcessMessage(Lib_GZ::cHoldGate* _pGate, HWND _hWnd, gzUInt uMsg, WPARAM wParam, LPARAM lParam){
 	using namespace Lib_GZ::Sys::Interface::Context;
@@ -5,6 +7,11 @@ void fProcessMessage(Lib_GZ::cHoldGate* _pGate, HWND _hWnd, gzUInt uMsg, WPARAM 
 	
 	
 	switch(uMsg){
+	
+	   case WM_CREATE:
+		//	ChangeColor();
+	   break;
+	
 		case WM_KEYDOWN:
 			_gFrom.Send(new cfKeyIsDown(wParam));
         break;
@@ -19,6 +26,51 @@ void fProcessMessage(Lib_GZ::cHoldGate* _pGate, HWND _hWnd, gzUInt uMsg, WPARAM 
 			_gFrom.Send(new cfKeyIsUp(VK_LBUTTON));
 		break;
 		
+		 case WM_PAINT:
+		 /*
+            {
+                hdc = BeginPaint(hWnd, &ps);
+                PaintCustomCaption(hWnd, hdc);
+                
+                // Add any drawing code here...
+    
+                EndPaint(hWnd, &ps);
+            }*/
+            break;
+		
+		/*
+		 case WM_NCPAINT:
+
+			//base.WndProc(ref m);
+			gzUInt _nWidth = 800;
+			gzUInt _nHeight = 600;
+			
+			gzUIntX hdc = GetWindowDC(_hWnd);
+
+			if (hdc != 0)
+
+			{
+
+				Graphics g = Graphics.FromHdc(hdc);
+
+				// Draw title
+
+				 g.FillRectangle(new SolidBrush (Color.BlueViolet), new Rectangle(0, 0, this.Width, 30));
+
+				// Draw border
+
+				g.DrawRectangle(new Pen (Brushes .LightBlue, 20), new Rectangle(0, 0, this.Width, this.Height));
+
+				g.Flush();
+
+				ReleaseDC(_hWnd, hdc);
+
+				Refresh();
+
+			}
+
+		break ;
+		*/
 		
 		/*
 	
@@ -123,3 +175,142 @@ void fProcessMessage(Lib_GZ::cHoldGate* _pGate, HWND _hWnd, gzUInt uMsg, WPARAM 
 	}
 				
 }
+/*
+void ChangeColor(){
+
+
+
+ int aElements[2] = {COLOR_WINDOW, COLOR_ACTIVECAPTION};
+    DWORD aOldColors[2];
+    DWORD aNewColors[2];
+
+    // Get the current color of the window background. 
+ 
+    aOldColors[0] = GetSysColor(aElements[0]); 
+
+    printf("Current window color: {0x%x, 0x%x, 0x%x}\n", 
+        GetRValue(aOldColors[0]), 
+        GetGValue(aOldColors[0]), 
+        GetBValue(aOldColors[0]));
+
+    // Get the current color of the active caption. 
+ 
+    aOldColors[1] = GetSysColor(aElements[1]); 
+
+    printf("Current active caption color: {0x%x, 0x%x, 0x%x}\n", 
+        GetRValue(aOldColors[1]), 
+        GetGValue(aOldColors[1]), 
+        GetBValue(aOldColors[1]));
+
+    // Define new colors for the elements
+
+    aNewColors[0] = RGB(0xEE, 0xEE, 0xEE);  // light gray 
+    aNewColors[1] = RGB(0x21, 0x21, 0x31);  // dark purple 
+
+    printf("\nNew window color: {0x%x, 0x%x, 0x%x}\n", 
+        GetRValue(aNewColors[0]), 
+        GetGValue(aNewColors[0]), 
+        GetBValue(aNewColors[0]));
+
+    printf("New active caption color: {0x%x, 0x%x, 0x%x}\n", 
+        GetRValue(aNewColors[1]), 
+        GetGValue(aNewColors[1]), 
+        GetBValue(aNewColors[1]));
+
+    // Set the elements defined in aElements to the colors defined
+    // in aNewColors
+
+    SetSysColors(2, aElements, aNewColors); 
+
+    printf("\nWindow background and active border have been changed.\n");
+    printf("Reverting to previous colors in 10 seconds...\n");
+
+   // Sleep(10000);    
+
+    // Restore the elements to their original colors
+
+   // SetSysColors(2, aElements, aOldColors); 
+
+
+}
+
+*/
+
+
+/*
+// Paint the title on the custom frame.
+void PaintCustomCaption(HWND hWnd, HDC hdc)
+{
+    RECT rcClient;
+    GetClientRect(hWnd, &rcClient);
+
+    HTHEME hTheme = OpenThemeData(NULL, L"CompositedWindow::Window");
+    if (hTheme)
+    {
+        HDC hdcPaint = CreateCompatibleDC(hdc);
+        if (hdcPaint)
+        {
+            int cx = RECTWIDTH(rcClient);
+            int cy = RECTHEIGHT(rcClient);
+
+            // Define the BITMAPINFO structure used to draw text.
+            // Note that biHeight is negative. This is done because
+            // DrawThemeTextEx() needs the bitmap to be in top-to-bottom
+            // order.
+            BITMAPINFO dib = { 0 };
+            dib.bmiHeader.biSize            = sizeof(BITMAPINFOHEADER);
+            dib.bmiHeader.biWidth           = cx;
+            dib.bmiHeader.biHeight          = -cy;
+            dib.bmiHeader.biPlanes          = 1;
+            dib.bmiHeader.biBitCount        = BIT_COUNT;
+            dib.bmiHeader.biCompression     = BI_RGB;
+
+            HBITMAP hbm = CreateDIBSection(hdc, &dib, DIB_RGB_COLORS, NULL, NULL, 0);
+            if (hbm)
+            {
+                HBITMAP hbmOld = (HBITMAP)SelectObject(hdcPaint, hbm);
+
+                // Setup the theme drawing options.
+                DTTOPTS DttOpts = {sizeof(DTTOPTS)};
+                DttOpts.dwFlags = DTT_COMPOSITED | DTT_GLOWSIZE;
+                DttOpts.iGlowSize = 15;
+
+                // Select a font.
+                LOGFONT lgFont;
+                HFONT hFontOld = NULL;
+                if (SUCCEEDED(GetThemeSysFont(hTheme, TMT_CAPTIONFONT, &lgFont)))
+                {
+                    HFONT hFont = CreateFontIndirect(&lgFont);
+                    hFontOld = (HFONT) SelectObject(hdcPaint, hFont);
+                }
+
+                // Draw the title.
+                RECT rcPaint = rcClient;
+                rcPaint.top += 8;
+                rcPaint.right -= 125;
+                rcPaint.left += 8;
+                rcPaint.bottom = 50;
+                DrawThemeTextEx(hTheme, 
+                                hdcPaint, 
+                                0, 0, 
+                                szTitle, 
+                                -1, 
+                                DT_LEFT | DT_WORD_ELLIPSIS, 
+                                &rcPaint, 
+                                &DttOpts);
+
+                // Blit text to the frame.
+                BitBlt(hdc, 0, 0, cx, cy, hdcPaint, 0, 0, SRCCOPY);
+
+                SelectObject(hdcPaint, hbmOld);
+                if (hFontOld)
+                {
+                    SelectObject(hdcPaint, hFontOld);
+                }
+                DeleteObject(hbm);
+            }
+            DeleteDC(hdcPaint);
+        }
+        CloseThemeData(hTheme);
+    }
+}*/

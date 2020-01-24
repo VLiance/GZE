@@ -106,14 +106,17 @@ package  {
 	public class OpContext overplace Context {
 		
 	
-		//public var bContext2d : Bool = true;
 		public var nGpuId : Int = -1;
 		public var bContext2d : Bool = false;
-			
+
 		public function OpContext(_oInterface : Interface, _sWindowName : String, _nFrameWidth : UInt, _nFrameHeight : UInt, _bTransparent : Bool = false, _nBgColor : Int = 0xFFFFFFFF): Void {
 			Debug.fTrace("---New OpWindows--");
 			Context(_oInterface, _sWindowName, _nFrameWidth, _nFrameHeight, _bTransparent, _nBgColor);
 			//bWinGPU = false;
+			if(_oInterface.bGpuDraw == false){
+				bContext2d = true;
+			}
+			
 		}
 		 
 		 override static public function fManageMessageOp():Void {
@@ -129,7 +132,7 @@ package  {
 			
 				Debug.fTrace("Please Insert CreateContextHandle code here");
 				
-			
+				var _sWebGL_ver : String = "";
 				
 				<cpp>
 				
@@ -188,10 +191,10 @@ package  {
 					
 					val gl = canvas.call<val>("getContext", val(aGLContextName[nGpuId]));
 					
-					gzStr _sVersion = gzStrC(((char*)((std::string)(gl.call<std::string>("getParameter", gl["VERSION"]))).c_str()));
+					_sWebGL_ver = gzStrC(((char*)((std::string)(gl.call<std::string>("getParameter", gl["VERSION"]))).c_str()));
 					
 					
-					Lib_GZ::Debug::Debug::GetInst(thread)->fPass( gzU8("OpenGL avalaible: ") + _sVersion);
+					Lib_GZ::Debug::Debug::GetInst(thread)->fPass( gzU8("OpenGL avalaible: ") + _sWebGL_ver);
 					
 					gl.call<Void>("clearColor",  0.5, val(0.7), val(0.2), val(1.0));
 				//	gl.call<Void>("clear",  gl["COLOR_BUFFER_BIT"]  );
@@ -203,8 +206,7 @@ package  {
 			
 					Lib_GzOpenGL::OpenGL::GetInst(thread)->oGL = gl; //Temp
 					
-					
-					
+				
 					/*
 				   EM_ASM_ARGS({
 					  var _sContexte = Pointer_stringify($0);
@@ -274,6 +276,11 @@ package  {
 			
 			if(nGpuId >= 0){ //WebGl supported
 				
+			}
+			if(bContext2d){
+				Debug.fPass("Render Mode: CPU, use Canvas API without WebGL");
+			}else{
+				Debug.fPass("Render Mode: GPU, using WebGL " + _sWebGL_ver);
 			}
 
 		}

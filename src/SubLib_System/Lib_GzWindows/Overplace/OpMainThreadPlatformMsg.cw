@@ -80,7 +80,7 @@ package  {
 
 			var _bBorder : Bool = true;
 			var _bTransparent : Bool = false;
-			var _bCloseBox : Bool = false;
+			var _bCloseBox : Bool = true;
 			
 			var _sName : String = _oWindow.sName;
 			var _sIconName : String = "Icon";
@@ -126,6 +126,22 @@ package  {
 				}else{
 					wClass.style = 0;
 				}
+/*
+  if (bMinimizeBox) {
+        _hBorderFlag = _hBorderFlag | WS_MINIMIZEBOX;
+    }
+    if (bMaximizeBox) {
+        _hBorderFlag = _hBorderFlag | WS_MAXIMIZEBOX;
+    }
+
+    if(_bResizable){
+        _hBorderFlag = _hBorderFlag | WS_SIZEBOX;
+    }
+
+    if(hState != eWinState::Hidden){
+        _hBorderFlag = _hBorderFlag | WS_VISIBLE;
+    }*/
+				
 				
 				if ( !RegisterClassEx(&wClass) ) {
 					MessageBox( GZ_Null, L"Failed to register window class.", L"Error", MB_OK );
@@ -146,7 +162,7 @@ package  {
 
 						case eWinBorder::Normal :
 							_nExStyleFlag = WS_EX_APPWINDOW;
-							_hBorderFlag = WS_SYSMENU | WS_CAPTION;
+							_hBorderFlag = WS_SYSMENU | WS_CAPTION ;
 						break;
 
 						case eWinBorder::NormalDouble :
@@ -191,6 +207,7 @@ package  {
 					_sName.fToWStr().get(),
 		
 					_hBorderFlag
+
 					| WS_CLIPCHILDREN | WS_CLIPSIBLINGS    // Required for OpenGL
 					,CW_USEDEFAULT, _nY, _oWindow->vFrame.nWidth, _oWindow->vFrame.nHeight,
 					GZ_Null, GZ_Null, hInstance, _gFrom.get());
