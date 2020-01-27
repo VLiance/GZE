@@ -42,7 +42,8 @@ package  {
 			};
 			*/
 			
-			cClass* parent;//temps //TODO gzWp
+			//cClass* parent;//temps //TODO gzWp
+			gzWp<cClass> parent;//temps //TODO gzWp
 			gzInt nInstCount;
 			
 			union {

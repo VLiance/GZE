@@ -34,9 +34,9 @@ package  {
 		
 //		public var oLine : Line;
 
-		public function Box( _oParent : Root, _nX : Float, _nY: Float,  _nWidth : Float, _nHeight: Float, _nLineSize : Float = 1):Void {
+		public function Box( _nX : Float, _nY: Float,  _nWidth : Float, _nHeight: Float, _nLineSize : Float = 1):Void {
 					
-			Clip(_oParent, _nX , _nY);
+			Clip(parent, _nX , _nY);
 					
 			var _oCenter  : Pt<Float> = new Pt<Float>(_nWidth/2, _nHeight/2);
 
@@ -54,7 +54,7 @@ package  {
 			_oShape.fAddPt(_oPtBR, _oCenter);
 			_oShape.fAddPt(_oPtBL, _oCenter);
 		
-			VectorShape(_oParent, _nLineSize,_oShape );
+			VectorShape(parent, _nLineSize,_oShape );
 		}
 		
 	
