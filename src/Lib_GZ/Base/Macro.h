@@ -526,8 +526,10 @@ namespace _LibName{ \
 #endif
 
 
- 
-#define gzAtom(_type, _name) inline _type& _name(){static _type &_name = *new _type(); return _name;} //TODO Destroy at end or just free all malloc from app?
+//#define gzAtom2(_type, _name) inline _type* _name(){static _type *_name = new _type(); return _name;} //TODO Destroy at end or just free all malloc from app?
+
+//#define gzAtom(_type, _name) inline _type& _name(){static _type &_name = *new _type(); return _name;} //TODO Destroy at end or just free all malloc from app?
+#define gzAtom(_type, _name) inline _type& _name(){static _type* _name = new _type(); return *_name;} //TODO Destroy at end or just free all malloc from app?
 
 /*
 //#define gzDefAtom(_type, _name) extern _type& _name();

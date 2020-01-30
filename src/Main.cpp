@@ -134,6 +134,9 @@ extern "C" int main( int argc, const char* argv[] ){
 HINSTANCE hThisInstance = GetModuleHandle(NULL);
 int nCmdShow = 10;//SW_SHOWDEFAULT
 //////////////////////////////////////////////////////////
+bOnCpcDos = fIniCpcDosFunctions();
+
+
 	#else
 //////////////////////////////////////////////////////////
 int WINAPI WinMain (HINSTANCE hThisInstance,  HINSTANCE hPrevInstance,  LPSTR lpszArgument, int nCmdShow){
@@ -215,7 +218,11 @@ extern bool bOnCpcDos;
 extern int nCpcVerMajor;
 extern int nCpcVerMinor;
 extern "C" int cpc_main( int argc, const char* argv[] ){
+
 		puts("\ncpc_main Dos Main\n"); 
+		
+		bOnCpcDos = fIniCpcDosFunctions();
+		
 	printf("\n---------\n"); 
 	_nTest++;
 	printf("\n_nTest: %d \n", _nTest); 

@@ -86,7 +86,7 @@ package  {
 		private function fReceiveMessage( _sMessage : String):Void; //Dummy for dInterProcessMessage
 
         public function drawPixel():Void;
-        public function fKeyIsDown(_nKeyVal : Int):Int;
+        public function fKeyIsDown(_nKeyVal : Int):Void;
 
         public function fCpuVSyncOnGpu():Void;
 		

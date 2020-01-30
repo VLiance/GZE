@@ -37,9 +37,18 @@ namespace Lib_GZ{namespace Base{ namespace Thread{ namespace ThreadList{
 
 
     void fAdd(Base::Thread::cThreadExt* _opThread){
-	
-		aList().fPush(_opThread);
 		
+	printf("\nTry addd2 \n");
+	
+	
+	gzArray<gzSp<cThreadExt>> aList2;
+	aList2.fPush(_opThread);
+	printf("\nEnd addd2 ");
+			
+	
+		printf("\nTry addd ");
+		aList().fPush(_opThread);
+			printf("\n addded ");
 		//	aList()[0]->oThread->fLoop();
 		/*
 		printf("\n !!!!!!!!!! fAdd!!!!!!!!!");
