@@ -230,8 +230,10 @@ extern "C" int cpc_main( int argc, const char* argv[] ){
 	Lib_GZ::Base::Thread::Thread::bAppIsAlive = true;
 	Lib_GZ::Lib::fLoadAllLib();
 	if(bOnCpcDos){
-		printf("CpcDos ver%d.%d ", nCpcVerMajor, nCpcVerMinor);
+		printf("\nCpcDos ver%d.%d \n", nCpcVerMajor, nCpcVerMinor);
 		Lib_GZ::Lib::fLoadLib(IniLib_Lib_GzCpcDos()); //OverPlace
+		Lib_GZ::Lib::fLoadLib(IniLib_Lib_GzOpenGL()); //OverPlace
+		printf("\nIni OGL");
 	}else{
 		printf("--On Windows-- ");
 		setbuf(stdout, NULL);
