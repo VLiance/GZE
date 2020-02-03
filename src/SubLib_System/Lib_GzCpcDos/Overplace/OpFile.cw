@@ -39,14 +39,9 @@ package  {
 			//var _sFullExe : String;
 			var  _sPath : String;
 			
-				Debug.fInfo("Try to get system EXE path ");
+			Debug.fInfo("Try to get system EXE path ");
 			<cpp>
-			
 			_sPath = gzStrC(CpcDos->Get_Path(0));
-			
-			
-			
-			// sFullExePath = GetMainModulePath().fReplaceAll(gzU8("\\"), gzU8("/"));
 			_sPath =  _sPath.fReplaceAll(gzU8("\\"), gzU8("/"));
 			</cpp>
 			
