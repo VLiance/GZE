@@ -695,9 +695,9 @@ class gzArray {
 	*/
 	
 	inline ~gzArray(){
-		if(bCatchMe){
+		//if(bCatchMe){
 		//	printf("\nDelete CatchMe array");
-		}
+		//}
 	}
 	
 };

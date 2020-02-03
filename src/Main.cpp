@@ -104,10 +104,17 @@ LRESULT CALLBACK MainHwndProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARA
     return 0;
 }
 
-	#ifdef D_Platform_CpcDos
+
+#ifdef D_Platform_CpcDos
 //////////////////////////////////////////////////////////
 #include "CpcDos/CPC_WPR.cpp"
 extern bool bOnCpcDos;
+#endif
+
+	#ifdef D_Platform_CpcDos_REMOVED
+//////////////////////////////////////////////////////////
+//#include "CpcDos/CPC_WPR.cpp"
+//extern bool bOnCpcDos;
 /*
 //extern "C" int cpc_main( int argc, const char* argv[] ){printf("\n\nYeeeee CPC\n\n");}
 extern "C" int cpc_main( int argc, const char* argv[] ){
@@ -212,30 +219,37 @@ SetConsoleOutputCP(CP_UTF8);
 
 extern "C" Lib_GZ::uLib* IniLib_Lib_GzCpcDos(); //Overplace must be present
 
-	#ifdef D_Platform_CpcDos
+
+#ifdef D_Platform_CpcDos
+	
+
 int _nTest = 7;
 extern bool bOnCpcDos;
 extern int nCpcVerMajor;
 extern int nCpcVerMinor;
-extern "C" int cpc_main( int argc, const char* argv[] ){
+//extern "C" int cpc_main( int argc, const char* argv[] ){
+extern "C" int main_entry( int argc, const char* argv[] ){
 
-		puts("\ncpc_main Dos Main\n"); 
+	puts("\n--CpcDos Main--\n"); 
 		
-		bOnCpcDos = fIniCpcDosFunctions();
+	bOnCpcDos = fIniCpcDosFunctions();
 		
-	printf("\n---------\n"); 
 	_nTest++;
 	printf("\n_nTest: %d \n", _nTest); 
+	
+	//bOnCpcDos = true;//Temp
 	
 	Lib_GZ::Base::Thread::Thread::bAppIsAlive = true;
 	Lib_GZ::Lib::fLoadAllLib();
 	if(bOnCpcDos){
-		printf("\nCpcDos ver%d.%d \n", nCpcVerMajor, nCpcVerMinor);
+		printf("\n--On CpcDos--");
+		setbuf(stdout, NULL);//Not sure
+		printf("\n\nCpcDos ver%d.%d \n\n", nCpcVerMajor, nCpcVerMinor);
 		Lib_GZ::Lib::fLoadLib(IniLib_Lib_GzCpcDos()); //OverPlace
 		Lib_GZ::Lib::fLoadLib(IniLib_Lib_GzOpenGL()); //OverPlace
 		printf("\nIni OGL");
 	}else{
-		printf("--On Windows-- ");
+		printf("\n\n --On Windows-- \n\n ");
 		setbuf(stdout, NULL);
 		Lib_GZ::Lib::fLoadLib(IniLib_Lib_GzWindows()); //OverPlace
 		Lib_GZ::Lib::fLoadLib(IniLib_Lib_GzOpenGL()); //OverPlace
@@ -246,9 +260,15 @@ extern "C" int cpc_main( int argc, const char* argv[] ){
 	while(nMainIsAlive){
 		nMainIsAlive = Update();
 	}
-	printf("--End - ");
+	printf("\n--End - ");
 	return nMainIsAlive;
 }
+
+extern "C" int main( int argc, const char* argv[] ){
+	main_entry(argc, argv);
+}
+
+
 #endif
 
 
@@ -303,7 +323,7 @@ extern "C" int cpc_main( int argc, const char* argv[] ){
 	}
 
 
-
+/*
 #elif defined GZ_tCpcDos
 
 	#include "Cpcdos/CPC_WPR.cpp"
@@ -316,7 +336,7 @@ extern "C" int cpc_main( int argc, const char* argv[] ){
 		}
 		return nMainIsAlive;
 	}
-
+*/
 
 
 #else ////// Others //////

@@ -20,8 +20,14 @@ package  {
 			<cpp>
 			gzUInt _nExist = CpcDos->File_exist((char*) _sFile.fToCStr().get());
 			if(_nExist > 0){
+					</cpp>
+				Debug.fPass("File found: " + _sFile);
+					<cpp>
 				return true;
 			}else{
+				</cpp>
+				Debug.fError("File Not found: " + _sFile);
+					<cpp>
 				return false;
 			}
 			</cpp>
@@ -32,14 +38,20 @@ package  {
 		public override  function fGetSystemExePath() : String { //Return the full path with exe name
 			//var _sFullExe : String;
 			var  _sPath : String;
+			
+				Debug.fInfo("Try to get system EXE path ");
 			<cpp>
-	
+			
 			_sPath = gzStrC(CpcDos->Get_Path(0));
 			
+			
+			
 			// sFullExePath = GetMainModulePath().fReplaceAll(gzU8("\\"), gzU8("/"));
-			return _sPath.fReplaceAll(gzU8("\\"), gzU8("/"));
+			_sPath =  _sPath.fReplaceAll(gzU8("\\"), gzU8("/"));
 			</cpp>
 			
+			Debug.fInfo("Found:  " + _sPath);
+			return 	_sPath;
 			
 			//
 			/*
@@ -80,14 +92,10 @@ package  {
 				
 					gzUIntX _nSize =  CpcDos->File_size( (char*) _sFile.fToCStr().get() ); 
 					
-				
 					printf("\n \n ------ ************ File Size: %d \n \n", _nSize);
 				
-					
 					//gzUInt8* _aData = new gzUInt8[_nSize]; //TODO may be 0 sized
 					gzUInt8* _aData = (gzUInt8*)GZ_fMalloc(_nSize, sizeof(gzUInt8)); //TODO may be 0 sized
-					
-					
 					
 					// Recuperer TOUT le contenu
 					CpcDos->File_read_all((char*)_sFile.fToCStr().get(), (char*)"RB", (char*)_aData);
@@ -100,10 +108,6 @@ package  {
 					</cpp>
 						Debug.fError("Error, can't open file : " + sFullPath);
 					<cpp>
-					
-				//	Lib_GZ::Sys::pDebug::fConsole(gzU8("Error, can't open file : ") + _sFullPath);
-				
-				
 				}
 
 				 //fclose(f);

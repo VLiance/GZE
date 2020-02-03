@@ -181,8 +181,11 @@ void _sLib::_sClass::Thread_Start(GZ_FuncWrapD, gzPtr _pThread){  \
     gzSp<_namespace::c##_class> _oInitialiser = _namespace::_class::Get( ((Lib_GZ::Base::Thread::cThreadExt*)_pThread)->thread  )->New(0);\
    printf("\n_oInitialiser %p ", _oInitialiser.get());\
    _oInitialiser->fLinkThreadExt((Lib_GZ::Base::Thread::cThreadExt*)_pThread); \
+	printf("\n_oTemp: " #_sClass);\
 	gzSp<_sLib::c##_sClass>_oTemp(new _sLib::c##_sClass(_oInitialiser.get())); \
+	printf("\n_oConstructor: " #_sClass);\
 	_oTemp->Constructor((_namespace::c##_class*)_oInitialiser.get());   \
+	printf("\n_fStart: " #_sClass);\
 	_oInitialiser->fStart(_oTemp.get()); \
 	printf("\nEND Thread class: " #_sClass);\
 	CallThreadEnd\

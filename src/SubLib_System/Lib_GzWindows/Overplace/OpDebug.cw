@@ -118,21 +118,21 @@ package  {
 					COORD coord;
 					coord.X=_nWidth/8 * 1.5;
 					coord.Y=_nHeight/12 * 50;
-					SetConsoleScreenBufferSize(GetStdHandle(STD_OUTPUT_HANDLE),coord);
+					if(SetConsoleScreenBufferSize(GetStdHandle(STD_OUTPUT_HANDLE),coord)){
+						HWND hConsole = GetConsoleWindow();
+						if(hConsole != 0){
+							MoveWindow(hConsole, _nPosX, _nPosY, _nWidth, _nHeight + 300, true);
 
-					HWND hConsole = GetConsoleWindow();
-					MoveWindow(hConsole, _nPosX, _nPosY, _nWidth, _nHeight + 300, true);
-
-
-					SMALL_RECT windowSize = {0, 0, (gzInt16)(_nWidth-1), (gzInt16)(_nHeight-1)};
-					SetConsoleWindowInfo(hConsole, true, &windowSize);
-					//ShowWindow( hConsole, SW_MAXIMIZE );
-				   // setlocale(LC_CTYPE, ".1252");
-					setlocale(LC_ALL, ".65001");
-					SetConsoleOutputCP(CP_UTF8);
-					//Color(FOREGROUND_RED|FOREGROUND_INTENSITY);
-					_::Color(FOREGROUND_WHITE);
-					
+							SMALL_RECT windowSize = {0, 0, (gzInt16)(_nWidth-1), (gzInt16)(_nHeight-1)};
+							SetConsoleWindowInfo(hConsole, true, &windowSize);
+							//ShowWindow( hConsole, SW_MAXIMIZE );
+						   // setlocale(LC_CTYPE, ".1252");
+							setlocale(LC_ALL, ".65001");
+							SetConsoleOutputCP(CP_UTF8);
+							//Color(FOREGROUND_RED|FOREGROUND_INTENSITY);
+							_::Color(FOREGROUND_WHITE);
+						}
+					}
 				#endif
 				
 			</cpp>

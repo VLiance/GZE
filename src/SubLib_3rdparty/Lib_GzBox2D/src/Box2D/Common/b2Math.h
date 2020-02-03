@@ -382,7 +382,8 @@ struct b2Sweep
 };
 
 /// Useful constant
-extern const b2Vec2 b2Vec2_zero;
+//extern const b2Vec2 b2Vec2_zero;
+#define b2Vec2_zero b2Vec2(0.0f, 0.0f)
 
 /// Perform the dot product on two vectors.
 inline float32 b2Dot(const b2Vec2& a, const b2Vec2& b)

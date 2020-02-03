@@ -68,12 +68,14 @@ package  {
 			
 		<cpp_initializer>
 			if(_parent != 0){
+				//printf("\nGetParentThread");
 				  //  parent = _parent->SpFromThis();
 					parent = _parent;
 					GzThread = _parent->thread;
+				//	printf("\nSetParentThread");
 					//  printf("\nClassSetThread");
 			  }else{
-					//printf("\nClassNull");
+					printf("\nThreadClass(No Parent)");
 					//Only new thread can have parent to zero (cThread) TODO aAssert
 					//	--> thread = this;--> IN thread.cpp
 			   }

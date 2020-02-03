@@ -43,7 +43,7 @@ package  {
 		public var nDestX:Float;
 		public var nDestY:Float;
 		
-		public static var oLastBottonFirstOver : Button;
+		//public static var oLastBottonFirstOver : Button;
 		
 	
 	public var nClipX : Float = 0; //TODO Better place
