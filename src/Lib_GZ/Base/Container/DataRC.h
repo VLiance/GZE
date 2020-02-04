@@ -262,12 +262,14 @@ inline static gzDataRC* fEmptyArray(gzUInt _nSize ) {
 
 inline static gzDataRC*  fDataAlloc(  gzUIntX _nSize,  gzUIntX _nLimit ){  //TODO inline?
 	gzDataRC* _oRc =  (gzDataRC*)GZ_fMalloc(1, sizeof(gzDataRC)); GZ_nArrayTotalAlloc++;  //Can be optimised with malloc if we be sure that all data are memcpy
-	_oRc->aTab = (gzUInt8*)GZ_fCalloc(1, _nLimit ); GZ_nArrayTotalAlloc++; //Malloc?
 	
-//	GZ_fSetJSmem(_oRc); 
-
-	memset( &_oRc->aTab[_nSize], 0, _nLimit - _nSize);//Zero all other 
-	
+	if(_nLimit != 0){//Make drMemory happy? Or maybe it's a real leak when it's 0 byte? Or maybe always alloc more than 0 bytes?
+		_oRc->aTab = (gzUInt8*)GZ_fCalloc(1, _nLimit ); GZ_nArrayTotalAlloc++; //Malloc?
+		//printf("\n ********* Calloc:%p , _nSize:%d,  _nLimit:%d ",_oRc->aTab, _nSize, _nLimit);
+		memset( &_oRc->aTab[_nSize], 0, _nLimit - _nSize);//Zero all other 
+	}else{
+		_oRc->aTab  =0;
+	}
 	_oRc->nSize = _nSize;
 	_oRc->nType = gzDataType_Both_HEAP; //Heap type
 	_oRc->nLimit = _nLimit;
