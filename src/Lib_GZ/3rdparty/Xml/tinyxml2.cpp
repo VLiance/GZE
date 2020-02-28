@@ -2060,8 +2060,7 @@ void XMLDocument::PrintError() const
         // Should check INT_MIN <= _errorID && _errorId <= INT_MAX, but that
         // causes a clang "always true" -Wtautological-constant-out-of-range-compare warning
         TIXMLASSERT( 0 <= _errorID && XML_ERROR_COUNT - 1 <= INT_MAX );
-        printf( "XMLDocument error id=%d '%s' str1=%s str2=%s\n",
-                static_cast<int>( _errorID ), ErrorName(), buf1, buf2 );
+        printf( "XMLDocument error id=%d '%s' str1=%s str2=%s\n", static_cast<int>( _errorID ), ErrorName(), buf1, buf2 );
     }
 }
 

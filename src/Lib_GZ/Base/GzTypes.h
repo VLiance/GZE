@@ -339,6 +339,21 @@ typedef void* ArrayPtr;//Temp?
 		#define GZ_DbgParam_
 	#endif
 
-		
+	
+
+#ifdef D_Debug
+#define GZ_printf( format, ... ) printf( format, ## __VA_ARGS__ )
+#else
+//Remove printf from release (huge ccode size)
+#define GZ_printf( format, ... ) 
+#endif
+
+
+
+
+
+
+
+	
 	
 #endif

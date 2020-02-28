@@ -142,11 +142,22 @@ smooth in vec2 uv;
 //vec4 fGetPixel(sampler2D textures[4], int ndx, vec2 uv) {
 vec4 fTexture(int ndx, vec2 uv) {
 	#ifdef d_WebGL
+		switch(ndx){
+			case 0:return texture(Texture[0], uv);
+			case 1:return texture(Texture[1], uv);
+			case 2:return texture(Texture[2], uv);
+			case 3:return texture(Texture[3], uv);
+			case 4:return texture(Texture[4], uv);
+			case 5:return texture(Texture[5], uv);
+			case 6:return texture(Texture[6], uv);
+			case 7:return texture(Texture[7], uv);
+		}
+		/*
 		for (int i = 0; i < nMaxTextures; ++i) {
 			if (i == ndx) {
 				return texture(Texture[i], uv);
 			}
-		}
+		}*/
 	#else
 		return texture(Texture[ndx], ioTexture);
 	#endif

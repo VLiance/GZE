@@ -262,6 +262,8 @@ package  {
 					aData = Uint32Array.new_(buf);
 					//val data = new Uint32Array(buf);
 					
+					
+						oCanvas.set("backgroundColor", "transparent"); //Test
 				}
 
 				//val h264_decoder = val::global("h264_decoder");
@@ -352,6 +354,11 @@ package  {
 				//gzVal rect = _oHtmlCanvas.call<val>("getBoundingClientRect");
 				nFrameWidth = _oHtmlCanvas["width"].as<int>();
 				nFrameHeight = _oHtmlCanvas["height"].as<int>();
+				
+				
+				_oHtmlCanvas.set("backgroundColor", "transparent"); //Test
+				
+				
 				//nFrameHeight = rect["top "].as<int>();
 				//Module.canvas.width = container.clientWidth;
 				//Module.canvas.height = container.clientHeight;

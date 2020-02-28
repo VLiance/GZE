@@ -35,15 +35,16 @@ package  {
 //		public var oLine : Line;
 
 		public function Box( _nX : Float, _nY: Float,  _nWidth : Float, _nHeight: Float, _nLineSize : Float = 1):Void {
-					
-			Clip(parent, _nX , _nY);
-					
-			var _oCenter  : Pt<Float> = new Pt<Float>(_nWidth/2, _nHeight/2);
-
+			<cpp>
+			oItf = ((cRoot*)parent.get())->oItf;
+			</cpp>
+			vPos.nX = _nX;
+			vPos.nY = _nY;
 			
+
+			var _oCenter  : Pt<Float> = new Pt<Float>(_nWidth/2, _nHeight/2);
 			var _oShape:Shape = new Shape(this, 0,0,0,false);
 		
-
 			var _oPtTL : PtA = new PtA(0 , 0 );
 			var _oPtTR : PtA = new PtA(_nWidth, 0 );
 			var _oPtBR : PtA = new PtA(_nWidth , _nHeight );
@@ -55,6 +56,7 @@ package  {
 			_oShape.fAddPt(_oPtBL, _oCenter);
 		
 			VectorShape(parent, _nLineSize,_oShape );
+			//VectorShape(parent, _nLineSize );
 		}
 		
 	
