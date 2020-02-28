@@ -17,7 +17,7 @@ package  {
 		
 		override public function fLoad():Void {
 		
-				   // printf("%s" , (gzInt8*)(_sName.sStr->array + 1));
+				   // GZ_printf("%s" , (gzInt8*)(_sName.sStr->array + 1));
 	//		GL_fUniform1i(GL_fGetUniformLocation(nId, _sName.fcStr() ), _nSlot);
 		
 			nId = OpenGL.fGetUniformLocation(oProgram.nId, "Texture["  + nSlot + "]" );

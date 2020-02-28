@@ -23,7 +23,7 @@
  gzResult_Search fDataFind(const gzp_Type& _pFind, gzUIntX _nFromIndex = 0) const {
 	_nFromIndex = _nFromIndex * GzS;
 	
-	//printf("%.*s", gzp_DataSize, gzp_DataArray);
+	//GZ_printf("%.*s", gzp_DataSize, gzp_DataArray);
 	if(_pFind.gzp_Size == 0 || gzp_Size < _pFind.gzp_Size){return gzResult_Search(false, ( gzp_Size)/GzS, GZ_fMin(_nFromIndex,gzp_Size)/GzS,0);}
 	
 	gzUIntX _nTo =  gzp_Size -  (_pFind.gzp_Size - 1);

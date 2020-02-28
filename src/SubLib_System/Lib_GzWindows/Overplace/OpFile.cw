@@ -142,7 +142,7 @@ package  {
 					gzUInt8* _aData = (gzUInt8*)GZ_fMalloc(_nSize, sizeof(gzUInt8)); //TODO may be 0 sized
 					
 					
-					printf("\n \n ------ ************ File Size: %d \n \n", _nSize);
+					GZ_printf("\n \n ------ ************ File Size: %d \n \n", _nSize);
 					fread(_aData, 1, _nSize, f);
 					
 					

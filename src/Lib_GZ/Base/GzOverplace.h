@@ -29,8 +29,8 @@ namespace Lib_GZ{
     inline  uLib* fSetLib(uLib* _rLib){
        uLib* rTemp =  Lib::rLastLib;
        Lib::rLastLib = _rLib;
-	  // printf("\n uLibName: %s", _rLib->sName);
-	 //  printf("\n uLibName: aaaaa");
+	  // GZ_printf("\n uLibName: %s", _rLib->sName);
+	 //  GZ_printf("\n uLibName: aaaaa");
        return rTemp;
   //return 0;
     }

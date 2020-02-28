@@ -83,7 +83,7 @@ package  {
 				 _nPrevChar =_sText[i];
 				  /*
 				  <cpp>
-				  printf("\n %d ", _sText(i) );
+				  GZ_printf("\n %d ", _sText(i) );
 				  </cpp>
 				  */
 				 //Debug.fTrace("Letter " +  _sText[i] );

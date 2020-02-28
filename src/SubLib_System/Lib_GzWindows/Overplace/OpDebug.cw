@@ -156,7 +156,7 @@ package  {
 		public override  function fTrace(_sValue:String):Void {
 			<cpp>
 				_::fPrint(thread->nId, (char*)L"T:", FOREGROUND_GREEN, _sValue, FOREGROUND_GREEN |FOREGROUND_INTENSITY);
-			   // printf("1:%s\n", (char*)_sValue.fcStr());
+			   // GZ_printf("1:%s\n", (char*)_sValue.fcStr());
 			</cpp>
 		}	
 		

@@ -104,7 +104,7 @@
 		
 		m.aData->aTab[0] = _nChar;	//TODO UTF8
 	
-		printf("\nCaalll %d", _nChar);
+		GZ_printf("\nCaalll %d", _nChar);
 		
 		//gzStr8 _sNewStr( ::GZ::fDataAlloc(_nSize, _nSize));
        // _aArray  = _sNewStr.m.aData->aTab;
@@ -138,8 +138,8 @@
 			}
 		}*/
 
-	//	printf("\Delete:");fPrint();
-		//printf("\nFree:");fPrint();
+	//	GZ_printf("\Delete:");fPrint();
+		//GZ_printf("\nFree:");fPrint();
 		//GZ_fFree((void*)this); //Combined array
 	}
 
@@ -157,13 +157,13 @@
 
 /*
 		if(_oRC->nSize > 1 && _oRC->aTab[0] == 'a'){
-			printf("\nFree---xxxxxxxxxxxxxxxxx-:");_oRC->fPrint();
-			printf("\nFree---xxxxxxxxxxxxxxxxx-:");_oRC->fPrint();
+			GZ_printf("\nFree---xxxxxxxxxxxxxxxxx-:");_oRC->fPrint();
+			GZ_printf("\nFree---xxxxxxxxxxxxxxxxx-:");_oRC->fPrint();
 		}*/
 
 
 		if( gzDataType_IS_Array_MUSTFREE(_oRC) ){ 
-			///printf("\nFree---xxxxxxxxxxxxxxxxx-: %d", _oRC->nSpaceBef);_oRC->fPrint();
+			///GZ_printf("\nFree---xxxxxxxxxxxxxxxxx-: %d", _oRC->nSpaceBef);_oRC->fPrint();
 			GZ_fFree(_oRC->aTab - _oRC->nSpaceBef); 	GZ_nArrayTotalFree++; //Combined array
 		}
 
@@ -195,7 +195,7 @@
 	inline void fRemoveInstance(gzDataRC* _oRC) const{
 
 		_oRC->fRemoveInstance();
-		//printf("\nSubed: %d  ", _oRC->nInst);fPrint();
+		//GZ_printf("\nSubed: %d  ", _oRC->nInst);fPrint();
 		if( _oRC->nInst == 0 ){//nType > 2 Heap data -> must be freed
 			//Delete(_oRC);
 			//if(_oRC->nWeakInst == 0){ //DataCow Never have weak_ptr
@@ -260,7 +260,7 @@
 			fArrayRealloc(_nToLimitSize);
 		//}
 
-		//printf("\nResize2 : %d",_nToLimitSize );
+		//GZ_printf("\nResize2 : %d",_nToLimitSize );
 		gzDtThis->gzp_DataLimit = _nToLimitSize; //Double factor
 	}
 
@@ -271,7 +271,7 @@
 		gzDtThis->m.aSubTab = m.aData->aTab;
 		gzDtThis->m.nSubLimit =  m.aData->nLimit;
 		gzDtThis->m.nSubSize  = m.aData->nSize;
-	//	printf("\n %p: Set: %d  ",m.aData->aTab, m.aData->nInst);
+	//	GZ_printf("\n %p: Set: %d  ",m.aData->aTab, m.aData->nInst);
 	}
 
 
@@ -282,7 +282,7 @@
 
 	
 	 inline void fDetachReadOnly(gzUInt _nNewSize ) const {
-		//printf("\n--DETACH %p ", m.aData);
+		//GZ_printf("\n--DETACH %p ", m.aData);
 		m.aData->fRemoveInstance(); //Will never be freed
         gzDataRC* _aData = fNewArray(_nNewSize);
         fAssignArray(_aData);
@@ -303,21 +303,21 @@
 
 		if(m.aData->nInst == 1 && gzDataType_IS_DataRC_MODIFIABLE( m.aData) ){  //Not  if read only
 			//Only one Instance, it was writable
-	//	printf("\nRezize meme");
+	//	GZ_printf("\nRezize meme");
 			//if(m.aSubTab + _nNewSize >  m.aData->aTab +  m.aData->nLimit ){ //Over the real limit
 			if(_nNewSize > m.nSubLimit ){
 				fResizeMem(_nNewSize);
 				gzDtThis->m.nSubLimit =  m.aData->nLimit;
 			}
 			gzDtThis->m.nSubSize = _nNewSize;
-		//	printf("\nONE");
+		//	GZ_printf("\nONE");
 		}else{   // READONLY
-			//printf("\nfDetachReadOnly %d",m.aData->nInst );
+			//GZ_printf("\nfDetachReadOnly %d",m.aData->nInst );
 			//fPrint();
-			//printf("\nfDetachReadOnly %s",m.aData->aTab );
+			//GZ_printf("\nfDetachReadOnly %s",m.aData->aTab );
 			//Make new instance and detach
 			fDetachReadOnly(_nNewSize);
-		//	printf("\nDETACH");
+		//	GZ_printf("\nDETACH");
 		}
 		/////Now array is WRITABLE ///////
 	}

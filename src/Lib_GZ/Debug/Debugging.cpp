@@ -27,7 +27,7 @@ namespace Lib_GZ{
 
 	void DbgCrash(){
 		//while(1){};
-	  printf("\nGZ FAILURE!\n"); //GDB must set a breakpoint here!
+	  GZ_printf("\nGZ FAILURE!\n"); //GDB must set a breakpoint here!
 	//  while(1){};//TODO
 	//  exit(EXIT_FAILURE); //TODO
 	  
@@ -35,10 +35,10 @@ namespace Lib_GZ{
 
 
     void fConsole(const char* _sValue){
-        printf("c:");
+        GZ_printf("c:");
         //_sValue.fPrint();
-		printf("%s",_sValue );
-        printf("\n");
+		GZ_printf("%s",_sValue );
+        GZ_printf("\n");
     }
 
 	

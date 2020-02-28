@@ -32,40 +32,40 @@ namespace Lib_GZ{namespace Base{ namespace Thread{ namespace ThreadList{
    //     qaList = gzQArray<gzSp<cThreadExt>> ();
    //     gzQElement<gzSp<cThreadExt>> qeTask = qaList.GqeFirst();
 
-        printf("\n\n\n INaaaaaII_Class! \n\n");
+        GZ_printf("\n\n\n INaaaaaII_Class! \n\n");
     }*/
 
 
     void fAdd(Base::Thread::cThreadExt* _opThread){
 		
-	printf("\nTry addd2 \n");
+	GZ_printf("\nTry addd2 \n");
 	
 	
 	gzArray<gzSp<cThreadExt>> aList2;
 	aList2.fPush(_opThread);
-	printf("\nEnd addd2 ");
+	GZ_printf("\nEnd addd2 ");
 			
 	
-		printf("\nTry addd ");
+		GZ_printf("\nTry addd ");
 		aList().fPush(_opThread);
-			printf("\n addded ");
+			GZ_printf("\n addded ");
 		//	aList()[0]->oThread->fLoop();
 		/*
-		printf("\n !!!!!!!!!! fAdd!!!!!!!!!");
+		GZ_printf("\n !!!!!!!!!! fAdd!!!!!!!!!");
 		if(_opThread == 0){
-		printf("\n !!!!!!!!!! _opThread == 0 !!!!!!!!!");
+		GZ_printf("\n !!!!!!!!!! _opThread == 0 !!!!!!!!!");
 		}
 		if(aList().GnSize() == 0){
-			printf("\n !!!!!!!!!! _opThread == 0 !!!!!!!!!");
+			GZ_printf("\n !!!!!!!!!! _opThread == 0 !!!!!!!!!");
 		}*/
 		
 		
 		/*
-	        printf("\n fAdd");
+	        GZ_printf("\n fAdd");
         Lib_GZ::Lib::nThreadCount++;
 		
 			if( _opThread== 0){
-				printf("\nAAAAA!!!!Error %d", aList().GnTotal());
+				GZ_printf("\nAAAAA!!!!Error %d", aList().GnTotal());
 			}
        //qaList.fPush( gzSCast<cThreadExt>( _opThread->SpFromThis()) );
        aList().fPush( _opThread );
@@ -73,7 +73,7 @@ namespace Lib_GZ{namespace Base{ namespace Thread{ namespace ThreadList{
 		
 		    qeTask() = aList().GqeFirst();
 			if( qeTask().ref()->oThread == 0){
-				printf("\nBBBB!!!!!Error %d", aList().GnTotal());
+				GZ_printf("\nBBBB!!!!!Error %d", aList().GnTotal());
 			}
 			
 			*/
@@ -82,13 +82,13 @@ namespace Lib_GZ{namespace Base{ namespace Thread{ namespace ThreadList{
     }
 
     void fRemove(Base::Thread::cThreadExt* _opThread){
-	       printf("\n fRemove");
+	       GZ_printf("\n fRemove");
         Lib_GZ::Lib::nThreadCount--;
     }
 
 
    void fNextTask(){
-    // printf("\n fNextTask");
+    // GZ_printf("\n fNextTask");
 	 
        if(aList().GnSize() > 0){
 	   
@@ -97,14 +97,14 @@ namespace Lib_GZ{namespace Base{ namespace Thread{ namespace ThreadList{
 			
 			
 	   /*
-         //   printf("DoTask %d \n" , Lib_GZ::Lib::nThreadCount);
+         //   GZ_printf("DoTask %d \n" , Lib_GZ::Lib::nThreadCount);
             qeTask() = aList().GqeFirst();
-		//	 printf("\n fLoop");
+		//	 GZ_printf("\n fLoop");
 			if( qeTask().ref()->oThread == 0){
-				printf("\nError %d", aList().GnTotal());
+				GZ_printf("\nError %d", aList().GnTotal());
 			}
             qeTask().ref()->oThread->fLoop();
-		//	 printf("\n End");
+		//	 GZ_printf("\n End");
             qeTask() = qeTask().GqeNext();
 			*/
        }

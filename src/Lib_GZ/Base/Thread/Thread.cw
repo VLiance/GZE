@@ -33,7 +33,7 @@ package  {
 				pThreadExt = _pThreadExt;
 				pThreadExt->oThread = this;
 				
-				printf("\n ---- Link oThread --------  %p", pThreadExt->oThread  );
+				GZ_printf("\n ---- Link oThread --------  %p", pThreadExt->oThread  );
 				
 			};
 			inline void fStart(Lib_GZ::Base::cClass* _opObj){
@@ -111,7 +111,7 @@ package  {
 		
 		destructor  {
 			<cpp>
-			printf("\n!!!!!!!!!!!DELETE THREAADDD !!!!!!!!!!!");
+			GZ_printf("\n!!!!!!!!!!!DELETE THREAADDD !!!!!!!!!!!");
 				for(int i = 0; i < st.GnSize(); i++){
 					csClass* _ptr = st(i);
 					if(_ptr != 0){

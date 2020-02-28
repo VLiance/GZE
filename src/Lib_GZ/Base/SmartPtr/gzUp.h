@@ -50,7 +50,7 @@ class gzUp {
 		obj = _oOther.get(); 
 		//_oOther.obj = 0; //Move
 		const_cast<gzUp<T>*>(&_oOther)->obj = 0; //Move
-			printf("\n--------- Move!!");
+			GZ_printf("\n--------- Move!!");
 	}
 	
 
@@ -58,7 +58,7 @@ class gzUp {
 		obj = _oOther.get(); 
 		//_oOther.obj = 0; //Move
 		const_cast<gzUp<T>*>(&_oOther)->obj = 0; //Move
-		//		printf("\n--------- Associate!!");
+		//		GZ_printf("\n--------- Associate!!");
 		return *this;
 	}
 	/////////////////////////////////
@@ -69,7 +69,7 @@ class gzUp {
 		obj = _oOther.get(); 
 		_oOther.obj = 0; //Move
 		//const_cast<gzUp<R>*>(_oOther)->obj = 0; //Move
-				printf("\n--------- Associate2!!");
+				GZ_printf("\n--------- Associate2!!");
 		return *this;
 	}
 	
@@ -80,19 +80,19 @@ class gzUp {
 	
 
 	inline gzUp(T* _objPtr): obj(_objPtr)  {
-		printf("\n  **obj %p \n",obj );
+		GZ_printf("\n  **obj %p \n",obj );
 	};
 
 	
 	
 /*
 	   inline gzUp(void* _objPtr): obj((T*)_objPtr)  {
-		printf("\n  **obj %p \n",obj );
+		GZ_printf("\n  **obj %p \n",obj );
 	};
 	
     inline gzUp(T _obj):obj(&_obj){
 	
-		printf("\n  &bj %p \n",obj );
+		GZ_printf("\n  &bj %p \n",obj );
 	};
 */
 
@@ -103,7 +103,7 @@ class gzUp {
 	inline gzUp& operator = (const gzUp<R> &_oOther){
 		obj = _oOther.get(); 
 		// const_cast<type*>(this)_oOther.obj = 0; //Move
-						printf("\n--------- Associate!!");
+						GZ_printf("\n--------- Associate!!");
 		const_cast<gzUp<R>*>(_oOther)->obj = 0; //Move
 		return *this;
 	}
@@ -137,7 +137,7 @@ class gzUp {
 
     gzUp<T> UpFromThis()
     {
-       // printf("\n\n\nOKI");
+       // GZ_printf("\n\n\nOKI");
     }
 /*
 	inline gzUp( gzUp<T> &_oOther){
@@ -145,7 +145,7 @@ class gzUp {
 		obj = _oOther.get(); 
 		//_oOther.obj = 0; //Move
 		_oOther->obj = 0; //Move
-			printf("\n--------- MoveA!!");
+			GZ_printf("\n--------- MoveA!!");
 	}*/
 	
 
@@ -157,9 +157,9 @@ class gzUp {
     inline ~gzUp(){
 		if(obj != 0){
 			delete obj; //Not work on return
-			///	printf("\n--------- Delete!!");
+			///	GZ_printf("\n--------- Delete!!");
 		}else{
-			//printf("\n No delete");
+			//GZ_printf("\n No delete");
 		}
 		
 	};

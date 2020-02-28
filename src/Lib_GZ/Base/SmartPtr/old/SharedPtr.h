@@ -486,7 +486,7 @@ public:
 
     gzSp() GZ_NoExcept : px( 0 ), pn() // never throws in 1.30+
     {
-      //   printf("\n    -----------------  Heree ---------------");
+      //   GZ_printf("\n    -----------------  Heree ---------------");
     }
 
 #if !defined( GZ_NO_CXX11_NULLPTR )
@@ -698,7 +698,7 @@ public:
 /*
 //////////Empty read Array support * for GZE * /////////
   gzSp(int _nZeroVal)GZ_NoExcept : px( 0 ), pn(){
-  printf("\n    -----------------  Heree ---------------");
+  GZ_printf("\n    -----------------  Heree ---------------");
   }
 /////////////////////////////////
 */

@@ -43,7 +43,7 @@
 			char *fileExt;
 			char szDir[256]; //dummy buffer
 			GetFullPathNameA(_cLibName, 256, szDir, &fileExt); 
-			printf("\nFull path: %s\nFilename: %s", szDir, fileExt);
+			GZ_printf("\nFull path: %s\nFilename: %s", szDir, fileExt);
 			*/	
 			
 			if(!_pModule){

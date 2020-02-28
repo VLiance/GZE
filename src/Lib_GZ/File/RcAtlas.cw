@@ -137,7 +137,7 @@ package  {
 					var  _bIsPack : Bool;
 					<cpp>
 						stbrp_rect* _rect = &aStbRect[i];
-						//printf("\n _rect->x %d : %d", _rect->x, _rect->y );
+						//GZ_printf("\n _rect->x %d : %d", _rect->x, _rect->y );
 						_nX = _rect->x;
 						_nY = _rect->y;
 						_bIsPack = _rect->was_packed;

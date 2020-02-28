@@ -38,7 +38,7 @@
 	////////////////////////////////////////
 	inline void fFirstAssign(const gzDataRC* _pOther) const {
 		gzDtThis->gzp_Data = (gzDataRC*)_pOther;
-	//	printf("\nADD instantce to "); _pOther->fPrint();
+	//	GZ_printf("\nADD instantce to "); _pOther->fPrint();
 		const_cast<gzDataRC*>(_pOther)->fAddInstance();
 		gzp_Additional_fAssign;
 
@@ -79,13 +79,13 @@
 
 	gzp_DataType(gzDataRC* _oOther){
 	  fFirstAssign(_oOther);
-	  	   //  		printf("\n --%p: New*: %d  ",this, gzp_Data->nInst);fPrint();
+	  	   //  		GZ_printf("\n --%p: New*: %d  ",this, gzp_Data->nInst);fPrint();
 	}
 
 	gzp_DataType(gzp_DataType* _oOther){
 	  fFirstAssign(_oOther->gzp_Data);
 	   gzp_Additional_fAssignType_PTR
-	     	//	printf("\n --%p: NewDataType*: %d  ",this,gzp_Data->nInst);fPrint();
+	     	//	GZ_printf("\n --%p: NewDataType*: %d  ",this,gzp_Data->nInst);fPrint();
 	}
 
 	/*
@@ -97,7 +97,7 @@
 	gzp_DataType(const gzDataRC& _oOther){
 
 	  fFirstAssign(&_oOther);
-	  		//printf("\n --%p: New&: %d  ",this, gzp_Data->nInst);fPrint();
+	  		//GZ_printf("\n --%p: New&: %d  ",this, gzp_Data->nInst);fPrint();
 	}
 	
 	
@@ -113,7 +113,7 @@
 	gzp_DataType(const gzp_DataType& _oOther){ 
 	  fFirstAssign(_oOther.gzp_Data);
 	  gzp_Additional_fAssignType
-	  	  		//printf("\n --%p: NewDataType&: %d  ",this, gzp_Data->nInst);fPrint();
+	  	  		//GZ_printf("\n --%p: NewDataType&: %d  ",this, gzp_Data->nInst);fPrint();
 	}
 
 /*
@@ -142,7 +142,7 @@
 
 
 	inline gzp_DataType operator+(const gzp_DataType& _aOther) const{
-			//	printf("\n++++++");
+			//	GZ_printf("\n++++++");
 		return fAdd(_aOther);
 	}
 
@@ -303,19 +303,19 @@
 
 	#ifndef gzp_PARAM
 		~gzp_DataType(){
-			//printf("\nDESTROY %p", gzp_DataArray);
+			//GZ_printf("\nDESTROY %p", gzp_DataArray);
 			fRemoveInstance(gzp_Data);
 		}
 	#else
 	
 		~gzp_DataType(){
-		//	printf("\nUnandle delete"); 
+		//	GZ_printf("\nUnandle delete"); 
 		}
 	#endif
 
 
 	 void fPrintData() const {
-	 	printf("%.*s", gzp_DataSize, gzp_DataArray);
+	 	GZ_printf("%.*s", gzp_DataSize, gzp_DataArray);
 	}
 	
 /*
@@ -323,7 +323,7 @@
 	 gzResult_Search fDataFind(const gzp_DataType& _pFind, gzUIntX _nFromIndex = 0, gzUInt8 _nStride = 1 ) const {
 		_nFromIndex = _nFromIndex * _nStride;
 		
-	 	//printf("%.*s", gzp_DataSize, gzp_DataArray);
+	 	//GZ_printf("%.*s", gzp_DataSize, gzp_DataArray);
 		if(_pFind.gzp_DataSize == 0){return gzResult_Search(false, ( gzp_DataSize)/_nStride, (_nFromIndex)/_nStride,0);}
 		gzUIntX _nTo =  gzp_DataSize -  (_pFind.gzp_DataSize - 1);
 		for(gzUIntX i = _nFromIndex; i < _nTo; i++){

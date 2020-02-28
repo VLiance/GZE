@@ -341,7 +341,7 @@ void b2TimeOfImpact(b2TOIOutput* output, const b2TOIInput* input)
 				sweepB.GetTransform(&xfB, x);
 				float32 f = fcn.Evaluate(xfA, xfB) - target;
 
-				printf("%g %g\n", x, f);
+				GZ_printf("%g %g\n", x, f);
 
 				xs[i] = x;
 				fs[i] = f;

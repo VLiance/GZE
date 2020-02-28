@@ -87,7 +87,7 @@ gzConst_U32(gzZeroStrChar_32, "\0");
 		/*
 		 gzp_DataType(const _gzeStr8& _sReturn){
 			m = ((gzStr8*)(&_sReturn))->m;
-			//printf("\n --%p: NewFromParam: %d  ",this, m.aData->nInst);fPrint();
+			//GZ_printf("\n --%p: NewFromParam: %d  ",this, m.aData->nInst);fPrint();
 		}
 		*/
 		#include "gzStringCommon.h"

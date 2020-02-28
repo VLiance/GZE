@@ -77,8 +77,8 @@
 		gzp_NewAssing( fConvertUTF16toUTF8( (gzUInt16*)m.aSubTab, gzp_DataSize, _aNewData->aTab) ,  m.nSubSize * 2 , 0); 
 	}
 	inline void f_UTF32_2_UTF8() const{ //Protected?
-		//printf("Shift:%d", (sizeof(T) >> 1)); 
-		//printf("size:%d", gzp_DataSize); 
+		//GZ_printf("Shift:%d", (sizeof(T) >> 1)); 
+		//GZ_printf("size:%d", gzp_DataSize); 
 		gzp_NewAssing( fConvertUTF32toUTF8(  (gzUInt32*)m.aSubTab, gzp_DataSize , _aNewData->aTab),  m.nSubSize, 0); 
 	}
 	
@@ -281,14 +281,14 @@
 	inline void fNext(){
 		nIndex++;
 		nPos += fU8_next( &gzp_DataArray[nPos] );
-	//	printf("val %d", );
+	//	GZ_printf("val %d", );
 	
 	}
 		
 	inline void fPrev(){
 		nIndex--;
 		nPos += fU8_prev( &gzp_DataArray[nPos] );
-			//	printf("aassss ");
+			//	GZ_printf("aassss ");
 	}
 	*/
 	

@@ -47,9 +47,9 @@ namespace GzMatrix{
 #define gzDef_Mat_Func_fPrint(T)\
 	inline void fPrint( T* _aTab , const gzUIntX _nSizeX, const gzUIntX _nSizeY) { \
 		for(int y = 0; y <  _nSizeY; y++){\
-			printf("\n|");GzVector::fPrint(&_aTab[y], _nSizeX);printf("|");\
+			GZ_printf("\n|");GzVector::fPrint(&_aTab[y], _nSizeX);GZ_printf("|");\
 		}\
-		printf("\n");\
+		GZ_printf("\n");\
 	}
 
 gzDef_Mat_Func_fPrint(gzFloat32);
@@ -68,23 +68,23 @@ gzDef_Mat_Func_fPrint(gzUInt64);
 	
 	/*
 	template<class T>  inline void fPrint( T* _aTab , const gzUIntX _nSizeX, const gzUIntX _nSizeY) {
-		printf("\n{");
+		GZ_printf("\n{");
 		for(int y = 0; y <  _nSizeY; y++){
 			if(y != 0){
-				printf("\n ");
+				GZ_printf("\n ");
 			}
-			printf("{");
+			GZ_printf("{");
 			
 			gzUInt x = 0;
 			Pragma_Unroll_16
 			for(x = 0; x <  _nSizeX - 1; x++){
-					printf("%.2f, ",_aTab[y *_nSizeX  + x]);
+					GZ_printf("%.2f, ",_aTab[y *_nSizeX  + x]);
 			}
-			printf("%.2f",_aTab[y *_nSizeX  + x]); 
-			printf("}");
+			GZ_printf("%.2f",_aTab[y *_nSizeX  + x]); 
+			GZ_printf("}");
 		}
 		
-		printf("}");
+		GZ_printf("}");
 	}
 	*/
 	

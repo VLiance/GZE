@@ -13,9 +13,9 @@
 void report_result(int result)
 {
   if (result == 0) {
-    printf("Test successful!\n");
+    GZ_printf("Test successful!\n");
   } else {
-    printf("Test failed!\n");
+    GZ_printf("Test failed!\n");
   }
 #ifdef REPORT_RESULT
   REPORT_RESULT(result);
@@ -47,7 +47,7 @@ const char *emscripten_result_to_string(EMSCRIPTEN_RESULT result) {
   return "Unknown EMSCRIPTEN_RESULT!";
 }
 
-#define TEST_RESULT(x) if (ret != EMSCRIPTEN_RESULT_SUCCESS) printf("%s returned %s.\n", #x, emscripten_result_to_string(ret));
+#define TEST_RESULT(x) if (ret != EMSCRIPTEN_RESULT_SUCCESS) GZ_printf("%s returned %s.\n", #x, emscripten_result_to_string(ret));
 
 int gotClick = 0;
 int gotMouseDown = 0;
@@ -59,12 +59,12 @@ int gotWheel = 0;
 void instruction()
 {
 /*
-  if (!gotClick) { printf("Please click on the canvas.\n"); return; }
-  if (!gotMouseDown) { printf("Please click on the canvas.\n"); return; }
-  if (!gotMouseUp) { printf("Please click on the canvas.\n"); return; }
-  if (!gotDblClick) { printf("Please double-click on the canvas.\n"); return; }
-  if (!gotMouseMove) { printf("Please move the mouse on the canvas.\n"); return; }
-  if (!gotWheel) { printf("Please scroll the mouse wheel.\n"); return; }
+  if (!gotClick) { GZ_printf("Please click on the canvas.\n"); return; }
+  if (!gotMouseDown) { GZ_printf("Please click on the canvas.\n"); return; }
+  if (!gotMouseUp) { GZ_printf("Please click on the canvas.\n"); return; }
+  if (!gotDblClick) { GZ_printf("Please double-click on the canvas.\n"); return; }
+  if (!gotMouseMove) { GZ_printf("Please move the mouse on the canvas.\n"); return; }
+  if (!gotWheel) { GZ_printf("Please scroll the mouse wheel.\n"); return; }
 */
   if (gotClick && gotMouseDown && gotMouseUp && gotDblClick && gotMouseMove && gotWheel) report_result(0);
 }
@@ -100,7 +100,7 @@ EM_BOOL mouse_callback(int eventType, const EmscriptenMouseEvent *e, void *userD
 
 	
 	/*
-  printf("%s, screen: (%ld,%ld), client: (%ld,%ld),%s%s%s%s button: %hu, buttons: %hu, movement: (%ld,%ld), target: (%ld, %ld)\n",
+  GZ_printf("%s, screen: (%ld,%ld), client: (%ld,%ld),%s%s%s%s button: %hu, buttons: %hu, movement: (%ld,%ld), target: (%ld, %ld)\n",
     emscripten_event_type_to_string(eventType), e->screenX, e->screenY, e->clientX - _nCanvasX, e->clientY - _nCanvasY,
     e->ctrlKey ? " CTRL" : "", e->shiftKey ? " SHIFT" : "", e->altKey ? " ALT" : "", e->metaKey ? " META" : "", 
     e->button, e->buttons, e->movementX, e->movementY, e->targetX, e->targetY);
@@ -117,7 +117,7 @@ EM_BOOL mouse_callback(int eventType, const EmscriptenMouseEvent *e, void *userD
 
   if (eventType == EMSCRIPTEN_EVENT_CLICK && e->screenX == -500000)
   {
-    printf("ERROR! Received an event to a callback that should have been unregistered!\n");
+    GZ_printf("ERROR! Received an event to a callback that should have been unregistered!\n");
     gotClick = 0;
     report_result(1);
   }
@@ -139,7 +139,7 @@ EM_BOOL wheel_callback(int eventType, const EmscriptenWheelEvent *e, void *userD
 	
 	
 /*	
-  printf("%s, screen: (%ld,%ld), client: (%ld,%ld),%s%s%s%s button: %hu, buttons: %hu, target: (%ld, %ld), delta:(%g,%g,%g), deltaMode:%lu\n",
+  GZ_printf("%s, screen: (%ld,%ld), client: (%ld,%ld),%s%s%s%s button: %hu, buttons: %hu, target: (%ld, %ld), delta:(%g,%g,%g), deltaMode:%lu\n",
     emscripten_event_type_to_string(eventType), e->mouse.screenX, e->mouse.screenY, e->mouse.clientX - _nCanvasX, e->mouse.clientY - _nCanvasY,
     e->mouse.ctrlKey ? " CTRL" : "", e->mouse.shiftKey ? " SHIFT" : "", e->mouse.altKey ? " ALT" : "", e->mouse.metaKey ? " META" : "", 
     e->mouse.button, e->mouse.buttons, e->mouse.targetX, e->mouse.targetY,
@@ -194,7 +194,7 @@ int fInitialise_Mouse()
   if (mouseEvent.screenX != 123 || mouseEvent.screenY != 456
     || mouseEvent.clientX != 123 || mouseEvent.clientY != 456)
   {
-    printf("ERROR! Incorrect mouse status\n");
+    GZ_printf("ERROR! Incorrect mouse status\n");
     report_result(1);
   }
 

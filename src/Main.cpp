@@ -83,7 +83,7 @@ gzInt Close(gzInt _nExitCode);
 	#include <locale.h> //Console
 
 LRESULT CALLBACK MainHwndProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam){
- //printf("\nmsg: 0x%03x\n",message );
+ //GZ_printf("\nmsg: 0x%03x\n",message );
   switch (message) {
     case WM_CLOSE:
             DestroyWindow(hwnd);
@@ -116,14 +116,14 @@ extern bool bOnCpcDos;
 //#include "CpcDos/CPC_WPR.cpp"
 //extern bool bOnCpcDos;
 /*
-//extern "C" int cpc_main( int argc, const char* argv[] ){printf("\n\nYeeeee CPC\n\n");}
+//extern "C" int cpc_main( int argc, const char* argv[] ){GZ_printf("\n\nYeeeee CPC\n\n");}
 extern "C" int cpc_main( int argc, const char* argv[] ){
 
 	puts("\n\nCPC MAIN Yeeeee CPC\n\n");
-	puts("\n\nTry printf\n\n");
+	puts("\n\nTry GZ_printf\n\n");
 	 fprintf(stdout," TEST  fprintf");
 	 	puts("\n\TEST---\n\n");
-	printf(" TEST  ");
+	GZ_printf(" TEST  ");
 	puts("\n\nEnd\n\n");
  return 0;}
 */
@@ -235,21 +235,21 @@ extern "C" int main_entry( int argc, const char* argv[] ){
 	bOnCpcDos = fIniCpcDosFunctions();
 		
 	_nTest++;
-	printf("\n_nTest: %d \n", _nTest); 
+	GZ_printf("\n_nTest: %d \n", _nTest); 
 	
 	//bOnCpcDos = true;//Temp
 	
 	Lib_GZ::Base::Thread::Thread::bAppIsAlive = true;
 	Lib_GZ::Lib::fLoadAllLib();
 	if(bOnCpcDos){
-		printf("\n--On CpcDos--");
+		GZ_printf("\n--On CpcDos--");
 		setbuf(stdout, NULL);//Not sure
-		printf("\n\nCpcDos ver%d.%d \n\n", nCpcVerMajor, nCpcVerMinor);
+		GZ_printf("\n\nCpcDos ver%d.%d \n\n", nCpcVerMajor, nCpcVerMinor);
 		Lib_GZ::Lib::fLoadLib(IniLib_Lib_GzCpcDos()); //OverPlace
 		Lib_GZ::Lib::fLoadLib(IniLib_Lib_GzOpenGL()); //OverPlace
-		printf("\nIni OGL");
+		GZ_printf("\nIni OGL");
 	}else{
-		printf("\n\n --On Windows-- \n\n ");
+		GZ_printf("\n\n --On Windows-- \n\n ");
 		setbuf(stdout, NULL);
 		Lib_GZ::Lib::fLoadLib(IniLib_Lib_GzWindows()); //OverPlace
 		Lib_GZ::Lib::fLoadLib(IniLib_Lib_GzOpenGL()); //OverPlace
@@ -260,7 +260,7 @@ extern "C" int main_entry( int argc, const char* argv[] ){
 	while(nMainIsAlive){
 		nMainIsAlive = Update();
 	}
-	printf("\n--End - ");
+	GZ_printf("\n--End - ");
 	return nMainIsAlive;
 }
 
@@ -359,13 +359,13 @@ extern "C" int main( int argc, const char* argv[] ){
 /*
 struct End { //Place before any global strurt to be sure it was called after everything, note this may not be called at the every end, this can be a false negative
   ~End(){
-	  	printf("\nTotal: Alloc / Free   ---  %d / %d ", GZ_nArrayTotalAlloc, GZ_nArrayTotalFree);
+	  	GZ_printf("\nTotal: Alloc / Free   ---  %d / %d ", GZ_nArrayTotalAlloc, GZ_nArrayTotalFree);
 		if(GZ_nArrayTotalAlloc == GZ_nArrayTotalFree){
-			printf("\nP: *-- No memory leak --* \n");
+			GZ_printf("\nP: *-- No memory leak --* \n");
 		}else{
-			printf("\n\nE:---!!! MEMORY BROKEN !!!---\n\n");
+			GZ_printf("\n\nE:---!!! MEMORY BROKEN !!!---\n\n");
 		}
-	  printf("\n--- End! ---");
+	  GZ_printf("\n--- End! ---");
 	  
 	 // #ifndef  D_Platform_Web_Emsc
 	 //// getch();

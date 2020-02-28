@@ -125,7 +125,7 @@ class gzWp {
 
     gzWp<T> SpFromThis(){
 		
-        //printf("\n\n\nOKI");
+        //GZ_printf("\n\n\nOKI");
     }
 
      /*

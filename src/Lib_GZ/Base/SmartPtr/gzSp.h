@@ -44,7 +44,7 @@ template<class T> gzSp<T> gzSCastSelf( gzSharedCount* _ptr) {
 //template<class T> gzSp<T> gzSCastSelf( void* _ptr) {
 
     if(_ptr == 0){
-		//printf("\nNull gzSCastSelf!");
+		//GZ_printf("\nNull gzSCastSelf!");
 		return  gzSp<T>();
 	
 	}
@@ -143,7 +143,7 @@ class gzSp {
 	inline gzSp& operator = (gzSp<R> _oOther){
 	
 		subInst();
-		//printf("other %p",_oOther.get() );
+		//GZ_printf("other %p",_oOther.get() );
 	  // GZ_fSpAssert(_oOther.get() == 0);
 	//    if(_oOther.get() != 0){
 			obj = _oOther.get(); //Copy
@@ -152,7 +152,7 @@ class gzSp {
 	 //  }
 		addInst();
 	 
-	 //		printf("obj %p",obj );
+	 //		GZ_printf("obj %p",obj );
 		return *this;
 	}*/
 	
@@ -190,13 +190,13 @@ class gzSp {
    /*
    // inline gzSp(Lib_GZ::Base::cClass* _objPtr): obj((T*)_objPtr)  {};
     inline gzSp(gzSharedCount* _objPtr): obj((T*)_objPtr)  {
-		//printf("\n  **obj %p \n",obj );
+		//GZ_printf("\n  **obj %p \n",obj );
 		
 	};
 	inline gzSp():obj(0)  {};
 
     inline gzSp(T _obj):obj(&_obj){
-		//printf("\n  &bj %p \n",obj );
+		//GZ_printf("\n  &bj %p \n",obj );
 	};
 */
  //   inline gzSp( gzSp<T> _oOther):obj(*_oOther.get()){};
@@ -234,14 +234,14 @@ class gzSp {
 	 
  //  friend gzSp& operator = (gzSp _oOther);
  /*{
-		//printf("other %p",_oOther.get() );
+		//GZ_printf("other %p",_oOther.get() );
       // GZ_fSpAssert(_oOther.get() == 0);
    //    if(_oOther.get() != 0){
             obj = _oOther.get(); //Copy
     //   }else{
             //obj = T( (Lib_GZ::Base::cClass*)(obj->parent.get()) ); //Reset if null
      //  }
-	 //		printf("obj %p",obj );
+	 //		GZ_printf("obj %p",obj );
         return *this;
 		}*/
 	
@@ -261,7 +261,7 @@ class gzSp {
 */
 
 	//TEST
-   // inline bool operator==(int _other) const{ printf("Test op");return obj == _other;}
+   // inline bool operator==(int _other) const{ GZ_printf("Test op");return obj == _other;}
 
 
     inline T* operator->() const
@@ -284,7 +284,7 @@ class gzSp {
 
     gzSp<T> SpFromThis()
     {
-       // printf("\n\n\nOKI");
+       // GZ_printf("\n\n\nOKI");
     }
 
      /*
@@ -300,14 +300,14 @@ class gzSp {
 /*
 //template <class T>
 inline gzSp<int>& operator = (const gzSp<int>& _oOther, const gzSp<int>& _oOther2){
-	//printf("other %p",_oOther.get() );
+	//GZ_printf("other %p",_oOther.get() );
   // GZ_fSpAssert(_oOther.get() == 0);
 //    if(_oOther.get() != 0){
 		obj = _oOther.get(); //Copy
 //   }else{
 		//obj = T( (Lib_GZ::Base::cClass*)(obj->parent.get()) ); //Reset if null
  //  }
- //		printf("obj %p",obj );
+ //		GZ_printf("obj %p",obj );
 	return *this;
 }
 */

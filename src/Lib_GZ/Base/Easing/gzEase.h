@@ -32,11 +32,11 @@
 		gzEase():nVal(0),nTo(0)  {
 		}
 		gzEase(T _val):nVal(_val),nTo(_val)  {
-			//  printf("\nIni/Set %f", _val);
+			//  GZ_printf("\nIni/Set %f", _val);
 		}
 		
 		inline T& operator= (const T &_val) {
-			//	printf("\nSet %d", _val);
+			//	GZ_printf("\nSet %d", _val);
 				nVal = _val;
 				nTo = _val;
 			//	nFracVal = (gzFloat)_val;
@@ -46,7 +46,7 @@
 		//inline T operator*(const T&   _oOther) const {return nVal * _oOther;}\
 
 		inline operator T () const {
-			//printf("\nGet %d", nVal);
+			//GZ_printf("\nGet %d", nVal);
 			return nVal;
 		}
 		/*
@@ -133,17 +133,17 @@
 				
 				
 				gzEase(gzFloat _other)  {
-					printf("\nconstset");
+					GZ_printf("\nconstset");
 					nVal = _other;
 				}
 				
 				gzFloat& get() {
-					printf("\nget1");
+					GZ_printf("\nget1");
 					return nVal;
 				}
 				
 				const gzFloat& get() const {
-					printf("\nget2");
+					GZ_printf("\nget2");
 					return nVal;
 				}
 			
@@ -156,7 +156,7 @@
 	
 				
 				gzFloat&  operator=(gzFloat& _other)  {
-					printf("\nset");
+					GZ_printf("\nset");
 					nVal = _other;
 				}
 				

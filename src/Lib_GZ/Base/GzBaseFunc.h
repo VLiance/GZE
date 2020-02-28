@@ -26,7 +26,7 @@
 
 ///// Base External Func ////////
 extern "C"{
-	int printf (const char*, ...);
+	int GZ_printf (const char*, ...);
 	void* malloc(size_t _nSize);
 	void* calloc(size_t num, size_t size);
 	void* realloc (void* ptr, size_t size);
@@ -70,13 +70,13 @@ typedef struct _iobuf
 
 	#ifndef GZ_STD_Lib
 	#define GZ_STD_Lib
-		#include <stdlib.h> //printf
+		#include <stdlib.h> //GZ_printf
 	#endif
 	
 
 	#ifndef GZ_STD_IO
 	#define GZ_STD_IO
-		#include <stdio.h> //printf
+		#include <stdio.h> //GZ_printf
 	#endif
 	
 	#ifndef GZ_STD_string

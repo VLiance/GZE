@@ -138,7 +138,7 @@ void fProcessMessage(Lib_GZ::cHoldGate* _pGate, HWND _hWnd, gzUInt uMsg, WPARAM 
 
         case WM_ACTIVATE:
          _this->bActive = (gzBool)LOWORD(wParam);
-            //printf("\n Active: %d", _this->bActive );
+            //GZ_printf("\n Active: %d", _this->bActive );
             return 0;
         break;
 
@@ -188,7 +188,7 @@ void ChangeColor(){
  
     aOldColors[0] = GetSysColor(aElements[0]); 
 
-    printf("Current window color: {0x%x, 0x%x, 0x%x}\n", 
+    GZ_printf("Current window color: {0x%x, 0x%x, 0x%x}\n", 
         GetRValue(aOldColors[0]), 
         GetGValue(aOldColors[0]), 
         GetBValue(aOldColors[0]));
@@ -197,7 +197,7 @@ void ChangeColor(){
  
     aOldColors[1] = GetSysColor(aElements[1]); 
 
-    printf("Current active caption color: {0x%x, 0x%x, 0x%x}\n", 
+    GZ_printf("Current active caption color: {0x%x, 0x%x, 0x%x}\n", 
         GetRValue(aOldColors[1]), 
         GetGValue(aOldColors[1]), 
         GetBValue(aOldColors[1]));
@@ -207,12 +207,12 @@ void ChangeColor(){
     aNewColors[0] = RGB(0xEE, 0xEE, 0xEE);  // light gray 
     aNewColors[1] = RGB(0x21, 0x21, 0x31);  // dark purple 
 
-    printf("\nNew window color: {0x%x, 0x%x, 0x%x}\n", 
+    GZ_printf("\nNew window color: {0x%x, 0x%x, 0x%x}\n", 
         GetRValue(aNewColors[0]), 
         GetGValue(aNewColors[0]), 
         GetBValue(aNewColors[0]));
 
-    printf("New active caption color: {0x%x, 0x%x, 0x%x}\n", 
+    GZ_printf("New active caption color: {0x%x, 0x%x, 0x%x}\n", 
         GetRValue(aNewColors[1]), 
         GetGValue(aNewColors[1]), 
         GetBValue(aNewColors[1]));
@@ -222,8 +222,8 @@ void ChangeColor(){
 
     SetSysColors(2, aElements, aNewColors); 
 
-    printf("\nWindow background and active border have been changed.\n");
-    printf("Reverting to previous colors in 10 seconds...\n");
+    GZ_printf("\nWindow background and active border have been changed.\n");
+    GZ_printf("Reverting to previous colors in 10 seconds...\n");
 
    // Sleep(10000);    
 

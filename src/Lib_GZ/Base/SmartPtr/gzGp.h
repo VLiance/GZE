@@ -132,7 +132,7 @@ class gzGp {
 /*
     gzGp<T> SpFromThis()
     {
-       // printf("\n\n\nOKI");
+       // GZ_printf("\n\n\nOKI");
     }*/
 
 

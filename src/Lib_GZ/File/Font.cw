@@ -146,7 +146,7 @@ package  {
 			
 			using namespace ImgPack;
 			
-			//printf("\n My fontscale: %f " , fontscale);
+			//GZ_printf("\n My fontscale: %f " , fontscale);
 			
 			
 			uPackContext pc;
@@ -163,7 +163,7 @@ package  {
 	stbrp_pack_rects((stbrp_context *) pc.pack_info, myrects, _nTotal); //do pack
 	
 	unsigned char aBmpPack[nBitmap_H][nBitmap_W] = { {0}};
-	//printf("\nffDrawRect");
+	//GZ_printf("\nffDrawRect");
 	fDrawRect(this, &pc,aBmpPack[0],myrects );
     fPackEnd(this, &pc);
 

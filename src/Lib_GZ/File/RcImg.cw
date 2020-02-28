@@ -61,7 +61,7 @@ package  {
 				//Image.fTestShape();
 				//	aImg = 0; //Todo always
 			
-					printf("\nNew RcTestImg");
+					GZ_printf("\nNew RcTestImg");
 
 				//Debug.fConsole("RcImg");
 			}
@@ -74,7 +74,7 @@ package  {
 					//Image.fTestShape();
 					//	aImg = 0; //Todo always
 				
-						printf("\n RcImg");
+						GZ_printf("\n RcImg");
 				
 					
 					//Debug.fConsole("RcImg");

@@ -31,7 +31,7 @@ void stb_leakcheck_start(){
 void *stb_leakcheck_malloc(size_t sz, const char *file, int line)
 {
 
-        //        printf("\n--Maloc %d", bLeakcheckReady);
+        //        GZ_printf("\n--Maloc %d", bLeakcheckReady);
    stb_leakcheck_malloc_info* mi = (stb_leakcheck_malloc_info*)malloc(sz + sizeof(*mi));
    if (mi == NULL) return mi;
    mi->file = ( char*)file;
@@ -122,20 +122,20 @@ void stb_leakcheck_dumpmem(void)
 
 
     unsigned int _nTotal = 0;
-  //  printf("\n DUMP memory");
+  //  GZ_printf("\n DUMP memory");
    stb_leakcheck_malloc_info *mi = mi_head;
    while (mi) {
 
         if( mi->bReady ){
           if ((ptrdiff_t) mi->size >= 0){
-             printf("\nLEAKED: %s (%4d): %8d bytes at %p", mi->file, mi->line, mi->size, mi+1);
-          //   printf(" Id:%d",   mi->nId );
+             GZ_printf("\nLEAKED: %s (%4d): %8d bytes at %p", mi->file, mi->line, mi->size, mi+1);
+          //   GZ_printf(" Id:%d",   mi->nId );
             _nTotal += mi->size;
             gzHoldStr* sStr = (gzHoldStr*)mi+1;
                                       /*
             if( mi->line == 38 ){
 
-            //    printf("\n%bReadys",sStr->array + 1);
+            //    GZ_printf("\n%bReadys",sStr->array + 1);
 
             }*/
             }
@@ -149,9 +149,9 @@ void stb_leakcheck_dumpmem(void)
 
 if(_nTotal != 0){
         GZ::Sys::pDebug::fConsole(gzStrL("Total :") + gzStrUI(_nTotal) );
-       //printf("\n");
-       // printf("\nTotal : %d", _nTotal);
-      // printf("\n");
+       //GZ_printf("\n");
+       // GZ_printf("\nTotal : %d", _nTotal);
+      // GZ_printf("\n");
 }else{
     GZ::Sys::pDebug::fConsole(gzStrL(" ================================= "));
     GZ::Sys::pDebug::fConsole(gzStrL(" -- * No memory leak detected * --"));
@@ -162,7 +162,7 @@ if(_nTotal != 0){
    mi = mi_head;
    while (mi) {
       if ((ptrdiff_t) i->size < 0)
-         printf("\nFREED : %s (%4d): %8d bytes at %p", mi->file, mi->line, ~mi->size, mi+1);
+         GZ_printf("\nFREED : %s (%4d): %8d bytes at %p", mi->file, mi->line, ~mi->size, mi+1);
       mi = mi->next;
    }
    #endif

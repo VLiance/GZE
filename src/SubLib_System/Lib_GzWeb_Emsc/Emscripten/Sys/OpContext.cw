@@ -59,13 +59,13 @@ package  {
 				 EMSCRIPTEN_KEEPALIVE
 				float  lerp()  {
 					
-					printf("\ncall lerp");
+					GZ_printf("\ncall lerp");
 					return 66;
 				}*/
 				/*
 				EMSCRIPTEN_KEEPALIVE
 				 __attribute__((noinline)) int int_sqrt(int x) {
-					 	printf("\ncall int_sqrt");
+					 	GZ_printf("\ncall int_sqrt");
 				  return (x);
 				}*/
 				
@@ -80,7 +80,7 @@ package  {
 					vals[3] = 88;
 					gblvals = vals;
 					
-					printf("\n *** call my_emscripten_func");
+					GZ_printf("\n *** call my_emscripten_func");
 					return 66.0;
 				}*/
 				

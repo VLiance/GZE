@@ -132,13 +132,13 @@ namespace GzVector{
 	
 #define gzDef_Vec_Func_fPrint(T, _sStr)\
 	inline void fPrint( T* _aTab , const gzUIntX _nSize) { \
-		printf("{");gzUInt i = 0;\
+		GZ_printf("{");gzUInt i = 0;\
 		Pragma_Unroll_8 \
 		for(i = 0; i <  _nSize - 1; i++){\
-			printf(_sStr ", ",_aTab[i]);\
+			GZ_printf(_sStr ", ",_aTab[i]);\
 		}\
-		printf(_sStr,_aTab[i]); \
-		printf("}");\
+		GZ_printf(_sStr,_aTab[i]); \
+		GZ_printf("}");\
 	}
 	
 gzDef_Vec_Func_fPrint(gzFloat32, "%.2f");
@@ -159,25 +159,25 @@ gzDef_Vec_Func_fPrint(gzUInt64, "%llu");
 	
 	/*
 	inline void fPrint( gzInt8* _aTab , const gzUIntX _nSize) {
-		printf("{");
+		GZ_printf("{");
 		gzUInt i = 0;
 		Pragma_Unroll_8
 		for(i = 0; i <  _nSize - 1; i++){
-				printf("%d, ",_aTab[i]);
+				GZ_printf("%d, ",_aTab[i]);
 		}
-		printf("%d",_aTab[i]); 
-		printf("}");
+		GZ_printf("%d",_aTab[i]); 
+		GZ_printf("}");
 	}
 
 	inline void fPrint( gzFloat* _aTab , const gzUIntX _nSize) {
-		printf("{");
+		GZ_printf("{");
 		gzUInt i = 0;
 		Pragma_Unroll_8
 		for(i = 0; i <  _nSize - 1; i++){
-				printf("%.2f, ",_aTab[i]);
+				GZ_printf("%.2f, ",_aTab[i]);
 		}
-		printf("%.2f",_aTab[i]); 
-		printf("}");
+		GZ_printf("%.2f",_aTab[i]); 
+		GZ_printf("}");
 	}
 	*/
 
@@ -229,7 +229,7 @@ gzDef_Vec_Func_fPrint(gzUInt64, "%llu");
 //inline gzVec##_Name operator+(const gzVec##_Name  _vVec)    const {gzVec##_Name _vNew;      GzVector::fTabAdd(_vNew.aTab,aTab,_nSize,_vVec.aTab,     _nSize);return _vNew;}\
 //	inline gzVec##_Name<T>  fCopy() const {gzVec##_Name<T> _vNew; GzVector::fTabAssign(_vNew.aTab,_nSize, get());return _vNew;}
 //	inline gzVec##_Name<T>  fDownCast(_nSize) const {gzVec##_Name<T> _vNew; GzVector::fTabAssign(_vNew.aTab,_nSize, get());return _vNew;}
-	//inline gzVec##_Name&  fAssertSize(gzUIntX _nSize) { printf("\n SIZE: %d ", _nSize); return *this;}	
+	//inline gzVec##_Name&  fAssertSize(gzUIntX _nSize) { GZ_printf("\n SIZE: %d ", _nSize); return *this;}	
 	
 #define gzDef_Vec_Other(_Name, _nSize) \
 	template<class T> inline gzVec##_Name<T> gzVec##_Name##_NewFrom(const gzVecSized<T>&  _vVec){gzVec##_Name<T> _vNew; GzVector::fTabAssign(_vNew.aTab,_nSize, _vVec);return _vNew;}

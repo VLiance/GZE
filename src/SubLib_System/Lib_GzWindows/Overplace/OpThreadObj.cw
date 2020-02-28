@@ -23,12 +23,12 @@
 				//Create a thread and loop inside until finish
 				DWORD WINAPI fThreadProc(void *_pParam ) {
 					gzSp<Lib_GZ::Sys::cThreadObj> self = ( Lib_GZ::Sys::cThreadObj*)_pParam;
-					printf("\n---- Started : %d",  Lib_GZ::Global::nNumWindows);
+					GZ_printf("\n---- Started : %d",  Lib_GZ::Global::nNumWindows);
 					self->dCallBack.fCall(self->oThreadExt.get());
 
 					Lib_GZ::Global::nNumWindows--;
 					self->bStarted = false;
-					printf("\n---- end : %d",  Lib_GZ::Global::nNumWindows);
+					GZ_printf("\n---- end : %d",  Lib_GZ::Global::nNumWindows);
 					return 0; //Temp
 				}
 
@@ -40,7 +40,7 @@
 
 		public function OpThreadObj(_oThreadEx : ThreadExt, _dCallBack : Delegate<fThreadCallBack>):Void{
 			<cpp>
-			//printf("\n************qqsssqqqqqqqqqqqqqqqqq\n");
+			//GZ_printf("\n************qqsssqqqqqqqqqqqqqqqqq\n");
 			</cpp>
 			ThreadObj(_oThreadEx, _dCallBack);
 		}
@@ -63,7 +63,7 @@
 			  if(OpThreadObj::hThread) {
 					bStarted = true;
 					Lib_GZ::Global::nNumWindows++; //Must be atomic
-				  //  printf("\n---- NumWindows++ -Create : %d",  Global::nNumWindows);
+				  //  GZ_printf("\n---- NumWindows++ -Create : %d",  Global::nNumWindows);
 			  }else{
 			  	</cpp>
 				   Debug.fError("Error on Thread creation" );
@@ -77,7 +77,7 @@
 		override public function fJoin():Void{
 			<cpp>
 				#ifndef GZ_D_Monothread
-					printf("fCancel\n");
+					GZ_printf("fCancel\n");
 					 #ifndef GZ_D_Monothread
 					//if (TerminateThread(hThread, 0) == 0){
 					//    Debug::fError(gzStrL("Error on Thread cancel"));
@@ -100,8 +100,8 @@
 		override public function fClose():Void{
 			<cpp>
 				#ifndef GZ_D_Monothread
-					printf("fClose\n");
-					printf("\n---- Delete Instance : %d",  Lib_GZ::Global::nNumWindows);
+					GZ_printf("fClose\n");
+					GZ_printf("\n---- Delete Instance : %d",  Lib_GZ::Global::nNumWindows);
 					/*
 					if(oThread){
 						oThread->bRun = false; //Must be atomic TODO

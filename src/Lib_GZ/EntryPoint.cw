@@ -26,8 +26,8 @@ package  {
 		//gzSp<Lib_GZ::Sys::cMainThreadPlatformMsg> oMainMsg;
 		
 		gzInt Main( gzText8 _sArg, gzUIntX _nId, gzInt _nCmd){
-			//printf("\n Platform: "   gzStringize(DwPlatform)   );
-			printf("\n Platform: "   gzStringize(DsPlatform)  " \n"  );
+			//GZ_printf("\n Platform: "   gzStringize(DwPlatform)   );
+			GZ_printf("\n Platform: "   gzStringize(DsPlatform)  " \n"  );
 		//	oGzLib = Lib_GZ::Lib::New( _nId, gzStrC( _sArg), _nCmd);
 			
 			
@@ -48,7 +48,7 @@ package  {
 	//	Lib_GZ::Sys::Debug::Get(oMain->thread)->NewSingleton();
 		//Lib_GZ::Sys::Debug::CreateSingleton(oMain->thread);
 
-	//	printf("\n Lib_GZ::Sys::Debug::GetInst(oMain->thread): %d", Lib_GZ::Sys::Debug::GetInst(oMain->thread).get() );
+	//	GZ_printf("\n Lib_GZ::Sys::Debug::GetInst(oMain->thread): %d", Lib_GZ::Sys::Debug::GetInst(oMain->thread).get() );
 	
 		Lib_GZ::Sys::MainThreadPlatformMsg::SetInst(oMain->thread) = Lib_GZ::Sys::MainThreadPlatformMsg::Get(oMain->thread)->New(oMain);
 		
@@ -61,7 +61,7 @@ package  {
 			
 		//_oMain
 			
-		//	printf("\n");
+		//	GZ_printf("\n");
 		
 //oTest = gzSCast<Lib_Demo::cTest>(Lib_Demo::Test::Get(thread)->New(this));
 
@@ -91,7 +91,7 @@ package  {
 		//	Lib_GZ::Sys::MainThreadPlatformMsg::GetInst(oMain->thread);
 			
 		
-			//printf("Update: %d" endl_cr, _nCount);
+			//GZ_printf("Update: %d" endl_cr, _nCount);
 			//fprintf(stderr,"\nUpdate: %d\n" endl_cr, _nCount);
 			_nCount++;
 			
@@ -115,7 +115,7 @@ package  {
 				 
 			#endif
 		
-			printf("\n Good bye: %d \n", _nExitCode);
+			GZ_printf("\n Good bye: %d \n", _nExitCode);
 			//Lib_GZ::Sys::System::GetInst(oMain->thread)->fSleep(1);
 			return  _nExitCode; //Success
 		}

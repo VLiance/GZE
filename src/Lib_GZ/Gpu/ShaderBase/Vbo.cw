@@ -44,7 +44,7 @@ package  {
 		public function Vbo(_oProgram : ProgramShader):Void {
 		
 		<cpp>
-		//printf("--------`*********** mbInst! %d " ,  aData.m.aData->nInst);
+		//GZ_printf("--------`*********** mbInst! %d " ,  aData.m.aData->nInst);
 		</cpp>
 		
 			oProgram = _oProgram;

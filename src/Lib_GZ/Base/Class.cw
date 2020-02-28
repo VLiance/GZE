@@ -34,9 +34,9 @@ package  {
 			inline void SubInst() const {
 				const_cast<cClass*>(this)->nInstCount--;
 				
-				printf("\nnInstCount: %d", nInstCount);
+				GZ_printf("\nnInstCount: %d", nInstCount);
 				if(nInstCount == 0){
-					printf("\nDelete ");
+					GZ_printf("\nDelete ");
 					delete this;
 				}
 			};
@@ -56,7 +56,7 @@ package  {
 			inline virtual void IniClass(){};
 			inline virtual void ThreadLoop(){};
 			inline virtual void ThreadEnd(){
-				printf("\n----ThreadEND");
+				GZ_printf("\n----ThreadEND");
 			};
 			
 		</cpp_class_h>
@@ -68,14 +68,14 @@ package  {
 			
 		<cpp_initializer>
 			if(_parent != 0){
-				//printf("\nGetParentThread");
+				//GZ_printf("\nGetParentThread");
 				  //  parent = _parent->SpFromThis();
 					parent = _parent;
 					GzThread = _parent->thread;
-				//	printf("\nSetParentThread");
-					//  printf("\nClassSetThread");
+				//	GZ_printf("\nSetParentThread");
+					//  GZ_printf("\nClassSetThread");
 			  }else{
-					printf("\nThreadClass(No Parent)");
+					GZ_printf("\nThreadClass(No Parent)");
 					//Only new thread can have parent to zero (cThread) TODO aAssert
 					//	--> thread = this;--> IN thread.cpp
 			   }

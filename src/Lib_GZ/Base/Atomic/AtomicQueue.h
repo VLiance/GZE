@@ -43,7 +43,7 @@ class cAtomicQueue {
 				void* item;
 				if(qaQueue.try_dequeue(item)){
 					return item;
-					//printf("\n \nDEQYEYYYY\n ");
+					//GZ_printf("\n \nDEQYEYYYY\n ");
 				}else{
 					return 0;
 				}

@@ -22,7 +22,7 @@ void KeyFrameActiveChild::setNext(KeyFrame* frame)
 
 void KeyFrameActiveChild::apply(ActorComponent* component, float mix)
 {
-	// printf("APPLY KeyFrameActiveChild %d\n", m_Value);
+	// GZ_printf("APPLY KeyFrameActiveChild %d\n", m_Value);
 	ActorNodeSolo* node = reinterpret_cast<ActorNodeSolo*>(component);
 	node->activeChildIndex(m_Value);
 }

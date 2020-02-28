@@ -245,7 +245,7 @@ package  {
 */
 /*
 			<cpp>
-			printf("\n_nCutLineX: %f ",  _nCutLineX);
+			GZ_printf("\n_nCutLineX: %f ",  _nCutLineX);
 			</cpp>
 			*/
 			

@@ -541,7 +541,7 @@ generate "OpenGL" {
 
 				GL_fGetProgramInfoLog(_nProgId, sizeof(logBuf), &_nLength, (gzUInt8*)logBuf );
 				//nLineError = strtol( &logBuf[2] , GZ_Null, 10) - 1;
-				//printf("\n %s ", logBuf);
+				//GZ_printf("\n %s ", logBuf);
 				return gzStrC(logBuf, _nLength);
 			#endif
 				</cpp>

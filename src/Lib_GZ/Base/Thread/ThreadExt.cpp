@@ -50,15 +50,15 @@
 namespace Lib_GZ{namespace Base{namespace Thread{
 
     void cThreadExt::Constructor(Lib_GZ::Dlg_r_void_p_gzPtr::DlgP _dCallBack){
-	//printf("\nIni_cThreadExt");
-		printf("\n ---- Create THREAD EXT \n");
+	//GZ_printf("\nIni_cThreadExt");
+		GZ_printf("\n ---- Create THREAD EXT \n");
 
         ThreadList::fAdd(this);
-		printf("\n ---- ADDED \n");
+		GZ_printf("\n ---- ADDED \n");
 			
        // pSysThread = new cSysThread(_dCallBack, 0);
        oThreadObj = Sys::ThreadObj::Get(thread)->New(this, this, _dCallBack.get()); 
-	   	printf("\n Get - oThreadObj \n");
+	   	GZ_printf("\n Get - oThreadObj \n");
 		
        fStart();
  
@@ -72,18 +72,18 @@ namespace Lib_GZ{namespace Base{namespace Thread{
 	}*/
 
 	void cThreadExt::fStart(){
-		printf("\nfStart\n");
+		GZ_printf("\nfStart\n");
 	
         #ifndef GZ_D_Monothread
 		
-				printf("\n Pas mono \n");
+				GZ_printf("\n Pas mono \n");
         	if(!oThreadObj->bStarted){
-				printf("\n\n \n Start GThread !\n");
+				GZ_printf("\n\n \n Start GThread !\n");
 				oThreadObj->fStart();
 					
             }
         #else
-			printf("\n !GZ_D_Monothread! \n");
+			GZ_printf("\n !GZ_D_Monothread! \n");
 			oThreadObj->bStarted = true;
             oThreadObj->dCallBack.fCall(this);
 		
@@ -107,16 +107,16 @@ namespace Lib_GZ{namespace Base{namespace Thread{
 	
 	/*
 	virtual void cThreadExt::ViewAddInst() const {
-		printf("\n ---- Add THREAD EXT \n");
+		GZ_printf("\n ---- Add THREAD EXT \n");
 	}
 	
 	virtual void cThreadExt::ViewSubInst() const {
-		printf("\n ---- Sub THREAD EXT \n");
+		GZ_printf("\n ---- Sub THREAD EXT \n");
 	}
 	*/
 
     cThreadExt::~cThreadExt(){
-		printf("\n ---- Delete THREAD EXT \n");
+		GZ_printf("\n ---- Delete THREAD EXT \n");
 /*
         //Sleep(50);
         if( oThreadObj->bStarted){

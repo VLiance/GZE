@@ -45,7 +45,7 @@
 
 #ifdef D_Debug
     #define GZ_Assert_Array(expr)   if( !(expr )){\
-                printf("\nE:FatalArrayError: %s:%d", __FILE__, __LINE__);while(1){} \
+                GZ_printf("\nE:FatalArrayError: %s:%d", __FILE__, __LINE__);while(1){} \
             }
 #else
     #define GZ_Assert_Array(expr)
@@ -213,7 +213,7 @@ public:
 		for(gzUInt i = 0; i < nSize; i++){
 			putchar(aTab[i]);
 		}
-		printf("\n");
+		GZ_printf("\n");
 	}
 
 
@@ -221,21 +221,21 @@ public:
 	inline void fAddInstance() {
 		if(gzDataType_IS_DataRC_MODIFIABLE(this) ){ //Not ReadOnly
 			nInst++;
-			//printf("\n %p: Add: %d  ",aTab, nInst);
+			//GZ_printf("\n %p: Add: %d  ",aTab, nInst);
 		}
 	}
 	
 	
 	inline void fRemoveInstance() {
-		//printf("\n --%p: Rem:  ",this);
+		//GZ_printf("\n --%p: Rem:  ",this);
 		if(gzDataType_IS_DataRC_MODIFIABLE(this) ){ //Not ReadOnly
 			nInst--;
-			//printf("\n %p: Rem: %d  ",aTab, nInst);
+			//GZ_printf("\n %p: Rem: %d  ",aTab, nInst);
 		}
 	}
 	/*
 	inline ~gzDataRC(){ ///Don't uncomment don't put a destructor in pod type (just for debugging)
-		//printf("\n---------Delete");
+		//GZ_printf("\n---------Delete");
 	}*/
 
 	inline  gzDataRC* fCloneToHeap() const{
@@ -244,7 +244,7 @@ public:
 	
 	/*
 	inline void fRemoveInstance_Weak(){
-		//printf("\nSub: %d  ", nInst);fPrint();
+		//GZ_printf("\nSub: %d  ", nInst);fPrint();
 		nWeakInst--;
 		if(nWeakInst == 0 && nInst == 0  ){//nType > 2 Heap data -> must be freed
 			Free();
@@ -265,7 +265,7 @@ inline static gzDataRC*  fDataAlloc(  gzUIntX _nSize,  gzUIntX _nLimit ){  //TOD
 	
 	if(_nLimit != 0){//Make drMemory happy? Or maybe it's a real leak when it's 0 byte? Or maybe always alloc more than 0 bytes?
 		_oRc->aTab = (gzUInt8*)GZ_fCalloc(1, _nLimit ); GZ_nArrayTotalAlloc++; //Malloc?
-		//printf("\n ********* Calloc:%p , _nSize:%d,  _nLimit:%d ",_oRc->aTab, _nSize, _nLimit);
+		//GZ_printf("\n ********* Calloc:%p , _nSize:%d,  _nLimit:%d ",_oRc->aTab, _nSize, _nLimit);
 		memset( &_oRc->aTab[_nSize], 0, _nLimit - _nSize);//Zero all other 
 	}else{
 		_oRc->aTab  =0;
@@ -279,7 +279,7 @@ inline static gzDataRC*  fDataAlloc(  gzUIntX _nSize,  gzUIntX _nLimit ){  //TOD
 	//_oRc->nInst = 1; //One by default?
 //	_oRc->nWeakInst = 0;
 	//_oRc->nStride = 0;
-	//printf("\n %p: New: %d  ",_oRc->aTab, _oRc->nInst);
+	//GZ_printf("\n %p: New: %d  ",_oRc->aTab, _oRc->nInst);
 	return _oRc;
 }
 

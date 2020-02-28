@@ -5,14 +5,9 @@ package  {
 
 	public class OpDebug overplace Debug  {
 
-
-		
 		public function OpDebug():Void{
-			
 			Debug();
-
 		}
-
 		
 		public override  function fTrace(_sValue:String):Void {
 			<cpp>

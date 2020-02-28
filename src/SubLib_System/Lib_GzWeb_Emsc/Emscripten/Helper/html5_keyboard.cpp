@@ -63,13 +63,13 @@ EM_BOOL key_callback(int eventType, const EmscriptenKeyboardEvent *e, void *user
 {
   int dom_pk_code = emscripten_compute_dom_pk_code(e->code);
 /*
-  printf("%s, key: \"%s\" (printable: %s), code: \"%s\" = %s (%d), location: %lu,%s%s%s%s repeat: %d, locale: \"%s\", char: \"%s\", charCode: %lu (interpreted: %d), keyCode: %s(%lu), which: %lu\n",
+  GZ_printf("%s, key: \"%s\" (printable: %s), code: \"%s\" = %s (%d), location: %lu,%s%s%s%s repeat: %d, locale: \"%s\", char: \"%s\", charCode: %lu (interpreted: %d), keyCode: %s(%lu), which: %lu\n",
     emscripten_event_type_to_string(eventType), e->key, emscripten_key_event_is_printable_character(e) ? "true" : "false", e->code,
     emscripten_dom_pk_code_to_string(dom_pk_code), dom_pk_code, e->location,
     e->ctrlKey ? " CTRL" : "", e->shiftKey ? " SHIFT" : "", e->altKey ? " ALT" : "", e->metaKey ? " META" : "", 
     e->repeat, e->locale, e->charValue, e->charCode, interpret_charcode_for_keyevent(eventType, e), emscripten_dom_vk_to_string(e->keyCode), e->keyCode, e->which);
 */
-  if (eventType == EMSCRIPTEN_EVENT_KEYUP) printf("\n"); // Visual cue
+  if (eventType == EMSCRIPTEN_EVENT_KEYUP) GZ_printf("\n"); // Visual cue
 
 	gzUInt key = 0;
 	if(e->which != 0){key = e->which;};
@@ -103,7 +103,7 @@ EM_BOOL key_callback(int eventType, const EmscriptenKeyboardEvent *e, void *user
 void fInitialise_Keyboard(Lib_GzWeb_Emsc::Emscripten::Sys::cOpKey* _oKey)
 {
   oKey = _oKey;
-  printf("Press any keys on the keyboard to test the appropriate generated EmscriptenKeyboardEvent structure.\n");
+  GZ_printf("Press any keys on the keyboard to test the appropriate generated EmscriptenKeyboardEvent structure.\n");
   emscripten_set_keydown_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, 0, 1, key_callback);
   emscripten_set_keyup_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, 0, 1, key_callback);
   emscripten_set_keypress_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, 0, 1, key_callback);

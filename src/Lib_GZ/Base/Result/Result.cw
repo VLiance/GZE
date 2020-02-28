@@ -80,7 +80,7 @@ class tApi_Lib_GZ cResult : public gzResults {
 		void  Constructor();
 
 		inline cResult(const cResult& _o, gzBool _bDCpy = false) : , bValid(_o.bValid){
-		printf("\nCopyResult");
+		GZ_printf("\nCopyResult");
 		};
 		virtual gzClass Copy(gzBool _bDeepCopy = false){return new cResult(*this, _bDeepCopy);};
 		virtual ~cResult();

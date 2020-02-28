@@ -20,7 +20,7 @@ package {
 
 		pure function fConsole(_sValue:String):Void { //Pure function Cannot be overplaced
 			<cpp>
-				printf("\n");
+				GZ_printf("\n");
 				_sValue.fPrint();
 			</cpp>
 		}

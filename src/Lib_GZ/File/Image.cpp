@@ -88,13 +88,13 @@ gzInt pImage::fOpen(File::cRcImg* _oRc) {
 				pDebug::fConsole(gzU8("IMG LOAD FAIL: Nothing in memory for: ") + _oRc->sVDrive +  _oRc->sPath  );
 				data = 0;
 			}else{
-						printf("-----------stbi_load_from_memory ?? !!!  -----------");
+						GZ_printf("-----------stbi_load_from_memory ?? !!!  -----------");
 				data = stbi_load_from_memory(  (stbi_uc*)_oRc->aSrcMemData, _oRc->nSize, &x, &y, &n, 0);
 				
-						printf("-----------fConsole ?? !!!  -----------");
+						GZ_printf("-----------fConsole ?? !!!  -----------");
 				pDebug::fConsole(gzU8("IMG  Load: ") + _oRc->sVDrive +  _oRc->sPath  );
 				
-									printf("-----------kkk !!!  -----------");
+									GZ_printf("-----------kkk !!!  -----------");
 		
 				if(data){
 					image_data  = data;
@@ -102,15 +102,15 @@ gzInt pImage::fOpen(File::cRcImg* _oRc) {
 					 _oRc->nHeight = (gzInt)y;
 					image_nbChannel = n;
 
-					//printf("\n IMG LOAD GOOD: %i\n", image_height);
-				   // printf("\n IMG LOAD GOOD: %i\n", image_width);
-					//printf("\n image_nbChannel %i\n", image_nbChannel);
+					//GZ_printf("\n IMG LOAD GOOD: %i\n", image_height);
+				   // GZ_printf("\n IMG LOAD GOOD: %i\n", image_width);
+					//GZ_printf("\n image_nbChannel %i\n", image_nbChannel);
 				}else {
 					//Fail
 				   // Sys::Debug::fError(gzStrL("IMG LOAD FAIL: ") + gzStrC(stbi_failure_reason())  + gzStrL(" ") +  _oRc->sRoot +  _oRc->sSubPath  );
 					 pDebug::fConsole(gzU8("IMG LOAD FAIL: ") + gzStrC(stbi_failure_reason())  + gzU8(" ") +  _oRc->sVDrive +  _oRc->sPath  );
 					return 0;
-				 //   printf("\n IMG %s LOAD FAIL: %s\n", , stbi_failure_reason());
+				 //   GZ_printf("\n IMG %s LOAD FAIL: %s\n", , stbi_failure_reason());
 				}
 		}
 
@@ -283,7 +283,7 @@ gzInt** pImage::fGetImage(File::cRcImg* _oRc, gzUInt8* image_data, gzUInt image_
 			break;
 
 	}
-	//printf("\n OKA: %i\n", p2DArray);
+	//GZ_printf("\n OKA: %i\n", p2DArray);
 
 //#endif
 
@@ -315,7 +315,7 @@ gzInt** pImage::fGetImage(File::cRcImg* _oRc, gzUInt8* image_data, gzUInt image_
     */
     _oRc->aImg = p2DArray;
 
-	//printf("!aImage Loaded : %d," (int )_oRc->aImg);
+	//GZ_printf("!aImage Loaded : %d," (int )_oRc->aImg);
 	
     return p2DArray;
 }
@@ -453,7 +453,7 @@ gzInt pImage::fDelete(File::cRcImg* _oRc){
 	
 	
 	
-    printf("\n -----************ Destroye!******* %p ", _oRc);
+    GZ_printf("\n -----************ Destroye!******* %p ", _oRc);
     return 0;
 }
 

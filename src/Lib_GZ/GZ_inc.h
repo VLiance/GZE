@@ -30,14 +30,14 @@
 	
 	#ifndef GZ_STD_limits
 	#define GZ_STD_limits
-		#include <limits.h> //printf
+		#include <limits.h> //GZ_printf
 	#endif
 
 	
 
 	#ifndef GZ_STD_Lib
 	#define GZ_STD_Lib
-		#include <stdlib.h> //printf
+		#include <stdlib.h> //GZ_printf
 	#endif
 	
 	#ifndef GZ_STD_string
@@ -47,7 +47,7 @@
 	#endif
 		#ifndef GZ_STD_IO
 	#define GZ_STD_IO
-		#include <stdio.h> //printf
+		#include <stdio.h> //GZ_printf
 	#endif
 	
 

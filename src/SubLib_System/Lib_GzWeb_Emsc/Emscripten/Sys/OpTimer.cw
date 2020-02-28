@@ -17,7 +17,7 @@ package  {
 			
 			<cpp>
 				gzFloat _nTime = emscripten_get_now();
-				printf("\nTime %f", _nTime);
+				GZ_printf("\nTime %f", _nTime);
 			</cpp>		
 		}
 		

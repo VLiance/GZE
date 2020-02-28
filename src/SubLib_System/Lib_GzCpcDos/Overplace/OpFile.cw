@@ -87,7 +87,7 @@ package  {
 				
 					gzUIntX _nSize =  CpcDos->File_size( (char*) _sFile.fToCStr().get() ); 
 					
-					printf("\n \n ------ ************ File Size: %d \n \n", _nSize);
+					GZ_printf("\n \n ------ ************ File Size: %d \n \n", _nSize);
 				
 					//gzUInt8* _aData = new gzUInt8[_nSize]; //TODO may be 0 sized
 					gzUInt8* _aData = (gzUInt8*)GZ_fMalloc(_nSize, sizeof(gzUInt8)); //TODO may be 0 sized

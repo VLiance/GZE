@@ -77,7 +77,7 @@ public :
 
  //   inline gzPods( const gzPods& other ):Val(other.Val),bMustFree(other.bMustFree) {
  //       const_cast<gzPods<T>*>(&other)->bMustFree = false;
-       // printf("\nOther");
+       // GZ_printf("\nOther");
  //    }
 
     inline gzPods(T* _Val): Val(_Val) {
@@ -103,11 +103,11 @@ struct gzQElementHold {
     gzQElementHold<T>* fPrev() const;
 
     inline gzQElementHold(const T &_Val): Val(_Val), nNbInst(1) {
-       // printf("\n--Create");
+       // GZ_printf("\n--Create");
     }
 
     inline gzQElementHold():nNbInst(1){
-        //printf("\n--Create2");
+        //GZ_printf("\n--Create2");
     }
      inline ~gzQElementHold(){
 	

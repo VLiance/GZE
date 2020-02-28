@@ -209,7 +209,7 @@ package  {
 			<cpp>
 			//return false;
 			if(aSourcePixel == 0){
-				printf("\n ***********************FAILLLL");
+				GZ_printf("\n ***********************FAILLLL");
 			}
 			
 			void* _aSourcePixel = aSourcePixel;

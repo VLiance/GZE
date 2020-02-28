@@ -11,18 +11,18 @@
 /*
 
 	gzString<T> (gzString<gzUTF8>* _oOther){
-	//	printf("Assing8 %d ",sizeof(T));
+	//	GZ_printf("Assing8 %d ",sizeof(T));
 	  fFirstAssign(_oOther->m.aData);
 	  gzp_Additional_fAssignType2
 	}
 	
 	gzString<T> (gzString<gzUTF16>* _oOther){
-	//	printf("Assing8 %d ",sizeof(T));
+	//	GZ_printf("Assing8 %d ",sizeof(T));
 	  fFirstAssign(_oOther->m.aData);
 	  gzp_Additional_fAssignType2
 	}
 	gzString<T> (gzString<gzUTF32>* _oOther){
-	//	printf("Assing8 %d ",sizeof(T));
+	//	GZ_printf("Assing8 %d ",sizeof(T));
 	  fFirstAssign(_oOther->m.aData);
 	  gzp_Additional_fAssignType2
 	}
@@ -33,7 +33,7 @@
 	#define Please_Convert_UTF8_to_UTF16_Before(c)((void)sizeof(char[1-2*!!(c)]))
 	#define Please_Convert_UTF8_to_UTF32_Before(c)((void)sizeof(char[1-2*!!(c)]))
 	gzString<T> (const gzString<gzUTF8>& _oOther){
-	//	printf("Assing8 %d ",sizeof(T));
+	//	GZ_printf("Assing8 %d ",sizeof(T));
 	  fFirstAssign(_oOther.m.aData);
 	  gzp_Additional_fAssignType
 	  
@@ -45,7 +45,7 @@
 	#define Please_Convert_UTF16_to_UTF32_Before(c)((void)sizeof(char[1-2*!!(c)]))
 	gzString<T> (const gzString<gzUTF16>& _oOther){
 
-	//printf("Assing16 %d ",sizeof(T));
+	//GZ_printf("Assing16 %d ",sizeof(T));
 	  fFirstAssign(_oOther.m.aData);
 	  gzp_Additional_fAssignType
 	  

@@ -33,7 +33,7 @@ extern "C" {
 		
 		gzEmscPtrMalloc = vals;
 	//	gzEmscPtrBuffer = buffer;
-		//printf("\n *** call my_emscripten_func");
+		//GZ_printf("\n *** call my_emscripten_func");
 		return 0;
 	}
 
@@ -122,7 +122,7 @@ free(_ptr); return;
 	
 	/*
 	//#ifdef GZ_tWeb_Emsc
-		printf("\n\n \n\n ***** sizeof() : %d \n\n ",  sizeof(stb__arr) );
+		GZ_printf("\n\n \n\n ***** sizeof() : %d \n\n ",  sizeof(stb__arr) );
 	
 		 EM_ASM_ARGS({
 				
@@ -142,7 +142,7 @@ free(_ptr); return;
 				
 		}, size * 2, sizeof(stb__arr) );	
 		
-		printf("\n0 " );
+		GZ_printf("\n0 " );
 
 		stb__arr* _ptrMAlloc = (stb__arr*)gzEmscPtrMalloc;
 		_ptrMAlloc->JsMem = GzCurrJsMem;
@@ -159,7 +159,7 @@ free(_ptr); return;
 		return malloc(size);
    	#endif
 	*/
-	//printf("\n\n\n SDASDAS********************************************WQ**SAD*sa*d *sa*\n\n");
+	//GZ_printf("\n\n\n SDASDAS********************************************WQ**SAD*sa*d *sa*\n\n");
 	//return malloc(size);
 }
 	

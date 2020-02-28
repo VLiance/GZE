@@ -94,43 +94,43 @@ extern UMM_HEAP_INFO heapInfo;
 //#define DBG_LOG_LEVEL 7
 
 #if DBG_LOG_LEVEL >= 7
-#  define DBG_LOG_TRACE( format, ... ) printf( format, ## __VA_ARGS__ )
+#  define DBG_LOG_TRACE( format, ... ) GZ_printf( format, ## __VA_ARGS__ )
 #else
 #  define DBG_LOG_TRACE( format, ... )
 #endif
 
 #if DBG_LOG_LEVEL >= 6
-#  define DBG_LOG_DEBUG( format, ... ) printf( format, ## __VA_ARGS__ )
+#  define DBG_LOG_DEBUG( format, ... ) GZ_printf( format, ## __VA_ARGS__ )
 #else
 #  define DBG_LOG_DEBUG( format, ... )
 #endif
 
 #if DBG_LOG_LEVEL >= 5
-#  define DBG_LOG_CRITICAL( format, ... ) printf( format, ## __VA_ARGS__ )
+#  define DBG_LOG_CRITICAL( format, ... ) GZ_printf( format, ## __VA_ARGS__ )
 #else
 #  define DBG_LOG_CRITICAL( format, ... )
 #endif
 
 #if DBG_LOG_LEVEL >= 4
-#  define DBG_LOG_ERROR( format, ... ) printf( format, ## __VA_ARGS__ )
+#  define DBG_LOG_ERROR( format, ... ) GZ_printf( format, ## __VA_ARGS__ )
 #else
 #  define DBG_LOG_ERROR( format, ... )
 #endif
 
 #if DBG_LOG_LEVEL >= 3
-#  define DBG_LOG_WARNING( format, ... ) printf( format, ## __VA_ARGS__ )
+#  define DBG_LOG_WARNING( format, ... ) GZ_printf( format, ## __VA_ARGS__ )
 #else
 #  define DBG_LOG_WARNING( format, ... )
 #endif
 
 #if DBG_LOG_LEVEL >= 2
-#  define DBG_LOG_INFO( format, ... ) printf( format, ## __VA_ARGS__ )
+#  define DBG_LOG_INFO( format, ... ) GZ_printf( format, ## __VA_ARGS__ )
 #else
 #  define DBG_LOG_INFO( format, ... )
 #endif
 
 #if DBG_LOG_LEVEL >= 1
-#define DBG_LOG_FORCE( force, format, ... ) {if(force) {printf( format, ## __VA_ARGS__  );}}
+#define DBG_LOG_FORCE( force, format, ... ) {if(force) {GZ_printf( format, ## __VA_ARGS__  );}}
 #else
 #  define DBG_LOG_FORCE( format, ... )
 #endif

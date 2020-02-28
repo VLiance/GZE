@@ -18,7 +18,7 @@
 		
 		public function ThreadItf():Void{
 		<cpp>
-			printf("\nnew ThreadItf Debug");
+			GZ_printf("\nnew ThreadItf Debug");
 		</cpp>	
 			//Create default debug singleton for this new thread
 			Debug = new Debug();
@@ -32,10 +32,10 @@
 			OpenGL = new OpenGL();
 			//GpuObject = new GpuObject();
 			<cpp>
-			printf("\n-- thread -- ");
-			printf("\n-- thread# -- %p ", thread);
-			printf("\n-- New ThreadItf -- %p , id: %d \n", thread, thread->nId);
-			printf("\n-- End ThreadItf -- ");
+			GZ_printf("\n-- thread -- ");
+			GZ_printf("\n-- thread# -- %p ", thread);
+			GZ_printf("\n-- New ThreadItf -- %p , id: %d \n", thread, thread->nId);
+			GZ_printf("\n-- End ThreadItf -- ");
 			</cpp>
 		}
 

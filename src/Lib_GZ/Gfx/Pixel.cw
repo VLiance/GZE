@@ -317,8 +317,8 @@ package  {
 			//var _nIPosY : Int =  _nPosY - Math.nPrec - GZ::Math::nHPrec/2;
 			/*
 			<cpp>
-			printf("\n_nPosX%d", _nIPosX);
-			printf("\n_nPosY %d", _nIPosY);
+			GZ_printf("\n_nPosX%d", _nIPosX);
+			GZ_printf("\n_nPosY %d", _nIPosY);
 	
 			</cpp>
 		*/
@@ -450,8 +450,8 @@ package  {
 	//		_nLimH -= 128;
 /*
 			<cpp>
-			printf("\nASSS %d", _nToY);
-			printf("\nA_nRealY %d", _nRealY);
+			GZ_printf("\nASSS %d", _nToY);
+			GZ_printf("\nA_nRealY %d", _nRealY);
 			</cpp>
 			*/
 			
@@ -530,9 +530,9 @@ package  {
 		
 				/*
 			<cpp>
-			printf("\n__nXLimit %d", (_nXLimit >> 1024));
-			printf("\n__nDirX %d", _nDirX);
-			printf("\nx %d", x);
+			GZ_printf("\n__nXLimit %d", (_nXLimit >> 1024));
+			GZ_printf("\n__nDirX %d", _nDirX);
+			GZ_printf("\nx %d", x);
 			</cpp>
 		*/
 				_nXLimit = Math.fITronc(_nXLimit - x ) + x;
@@ -580,7 +580,7 @@ package  {
 						//Pixel.fCopyPixelToDest(_aDest,_aSource[_nGetY/256][_nGetX/256], (_nX+x)/1024, _nRealY/1024);
 /*
 						<cpp>
-						printf("\nASSS");
+						GZ_printf("\nASSS");
 						</cpp>
 						*/
 						//Pixel. (_aDest,0xFFFFFF00, (_nX+x)/1024, _nRealY/1024);

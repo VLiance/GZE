@@ -123,7 +123,7 @@ package  {
 					}*/
 
 				//}else{
-					//printf("\nsss");
+					//GZ_printf("\nsss");
 					if(!bTransparent){
 						//BitBlt( dcScreen, 0, 0, nFrameWidth, nFrameHeight, hmemdc, 0, 0, SRCCOPY );
 					

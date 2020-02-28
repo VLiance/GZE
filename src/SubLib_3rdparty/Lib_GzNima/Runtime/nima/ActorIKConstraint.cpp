@@ -102,7 +102,7 @@ void ActorIKConstraint::completeResolve()
             });
         if(result == m_FKChain.end())
         {
-            printf("Bone not in chain %s\n", influenced.bone->name().c_str());
+            GZ_printf("Bone not in chain %s\n", influenced.bone->name().c_str());
             continue;
         }
         // Note this indirection here, bone data and fk chain are linked and must be treated accordingly.

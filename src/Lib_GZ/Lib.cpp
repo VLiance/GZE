@@ -80,7 +80,7 @@ namespace Lib {
         void Ini_Class(){
             //IniOthers
            Lib_GZ::ThreadList::Ini_Class();
-            printf("\n\n\n INII_Class! \n\n");
+            GZ_printf("\n\n\n INII_Class! \n\n");
         }*/
 		
 		
@@ -185,13 +185,13 @@ extern "C" int IniLib_Lib_Demo();
 #include "Lib_GZ/Lib_GZ.h"
 
 void fLoadAllLib(){
-	printf("\nLoadAll_Libs!!");
+	GZ_printf("\nLoadAll_Libs!!");
 	
 
 	uLib* _rLib = IniLib_Lib_GZ();//Default lib
 		
-    printf("\n--IniLib :"  );   _rLib->sName->fPrint();  
-	 printf("\n"  ); 
+    GZ_printf("\n--IniLib :"  );   _rLib->sName->fPrint();  
+	 GZ_printf("\n"  ); 
 	if(_rLib != NULL){
 	
 		fAllClass(*_rLib->_rLastClass);
@@ -229,11 +229,11 @@ void fLoadAllLib(){
 
 /*
      Lib_GZ::Sys::pDebug::fConsole(gzU8("\n ---fLoadAllLib - "));
-     printf("\n -----_rLasLib : %d \n", rLastLib);
-     printf("\n -----nNumWindows : %d \n", nNumWindows);
+     GZ_printf("\n -----_rLasLib : %d \n", rLastLib);
+     GZ_printf("\n -----nNumWindows : %d \n", nNumWindows);
 */
-    printf("\n -----_rLasLib : %d \n", (int)rLastLib);
-   //  printf("\n -----nNumWindows : %d \n", nNumWindows);
+    GZ_printf("\n -----_rLasLib : %d \n", (int)rLastLib);
+   //  GZ_printf("\n -----nNumWindows : %d \n", nNumWindows);
 
    
    
@@ -243,7 +243,7 @@ void fLoadAllLib(){
 /*
      if(_rLib->rPrec == _rLib){  //If we have only one lib
         _rLib->rPrec = 0;
-		  printf("\n -----OneLib \n");
+		  GZ_printf("\n -----OneLib \n");
      }
  */
  
@@ -254,7 +254,7 @@ void fLoadAllLib(){
 		//Lib_GZ::Sys::pDebug::fConsole(gzU8("\n----Lib: ") + gzStrC(_rLib->sName) );
 		_rLib->dIni(); //IniLib
 		
-        printf("\n--Lib :"  );   _rLib->sName.fPrint();  
+        GZ_printf("\n--Lib :"  );   _rLib->sName.fPrint();  
 		
          fAllClass(*_rLib->_rLastClass);
         _rLib = _rLib->rPrec;
@@ -292,7 +292,7 @@ void fLoadLib(Lib_GZ::uLib* _rLib){
 void fAllClass(uOverplace* _rLastClass){ 
 
 	static int _nId = 0;
-	printf("fALLCLASS: %d ", (int)_rLastClass );
+	GZ_printf("fALLCLASS: %d ", (int)_rLastClass );
 		
     while (_rLastClass != 0){
 		_rLastClass->nId = _nId;
@@ -307,7 +307,7 @@ void fAllClass(uOverplace* _rLastClass){
 void fDoOverPlace(uOverplace* _rClass){
 		uOverplace* _subClass = _rClass;
 		while(_subClass->cfExtAdr != 0){
-			printf("\n     --Do Overplace");
+			GZ_printf("\n     --Do Overplace");
 			uOverplace* _subExtClass = ((uOverplace*)_subClass->cfExtAdr());
 			_subExtClass->cfOver = _rClass->cfOri;
 			_subClass = _subExtClass;
@@ -318,7 +318,7 @@ void fDoOverPlace(uOverplace* _rClass){
 void fIniAllClass(uOverplace* _rLastClass){ 
 
 
-	printf("fIniALLStaticCLASS: %d ", (int)_rLastClass );
+	GZ_printf("fIniALLStaticCLASS: %d ", (int)_rLastClass );
 		
     while (_rLastClass != 0){
 		( gzU8("\n --IniClass :") + _rLastClass->sName + gzU8(" id:") +  gzStrUI( _rLastClass->nId)).fPrint();	
@@ -346,7 +346,7 @@ void fIniClassLib(Lib_GZ::uLib* _rLib){
 /*
 void Lib::fCheckOverPlace(gzPArray(gzStr) _aLib){
 
-    printf("\n--- Check OverPlace %d \n", _aLib.GnSize());
+    GZ_printf("\n--- Check OverPlace %d \n", _aLib.GnSize());
     for(gzInt i = 0; i < _aLib.GnSize(); i++ ){
        Lib_GZ::fConsole(gzU8("Sel") + gzStrI(i) + gzU8(":")  +_aLib[i]);
 		if(dValidateIniOverpace != 0 && dValidateIniOverpace( (void*)_aLib[i].fcStr() ) ){	
@@ -477,7 +477,7 @@ gzBool cLib::fMainUpdate(gzInt _nSleepTime){
 
 	Lib::bIniFinish = true;
 	Sys::Context::Get(this)->fManageMessage();
-   // printf("fMainUpdate\n");
+   // GZ_printf("fMainUpdate\n");
 
     #ifdef GZ_D_Monothread
         Lib_GZ::ThreadList::fNextTask();
@@ -505,7 +505,7 @@ gzBool cLib::fMainUpdate(gzInt _nSleepTime){
 
 
 
-  //  printf("EndSleep\n");
+  //  GZ_printf("EndSleep\n");
   //  Sys::System::Get(this)->fSleep(_nSleepTime); //TODO Syteme
     return true;
 }
