@@ -166,8 +166,10 @@ namespace GZ {
 inline gzDataRC* fDataCopyAlloc( gzUInt8* _aData, gzUIntX _nCopySize, gzUIntX _nNewSize,  gzUIntX _nLimit );
 };
 
+#ifdef D_Debug
 extern gzUInt GZ_nArrayTotalFree ;
 extern gzUInt GZ_nArrayTotalAlloc ;
+#endif
 
 #define gzDataType_Both_READONLY 0			      //Both UnModifiable & Both never free
 #define gzDataType_DataRC_STACK_Array_READONLY 1  //DataRC Modifiable & DataRC never free 
@@ -261,10 +263,16 @@ inline static gzDataRC* fEmptyArray(gzUInt _nSize ) {
 }*/
 
 inline static gzDataRC*  fDataAlloc(  gzUIntX _nSize,  gzUIntX _nLimit ){  //TODO inline?
-	gzDataRC* _oRc =  (gzDataRC*)GZ_fMalloc(1, sizeof(gzDataRC)); GZ_nArrayTotalAlloc++;  //Can be optimised with malloc if we be sure that all data are memcpy
+	gzDataRC* _oRc =  (gzDataRC*)GZ_fMalloc(1, sizeof(gzDataRC)); //Can be optimised with malloc if we be sure that all data are memcpy
+	#ifdef D_Debug
+	GZ_nArrayTotalAlloc++;  
+	#endif
 	
 	if(_nLimit != 0){//Make drMemory happy? Or maybe it's a real leak when it's 0 byte? Or maybe always alloc more than 0 bytes?
-		_oRc->aTab = (gzUInt8*)GZ_fCalloc(1, _nLimit ); GZ_nArrayTotalAlloc++; //Malloc?
+		_oRc->aTab = (gzUInt8*)GZ_fCalloc(1, _nLimit ); //Malloc?
+		#ifdef D_Debug
+		GZ_nArrayTotalAlloc++; 
+		#endif
 		//GZ_printf("\n ********* Calloc:%p , _nSize:%d,  _nLimit:%d ",_oRc->aTab, _nSize, _nLimit);
 		memset( &_oRc->aTab[_nSize], 0, _nLimit - _nSize);//Zero all other 
 	}else{

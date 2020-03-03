@@ -17,10 +17,16 @@
 //#include "Lib_GZ/Base/gzString.h"
 
 namespace Lib_GZ{
+	struct uLib;
+	namespace Lib{
+		extern gzUInt nClass;  extern  uLib* rLastLib; //Global var Avoided?
+	}
+
 
 //TODO Atomic vars for thread safety --> keep sName?
     struct uOverplace {uOverplace* rPrec; gzUInt nId; gzPtrFuncRPAny cfOri; gzPtrFuncRPAny cfOver; gzPtrFunc cfIniClass;  gzPtrFuncRAny cfExtAdr; gzDataRC* sName;};
     //struct uOverplace {uOverplace* rPrec; gzUInt nId; gzPtrFuncRPAny cfOri; gzPtrFuncRPAny cfOver; gzPtrFuncRPAny cfExt;  gzPtrFuncRAny cfExtAdr; gzStr8 sName;};
+	
 	
     //struct uOverplace {uOverplace* rPrec; gzUInt nId; gzPtrFuncRPAny cfOri; gzPtrFuncRPAny cfOver; gzPtrFuncRPAny cfExt;  gzPtrFuncRAny cfExtAdr;};
   //  struct uLib { uLib* rPrec; const char* sName; uOverplace** _rLastClass; gzPtrFuncRInt dIni; };

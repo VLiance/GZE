@@ -153,7 +153,9 @@ SetConsoleOutputCP(CP_UTF8);
 	
 	setbuf(stdout, NULL);
 	
+	#ifdef D_Debug
 	GZ_nArrayTotalAlloc = 0;
+	#endif
 	
 	HWND MainEventHwnd = {0}; //Create a Dummy Windows to handle main events
 	MSG messages = {0};

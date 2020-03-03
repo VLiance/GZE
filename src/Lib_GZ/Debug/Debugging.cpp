@@ -17,9 +17,10 @@
  gzUInt gznCallStackIndex;
 #endif
 
-
+#ifdef D_Debug
 gzUInt GZ_nArrayTotalFree = 0;
 gzUInt GZ_nArrayTotalAlloc = 0;
+#endif
 
 //#include <stdlib.h> //  exit(EXIT_FAILURE);
 	

@@ -14,9 +14,9 @@
 #define tHDef_GZ_Types
 
 //From "Lib_GZ.h"
-#ifdef tLibExport_Lib_GZ
+#ifdef D_Dynamic_Export
 	#define tApi_Lib_GZ __declspec(dllexport)
-#elif tLibImport_Lib_GZ
+#elif DD_Dynamic_Link
 	#define tApi_Lib_GZ __declspec(dllimport)
 #else
 	 #define tApi_Lib_GZ
@@ -199,7 +199,13 @@ struct gzComp{void* oClass; gzPtrFunc fCall; };
 //extern Lib_GZ::cDelegate* GZ_NullObj; 
 #define GZ_NullObj ((void*)0)
 
-namespace Lib_GZ{ struct uLib; namespace Lib{extern gzUInt nClass;  extern  uLib* rLastLib;}};
+#ifndef D_Dynamic_Link
+/*
+namespace Lib_GZ{ struct uLib; namespace Lib{
+extern gzUInt nClass;  extern  uLib* rLastLib; //Global var Avoided?
+}};
+*/
+#endif
 
 #define GZ_FuncWrapD gzDlgWrapD*
 #define GZ_FuncWrapM gzDlgWrapM* _w
@@ -208,7 +214,7 @@ namespace Lib_GZ{ struct uLib; namespace Lib{extern gzUInt nClass;  extern  uLib
 #ifndef zNull
 	#define zNull ((void *)0)
 #endif
-
+/*
 #define tApi_GZ
 #ifdef tLibExport_GZ
     #undef tApi_GZ
@@ -218,7 +224,7 @@ namespace Lib_GZ{ struct uLib; namespace Lib{extern gzUInt nClass;  extern  uLib
     #undef tApi_GZ
     #define tApi_GZ __declspec(dllimport)
 #endif
-
+*/
 //Temp
 #define tApi_Demo
 

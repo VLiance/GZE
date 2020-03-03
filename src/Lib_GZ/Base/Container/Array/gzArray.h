@@ -180,10 +180,17 @@ public:
 			//GZ_printf("\nFree--%d:", _oRC->nSpaceBef);
 			//GZ_fFree(_oRC->aTab - gzp_Data->nSpaceBef); 	GZ_nArrayTotalFree++; //Combined array
 			if( gzDataType_IS_Array_MUSTFREE(_oRC) ){ 
-				GZ_fFree(_oRC->aTab - _oRC->nSpaceBef); 	GZ_nArrayTotalFree++; //Combined array
+				GZ_fFree(_oRC->aTab - _oRC->nSpaceBef); 	
+				#ifdef D_Debug
+				GZ_nArrayTotalFree++; //Combined array
+				#endif
 			}
 			if( gzDataType_IS_DataRC_MUSTFREE(_oRC) ){ 
-				GZ_fFree(_oRC); 	GZ_nArrayTotalFree++; //Combined array
+				GZ_fFree(_oRC); 	
+				#ifdef D_Debug
+				GZ_nArrayTotalFree++; //Combined array
+				#endif
+				
 			}
 		//}
 	}
@@ -230,14 +237,18 @@ public:
 	
 
 	inline gzUInt8* fArrayNewAlloc( gzUIntX _nSize) const {
+		#ifdef D_Debug
 		GZ_nArrayTotalAlloc++;
+		#endif
 		return (gzUInt8*)GZ_fMalloc(_nSize, sizeof(gzUInt8)); 
 	}	
 
 	
 	
 	inline gzUInt8* fArrayAlloc( gzUIntX _nSize) const {
+		#ifdef D_Debug
 		GZ_nArrayTotalAlloc++;
+		#endif
 		return (gzUInt8*)GZ_fCalloc(_nSize, sizeof(gzUInt8)); 
 	}	
 
@@ -260,8 +271,10 @@ public:
 		memcpy( aData->aTab , _aOldTab, _nOldSize );
 	//	if(!_bOldReadonly){ //Old nLimit-> read only   /*// Never read Only?????
 	
-		GZ_fFree(_aOldTab);	GZ_nArrayTotalFree++;
-	
+		GZ_fFree(_aOldTab);
+		#ifdef D_Debug
+			GZ_nArrayTotalFree++;
+		#endif
 
 		fIniConstructor((void*)aData->aTab, _nOldSize, _nSize);
 
