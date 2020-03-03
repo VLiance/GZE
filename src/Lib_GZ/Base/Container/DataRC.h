@@ -213,7 +213,7 @@ public:
 		for(gzUInt i = 0; i < nSize; i++){
 			putchar(aTab[i]);
 		}
-		GZ_printf("\n");
+		putchar('\n');
 	}
 
 

@@ -37,6 +37,7 @@ package  {
 		public function Box( _nX : Float, _nY: Float,  _nWidth : Float, _nHeight: Float, _nLineSize : Float = 1):Void {
 			<cpp>
 			oItf = ((cRoot*)parent.get())->oItf;
+			oDstBuff = ((cRoot*)parent.get())->oDstBuff;
 			</cpp>
 			vPos.nX = _nX;
 			vPos.nY = _nY;
