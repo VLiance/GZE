@@ -28,6 +28,48 @@
 //Lib_GZ::cDelegate* GZ_NullObj; //ReadOnly
 /////////////////////////////////////////
 
+
+
+namespace Lib_GZ{
+	struct uLib;
+	namespace Lib{
+	
+	   uLib* rLastLib = 0;  //zero-initialization -> before dynamic -> ini order ok
+       gzUInt nClass = 0; //SpecialVar
+	   
+	   
+	   gzInt32 nThreadCount = 0; //TODO atomic
+	   
+		//extern gzUInt nClass;  
+		//extern  uLib* rLastLib; //Global var Avoided?
+	}
+//	struct uLib { Lib_GZ::uLib* rPrec; gzDataRC* sName; uOverplace** _rLastClass; gzPtrFuncRAny dIni; };
+	//extern uLib zpLib;
+/*/
+	inline  uLib* fSetLib(uLib* _rLib){
+	   uLib* rTemp =  Lib::rLastLib;
+	   Lib::rLastLib = _rLib;
+	  // GZ_printf("\n uLibName: %s", _rLib->sName);
+	 //  GZ_printf("\n uLibName: aaaaa");
+	   return rTemp;
+	//return 0;
+	}
+	*/
+}
+extern "C" {
+	void* Lib_GZ_fRegisterLib(void* _rLib){
+		Lib_GZ::uLib* rTemp =  Lib_GZ::Lib::rLastLib;
+		Lib_GZ::Lib::rLastLib = (Lib_GZ::uLib*)_rLib;
+		return rTemp;
+	}
+	gzPtrFuncRPAny fRegister = &Lib_GZ_fRegisterLib;
+}
+
+	
+
+
+
+
 namespace Lib_GZ {
 
 namespace Global {
@@ -41,11 +83,6 @@ namespace Lib {
 	//	void fAllClass(uOverplace* _rClass);
 	
 
-	   uLib* rLastLib = 0;  //zero-initialization -> before dynamic -> ini order ok
-       gzUInt nClass = 0; //SpecialVar
-	   
-	   
-	   gzInt32 nThreadCount = 0; //TODO atomic
 	   
 	   
 	/*

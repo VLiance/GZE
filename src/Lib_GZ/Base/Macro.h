@@ -259,80 +259,43 @@ inline Dlg(FpD _Func){GZ_Dlg_ConstFpD}\
 inline Dlg(void* _opClass, FpM _Func){GZ_Dlg_ConstFpM} \
 inline void fReset(){GZ_mDlg_fReset}
 
-/*
-#define GZ_mEndStaticClass(_Class) GZ_mEndStaticClassOp(_Class, Lib_GZ::cStThread)
-/////////////////////////////////////
-////////////// Static class /////////////
-#define GZ_mEndStaticClassOp(_Class, _Op)\
-	public:\
-		inline cs##_Class(Lib_GZ::Base::cClass* _parent): Op(_parent){};\
-		inline ~cs##_Class(){};\
-};\
-GZ_mStaticClassThread(_Class,_Op)
-*/
-
-/*
-	Lib_GZ::uLib zpLib = NewLib();\
-	}*/
-    //Lib_GZ::uLib zpLib = {Lib_GZ::fSetLib(&zpLib), gzU8(#_LibName), &rLastClass }; \
-//////////////////
-
-
-/* Use Ugly Static initialiser
-#define    GZ_mCppClass( _Class)      \
-	namespace _Class{\
-		Lib_GZ::uOverplace zDefault = AddClass(); \
-	}
-	*/
 	
-#define    GZ_mCppClass( _Class)      \
+#define    GZ_mCppClass(_Lib, _Class)      \
 	namespace _Class{\
+		extern "C" { void* GET_##_Lib##_Class(void* _FromThread){return GetClass((Lib_GZ::Base::Thread::cThread*)_FromThread);}; }				\
 		Lib_GZ::uOverplace zDefault; \
-	}	
-	
-//TODO zID in zDefault?
-
-		//gzUInt zId;\
-
-
-/*
-#define    GZ_mCppClass(_LibNameSpace, _Class)        GZ_mCppClassExtSuite(_LibNameSpace, _Class,  0, 0)
-#define GZ_mCppClassExt(_LibNameSpace, _Class, _Op)  GZ_mCppClassExtSuite(_LibNameSpace, _Class, &_Op::Create, &_Op::Adr )
-
-#define GZ_mCppClassExtSuite(_LibNameSpace, _Class, _OpCreate, _OpAdr )\
-	namespace _Class{\
-		gzUInt zId;\
-		Lib_GZ::uOverplace zDefault = NewClass(); \
+		gzPtrFuncRPAny Func_Get = &GET_##_Lib##_Class;\
 	}
-		//Lib_GZ::uOverplace zDefault = {Lib::SetClass(&zDefault), &zId, &Create,  &Create, _OpCreate, _OpAdr};\
-	//}
 
-*/
-///////////////////////
-  //  extern gzUInt _nId;\
-
+	//IniLib_##_LibName
 
 #define GZ_mStaticClass(_Class)  GZ_mStaticClassThread(_Class, &_Class::Ini_Class, 0)}
 #define GZ_mStaticClassOp(_Class, _Op)  GZ_mStaticClassThread(_Class, &_Class::Ini_Class, &_Op::Adr)}
 
 
-//#define GZ_mStaticClassOp(_Class, _Op)  GZ_mStaticClassThread(_Class, &_Op::Create, &_Op::Adr)}
-
-//    struct uOverplace {uOverplace* rPrec; gzUInt nId; gzPtrFuncRPAny cfOri; gzPtrFuncRPAny cfOver; gzPtrFuncRPAny cfExt;  gzPtrFuncRAny cfExtAdr; gzStr8 sName;};
  
-/*
-   GZ_printf("\n ------PTR_Aft: %p", _oCurrThread->st[zDefault.nId]); \
-   _oCurrThread->st.fSet(zDefault.nId, (Lib_GZ::Base::csClass*)_ptr);\
-	  GZ_printf("\n ------PTR_Aft: %p", _oCurrThread->st[zDefault.nId]); \
-	    GZ_printf("\n ------CREATENEWCALSSS!! %p , %p , %p  , %d , %d : "#_Class, _oCurrThread, _oCurrThread->st[zDefault.nId] , _oCurrThread->st(zDefault.nId), zDefault.nId, _oCurrThread->nId); \
 
+/*
+#define GZ_mOverDefault(_Over, _Class)\
+namespace _Class{\
+    gzPtrFuncRPAny cfDefault = (gzPtrFuncRPAny)&_Over::Create;\
+}
 */
+//In  GZ_mStaticClassThread _Class
+  //extern gzPtrFuncRPAny cfDefault;
+ 
+ 
+ 
+
+ 
+ 
+ 
  
 #define GZ_mStaticClassThread(_Class, _pIniClass, _OpAdr)\
 namespace _Class{\
 	gzConst_U8(sClassName, #_Class);\
     extern Lib_GZ::uOverplace zDefault;\
-    extern gzPtrFuncRPAny cfDefault;\
+    extern gzPtrFuncRPAny Func_Get;\
     extern void Ini_Class();\
     inline void* Create(void* _oCurrThread){\
 		cs##_Class* _ptr = new cs##_Class((Lib_GZ::Base::Thread::cThread*)_oCurrThread);			\
@@ -344,13 +307,16 @@ namespace _Class{\
     inline Lib_GZ::uOverplace AddClass(){ zDefault = {Lib::SetClass(&zDefault), 0, &Create,  &Create, _pIniClass, _OpAdr, (gzDataRC* )&sClassName}; return zDefault;}\
     \
 	/* TODO Check if a shared ptr is required */ \
-    inline cs##_Class* Get(Lib_GZ::Base::Thread::cThread* _oCurrThread){\
+    inline cs##_Class* GetClass(Lib_GZ::Base::Thread::cThread* _oCurrThread){\
         if(_oCurrThread->st(zDefault.nId) == 0){\
 		cs##_Class* _ptr =   (cs##_Class*)zDefault.cfOver(_oCurrThread); \
 	      _oCurrThread->st[zDefault.nId] = (cs##_Class*)_ptr; /* cfOver=Create() create new static class */ \
 	}else{\
 		}\
         return static_cast<cs##_Class*>( _oCurrThread->st(zDefault.nId));\
+    }\
+	inline cs##_Class* Get(Lib_GZ::Base::Thread::cThread* _oCurrThread){\
+		return static_cast<cs##_Class*>(Func_Get(_oCurrThread));\
     }\
 	inline gzSp<c##_Class> GetInst(Lib_GZ::Base::Thread::cThread* _oCurrThread){\
         return  gzSCast<c##_Class>( Get(_oCurrThread)->zInst );\
@@ -364,90 +330,7 @@ namespace _Class{\
         return  Get(_oCurrThread)->zInst;\
     }
 	
-	   //  return  gzSCast<c##_Class>( ((cs##_Class*) _oCurrThread->st(zDefault.nId))->zInst );\
 	   
-	   		//GzAssert( Get(_oCurrThread)->zInst != 0, "Singleton must be created first, use C~: "#_Class" = new "#_Class"(...);")		\ //We can get a null singleton
-	   /*
-	   
-	   	inline gzSp<c##_Class> GetInst(Lib_GZ::Base::Thread::cThread* _oCurrThread){\
-		GzAssert( Get(_oCurrThread)->zInst != 0, "Singleton must be created first, use C~: "#_Class" = new "#_Class"(...);")		\
-        return  gzSCast<c##_Class>( Get(_oCurrThread)->zInst );\
-    }\
-	*/
-	   
-	   
-	   
-	/*
-		inline gzSp<c##_Class> GetInst(Lib_GZ::Base::Thread::cThread* _oCurrThread){\
-		GzAssert( Get(_oCurrThread)->zInst != 0, "Singleton must be created first, use C~: "#_Class" = new "#_Class"(...);")		\
-        return  gzSCast<c##_Class>( Get(_oCurrThread)->zInst );\
-    }\*/
-	
-	// _oCurrThread->st[zDefault.nId] = (cs##_Class*)zDefault.cfOver(_oCurrThread); /* cfOver=Create() create new static class */ \
-				
-	/*
-	    inline gzSp<cs##_Class> Get(Lib_GZ::Base::Thread::cThread* _oCurrThread){\
-        if(_oCurrThread->st(zDefault.nId) == 0){\
-               _oCurrThread->st[zDefault.nId] = (cs##_Class*)zDefault.cfOver(_oCurrThread);
-        }
-        return gzSCastSelf<cs##_Class>(_oCurrThread->st(zDefault.nId));
-    }
-	*/
-	
-	/*\
-	inline void CreateSingleton(Lib_GZ::Base::Thread::cThread* _oCurrThread){\
-		Get(_oCurrThread)->zInst = Get(_oCurrThread)->New(_oCurrThread); \
-    }*/
-	
-
-	//  _oCurrThread->st[zDefault.nId] = gzSp<Lib_GZ::cStThread>((cs##_Class*)zDefault.cfOver(_oCurrThread) ); /* cfOver=Create() create new static class */ \
-	
-	//*/
-	  //return gzSCastSelf<cs##_Class>( gzSp<Lib_GZ::cStThread>((cs##_Class*)zDefault.cfOver(_oCurrThread) ) ); /* create new static class */ \
-   // }
-
-		/*
-        if(_oCurrThread->st(zDefault.nId) == 0){\
-            if(_oCurrThread->func(zDefault.nId) != 0){\
-                gzPtrFuncRPAny cfCall = *_oCurrThread->func(zDefault.nId);\
-               _oCurrThread->st[zDefault.nId] = gzSp<Lib_GZ::cStThread>((cs##_Class*)cfCall(_oCurrThread) );\
-            }else{\
-                _oCurrThread->st[zDefault.nId] = gzSp<Lib_GZ::cStThread>((cs##_Class*)zDefault.cfOver(_oCurrThread) );\
-            }\
-        }\
-        return gzSCastSelf<cs##_Class>((_oCurrThread->st(zDefault.nId)->get()));\
-    }
-	*/
-	
-
-		 //cfOver(void* _oCurrThread) == Create function
-	 
-	 //  inline Lib_GZ::uOverplace NewClass(){ zDefault = {0, 0, &Create,  &Create, _OpCreate, _OpAdr}; Ini_Class(); return zDefault;}\
-	// inline Lib_GZ::uOverplace NewClass(){ zDefault = {Lib::SetClass(&zDefault), 0, &Create,  &Create, _OpCreate, _OpAdr}; Ini_Class(); return zDefault;}\
-    
-	
-           //     _oCurrThread->st[_nId] = gzSp<Lib_GZ::cStThread>((cs##_Class*)cfDefault(_oCurrThread) );\
-
-
-#define GZ_mOverDefault(_Over, _Class)\
-namespace _Class{\
-    gzPtrFuncRPAny cfDefault = (gzPtrFuncRPAny)&_Over::Create;\
-}
-
-
-//, gzStringize(_Class)
-/*
-#define GZ_mCppClass(_LibNameSpace, _Class)\
-namespace _Class{\
-    gzUInt zId;\
-    Lib_GZ::uOverplace zDefault = {_LibNameSpace::fSetClass(&zDefault), &zId, &Create, &Create, 0, 0};\
-}
-#define GZ_mCppClassExt(_LibNameSpace, _Class, _Ext)\
-namespace _Class{\
-    gzUInt zId;\
-    Lib_GZ::uOverplace zDefault = {_LibNameSpace::fSetClass(&zDefault), &zId, &Create, &Create, &_Ext::Create, &_Ext::Adr};\
-}
-*/
 
 #define GZ_mCppLib(_LibName)\
 GZ_mCppLibVar(_LibName)
@@ -462,44 +345,12 @@ namespace _LibName{\
 }
 
 
-//inline void SetLibVar(){zpLib.rPrec = Lib_GZ::fSetLib(&zpLib);  zpLib.sName = sLibName; zpLib._rLastClass =  &rLastClass; } \
-	//inline void SetLibVar(){Lib_GZ::uLib zpLib1 =  {Lib_GZ::fSetLib(&zpLib), sLibName, &rLastClass, 0 };  } \
-	
-//inline void SetLibVar(){Lib_GZ::uLib zpLib1 =  {Lib_GZ::fSetLib(&zpLib), sLibName, &rLastClass, &IniLib_##_LibName };  } \
-//Lib_GZ::uLib zpLib =  {0, sLibName, &rLastClass, 0 };\
 
 
 #define GZ_mCppSetLib(_LibName)\
 		_LibName::zpLib.rPrec = Lib_GZ::fSetLib(&_LibName::zpLib);  _LibName::zpLib.sName = (gzDataRC*)&_LibName::sLibName; _LibName::zpLib._rLastClass =  &_LibName::rLastClass; 
 		
-		
-//Lib_GZ::uLib zpLib =  {Lib_GZ::fSetLib(&zpLib), _LibName##::sLibName, &rLastClass, &IniLib_##_LibName }
 
-
-//Lib_GZ::uLib zpLib =  {Lib_GZ::fSetLib(&zpLib), sLibName, &rLastClass, 0 };\
-//Lib_GZ::uLib zpLib =  {Lib_GZ::fSetLib(&zpLib), sLibName, &rLastClass, &IniLib_##_LibName };\
-
-
-//#ifndef GZ_tAutoIni
-     //zero-initialization -> before dynamic -> ini order ok
-	//#define GZ_mCppLib(_LibName)\
-	//GZ_mCppLibVar(_LibName)
-
-/*
-#else
-
-    #define GZ_mCppLib(_LibName)\
-        GZ_mCppLibVar(_LibName)\
-    extern "C" int IniLib_##_LibName();\
-    static char Ini =  IniLib_##_LibName();
-
-#endif
-*/
-
-
-	//inline  Lib_GZ::uLib  NewLib(){return {Lib_GZ::fSetLib(&zpLib), gzU8(#_LibName), &rLastClass };} \
-    //Lib_GZ::uLib zpLib = {Lib_GZ::fSetLib(&zpLib), gzU8(#_LibName), &rLastClass }; \
-//}
 
 #define GZ_mHLib(_LibName)\
 extern "C" Lib_GZ::uLib* IniLib_##_LibName();\

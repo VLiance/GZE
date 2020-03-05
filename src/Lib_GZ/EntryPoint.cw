@@ -22,6 +22,7 @@ package  {
 		
 		
 		//gzSp<Lib_GZ::cLib> oGzLib;
+		//gzGp<Lib_GZ::cEntryPoint> oMain;
 		gzGp<Lib_GZ::cEntryPoint> oMain;
 		//gzSp<Lib_GZ::Sys::cMainThreadPlatformMsg> oMainMsg;
 		

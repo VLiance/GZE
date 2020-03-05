@@ -26,6 +26,7 @@ class SharedCount : gzAny {
  	gzInt nSharedCount;
  	gzInt nWeakCount;
    
+   // inline SharedCount() : gzAny(), nSharedCount(0), nWeakCount(0){
     inline SharedCount() : gzAny(), nSharedCount(0), nWeakCount(0){
    
    }
@@ -61,7 +62,7 @@ class SharedCount : gzAny {
 		
 	}
 	
-    virtual inline ~SharedCount(){
+    inline virtual ~SharedCount(){
 	};
 };
 

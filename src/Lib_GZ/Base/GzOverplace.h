@@ -16,6 +16,13 @@
 //#include "Lib_GZ/StThread.h"
 //#include "Lib_GZ/Base/gzString.h"
 
+
+
+extern "C" {
+	void* Lib_GZ_fRegisterLib(void* _rLib);
+	extern gzPtrFuncRPAny fRegister;
+}
+
 namespace Lib_GZ{
 	struct uLib;
 	namespace Lib{
@@ -32,13 +39,12 @@ namespace Lib_GZ{
   //  struct uLib { uLib* rPrec; const char* sName; uOverplace** _rLastClass; gzPtrFuncRInt dIni; };
     struct uLib { Lib_GZ::uLib* rPrec; gzDataRC* sName; uOverplace** _rLastClass; gzPtrFuncRAny dIni; };
     extern uLib zpLib;
+	
+
     inline  uLib* fSetLib(uLib* _rLib){
-       uLib* rTemp =  Lib::rLastLib;
-       Lib::rLastLib = _rLib;
-	  // GZ_printf("\n uLibName: %s", _rLib->sName);
-	 //  GZ_printf("\n uLibName: aaaaa");
-       return rTemp;
-  //return 0;
+      // return ( uLib*)Lib_GZ_fRegisterLib(_rLib);
+       return ( uLib*)fRegister(_rLib);
+	   
     }
 }
 
