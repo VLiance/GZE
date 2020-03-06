@@ -22,6 +22,13 @@
 	 #define tApi_Lib_GZ
 #endif
 
+#define  GZ_FCallType __cdecl
+
+
+
+#define GzExport extern "C" __declspec(dllexport)  GZ_FCallType 
+
+
 
 #define BUILD_BUG_ON(condition) ((void)sizeof(char[1 - 2*!!(condition)]))
 
@@ -148,11 +155,11 @@ typedef float gzFloat;
 #define GZ_nMinFloat       GZ_nMinFloat32  //Require IEE 754
 /////////////////////////////////////////////////////////////////////////
 
-typedef void (*gzPtrFunc)(void);
-typedef void* (*gzPtrFuncRAny)(void);
-typedef void* (*gzPtrFuncRPAny)(void*);
-typedef gzInt (*gzPtrFuncRInt)(void);
-typedef gzBool (*gzPtrFuncRBoolPAny)(void*);
+typedef void (GZ_FCallType *gzPtrFunc)(void);
+typedef void* (GZ_FCallType *gzPtrFuncRAny)(void);
+typedef void* (GZ_FCallType *gzPtrFuncRPAny)(void*);
+typedef gzInt (GZ_FCallType *gzPtrFuncRInt)(void);
+typedef gzBool (GZ_FCallType *gzPtrFuncRBoolPAny)(void*);
 
 typedef struct  {  //Auto memory management
     gzUInt nNbIns;

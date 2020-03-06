@@ -40,7 +40,7 @@ package  {
 		//	Debug.fTrace("Draw _nNbElement: " + _nNbElement);
 			
 			
-			OpenGL.fBindFramebuffer(FRAMEBUFFER, null); //Default?
+			OpenGL.fBindFramebuffer(FRAMEBUFFER, null); //Default
 	
 			OpenGL.fEnable( BLEND );
 			//OpenGL.fBlendFunc(ONE_MINUS_DST_ALPHA, ONE); //Front to back

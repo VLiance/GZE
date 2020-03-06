@@ -19,14 +19,14 @@
 
 
 extern "C" {
-	void* Lib_GZ_fRegisterLib(void* _rLib);
-	extern gzPtrFuncRPAny fRegister;
+	GzExport void* Lib_GZ_fRegisterLib(void* _rLib);
 }
 
 namespace Lib_GZ{
 	struct uLib;
 	namespace Lib{
 		extern gzUInt nClass;  extern  uLib* rLastLib; //Global var Avoided?
+		extern gzPtrFuncRPAny fRegisterLib;
 	}
 
 
@@ -43,7 +43,7 @@ namespace Lib_GZ{
 
     inline  uLib* fSetLib(uLib* _rLib){
       // return ( uLib*)Lib_GZ_fRegisterLib(_rLib);
-       return ( uLib*)fRegister(_rLib);
+       return ( uLib*)Lib_GZ::Lib::fRegisterLib(_rLib);
 	   
     }
 }

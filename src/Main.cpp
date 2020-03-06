@@ -271,6 +271,19 @@ extern "C" int main( int argc, const char* argv[] ){
 }
 
 
+#else
+ /*Important for avoiding Name decoration*/
+
+	GzExport  int gze_entry(char* _sArg){
+		printf("\n main_entry found !! \n ");
+		WinMain(0,0,0,0);
+		return 0;
+	}
+	GzExport void test(  ){
+		printf("\n test found !! \n ");
+	}
+
+ 
 #endif
 
 

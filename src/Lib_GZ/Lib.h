@@ -11,182 +11,37 @@
 #ifndef tHDef_GZ_Lib
 #define tHDef_GZ_Lib
 
-//#include "Lib_GZ/Sys/Window.h"
-//#include "Lib_GZ/Sys/Context.h"
-
 #include "Lib_GZ/Base/SmartPtr/gzSp.h"
 #include "Lib_GZ/Base/Thread/Thread.h"
-/*
-#include "Lib_GZ/Sys/Context.h"
 
-#include "Lib_GZ/QArray.h"
-*/
+
 namespace Lib_GZ{
 
-namespace Global {
-	extern gzInt nNumWindows;
-	
-}
-
-/*
-	namespace Sys{
-		class cWindow;
-		class cContext;
+	namespace Global {
+		extern gzInt nNumWindows;
+		
 	}
-*/
 
-/*
-inline uLib* fAddLib( gzPStr _sName, gzQArray<uOverplace>* _qaClass){
-    return  zqaLibList.fPush({_sName, _qaClass}).val();
-}*/
+	//GzExport void* Lib_GZ_fAllClass(uOverplace*);
 
-/*
-class cLib;
-namespace File{class cResource;}
-typedef File::cResource* (*gzPtrFuncRc)(void);
-*/
-namespace Lib {
+	namespace Lib {
 
-	extern void fLoadAllLib();
-	extern void fLoadLib( Lib_GZ::uLib* _oLib);
-	extern void fIniClassLib(Lib_GZ::uLib* _rLib);
+		extern gzPtrFuncRBoolPAny fAllClass;
+		extern gzPtrFuncRPAny fRegisterLib;
+		
+		extern  gzInt32 nThreadCount; //Atomic
 
-	extern void fAllClass(uOverplace* _rLastClass);
-	extern void fIniAllClass(uOverplace* _rLastClass);
+		
+		extern void fLoadAllLib();
+		extern void fLoadLib( Lib_GZ::uLib* _oLib);
+		extern void fIniClassLib(Lib_GZ::uLib* _rLib);
 
-	extern void fDoOverPlace(uOverplace* _rClass);
- 
-	
-/*
-	namespace Sys{
-	class cContext;
-	class cWindow;
-	}*/
- extern  gzInt32 nThreadCount; //Atomic
-/*
-	extern gzBool bLittleEndian;
-    extern gzQArray<uLib> zqaLibList;
-   // uLib* fAddLib( gzPStr _sName, gzQArray<uOverplace>* _qaClass);
+		//extern void fAllClass(uOverplace* _rLastClass);
+		extern void fIniAllClass(uOverplace* _rLastClass);
 
-
-
-    extern gzBool bIniFinish;
-    extern gzInt32 nNumWindows;
-    extern gzBool bIsAlive ;
-    extern gzInt32 nAppReturn;
-    extern gzBool  bIsIni;
-
-    extern gzStr sDirExe;
-    extern gzStr sExeName;
-    extern gzStr sExeExt;
-    extern gzStr sExe;
-    extern gzStr sRcDir;
-
-    extern gzStr sDirRcFiles;
-    extern gzStr sDirRcEmbed;
-
-	extern gzStr sDirExe; //Atomic Const?
-    extern  gzStr sExeName;//Atomic Const?
-    extern  gzStr sExeExt; //Atomic Const?
-    extern gzStr sExe; //Atomic Const?
-
-
-
-    extern gzWp<Lib_GZ::Sys::cContext> oWinLib;
-
-    gzBool fAddLoadRc(gzPtrFuncRc _dPtrFunc);
-
-    void fSetID(uOverplace* _rClass);
-
-
-
-   // void fPreIni();
-    void fCheckOverPlace(gzPArray(gzStr) _aLib);
-    void fDoOverPlace(uOverplace* _rClass);
-
-    extern gzArray<gzStr> aLib;
-*/
-
-}
-
-
-/*
-class cLib : public Lib_GZ::Base::Thread::cThread  {
-
-	public:
-        //cLib(Lib_GZ::cBase* _parent);
-       inline void	Ini_cLib(){};
-
-		cLib(gzUIntX _nInstanceId, gzStr _sArg, gzUIntX _nCmd);
- 
- 
-
-        gzSp<Sys::cContext> oWinLib;
-
-        gzBool bIsAlive;
-
-
-        void fIni();
-
-
-        gzBool fMainUpdate(gzInt _nSleepTime = 1);
-
-        void fSetDirRcFiles(gzPStr _sRcDir);
-        void fSetDirRcEmbed(gzPStr _sDirRcEmbed);
-
-        void fLoadAllRc();
-
-        ~cLib();
-
-	private:
-
-};*/
-
-/*
-class tApi_GZ csLib: public Lib_GZ::cStThread {
-
-	public:
-		inline gzSp<cLib> New(gzUIntX _nInstanceId, gzStr _sArg, gzUIntX _nCmd){
-			gzSp<cLib>_oTemp = gzSp<cLib>(new cLib(_nInstanceId, _sArg, _nCmd));
-			_oTemp->Ini_cLib();
-			return _oTemp;
-		}
-
-
-	void fStaticIni();
-
-     gzBool bIniFinish;
-     gzInt32 nNumWindows;
-     gzBool bIsAlive ;
-     gzInt32 nAppReturn;
-     gzBool  bIsIni;
-
-
-
-    // gzWp<Sys::cWindow> oWinLib;
-
- //   inline csLib(Lib_GZ::cBase* _parent): Lib_GZ::cStThread(_parent){};
- //   inline ~csLib(){};
-
-	private:
-        //GZ_mEndStaticClass(Lib)
-		//Static function
-
-		//inline csLib(Lib_GZ::cBase* _parent): Lib_GZ::cStThread(_parent){};
-		//inline ~csLib(){};
-};
-GZ_mStaticClass(Lib)
-*/
-namespace Lib {
-/*
-	inline gzSp<cLib> New(gzUIntX _nInstanceId, gzStr _sArg, gzUIntX _nCmd){
-		gzSp<cLib>_oTemp = gzSp<cLib>(new cLib(_nInstanceId, _sArg, _nCmd));
-		_oTemp->Ini_cLib();
-		return _oTemp;
-	}*/
-}
-
-
+		extern void fDoOverPlace(uOverplace* _rClass);
+	 
+	}
 }
 
 #endif

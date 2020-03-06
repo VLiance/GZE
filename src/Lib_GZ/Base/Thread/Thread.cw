@@ -25,7 +25,7 @@ package  {
 		
 		
 		<cpp_class_h>
-			static gzUInt nCurrId; //TODO MAKE IT ATOMIC
+			//static gzUInt nCurrId; //TODO MAKE IT ATOMIC //TODO better way
 			cThreadExt* pThreadExt;
 			gzArray<Lib_GZ::Base::csClass*> st;
 			gzSp<cClass> oObj;
@@ -45,7 +45,7 @@ package  {
 		</cpp_class_h>
 		
 		<cpp_class>
-			gzUInt cThread::nCurrId = 0; //TODO MAKE IT ATOMIC
+			//gzUInt cThread::nCurrId = 0; //TODO MAKE IT ATOMIC
 			cThread* GzThread = 0;
 		</cpp_class>
 		
@@ -55,8 +55,13 @@ package  {
 		
 		<cpp_initializer>
 				thread = this;
+				static gzUInt _nCurrId = 0; //TODO better way
+				nId = _nCurrId;
+				_nCurrId++;
+				/*
 				nId = nCurrId;
 				nCurrId++;
+				*/
 		</cpp_initializer>
 		
 		<cpp_namespace_h>
