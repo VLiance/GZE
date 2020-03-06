@@ -21,7 +21,6 @@ namespace Lib_GZ{
 		extern gzInt nNumWindows;
 		
 	}
-
 	//GzExport void* Lib_GZ_fAllClass(uOverplace*);
 
 	namespace Lib {

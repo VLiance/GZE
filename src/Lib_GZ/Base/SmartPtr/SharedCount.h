@@ -54,16 +54,16 @@ class SharedCount : gzAny {
 		}
 	};
 	
+	/*
 	//Only on debug
 	 virtual void ViewAddInst() const {
-		
 	}
 	 virtual void ViewSubInst() const {
-		
 	}
-	
     inline virtual ~SharedCount(){
-	};
+	};*/
+	
+	
 };
 
 }}

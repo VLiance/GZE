@@ -187,7 +187,7 @@ namespace Lib_GZ{namespace Base{class cClass;}}
 //typedef Lib_GZ::Base::cClass* gzAny;
 typedef Lib_GZ::Base::cClass* gzClass;
 struct gzAny{
-  inline virtual ~gzAny(){};
+ // inline virtual ~gzAny(){};
 };
 
 

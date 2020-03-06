@@ -14,6 +14,8 @@ package  {
 <cpp>
 	#include <GZE.h>
 	#include <Main.cpp>
+	
+	#include <MinGZE.cxx>
 
 	
 		extern Lib_GZ::cEntryPoint* GZ_CreateEntryPointClass();
