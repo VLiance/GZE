@@ -156,6 +156,7 @@ package  {
 
 
 		 public pure function fDraw(_oPtA:Pt<Float>,_oPtB:Pt<Float>,_oPtC:Pt<Float>,  _aPtSA:Mapped<uPoint3D>,_aPtSB:Mapped<uPoint3D>,_aPtSC:Mapped<uPoint3D>,   _nPosX : Int, _nPosY : Int, _aPixelArray : CArray<Int32, 2>,  _nSWidth : UInt,  _nSHeight : UInt, _oSource : Object, _nX_Start : Int, _nX_End : Int, _nY_Start : Int, _nY_End : Int,  _nRsAlpha: UInt , _nRsBrRed: UInt , _nRsBrGreen: UInt   , _nRsBrBlue: UInt , _nRsRevRed: UInt , _nRsRevBlue: UInt , _nRsRevGreen: UInt , _nOfRevRed: UInt , _nOfRevBlue: UInt , _nOfRevGreen: UInt, _bNothingRight : Bool = false ):Void  {
+		 //public function fDraw(_oPtA:Pt<Float>,_oPtB:Pt<Float>,_oPtC:Pt<Float>,  _aPtSA:Mapped<uPoint3D>,_aPtSB:Mapped<uPoint3D>,_aPtSC:Mapped<uPoint3D>,   _nPosX : Int, _nPosY : Int, _aPixelArray : CArray<Int32, 2>,  _nSWidth : UInt,  _nSHeight : UInt, _oSource : Object, _nX_Start : Int, _nX_End : Int, _nY_Start : Int, _nY_End : Int,  _nRsAlpha: UInt , _nRsBrRed: UInt , _nRsBrGreen: UInt   , _nRsBrBlue: UInt , _nRsRevRed: UInt , _nRsRevBlue: UInt , _nRsRevGreen: UInt , _nOfRevRed: UInt , _nOfRevBlue: UInt , _nOfRevGreen: UInt, _bNothingRight : Bool = false ):Void  {
 			
 			var _oPtT :Pt<Float>;
 			 var _oPtM :Pt<Float>;

@@ -24,7 +24,7 @@ package  {
 		//	_oShape.nTLx = 0
 		}
 
-
+		//TODO private inline in .cpp
 		public pure function fCopyPixelToDest(_aDest : CArray<Int32, 2>, _nPixelClip : UInt, _nX : Int, _nY : Int ):Void  {
 
 		
@@ -229,6 +229,7 @@ package  {
 
 	
 	public pure function fDrawSegTri(_nDirX : Int,  _oPtT :  Pt<Float>,  _oPtL :  Pt<Float>, _rPtST :  Mapped<uPoint3D>,  _rPtSL :  Mapped<uPoint3D>, _oPtSegT :  Pt<Float>, _oPtSegL  : Pt<Float>,  _rPtSegST:  Mapped<uPoint3D>, _rPtSegSL :  Mapped<uPoint3D>, _aDest : CArray<Int32, 2>, _aSource : CArray<Int32, 2>, _nPosX : Int,  _nPosY : Int, _nX_Start : Int, _nX_End : Int, _nY_Start : Int, _nY_End : Int, _nLimW : UInt,  _nLimH : UInt, _nLast :Int, _nAlpha : UInt,  _nPcBrRed: UInt, _nPcBrGreen : UInt, _nPcBrBlue : UInt, _nPcRevRed : UInt, _nPcRevGreen: UInt , _nPcRevBlue: UInt, _nOfRevRed:UInt, _nOfRevBlue:UInt, _nOfRevGreen:UInt, _nFirst:Int, _bNothingRight:Bool = false):Void {
+	//public function fDrawSegTri(_nDirX : Int,  _oPtT :  Pt<Float>,  _oPtL :  Pt<Float>, _rPtST :  Mapped<uPoint3D>,  _rPtSL :  Mapped<uPoint3D>, _oPtSegT :  Pt<Float>, _oPtSegL  : Pt<Float>,  _rPtSegST:  Mapped<uPoint3D>, _rPtSegSL :  Mapped<uPoint3D>, _aDest : CArray<Int32, 2>, _aSource : CArray<Int32, 2>, _nPosX : Int,  _nPosY : Int, _nX_Start : Int, _nX_End : Int, _nY_Start : Int, _nY_End : Int, _nLimW : UInt,  _nLimH : UInt, _nLast :Int, _nAlpha : UInt,  _nPcBrRed: UInt, _nPcBrGreen : UInt, _nPcBrBlue : UInt, _nPcRevRed : UInt, _nPcRevGreen: UInt , _nPcRevBlue: UInt, _nOfRevRed:UInt, _nOfRevBlue:UInt, _nOfRevGreen:UInt, _nFirst:Int, _bNothingRight:Bool = false):Void {
 
 
 
