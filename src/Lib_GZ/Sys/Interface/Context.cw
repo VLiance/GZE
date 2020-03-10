@@ -147,14 +147,14 @@ package  {
 			Debug.fTrace("fCreateContext Not implemented");
 		}
 
-		private function fReceiveMessage( _sMessage : String):Void; //Dummy for dInterProcessMessage
+		//private function fReceiveMessage( _sMessage : String):Void; //Dummy for dInterProcessMessage
 		
 
 		
-		public function fSendData(_nOtherWinId : UInt):Void;
+		//public function fSendData(_nOtherWinId : UInt):Void;
 		  
-        public function fIniPixelZone():Void;
-        public function drawPixel():Void;
+//        public function fIniPixelZone():Void;
+    //    public function drawPixel():Void;
 		
       
 		
@@ -164,7 +164,7 @@ package  {
 		}
 
 	
-        public function fClear():Void{
+        override function fClear():Void{
 
 			if(bIniDrawZone){
 				<cpp>
@@ -183,12 +183,12 @@ package  {
 			}
 		}
 		
-        public function fCpuVSyncOnGpu():Void;
+      //  public function fCpuVSyncOnGpu():Void;
 		
-		public function fIsWindowReady():Bool;
+	//	public function fIsWindowReady():Bool;
 		
 		
-		public function fIniRender():Void {
+		override function fIniRender():Void {
 			if(bIniDrawZone == true){ // Or jsut registred
 				if(bWinGPU ) {	
 					oGpu.fIniRender();
@@ -197,20 +197,20 @@ package  {
 		}
 
 
-		public function fGetMousePosition():Void;
-		public function fStartCaptureOutside():Void;
-		public function fStopCaptureOutside():Void;
+		override function fGetMousePosition():Void;
+		override function fStartCaptureOutside():Void;
+		override function fStopCaptureOutside():Void;
 		
 	
 		
-		public function fFrameEnd():Void;
-		public function fGetPixelArray():CArray<Int, 2>;
+		override function fFrameEnd():Void;
+		override function fGetPixelArray():CArray<Int, 2>;
 		
-		public function  fGetKey(_oKey : Key):Void;
+		override function  fGetKey(_oKey : Key):Void;
 		
 
 		
-		public function fIniPixelDrawZone(): CArray<Int32>{
+		override function fIniPixelDrawZone(): CArray<Int32>{
 			Debug.fError("fIniPixelDrawZone: not implemented, it require an initialised 1D pixel array");
 		}
 			 

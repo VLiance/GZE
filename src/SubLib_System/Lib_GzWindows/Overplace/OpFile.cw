@@ -56,7 +56,7 @@ package  {
 
 		
 		
-		public static function fIsSysFileExist(_sFile : String):Bool {
+		override static function fIsSysFileExist(_sFile : String):Bool {
 			
 			<cpp>
 			gzStr16 _sUtf16File(_sFile.fToUTF16());
@@ -82,7 +82,7 @@ package  {
 	
 		
 		
-		public override  function fGetSystemExePath() : String { //Return the full path with exe name
+		override  function fGetSystemExePath() : String { //Return the full path with exe name
 			//var _sFullExe : String;
 			Debug.fTrace("\nfGetSystemExePath\n");
 			<cpp>
@@ -115,7 +115,7 @@ package  {
 		//b 	Open in binary (untranslated) mode; translations involving carriage-return and linefeed characters are suppressed.
 		//If t or b is not given in mode, the default translation mode is defined by the global variable _fmode. If t or b is prefixed to the argument, the function fails and returns NULL.
 		
-		public override   function fLoadFile(_oRc : Resource):Bool {
+		override   function fLoadFile(_oRc : Resource):Bool {
 			//Error, can't open file
 			
 		//	sFullPath = "C:/Test.txt"

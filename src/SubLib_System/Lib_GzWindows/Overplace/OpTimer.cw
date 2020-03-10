@@ -15,7 +15,7 @@ package  {
 		public var nPCFreq : Float; //Flaot64?
 		
 		
-		public   function fStart() : Void { //Return the full path with exe name
+		override function fStart() : Void { //Return the full path with exe name
 			
 			<cpp>
 				LARGE_INTEGER li;
@@ -32,7 +32,7 @@ package  {
 		}
 		
 			
-		public   function fGet() : Float { //Return the full path with exe name
+		override function fGet() : Float { //Return the full path with exe name
 			
 			<cpp>
 				LARGE_INTEGER li;

@@ -401,7 +401,7 @@ package  {
 		}
 
 
-		public function fContextResume():Void {
+		override function fContextResume():Void {
 		//	oGpuObj.fRecreate();
 		}
 		

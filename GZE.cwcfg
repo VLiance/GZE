@@ -1,6 +1,6 @@
 ﻿<Lib> <!-- GZE Cwc Config -->
 
-<cmd>@{_pModule}Lib.cwc</cmd>
+<!-- <cmd>@{_pModule}Lib.cwc</cmd>  --><!-- Not anymore -->
 
 
 <Exe>

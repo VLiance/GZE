@@ -153,7 +153,7 @@ package  {
 		}
 		
 		
-		public override  function fTrace(_sValue:String):Void {
+		 override  function fTrace(_sValue:String):Void {
 			<cpp>
 				_::fPrint(thread->nId, (char*)L"T:", FOREGROUND_GREEN, _sValue, FOREGROUND_GREEN |FOREGROUND_INTENSITY);
 			   // GZ_printf("1:%s\n", (char*)_sValue.fcStr());
@@ -161,28 +161,28 @@ package  {
 		}	
 		
 
-		public override  function fInfo(_sValue:String):Void {
+		 override  function fInfo(_sValue:String):Void {
 			<cpp>
 				_::fPrint(thread->nId, (char*)L"I:", _::FgColor::MAGENTA, _sValue, _::FgColor::MAGENTA | FOREGROUND_INTENSITY);
 			</cpp>
 		}	
 		
-		public override  function fWarning(_sValue:String):Void{
+		 override  function fWarning(_sValue:String):Void{
 			<cpp>
 				_::fPrint(thread->nId, (char*)L"W:", _::FgColor::YELLOW, _sValue, _::FgColor::YELLOW | FOREGROUND_INTENSITY);
 			</cpp>
 		}
-		public override  function fError(_sValue:String):Void{
+		 override  function fError(_sValue:String):Void{
 			<cpp>
 			   _::fPrint(thread->nId, (char*)L"E:", _::FgColor::RED, _sValue, _::FgColor::RED | FOREGROUND_INTENSITY);
 			</cpp>
 		}
-		public	override  function fPass(_sValue:String):Void{
+		override  function fPass(_sValue:String):Void{
 			<cpp>
 				_::fPrint(thread->nId, (char*)L"P:", FOREGROUND_GREEN, _sValue, FOREGROUND_GREEN |FOREGROUND_INTENSITY);
 			</cpp>
 		}
-		public override  function fFatal(_sValue:String):Void{
+		override  function fFatal(_sValue:String):Void{
 			<cpp>
 				_::fPrint(thread->nId, (char*)L"F:", _::FgColor::RED, _sValue, _::FgColor::RED | FOREGROUND_INTENSITY);
 			</cpp>

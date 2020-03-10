@@ -82,8 +82,8 @@ package  {
 		
 	
 		
-		public function fSendData(_nOtherWinId : UInt):Void;
-		private function fReceiveMessage( _sMessage : String):Void; //Dummy for dInterProcessMessage
+		//public function fSendData(_nOtherWinId : UInt):Void;
+		//private function fReceiveMessage( _sMessage : String):Void; //Dummy for dInterProcessMessage
 
         public function drawPixel():Void;
         public function fKeyIsDown(_nKeyVal : Int):Void;

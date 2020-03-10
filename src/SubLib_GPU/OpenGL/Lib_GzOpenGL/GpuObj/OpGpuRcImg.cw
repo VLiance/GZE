@@ -25,7 +25,7 @@ package  {
 		public var oUvTexDimNorm : UnVec2;
 		
 		
-		public function fLoadImg(_aImg : CArray<Int, 1>, _nWidth : Int, _nHeight : Int, _oGpuTexLayer : Texture):Val{
+		override function fLoadImg(_aImg : CArray<Int, 1>, _nWidth : Int, _nHeight : Int, _oGpuTexLayer : Texture):Val{
 		
 			oGpuTexLayer = _oGpuTexLayer;
 				

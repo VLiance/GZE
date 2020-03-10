@@ -77,7 +77,7 @@ package  {
 		
 
 		//////////////////////////////
-		public function fApplyColor():Void {
+		override function fApplyColor():Void {
 			/*
 			
 			GZ_uEase_fStep(&(ua_nAttX));

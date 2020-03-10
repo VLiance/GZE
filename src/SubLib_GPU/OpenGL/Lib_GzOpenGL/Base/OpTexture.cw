@@ -61,7 +61,7 @@ package  {
 			//OpenGL.fUniform1i(nId, _nSlot);
 		}
 
-		public function fSendSize(_nWidth : Float, _nHeight : Float):Void {
+		override function fSendSize(_nWidth : Float, _nHeight : Float):Void {
 			OpenGL.fUniform2f(nSizeId, _nWidth, _nHeight);
 		}
 

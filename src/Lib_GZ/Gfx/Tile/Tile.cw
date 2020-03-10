@@ -451,7 +451,7 @@ package  {
 		}
 		
 			//Overited
-		public function fGetTypeName():String {
+		override function fGetTypeName():String {
 			return "Tile";
 		}
 		

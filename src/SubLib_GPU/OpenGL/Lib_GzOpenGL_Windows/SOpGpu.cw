@@ -75,7 +75,7 @@
 		
 		}
 		
-		public function fLoadImg(_aImg : CArray<Int, 1>, _nWidth : Int, _nHeight : Int):Void{
+		override function fLoadImg(_aImg : CArray<Int, 1>, _nWidth : Int, _nHeight : Int):Void{
 			Debug.fTrace("Load Img");
 		}
 		
@@ -230,7 +230,7 @@
 		 }
 		
 		
-		 public function fLoadDefaultShader():Bool {
+		 override function fLoadDefaultShader():Bool {
 			 
 			<cpp>
 			 const char* _file = __FILE__; //Temp

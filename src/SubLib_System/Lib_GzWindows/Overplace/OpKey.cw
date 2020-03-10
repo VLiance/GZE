@@ -161,7 +161,7 @@ package  {
 			</cpp>
 		}
 		
-		public override function fIsDown(_hKey:eKey):Bool {
+		override function fIsDown(_hKey:eKey):Bool {
 			return aKeyDown[_hKey];
 		}
 		

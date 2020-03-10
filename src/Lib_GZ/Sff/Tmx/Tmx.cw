@@ -30,7 +30,7 @@ package  {
 			oMainMap = new MapData();
 		}
 
-		public function fLoad( _oRc : RcText):Bool {
+		override function fLoad( _oRc : RcText):Bool {
 			
 			if(xXml.fLoad(_oRc)){
 			

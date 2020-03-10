@@ -14,7 +14,7 @@
 			System();
 		}
 		 
-		 function fSleep(_nMilliseconds : UInt = 1):Void {
+		override function fSleep(_nMilliseconds : UInt = 1):Void {
 			<cpp>
 				//GZ_printf("\nSleep");
 			    Sleep(_nMilliseconds);
@@ -25,14 +25,14 @@
 		}
 */
 		
-		 public function fDetectGpu():Bool {
+		 override function fDetectGpu():Bool {
 			
 			return true;
 		}
 
 		
 		
-		 function fExit():Void;
+		override function fExit():Void;
 		
 	}
 }

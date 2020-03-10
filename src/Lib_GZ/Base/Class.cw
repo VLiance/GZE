@@ -62,9 +62,9 @@ package  {
 		</cpp_class_h>
 			
 			
-		<cpp_initializer_list>
+		<cpp_preinitializer_list>
 			:SharedCount(), nInstCount(0)
-		</cpp_initializer_list>
+		</cpp_preinitializer_list>
 			
 		<cpp_initializer>
 			if(_parent != 0){

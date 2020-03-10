@@ -29,7 +29,7 @@ package  {
 		
 		
 
-		public function fDraw():Void {
+		override function fDraw():Void {
 			
 			oEvbo.fBind();
 			
