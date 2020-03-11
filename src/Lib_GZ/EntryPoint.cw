@@ -41,12 +41,22 @@ package  {
 	
 			oMain =  gzSp<Lib_GZ::cEntryPoint>( GZ_CreateEntryPointClass() );
 		//	oMain->Ini_cEntryPoint(); //TODO Better way?
-			oMain->cEntryPoint::Constructor(); //Set threading object
+		
+			 printf( " \n Before ----");
+		//	oMain->cEntryPoint::Constructor(); //Set threading object
+			//oMain->cEntryPoint::Constructor(); //Set threading object
+			oMain->cEntryPoint_Constructor(); //Set threading object
 			
+				 printf( " \n After ----");
 
 		//Create default singleton	
 		//Lib_GZ::Sys::Debug::Get(oMain->thread)->zInst = Lib_GZ::Sys::Debug::Get(oMain->thread)->New(oMain.get());
 		Lib_GZ::Debug::Debug::SetInst(oMain->thread) = Lib_GZ::Debug::Debug::Get(oMain->thread)->New(oMain);
+	
+	
+	
+	  printf( "\n Get Debug: %p " , Lib_GZ::Debug::Debug::GetInst(oMain->thread));
+	 printf( "---- \n ----");
 	
 	//	Lib_GZ::Sys::Debug::Get(oMain->thread)->NewSingleton();
 		//Lib_GZ::Sys::Debug::CreateSingleton(oMain->thread);
