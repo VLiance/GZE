@@ -10,19 +10,19 @@
 			System();
 		}
 		 
-		 function fSleep(_nMilliseconds : UInt = 1):Void {
+		override function fSleep(_nMilliseconds : UInt = 1):Void {
 			
 		}
 
 		
-		 public function fDetectGpu():Bool {
+		 override function fDetectGpu():Bool {
 			
 			return false;
 		}
 
 		
 		
-		 function fExit():Void;
+		override function fExit():Void;
 		
 	}
 }

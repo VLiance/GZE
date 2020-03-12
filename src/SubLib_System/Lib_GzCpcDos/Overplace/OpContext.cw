@@ -70,39 +70,39 @@ package  {
 		
 	
 		
-		public function fMove( _nPosX : Int, _nPosY : Int):Void;
-        public function fMoveAndSize(_nPosX : Int, _nPosY : Int, _nWidth : Int, _nHeight: Int):Void;
-        public function fShow(_bActive : Bool = true):Void;
-        public function fHide():Void;
-		public function fIniProcess():Void;
-        public function fMinimize():Void;
-        public function fMaximize():Void;
-        public function fRestore():Void;
-        public function fDisable():Void;
+		override function fMove( _nPosX : Int, _nPosY : Int):Void;
+        override function fMoveAndSize(_nPosX : Int, _nPosY : Int, _nWidth : Int, _nHeight: Int):Void;
+        override function fShow(_bActive : Bool = true):Void;
+        override function fHide():Void;
+		override function fIniProcess():Void;
+        override function fMinimize():Void;
+        override function fMaximize():Void;
+        override function fRestore():Void;
+        override function fDisable():Void;
 		
 	
 		
 		//public function fSendData(_nOtherWinId : UInt):Void;
 		//private function fReceiveMessage( _sMessage : String):Void; //Dummy for dInterProcessMessage
 
-        public function drawPixel():Void;
-        public function fKeyIsDown(_nKeyVal : Int):Void;
+        override function drawPixel():Void;
+        override function fKeyIsDown(_nKeyVal : Int):Void;
 
-        public function fCpuVSyncOnGpu():Void;
+        override function fCpuVSyncOnGpu():Void;
 		
 		
-		public function fIsWindowReady():Bool;
+		override function fIsWindowReady():Bool;
 	
 
-		public function fGetMousePosition():Void{
+		override function fGetMousePosition():Void{
 		}
 		
 		
-		public function fStartCaptureOutside():Void;
-		public function fStopCaptureOutside():Void;
+		override function fStartCaptureOutside():Void;
+		override function fStopCaptureOutside():Void;
 		//public function fFrameStart():Void;
-		public function fFrameEnd():Void;
-		public function fGetPixelArray():CArray<Int, 2>;
+		override function fFrameEnd():Void;
+		override function fGetPixelArray():CArray<Int, 2>;
 		
 		/*
 			gzInt** cSysWindow::fGetPixelArray() {
@@ -110,7 +110,7 @@ package  {
 			}
 		*/
 		
-		public function  fGetKey(_oKey : Key):Void;
+		override function  fGetKey(_oKey : Key):Void;
 		
 
 		

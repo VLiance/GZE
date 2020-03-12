@@ -55,8 +55,8 @@ package  {
 	
 	
 	
-	  printf( "\n Get Debug: %p " , Lib_GZ::Debug::Debug::GetInst(oMain->thread));
-	 printf( "---- \n ----");
+	//  printf( "\n Get Debug: %p " , Lib_GZ::Debug::Debug::GetInst(oMain->thread));
+	// printf( "---- \n ----");
 	
 	//	Lib_GZ::Sys::Debug::Get(oMain->thread)->NewSingleton();
 		//Lib_GZ::Sys::Debug::CreateSingleton(oMain->thread);

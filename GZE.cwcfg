@@ -10,6 +10,9 @@
 
 <Arguments>
 
+	<!-- <Compiler>-Wno-error=return-type-c-linkage</Compiler> -->
+	<Compiler>-Wno-return-type-c-linkage</Compiler> 	<!-- Export C with class is acceptable when using it from C++ (Just for Clang)  -->
+
 
 	<!-- <Compiler>-DGZ_D_Monothread</Compiler> ONLY FOR TEST-->
 

@@ -11,14 +11,14 @@ package  {
 		public var nPCFreq : Float; //Flaot64?
 		
 		
-		public   function fStart() : Void { //Return the full path with exe name
+		override   function fStart() : Void { //Return the full path with exe name
 			
 			Debug.fTrace("\nTimer Start ! \n");
 			nConterStart = 0;
 		}
 		
 			
-		public   function fGet() : Float { //Return the full path with exe name
+		override   function fGet() : Float { //Return the full path with exe name
 			
 			Debug.fTrace("\nTimer Get ! \n");
 			nConterStart+= 10000;
