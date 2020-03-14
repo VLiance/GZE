@@ -1,0 +1,28 @@
+//GZE can be linked as a dynamic library and loaded at run-time, wich resolve any compatibility problem like :
+
+https://stackoverflow.com/questions/28520954/safe-to-return-class-template-from-function-with-c-style-linkage
+
+-The word "incomplete" is inaccurate and irrelevant. The warning is just telling you that the function signature is not compatible with the C language, even though you have selected C linkage. You can safely call it from C++, and using C linkage for such a function might make sense if you are using it with dlsym (Note that it doesn't make as much sense in Windows, where standard library types cannot be exchanged between separately compiled shared libraries. And even on Linux, the whole libstdc++ vs libc++ issue makes it problematic) 
+
+-@BenVoigt dlsym is indeed the usage I had in mind. Why can't you pass standard library types between separately compiled shared libraries on Windows? That sounds like a ridiculous limitation.
+
+-To share types across libraries they must be (1) fully-specified (including the allocator, etc) and (2) standard-layout. The standard library types are neither. And separately compiled libraries may use different versions of the headers, or different compiler options, or different compilers that apply different layout, etc. So the One Definition Rule gets violated
+
+-Each DLL in windows has it's own heap, so if you do something like vector<int> v = foo(); v.push_back(81); in your main program and the push_back means that v needs to have it's internal storage reallocated, then the "wrong" heap
+
+
+/////////////////////////////////////////////////////////
+
+ .. has C-linkage specified, but returns user-defined type 'gzStr' (aka 'gzStr8') which is incompatible with C [
+[-Werror,-Wreturn-type-c-linkage]
+
+Yes, ... is declared inside an 'extern "C"' block, which means
+that the function name will not be mangled. However, ...
+is a C++ type, so calling it from C code wouldn't work. This is what the
+warning is about.
+
+However, as long as the function is defined in C++, and only called from
+c++ code, everything is fine 
+
+
+

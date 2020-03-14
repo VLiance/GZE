@@ -37,6 +37,7 @@
 			GZ_printf("\n-- New ThreadItf -- %p , id: %d \n", thread, thread->nId);
 			GZ_printf("\n-- End ThreadItf -- ");
 			</cpp>
+			Debug.fInfo("-- End ThreadItf --");
 		}
 
 		
