@@ -50,7 +50,14 @@ class SharedCount : gzAny {
 
 		if(nSharedCount <= 0){
 		//	GZ_printf("\nDelete ");
-			delete this;
+		 //TODO 
+		  //TODO 
+		   //TODO 
+		//	delete this; //TODO DELETE IS NOT VIRTUAL!!
+			 //TODO 
+			  //TODO 
+			   //TODO 
+			
 		}
 	};
 	
