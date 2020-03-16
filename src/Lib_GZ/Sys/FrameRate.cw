@@ -36,7 +36,7 @@ package  {
 		public function fQuit():Void;
 		
 		
-		public function ThreadLoop():Void{
+		override function ThreadLoop():Void{
 			
 			var _nTime : Float = oTimer.fGet();
 			var _nDeltaTime : Float = _nTime - nLastTime;

@@ -210,7 +210,7 @@ package  {
 		
 
 		
-		override function fIniPixelDrawZone(): CArray<Int32>{
+		public function fIniPixelDrawZone(): CArray<Int32>{
 			Debug.fError("fIniPixelDrawZone: not implemented, it require an initialised 1D pixel array");
 		}
 			 

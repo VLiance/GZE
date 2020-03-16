@@ -53,11 +53,14 @@ package  {
 					
 			inline cClass():GzThread(0),parent(0){}; //Sure?
 					
-			inline virtual void IniClass(){};
+		//	inline virtual void IniClass(){};
+		/*
 			inline virtual void ThreadLoop(){};
 			inline virtual void ThreadEnd(){
 				GZ_printf("\n----ThreadEND");
 			};
+			*/
+			
 			
 		</cpp_class_h>
 			
@@ -82,10 +85,24 @@ package  {
 			 
 		</cpp_initializer>
 	
-		
 		public function Class() : Void {
-		
 		}
+		
+		
+		public function ThreadLoop() : Void {
+		}
+		
+		public function ThreadEnd() : Void {
+		 <cpp>
+		 GZ_printf("\n----ThreadEND");
+		 </cpp>
+		}
+		
+		
+		//override function TestDestructor() : Void { //TODO
+		function TestDestructor() : Void {
+		}
+		
 		
 		destructor { //To be overrided
 		}

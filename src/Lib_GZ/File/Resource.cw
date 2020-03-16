@@ -134,6 +134,12 @@ package  {
 			</cpp>
 		}
 		
+		
+		public function fCpuLoad():Bool {
+		}
+		public function fGpuLoad():Bool {
+		}
+		
 		destructor{
 			 fFreeData();
 		}

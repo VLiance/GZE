@@ -56,7 +56,7 @@ package  {
 		}
 		
 		
-		override public function fCreate():Void{
+		public function fCreate():Void{
 				//return;
 				
 				OpenGL.fActiveTexture(TEXTURE1);

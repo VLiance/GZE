@@ -239,7 +239,7 @@ package  {
 			}
 		*/
 
-		override public function fIsWindowReady():Bool {
+		public function fIsWindowReady():Bool {
 			return oContext.fIsWindowReady();
 		}
 
@@ -257,7 +257,7 @@ package  {
 		}
 
 		
-		override public function fCpuVSyncOnGpu():Void {
+		public function fCpuVSyncOnGpu():Void {
 			oContext.fCpuVSyncOnGpu();
 		}
 

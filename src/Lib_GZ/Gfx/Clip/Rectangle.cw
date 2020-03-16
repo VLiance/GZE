@@ -141,7 +141,7 @@ package  {
 		}
 
 
-		override public function fUpdate():Void {
+		public function fUpdate():Void {
 			//nPosX++;
 
 			//nGoColor1 += (nSetColor1 - nGoColor1) / 6;
@@ -312,7 +312,7 @@ package  {
 
 
 
-		override public function fUpdateLimits():Void {
+		public function fUpdateLimits():Void {
 			/*
 			nLimT = 0;
 			nLimL = 0;

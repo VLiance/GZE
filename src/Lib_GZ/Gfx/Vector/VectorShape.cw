@@ -96,7 +96,7 @@ package  {
 
 */
 
-		override public function fUpdateLines():Void {
+		public function fUpdateLines():Void {
 			//Connect Lines
 			for(var i : Int = 0; i < aLine.nSize; i++){
 			

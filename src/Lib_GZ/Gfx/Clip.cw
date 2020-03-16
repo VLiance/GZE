@@ -26,7 +26,7 @@ package  {
 	
 		
 		
-		override public function fUpdate():Void {
+		public function fUpdate():Void {
 			
 			
 		}
@@ -50,13 +50,13 @@ package  {
 		
 		
 			
-		override public function fAddSequence():Void {
+		public function fAddSequence():Void {
 			
 		}
 		
 		
 		
-		override public function fCalculateChildBorder():Void {
+		public function fCalculateChildBorder():Void {
 			/*
 			nLimTLx = _rPt.nX;
 			nLimTLy = _rPt.nY;
