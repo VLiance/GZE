@@ -119,8 +119,9 @@ package  {
 			fAddPt(oPtBR, _oCenter);
 			fAddPt(oPtBL, _oCenter);
 			
+
 			var _oSrc : Poly4;
-	
+
 	
 			var _nOff_X : Float = oRc.vOffset.nX; //TODO maybe calculate offset dynamicly after
 			var _nOff_Y : Float = oRc.vOffset.nY; //TODO maybe calculate offset dynamicly after
@@ -137,11 +138,19 @@ package  {
 			var _oPtSrc3 : Pt<Float> = new Pt<Float>(_nOff_X + nWidth  +_nBorder, _nOff_Y + nHeight + _nBorder);
 			var _oPtSrc4 : Pt<Float> = new Pt<Float>(_nOff_X + 0 - _nBorder	    , _nOff_Y + nHeight  + _nBorder);								
 			
+			
+			
 			if(_nSize < 0){
 				_oSrc  = new Poly4(_oPtSrc1, _oPtSrc2, _oPtSrc3, _oPtSrc4);
 			}else{
 				_oSrc  = new Poly4(_oPtSrc1, _oPtSrc2, _oPtSrc3, _oPtSrc4);
 			}
+	
+			
+			<cpp>
+				//printf("\n ADR %p \n", (void *)(size_t)_oSrc->FPtr_destroy__ );
+			</cpp>
+			
 			
 			
 			
@@ -152,6 +161,9 @@ package  {
 			//fCreateFace(_oRc, rPtTL, rPtTR, rPtBR, rPtBL, 0 - _nBorder, 0 - _nBorder,   nWidth  +_nBorder, 0 -_nBorder,  nWidth  +_nBorder, nHeight +_nBorder,  0 - _nBorder, nHeight  + _nBorder );
 			oFace.oGpuObj.fSetImg(oRc);
 
+			
+			Debug.fTrace("destroy Local : _oSrc" );
+			Debug.fTrace("destroy Local : _oSrc" );
 		}
 		
 			

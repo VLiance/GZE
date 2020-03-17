@@ -25,13 +25,17 @@ namespace Lib_GZ{namespace Base{namespace SmartPtr{
 
 //class SharedCount : gzAny {
 class SharedCount : gzAny {
+
+	protected:
+	
+		void (*FPtr_destroy__)(cClass*);
+   
     public:
 	
  	gzInt nSharedCount;
  	gzInt nWeakCount;
 	
-	
-   void (*FPtr_destroy__)(cClass*);
+
    inline void destroy() const {FPtr_destroy__((cClass*)this);};
    
    
@@ -41,7 +45,7 @@ class SharedCount : gzAny {
    
    // inline SharedCount() : gzAny(), nSharedCount(0), nWeakCount(0){
     inline SharedCount() : gzAny(), nSharedCount(0), nWeakCount(0){
-   
+		FPtr_destroy__ = 0;
    }
    
    
