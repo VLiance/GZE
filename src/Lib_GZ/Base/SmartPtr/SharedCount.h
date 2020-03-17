@@ -16,7 +16,11 @@
 
 #include "Lib_GZ/Base/GzTypes.h"
 
+namespace Lib_GZ{namespace Base{class cClass;}}
+
 namespace Lib_GZ{namespace Base{namespace SmartPtr{
+
+
 
 
 //class SharedCount : gzAny {
@@ -25,6 +29,15 @@ class SharedCount : gzAny {
 	
  	gzInt nSharedCount;
  	gzInt nWeakCount;
+	
+	
+   void (*FPtr_destroy__)(cClass*);
+   inline void destroy() const {FPtr_destroy__((cClass*)this);};
+   
+   
+
+ //  void (*FPtr_destructor__)(cClass*);
+   
    
    // inline SharedCount() : gzAny(), nSharedCount(0), nWeakCount(0){
     inline SharedCount() : gzAny(), nSharedCount(0), nWeakCount(0){
@@ -53,6 +66,7 @@ class SharedCount : gzAny {
 		 //TODO 
 		  //TODO 
 		   //TODO 
+		//  destroy();
 		//	delete this; //TODO DELETE IS NOT VIRTUAL!!
 			 //TODO 
 			  //TODO 
