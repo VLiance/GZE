@@ -100,7 +100,7 @@ package  {
 		
 		
 		//override function TestDestructor() : Void { //TODO
-		cpp_override function destroy() : Void {
+		 function destroy() : Void {
 		}
 
 	    destructor { //To be overrided

@@ -66,7 +66,7 @@ class SharedCount : gzAny {
 		 //TODO 
 		  //TODO 
 		   //TODO 
-		//  destroy();
+		  destroy();
 		//	delete this; //TODO DELETE IS NOT VIRTUAL!!
 			 //TODO 
 			  //TODO 
