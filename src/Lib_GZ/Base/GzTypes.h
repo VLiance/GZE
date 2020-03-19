@@ -22,11 +22,13 @@
 	 #define tApi_Lib_GZ
 #endif
 
+
 #define  GZ_FCallType __cdecl
 
 
 
-#define GzExport extern "C" __declspec(dllexport)  GZ_FCallType 
+//#define GzExport extern "C" __declspec(dllexport)  GZ_FCallType 
+#define GzExport extern "C"   GZ_FCallType 
 
 
 

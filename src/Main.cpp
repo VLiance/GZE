@@ -322,7 +322,7 @@ extern "C" int main( int argc, const char* argv[] ){
 	extern "C" Lib_GZ::uLib* IniLib_Lib_GzOpenGL_Web_Emsc(); //Overplace must be present
 	
 	gzInt main(){
-		GZ_nArrayTotalAlloc = 0;
+		//GZ_nArrayTotalAlloc = 0;
 		
 		Lib_GZ::Lib::fLoadAllLib();
 		Lib_GZ::Lib::fLoadLib(IniLib_Lib_GzWeb_Emsc()); //OverPlace

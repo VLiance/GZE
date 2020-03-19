@@ -15,7 +15,7 @@
 			Debug.fTrace("Gpu loaded");
 		}
 		
-		public function fLoadImg(_aImg : CArray<Int, 1>, _nWidth : Int, _nHeight : Int):Void{
+		override function fLoadImg(_aImg : CArray<Int, 1>, _nWidth : Int, _nHeight : Int):Void{
 			Debug.fTrace("Load Img");
 		}
 	

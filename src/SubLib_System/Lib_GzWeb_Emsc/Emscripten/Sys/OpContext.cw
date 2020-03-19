@@ -119,7 +119,7 @@ package  {
 			
 		}
 		 
-		 override static public function fManageMessageOp():Void {
+		 static public function fManageMessageOp():Void {
 		 }
 		 
 		 
@@ -339,7 +339,7 @@ package  {
 		
 		
 		
-		public function fGetWindowSize():Bool{
+		override function fGetWindowSize():Bool{
 			<cpp>
 				////Todo Optimize///
 				/*
@@ -374,7 +374,7 @@ package  {
 		}
 		
 		
-		public function fGetMousePosition():Void{
+		override function fGetMousePosition():Void{
 			<cpp>
 			
 				nLastMouseX = nMouseX;

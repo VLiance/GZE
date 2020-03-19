@@ -13,7 +13,7 @@ package  {
 		
 		public var nConterStart : Float = 0;
 		
-		public   function fStart() : Void { //Return the full path with exe name
+		override   function fStart() : Void { //Return the full path with exe name
 			
 			<cpp>
 				gzFloat _nTime = emscripten_get_now();
@@ -22,7 +22,7 @@ package  {
 		}
 		
 			
-		public   function fGet() : Float { //Return the full path with exe name
+		override   function fGet() : Float { //Return the full path with exe name
 			
 			<cpp>
 				return  emscripten_get_now()-nConterStart;
