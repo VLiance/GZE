@@ -16,6 +16,9 @@ package  {
 
 	<cpp_namespace>
 	gzStr GetMainModulePath(){
+	
+		//Debug.fTrace("GetMainModulePath");
+				
 		TCHAR* buf    = NULL;
 		DWORD  bufLen = 256;
 		DWORD  retLen;
@@ -50,11 +53,10 @@ package  {
 	public class OpFile overplace File {
 		
 		public  function OpFile(_sFile : String):Void{
-			Debug.fTrace("New  OpFile!: " + _sFile);
+			Debug.fTrace("Windows  OpFile!: " + _sFile);
 		}
 		
 
-		
 		
 		override static function fIsSysFileExist(_sFile : String):Bool {
 			

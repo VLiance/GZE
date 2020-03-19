@@ -147,12 +147,6 @@ package  {
 			}
 	
 			
-			<cpp>
-				//printf("\n ADR %p \n", (void *)(size_t)_oSrc->FPtr_destroy__ );
-			</cpp>
-			
-			
-			
 			
 			fCreateFace(oRc, _oSrc);
 			
@@ -161,9 +155,6 @@ package  {
 			//fCreateFace(_oRc, rPtTL, rPtTR, rPtBR, rPtBL, 0 - _nBorder, 0 - _nBorder,   nWidth  +_nBorder, 0 -_nBorder,  nWidth  +_nBorder, nHeight +_nBorder,  0 - _nBorder, nHeight  + _nBorder );
 			oFace.oGpuObj.fSetImg(oRc);
 
-			
-			Debug.fTrace("destroy Local : _oSrc" );
-			Debug.fTrace("destroy Local : _oSrc" );
 		}
 		
 			

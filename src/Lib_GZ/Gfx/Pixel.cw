@@ -234,7 +234,7 @@ package  {
 
 
 			if(_oPtSegT.nY + 0.01 > _oPtSegL.nY){ //Ignore segment triangle < 1px height
-			//	return; //Visible GLitch
+				return; //Visible GLitch
 			}
 			var _nLimit : Float = 0.1;
 			if(	 _oPtSegT.nZ  < _nLimit || _oPtSegL.nZ  < _nLimit  || _oPtT.nZ  < _nLimit  || _oPtL.nZ  < _nLimit){

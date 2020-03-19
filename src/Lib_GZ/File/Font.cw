@@ -37,6 +37,7 @@ package  {
 			gzInt** p2DArray;
 			p2DArray = new gzInt*[nExtWidth];
 				gzInt* p1DArray = (gzInt *)GZ_fCalloc(nExtHeight * nExtWidth , sizeof(gzInt) );
+				//gzInt* p1DArray = (gzInt *)GZ_fCalloc( sizeof(gzInt), nExtHeight * nExtWidth );
 
 				p2DArray[0] = p1DArray;
 				p2DArray[nExtHeight - 1] = &p1DArray[ nExtWidth * (nBitmap_H + nBORDER)];
@@ -146,7 +147,7 @@ package  {
 			
 			using namespace ImgPack;
 			
-			//GZ_printf("\n My fontscale: %f " , fontscale);
+			GZ_printf("\n My fontscale: %f " , fontscale);
 			
 			
 			uPackContext pc;
@@ -163,16 +164,17 @@ package  {
 	stbrp_pack_rects((stbrp_context *) pc.pack_info, myrects, _nTotal); //do pack
 	
 	unsigned char aBmpPack[nBitmap_H][nBitmap_W] = { {0}};
-	//GZ_printf("\nffDrawRect");
-	fDrawRect(this, &pc,aBmpPack[0],myrects );
+	GZ_printf("\nfDrawRect");
+	fDrawRect(this, &pc, aBmpPack[0] ,myrects );
+		GZ_printf("\nfPackEnd");
     fPackEnd(this, &pc);
 
-
+GZ_printf("\nfCreateImage");
     fCreateImage(_oRc, (gzUInt8*) &aBmpPack[0][0] );
 
 	
 			</cpp>
-			//Debug.fPass("FINISH FONT!!!");
+			Debug.fPass("FINISH FONT!!!");
 		
 		}
 		

@@ -10,7 +10,7 @@ package  {
 	public class OpFile overplace File {
 		
 		public  function OpFile(_sFile : String):Void{
-			Debug.fTrace("New  OpFile!: " + _sFile);
+			Debug.fTrace("CpcDos OpFile!: " + _sFile);
 		}
 		
 

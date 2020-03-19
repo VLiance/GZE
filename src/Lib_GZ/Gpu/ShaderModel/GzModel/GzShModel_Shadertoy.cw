@@ -31,7 +31,7 @@ package  {
 			Debug.fTrace("--- GzShModel_Shadertoy Created!! ---");
 		}
 		
-		public function fLoad():Bool {
+		override function fLoad():Bool {
 			oVertex = new VertexShader();
 			oFragement = new FragmentShader();
 			oProgram = new ProgramShader();
@@ -386,7 +386,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 		
 		
 		
-		public function fUpdate():Void {
+		override function fUpdate():Void {
 		
 			
 			<cpp>

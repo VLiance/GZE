@@ -30,6 +30,7 @@
 		//gzFloat nSpeed;
 
 		gzEase():nVal(0),nTo(0)  {
+			
 		}
 		gzEase(T _val):nVal(_val),nTo(_val)  {
 			//  GZ_printf("\nIni/Set %f", _val);

@@ -72,7 +72,7 @@ package  {
 		
 		
 		//overrided!!
-		override public function fDrawObject(_oSource : Object, _nX_Start:Int, _nX_End:Int, _nY_Start:Int, _nY_End:Int ):Void {
+		public function fDrawObject(_oSource : Object, _nX_Start:Int, _nX_End:Int, _nY_Start:Int, _nY_End:Int ):Void {
 			
 
 				
@@ -179,7 +179,7 @@ package  {
 		
 		
 		
-		public function fDrag(_nX :Float, _nY :Float):Void {
+		override function fDrag(_nX :Float, _nY :Float):Void {
 			
 			
 			var _vPt : Pt<Float> = new Pt<Float>(_nX, _nY );
@@ -301,7 +301,7 @@ package  {
 		}
 		
 		
-		override public function fMouseOver():Void {
+		public function fMouseOver():Void {
 
 			
 		}

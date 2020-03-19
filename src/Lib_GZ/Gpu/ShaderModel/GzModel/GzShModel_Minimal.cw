@@ -29,7 +29,7 @@ package  {
 			Debug.fTrace("--- GzShModel Created!! ---");
 		}
 		
-		public function fLoad():Bool {
+		override function fLoad():Bool {
 			oVertex = new VertexShader();
 			oFragement = new FragmentShader();
 			oProgram = new ProgramShader();
@@ -213,7 +213,7 @@ package  {
 		
 		
 		
-		public function fUpdate():Void {
+		override function fUpdate():Void {
 		
 			
 			//nDestX = oWindow.nMouseX  + nDragX + ( oWindow.nMouseX - oWindow.nLastMouseX)/1.5;

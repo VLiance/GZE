@@ -70,15 +70,18 @@ package  {
 		</cpp_preinitializer_list>
 			
 		<cpp_initializer>
+			//printf("\nAAd\n");
 			if(_parent != 0){
 				//GZ_printf("\nGetParentThread");
+				//printf("\nGetParentThread\n");
 				  //  parent = _parent->SpFromThis();
 					parent = _parent;
 					GzThread = _parent->thread;
+					//	printf("\nFinish\n");
 				//	GZ_printf("\nSetParentThread");
 					//  GZ_printf("\nClassSetThread");
 			  }else{
-					GZ_printf("\nThreadClass(No Parent)");
+				//	printf("\nThreadClass(No Parent)");
 					//Only new thread can have parent to zero (cThread) TODO aAssert
 					//	--> thread = this;--> IN thread.cpp
 			   }
@@ -101,6 +104,11 @@ package  {
 		
 		//override function TestDestructor() : Void { //TODO
 		cpp_override function destroy() : Void {
+			//Debug.fTrace("Destroy Class!");
+			<cpp>
+		//	printf("\n Destroy Class!");
+			</cpp>
+			
 		}
 
 	    destructor { //To be overrided
