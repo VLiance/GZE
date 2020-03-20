@@ -102,17 +102,9 @@ package  {
 		}
 		
 		public function copy(_bDeepCpy : Bool):Any {
-			<cpp>
-			GZ_printf("\n----Class Copy");
-			</cpp>
+		
 		}
-		/*
-		public function copy():Any {
-			<cpp>
-			GZ_printf("\n----Class Copy");
-			</cpp>
-		}
-		*/
+	
 		//override function TestDestructor() : Void { //TODO
 		cpp_override function destroy() : Void {
 			//Debug.fTrace("Destroy Class!");
