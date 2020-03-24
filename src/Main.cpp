@@ -172,6 +172,7 @@ SetConsoleOutputCP(CP_UTF8);
 	}
 	ShowWindow(MainEventHwnd, SW_SHOWNOACTIVATE); //Necessary to handle windows events
 	
+	Lib_GZ::Base::Thread::Thread::bAppIsAlive = true;//TODO remove
 	Lib_GZ::Lib::fLoadAllLib();
 	
 	#ifndef D_GZE_CPP_ONLY
@@ -181,7 +182,7 @@ SetConsoleOutputCP(CP_UTF8);
 	
 	
 	//Lib_GZ::Lib::fIniClassLib(IniLib_Lib_GzWindows()); //Todo generic, not only windows..
-	Lib_GZ::Base::Thread::Thread::bAppIsAlive = true;
+	//Lib_GZ::Base::Thread::Thread::bAppIsAlive = true;
 	#endif
 	
 
@@ -241,7 +242,7 @@ extern "C" int main_entry( int argc, const char* argv[] ){
 	
 	//bOnCpcDos = true;//Temp
 	
-	Lib_GZ::Base::Thread::Thread::bAppIsAlive = true;
+		Lib_GZ::Base::Thread::Thread::bAppIsAlive = true;//TODO remove
 	Lib_GZ::Lib::fLoadAllLib();
 	if(bOnCpcDos){
 		GZ_printf("\n--On CpcDos--");
@@ -322,8 +323,9 @@ extern "C" int main( int argc, const char* argv[] ){
 	extern "C" Lib_GZ::uLib* IniLib_Lib_GzOpenGL_Web_Emsc(); //Overplace must be present
 	
 	gzInt main(){
-		//GZ_nArrayTotalAlloc = 0;
 		
+		//GZ_nArrayTotalAlloc = 0;
+		Lib_GZ::Base::Thread::Thread::bAppIsAlive = true;//TODO remove
 		Lib_GZ::Lib::fLoadAllLib();
 		Lib_GZ::Lib::fLoadLib(IniLib_Lib_GzWeb_Emsc()); //OverPlace
 		Lib_GZ::Lib::fLoadLib(IniLib_Lib_GzOpenGL()); //OverPlace
@@ -358,6 +360,7 @@ extern "C" int main( int argc, const char* argv[] ){
 	
 	extern "C" Lib_GZ::uLib* IniLib_Lib_GzAndroid(); //Overplace must be present
 	int main() {
+		Lib_GZ::Base::Thread::Thread::bAppIsAlive = true;//TODO remove
 		Lib_GZ::Lib::fLoadAllLib();
 		Lib_GZ::Lib::fLoadLib(IniLib_Lib_GzAndroid()); //OverPlace
 		nMainIsAlive = Main("");
@@ -372,6 +375,7 @@ extern "C" int main( int argc, const char* argv[] ){
 #else ////// Others //////
 
 	int main() {
+		Lib_GZ::Base::Thread::Thread::bAppIsAlive = true;//TODO remove
 		Lib_GZ::Lib::fLoadAllLib();
 		Lib_GZ::Lib::fLoadLib(IniLib_Lib_GzWindows()); //OverPlace
 		nMainIsAlive = Main("");
