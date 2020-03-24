@@ -242,7 +242,7 @@ extern "C" int main_entry( int argc, const char* argv[] ){
 	
 	//bOnCpcDos = true;//Temp
 	
-		Lib_GZ::Base::Thread::Thread::bAppIsAlive = true;//TODO remove
+	Lib_GZ::Base::Thread::Thread::bAppIsAlive = true;//TODO remove
 	Lib_GZ::Lib::fLoadAllLib();
 	if(bOnCpcDos){
 		GZ_printf("\n--On CpcDos--");
