@@ -315,7 +315,7 @@
 
 
 	 void fPrintData() const {
-	 	printf("%.*s", gzp_DataSize, gzp_DataArray);//temp printf
+	 	printf("%.*s", (gzInt)gzp_DataSize, gzp_DataArray);//temp printf
 	}
 	
 /*

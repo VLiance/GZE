@@ -353,6 +353,21 @@ extern "C" int main( int argc, const char* argv[] ){
 	}
 */
 
+#elif defined D_Platform_Android ////////////////////// Web //////////////////////////////////////
+	
+	
+	extern "C" Lib_GZ::uLib* IniLib_Lib_GzAndroid(); //Overplace must be present
+	int main() {
+		Lib_GZ::Lib::fLoadAllLib();
+		Lib_GZ::Lib::fLoadLib(IniLib_Lib_GzAndroid()); //OverPlace
+		nMainIsAlive = Main("");
+		while(nMainIsAlive){
+			Update(0);
+		}
+		return nMainIsAlive;
+	}
+
+
 
 #else ////// Others //////
 

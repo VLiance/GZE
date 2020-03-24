@@ -91,21 +91,23 @@ typedef const wchar_t* gzText16;
 
 typedef void* gzPtr;
 
-
+#ifdef D_Platform_Android //Test
+	#define D_GZ_Sys64
+#endif
 
 #ifdef _WIN64
-#define GZ_tSys64
+#define D_GZ_Sys64
 #endif
 
 
 //32 bit by default
-#ifdef GZ_tSys64
+#ifdef D_GZ_Sys64
     typedef unsigned long long  gzPtrSize;
     typedef signed long long gzIntX;
     typedef  unsigned long long gzUIntX;
 #else
-    #undef GZ_tSys32
-    #define GZ_tSys32
+    #undef D_GZ_Sys32
+    #define D_GZ_Sys32
     typedef unsigned int gzPtrSize;
     typedef signed int gzIntX;
     typedef unsigned int gzUIntX;
@@ -209,6 +211,13 @@ struct gzComp{void* oClass; gzPtrFunc fCall; };
 
 //extern Lib_GZ::cDelegate* GZ_NullObj; 
 #define GZ_NullObj ((void*)0)
+/*
+#ifdef D_Platform_Android //Test
+#define GZ_NullObj 0
+#else
+#define GZ_NullObj ((void*)0)
+#endif
+*/
 
 #ifndef D_Dynamic_Link
 /*

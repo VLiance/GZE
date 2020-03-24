@@ -109,7 +109,9 @@ package  {
 				}
 				nThreadCount--;
 			#else
-				oObj->ThreadLoop(); //Already called in threadlist?
+				if(bAppIsAlive && bRun){
+					oObj->ThreadLoop(); //Already called in threadlist?
+				}
 			#endif
 			</cpp>
 		}

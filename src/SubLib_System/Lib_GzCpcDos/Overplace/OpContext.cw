@@ -35,11 +35,10 @@ package  {
 		
 		override public function fIniPixelDrawZone(): CArray<Int32>{
 			
-			Debug.fTrace("fIniPixelDrawZone");
+			Debug.fTrace("fIniPixelDrawZone: " + nHandleId);
 			
 			<cpp>
 				return (gzInt32*) CpcDos->Init_Get_Context_PTR(nHandleId);
-			
 			</cpp>
 			
 			
@@ -56,7 +55,7 @@ package  {
 		
 		
 		override public function fBlit():UIntX {
-		//	Debug.fTrace("Blit!!");
+			Debug.fTrace("Blit!!: " + nHandleId);
 			
 			if(nHandleId){
 				<cpp>

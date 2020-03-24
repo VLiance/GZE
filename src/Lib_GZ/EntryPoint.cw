@@ -87,6 +87,7 @@ package  {
 		gzInt Update(gzFloat _nDelta){
 		
 			static gzInt _nCount = 0;
+			
 			Lib_GZ::Sys::MainThreadPlatformMsg::GetInst(oMain->thread)->fManageMessage();
 		
 		
@@ -100,19 +101,23 @@ package  {
 				
 			#endif
 			
-			
 		//	Lib_GZ::Sys::MainThreadPlatformMsg::GetInst(oMain->thread);
 			
-		
 			//GZ_printf("Update: %d" endl_cr, _nCount);
 			//fprintf(stderr,"\nUpdate: %d\n" endl_cr, _nCount);
 			_nCount++;
+			//GZ_printf("\nCountA: %d \n" , _nCount );
 			
 			if(_nCount > 100){
-				return 0; // 1 Still Alive, 0 Stop, < 0 Errors
+				//return 0; // 1 Still Alive, 0 Stop, < 0 Errors
+			}
+			
+			if(Lib_GZ::Base::Thread::Thread::bAppIsAlive == false){
+				return 0; 
 			}
 			return 1; // 1 Still Alive, 0 Stop, < 0 Errors
 		}
+		
 		gzInt Close(gzInt _nExitCode){
 		
 			Lib_GZ::Base::Thread::Thread::bAppIsAlive = false;
@@ -124,8 +129,6 @@ package  {
 					Sleep(1);
 					//Lib_GZ::Sys::System::GetInst(oMain->thread)->fSleep(1); //Cannot acess thread when waiting to close it
 				}
-				
-				 
 			#endif
 		
 			GZ_printf("\n Good bye: %d \n", _nExitCode);

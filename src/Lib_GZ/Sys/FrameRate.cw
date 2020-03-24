@@ -7,7 +7,7 @@ package  {
 	import GZ.Sys.Interface.Interface;
 	import GZ.Sys.Timer;
 	import GZ.Base.Math.Math;
-
+	import GZ.Base.Thread.Thread;
 
 	public extension FrameRate extends Buffer {
 		
@@ -20,6 +20,7 @@ package  {
 		public var oTimer : Timer;
 		public var nLastTime : Float;
 		public var nFrame : UInt;
+		public var nTotalFrameRended : UInt;
 		public var nDeltaSecAcc : Float;
 		public var nDeltaFpsAcc : Float;
 		
@@ -41,8 +42,8 @@ package  {
 			var _nTime : Float = oTimer.fGet();
 			var _nDeltaTime : Float = _nTime - nLastTime;
 			nLastTime = _nTime;
-			
-		//	Debug.fWarning("***********_nDeltaTime: " + _nDeltaTime);
+			//Debug.fTrace("1: ");
+			//Debug.fWarning("***********_nDeltaTime: " + _nDeltaTime);
 		
 			nDeltaSecAcc += _nDeltaTime;
 
@@ -53,11 +54,11 @@ package  {
 				}
 				
 				nFps = nFrame;
-			//	Debug.fTrace("Fps: " + nFrame);
+				//Debug.fTrace("Fps: " + nFrame);
 				
 				nFrame = 0;
 			}
-			
+				//Debug.fTrace("2: ");
 			
 			nToFrameMilli = 1000.0 / nMaxFramePerSecond;
 			
@@ -65,17 +66,32 @@ package  {
 			if(nDeltaFpsAcc >= nToFrameMilli ){
 				nDeltaFpsAcc -= nToFrameMilli;
 				
-				
+				//Debug.fTrace("3: ");
 				//Perfome all missed frame --> set a limit?
 				while(nDeltaFpsAcc >= nToFrameMilli){ 	
 					nDeltaFpsAcc -= nToFrameMilli;
 				//	fNewFrame(); //TODO , do only logic?
 				}
-				
-				
+				//Debug.fTrace("4: ");
+
 				fNewFrame();
+				
+				//Debug.fTrace("5: ");
 				fBlit();
+				//Debug.fTrace("6: ");
+						
 				nFrame++;
+				nTotalFrameRended++;
+				
+				<cpp>
+				#ifdef D_Render_100_Frames
+				</cpp>
+				if(nTotalFrameRended > 100){
+					Thread.bAppIsAlive = false;
+				}
+				<cpp>
+				#endif
+				</cpp>
 				//	Debug.fTrace("Frame : " + nFrame);
 			}
 			

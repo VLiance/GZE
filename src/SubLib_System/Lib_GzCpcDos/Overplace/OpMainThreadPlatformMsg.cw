@@ -43,7 +43,7 @@ package  {
 			</cpp>
 
 //			ThreadMsg.fSend(new MsgCreateWindow("MonMessage!"));
-			Debug.fTrace("Finsish Create, ContextId: " + _nHandleId);
+			Debug.fTrace("Finsish Create, ContextId: " + _nHandleId + " width: " + _oWindow.vFrame.nWidth + " height: " + _oWindow.vFrame.nHeight);
 
 			_gFrom.fContextRegistred(_nHandleId, _nWinHandleId);
 		}

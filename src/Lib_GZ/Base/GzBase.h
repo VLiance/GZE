@@ -199,7 +199,7 @@ struct gzRcFolder{
 	//typedef emscripten::val gzVal; //TODO
 
 #else
-	typedef gzUInt gzVal;
+	//typedef gzUIntX gzVal;
 	//#define GzNullVal 0;
 #endif
 

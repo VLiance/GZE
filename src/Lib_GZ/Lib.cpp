@@ -50,7 +50,7 @@ namespace Lib_GZ {
 			uOverplace* _rLastClass = (uOverplace*)p_rLastClass;
 			
 			static int _nId = 0;
-			GZ_printf("fALLCLASS: %d ", (int)_rLastClass );
+			GZ_printf("fALLCLASS: %p ", _rLastClass );
 				
 			while (_rLastClass != 0){
 				_rLastClass->nId = _nId;
@@ -114,7 +114,7 @@ namespace Lib_GZ {
 		void fIniAllClass(uOverplace* _rLastClass){ 
 
 
-			GZ_printf("fIniALLStaticCLASS: %d ", (int)_rLastClass );
+			GZ_printf("fIniALLStaticCLASS: %p ", _rLastClass );
 				
 			while (_rLastClass != 0){
 				( gzU8("\n --IniClass :") + _rLastClass->sName + gzU8(" id:") +  gzStrUI( _rLastClass->nId)).fPrint();	

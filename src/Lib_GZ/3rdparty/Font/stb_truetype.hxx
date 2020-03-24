@@ -36,6 +36,9 @@
 #define STBTT_free(x,u)    ((void)(u),free(x))
 
 */
+
+#define STBTT_RASTERIZER_VERSION 1  //STBTT_RASTERIZER_VERSION v2 bug in CpcDos or Exeloader(+DrMemory)
+
 #include "stb_truetype.h"
 
 

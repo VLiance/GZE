@@ -163,14 +163,18 @@ package  {
 	
 	stbrp_pack_rects((stbrp_context *) pc.pack_info, myrects, _nTotal); //do pack
 	
-	unsigned char aBmpPack[nBitmap_H][nBitmap_W] = { {0}};
+	//unsigned char aBmpPack[nBitmap_H][nBitmap_W] = { {0}};
+	unsigned char aBmpPack[nBitmap_H * nBitmap_W] = {0};
+	unsigned char* _ptrBmpPack = (unsigned char*)&aBmpPack;
+	
+	
 	GZ_printf("\nfDrawRect");
-	fDrawRect(this, &pc, aBmpPack[0] ,myrects );
+	fDrawRect(this, &pc, _ptrBmpPack ,myrects );
 		GZ_printf("\nfPackEnd");
     fPackEnd(this, &pc);
 
 GZ_printf("\nfCreateImage");
-    fCreateImage(_oRc, (gzUInt8*) &aBmpPack[0][0] );
+    fCreateImage(_oRc, (gzUInt8*) _ptrBmpPack);
 
 	
 			</cpp>
