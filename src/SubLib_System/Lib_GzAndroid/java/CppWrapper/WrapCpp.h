@@ -1,0 +1,22 @@
+//This file is a part of GZE: https://github.com/VLiance/GZE
+
+#ifndef _ENGINE
+#define _ENGINE
+
+#include <jni.h>
+#include <android/log.h>
+
+#define DEBUG 1
+
+#define LOG_TAG "GZE"
+#define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
+#if DEBUG
+#define LOGV(...) __android_log_print(ANDROID_LOG_VERBOSE, LOG_TAG, __VA_ARGS__)
+
+#else
+#define LOGV(...)
+#endif
+
+#include "Application.h"
+
+#endif

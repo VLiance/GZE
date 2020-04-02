@@ -82,6 +82,7 @@ package  {
 		}
 		
 		public function fCreateFrame():Void {
+			//Debug.fTrace("fCreateFrame");
 			fNewFrame();
 			fBlit();
 
