@@ -39,6 +39,9 @@ package  {
 			Debug.fTrace("---New OpWindows--");
 			Context(_oInterface, _sWindowName, _nFrameWidth, _nFrameHeight, _bTransparent, _nBgColor);
 			//bWinGPU = false;
+			
+			_oInterface.bFrBasedOnTime = false;
+			
 			if(_oInterface.bGpuDraw == false){
 				bContext2d = true;
 			}

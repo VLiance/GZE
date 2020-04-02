@@ -13,7 +13,11 @@ package  {
 		
 		public var nFps : UInt;
 		
-		public var nMaxFramePerSecond : Int = 60;
+		public var bFrBasedOnTime : Bool = false;
+		public var nFrBasedOnTime_MaxFPS : Int = 60;
+		public var nFrBasedOnFrame_RenderAtEachFR : UInt = 1;
+		
+		private var nFrBasedOnFrame_Current : UInt = 0;
 		public var nToFrameMilli : Float;
 		
 		
@@ -42,9 +46,6 @@ package  {
 			var _nTime : Float = oTimer.fGet();
 			var _nDeltaTime : Float = _nTime - nLastTime;
 			nLastTime = _nTime;
-			//Debug.fTrace("1: ");
-			//Debug.fWarning("***********_nDeltaTime: " + _nDeltaTime);
-		
 			nDeltaSecAcc += _nDeltaTime;
 
 			if(nDeltaSecAcc >= 1000.0){    //1 sec
@@ -55,52 +56,48 @@ package  {
 				
 				nFps = nFrame;
 				//Debug.fTrace("Fps: " + nFrame);
-				
 				nFrame = 0;
 			}
-				//Debug.fTrace("2: ");
 			
-			nToFrameMilli = 1000.0 / nMaxFramePerSecond;
-			
-			nDeltaFpsAcc += _nDeltaTime;
-			if(nDeltaFpsAcc >= nToFrameMilli ){
-				nDeltaFpsAcc -= nToFrameMilli;
-				
-				//Debug.fTrace("3: ");
-				//Perfome all missed frame --> set a limit?
-				while(nDeltaFpsAcc >= nToFrameMilli){ 	
+			if(bFrBasedOnTime){
+				nToFrameMilli = 1000.0 / nFrBasedOnTime_MaxFPS;
+				nDeltaFpsAcc += _nDeltaTime;
+				if(nDeltaFpsAcc >= nToFrameMilli ){
 					nDeltaFpsAcc -= nToFrameMilli;
-				//	fNewFrame(); //TODO , do only logic?
+					//Perfome all missed frame --> set a limit?
+					while(nDeltaFpsAcc >= nToFrameMilli){ 	
+						nDeltaFpsAcc -= nToFrameMilli;
+					//	fNewFrame(); //TODO , do only logic?
+					}
+					fCreateFrame();
 				}
-				//Debug.fTrace("4: ");
-
-				fNewFrame();
-				
-				//Debug.fTrace("5: ");
-				fBlit();
-				//Debug.fTrace("6: ");
-						
-				nFrame++;
-				nTotalFrameRended++;
-				
-				<cpp>
-				#ifdef D_Render_100_Frames
-				</cpp>
-				if(nTotalFrameRended > 100){
-					Thread.bAppIsAlive = false;
+			}else{//FrBasedOnFrame
+			//Debug.fTrace("NewFrame: " + nFrame);
+				nFrBasedOnFrame_Current++;
+				if(nFrBasedOnFrame_Current > nFrBasedOnFrame_RenderAtEachFR){
+					nFrBasedOnFrame_Current = 0;
+					fCreateFrame();
 				}
-				<cpp>
-				#endif
-				</cpp>
-				//	Debug.fTrace("Frame : " + nFrame);
 			}
-			
-			//fNewFrame();
-			//if(){
-				
-			//}
-			
 		}
+		
+		public function fCreateFrame():Void {
+			fNewFrame();
+			fBlit();
+
+			nFrame++;
+			nTotalFrameRended++;
+			<cpp>
+			#ifdef D_Render_100_Frames
+			</cpp>
+			if(nTotalFrameRended > 100){
+				Thread.bAppIsAlive = false;
+			}
+			<cpp>
+			#endif
+			</cpp>
+		}
+		
 		
 		
 		//Overited

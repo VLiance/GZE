@@ -46,6 +46,8 @@ package  {
 			Debug.fTrace("--Okays--");
 			Debug.fTrace("---New OpWindows--");
 			
+			_oInterface.bFrBasedOnTime = true; //TODO if we have VSYnc us BaseOnFrame
+			
 			Context(_oInterface, _sWindowName, _nFrameWidth, _nFrameHeight, _bTransparent, _nBgColor);
 		//	fCreateForm
 		}

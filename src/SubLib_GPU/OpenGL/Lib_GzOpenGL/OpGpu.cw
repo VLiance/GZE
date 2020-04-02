@@ -34,6 +34,7 @@
 		
 		
 		 override public function fBlit():Void {
+		 	 Debug.fWarning("Blit: Not implemented");
 		 }
 		 
 		

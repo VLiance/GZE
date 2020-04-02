@@ -92,7 +92,9 @@ typedef struct _iobuf
 
 	
 	#ifndef D_Debug
+		#ifndef NDEBUG
 		#define NDEBUG
+		#endif
 	#endif
 
 	

@@ -26,7 +26,7 @@ package  {
 		override   function fGet() : Float { //Return the full path with exe name
 			
 			<cpp>
-				nConterStart+=10;
+				nConterStart+=100; //> 16 = max frame rate >= 60fps
 				//return  0-nConterStart;
 				return nConterStart;
 				//return  emscripten_get_now()-nConterStart;

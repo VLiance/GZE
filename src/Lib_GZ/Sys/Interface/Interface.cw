@@ -167,12 +167,12 @@ package  {
 				//	Debug.fTrace("fNewFrame");
 //	Debug.fTrace("---Update1--");
 			oContext.fFrameStart(); //Or checkMsg?
-			
-	//		
+
 			
 		//	if (bSreenCreated && oWindow.bBlitInProgress == false) {
 			if (oContext.bIniDrawZone && bSreenCreated && oContext.bBlitInProgress == false) {
 			
+			+//	Debug.fTrace("fUpdateChild");
 			
 				//RESET GpuFace
 				GpuFace.nCurrent = 0; //Reset Quad face count 
@@ -183,7 +183,7 @@ package  {
 			
 				aPixelArray = oContext.aDrawZone2D;  //Update pixel array after fliping (If change)
 
-			//			Debug.fTrace("fUpdateChild");
+				
 				
 				oContext.fGetMousePosition();
 				oContext.fGetKey(oKey);
