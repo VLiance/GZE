@@ -30,9 +30,17 @@
 //#define GzExport extern "C" __declspec(dllexport)  GZ_FCallType 
 #define GzExport extern "C"   GZ_FCallType 
 
-
-
 #define BUILD_BUG_ON(condition) ((void)sizeof(char[1 - 2*!!(condition)]))
+
+
+#ifdef D_Platform_Android
+	#define D_GZ_Sys64
+#endif
+
+#ifdef _WIN64
+#define D_GZ_Sys64
+#endif
+
 
 
 #define gzMin(a, b) ((a < b) ? a : b)
@@ -77,8 +85,17 @@ typedef   signed short int gzInt16;
 typedef unsigned short int gzUInt16;
 typedef   signed int gzInt32;
 typedef unsigned int gzUInt32;
-typedef  signed long long  gzInt64;
-typedef unsigned long long gzUInt64;
+
+
+//In a 64-bit compile, int64_t is long int, not a long long int (obviously). //#if __WORDSIZE == 64 -> typedef long int  int64_t;
+#ifdef D_GZ_Sys64 
+	typedef  signed long  gzInt64;
+	typedef unsigned long gzUInt64;
+#else
+	typedef  signed long long  gzInt64;
+	typedef unsigned long long gzUInt64;
+#endif
+
 
 typedef float gzFloat32;
 typedef double gzFloat64;
@@ -91,13 +108,7 @@ typedef const wchar_t* gzText16;
 
 typedef void* gzPtr;
 
-#ifdef D_Platform_Android //Test
-	#define D_GZ_Sys64
-#endif
 
-#ifdef _WIN64
-#define D_GZ_Sys64
-#endif
 
 
 //32 bit by default
@@ -210,14 +221,14 @@ typedef struct  {  //Auto memory management
 struct gzComp{void* oClass; gzPtrFunc fCall; };
 
 //extern Lib_GZ::cDelegate* GZ_NullObj; 
-#define GZ_NullObj ((void*)0)
-/*
-#ifdef D_Platform_Android //Test
+//#define GZ_NullObj ((void*)0)
+
+#ifdef D_Platform_Android //Test Bug with gzVal //TODO
 #define GZ_NullObj 0
 #else
 #define GZ_NullObj ((void*)0)
 #endif
-*/
+
 
 #ifndef D_Dynamic_Link
 /*
@@ -366,9 +377,16 @@ typedef void* ArrayPtr;//Temp?
 	#endif
 
 	
+	
+
 
 #ifdef D_Debug
-#define GZ_printf( format, ... ) printf( format, ## __VA_ARGS__ )
+	#ifdef D_Platform_Android
+		#include <android/log.h>
+		#define GZ_printf( format, ...)  __android_log_print(ANDROID_LOG_VERBOSE, "GZ_printf", format, ##__VA_ARGS__)
+	#else
+		#define GZ_printf( format, ... ) printf( format, ## __VA_ARGS__ )
+	#endif
 #else
 //Remove GZ_printf from release (huge ccode size)
 #define GZ_printf( format, ... ) 

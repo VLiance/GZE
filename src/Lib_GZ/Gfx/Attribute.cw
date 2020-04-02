@@ -161,7 +161,13 @@ package  {
 			oGblPt.vPt.nZ += oParent.oGblPt.vPt.nZ;
 
 			//vGblRot =  vRot + oParent.vGblRot;
+			<cpp>
+			//GZ_printf("Test0\n");
+			</cpp>
+			vGblSize = vSize;
+			
 			vGblSize = vSize * oParent.vGblSize;
+		
 			
 		//	vGblColor = vGblColor * oParent.vGblColor;
 		}

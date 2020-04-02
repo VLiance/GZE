@@ -7,6 +7,12 @@ generate "OpenGL" {
 		//public static var oGL : OpenGL;
 		
 		<cpp_h>
+		
+		#ifdef D_Platform_Android
+			//#include "Lib_GzOpenGL_Android/OGL_Android.h"
+			#define GL_APICALL extern "C" __attribute__((visibility("default")))
+		#endif
+		
 		#ifdef D_Platform_Web_Emsc
 			#include "Lib_GzWeb_Emsc/Emscripten/EmscHeader.h"
 		#endif
@@ -31,7 +37,6 @@ generate "OpenGL" {
 			gzVal oGL;
 		</cpp_class_h>
 		
-
 		/*
 		public enum eBlendFunc : Int {
 				ZERO                    = 0x01;
@@ -152,8 +157,7 @@ generate "OpenGL" {
 */
 		
 		
-		
-		
+
 		
 		/*
 	//Specifies the number of color components in the texture.
@@ -468,17 +472,17 @@ generate "OpenGL" {
 		gen public static function fDepthMask(_bEnable : Bool):Void;
 		gen public static function fDepthFunc(_eFunc : UInt):Void;
 
-		gen public static function fGetBooleanv(_hName : eGetName, _pData:CArray<Bool>):Void;
-		gen public static function fGetDoublev(_hName : eGetName, _pData:CArray<Float64>):Void;
+		//gen public static function fGetBooleanv(_hName : eGetName, _pData:CArray<Bool>):Void; //Useless / Unsigned char?
+		//gen public static function fGetDoublev(_hName : eGetName, _pData:CArray<Float64>):Void; //No android support
 		gen public static function fGetFloatv(_hName : eGetName, _pData:CArray<Float32>):Void;
 		gen public static function fGetIntegerv(_hName : eParameter_Int, _pData:CArray<Int32>):Void;
 		gen public static function fGetInteger64v(_hName : eGetName, _pData:CArray<Int64>):Void;
 
-		gen public static function fGetBooleani_v(_hTarget : UInt, _nIndex:UInt, _pData:CArray<Bool>)):Void;
-		gen public static function fGetIntegeri_v(_hTarget : UInt, _nIndex:UInt, _pData:CArray<Float64>):Void;
-		gen public static function fGetFloati_v(_hTarget : UInt, _nIndex:UInt, _pData:CArray<Float32>):Void;
-		gen public static function fGetDoublei_v(_hTarget : UInt, _nIndex:UInt, _pData:CArray<Int32>):Void;
-		gen public static function fGetInteger64i_v(_hTarget : UInt, _nIndex:UInt, _pData:CArray<Int64>)):Void;
+		//gen public static function fGetBooleani_v(_hTarget : UInt, _nIndex:UInt, _pData:CArray<Bool>)):Void; //No android support
+		//gen public static function fGetIntegeri_v(_hTarget : UInt, _nIndex:UInt, _pData:CArray<Float64>):Void; //No android support
+		//gen public static function fGetFloati_v(_hTarget : UInt, _nIndex:UInt, _pData:CArray<Float32>):Void; //No android support
+		//gen public static function fGetDoublei_v(_hTarget : UInt, _nIndex:UInt, _pData:CArray<Int32>):Void; //No android support
+		//gen public static function fGetInteger64i_v(_hTarget : UInt, _nIndex:UInt, _pData:CArray<Int64>)):Void; //No android support
 
 		//Functions
 		gen public static function fVertexAttribPointer(_nIndex : Val, _hLength: eVecLength, _hType: eVarType, _bNormalized: Bool, _nStride:Int, _nPointer:UInt ):Void;
@@ -867,16 +871,17 @@ generate "OpenGL" {
 		gen public static function fUniformMatrix3fv(_nLocation : Val, _nCount : Int, _bTranspose : Bool, _aValue : CArray<Float32>):Void;
 		gen public static function fUniformMatrix4fv(_nLocation : Val, _nCount : Int, _bTranspose : Bool, _aValue : CArray<Float32>):Void;
 
+		/* Android?
 		gen public static function fUniform1d(_nLocation : Val, _nX : Float64):Void;
 		gen public static function fUniform2d(_nLocation : Val, _nX : Float64, _nY : Float64):Void;
 		gen public static function fUniform3d(_nLocation : Val, _nX : Float64, _nY : Float64, _nZ : Float64):Void;
 		gen public static function fUniform4d(_nLocation : Val, _nX : Float64, _nY : Float64, _nZ : Float64, _nW : Float64):Void;
-
+	
 		gen public static function fUniform1dv(_nLocation : Val, _nCount : Int, _aValue : CArray<Float64>):Void;
 		gen public static function fUniform2dv(_nLocation : Val, _nCount : Int, _aValue : CArray<Float64>):Void;
 		gen public static function fUniform3dv(_nLocation : Val, _nCount : Int, _aValue : CArray<Float64>):Void;
 		gen public static function fUniform4dv(_nLocation : Val, _nCount : Int, _aValue : CArray<Float64>):Void;
-
+		
 		gen public static function fUniformMatrix2dv(_nLocation : Val, _nCount : Int, _bTranspose : Bool, _aValue : CArray<Float64>):Void;
 		gen public static function fUniformMatrix3dv(_nLocation : Val, _nCount : Int, _bTranspose : Bool, _aValue : CArray<Float64>):Void;
 		gen public static function fUniformMatrix4dv(_nLocation : Val, _nCount : Int, _bTranspose : Bool, _aValue : CArray<Float64>):Void;
@@ -887,7 +892,8 @@ generate "OpenGL" {
 		gen public static function fUniformMatrix3x4dv(_nLocation : Val, _nCount : Int, _bTranspose : Bool, _aValue : CArray<Float64>):Void;
 		gen public static function fUniformMatrix4x2dv(_nLocation : Val, _nCount : Int, _bTranspose : Bool, _aValue : CArray<Float64>):Void;
 		gen public static function fUniformMatrix4x3dv(_nLocation : Val, _nCount : Int, _bTranspose : Bool, _aValue : CArray<Float64>):Void;
-
+		*/
+		
 		gen public static function fUniform1ui(_nLocation : Val, _n0 : UInt32):Void;
 		gen public static function fUniform2ui(_nLocation : Val, _n0 : UInt32, _n1 : UInt32):Void;
 		gen public static function fUniform3ui(_nLocation : Val, _n0 : UInt32, _n1 : UInt32, _n2 : UInt32):Void;

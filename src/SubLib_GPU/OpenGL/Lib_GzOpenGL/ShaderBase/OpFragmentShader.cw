@@ -28,7 +28,8 @@ package  {
 		override public function fAddHeader():Void {
 			if(hGlsl_ES_Version == eGlsl_ES_Version.Auto){
 				<cpp>
-					#ifdef D_Platform_Web_Emsc
+					//#ifdef D_Platform_Web_Emsc
+					#if ( defined D_Platform_Web_Emsc || defined  D_Platform_Android)
 				</cpp>
 				
 				/*

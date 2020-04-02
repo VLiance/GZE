@@ -359,11 +359,26 @@ extern "C" int main( int argc, const char* argv[] ){
 	
 	
 	extern "C" Lib_GZ::uLib* IniLib_Lib_GzAndroid(); //Overplace must be present
-	int main() {
+	extern "C" Lib_GZ::uLib* IniLib_Lib_GzOpenGL(); //Overplace must be present
+	extern "C" Lib_GZ::uLib* IniLib_Lib_GzOpenGL_Android(); //Overplace must be present
+	
+	extern "C" int Android_Main();
+	
+	
+	extern "C" int Android_Main() {
+		GZ_printf("\nAndroid_Main!");
+		
 		Lib_GZ::Base::Thread::Thread::bAppIsAlive = true;//TODO remove
 		Lib_GZ::Lib::fLoadAllLib();
+			GZ_printf("\nAndroid_Main!");
 		Lib_GZ::Lib::fLoadLib(IniLib_Lib_GzAndroid()); //OverPlace
+		Lib_GZ::Lib::fLoadLib(IniLib_Lib_GzOpenGL()); //OverPlace
+		//Lib_GZ::Lib::fLoadLib(IniLib_Lib_GzOpenGL_Android()); //OverPlace
+		
+				
+		GZ_printf("\nCall MainEntry");
 		nMainIsAlive = Main("");
+		GZ_printf("\nFuinish main - fUpdated");
 		while(nMainIsAlive){
 			Update(0);
 		}

@@ -104,7 +104,7 @@ package  {
 		}
 		
 		override public function fFrameStart():Void{
-			//Debug.fTrace("FrameSTart");
+			Debug.fTrace("FrameSTart");
 			gContextGate.ExecuteAll();
 
 		}

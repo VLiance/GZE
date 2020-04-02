@@ -117,7 +117,8 @@
 		} */
 	
 #else
-	typedef gzUIntX gzVal;
+	//typedef gzUIntX gzVal;
+	typedef gzUInt gzVal; //OGL on Android64 use Int32
 	#define GzNullVal 0;
 #endif
 
