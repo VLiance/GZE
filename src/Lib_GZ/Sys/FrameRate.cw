@@ -72,9 +72,9 @@ package  {
 					fCreateFrame();
 				}
 			}else{//FrBasedOnFrame
-			//Debug.fTrace("NewFrame: " + nFrame);
+				//Debug.fTrace("NewFrame: " + nFrame);
 				nFrBasedOnFrame_Current++;
-				if(nFrBasedOnFrame_Current > nFrBasedOnFrame_RenderAtEachFR){
+				if(nFrBasedOnFrame_Current >= nFrBasedOnFrame_RenderAtEachFR){
 					nFrBasedOnFrame_Current = 0;
 					fCreateFrame();
 				}

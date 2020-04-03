@@ -41,14 +41,18 @@ package  {
 			
 			
 			OpenGL.fBindFramebuffer(FRAMEBUFFER, null); //Default
-	
+		
+		/*
+		#ifndef D_Platform_Android
+			//TODO Put a flag for Android in default frame buffer to disable Blending
+			//Blending kill FPS on Android!!
 			OpenGL.fEnable( BLEND );
 			//OpenGL.fBlendFunc(ONE_MINUS_DST_ALPHA, ONE); //Front to back
 		//	OpenGL.fBlendFunc(ONE_MINUS_SRC_ALPHA, ONE); //Back to front
 			OpenGL.fBlendFunc(ONE,ONE_MINUS_SRC_ALPHA );  //Front to back
-
-
-			
+			//////////////////////////////////
+		#endif
+		*/
 			//oShModel.oUnType.nVal = 4;
 			oShModel.oUnType.nVal = 6;//Tiles
 			

@@ -30,8 +30,12 @@ package  {
 					#line 2
 					#define d_WebGL
 					
-					precision mediump float;  //highp only works in fragment shaders if you have the GL_FRAGMENT_PRECISION_HIGH extension enabled.
-					precision mediump int;  //highp only works in fragment shaders if you have the GL_FRAGMENT_PRECISION_HIGH extension enabled.
+					#define SetPrecision highp
+					//#define SetPrecision mediump
+					
+					precision SetPrecision float;  //highp only works in fragment shaders if you have the GL_FRAGMENT_PRECISION_HIGH extension enabled.
+					precision SetPrecision int;  //highp only works in fragment shaders if you have the GL_FRAGMENT_PRECISION_HIGH extension enabled.
+					
 					//#define texture(s,t) texture2D(s, t) //WebGl2 not required
 					
 					///#version 100  //-->ES2/ WebGl 1

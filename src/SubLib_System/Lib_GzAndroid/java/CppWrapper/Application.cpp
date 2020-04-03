@@ -114,7 +114,7 @@ void Application::Step(){
 void Application::OnUpdate( const float _nDeltaSeconds ){
 
 //	m_pRenderer->ClearScreen(0.0, 1.0, 0.0, 0.0, true);
-	
+	//LOGE("DELTA SEC _nDeltaSeconds: %f", _nDeltaSeconds);
 	Android_Update();
 	// Here is the game logic
 	/*

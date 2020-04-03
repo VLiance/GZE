@@ -382,7 +382,12 @@ extern "C" int main( int argc, const char* argv[] ){
 	}
 	
 	extern "C" int Android_Update() {
+		
+		static int _nTest = 0;
+	//	_nTest++;
+	//	GZ_printf("\n----Start Update %d " ,_nTest);
 		Update(0);
+	//	GZ_printf("\n----Finish Update %d " , _nTest);
 		return 0;
 	}
 

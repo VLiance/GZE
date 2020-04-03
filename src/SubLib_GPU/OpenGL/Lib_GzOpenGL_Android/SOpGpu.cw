@@ -42,10 +42,12 @@
 		}
 				
 		 override public function fBlit():Void {
+
 		 	OpenGL.fClearColor(0.1, 0.5, 0.2, 0.5);
 			OpenGL.fClear(COLOR_BUFFER_BIT );
+			
 			oGzShModel.fUpdate();
-			oGzShModel.fRenderFrame();
+			oGzShModel.fRenderFrame(); //Useless?
 		 }
 		
 		 override public function fSetShader(_oShader: GzShModel):Void {
@@ -64,7 +66,7 @@
 		
 		
 		 override function fLoadDefaultShader():Bool {
-			 
+			Debug.fWarning("LoadDefaultShader");
 			<cpp>
 			 const char* _file = __FILE__; //Temp
 			 gzUInt _line = __LINE__; //Temp
