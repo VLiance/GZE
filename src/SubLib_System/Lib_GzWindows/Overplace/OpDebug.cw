@@ -52,9 +52,11 @@ package  {
 			
 			 void  fMsgPrint(gzPStr _sValue){
 			 
+				gzUInt _nSize = 0;
+				char* _sData = _sValue.fGetDataChar(_nSize);
+				printf("%.*s", (gzInt)_nSize, _sData);
 			 
-			 
-			 	_sValue.fPrint();
+			 	//_sValue.fPrint();
 				
 				
 				

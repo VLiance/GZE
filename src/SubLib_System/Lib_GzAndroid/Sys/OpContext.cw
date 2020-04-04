@@ -38,6 +38,8 @@ package  {
 		public function OpContext(_oInterface : Interface, _sWindowName : String, _nFrameWidth : UInt, _nFrameHeight : UInt, _bTransparent : Bool = false, _nBgColor : Int = 0xFFFFFFFF): Void {
 			Debug.fTrace("---New OpWindows--");
 			Context(_oInterface, _sWindowName, _nFrameWidth, _nFrameHeight, _bTransparent, _nBgColor);
+			
+			bSemiTransparent = false; //Blending kill FPS on Android!! --> No Semi-transparent context available anyway
 			//bWinGPU = false;
 			
 			_oInterface.bFrBasedOnTime = false;

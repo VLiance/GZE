@@ -43,7 +43,8 @@
 				
 		 override public function fBlit():Void {
 
-		 	OpenGL.fClearColor(0.1, 0.5, 0.2, 0.5);
+		 	//OpenGL.fClearColor(0.1, 0.5, 0.2, 0.5);
+		 	OpenGL.fClearColor(0.1, 0.5, 0.2, 1.0);
 			OpenGL.fClear(COLOR_BUFFER_BIT );
 			
 			oGzShModel.fUpdate();

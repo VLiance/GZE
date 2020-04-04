@@ -16,6 +16,9 @@ package  {
 
 	public overclass Context extends Window {
 		
+		
+		public var bSemiTransparent : Bool;
+		public var nBgColor : Int;
 
 		public	var nHandleId : UIntX;
 		public	var nWinHandleId : UIntX;
@@ -51,6 +54,8 @@ package  {
 		
 		public function Context(_oInterface : Interface, _sWindowName : String, _nFrameWidth : UInt, _nFrameHeight : UInt, _bTransparent : Bool = false, _nBgColor : Int = 0xFFFFFFFF): Void {
 			
+			bSemiTransparent = _bTransparent;
+			nBgColor = _nBgColor;
 		//Window(_oInterface, _sWindowName, _nFrameWidth, _nFrameHeight, _bTransparent, _nBgColor);
 					//Debug.fInfo("_sWindowName Name  "  + _sWindowName);
 					//Debug.fInfo("_sWindowName Name  "  + _sWindowName);

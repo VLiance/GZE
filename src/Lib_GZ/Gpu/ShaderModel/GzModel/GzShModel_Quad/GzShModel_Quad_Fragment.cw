@@ -18,31 +18,24 @@ package  {
 	import GZ.Gpu.ShaderModel.GzModel.GzShModel;
 	import GZ.Gpu.ShaderModel.GzModel.GzShModel_Quad.GzShModel_Quad;
 	import GZ.Gpu.ShaderModel.AtModel.Attribute_Quad;
+	import GZ.Gpu.ShaderModel.GzModel.GzShCommun.GzShCommun_Base;
+
 	
 	//import GZ.Base.TestPod;
 	//import GZ.Base.TestPod2;
 	
 	
 	public extension GzShModel_Quad_Fragment extends GzShModel {
-
-		
 	
-		
 		override public function fLoad_Fragment():Bool {
-			
+		
+			GzShCommun_Base.fAdd_FragmentBasics(oFragement);
+			GzShCommun_Base.fAdd_Func_Basics(oFragement);
 			
 			///////////// Fragment Shader //////////////
 <glsl(oFragement)>
 		
-	#define nMaxTextures 8
-		
-	uniform int ID_TexCurrent; 
-	uniform int ID_TexNormal; 
-	uniform int ID_TexSprites; 
-	uniform int ID_TexFont; 
-
-	uniform vec2 	  TexSize[nMaxTextures];
-	uniform sampler2D Texture[nMaxTextures];
+	
 	
 	//out vec4 outputColor;
 

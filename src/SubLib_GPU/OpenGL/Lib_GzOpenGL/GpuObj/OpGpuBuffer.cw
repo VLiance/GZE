@@ -55,6 +55,7 @@ package  {
 			fCreate();
 		}
 		
+	
 		
 		public function fCreate():Void{
 				//return;
@@ -179,7 +180,10 @@ package  {
 		}
 		
 		
-		
+		override public function fBind():Void{
+			//TODO test inf nIdBuf != 0
+			OpenGL.fBindFramebuffer(FRAMEBUFFER, nIdBuff);
+		}	
 
 		override public function fIniRender():Void{
 		

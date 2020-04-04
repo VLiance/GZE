@@ -11,6 +11,10 @@
 	
 	import GzOpenGL.OpenGL;
 	import GZ.Gpu.GpuObj.GpuObject;
+	
+	import GZ.Gpu.ShaderModel.GzModel.GzShCommun.GzShCommun_Base;
+	
+	
 
 	public class ThreadItf extends Thread  {
 		
@@ -30,6 +34,7 @@
 			Debug.fInfo("-- New ThreadItf --");
 			
 			OpenGL = new OpenGL();
+			GzShCommun_Base = new GzShCommun_Base();
 			//GpuObject = new GpuObject();
 			<cpp>
 			GZ_printf("\n-- thread -- ");
@@ -40,7 +45,6 @@
 			Debug.fInfo("-- End ThreadItf --");
 		}
 
-		
 		
 	}
 }

@@ -44,8 +44,7 @@ package  {
 		
 		public var oKey : Key; 
 
-		private var bWIntransparent : Bool;
-		private var nBgColor : Int;
+
 
 		public wvar oThreadItf : ThreadItf;
 		
@@ -57,7 +56,7 @@ package  {
 		public function Interface(_oThreadItf : ThreadItf, _sWindowName : String, _nWeakWidth : UInt, _nWeakHeight : UInt, _bTransparent : Bool = false, _nBgColor : Int = 0xFFFFFFFF):Void {
 		
 			Debug.fTrace("IntefaceCreate");
-			
+		//	bWIntransparent = _bTransparent;
 		//, _hBorder : eWinBorder = eWinBorder.Normal,  _bMinimizeBox : Bool = true, _bMaximizeBox : Bool  = true, _bCloseBox : Bool = true, _bCpuOnly : Bool = false):Void {
 		
 		
@@ -85,7 +84,7 @@ package  {
 		
 
 			sWindowName = _sWindowName;
-			nBgColor = _nBgColor;
+			//nBgColor = _nBgColor;
 
 			//var _sWindowNameTest : String = "abcde";
 			oContext = new Context(this, sWindowName, _nWeakWidth, _nWeakHeight, _bTransparent, _nBgColor);
@@ -97,7 +96,7 @@ package  {
 			}
 			
 			oThreadItf.oWindow = oContext; //Will destroy windws when thread finish (shared_ptr)
-			bWIntransparent = _bTransparent;
+			
 
 			nFrameWidth = oContext.nFrameWidth;
 			nFrameHeight = oContext.nFrameHeight;
@@ -127,10 +126,12 @@ package  {
 			*/
 	//		bLimitLock = true;
 
+	
+	/*
 			if (bWIntransparent == true) { //If transparent go to CPU draw
 				oContext.bWinGPU = false;
 			}
-			
+		*/	
 
 			//oWindow.fIniPixelZone();
 		//	aPixelArray = oWindow.fGetPixelArray();
@@ -153,8 +154,9 @@ package  {
 				
 			}
 			fWinStart();
-			if (bWIntransparent != true) { //If transparent go to CPU draw
-				oBackground = new Rectangle(this, 0p, 0p, oContext.nFrameWidth, oContext.nFrameHeight, nBgColor);
+			
+			if (oContext.bSemiTransparent != true) { //If transparent go to CPU draw
+				oBackground = new Rectangle(this, 0p, 0p, oContext.nFrameWidth, oContext.nFrameHeight,  oContext.nBgColor);
 			}
 		
 

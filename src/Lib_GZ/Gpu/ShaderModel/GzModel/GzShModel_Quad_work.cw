@@ -138,7 +138,7 @@ xflat out mat4 iomNorm;
 /////////
 
 
-	
+	/*
 vec3 fQRot( vec3 pt, vec4 rot)       {
 	return pt + 2.0*cross(rot.xyz, cross(rot.xyz,pt) + rot.w*pt);
 }
@@ -172,7 +172,7 @@ vec3 fWoldTrans(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 	return fQRot3( vec4(-rot.xyz, rot.w), (v - pos)/size );
 }
-	
+	*/
 
 	void main(){
 			/*

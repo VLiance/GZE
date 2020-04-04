@@ -18,10 +18,7 @@
 	}
 	#endif
 	*/
-	
-	
-	
-	
+
 	
 	inline  gzDataRC* fEmptyArray(gzUInt _nSize, gzUInt _nMaxSize  ) {
 		gzDataRC* _oData =  GZ::fDataAlloc( _nSize, _nMaxSize );
@@ -316,6 +313,12 @@
 
 	 void fPrintData() const {
 	 	GZ_printf("%.*s", (gzInt)gzp_DataSize, gzp_DataArray);//Maybe not only in debug
+	}
+	
+	 char* fGetDataChar(gzUInt &_nSize) const {
+		_nSize = (gzUInt)gzp_DataSize;
+		return (char*)gzp_DataArray;
+	 	//GZ_printf("%.*s", (gzInt)gzp_DataSize, gzp_DataArray);//Maybe not only in debug
 	}
 	
 /*

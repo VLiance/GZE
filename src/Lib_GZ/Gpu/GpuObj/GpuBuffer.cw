@@ -33,6 +33,8 @@ package  {
 		
 		}
 		
+		public public function fBind():Void{
+		}
 		
 		public function  fUnload():Void {
 			

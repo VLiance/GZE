@@ -1,59 +1,39 @@
 package  { 
 
-	import GZ.Gpu.ShaderBase.FragmentShader;
-	import GZ.Gpu.ShaderBase.VertexShader;
-	import GZ.Gpu.ShaderBase.ProgramShader;
-	import GZ.Gpu.Base.Attribute;
-	import GZ.Gpu.Base.Texture;
-	import GZ.Gpu.Base.Uniform;
-	import GZ.Gpu.Base.UnVec2;
-	import GZ.Gpu.Base.UnVec4;
-	import GZ.Gpu.Base.UnFloat;
-	import GZ.Gpu.Base.UnInt;
-	import GZ.Gpu.Base.Texture;
-	import GZ.Gpu.ShaderBase.Vbo;
-	import GZ.Gpu.GpuObj.GpuBatch;
-	import GZ.Base.Perspective;
-	import GZ.Sys.Interface.Context;
-	import GZ.Gpu.ShaderModel.GzModel.GzShModel;
-	import GZ.Gpu.ShaderModel.GzModel.GzShModel_Quad.GzShModel_Quad;
-	import GZ.Gpu.ShaderModel.GzModel.GzShModel_Quad.GzShModel_Quad_Fragment;
-	import GZ.Gpu.ShaderModel.AtModel.Attribute_Quad;
+import GZ.Gpu.ShaderBase.FragmentShader;
+import GZ.Gpu.ShaderBase.VertexShader;
+import GZ.Gpu.ShaderBase.ProgramShader;
+import GZ.Gpu.Base.Attribute;
+import GZ.Gpu.Base.Texture;
+import GZ.Gpu.Base.Uniform;
+import GZ.Gpu.Base.UnVec2;
+import GZ.Gpu.Base.UnVec4;
+import GZ.Gpu.Base.UnFloat;
+import GZ.Gpu.Base.UnInt;
+import GZ.Gpu.Base.Texture;
+import GZ.Gpu.ShaderBase.Vbo;
+import GZ.Gpu.GpuObj.GpuBatch;
+import GZ.Base.Perspective;
+import GZ.Sys.Interface.Context;
+import GZ.Gpu.ShaderModel.GzModel.GzShModel;
+import GZ.Gpu.ShaderModel.GzModel.GzShModel_Quad.GzShModel_Quad;
+import GZ.Gpu.ShaderModel.GzModel.GzShModel_Quad.GzShModel_Quad_Fragment;
+import GZ.Gpu.ShaderModel.AtModel.Attribute_Quad;
+import GZ.Gpu.ShaderModel.GzModel.GzShCommun.GzShCommun_Base;
 
+
+public extension GzShModel_Quad_Vertex extends GzShModel_Quad_Fragment {
+
+
+	override public function fLoad_Vertex():Bool {
 	
-	public extension GzShModel_Quad_Vertex extends GzShModel_Quad_Fragment {
-
-
-
-		
-		override public function fLoad_Vertex():Bool {
+		//Debug.fWarning("LoadVertex!!!!!!!!!!!!!!!!!");
+		GzShCommun_Base.fAdd_VertexBasics(oVertex);
+		GzShCommun_Base.fAdd_Func_Basics(oVertex);
 		
 	
 <glsl(oVertex)>
 			
-	#define nMaxTextures 8
-			
-	uniform int ID_TexCurrent; 
-	uniform int ID_TexNormal; 
-	uniform int ID_TexSprites; 
-	uniform int ID_TexFont; 
-
-	uniform vec2 	  TexSize[nMaxTextures];
-	//uniform sampler2D Texture[nMaxTextures];
-	
-	#define iTexID int(in_ObjSize.w)
-	#define nTexID in_ObjSize.w
-	#define nType in_ObjPos.w
-
-				
-	//uniform int nType;
-
-	in vec4 in_ObjPos; //x, y, z, nType 
-	in vec4 in_ObjSize;  //Width,Height,Length, TextureLocationID
-	//in vec4 in_ObjRot; // Roll, Yaw, Pitch, Focal
-	in vec4 in_ObjRot; //Quaternion -> x, y, z, w
-
-	
 	in vec4 in_Pt1;  //x,y,z, Width
 	in vec4 in_Pt2;  //x,y,z, Height
 	in vec4 in_Pt3;  //x,y,z, Length
@@ -144,7 +124,7 @@ xflat out mat4 iomNorm;
 /////////
 
 
-	
+	/*
 vec3 fQRot( vec3 pt, vec4 rot)       {
 	return pt + 2.0*cross(rot.xyz, cross(rot.xyz,pt) + rot.w*pt);
 }
@@ -178,7 +158,7 @@ vec3 fWoldTrans(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 	return fQRot3( vec4(-rot.xyz, rot.w), (v - pos)/size );
 }
-	
+	*/
 
 	void main(){
 			/*

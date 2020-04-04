@@ -5,6 +5,7 @@ package  {
 	
 	import GZ.Gfx.Face;
 	import GZ.Gpu.GpuObj.GpuBatch;
+
 	import GZ.Gpu.ShaderBase.Evbo;
 	import GZ.Gpu.ShaderModel.GzModel.GzShModel;
 	import GZ.Sys.Interface.Context;
@@ -15,6 +16,10 @@ package  {
 		
 		public var oEvbo : Evbo;
 		
+	
+
+		
+
 		<cpp_namespace>
 		 static char aIndice2TriA[] = {3,2,0, 2,1,0 };
 		</cpp_namespace>
@@ -39,20 +44,28 @@ package  {
 			
 		//	Debug.fTrace("Draw _nNbElement: " + _nNbElement);
 			
+			if(oFBO_Destination == null){
+				OpenGL.fBindFramebuffer(FRAMEBUFFER, null); //Default
+			}else{
+				oFBO_Destination.fBind();
+			}
 			
-			OpenGL.fBindFramebuffer(FRAMEBUFFER, null); //Default
-		
-		/*
-		#ifndef D_Platform_Android
-			//TODO Put a flag for Android in default frame buffer to disable Blending
+			
+		//TODO Switch case
+		if(hBlendMode ==  eBlendMode.None){
+			OpenGL.fDisable( BLEND );
+		}
+		if(hBlendMode ==  eBlendMode.Alpha){
 			//Blending kill FPS on Android!!
 			OpenGL.fEnable( BLEND );
 			//OpenGL.fBlendFunc(ONE_MINUS_DST_ALPHA, ONE); //Front to back
 		//	OpenGL.fBlendFunc(ONE_MINUS_SRC_ALPHA, ONE); //Back to front
 			OpenGL.fBlendFunc(ONE,ONE_MINUS_SRC_ALPHA );  //Front to back
 			//////////////////////////////////
-		#endif
-		*/
+		}
+		
+		
+		
 			//oShModel.oUnType.nVal = 4;
 			oShModel.oUnType.nVal = 6;//Tiles
 			

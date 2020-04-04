@@ -70,7 +70,7 @@ package  {
 		}
 		
 		
-		override public function fAddSequence( _oRc : RcImgSequence, _nX: Float = 0, _nY:Float = 0, _bCenter:Bool = true, _nCenterX:Int = 0, _nCenterY:Int = 0):Void {
+		public function fAddSequence( _oRc : RcImgSequence, _nX: Float = 0, _nY:Float = 0, _bCenter:Bool = true, _nCenterX:Int = 0, _nCenterY:Int = 0):Void {
 
 			for (var i : UInt = 0; i < _oRc.aImg.nSize; i++) {
 				var _oClip : Clip = new Clip(this, 0 , 0);
