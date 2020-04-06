@@ -80,7 +80,7 @@ package  {
 				oDstBuff = _oParent.oDstBuff;
 				
 				if (_bUpdateManually == 0) {
-					_oParent.fAddChild(this);
+					_oParent.fAddChild(this); 
 				}
 			}
 			

@@ -19,6 +19,7 @@ package  {
 	import GZ.Gpu.ShaderModel.GzModel.GzShModel_Quad.GzShModel_Quad;
 	import GZ.Gpu.ShaderModel.AtModel.Attribute_Quad;
 	import GZ.Gpu.ShaderModel.GzModel.GzShCommun.GzShCommun_Base;
+	import GZ.Gpu.ShaderModel.GzModel.GzShCommun.GzShCommun_Light;
 
 	
 	//import GZ.Base.TestPod;
@@ -31,6 +32,9 @@ package  {
 		
 			GzShCommun_Base.fAdd_FragmentBasics(oFragement);
 			GzShCommun_Base.fAdd_Func_Basics(oFragement);
+			
+			
+			//GzShCommun_Light.fAdd_Func_fAddLight(oFragement);
 			
 			///////////// Fragment Shader //////////////
 <glsl(oFragement)>
@@ -127,35 +131,6 @@ smooth in vec2 uv;
 	
 
 	
-//E:Error linking OpenGL Program:: 
-//error X3512: sampler array index must be a literal expression
-//Warning: D3D shader compilation failed with default flags. (ps_5_0)
-//--> A variable of sampler can only be defined in one of two ways. It can be defined as a function parameter or as a uniform variable.
-// Ony for Angle?	 Only D3D9?
-//vec4 fGetPixel(sampler2D textures[4], int ndx, vec2 uv) {
-vec4 fTexture(int ndx, vec2 uv) {
-	#ifdef d_WebGL
-		switch(ndx){
-			case 0:return texture(Texture[0], uv);
-			case 1:return texture(Texture[1], uv);
-			case 2:return texture(Texture[2], uv);
-			case 3:return texture(Texture[3], uv);
-			case 4:return texture(Texture[4], uv);
-			case 5:return texture(Texture[5], uv);
-			case 6:return texture(Texture[6], uv);
-			case 7:return texture(Texture[7], uv);
-		}
-		/*
-		for (int i = 0; i < nMaxTextures; ++i) {
-			if (i == ndx) {
-				return texture(Texture[i], uv);
-			}
-		}*/
-	#else
-		return texture(Texture[ndx], ioTexture);
-	#endif
-}
-	
 void main()
 {
 	/// Make a bilinear interpolation from uv ///
@@ -185,7 +160,8 @@ void main()
 		}
 		
 			
-		if( nType == 8.0 ){
+		if( nType == 8.0 ){ //Vector Line<
+		
 			//pixTex = vec4(0.0, 1.0, 0.5, 1.0);
 			pixTex = vPtDist;
 			pixTex.a =1.0- (uv.y*uv.y);

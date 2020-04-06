@@ -89,6 +89,7 @@ package  {
 			nFrame++;
 			nTotalFrameRended++;
 			<cpp>
+			//#define D_Render_100_Frames
 			#ifdef D_Render_100_Frames
 			</cpp>
 			if(nTotalFrameRended > 100){

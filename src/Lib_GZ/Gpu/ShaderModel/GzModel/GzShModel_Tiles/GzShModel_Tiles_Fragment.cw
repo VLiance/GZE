@@ -20,6 +20,7 @@ package  {
 	import GZ.Gpu.ShaderModel.AtModel.Attribute_Quad;
 	
 	import GZ.Gpu.ShaderModel.GzModel.GzShCommun.GzShCommun_Base;
+	import GZ.Gpu.ShaderModel.GzModel.GzShCommun.GzShCommun_Light;
 	//import GZ.Base.TestPod;
 	//import GZ.Base.TestPod2;
 	
@@ -33,6 +34,11 @@ package  {
 			
 			GzShCommun_Base.fAdd_FragmentBasics(oFragement);
 			GzShCommun_Base.fAdd_Func_Basics(oFragement);
+			
+			
+			
+			GzShCommun_Light.fAdd_Func_fAddLight(oFragement);
+			
 			
 			///////////// Fragment Shader //////////////
 <glsl(oFragement)>
@@ -170,6 +176,7 @@ in vec2 ioTexture;
 
 xflat in vec3 ioNorm; // Maybe if we get it from world norm
 xflat in vec4 ioObjRot;//-
+//xflat in int ioTexID;
 //24 variyng vector	
 
 
@@ -187,54 +194,51 @@ uniform mat4 mColor;
 
 
 
-vec3 vDark;
-vec3 vLight;
+
 vec4 pixTex;
 
 
 
-vec4  vColorSpecular = vec4(1.0,1.0,0.2 , 0.5); //0 to X Can be premultiplied with alpha
-vec4  vColorDiffuse = vec4(1.0, 1.0, 1.0, 2.75);  //rgb -1 to 2  no diffuse : vec4(0.0,0.0,0.0, 1.0); normal : vec4(1.0,1.0,1.0, 1.0);
-//vec3 vAmbient = vec3(-1.0, -1.0, -1.0);
-//vec3 vAmbient = vec3(0.0, 0.0, 0.0);
-vec3 vAmbient = vec3(-1.0, -1.0, -1.0); // -1.0 to 1.0
 
-//0 to 1
-float att_kC = 1.02; //Kc is the constant attenuation
-float att_kL = 0.60; //KL is the linear attenuation
-float att_kQ = 0.002; //KQ is the quadratic attenuation
-
-/*
-float att_kC = 0.08; //Kc is the constant attenuation
-float att_kL = 0.08; //KL is the linear attenuation
-float att_kQ = 0.002; //KQ is the quadratic attenuation
-*/
-////////////
-	
-
-// vec3 eye_position = vec3(  400.0, 1600.0, -300.0);
-vec3 eye_position = vec3(  400.0, 300.0, -500.0);
-//  vec3 light_position  =   vec3( 400.0,300.0, 0.0);
-vec3 light_position  =   vec3( 400.0,300.0, -300.0);
 
 
 
 smooth in vec2 uv;
+
 	
 float nType;
 	
+	
+#define nType iomWorldPt[0].w
+#define iTexID int(iomWorldPt[1].w)
+
+
+
+
+
+
+
+
 void main()
 {
 
-nType = iomWorldPt[0].w;
-
+//nType = iomWorldPt[0].w;
 
 
 	/// Make a bilinear interpolation from uv ///
 	vec4 _vCoDist = vec4((1.0-uv.x)*(1.0-uv.y), (uv.x)*(1.0-uv.y), (uv.x)*(uv.y), (1.0-uv.x)*(uv.y));
 	////////////////////////////////////////
-	
-	if( nType == 4.0 ||  nType == 6.0){ //Normal
+		vec4 vPtDist = coord_Color1; 
+		
+	if( nType == 8.0 ){ //Vector Line<
+		
+			//pixTex = vec4(0.0, 1.0, 0.5, 1.0);
+			pixTex = vPtDist;
+			pixTex.a =1.0- (uv.y*uv.y);
+			FragColor =  pixTex;
+			return;
+		
+	}else if( nType == 4.0 ||  nType == 6.0){ //Normal
 
       //  vec4 vPtDist = vec4(0.0, 0.0, 0.0, 1.0); //No Color
 		//vec4 vPtDist = ( coord_Color1 * _vCoDist.a) + (coord_Color2 * _vCoDist.r) + (coord_Color3 * _vCoDist.b) + (coord_Color4 * _vCoDist.g);
@@ -243,7 +247,7 @@ nType = iomWorldPt[0].w;
      //   vec4 vPtDist = iomColor * vCoDist;
 	 
 		//vec4 vPtDist = vec4(1.0, 0.0, 0.0, 0.5); //No Color
-		vec4 vPtDist = coord_Color1; 
+	
 	//	vec4 vPtDist = _vQuadColor; 
 		
 	if( nType == 6.0){
@@ -355,11 +359,19 @@ nType = iomWorldPt[0].w;
 					vPosBL =  ioOffsetL1 + abs( ivec2(vPosBL.y - ioSrcOL.y,vPosBL.y - ioSrcOL.y) * vFlip.yx   );  //Left
 				}
 			
-
+				/*
 				vec4 vPixTL = texelFetch(TexCurrent, vPosTL,0);
 				vec4 vPixTR = texelFetch(TexCurrent, vPosTR,0);
 				vec4 vPixBR = texelFetch(TexCurrent, vPosBR,0);
 				vec4 vPixBL = texelFetch(TexCurrent, vPosBL,0);
+				*/
+				
+				vec4 vPixTL = fTexelFetch(iTexID, vPosTL);
+				vec4 vPixTR = fTexelFetch(iTexID, vPosTR);
+				vec4 vPixBR = fTexelFetch(iTexID, vPosBR);
+				vec4 vPixBL = fTexelFetch(iTexID, vPosBL);
+				
+				//pixTex = fTexelFetch(ioTexID, ioTexture);
 				
 /*
 				vec4 vPixTL = texture(TexCurrent, (vec2(vPosTL) + 0.5) /vTexDimFetch );
@@ -379,11 +391,16 @@ nType = iomWorldPt[0].w;
 
 				pixTex = vPixTL * _nRAlphaTL +  vPixTR * _nRAlphaTR +  vPixBR * _nRAlphaBR +  vPixBL * _nRAlphaBL;
 				
-
 			}else{
+			
+				pixTex =  fTexture(iTexID, (ioTexture + 0.5)/ vTexSprites );
 				//pixTex = texture(TexSprites, ioTexture);// ( + 0.5 )  / (vTexDimFetch
-				pixTex = texture(TexSprites, (ioTexture + 0.5)/ vTexSprites );// ( + 0.5 )  / (vTexDimFetch
+				//pixTex = texture(TexSprites, (ioTexture + 0.5)/ vTexSprites );// ( + 0.5 )  / (vTexDimFetch
+				//	pixTex = fTexture(ioTexID, ioTexture);
 			}
+			
+			
+			
 			
 	//	pixTex = vec4(0.5,0.5,0.5,0.5);	
 
@@ -519,98 +536,18 @@ vPtNorm =  ( vPtNorm.xyz ) *  ( _vMyNorm.xyz);//good effect
       //  vec3 light_position = vec3(1514.0 ,-600.0, -800.0);
        // vec3 eye_position =   vec3( 500.0,  384.0,-1024.0);
 		
-
 		
-		
-		
-
-     //   vec3 L = ( vPtWorld - light_position );//light direction
-       // vec3 V = (  vPtWorld - eye_position );//view direction
-
-        vec3 L = ( vPtWorld -light_position     );//light direction
-        vec3 V = ( vPtWorld - eye_position  );//view direction
-
-
-       // vec3 L = normalize( light_position - vPtWorld);//light direction
-       // vec3 V = normalize( eye_position - vPtWorld);//view direction
-
-
-
-        float LdotN = max(0.0, dot(L,vPtNorm));
-
-        float diffuse = 0.50 * LdotN; //0.5 Just a random material
-
-		
-		//http://in2gpu.com/2014/06/19/lighting-vertex-fragment-shader/
-		
-
- 
-
-        //attenuation
-       // float d = distance( light_position,  vPtWorld) / 800.0;
-        float d = distance( (light_position),  (vPtWorld.xyz) );
-		//d =  1.5;
-        float att = 1.0 / (att_kC + d * att_kL + d*d*att_kQ); //Do the inverse
-     //   float att =  (att_kC + d * att_kL + d*d*att_kQ);
-
-//att = 0.0009;
-//att = 0.0;
-
-        float specular = 0.0;
-
-        if(LdotN > 0.0){
-          //choose H or R to see the difference
-          vec3 R = -normalize(reflect(L, vPtNorm));//Reflection
-           // specular = 0.65 * pow(max(0.0, dot(R, V)), 512); //https://learnopengl.com/Lighting/Basic-Lighting
-		//specular = material_kd * pow(max(0, dot(H, world_normal)), material_shininess);
-            specular = 0.20 *  pow(max(0.0, dot(R, V)), 1.9);//0.15  https://learnopengl.com/Lighting/Basic-Lighting
-		
-          //Blinn-Phong
-          vec3 H = normalize(L + V );//Halfway
-          specular = 100.65 * pow(max(0.0, dot(H, vPtNorm)), 7.8);
-		  
-        }
-
 		
 		  //// Custom interpolated color ////
-        vDark  = clamp(vPtDist.rgb + 1.0, 0.0, 1.0); //0 a 1 -> = 1 if bright
-        vLight = clamp(vPtDist.rgb , 0.0, 1.0); //0 a 1 -> = 0 if Dark
+        vec3 vDark  = clamp(vPtDist.rgb + 1.0, 0.0, 1.0); //0 a 1 -> = 1 if bright
+        vec3 vLight = clamp(vPtDist.rgb , 0.0, 1.0); //0 a 1 -> = 0 if Dark
         pixTex.rgb = (((( vec3(pixTex.a) -  pixTex.rgb ) * vLight) + pixTex.rgb) * vec3(vPtDist.a) * vDark);
         pixTex.a *= vPtDist.a;
 		
-	
-	
-        //// Diffuse ////
-     
-		//vColorDiffuse.rgb = (vColorDiffuse.rgb) * ((att *diffuse)*vColorDiffuse.a+(1.0-vColorDiffuse.a)) + vAmbient;
-	//	vColorDiffuse.rgb = (vColorDiffuse.rgb) * (( diffuse*att )*vColorDiffuse.a+(1.0-vColorDiffuse.a)) + vAmbient;
-		vColorDiffuse.rgb = (vColorDiffuse.rgb) * (( diffuse*att )*vColorDiffuse.a) + vAmbient;
 		
-		vDark  = clamp(vColorDiffuse.rgb + 1.0, 0.0, 1.0); //0 a 1 -> = 1 if bright
-        vLight = clamp(vColorDiffuse.rgb , 0.0, 1.0); //0 a 1 -> = 0 if Dark
-        pixTex.rgb = (((( vec3(pixTex.a) -  pixTex.rgb ) * vLight) + pixTex.rgb)  * vDark);
-		
+		pixTex = fAddLight(pixTex, vPtWorld, vPtNorm);
 
-		
-		//vPtDist += vColorDiffuse + vec4(vAmbient,0.0);
-	
-
-        // Specular
-      //  vLight = clamp(vColorSpecular.rgb * vColorSpecular.a * att * specular -1.0, 0.0, 1.0); //0 a 1 -> = 0 if Dark
-      //  vLight = clamp(vColorSpecular.rgb * vColorSpecular.a * specular -1.0, 0.0, 1.0); //0 a 1 -> = 0 if Dark
-       // vLight = clamp(vColorSpecular.rgb * vColorSpecular.a * (specular *att)  -1.0, 0.0, 1.0); //0 a 1 -> = 0 if Dark
-      //  vLight = clamp(vColorSpecular.rgb * vColorSpecular.a * ((specular *att)-1.0), 0.0, 1.0); //0 a 1 -> = 0 if Dark
-        vLight = clamp(vColorSpecular.rgb * vColorSpecular.a * ((specular *att)), 0.0, 1.0); //0 a 1 -> = 0 if Dark
-        pixTex.rgb = (((( vec3(pixTex.a) -  pixTex.rgb ) * vLight) + pixTex.rgb)  );
-
-
-   // }
-//pixTex.a = 0.5;
-
-
-//float light =  att * diffuse + att * specular;
-//FragColor =  vec4(att * diffuse,  att *specular, 0.0,1.0);
-
+   
 
 
 //FragColor =  vec4( att *specular,  att *specular,  att *specular,1.0);

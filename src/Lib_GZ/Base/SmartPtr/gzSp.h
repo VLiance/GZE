@@ -265,7 +265,15 @@ class gzSp {
 
 
     inline T* operator->() const
-    { return const_cast<T*>(obj);}
+    { 
+		#ifdef D_Debug
+		if(obj == 0){
+			printf("\n\n ------------- Error! Deferencing a Null PTR ------------- \n\n");
+		}
+		#endif
+		return const_cast<T*>(obj);
+	
+	}
 
 	inline bool operator==(gzPtr _nVal) { //Test if is == 0 (null) by example
 		return obj == (T*)_nVal;

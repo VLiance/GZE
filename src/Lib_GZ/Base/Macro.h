@@ -178,15 +178,17 @@ gzSp<Lib_GZ::Base::Thread::cThreadExt> _sLib::_sClass::NewThread(Lib_GZ::Base::c
 } \
 void _sLib::_sClass::Thread_Start(GZ_FuncWrapD, gzPtr _pThread){  \
 	GZ_printf("\nNEWWW Thread lib: " #_sLib);\
-    gzSp<_namespace::c##_class> _oInitialiser = _namespace::_class::Get( ((Lib_GZ::Base::Thread::cThreadExt*)_pThread)->thread  )->New(0);\
+	gzSp<_sLib::c##_sClass>_oTemp(new _sLib::c##_sClass(0)); \
+    gzSp<_namespace::c##_class> _oInitialiser = _namespace::_class::Get( ((Lib_GZ::Base::Thread::cThreadExt*)_pThread)->thread  )->New(_oTemp);\
    GZ_printf("\n_oInitialiser %p ", _oInitialiser.get());\
    _oInitialiser->fLinkThreadExt((Lib_GZ::Base::Thread::cThreadExt*)_pThread); \
 	GZ_printf("\n_oTemp: " #_sClass);\
-	gzSp<_sLib::c##_sClass>_oTemp(new _sLib::c##_sClass(_oInitialiser.get())); \
 	GZ_printf("\n_oConstructor: " #_sClass);\
+	_oTemp->parent = _oInitialiser.get(); \
+	_oTemp->thread = _oInitialiser.get(); \
 	_oTemp->Constructor((_namespace::c##_class*)_oInitialiser.get());   \
 	GZ_printf("\n_fStart: " #_sClass);\
-	_oInitialiser->fStart(_oTemp.get()); \
+	_oInitialiser->fStart(_oTemp.get()); /* Start Loop*/ \
 	GZ_printf("\nEND Thread class: " #_sClass);\
 	CallThreadEnd\
 }

@@ -20,6 +20,7 @@ package  {
 	import GZ.Gpu.ShaderModel.GzModel.GzShModel_Tiles.GzShModel_Tiles_Vertex;
 	
 	import GZ.Gpu.ShaderModel.AtModel.Attribute_Tiles;
+	import GZ.Gpu.ShaderModel.GzModel.GzShCommun.GzShCommun_Light;
 	
 	//import GZ.Base.TestPod;
 	//import GZ.Base.TestPod2;
@@ -77,6 +78,7 @@ package  {
 			oUnType = new UnInt(oProgram, "nType");
 			oUvPersp = new UnVec4(oProgram, "vPersp");
 
+			GzShCommun_Light.fIniData(oProgram);
 		}
 		
 
@@ -87,6 +89,7 @@ package  {
 		
 			oAt.fIniData( );
 			oAtTiles.fIniData();
+			
 			
 		}
 		
@@ -116,6 +119,10 @@ package  {
 			oUvPersp.vVal.nZ = Context.oItf.oPerspective.nValue;//nValue
 			oUvPersp.vVal.nW = Context.oItf.oPerspective.nType; //nType
 			oUvPersp.fSend();
+			
+			
+			GzShCommun_Light.fSetEyePos();
+			GzShCommun_Light.fSetAmbiant();
 			
 			
 			oGpuBatch.fDraw();

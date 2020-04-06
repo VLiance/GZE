@@ -6,7 +6,8 @@ package  {
 
 	
 	//import GZ.ThreadMsg;
-	
+	import GZ.Gfx.Buffer;  
+	import GZ.Sys.Interface.Interface;  
 	
 	<cpp_h>	
 		#include "Lib_GZ/Base/SmartPtr/SharedCount.h"
@@ -17,7 +18,8 @@ package  {
 
 		public static var nClassId : Int;
 		
-	
+
+		
 	
 		<cpp_namespace_h>	
 			//namespace Lib_GZ{namespace Base{namespace Thread{class cThread;}}}
@@ -91,6 +93,10 @@ package  {
 		public function Class() : Void {
 		}
 		
+		
+		public function fAddChild(_oChild:Any) : Void {
+			
+		}
 		
 		public function ThreadLoop() : Void {
 		}

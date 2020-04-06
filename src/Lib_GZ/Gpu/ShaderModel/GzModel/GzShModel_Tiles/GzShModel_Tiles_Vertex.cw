@@ -32,17 +32,8 @@ package  {
 			
 <glsl(oVertex)>
 
-////////////////////////////////////////////////////////////////
-//uniform int nType;
 
-/*
-	in vec4 in_ObjPos; //x, y, z, nType 
-	//in vec4 in_ObjRot; // Roll, Yaw, Pitch, Focal
-	in vec4 in_ObjRot; //Quaternion -> x, y, z, w
-	in vec4 in_ObjSize;  //Width,Height,Length, ????
-	*/
-	
-	
+
 	in vec4 in_Pt1;  //x,y,z, Width
 	in vec4 in_Pt2;  //x,y,z, Height
 	in vec4 in_Pt3;  //x,y,z, Length
@@ -58,8 +49,7 @@ package  {
 	in vec4 in_TilesC; //Corner
 	
 	
-	
-	
+
 	////  in vec4 in_LimitRender;  //Limit render ... in uniform? <----
 
 	//AylasID, UniformActionID, Type
@@ -185,12 +175,13 @@ xflat out ivec2 ivTexDim;
 	
 xflat out ivec2 vFlip; //Sure?
 
+//xflat out int ioTexID;
+
 int nOriTX;
 int nOriBX;
 int nOriLY;
 int nOriRY;
 //////////////////
-
 
 //uniform sampler2D TexCurrent; 
 	uniform vec2 vTexCurrent;
@@ -201,65 +192,9 @@ int nOriRY;
 //uniform sampler2D TexSprites;
 	uniform vec2 vTexSprites;
 
-
-
 	void main(){
-			/*
-			//Normal 2D
-			///// Rotation ////
-			float _nTx = (gl_Position.x * cos(in_ObjRot.y)) - (gl_Position.z * sin(in_ObjRot.y));
-			float _nTz = (gl_Position.x * sin(in_ObjRot.y)) + (gl_Position.z * cos(in_ObjRot.y));
-			float _nTy = (gl_Position.y * cos(in_ObjRot.z)) - (_nTz * sin(in_ObjRot.z));
-			gl_Position.z  = (_nTy * sin(in_ObjRot.z)) - (_nTz * cos(in_ObjRot.z));
-			gl_Position.x = (_nTx * cos(in_ObjRot.x)) - (_nTy * sin(in_ObjRot.x));
-			gl_Position.y = (_nTx * sin(in_ObjRot.x)) + (_nTy * cos(in_ObjRot.x));
-			////////////////////
-		
-			//3D to Screen
-			gl_Position.w  =  gl_Position.z * in_ObjPos.w + 1.0;
-			gl_Position.x = (((gl_Position.x ) + in_ObjPos.x + 0.5)   - iResolution.x/2.0) /  (iResolution.x/2.0);
-			gl_Position.y = (((gl_Position.y ) + in_ObjPos.y + 0.499) - iResolution.y/2.0) / -(iResolution.y/2.0) ;
-			gl_Position.z = 0.0;
-				*/
-
-/*
-		if(nType == 1){ //Normal 2D
-
-		
-		
-			gl_Position.x = (((in_PtPos.x * in_PtPos.z) + nPos.x + 0.5) - nWinHalfWidth )/ nWinHalfWidth ;
-			gl_Position.y = (((in_PtPos.y * in_PtPos.z) + nPos.y + 0.499) - nWinHalfHeight)/-nWinHalfHeight ;
-			gl_Position.w = in_PtPos.z;
-			gl_Position.z = 0;
-
-
+		//ioTexID = iTexID;
 			
-			coord_Texture.x = (in_TexCoord0.x + 0.5) / (nTexDim.x + 4 );
-			coord_Texture.y = (in_TexCoord0.y + 0.5) / (nTexDim.y + 4) ;
-
-			coord_TextureSource.x = in_TexCoord0.x / nTexDim.x;
-			coord_TextureSource.y = in_TexCoord0.y / nTexDim.y;
-
-			coord_Corner = in_Corner;
-			
-			coord_Color1 = in_Color1;
-			coord_Color2 = in_Color2;
-			coord_Color3 = in_Color3;
-			coord_Color4 = in_Color4;
-		}
-		
-		if(nType == 4){ //Normal 3D
-		*/	
-
-			//float atObjSize = 1.0;
-			
-			//gl_Position.x = in_PtPos.x;
-			//gl_Position.y = in_PtPos.y;
-			//gl_Position.z = in_PtPos.z;
-			
-		//	ivTexDim = ivec2(vTexDimFetch);
-
-
             ///////////////////////////////////////////////////
             ///////////////// Select vertex  ///////////////////
             ///////////////////////////////////////////////////
@@ -424,8 +359,8 @@ int nOriRY;
 		//////////////////////////////////////////////////////
 		/////////////////////////////////////////////////////
 	*/
-		iomWorldPt[0] = vec4(ioPt1 + _vObjPos.xyz, in_ObjPos.w); // in_ObjPos.w = nType
-		iomWorldPt[1] = vec4(ioPt2 + _vObjPos.xyz,0);
+		iomWorldPt[0] = vec4(ioPt1 + _vObjPos.xyz, nType);
+		iomWorldPt[1] = vec4(ioPt2 + _vObjPos.xyz, nTexID);
 		iomWorldPt[2] = vec4(ioPt3 + _vObjPos.xyz,0);
 		iomWorldPt[3] = vec4(ioPt4 + _vObjPos.xyz,0);
 		
@@ -631,9 +566,6 @@ ioOffsetBL.x = nOBL - ioOffsetBL.y * ivTexDim.x;
 
 
 
-
-
-
 /*	
 //Clamp			
 ioOffsetT =  ivec2(0,1);
@@ -655,50 +587,8 @@ if(_nIRevD < 0){
 }
 
 
-
-//gl_Position.x +=  in_TilesHV.x;
-
-
-
-//////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-		/*	
-		}
-		if(nType == 2){ //Buffer
-		
-			gl_Position = vec4(in_PtPos, 1.0) ;
-			gl_Position.x = (gl_Position.x - nWinHalfWidth )/ nWinHalfWidth;
-			gl_Position.y = ((gl_Position.y  )  - nWinHalfHeight)/-nWinHalfHeight;
-
-			coord_Texture.x = in_TexCoord0.x / nTexDim.x;
-			coord_Texture.y = (in_TexCoord0.y )/ nTexDim.y;
-
-			//coord_TextureSource.x = in_TexCoord0.x / nTexDim.x;
-			//coord_TextureSource.y = in_TexCoord0.y / nTexDim.y;
-		}
-
-		if(nType == 3){ //UniColor
-			gl_Position = vec4(in_PtPos, 1.0) ;
-			gl_Position.x = (gl_Position.x - nWinHalfWidth )/ nWinHalfWidth;
-			gl_Position.y = ((gl_Position.y  )  - nWinHalfHeight)/-nWinHalfHeight;
-			//coord_TextureSource.x = in_TexCoord0.x / nTexDim.x;
-			//coord_TextureSource.y = in_TexCoord0.y / nTexDim.y;
-		}
-		*/
-	
-
-	}
-			
-
+}
 </glsl>
-
-		
-		
-		
-		}
 	}
+}
 }

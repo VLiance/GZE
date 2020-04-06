@@ -56,7 +56,53 @@ public class GzShCommun_Base {
 
 			uniform vec2 	  TexSize[nMaxTextures];
 			uniform sampler2D Texture[nMaxTextures];
-						
+			
+			
+			//E:Error linking OpenGL Program:: 
+			//error X3512: sampler array index must be a literal expression
+			//Warning: D3D shader compilation failed with default flags. (ps_5_0)
+			//--> A variable of sampler can only be defined in one of two ways. It can be defined as a function parameter or as a uniform variable.
+			// Ony for Angle?	 Only D3D9?
+			//vec4 fGetPixel(sampler2D textures[4], int ndx, vec2 uv) {
+			vec4 fTexture(int ndx, vec2 uv) {
+				#ifdef d_WebGL
+					switch(ndx){
+						case 0:return texture(Texture[0], uv);
+						case 1:return texture(Texture[1], uv);
+						case 2:return texture(Texture[2], uv);
+						case 3:return texture(Texture[3], uv);
+						case 4:return texture(Texture[4], uv);
+						case 5:return texture(Texture[5], uv);
+						case 6:return texture(Texture[6], uv);
+						case 7:return texture(Texture[7], uv);
+					}
+					/*
+					for (int i = 0; i < nMaxTextures; ++i) {
+						if (i == ndx) {
+							return texture(Texture[i], uv);
+						}
+					}*/
+				#else
+					return texture(Texture[ndx], uv);
+				#endif
+			}
+
+			vec4 fTexelFetch(int ndx, ivec2 uv) {
+				#ifdef d_WebGL
+					switch(ndx){
+						case 0:return texelFetch(Texture[0], uv,0);
+						case 1:return texelFetch(Texture[1], uv,0);
+						case 2:return texelFetch(Texture[2], uv,0);
+						case 3:return texelFetch(Texture[3], uv,0);
+						case 4:return texelFetch(Texture[4], uv,0);
+						case 5:return texelFetch(Texture[5], uv,0);
+						case 6:return texelFetch(Texture[6], uv,0);
+						case 7:return texelFetch(Texture[7], uv,0);
+					}
+				#else
+					return texelFetch(Texture[ndx], uv,0);
+				#endif
+			}
 		</glsl>	
 	}
 
