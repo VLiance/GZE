@@ -29,12 +29,17 @@ public class GzShCommun_Light {
 	public var oUnEyePos : UnVec3;
 	public var oUnAmbiant : UnVec3;
 	
+
+	
 	public var oUaAmbiant : UaVec4;
 	
+	public var  oLight_Color_Diffuse : UaVec4;
 	public var  oLight_Color_Specular : UaVec4;
 	public var  oLight_Position : UaVec4;
 	
 	public var oLight : Light;
+	
+	public var oUnTotalLight : UnInt;
 	
 	//public var oObj : Box;
 	
@@ -45,13 +50,16 @@ public class GzShCommun_Light {
 		oUnEyePos = new UnVec3(_oProgram, "vEye_position");
 		oUnAmbiant = new UnVec3(_oProgram, "vAmbient");
 		
+		oLight_Color_Diffuse = new UaVec4(_oProgram, "avLight_Color_Diffuse");
 		oLight_Color_Specular = new UaVec4(_oProgram, "avLight_Color_Specular");
 		oLight_Position = new UaVec4(_oProgram, "avLight_Position");
 		
+		oUnTotalLight = new UnInt(_oProgram, "iTotalLight");
+		
 		
 		var _vColor : Vec4<Float> = new Vec4<Float>(1.0, 0.0, 0.0, 0.5 );
-		oLight_Color_Specular.aVal.fPush(_vColor);
-		oLight_Color_Specular.fSend();
+	//	oLight_Color_Specular.aVal.fPush(_vColor);
+	//	oLight_Color_Specular.fSend();
 		
 		
 		//TODO Make a UpCast Testing to find bugs
@@ -66,9 +74,19 @@ public class GzShCommun_Light {
 	public static function fAddLight(_oLight: Light):Void {
 
 		var _vPos : Vec4<Float> = new Vec4<Float>(_oLight.vPos.nX, _oLight.vPos.nY, _oLight.vPos.nZ, 0.5 );
+		var _vColorDiff : Vec4<Float> = new Vec4<Float>(_oLight.oBoxColor.vColor.nRed, _oLight.oBoxColor.vColor.nGreen, _oLight.oBoxColor.vColor.nBlue, _oLight.oBoxColor.vColor.nAlpha );
+		var _vColorSpec : Vec4<Float> = new Vec4<Float>(_oLight.oBoxSpecular.vColor.nRed, _oLight.oBoxSpecular.vColor.nGreen, _oLight.oBoxSpecular.vColor.nBlue, _oLight.oBoxSpecular.vColor.nAlpha );
+		
 		oLight_Position.aVal.fPush(_vPos);
-		oLight_Position.fSend();
+		oLight_Color_Diffuse.aVal.fPush(_vColorDiff);
+		oLight_Color_Specular.aVal.fPush(_vColorSpec);
 
+		oLight_Position.fSend();
+		oLight_Color_Diffuse.fSend();
+		oLight_Color_Specular.fSend();
+		
+		oUnTotalLight.nVal++;
+		oUnTotalLight.fSend();
 	}
 	
 	
@@ -99,10 +117,14 @@ public class GzShCommun_Light {
 		</glsl>	
 	}
 
+	
+	//for (int i = 0; i < n && i < MAX_N; ++i) gives a dynamic bound and allows the compiler to unroll
 	public static function fAdd_Func_fAddLight(_oShader:ShaderBase):Bool {
 		<glsl(_oShader)>
 		
 			#define MAX_LIGHT 20
+			
+			uniform int iTotalLight = 0;
 			///////////// 
 			uniform vec4 avLight_Color_Specular[MAX_LIGHT];
 			uniform vec4 avLight_Color_Diffuse[MAX_LIGHT];
@@ -116,8 +138,7 @@ public class GzShCommun_Light {
 		//  vec3 light_position  =   vec3( 400.0,300.0, 0.0);
 			vec3 light_position  =   vec3( 400.0,300.0, -300.0);
 		
-			
-			
+
 			//0 to 1
 			float att_kC = 1.02; //Kc is the constant attenuation
 			float att_kL = 0.60; //KL is the linear attenuation
@@ -163,15 +184,16 @@ public class GzShCommun_Light {
 				//http://in2gpu.com/2014/06/19/lighting-vertex-fragment-shader/
 				
 
-		 
-
-				//attenuation
-			   // float d = distance( light_position,  vPtWorld) / 800.0;
-				float d = distance( (avLight_Position[0].xyz),  (vPtWorld.xyz) );
-				//d =  1.5;
-				float att = 1.0 / (att_kC + d * att_kL + d*d*att_kQ); //Do the inverse
-			 //   float att =  (att_kC + d * att_kL + d*d*att_kQ);
-
+				
+				float _nGAtt = 0.0;
+				for (int i = 0; i < iTotalLight && i < MAX_LIGHT; ++i)  {
+					//attenuation
+					float d = distance( (avLight_Position[i].xyz),  (vPtWorld.xyz) );
+					float att = 1.0 / (att_kC + d * att_kL + d*d*att_kQ); //Do the inverse
+					_nGAtt += att;
+				}
+			 
+			 
 		//att = 0.0009;
 		//att = 0.0;
 
@@ -191,16 +213,14 @@ public class GzShCommun_Light {
 				}
 
 
-			
-			
 				//// Diffuse ////
 			 
 				//vColorDiffuse.rgb = (vColorDiffuse.rgb) * ((att *diffuse)*vColorDiffuse.a+(1.0-vColorDiffuse.a)) + vAmbient;
 			//	vColorDiffuse.rgb = (vColorDiffuse.rgb) * (( diffuse*att )*vColorDiffuse.a+(1.0-vColorDiffuse.a)) + vAmbient;
-				vColorDiffuse.rgb = (vColorDiffuse.rgb) * (( diffuse*att )*vColorDiffuse.a) + vAmbient;
+				vec3 _vDiffuse = (avLight_Color_Diffuse[0].rgb) * (( diffuse*_nGAtt )*avLight_Color_Diffuse[0].a) + vAmbient;
 				
-				vDark  = clamp(vColorDiffuse.rgb + 1.0, 0.0, 1.0); //0 a 1 -> = 1 if bright
-				vLight = clamp(vColorDiffuse.rgb , 0.0, 1.0); //0 a 1 -> = 0 if Dark
+				vDark  = clamp(_vDiffuse + 1.0, 0.0, 1.0); //0 a 1 -> = 1 if bright
+				vLight = clamp(_vDiffuse , 0.0, 1.0); //0 a 1 -> = 0 if Dark
 				pixTex.rgb = (((( vec3(pixTex.a) -  pixTex.rgb ) * vLight) + pixTex.rgb)  * vDark);
 				
 
@@ -213,7 +233,7 @@ public class GzShCommun_Light {
 			  //  vLight = clamp(vColorSpecular.rgb * vColorSpecular.a * specular -1.0, 0.0, 1.0); //0 a 1 -> = 0 if Dark
 			   // vLight = clamp(vColorSpecular.rgb * vColorSpecular.a * (specular *att)  -1.0, 0.0, 1.0); //0 a 1 -> = 0 if Dark
 			  //  vLight = clamp(vColorSpecular.rgb * vColorSpecular.a * ((specular *att)-1.0), 0.0, 1.0); //0 a 1 -> = 0 if Dark
-				vLight = clamp(avLight_Color_Specular[0].rgb * avLight_Color_Specular[0].a * ((specular *att)), 0.0, 1.0); //0 a 1 -> = 0 if Dark
+				vLight = clamp(avLight_Color_Specular[0].rgb * avLight_Color_Specular[0].a * ((specular *_nGAtt)), 0.0, 1.0); //0 a 1 -> = 0 if Dark
 				pixTex.rgb = (((( vec3(pixTex.a) -  pixTex.rgb ) * vLight) + pixTex.rgb)  );
 
 

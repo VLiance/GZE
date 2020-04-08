@@ -234,7 +234,7 @@ void main()
 		
 			//pixTex = vec4(0.0, 1.0, 0.5, 1.0);
 			pixTex = vPtDist;
-			pixTex.a =1.0- (uv.y*uv.y);
+			pixTex.a = (1.0- (uv.y*uv.y))*vPtDist.a;
 			FragColor =  pixTex;
 			return;
 		
@@ -546,7 +546,7 @@ vPtNorm =  ( vPtNorm.xyz ) *  ( _vMyNorm.xyz);//good effect
 		
 		
 		pixTex = fAddLight(pixTex, vPtWorld, vPtNorm);
-
+		
    
 
 
