@@ -571,7 +571,7 @@ class gzArray {
 		//	m.fSetArrayAndSize( (_nIndex+1) * (sizeof(T))  );
 		 //return  *((T*)(&m.aData->aTab[_nIndex * GzS]));
 		if(_nIndex >= _nLength){
-			gzUIntX _nMax = -1;
+			gzUIntX _nMax = (gzUIntX)-1;//Set to the maximum value of UINT
 			if(_nIndex > _nMax/2){ //If it's a negative value (or increddibly high) just return a dummy element. (use max index to return a temp value (so it can be overrited but it's a temp value))//TODO max can be affected ex:var _oTileT : TileData = _aTileData[nCaseY - 1][nCaseX];
 				_nIndex = _nLength;
 			}
@@ -582,6 +582,14 @@ class gzArray {
 		return  ((T*)m.aData->aTab)[_nIndex];
 		
 	}
+	inline const T&  fPush(const T& _oObj) const {
+		
+		(*this)[gzp_length] = _oObj;
+		return _oObj;
+	}
+	
+	
+	
 	 gzUInt8* get() const {
 	 	return gzp_Array;
 	}
@@ -600,11 +608,7 @@ class gzArray {
 	}
 	
 	
-	inline const T&  fPush(const T& _oObj) const {
-		
-		(*this)[gzp_length] = _oObj;
-		return _oObj;
-	}
+
 	/*
 	inline gzUIntX GnSize() const {
 		return gzp_length;
@@ -671,9 +675,14 @@ class gzArray {
 		gzp_Size = 0;
 	}
 	 
-	 inline void fMaxSize(  gzUIntX _nMaxSize) const { //public
-		m.fIsFit(_nMaxSize);
+	inline void fMaxSize(  gzUIntX _nMaxSize) const {
+		m.fIsFit(_nMaxSize*GzS);
 	}
+	inline void fSetSize( gzUIntX _nSize) const {
+		m.fIsFit(_nSize*GzS);
+		m.gzp_DataSize = _nSize*GzS;
+	}
+	 
 	 
 	 	 
 	inline void f_SubStr(gzUIntX _nBeginIndex, gzUIntX _nEndIndex )  {

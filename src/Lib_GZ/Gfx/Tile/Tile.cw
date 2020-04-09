@@ -54,7 +54,7 @@ package  {
 		
 		
 		public var bActivate : Bool = false;
-		public var nTime : Int = 0;
+		public var nTime : Float = 0;
 		public var nOriYaw : Float = 0;
 		public var nOriPitch : Float = 0;
 		public var nColor : Float = 1.0;
@@ -139,7 +139,7 @@ package  {
 	
 		override public function fUpdateParentToChild():Void {
 
-			nTime++;
+			nTime+= 0.5;
 
 			if(vRot.nRoll > 3.13 * 2.0){
 				vRot.nRoll = 0.0;

@@ -31,18 +31,23 @@ package  {
 			vColor.nAlpha = 0.5;
 			
 			oBoxColor = new Box( 0,0,  nSize,nSize,   nLineWidth);
-			oBoxColor.vColor.nBlue = 1.0;
+			oBoxColor.vColor.nBlue = 0.8;
 			oBoxColor.vColor.nGreen = 1.0;
 			oBoxColor.vColor.nRed = 1.0;
-			oBoxColor.vColor.nAlpha = 2.75;
+			oBoxColor.vColor.nAlpha = 1.50;
+			//oBoxColor.vColor.nAlpha = 2.75;
 			
 			oBoxSpecular = new Box( 0,0,  nSize,nSize,   nLineWidth);
-			oBoxSpecular.vColor.nBlue = 1.0;
+			oBoxSpecular.vColor.nBlue = 0.0;
+			oBoxSpecular.vColor.nGreen = 1.0;
+			oBoxSpecular.vColor.nRed = 1.0;
+			
 			oBoxSpecular.vRot.nPitch = 3.1416 / 3.0
 			oBoxSpecular.vRot.nRoll = 3.1416 / 3.0
 			
 			oBox3 = new Box( 0,0,  nSize,nSize,   nLineWidth);
 			oBox3.vColor.nRed = 1.0;
+			
 			oBox3.vRot.nYaw = 3.1416 / 3.0
 			oBox3.vRot.nRoll = 3.1416 / 3.0
 		}

@@ -860,7 +860,15 @@ generate "OpenGL" {
 		gen public static function fUniform1fv(_nLocation : Val, _nCount : Int, _aValue : CArray<Float32>):Void;
 		gen public static function fUniform2fv(_nLocation : Val, _nCount : Int, _aValue : CArray<Float32>):Void;;
 		gen public static function fUniform3fv(_nLocation : Val, _nCount : Int, _aValue : CArray<Float32>):Void;
-		gen public static function fUniform4fv(_nLocation : Val, _nCount : Int, _aValue : CArray<Float32>):Void;
+		gen public static function fUniform4fv(_nLocation : Val, _nCount : Int, _aValue : CArray<Float32>):Void{
+			<cpp>
+			#ifdef D_Platform_Web_Emsc
+				oGL.call<void>("uniform4fv", _nLocation,  typed_memory_view<gzFloat32>(_nCount * 4, (gzFloat32*)_aValue));	 	
+			//	oGL.call<void>("uniform4fv", _nLocation,  typed_memory_view(_nCount * 4 * 4, (gzUInt8*)_aValue));	 	
+				return;
+			#endif
+			</cpp>
+		}
 
 		gen public static function fUniform1iv(_nLocation : Val, _nCount : Int, _aValue : CArray<Int32>):Void;
 		gen public static function fUniform2iv(_nLocation : Val, _nCount : Int, _aValue : CArray<Int32>):Void;

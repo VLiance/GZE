@@ -52,7 +52,9 @@ package  {
 		
 		
 		override public function fSend():Void {
-			OpenGL.fUniform4fv(nId, aVal.nSize, aVal);
+			if( aVal.nSize > 0){
+				OpenGL.fUniform4fv(nId, aVal.nSize, aVal);
+			}
 		}
 		
 		

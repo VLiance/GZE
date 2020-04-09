@@ -63,10 +63,10 @@ package  {
 
 		
 		public function fIniData(_nTotalElement:Int, _nSize:Int, _nTotalAttribute:Int):Void {
-			nTotalAttribute = _nTotalAttribute;
+			nTotalAttribute = _nTotalAttribute; //TODO automaitc
 			nCurrentAttributeSetOffset = 0;
 			nTotalPerAttrib = _nTotalElement * _nSize;
-			aData.fMaxSize(nTotalPerAttrib * nTotalAttribute);
+			aData.fSetSize(nTotalPerAttrib * nTotalAttribute  );
 		}
 		
 

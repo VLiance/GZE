@@ -75,7 +75,7 @@ package  {
 
 		override public function fIniRender():Void {
 
-			//Debug.fTrace("Total Face : "  + Context.oItf.nTotalFaces) ;
+			//Debug.fTrace("fIniData -- Total Face : "  + Context.oItf.nTotalFaces) ;
 			oVbo.fIniData(Context.oItf.nTotalFaces, 4, 13);
 		
 			oAt.fIniData( );

@@ -40,9 +40,10 @@ package  {
 			
 			
 			//var _nNbElement : Int  = Context.oItf.nTotalFaces;
+			//var _nNbElement : Int  = Context.oItf.nTotalFaces-1; //TODO bakcround (-1)
 			var _nNbElement : Int  = Context.oItf.nTotalFaces-1; //TODO bakcround (-1)
 			
-		//	Debug.fTrace("Draw _nNbElement: " + _nNbElement);
+			//Debug.fTrace("---Draw _nNbElement: " + _nNbElement);
 			
 			if(oFBO_Destination == null){
 				OpenGL.fBindFramebuffer(FRAMEBUFFER, null); //Default

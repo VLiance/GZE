@@ -58,7 +58,7 @@ package  {
 
 		
 		//public var aData : Array<Float>;
-		public var oVbo : Vbo;
+		public wvar oVbo : Vbo;
 		
 		
 		public function Attribute_Quad(_oVbo : Vbo):Void {

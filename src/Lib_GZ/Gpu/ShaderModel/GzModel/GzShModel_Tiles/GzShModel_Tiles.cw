@@ -84,12 +84,11 @@ package  {
 
 		override public function fIniRender():Void {
 
-			//Debug.fTrace("Total Face : "  + Context.oItf.nTotalFaces) ;
-			oVbo.fIniData(Context.oItf.nTotalFaces, 4, 13);
-		
+		//	Debug.fTrace("fIniData -- Total Face : "  + Context.oItf.nTotalFaces) ;
+			oVbo.fIniData(Context.oItf.nTotalFaces, 4, 15);
+			
 			oAt.fIniData( );
 			oAtTiles.fIniData();
-			
 			
 		}
 		
@@ -123,7 +122,7 @@ package  {
 			
 			GzShCommun_Light.fSetEyePos();
 			GzShCommun_Light.fSetAmbiant();
-			
+			GzShCommun_Light.fSendLight();
 			
 			oGpuBatch.fDraw();
 
