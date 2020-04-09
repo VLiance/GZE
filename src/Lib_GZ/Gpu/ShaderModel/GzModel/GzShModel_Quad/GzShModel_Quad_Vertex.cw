@@ -330,12 +330,12 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 		vec3 pt2 = ioPt2;
 
 		nZx = ((pt1.z + _vObjPos.z) * vPersp.z) + 1.0;\n
-		pt1.x = (pt1.x + (_vObjPos.x - vPersp.x) ) / nZx - (_vObjPos.x - vPersp.x);\n
-		pt1.y = (pt1.y + (_vObjPos.y - vPersp.y) ) / nZx - (_vObjPos.y - vPersp.y);\n
+		pt1.x = (pt1.x + (_vObjPos.x - vPersp.x) ) / nZx - (_vObjPos.x - vPersp.x);
+		pt1.y = (pt1.y + (_vObjPos.y - vPersp.y) ) / nZx - (_vObjPos.y - vPersp.y);
 
 		nZx = ((pt2.z + _vObjPos.z) * vPersp.z) + 1.0;\n
-		pt2.x = (pt2.x + (_vObjPos.x - vPersp.x) ) / nZx - (_vObjPos.x - vPersp.x);\n
-		pt2.y = (pt2.y + (_vObjPos.y - vPersp.y) ) / nZx - (_vObjPos.y - vPersp.y);\n
+		pt2.x = (pt2.x + (_vObjPos.x - vPersp.x) ) / nZx - (_vObjPos.x - vPersp.x);
+		pt2.y = (pt2.y + (_vObjPos.y - vPersp.y) ) / nZx - (_vObjPos.y - vPersp.y);
 
 		
 		
@@ -355,8 +355,14 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 		   nFrontFacing *= -1.0;
 		}
 
-		ioNorm = normalize(vec3(0.0,0.0,1.0 * nFrontFacing  ));
-		ioNorm.xyz = fQRot_2(ioNorm.xyz, in_ObjRot);
+		
+			//	ioNorm = normalize(vec3(0.0,0.0,1.0 * nFrontFacing  ));
+		//ioNorm.xyz = fQRot_2(ioNorm.xyz, in_ObjRot);
+		
+	//ioNorm = (vec3(1.0,0.0,0.0   ));
+	//	ioNorm.xyz = fQRot(vec3(0.0,0.0,100.0), in_ObjRot);
+	//	ioNorm.xyz = v(ioNorm.xyz, in_ObjRot)
+	//	ioNorm.xyz = vec3(0.0,0.0,1.0);
 		/*
 		ioNorm1 = normalize(vec3(-1.0,-1.0,-9.0 * nFrontFacing ));
 		ioNorm2 = normalize(vec3( 1.0,-1.0,-9.0 * nFrontFacing));
@@ -380,7 +386,12 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 		iomWorldPt[2] = vec4(ioPt3 + _vObjPos.xyz,0);
 		iomWorldPt[3] = vec4(ioPt4 + _vObjPos.xyz,0);
 
-
+		//cross(P3-P1, P2-P1)//OR
+		//cross(P2-P1, P3-P1)
+	//	ioNorm.xyz = normalize(cross( ioPt3 -ioPt1, ioPt2 - ioPt1));
+		ioNorm.xyz = normalize(cross( in_Pt3.xyz -in_Pt1.xyz, in_Pt2.xyz - in_Pt1.xyz));
+		//ioNorm.z *= -1;
+		
 		//////////////////////////////////////////////////////
 		/////////////////////////////////////////////////////
 		

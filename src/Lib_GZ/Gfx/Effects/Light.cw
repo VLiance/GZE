@@ -11,6 +11,7 @@ package  {
 	import GZ.Base.Math.Math;
 	import GZ.Sys.Interface.Context;
 	import GZ.Gfx.Vector.Box;
+	import GZ.Gpu.ShaderModel.GzModel.GzShCommun.GzShCommun_Light;
 	
 	/**
 	 * @author Maeiky
@@ -24,6 +25,7 @@ package  {
 		public var nSize : Int = 4;
 		public var nLineWidth : Int = 1;
 		
+		public var nIndex : UInt;
 		
 		public function Light( _nX: Float, _nY:Float, _nZ:Float):Void {
 			Clip(parent, _nX , _nY);
@@ -50,6 +52,8 @@ package  {
 			
 			oBox3.vRot.nYaw = 3.1416 / 3.0
 			oBox3.vRot.nRoll = 3.1416 / 3.0
+			
+			nIndex  = GzShCommun_Light.fAddLight();
 		}
 		
 		//Overited
@@ -57,6 +61,8 @@ package  {
 			//Context.fGetMousePosition(); //Maybe si upder entre temps or not
 			vRot.nRoll = vRot.nRoll + 0.1;
 			vRot.nPitch = vRot.nPitch + 0.1;
+			
+			GzShCommun_Light.fUpdateLight(nIndex, this);
 		}
 		
 		

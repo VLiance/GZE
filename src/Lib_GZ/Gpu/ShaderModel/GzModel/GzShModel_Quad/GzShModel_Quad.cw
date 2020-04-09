@@ -18,6 +18,8 @@ package  {
 	import GZ.Gpu.ShaderModel.GzModel.GzShModel;
 	import GZ.Gpu.ShaderModel.AtModel.Attribute_Quad;
 	import GZ.Gpu.ShaderModel.GzModel.GzShModel_Quad.GzShModel_Quad_Vertex;
+	import GZ.Gpu.ShaderModel.GzModel.GzShCommun.GzShCommun_Light;
+	
 	
 	//import GZ.Base.TestPod;
 	//import GZ.Base.TestPod2;
@@ -69,7 +71,8 @@ package  {
 			
 			oUnType = new UnInt(oProgram, "nType");
 			oUvPersp = new UnVec4(oProgram, "vPersp");
-
+			
+			GzShCommun_Light.fIniData(oProgram);
 		}
 		
 
@@ -98,8 +101,7 @@ package  {
 			oUiResolution.vVal.nY  = Context.nFrameHeight;
 			oUiResolution.fSend();
 			
-		
-		
+
 			//Default Perspective
 			//TODO get perspective from current buffer!
 			
@@ -109,6 +111,9 @@ package  {
 			oUvPersp.vVal.nW = Context.oItf.oPerspective.nType; //nType
 			oUvPersp.fSend();
 			
+			GzShCommun_Light.fSetEyePos();
+			GzShCommun_Light.fSetAmbiant();
+			GzShCommun_Light.fSendLight();
 			
 			oGpuBatch.fDraw();
 	

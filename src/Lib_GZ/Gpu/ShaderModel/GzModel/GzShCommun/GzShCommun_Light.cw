@@ -215,7 +215,7 @@ public class GzShCommun_Light {
 					//float nLdotN = max(0.0, dot(nLDir,vPtNorm));
 					float nLdotN =  dot(nLDir,vPtNorm);
 		
-					//if(nLdotN > 0.0){
+				
 
 						float diffuse = 0.5 * nLdotN; //0.5 Just a random material
 						_nGDiffuse += diffuse;
@@ -224,8 +224,8 @@ public class GzShCommun_Light {
 						float d = distance( (avLight_Position[i].xyz),  (vPtWorld.xyz) );
 						float att = 1.0 / (att_kC + d * att_kL + d*d*att_kQ); //Do the inverse
 						_nGAtt += att;
-
-
+					/*
+					if(nLdotN > 0.0){
 						float specular = 0.0;
 
 						//choose H or R to see the difference
@@ -238,7 +238,7 @@ public class GzShCommun_Light {
 						specular = 100.65 * pow(max(0.0, dot(H, vPtNorm)), 3.8);
 
 						_nGSpecular += specular;
-					//}
+					}*/
 					
 				}
 			 

@@ -33,8 +33,8 @@ package  {
 			GzShCommun_Base.fAdd_FragmentBasics(oFragement);
 			GzShCommun_Base.fAdd_Func_Basics(oFragement);
 			
-			
-			//GzShCommun_Light.fAdd_Func_fAddLight(oFragement);
+		
+			GzShCommun_Light.fAdd_Func_fAddLight(oFragement);
 			
 			///////////// Fragment Shader //////////////
 <glsl(oFragement)>
@@ -55,6 +55,7 @@ package  {
 	in vec2 coord_Corner;
 
 	flat in vec4 coord_Color1;
+	//flat in vec4 coord_Color2;
 	//flat in vec4 coord_Color2;
 	//flat in vec4 coord_Color3;
 	//flat in vec4 coord_Color4;
@@ -105,7 +106,7 @@ xflat in vec3 ioNorm; // Maybe if we get it from world norm
 //vec4  vColorDiffuse = vec4(1.5,1.5,1.5, 1.5);  //rgb -1 to 2  no diffuse : vec4(0.0,0.0,0.0, 1.0); normal : vec4(1.0,1.0,1.0, 1.0);
 //vec3 vAmbient = vec3(0.2, 0.2, 0.2);
 
-
+/*
 
 vec4  vColorSpecular = vec4(1.0,1.0, 0.85 , 0.7); //0 to X Can be premultiplied with alpha
 vec4  vColorDiffuse = vec4(1.0, 1.0, 1.0, 1.75);  //rgb -1 to 2  no diffuse : vec4(0.0,0.0,0.0, 1.0); normal : vec4(1.0,1.0,1.0, 1.0);
@@ -121,7 +122,7 @@ float att_kQ = 0.002; //KQ is the quadratic attenuation
 vec3 eye_position = vec3(  400.0, 300.0, -500.0);
 vec3 light_position  =   vec3( 200.0, -100.0, -400.0);
 
-
+*/
 
 
 ////////////
@@ -259,13 +260,13 @@ float _nDepth = 0.0;
         /////////////////////////  Phong light  ///////////////////
 
         vec3 vPtWorld = (iomWorldPt * _vCoDist).xyz;
-       // vec3 vPtNorm =  (iomNorm * _vCoDist).xyz;
+     // vec3 vPtNorm =  (iomNorm * _vCoDist).xyz;
+     // vec3 vPtNorm =  (ioNorm * _vCoDist).xyz;
 		vec3 vPtNorm =  ioNorm.xyz;
 		
+//vPtNorm = fQRot(normalize(_vMyNorm.xyz), ioObjRot);  
 		
-		
-		
-		vPtNorm.z += _nDepth;
+		//vPtNorm.z += _nDepth;
 		
 		
 		
@@ -284,7 +285,7 @@ float _nDepth = 0.0;
 	   
 //vec3 eye_position = vec3(  400.0, 300.0, -500.0);      //0.8, 0.6, -1.0
 //vec3 light_position  =   vec3( 200.0, -100.0, -400.0); //0.5, 0.25, 1.0;
-
+/*
 		vec3 L = normalize( vPtWorld -light_position     );//light direction
         vec3 V = normalize( vPtWorld - eye_position  );    //view direction
         //float d = distance( (light_position),  (vPtWorld.xyz) ) / 800.0;
@@ -318,10 +319,9 @@ float _nDepth = 0.0;
           specular = 0.3 * pow(max(0.0, dot(H, vPtNorm)), 7.8);
         }
 
+		*/
 		
-		
-		
-		
+	
 	
 		
 		
@@ -331,7 +331,7 @@ float _nDepth = 0.0;
         pixTex.rgb = (((( vec3(pixTex.a) -  pixTex.rgb ) * vLight) + pixTex.rgb) * vec3(vPtDist.a) * vDark);
         pixTex.a *= vPtDist.a;
 		
-	
+	/*
 	
         //// Diffuse ////
      
@@ -356,7 +356,7 @@ float _nDepth = 0.0;
         vLight = clamp(vColorSpecular.rgb * vColorSpecular.a * ((specular /att)), 0.0, 1.0); //0 a 1 -> = 0 if Dark
         pixTex.rgb = (((( vec3(pixTex.a) -  pixTex.rgb ) * vLight) + pixTex.rgb)  );
 
-
+*/
 		
 		
 		
@@ -366,8 +366,20 @@ float _nDepth = 0.0;
 //pixTex.a = 0.5;
 
 //FragColor = vec4( 0.5, 0.5, 0.5, 1.0);
+		
+/*
+float _nMonoCrome =   0.5-(pixTex.r + pixTex.g + pixTex.b)/3.0;
+vec3 _vMyNorm = (  vec3((_nMonoCrome-0.5)*-3.0, (_nMonoCrome), (0.5- _nMonoCrome)*3.0 ));
+vPtNorm =  ( vPtNorm.xyz ) *  ( _vMyNorm.xyz);//good effect	
+*/
 
+
+
+		//pixTex = fAddLight(pixTex, vPtWorld, vPtNorm);
+		pixTex = fAddLight(pixTex, vec3(500.0,300.0,0.0), vPtNorm);
+		
         FragColor =  pixTex;
+       // FragColor =  vec4(vPtNorm, 1.0);
        // FragColor =  vColorDiffuse + vec4(vAmbient,0.0);
       //  FragColor =  vec4(diffuse*10.0, 0.0 ,1.0,1.0);
        // FragColor =  vec4(iomNorm[0].xyz,1.0);
