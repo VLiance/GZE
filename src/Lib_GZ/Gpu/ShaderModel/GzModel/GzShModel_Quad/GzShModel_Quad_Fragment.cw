@@ -375,8 +375,8 @@ vPtNorm =  ( vPtNorm.xyz ) *  ( _vMyNorm.xyz);//good effect
 
 
 
-		//pixTex = fAddLight(pixTex, vPtWorld, vPtNorm);
-		pixTex = fAddLight(pixTex, vec3(500.0,300.0,0.0), vPtNorm);
+		pixTex = fAddLight(pixTex, vPtWorld, vPtNorm);
+		//pixTex = fAddLight(pixTex, vec3(500.0,300.0,0.0), vPtNorm);
 		
         FragColor =  pixTex;
        // FragColor =  vec4(vPtNorm, 1.0);
@@ -397,7 +397,26 @@ vPtNorm =  ( vPtNorm.xyz ) *  ( _vMyNorm.xyz);//good effect
 		//vCoDist.b + vCoDist.r,
 		//vCoDist.b + vCoDist.g,
 		 //FragColor =  vec4( 0, vCoDist.b + vCoDist.r, 0,1.0);
-
+		 
+		 
+		 
+		 /*
+		 ///WORK diffuse
+	    vec3 lightPos = (vec3(-200, -200, -200));
+		//vec3 mypos =    (vec3(200, 200, 200));
+		vec3 mypos =    vPtWorld;
+		vec3 norm = normalize(vPtNorm);
+		vec3 lightDir = normalize(   mypos -lightPos  );  
+		float diff2 = (dot(norm, lightDir));
+		float _nGreen = 0;
+		if(diff2 < 0){
+			_nGreen = diff2*-1;
+			diff2 = 0;
+		}
+       FragColor =  vec4( diff2,_nGreen,0, 1.0);
+		*/
+		 
+		 
 	}
 	
 	

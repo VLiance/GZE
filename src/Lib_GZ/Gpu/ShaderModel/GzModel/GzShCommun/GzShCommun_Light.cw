@@ -119,9 +119,16 @@ public class GzShCommun_Light {
 	}
 	
 	public static function fSetAmbiant():Void { // -1.0 to 1.0
+	
+		oUnAmbiant.vVal.nX = 0;
+		oUnAmbiant.vVal.nY = 0;
+		oUnAmbiant.vVal.nZ =0;
+		/*
 		oUnAmbiant.vVal.nX = -1;
 		oUnAmbiant.vVal.nY = -1;
 		oUnAmbiant.vVal.nZ = -1;
+		
+		*/
 		oUnAmbiant.fSend();
 	}
 		
@@ -146,6 +153,8 @@ public class GzShCommun_Light {
 			#define MAX_LIGHT 20
 			
 			uniform int iTotalLight;
+			//uniform float nDiffuseTranslucidity; //0 = none / -1 = full
+			uniform float nDiffuseTranslucidity ; //0 = none / -1 = full
 			///////////// 
 			uniform vec4 avLight_Color_Specular[MAX_LIGHT];
 			uniform vec4 avLight_Color_Diffuse[MAX_LIGHT];
@@ -162,9 +171,9 @@ public class GzShCommun_Light {
 
 			//0 to 1
 			//float att_kC = 1.02; //Kc is the constant attenuation
-			float att_kC = 0.02; //Kc is the constant attenuation
-			float att_kL = 0.20; //KL is the linear attenuation
-			float att_kQ = 0.02; //KQ is the quadratic attenuation
+			float att_kC = 1.00; //Kc is the constant attenuation
+			float att_kL = 0.01; //KL is the linear attenuation
+			float att_kQ = 0.000; //KQ is the quadratic attenuation
 
 			/*
 			float att_kC = 0.08; //Kc is the constant attenuation
@@ -211,34 +220,43 @@ public class GzShCommun_Light {
 				float _nGSpecular = 0.0;
 				for (int i = 0; i < iTotalLight && i < MAX_LIGHT; ++i)  {
 					//diffuse
-					vec3 nLDir = ( vPtWorld -avLight_Position[i].xyz     );//light direction
+					//vec3 nLDir = ( vPtWorld -avLight_Position[i].xyz     );//light direction
+					vec3 nLDir = normalize( vPtWorld -avLight_Position[i].xyz     );//light direction
 					//float nLdotN = max(0.0, dot(nLDir,vPtNorm));
-					float nLdotN =  dot(nLDir,vPtNorm);
-		
-				
+					float nLdotN =  dot(vPtNorm, nLDir);
+					if(nLdotN < 0){
+						nLdotN *= nDiffuseTranslucidity; //Must be negative
+					}
 
 						float diffuse = 0.5 * nLdotN; //0.5 Just a random material
-						_nGDiffuse += diffuse;
+						//_nGDiffuse += diffuse;
 
 						//attenuation
 						float d = distance( (avLight_Position[i].xyz),  (vPtWorld.xyz) );
 						float att = 1.0 / (att_kC + d * att_kL + d*d*att_kQ); //Do the inverse
 						_nGAtt += att;
-					/*
+					
 					if(nLdotN > 0.0){
 						float specular = 0.0;
-
+						/*
 						//choose H or R to see the difference
 						vec3 R = -normalize(reflect(nLDir, vPtNorm));//Reflection
 						// specular = 0.65 * pow(max(0.0, dot(R, V)), 512); //https://learnopengl.com/Lighting/Basic-Lighting
 						//specular = material_kd * pow(max(0, dot(H, world_normal)), material_shininess);
 						specular = 0.20 *  pow(max(0.0, dot(R, V)), 1.9);//0.15  https://learnopengl.com/Lighting/Basic-Lighting
-						//Blinn-Phong
+	
 						vec3 H = normalize(nLDir + V );//Halfway
-						specular = 100.65 * pow(max(0.0, dot(H, vPtNorm)), 3.8);
+						//specular = 100.65 * pow(max(0.0, dot(H, vPtNorm)), 3.8);
+						//specular =  pow(max(0.0, dot(H, vPtNorm)), 256); //pow = shininess https://learnopengl.com/img/lighting/basic_lighting_specular_shininess.png
+						//specular =  pow(max(0.0, dot(H, vPtNorm)), 256); //pow = shininess https://learnopengl.com/img/lighting/basic_lighting_specular_shininess.png
+						*/
+						//Blinn-Phong
+						vec3 viewDir = normalize(vPtWorld - vEye_position  );
+						vec3 reflectDir = reflect(-nLDir, vPtNorm);  
+						specular =  pow(max(0.0, dot(viewDir, reflectDir)), 256); //pow = shininess https://learnopengl.com/img/lighting/basic_lighting_specular_shininess.png
 
 						_nGSpecular += specular;
-					}*/
+					}
 					
 				}
 			 
@@ -282,9 +300,10 @@ public class GzShCommun_Light {
 			  //  vLight = clamp(vColorSpecular.rgb * vColorSpecular.a * specular -1.0, 0.0, 1.0); //0 a 1 -> = 0 if Dark
 			   // vLight = clamp(vColorSpecular.rgb * vColorSpecular.a * (specular *att)  -1.0, 0.0, 1.0); //0 a 1 -> = 0 if Dark
 			  //  vLight = clamp(vColorSpecular.rgb * vColorSpecular.a * ((specular *att)-1.0), 0.0, 1.0); //0 a 1 -> = 0 if Dark
-				vec3 vSpecular = clamp(avLight_Color_Specular[0].rgb * avLight_Color_Specular[0].a * ((_nGSpecular *_nGAtt)), 0.0, 1.0); //0 a 1 -> = 0 if Dark
+				vLight = clamp(avLight_Color_Specular[0].rgb * avLight_Color_Specular[0].a * ((_nGSpecular *_nGAtt))  + vLight, 0.0, 1.0); //0 a 1 -> = 0 if Dark
 				
-				pixTex.rgb = (((( vec3(pixTex.a) -  pixTex.rgb ) * vLight * vSpecular) + pixTex.rgb) * vDark  );
+
+				pixTex.rgb = (((( vec3(pixTex.a) -  pixTex.rgb )  * vLight) + pixTex.rgb) * vDark  );
 
 
 		   // }

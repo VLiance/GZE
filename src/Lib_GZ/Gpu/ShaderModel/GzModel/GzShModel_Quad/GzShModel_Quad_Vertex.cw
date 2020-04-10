@@ -388,8 +388,17 @@ vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 
 		//cross(P3-P1, P2-P1)//OR
 		//cross(P2-P1, P3-P1)
-	//	ioNorm.xyz = normalize(cross( ioPt3 -ioPt1, ioPt2 - ioPt1));
-		ioNorm.xyz = normalize(cross( in_Pt3.xyz -in_Pt1.xyz, in_Pt2.xyz - in_Pt1.xyz));
+		//ioNorm.xyz = normalize(abs(cross(( ioPt3 -ioPt1), (ioPt2 - ioPt1))));
+	//	ioNorm.xyz = normalize(abs(cross(( ioPt3 -ioPt1), (ioPt2 - ioPt1))));
+		ioNorm.xyz = normalize((cross(( ioPt3 -ioPt1), (ioPt2 - ioPt1))));
+		
+		
+		//ioNorm.z = abs(ioNorm.z );
+		//ioNorm.xyz = normalize(abs(cross(( ioPt3 -ioPt1), (ioPt2 - ioPt1))));
+	 //ioNorm.x =0;
+	// ioNorm.y =0;
+	// ioNorm.y =0;
+		//ioNorm.xyz = normalize(cross( in_Pt2.xyz -in_Pt1.xyz, in_Pt3.xyz - in_Pt1.xyz));
 		//ioNorm.z *= -1;
 		
 		//////////////////////////////////////////////////////

@@ -365,6 +365,10 @@ int nOriRY;
 		iomWorldPt[3] = vec4(ioPt4 + _vObjPos.xyz,0);
 		
 		
+//	ioNorm.xyz = normalize((cross(( ioPt3 -ioPt1), (ioPt2 - ioPt1))));
+	
+		
+		
 /////////////////////////// TILES ///////////////////////////////////////////
 	//in vec4 in_TilesHV; //Vertical
 	//in vec4 in_TilesC;  //Horizontal

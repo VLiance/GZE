@@ -36,12 +36,13 @@ package  {
 			oBoxColor.vColor.nBlue = 0.8;
 			oBoxColor.vColor.nGreen = 1.0;
 			oBoxColor.vColor.nRed = 1.0;
-			oBoxColor.vColor.nAlpha = 1.50;
+			oBoxColor.vColor.nAlpha = 0.50;
 			//oBoxColor.vColor.nAlpha = 2.75;
 			
 			oBoxSpecular = new Box( 0,0,  nSize,nSize,   nLineWidth);
 			oBoxSpecular.vColor.nBlue = 0.0;
 			oBoxSpecular.vColor.nGreen = 1.0;
+			//oBoxSpecular.vColor.nGreen = 0.0;
 			oBoxSpecular.vColor.nRed = 1.0;
 			
 			oBoxSpecular.vRot.nPitch = 3.1416 / 3.0
