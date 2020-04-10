@@ -119,16 +119,16 @@ public class GzShCommun_Light {
 	}
 	
 	public static function fSetAmbiant():Void { // -1.0 to 1.0
-	
+	/*
 		oUnAmbiant.vVal.nX = 0;
 		oUnAmbiant.vVal.nY = 0;
 		oUnAmbiant.vVal.nZ =0;
-		/*
+		*/
 		oUnAmbiant.vVal.nX = -1;
 		oUnAmbiant.vVal.nY = -1;
 		oUnAmbiant.vVal.nZ = -1;
 		
-		*/
+		
 		oUnAmbiant.fSend();
 	}
 		
@@ -172,7 +172,7 @@ public class GzShCommun_Light {
 			//0 to 1
 			//float att_kC = 1.02; //Kc is the constant attenuation
 			float att_kC = 1.00; //Kc is the constant attenuation
-			float att_kL = 0.01; //KL is the linear attenuation
+			float att_kL = 0.05; //KL is the linear attenuation
 			float att_kQ = 0.000; //KQ is the quadratic attenuation
 
 			/*
@@ -229,7 +229,7 @@ public class GzShCommun_Light {
 					}
 
 						float diffuse = 0.5 * nLdotN; //0.5 Just a random material
-						//_nGDiffuse += diffuse;
+						_nGDiffuse += diffuse;
 
 						//attenuation
 						float d = distance( (avLight_Position[i].xyz),  (vPtWorld.xyz) );
@@ -253,7 +253,7 @@ public class GzShCommun_Light {
 						//Blinn-Phong
 						vec3 viewDir = normalize(vPtWorld - vEye_position  );
 						vec3 reflectDir = reflect(-nLDir, vPtNorm);  
-						specular =  pow(max(0.0, dot(viewDir, reflectDir)), 256); //pow = shininess https://learnopengl.com/img/lighting/basic_lighting_specular_shininess.png
+						specular =  pow(max(0.0, dot(viewDir, reflectDir)), 56); //pow = shininess https://learnopengl.com/img/lighting/basic_lighting_specular_shininess.png
 
 						_nGSpecular += specular;
 					}

@@ -155,7 +155,7 @@ package  {
 			if(nTime > 600){
 				bActivate = true;
 				nTime = 0;
-				nColor = nColor * -1.0;
+				nColor = nColor * -0.5;
 			}
 			if(bActivate == false){
 				return;
@@ -165,7 +165,6 @@ package  {
 				nTime = 0;
 		
 			}*/
-
 			
 			var _nPosY : Int = vPos.nY/32;
 			
