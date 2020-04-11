@@ -40,6 +40,7 @@ public class GzShCommun_Light {
 	public var oLight : Light;
 	
 	public var oUnTotalLight : UnInt;
+	public var oUnDiffuseTranslucidity : UnFloat;
 	
 	//public var oObj : Box;
 	
@@ -55,6 +56,7 @@ public class GzShCommun_Light {
 		oLight_Position = new UaVec4(_oProgram, "avLight_Position");
 		
 		oUnTotalLight = new UnInt(_oProgram, "iTotalLight");
+		oUnDiffuseTranslucidity = new UnFloat(_oProgram, "nDiffuseTranslucidity");
 		
 		
 		var _vColor : Vec4<Float> = new Vec4<Float>(1.0, 0.0, 0.0, 0.5 );
@@ -70,6 +72,12 @@ public class GzShCommun_Light {
 		//var _oObj: Box = new Box( 300,300,  200,200,    5);//Bug??
 	}
 	
+	
+		
+	public static function fSetDiffuseTranslucidity(_nVal : Float):UInt {
+		oUnDiffuseTranslucidity.nVal = _nVal;
+		oUnDiffuseTranslucidity.fSend();
+	}
 	
 	public static function fAddLight():UInt {
 		

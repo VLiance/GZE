@@ -368,6 +368,8 @@ int nOriRY;
 //	ioNorm.xyz = normalize((cross(( ioPt3 -ioPt1), (ioPt2 - ioPt1))));
 	ioNorm.xyz = normalize((cross(( ioPt2 -ioPt1), (ioPt3 - ioPt1)))) * nFrontFacing;
 	
+
+		
 		
 		
 /////////////////////////// TILES ///////////////////////////////////////////

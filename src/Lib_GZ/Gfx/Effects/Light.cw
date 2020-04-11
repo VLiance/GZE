@@ -33,7 +33,7 @@ package  {
 			vColor.nAlpha = 0.5;
 			
 			oBoxColor = new Box( 0,0,  nSize,nSize,   nLineWidth);
-			oBoxColor.vColor.nBlue = 0.8;
+			oBoxColor.vColor.nBlue = 1.0;
 			oBoxColor.vColor.nGreen = 1.0;
 			oBoxColor.vColor.nRed = 1.0;
 			oBoxColor.vColor.nAlpha = 1.50;

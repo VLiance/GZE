@@ -480,27 +480,35 @@ vPtNorm = cross(vPtNorm.xyz, pixNormal.xyz);
 	 
 /////// MY AUTO Bump //////////
 
-float _nMonoCrome =   0.5-(pixTex.r + pixTex.g + pixTex.b)/3.0;
-vec3 _vMyNorm = (  vec3((_nMonoCrome-0.5)*-3.0, (_nMonoCrome), (0.5- _nMonoCrome)*3.0 ));
+//float _nMonoCrome =   0.5-(pixTex.r + pixTex.g + pixTex.b)/3.0;
+//vec3 _vMyNorm = (  vec3((_nMonoCrome-0.5)*-3.0, (_nMonoCrome), (0.5- _nMonoCrome)*3.0 ));
 
 //float _nMonoCrome =   0.5-(pixTex.r + pixTex.g + pixTex.b)/3.0;
 //vec3 _vMyNorm = vec3((_nMonoCrome-0.5)*3.0, (_nMonoCrome), (0.5- _nMonoCrome)*3.0 );
 
 
-/*
-float _nMonoCrome =  ((pixTex.r + pixTex.g + pixTex.b)/1.5)-1.0 ;
-float _nRevMonoCrome =   _nMonoCrome * -1.0;
-*/
 
-/*
-float _nMonoCrome =  ((pixTex.r + pixTex.g + pixTex.b)/3.0) ;
-float _nRevMonoCrome =   (1.0 - _nMonoCrome)-0.5;
-*/
-//vec3 _vMyNorm =  vec3(_nMonoCrome*2.0, _nRevMonoCrome , _nRevMonoCrome + _nMonoCrome*2.0);
+//float _nMonoCrome =  ((pixTex.r + pixTex.g + pixTex.b)/1.5)-1.0 ;
+float _nMonoCrome =  ((pixTex.r + pixTex.g + pixTex.b)/1.5)-0.5;
+
+float _nMonoCrome2 =  max(((pixTex.r + pixTex.g + pixTex.b)/1.5)-0.2, 0);
+//float _nMonoCrome2 =  (((pixTex.r + pixTex.g + pixTex.b)/1.5)-0.5);
+
+
+
+//float _nRevMonoCrome =   _nMonoCrome * -1.0;
+float _nRevMonoCrome =   _nMonoCrome2 * -1.0;
+
+
+//float _nMonoCrome =  ((pixTex.r + pixTex.g + pixTex.b)/3.0) ;
+//float _nRevMonoCrome =   (1.0 - _nMonoCrome)-0.5;
+
+//vec3 _vGenNorm =  vec3(_nMonoCrome2*2.0, _nRevMonoCrome , _nRevMonoCrome + _nMonoCrome2*2.0);
+
 
 //
 //vec3 _vMyNorm =  vec3(_nRevMonoCrome/ 2.0, 0.0 , 1.0 - _nRevMonoCrome / 2.0); //Good
-//vec3 _vMyNorm = normalize( vec3(_nRevMonoCrome*-1.0, _nRevMonoCrome, (1.0 - (  (_nRevMonoCrome *-1.0) / 1.0)) / 3.0  )); //Good
+vec3 _vGenNorm = normalize( vec3(_nRevMonoCrome*-1.0, _nRevMonoCrome, (1.0 - (  (_nRevMonoCrome *-1.0) / 1.0)) / 3.0  )); //Good
 
 //vec3 _vMyNorm =  vec3(_nRevMonoCrome/ 8.0, _nRevMonoCrome/ 8.0, 1.0 - (  _nRevMonoCrome / 4.0  * 2.0 )); //Good
 //vec3 _vMyNorm =  vec3(0.0, 0.0 , _nMonoCrome*2.0);
@@ -510,14 +518,22 @@ float _nRevMonoCrome =   (1.0 - _nMonoCrome)-0.5;
 
 
 
+//vPtNorm.x += _nMonoCrome2;
+//vPtNorm.y += _nMonoCrome2/;
+//vPtNorm.z += _nMonoCrome2;
 
+//vPtNorm = normalize(vPtNorm);
 
+//vec3 _vGenNorm =  vec3(0, _nMonoCrome2/2.0 , 0);
+//vec3 _vGenNorm =  normalize(vec3(0.0, _nMonoCrome2/2.0, 1.0));
+//vec3 _vGenNorm =  normalize(vec3(0.0, _nMonoCrome2/2.0, 1.0));
 
 ////////////
 //_vMyNorm.z *= -1.0; 
 //vPtNorm =  normalize(normalize( vPtNorm.xyz ) +  normalize( _vMyNorm.xyz)); //Same as
+//vPtNorm =  normalize(normalize( vPtNorm.xyz ) +  normalize( _vMyNorm.xyz)); //Same as
 //vPtNorm = fQRot(normalize(_vMyNorm.xyz), ioObjRot);                                             //Same as
-vPtNorm =  ( vPtNorm.xyz ) *  ( _vMyNorm.xyz);//good effect
+//vPtNorm =  normalize(( vPtNorm.xyz ) *  ( _vMyNorm.xyz));//good effect
 
 
 ////////////
@@ -539,13 +555,48 @@ vPtNorm =  ( vPtNorm.xyz ) *  ( _vMyNorm.xyz);//good effect
 	 
 		
 		//vec3 vPtNorm = vec3(0.0,1.0,0.0);
+//vec3 _vGenNorm =  (vec3(0.0, _nMonoCrome2 - 0.5, 0.5));
+	
+		/*
+vec3 t; 
+vec3 b; 
+
+vec3 c1 = cross(vPtNorm, vec3(0.0, 0.0, -1.0)); 
+vec3 c2 = cross(vPtNorm, vec3(0.0, -1.0, 0.0)); 
+if (length(c1) > length(c2)){
+  t = c1;	
+}else{
+  t = c2;	
+}
+ t = c1;
+t = normalize(t);
+b = normalize(cross(vPtNorm, t)); 
+*/
+/*
+//vec3 n = normalize(vPtNorm);
+vec3 t = normalize(gl_MultiTexCoord1.xyz);
+vec3 b = cross(n, t);
+mat3 TBN = mat3(t, b, vPtNorm);
+
+*/
+
+vec3 n = normalize(vPtNorm);             
+vec3 t = normalize(cross(vPtNorm, vec3(-1,0,0)));
+vec3 b = cross(t, n) + cross(n, t);  
+ mat3 TBN = (mat3(t,b,n));
+   
+vPtNorm = normalize(_vGenNorm*-1) * TBN;
 
 
+
+
+
+//vPtNorm =  normalize(( vPtNorm.xyz ) *  ( _vGenNorm.xyz));//good effect
       //  vec3 light_position = vec3(1514.0 ,-600.0, -800.0);
        // vec3 eye_position =   vec3( 500.0,  384.0,-1024.0);
 		
 		
-		
+
 		  //// Custom interpolated color ////
         vec3 vDark  = clamp(vPtDist.rgb + 1.0, 0.0, 1.0); //0 a 1 -> = 1 if bright
         vec3 vLight = clamp(vPtDist.rgb , 0.0, 1.0); //0 a 1 -> = 0 if Dark
@@ -554,14 +605,17 @@ vPtNorm =  ( vPtNorm.xyz ) *  ( _vMyNorm.xyz);//good effect
 		
 		
 		pixTex = fAddLight(pixTex, vPtWorld, vPtNorm);
-		
+	
    
 
 
 //FragColor =  vec4( att *specular,  att *specular,  att *specular,1.0);
 
 FragColor =  pixTex;
-
+//_nMonoCrome = _nMonoCrome2 ;
+// _nMonoCrome =  ((pixTex.r + pixTex.g + pixTex.b)/3.0);
+//FragColor =  vec4(_nMonoCrome, _nMonoCrome, _nMonoCrome, 1.0);
+//FragColor =  vec4(pixTex.r, pixTex.g, pixTex.b, 1.0);
 
 //FragColor =  vec4(0.0, 0.0, 0.0, 0.8);
 //FragColor =  vec4(vPtNorm, 1.0);
