@@ -41,6 +41,8 @@ public class GzShCommun_Base {
 			in vec4 in_ObjSize;  //Width,Height,Length, TextureLocationID
 			in vec4 in_ObjRot; //Quaternion -> x, y, z, w
 				
+			uniform vec4 vPersp;
+				
 		</glsl>	
 	}
 	
@@ -143,6 +145,39 @@ public class GzShCommun_Base {
 				return fQRot3( vec4(-rot.xyz, rot.w), (v - pos)/size );
 			}
 				
+			
+		</glsl>	
+	
+	}
+	
+		public static function fAdd_Vertex_Func_Basics(_oShader:ShaderBase):Bool {
+		<glsl(_oShader)>
+				
+			vec4 f3dTo2d(vec3 _pos) {	 //TODO only vertex?
+				_pos.xyz *=  in_ObjSize.xyz;
+
+				//Quaternion
+				_pos.xyz = fQRot(_pos.xyz, in_ObjRot);
+
+				//////////// 3D To 2D ////////////////////
+				vec3 _vObjPos = in_ObjPos.xyz;
+
+				float nZx = ((_pos.z + _vObjPos.z) * vPersp.z) + 1.0;
+				
+				if(vPersp.w == 1.0){ //Self perspective
+					_pos.xy = (_pos.xy ) / nZx;
+				}else{
+					_pos.xy = (_pos.xy + (_vObjPos.xy - vPersp.xy) ) / nZx - (_vObjPos.xy - vPersp.xy);
+				}
+				///////////// 2D to Screen ////////////////////
+				vec4 _result;
+				_result.w = nZx;
+				_result.x = (((_pos.x ) + _vObjPos.x  ) - (iResolution.x/2.0) )/ (iResolution.x/2.0) * nZx ;
+				_result.y = (((_pos.y ) + _vObjPos.y )  - (iResolution.y/2.0)) / (iResolution.y/2.0) * nZx;
+				_result.z =  0.0;
+				return _result;
+			}
+			
 		</glsl>	
 	
 	}

@@ -36,7 +36,7 @@ package  {
 		
 		
 
-		public function Perspective( _oBuffer : Buffer, _nFocalPc : Float = 50.0, _bSelf : Bool = false):Void  {
+		public function Perspective( _oBuffer : Buffer, _nFocalPc : Float = -450.0, _bSelf : Bool = false):Void  {
 			oBuffer = _oBuffer;
 			if (_bSelf) {
 				fSetFromSelf();
@@ -68,7 +68,44 @@ package  {
 			nFromY = oBuffer.nY + oBuffer.nBuffHeight /2;
 		}
 
-		public function fSetFocal(_nPcVal : Float):Void {
+		public function fSetFocal(_nPosZ : Float):Void { //Must be negative value
+		
+			
+			
+			
+		//horizontal field of view = 2 atan(0.5 width / focallength) 
+		//vertical field of view = 2 atan(0.5 height / focallength) 
+		//height / tan(vfov/2) = width / tan(hfov/2) 
+		//hfov = 2 atan[ width tan(vfov/2) / height] 
+		//vfov = 2 atan[ height tan(hfov/2) / width] 
+		
+			
+			nValue = 1/(_nPosZ) * -1;
+			
+			
+			
+		//	_nPcVal = -450;
+		//	_nPcVal= 1/ _nPcVal;
+			//Debug.fWarning("Test: " + _nPcVal );
+			
+		
+		/*
+		FOV of 60 degrees might be:
+		camera {
+		   location <200,3600,4000>
+		   up y
+		   right -width*x/height
+		   angle 60*1.25293
+		   sky <0,1,0>
+		   look_at <200+10000*cos(-clock),3600+2500,4000+10000*sin(-clock)>
+		}
+		*/
+		
+		//-450
+		
+		
+		
+		/*
 			if (_nPcVal > 400) {
 				_nPcVal = 400;
 			}
@@ -79,6 +116,31 @@ package  {
 			_nPcVal += 10;
 			nValue = 8.0 / (_nPcVal * _nPcVal);
 			nValueInv = 1 / nValue;
+		
+			Debug.fWarning("nFromX: " +  nFromX);
+			Debug.fWarning("nFromY: " +  nFromY);
+			Debug.fWarning("FOV: Z: " + nFocal );
+			Debug.fWarning("nValue: " + nValue );
+			
+		*/
+		
+		/*
+			<cpp>
+			printf("\n nValue %f", nValue);
+			</cpp>
+			////Test value
+			
+			
+			_nPcVal = -450;
+			_nPcVal= 1/ _nPcVal;
+			Debug.fWarning("Test: " + _nPcVal );
+			
+			<cpp>
+			printf("\n ValTest %f", _nPcVal);
+			</cpp>
+			*/
+			
+		//float nZx = ((_pos.z + _vObjPos.z) * vPersp.z) + 1.0;
 		}
 		
 		/*

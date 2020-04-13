@@ -29,6 +29,7 @@ package  {
 		
 			GzShCommun_Base.fAdd_VertexBasics(oVertex);
 			GzShCommun_Base.fAdd_Func_Basics(oVertex);
+			GzShCommun_Base.fAdd_Vertex_Func_Basics(oVertex);
 			
 <glsl(oVertex)>
 
@@ -67,7 +68,7 @@ package  {
 	//in vec4 in_Color4;   //Remove     
 
 
-	uniform vec4 vPersp;
+
 	
 	
 	//float nWinHalfWidth;
@@ -247,30 +248,16 @@ int nOriRY;
                 }
 			}
 		
-		gl_Position.xyz *=  in_ObjSize.xyz;
 
-		//Quaternion
-		gl_Position.xyz = fQRot(gl_Position.xyz, in_ObjRot);
-
-		//////////// 3D To 2D ////////////////////
-		vec3 _vObjPos = in_ObjPos.xyz;
-
-		float nZx = ((gl_Position.z + _vObjPos.z) * vPersp.z) + 1.0;
-		
-		if(vPersp.w == 1.0){ //Self perspective
-			gl_Position.xy = (gl_Position.xy ) / nZx;
-		}else{
-			gl_Position.xy = (gl_Position.xy + (_vObjPos.xy - vPersp.xy) ) / nZx - (_vObjPos.xy - vPersp.xy);
-		}
-		///////////// 2D to Screen ////////////////////
-		gl_Position.w = nZx;
-		gl_Position.x = (((gl_Position.x ) + _vObjPos.x  ) - (iResolution.x/2.0) )/ (iResolution.x/2.0) * nZx ;
-		gl_Position.y = (((gl_Position.y ) + _vObjPos.y )  - (iResolution.y/2.0)) / (iResolution.y/2.0) * nZx;
-		gl_Position.z =  0.0;
+		gl_Position = f3dTo2d(gl_Position.xyz);
 		///////////////////////////////////////////////
-		
 		gl_Position.y = 1.0 - gl_Position.y - 1.0; //FlipY
 
+		///////////
+		
+
+		
+		
 		//////////// SRC ///////////////
 		//ioTexture.x = (vSrc.x + 0.5 ) / (vTexDimFetch.x );
 		//ioTexture.y = (vSrc.y + 0.5 ) / (vTexDimFetch.y );
@@ -307,18 +294,22 @@ int nOriRY;
 		ioPt3.xyz = fQRot(ioPt3.xyz, in_ObjRot);
 		ioPt4.xyz = fQRot(ioPt4.xyz, in_ObjRot);
 
-		vec3 pt1 = ioPt1;
-		vec3 pt2 = ioPt2;
-
-		nZx = ((pt1.z + _vObjPos.z) * vPersp.z) + 1.0;\n
-		pt1.x = (pt1.x + (_vObjPos.x - vPersp.x) ) / nZx - (_vObjPos.x - vPersp.x);\n
-		pt1.y = (pt1.y + (_vObjPos.y - vPersp.y) ) / nZx - (_vObjPos.y - vPersp.y);\n
-
-		nZx = ((pt2.z + _vObjPos.z) * vPersp.z) + 1.0;\n
-		pt2.x = (pt2.x + (_vObjPos.x - vPersp.x) ) / nZx - (_vObjPos.x - vPersp.x);\n
-		pt2.y = (pt2.y + (_vObjPos.y - vPersp.y) ) / nZx - (_vObjPos.y - vPersp.y);\n
+		
+		
 
 		
+		
+		
+/*
+		nZx = ((pt1.z + _vObjPos.z) * vPersp.z) + 1.0;
+		pt1.x = (pt1.x + (_vObjPos.x - vPersp.x) ) / nZx - (_vObjPos.x - vPersp.x);
+		pt1.y = (pt1.y + (_vObjPos.y - vPersp.y) ) / nZx - (_vObjPos.y - vPersp.y);
+
+		nZx = ((pt2.z + _vObjPos.z) * vPersp.z) + 1.0;
+		pt2.x = (pt2.x + (_vObjPos.x - vPersp.x) ) / nZx - (_vObjPos.x - vPersp.x);
+		pt2.y = (pt2.y + (_vObjPos.y - vPersp.y) ) / nZx - (_vObjPos.y - vPersp.y);
+
+	*/	
 	nFrontFacing = 1.0;
 		/*
 	   if(cross(pt1, pt2).z < 0.0 ){
@@ -359,19 +350,63 @@ int nOriRY;
 		//////////////////////////////////////////////////////
 		/////////////////////////////////////////////////////
 	*/
-		iomWorldPt[0] = vec4(ioPt1 + _vObjPos.xyz, nType);
-		iomWorldPt[1] = vec4(ioPt2 + _vObjPos.xyz, nTexID);
-		iomWorldPt[2] = vec4(ioPt3 + _vObjPos.xyz,0);
-		iomWorldPt[3] = vec4(ioPt4 + _vObjPos.xyz,0);
+
+		iomWorldPt[0] = vec4(ioPt1 + in_ObjPos.xyz, nType);
+		iomWorldPt[1] = vec4(ioPt2 + in_ObjPos.xyz, nTexID);
+		iomWorldPt[2] = vec4(ioPt3 + in_ObjPos.xyz,0);
+		iomWorldPt[3] = vec4(ioPt4 + in_ObjPos.xyz,0);
 		
+		
+		
+		
+		
+			
+		
+	vec4 pt1 =  f3dTo2d(in_Pt1.xyz) ;
+	vec4 pt2 =  f3dTo2d(in_Pt2.xyz) ;
+	vec4 pt3 =  f3dTo2d(in_Pt3.xyz) ;
+	vec4 pt4 =  f3dTo2d(in_Pt4.xyz) ;
+		
+
 		
 //	ioNorm.xyz = normalize((cross(( ioPt3 -ioPt1), (ioPt2 - ioPt1))));
 	ioNorm.xyz = normalize((cross(( ioPt2 -ioPt1), (ioPt3 - ioPt1)))) * nFrontFacing;
 	
+	
+	vec3 ioNormTest = normalize((cross(( pt2.xyw -pt1.xyw ), (pt3.xyw  -pt1.xyw)))) * nFrontFacing;
 
+	/*
+	vec3 vEye_position = vec3(  400.0, 300.0, -450.0);
+	//vec3 nLDir = normalize( (pt1.xyw + pt2.xyw +pt3.xyw + pt4.xyw)/4.0 - vEye_position    );//light direction
+	vec3 nLDir = normalize( (iomWorldPt[0].xyw + iomWorldPt[1].xyw +iomWorldPt[2].xyw + iomWorldPt[3].xyw)/4.0 - vEye_position    );//light direction
+	//vec3 nLDir = normalize(gl_FragCoord.xyz - 0.5   );//light direction
+	float nLdotN =  dot(ioNorm.xyz, nLDir);
 		
+	if(nLdotN < 0.0){
+		ioNorm *= -1;
+	}
+	*/
+	
+	/*
+	vec3 vEye_position = vec3(  0.5, 0.5, -0.5);
+	vec3 nLDir = normalize( (pt1.xyz + pt2.xyz +pt3.xyz + pt4.xyz)/4.0  - vEye_position    );//light direction
+	
+	float nLdotN =  dot(ioNormTest.xyz, nLDir);
+	if(nLdotN < 0.0){
+		ioNorm *= -1;
+	}*/
+	
+
+	/*
+	vec3 vEye_position = vec3(  0.5, 0.5, -500.0);
+	vec3 nLDir = normalize( (pt1.xyw + pt2.xyw +pt3.xyw + pt4.xyw)/4.0  - vEye_position    );//light direction
+	float nLdotN =  dot(ioNorm.xyz, nLDir);
 		
-		
+	if(nLdotN < 0.0){
+		ioNorm *= -1;
+	}*/
+	
+
 /////////////////////////// TILES ///////////////////////////////////////////
 	//in vec4 in_TilesHV; //Vertical
 	//in vec4 in_TilesC;  //Horizontal

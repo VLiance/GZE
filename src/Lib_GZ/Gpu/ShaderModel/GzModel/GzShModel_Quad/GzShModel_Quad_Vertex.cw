@@ -30,6 +30,7 @@ public extension GzShModel_Quad_Vertex extends GzShModel_Quad_Fragment {
 		//Debug.fWarning("LoadVertex!!!!!!!!!!!!!!!!!");
 		GzShCommun_Base.fAdd_VertexBasics(oVertex);
 		GzShCommun_Base.fAdd_Func_Basics(oVertex);
+		GzShCommun_Base.fAdd_Vertex_Func_Basics(oVertex);
 		
 	
 <glsl(oVertex)>

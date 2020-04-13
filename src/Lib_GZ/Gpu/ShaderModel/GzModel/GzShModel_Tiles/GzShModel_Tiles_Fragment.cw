@@ -216,6 +216,38 @@ float nType;
 
 
 
+// http://www.thetenthplanet.de/archives/1180
+mat3 cotangent_frame(vec3 N, vec3 p, vec2 uv)
+{
+    // get edge vectors of the pixel triangle
+    vec3 dp1 = dFdx( p );
+    vec3 dp2 = dFdy( p );
+    vec2 duv1 = dFdx( uv );
+    vec2 duv2 = dFdy( uv );
+ 
+    // solve the linear system
+    vec3 dp2perp = cross( dp2, N );
+    vec3 dp1perp = cross( N, dp1 );
+    vec3 T = dp2perp * duv1.x + dp1perp * duv2.x;
+    vec3 B = dp2perp * duv1.y + dp1perp * duv2.y;
+ 
+    // construct a scale-invariant frame 
+    float invmax = inversesqrt( max( dot(T,T), dot(B,B) ) );
+    return mat3( T * invmax, B * invmax, N );
+}
+
+/*
+vec3 perturb_normal( vec3 N, vec3 V, vec2 texcoord )
+{
+    // assume N, the interpolated vertex normal and 
+    // V, the view vector (vertex to eye)
+   vec3 map = texture(tex1, texcoord ).xyz;
+   map = map * 255./127. - 128./127.;
+    mat3 TBN = cotangent_frame(N, -V, texcoord);
+    return normalize(TBN * map);
+}
+*/
+
 
 
 
@@ -471,6 +503,11 @@ FragColor =  pixTex; //Disable light
         //vec3 vPtNorm =  (iomNorm * _vCoDist).xyz;
 		//vec3 vPtNorm =  iomNorm[0].xyz;
 		vec3 vPtNorm =  ioNorm.xyz;
+		
+		
+		
+		
+		
 /*
 vec4 pixNormal = texture(TexNormal, ioTexture);		 
 //vPtNorm = vPtNorm * pixNormal.xyz;
@@ -508,7 +545,7 @@ float _nRevMonoCrome =   _nMonoCrome2 * -1.0;
 
 //
 //vec3 _vMyNorm =  vec3(_nRevMonoCrome/ 2.0, 0.0 , 1.0 - _nRevMonoCrome / 2.0); //Good
-vec3 _vGenNorm = normalize( vec3(_nRevMonoCrome*-1.0, _nRevMonoCrome, (1.0 - (  (_nRevMonoCrome *-1.0) / 1.0)) / 3.0  )); //Good
+//vec3 _vGenNorm = normalize( vec3(_nRevMonoCrome*-1.0, _nRevMonoCrome, (1.0 - (  (_nRevMonoCrome *-1.0) / 1.0)) / 3.0  )); //Good
 
 //vec3 _vMyNorm =  vec3(_nRevMonoCrome/ 8.0, _nRevMonoCrome/ 8.0, 1.0 - (  _nRevMonoCrome / 4.0  * 2.0 )); //Good
 //vec3 _vMyNorm =  vec3(0.0, 0.0 , _nMonoCrome*2.0);
@@ -526,7 +563,7 @@ vec3 _vGenNorm = normalize( vec3(_nRevMonoCrome*-1.0, _nRevMonoCrome, (1.0 - (  
 
 //vec3 _vGenNorm =  vec3(0, _nMonoCrome2/2.0 , 0);
 //vec3 _vGenNorm =  normalize(vec3(0.0, _nMonoCrome2/2.0, 1.0));
-//vec3 _vGenNorm =  normalize(vec3(0.0, _nMonoCrome2/2.0, 1.0));
+vec3 _vGenNorm =  normalize(vec3(0.0, _nMonoCrome2/2.0, 1.0));
 
 ////////////
 //_vMyNorm.z *= -1.0; 
@@ -579,16 +616,29 @@ vec3 b = cross(n, t);
 mat3 TBN = mat3(t, b, vPtNorm);
 
 */
-
+/*
 vec3 n = normalize(vPtNorm);             
 vec3 t = normalize(cross(vPtNorm, vec3(-1,0,0)));
 vec3 b = cross(t, n) + cross(n, t);  
  mat3 TBN = (mat3(t,b,n));
    
-vPtNorm = normalize(_vGenNorm*-1) * TBN;
+ */  
+   
+   _vGenNorm = vec3(0,0,1);
+   
+    // mat3 TBN =   cotangent_frame(vPtNorm, vPtWorld, uv);
+     mat3 TBN =   cotangent_frame(vPtNorm, (vPtWorld), uv);
+	 
+//vPtNorm = normalize(_vGenNorm * TBN) ;
 
 
-
+	vec3 vEye_position = vec3(  400.0, 300.0, -450.0); //Auto reverse norm
+	vec3 nLDir = normalize(vPtWorld - vEye_position    );//light direction
+	//vec3 nLDir = normalize(gl_FragCoord.xyz - 0.5   );//light direction
+	float nLdotN =  dot(vPtNorm.xyz, nLDir);
+	if(nLdotN < 0.0){
+		vPtNorm *= -1;
+	}
 
 
 //vPtNorm =  normalize(( vPtNorm.xyz ) *  ( _vGenNorm.xyz));//good effect
@@ -618,7 +668,7 @@ FragColor =  pixTex;
 //FragColor =  vec4(pixTex.r, pixTex.g, pixTex.b, 1.0);
 
 //FragColor =  vec4(0.0, 0.0, 0.0, 0.8);
-//FragColor =  vec4(vPtNorm, 1.0);
+FragColor =  vec4(vPtNorm, 1.0);
 
 
 
