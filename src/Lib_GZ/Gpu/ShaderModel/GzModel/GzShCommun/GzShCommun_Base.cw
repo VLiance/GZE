@@ -59,6 +59,7 @@ public class GzShCommun_Base {
 			uniform vec2 	  TexSize[nMaxTextures];
 			uniform sampler2D Texture[nMaxTextures];
 			
+			uniform vec4 vPersp;
 			
 			//E:Error linking OpenGL Program:: 
 			//error X3512: sampler array index must be a literal expression
@@ -162,7 +163,7 @@ public class GzShCommun_Base {
 				//////////// 3D To 2D ////////////////////
 				vec3 _vObjPos = in_ObjPos.xyz;
 
-				float nZx = ((_pos.z + _vObjPos.z) * vPersp.z) + 1.0;
+				float nZx = ((_pos.z + _vObjPos.z) * (-1.0/vPersp.z)) + 1.0;
 				
 				if(vPersp.w == 1.0){ //Self perspective
 					_pos.xy = (_pos.xy ) / nZx;

@@ -632,8 +632,8 @@ vec3 b = cross(t, n) + cross(n, t);
 //vPtNorm = normalize(_vGenNorm * TBN) ;
 
 
-	vec3 vEye_position = vec3(  400.0, 300.0, -450.0); //Auto reverse norm
-	vec3 nLDir = normalize(vPtWorld - vEye_position    );//light direction
+//	vec3 vEye_position = vec3(  400.0, 300.0, -450.0); //Auto reverse norm
+	vec3 nLDir = normalize(vPtWorld - vPersp.xyz  );//light direction
 	//vec3 nLDir = normalize(gl_FragCoord.xyz - 0.5   );//light direction
 	float nLdotN =  dot(vPtNorm.xyz, nLDir);
 	if(nLdotN < 0.0){
@@ -668,7 +668,7 @@ FragColor =  pixTex;
 //FragColor =  vec4(pixTex.r, pixTex.g, pixTex.b, 1.0);
 
 //FragColor =  vec4(0.0, 0.0, 0.0, 0.8);
-FragColor =  vec4(vPtNorm, 1.0);
+//FragColor =  vec4(vPtNorm, 1.0);
 
 
 

@@ -48,7 +48,7 @@ public class GzShCommun_Light {
 	}
 	
 	public static function  fIniData(_oProgram:ProgramShader):Void {
-		oUnEyePos = new UnVec3(_oProgram, "vEye_position");
+		oUnEyePos = new UnVec3(_oProgram, "vEye_position");//vPersp
 		oUnAmbiant = new UnVec3(_oProgram, "vAmbient");
 		
 		oLight_Color_Diffuse = new UaVec4(_oProgram, "avLight_Color_Diffuse");
@@ -207,7 +207,8 @@ public class GzShCommun_Light {
 			   // vec3 V = (  vPtWorld - eye_position );//view direction
 
 			
-				vec3 V = ( vPtWorld - vEye_position  );//view direction
+				//vec3 V = ( vPtWorld - vEye_position  );//view direction
+				vec3 V = ( vPtWorld - vPersp.xyz  );//view direction
 
 
 			   // vec3 L = normalize( light_position - vPtWorld);//light direction
@@ -259,7 +260,8 @@ public class GzShCommun_Light {
 						//specular =  pow(max(0.0, dot(H, vPtNorm)), 256); //pow = shininess https://learnopengl.com/img/lighting/basic_lighting_specular_shininess.png
 						*/
 						//Blinn-Phong
-						vec3 viewDir = normalize(vPtWorld - vEye_position  );
+						//vec3 viewDir = normalize(vPtWorld - vEye_position  );
+						vec3 viewDir = normalize(vPtWorld - vPersp.xyz  );
 						vec3 reflectDir = reflect(-nLDir, vPtNorm);  
 						specular =  pow(max(0.0, dot(viewDir, reflectDir)), 56); //pow = shininess https://learnopengl.com/img/lighting/basic_lighting_specular_shininess.png
 

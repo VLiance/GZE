@@ -115,7 +115,7 @@ package  {
 			
 			oUvPersp.vVal.nX = Context.oItf.oPerspective.nFromX;//nFromX
 			oUvPersp.vVal.nY = Context.oItf.oPerspective.nFromY;//nFromY
-			oUvPersp.vVal.nZ = Context.oItf.oPerspective.nValue;//nValue
+			oUvPersp.vVal.nZ = Context.oItf.oPerspective.nFromZ;//nValue
 			oUvPersp.vVal.nW = Context.oItf.oPerspective.nType; //nType
 			oUvPersp.fSend();
 			

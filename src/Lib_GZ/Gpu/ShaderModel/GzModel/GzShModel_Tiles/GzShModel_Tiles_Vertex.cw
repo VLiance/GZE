@@ -361,19 +361,18 @@ int nOriRY;
 		
 		
 			
-		
+		/*
 	vec4 pt1 =  f3dTo2d(in_Pt1.xyz) ;
 	vec4 pt2 =  f3dTo2d(in_Pt2.xyz) ;
 	vec4 pt3 =  f3dTo2d(in_Pt3.xyz) ;
 	vec4 pt4 =  f3dTo2d(in_Pt4.xyz) ;
-		
-
+		*/
 		
 //	ioNorm.xyz = normalize((cross(( ioPt3 -ioPt1), (ioPt2 - ioPt1))));
 	ioNorm.xyz = normalize((cross(( ioPt2 -ioPt1), (ioPt3 - ioPt1)))) * nFrontFacing;
 	
 	
-	vec3 ioNormTest = normalize((cross(( pt2.xyw -pt1.xyw ), (pt3.xyw  -pt1.xyw)))) * nFrontFacing;
+	//vec3 ioNormTest = normalize((cross(( pt2.xyw -pt1.xyw ), (pt3.xyw  -pt1.xyw)))) * nFrontFacing;
 
 	/*
 	vec3 vEye_position = vec3(  400.0, 300.0, -450.0);

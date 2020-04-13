@@ -19,7 +19,7 @@ package  {
 		use Triangle.uPoint3D;
 		use Shape.uPoint;
 		
-		public const var nFocal : Float = 1.0/270.0;
+	//	public const var nFocal : Float = 1.0/270.0;
 /*
 		public var rPt1 : Mapped<uPoint3D>;
 		public var rPt2 : Mapped<uPoint3D>;
