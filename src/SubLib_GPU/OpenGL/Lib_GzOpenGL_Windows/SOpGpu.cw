@@ -52,10 +52,12 @@
 				p = (void *)GetProcAddress(_pModule, _cName);
 				if(p == 0 && _bRequired){
 					GZ_Debug_fError(gzU8("Error OGL function Missing: ") + gzStrC(_cName));
+				}else{
+					GZ_Debug_fError(gzU8("OGL function Found: ") + gzStrC(_cName)); //Temp
 				}
 			}
 		}else{
-			if(_nErr){ 
+			if(p == 0 || _nErr){ 
 				SetLastError(0);
 				GZ_Debug_fError(gzU8("Error loading OGL function (")  + gzStrUI(_nErr)  + gzU8("): ") +  Lib_GzOpenGL::OpenGL::fGetLastErrorString(_nErr) + gzStrC(_cName));
 			}
@@ -115,30 +117,34 @@
 			//////////////////////////////////////////////////////////// 
 			 ////////////// OPENGL 2 Compatibility context //////////////
 			if (!(PixelFormat = ChoosePixelFormat(hDC,&pfd))){
-				return fFatal(gzU8("Can't find a suitable PixelFormat or valid handle"));
+				return fFatal(gzU8("OGL: Can't find a suitable PixelFormat or valid handle"));
 			}
 
 			if(!SetPixelFormat(hDC,PixelFormat,&pfd)){
-				return fFatal(gzU8("Can't Set The PixelFormat"));
+				return fFatal(gzU8("OGL: Can't Set The PixelFormat"));
 			}
-			DescribePixelFormat(hDC, PixelFormat, sizeof(PIXELFORMATDESCRIPTOR), &pfd);
+			if(!DescribePixelFormat(hDC, PixelFormat, sizeof(PIXELFORMATDESCRIPTOR), &pfd)){
+				return fFatal(gzU8("OGL: Invalid descriptor"));
+			}
 
 			if (!(hRC=wglCreateContext(hDC))){  //ReqOgl
-				return fFatal(gzU8("Can't get A Rendering Context"));
+				return fFatal(gzU8("OGL: Can't get A Rendering Context"));
 			}
 
 			if(!wglMakeCurrent(hDC,hRC)) { //ReqOgl
-				return fFatal(gzU8("Can't Activate The GL Rendering Context"));
+				return fFatal(gzU8("OGL: Can't Activate The GL Rendering Context"));
 			}
 			///////////////////////////////////////////////////////////
 			//////////////////////////////////////////////////////////// 
 			</cpp>
 			
+			Debug.fWarning("fIniFunctions ");
 			//Context GL2 created we can now get GL3 functions
 			oGpuInfo.fIniFunctions();
+			Debug.fWarning("---------- ");
 			
 			if(oGpuInfo.fGetVersion() == false){
-				return fFatal("Mininal version required not supported >= 3.3");
+				return fFatal("OGL: Mininal version required not supported >= 3.3");
 			}
 			
 			var _nMin : Int = GpuInfo.nVersionMinor;
@@ -150,7 +156,7 @@
 			PFNWGLCREATECONTEXTATTRIBSARBPROC glCreateContextAttribs = (PFNWGLCREATECONTEXTATTRIBSARBPROC)wglGetProcAddress("wglCreateContextAttribsARB");
 			
 			if(!(glChoosePixelFormat && glCreateContextAttribs)){
-                return fFatal(gzU8("Can't get A Rendering Context >= 3.3"));
+                return fFatal(gzU8("OGL: Can't get A Rendering Context >= 3.3"));
             }
 			//Delete OGL 2 Context
             wglMakeCurrent(0, 0);
@@ -183,14 +189,15 @@
               glChoosePixelFormat(hDC, iPixelFormatAttribList, NULL, 1, &iPixelFormat, (gzUInt*)&iNumFormats);
 
               if(!SetPixelFormat(hDC, iPixelFormat, &pfd)){
-                    return fFatal(gzU8("Can't Set The Pixel Format On Context >= 3.3"));
+                    return fFatal(gzU8("OGL: Can't Set The Pixel Format On Context >= 3.3"));
               }
 
               hRC = glCreateContextAttribs(hDC, 0, iContextAttribs);
 
             if(!wglMakeCurrent(hDC,hRC)) {
-                return fFatal(gzU8("Can't Activate The GL Rendering Context >= 3.3"));
+                return fFatal(gzU8("OGL: Can't Activate The GL Rendering Context >= 3.3"));
             }
+			
 			
 			</cpp>
 			
