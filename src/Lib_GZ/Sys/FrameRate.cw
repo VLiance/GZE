@@ -13,6 +13,7 @@ package  {
 		
 		public var nFps : UInt;
 		
+		public var bFrMax : Bool = false;
 		public var bFrBasedOnTime : Bool = false;
 		public var nFrBasedOnTime_MaxFPS : Int = 60;
 		public var nFrBasedOnFrame_RenderAtEachFR : UInt = 1;
@@ -55,28 +56,43 @@ package  {
 				}
 				
 				nFps = nFrame;
-				//Debug.fTrace("Fps: " + nFrame);
+				Debug.fTrace("Fps: " + nFrame);
 				nFrame = 0;
 			}
 			
-			if(bFrBasedOnTime){
-				nToFrameMilli = 1000.0 / nFrBasedOnTime_MaxFPS;
-				nDeltaFpsAcc += _nDeltaTime;
-				if(nDeltaFpsAcc >= nToFrameMilli ){
-					nDeltaFpsAcc -= nToFrameMilli;
-					//Perfome all missed frame --> set a limit?
-					while(nDeltaFpsAcc >= nToFrameMilli){ 	
-						nDeltaFpsAcc -= nToFrameMilli;
-					//	fNewFrame(); //TODO , do only logic?
-					}
-					fCreateFrame();
+			
+			if(bFrMax){
+				<cpp>
+				thread->nSleepTime = 0;
+				</cpp>
+				fCreateFrame();
+				
+			}else{
+				<cpp>
+				if(thread->nSleepTime == 0){//Temp?
+					thread->nSleepTime = 1;
 				}
-			}else{//FrBasedOnFrame
-				//Debug.fTrace("NewFrame: " + nFrame);
-				nFrBasedOnFrame_Current++;
-				if(nFrBasedOnFrame_Current >= nFrBasedOnFrame_RenderAtEachFR){
-					nFrBasedOnFrame_Current = 0;
-					fCreateFrame();
+				</cpp>
+				
+				if(bFrBasedOnTime){
+					nToFrameMilli = 1000.0 / nFrBasedOnTime_MaxFPS;
+					nDeltaFpsAcc += _nDeltaTime;
+					if(nDeltaFpsAcc >= nToFrameMilli ){
+						nDeltaFpsAcc -= nToFrameMilli;
+						//Perfome all missed frame --> set a limit?
+						while(nDeltaFpsAcc >= nToFrameMilli){ 	
+							nDeltaFpsAcc -= nToFrameMilli;
+						//	fNewFrame(); //TODO , do only logic?
+						}
+						fCreateFrame();
+					}
+				}else{//FrBasedOnFrame
+					//Debug.fTrace("NewFrame: " + nFrame);
+					nFrBasedOnFrame_Current++;
+					if(nFrBasedOnFrame_Current >= nFrBasedOnFrame_RenderAtEachFR){
+						nFrBasedOnFrame_Current = 0;
+						fCreateFrame();
+					}
 				}
 			}
 		}

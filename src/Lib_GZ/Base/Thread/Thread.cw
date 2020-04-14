@@ -105,7 +105,9 @@ package  {
 				nThreadCount++;
 				while(bAppIsAlive && bRun){
 					oObj->ThreadLoop();
-				    Lib_GZ::Sys::System::GetInst(thread)->fSleep(nSleepTime); //TODO Syteme
+					if(nSleepTime > 0){
+						Lib_GZ::Sys::System::GetInst(thread)->fSleep(nSleepTime); //TODO Syteme
+					}
 				}
 				nThreadCount--;
 			#else
