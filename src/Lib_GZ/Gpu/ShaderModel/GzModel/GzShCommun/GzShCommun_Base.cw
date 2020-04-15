@@ -36,6 +36,9 @@ public class GzShCommun_Base {
 			#define iTexID int(in_ObjSize.w)
 			#define nTexID in_ObjSize.w
 			#define nType in_ObjPos.w
+			
+			xflat out float nTypeVal;
+			xflat out int iTexIDVal;
 
 			in vec4 in_ObjPos; //x, y, z, nType 
 			in vec4 in_ObjSize;  //Width,Height,Length, TextureLocationID

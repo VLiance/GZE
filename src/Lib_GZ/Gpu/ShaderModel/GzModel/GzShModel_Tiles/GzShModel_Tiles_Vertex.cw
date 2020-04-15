@@ -173,7 +173,7 @@ xflat out ivec2 ioOffsetTR;
 xflat out ivec2 ioOffsetBR;
 xflat out ivec2 ioOffsetBL;
 
-xflat ivec2 ivTexDim;
+ ivec2 ivTexDim;
 	
 xflat out ivec2 vFlip; //Sure?
 
@@ -195,6 +195,9 @@ int nOriRY;
 	uniform vec2 vTexSprites;
 
 	void main(){
+	
+		nTypeVal = nType;
+		iTexIDVal = iTexID;
 		//ioTexID = iTexID;
 			
             ///////////////////////////////////////////////////

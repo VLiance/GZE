@@ -112,15 +112,19 @@ smooth in vec2 uv;
 smooth in vec3 vTriPtWorld;
 	
 	
-#define nType iomWorldPt[0].w
+//#define nType iomWorldPt[0].w
 #define iTexID int(iomWorldPt[1].w)
 
 
 
 vec4 pixTex;
 
-float nType;
-	
+
+
+xflat in float nTypeVal;
+xflat in int iTexIDVal;
+#define nType nTypeVal
+//#define iTexID iTexIDVal
 
 
 
