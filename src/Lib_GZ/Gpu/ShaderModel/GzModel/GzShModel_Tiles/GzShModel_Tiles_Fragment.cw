@@ -18,69 +18,22 @@ package  {
 	import GZ.Gpu.ShaderModel.GzModel.GzShModel;
 	import GZ.Gpu.ShaderModel.GzModel.GzShModel_Tiles.GzShModel_Tiles;
 	import GZ.Gpu.ShaderModel.AtModel.Attribute_Quad;
-	
 	import GZ.Gpu.ShaderModel.GzModel.GzShCommun.GzShCommun_Base;
 	import GZ.Gpu.ShaderModel.GzModel.GzShCommun.GzShCommun_Light;
-	//import GZ.Base.TestPod;
-	//import GZ.Base.TestPod2;
-	
+
 	
 	public extension GzShModel_Tiles_Fragment extends GzShModel {
 
-		
-	
-		
 		override public function fLoad_Fragment():Bool {
 			
 			GzShCommun_Base.fAdd_FragmentBasics(oFragement);
 			GzShCommun_Base.fAdd_Func_Basics(oFragement);
-			
-			
-			
 			GzShCommun_Light.fAdd_Func_fAddLight(oFragement);
-			
-			
+		
 			///////////// Fragment Shader //////////////
 <glsl(oFragement)>
-		/*
-	#define nMaxTextures 8
-		
-	uniform int ID_TexCurrent; 
-	uniform int ID_TexNormal; 
-	uniform int ID_TexSprites; 
-	uniform int ID_TexFont; 
-
-	uniform vec2 	  TexSize[nMaxTextures];
-	uniform sampler2D Texture[nMaxTextures];
-	*/
-////////////////////////////////////////////
-
-/*
-vec3 fQRot( vec3 pt, vec4 rot)       {
-	return pt + 2.0*cross(rot.xyz, cross(rot.xyz,pt) + rot.w*pt);
-}
-
-//rotate vector
-vec3 fQRot3(vec4 q, vec3 v)       {
-	return v + 2.0*cross(q.xyz, cross(q.xyz,v) + q.w*v);
-}
-//rotate vector (alternative)
-vec3 fQRot_2(vec3 pt, vec4 rot )     {
-	return pt*(rot.w*rot.w - dot(rot.xyz,rot.xyz)) + 2.0*rot.xyz*dot(rot.xyz,pt) + 2.0*rot.w*cross(rot.xyz,pt);
-}
-*/
-//////////////////  TILES /////////////////////////
-/*
-xflat in vec2 ioPtSrc1;
-xflat in vec2 ioPtSrc2;
-xflat in vec2 ioPtSrc3;
-xflat in vec2 ioPtSrc4;
-*/
-
-
+	
 //11 variyng vector
-
-
 
 
 vec4 vPixTL;
@@ -146,26 +99,9 @@ xflat in ivec2 ioOffsetBL;
 xflat in ivec2 ivTexDim;
 xflat in ivec2 vFlip; //Sure?
 	
-	
-	
-//in vec2 coord_Texture;
-//in vec2 coord_Corner;
-//12 variyng vector
 
-	
 flat in vec4 coord_Color1;
-//flat in vec4 coord_Color2;
-//flat in vec4 coord_Color3;
-//flat in vec4 coord_Color4;
-//13 variyng vector	
-	
-//in vec2 ioCorner;
 
-//14 variyng vector	
-	
-//xflat in mat4 iomColor;
-//18 variyng vector	
-	
 /////////////
 xflat in mat4 iomWorldPt;
 //22 variyng vector	
@@ -176,9 +112,6 @@ in vec2 ioTexture;
 
 xflat in vec3 ioNorm; // Maybe if we get it from world norm
 xflat in vec4 ioObjRot;//-
-//xflat in int ioTexID;
-//24 variyng vector	
-
 
 
 uniform vec4 vColorTL;
@@ -204,7 +137,7 @@ vec4 pixTex;
 
 
 smooth in vec2 uv;
-
+smooth in vec3 vTriPtWorld;
 	
 float nType;
 	
@@ -499,7 +432,10 @@ FragColor =  pixTex; //Disable light
    // if(nType == 8){ //Unicolo (no Alpha)
         /////////////////////////  Phong light  ///////////////////
 
-        vec3 vPtWorld = (iomWorldPt * _vCoDist).xyz;
+       // vec3 vPtWorld = (iomWorldPt * _vCoDist).xyz;
+		
+		
+		 vec3 vPtWorld = vTriPtWorld;
         //vec3 vPtNorm =  (iomNorm * _vCoDist).xyz;
 		//vec3 vPtNorm =  iomNorm[0].xyz;
 		vec3 vPtNorm =  ioNorm.xyz;
@@ -662,13 +598,16 @@ vec3 b = cross(t, n) + cross(n, t);
 //FragColor =  vec4( att *specular,  att *specular,  att *specular,1.0);
 
 FragColor =  pixTex;
+
+//FragColor = vec4(_vCoDist.r, 0.0, 0.0 ,1.0);
+//FragColor = vec4(uv.x, 0.0, 0.0 ,1.0);
 //_nMonoCrome = _nMonoCrome2 ;
 // _nMonoCrome =  ((pixTex.r + pixTex.g + pixTex.b)/3.0);
 //FragColor =  vec4(_nMonoCrome, _nMonoCrome, _nMonoCrome, 1.0);
 //FragColor =  vec4(pixTex.r, pixTex.g, pixTex.b, 1.0);
 
 //FragColor =  vec4(0.0, 0.0, 0.0, 0.8);
-//FragColor =  vec4(vPtNorm, 1.0);
+FragColor =  vec4(vPtNorm, 1.0);
 
 
 

@@ -113,6 +113,7 @@ package  {
 	
 
 smooth out vec2 uv; //Current UV
+smooth out vec3 vTriPtWorld; //Current UV
 
 //LIGHT
 float nFrontFacing;
@@ -248,7 +249,7 @@ int nOriRY;
                 }
 			}
 		
-
+		
 		gl_Position = f3dTo2d(gl_Position.xyz);
 		///////////////////////////////////////////////
 		gl_Position.y = 1.0 - gl_Position.y - 1.0; //FlipY
@@ -350,60 +351,34 @@ int nOriRY;
 		//////////////////////////////////////////////////////
 		/////////////////////////////////////////////////////
 	*/
-
+		
+		///// Only for quad shaders /////////////////
 		iomWorldPt[0] = vec4(ioPt1 + in_ObjPos.xyz, nType);
 		iomWorldPt[1] = vec4(ioPt2 + in_ObjPos.xyz, nTexID);
 		iomWorldPt[2] = vec4(ioPt3 + in_ObjPos.xyz,0);
 		iomWorldPt[3] = vec4(ioPt4 + in_ObjPos.xyz,0);
+		////////////////// FS ////////////////////
+		//out: if (nVertexID == 1){uv = vec2(1,0); }...
+		//smooth in vec2 uv;
+		//vec4 _vCoDist = vec4((1.0-uv.x)*(1.0-uv.y), (uv.x)*(1.0-uv.y), (uv.x)*(uv.y), (1.0-uv.x)*(uv.y));
+		//vec3 vPtWorld = (iomWorldPt * _vCoDist).xyz;
+		//////////////////////////////////////////////
+		
+		if (nVertexID == 0){  
+			vTriPtWorld = iomWorldPt[0].xyz;
+		}
+		if (nVertexID == 1){  
+			vTriPtWorld = iomWorldPt[1].xyz;
+		}
+		if (nVertexID == 2){  
+			vTriPtWorld = iomWorldPt[2].xyz;
+		}
+		if (nVertexID == 3){  
+			vTriPtWorld = iomWorldPt[3].xyz;
+		}
 		
 		
-		
-		
-		
-			
-		/*
-	vec4 pt1 =  f3dTo2d(in_Pt1.xyz) ;
-	vec4 pt2 =  f3dTo2d(in_Pt2.xyz) ;
-	vec4 pt3 =  f3dTo2d(in_Pt3.xyz) ;
-	vec4 pt4 =  f3dTo2d(in_Pt4.xyz) ;
-		*/
-		
-//	ioNorm.xyz = normalize((cross(( ioPt3 -ioPt1), (ioPt2 - ioPt1))));
 	ioNorm.xyz = normalize((cross(( ioPt2 -ioPt1), (ioPt3 - ioPt1)))) * nFrontFacing;
-	
-	
-	//vec3 ioNormTest = normalize((cross(( pt2.xyw -pt1.xyw ), (pt3.xyw  -pt1.xyw)))) * nFrontFacing;
-
-	/*
-	vec3 vEye_position = vec3(  400.0, 300.0, -450.0);
-	//vec3 nLDir = normalize( (pt1.xyw + pt2.xyw +pt3.xyw + pt4.xyw)/4.0 - vEye_position    );//light direction
-	vec3 nLDir = normalize( (iomWorldPt[0].xyw + iomWorldPt[1].xyw +iomWorldPt[2].xyw + iomWorldPt[3].xyw)/4.0 - vEye_position    );//light direction
-	//vec3 nLDir = normalize(gl_FragCoord.xyz - 0.5   );//light direction
-	float nLdotN =  dot(ioNorm.xyz, nLDir);
-		
-	if(nLdotN < 0.0){
-		ioNorm *= -1;
-	}
-	*/
-	
-	/*
-	vec3 vEye_position = vec3(  0.5, 0.5, -0.5);
-	vec3 nLDir = normalize( (pt1.xyz + pt2.xyz +pt3.xyz + pt4.xyz)/4.0  - vEye_position    );//light direction
-	
-	float nLdotN =  dot(ioNormTest.xyz, nLDir);
-	if(nLdotN < 0.0){
-		ioNorm *= -1;
-	}*/
-	
-
-	/*
-	vec3 vEye_position = vec3(  0.5, 0.5, -500.0);
-	vec3 nLDir = normalize( (pt1.xyw + pt2.xyw +pt3.xyw + pt4.xyw)/4.0  - vEye_position    );//light direction
-	float nLdotN =  dot(ioNorm.xyz, nLDir);
-		
-	if(nLdotN < 0.0){
-		ioNorm *= -1;
-	}*/
 	
 
 /////////////////////////// TILES ///////////////////////////////////////////
