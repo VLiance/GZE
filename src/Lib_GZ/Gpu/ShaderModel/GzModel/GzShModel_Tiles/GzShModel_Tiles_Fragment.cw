@@ -68,82 +68,59 @@ ivec2 vPosBL;
 	//uniform sampler2DArray TexArray;  
 
 	//in vec2 coord_TextureSource;
-	
+
+
+/////// 2 varying
 xflat in ivec2 ioSrcTL;
 xflat in ivec2 ioSrcTR;
 xflat in ivec2 ioSrcBR;
 xflat in ivec2 ioSrcBL;
 
+/////// 2 varying
 xflat in ivec2 ioSrcOT;
 xflat in ivec2 ioSrcOR;
 xflat in ivec2 ioSrcOB;
 xflat in ivec2 ioSrcOL;
 
+/////// 2 varying
 xflat in ivec2 ioOffsetL1;
 xflat in ivec2 ioOffsetT1;
 xflat in ivec2 ioOffsetR1;
 xflat in ivec2 ioOffsetB1;
 
-xflat in ivec2 ioOffsetL2;
-xflat in ivec2 ioOffsetT2;
-xflat in ivec2 ioOffsetR2;
-xflat in ivec2 ioOffsetB2;
-
+/////// 2 varying
 xflat in ivec2 ioOffsetTL;
 xflat in ivec2 ioOffsetTR;
 xflat in ivec2 ioOffsetBR;
 xflat in ivec2 ioOffsetBL;
-//10 variyng vector
+//8 variyng vector
 
-
-xflat in ivec2 ivTexDim;
 xflat in ivec2 vFlip; //Sure?
-	
 
-flat in vec4 coord_Color1;
+xflat in vec4 coord_Color1;
 
 /////////////
-xflat in mat4 iomWorldPt;
-//22 variyng vector	
+xflat in mat4 iomWorldPt; //Removed for tri
 
 
 //xflat in mat4 iomNorm;
-in vec2 ioTexture;
+in vec2 ioTexture; //To rem
 
-xflat in vec3 ioNorm; // Maybe if we get it from world norm
-xflat in vec4 ioObjRot;//-
+xflat in vec3 ioNorm; //
 
-
-uniform vec4 vColorTL;
-uniform vec4 vColorTR;
-uniform vec4 vColorBR;
-uniform vec4 vColorBL;
-
-uniform vec4 v1Color;
-uniform mat4 mColor;
-
-
-//uniform vec2 vTexDimFetch;
-
+smooth in vec2 uv;
+smooth in vec3 vTriPtWorld;
+	
+	
+#define nType iomWorldPt[0].w
+#define iTexID int(iomWorldPt[1].w)
 
 
 
 vec4 pixTex;
 
-
-
-
-
-
-
-smooth in vec2 uv;
-smooth in vec3 vTriPtWorld;
-	
 float nType;
 	
-	
-#define nType iomWorldPt[0].w
-#define iTexID int(iomWorldPt[1].w)
 
 
 

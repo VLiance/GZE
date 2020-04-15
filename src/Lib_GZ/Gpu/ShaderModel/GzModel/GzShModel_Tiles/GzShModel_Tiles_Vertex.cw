@@ -162,18 +162,18 @@ xflat out ivec2 ioOffsetL1;
 xflat out ivec2 ioOffsetT1;
 xflat out ivec2 ioOffsetR1;
 xflat out ivec2 ioOffsetB1;
-
+/*
 xflat out ivec2 ioOffsetL2;
 xflat out ivec2 ioOffsetT2;
 xflat out ivec2 ioOffsetR2;
 xflat out ivec2 ioOffsetB2;
-
+*/
 xflat out ivec2 ioOffsetTL;
 xflat out ivec2 ioOffsetTR;
 xflat out ivec2 ioOffsetBR;
 xflat out ivec2 ioOffsetBL;
 
-xflat out ivec2 ivTexDim;
+xflat ivec2 ivTexDim;
 	
 xflat out ivec2 vFlip; //Sure?
 
