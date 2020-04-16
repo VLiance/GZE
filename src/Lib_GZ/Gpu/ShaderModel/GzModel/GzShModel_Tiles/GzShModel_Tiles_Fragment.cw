@@ -36,16 +36,6 @@ package  {
 //11 variyng vector
 
 
-vec4 vPixTL;
-vec4 vPixTR;
-vec4 vPixBR;
-vec4 vPixBL;
-
-
-ivec2 vPosTL;
-ivec2 vPosTR;
-ivec2 vPosBR;
-ivec2 vPosBL;
 
 /////////////////////////////////////////////
 
@@ -69,7 +59,7 @@ ivec2 vPosBL;
 
 	//in vec2 coord_TextureSource;
 
-
+//////////////////////////// INPUT ////////////
 /////// 2 varying
 xflat in ivec2 ioSrcTL;
 xflat in ivec2 ioSrcTR;
@@ -93,40 +83,53 @@ xflat in ivec2 ioOffsetTL;
 xflat in ivec2 ioOffsetTR;
 xflat in ivec2 ioOffsetBR;
 xflat in ivec2 ioOffsetBL;
+
 //8 variyng vector
 
-xflat in ivec2 vFlip; //Sure?
-
-xflat in vec4 coord_Color1;
-
-/////////////
-xflat in mat4 iomWorldPt; //Removed for tri
+xflat in vec4 coord_Color1; //Essential
+//9 variyng vector
 
 
-//xflat in mat4 iomNorm;
-in vec2 ioTexture; //To rem
+smooth in vec2 ioTexture; //Essential
+smooth in vec2 uv; //Optional? 
 
-xflat in vec3 ioNorm; //
+//10 variyng vector
 
-smooth in vec2 uv;
-smooth in vec3 vTriPtWorld;
+xflat in vec3 ioNorm; //Essential?
+smooth in vec3 vTriPtWorld; //Essential or iomWorldPt
+
+xflat in float nTypeVal; //Essential
+xflat in int iTexIDVal;  //Essential
+//12 variyng vector
+
+//Optinal
+xflat in mat4 iomWorldPt;  //Removed for tri
+xflat in ivec2 vFlip; //Removable Sure?
 	
 	
 //#define nType iomWorldPt[0].w
-#define iTexID int(iomWorldPt[1].w)
+//#define iTexID int(iomWorldPt[1].w)
 
+
+
+
+#define nType nTypeVal
+#define iTexID iTexIDVal
 
 
 vec4 pixTex;
 
 
+vec4 vPixTL;
+vec4 vPixTR;
+vec4 vPixBR;
+vec4 vPixBL;
 
-xflat in float nTypeVal;
-xflat in int iTexIDVal;
-#define nType nTypeVal
-//#define iTexID iTexIDVal
 
-
+ivec2 vPosTL;
+ivec2 vPosTR;
+ivec2 vPosBR;
+ivec2 vPosBL;
 
 
 
@@ -588,7 +591,7 @@ FragColor =  pixTex;
 //FragColor =  vec4(pixTex.r, pixTex.g, pixTex.b, 1.0);
 
 //FragColor =  vec4(0.0, 0.0, 0.0, 0.8);
-FragColor =  vec4(vPtNorm, 1.0);
+//FragColor =  vec4(vPtNorm, 1.0);
 
 
 

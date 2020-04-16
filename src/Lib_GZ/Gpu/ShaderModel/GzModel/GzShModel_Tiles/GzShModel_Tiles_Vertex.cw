@@ -107,7 +107,7 @@ package  {
 	
 	//out vec2 ioCorner;
 	//xflat out mat4 iomColor;
-	out vec2 ioTexture;
+	smooth out vec2 ioTexture;
 	uniform vec2 vTexDimFetch;
 	//in int gl_VertexID;
 	
@@ -173,7 +173,7 @@ xflat out ivec2 ioOffsetTR;
 xflat out ivec2 ioOffsetBR;
 xflat out ivec2 ioOffsetBL;
 
- ivec2 ivTexDim;
+ivec2 ivTexDim;
 	
 xflat out ivec2 vFlip; //Sure?
 
@@ -601,7 +601,7 @@ ioOffsetBL =  ivec2(1,-1);
 
 vFlip =  ivec2(1,0);
 if(_nIRevD < 0){
-	//vFlip =  ivec2(0,1);
+	vFlip =  ivec2(0,1);
 	
 }
 
