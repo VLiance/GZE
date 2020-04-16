@@ -446,7 +446,7 @@ vPtNorm = cross(vPtNorm.xyz, pixNormal.xyz);
 
 
 //float _nMonoCrome =  ((pixTex.r + pixTex.g + pixTex.b)/1.5)-1.0 ;
-float _nMonoCrome =  ((pixTex.r + pixTex.g + pixTex.b)/1.5)-0.5;
+float _nMonoCrome =  (((pixTex.r + pixTex.g + pixTex.b)/3.0)-0.5);
 
 float _nMonoCrome2 =  max(((pixTex.r + pixTex.g + pixTex.b)/1.5)-0.2, 0);
 //float _nMonoCrome2 =  (((pixTex.r + pixTex.g + pixTex.b)/1.5)-0.5);
@@ -464,12 +464,14 @@ float _nRevMonoCrome =   _nMonoCrome2 * -1.0;
 
 
 //
-//vec3 _vMyNorm =  vec3(_nRevMonoCrome/ 2.0, 0.0 , 1.0 - _nRevMonoCrome / 2.0); //Good
+//vec3 _vGenNorm =  vec3(_nRevMonoCrome/ 2.0, 0.0 , 1.0 - _nRevMonoCrome / 2.0); //Good
 //vec3 _vGenNorm = normalize( vec3(_nRevMonoCrome*-1.0, _nRevMonoCrome, (1.0 - (  (_nRevMonoCrome *-1.0) / 1.0)) / 3.0  )); //Good
 
-//vec3 _vMyNorm =  vec3(_nRevMonoCrome/ 8.0, _nRevMonoCrome/ 8.0, 1.0 - (  _nRevMonoCrome / 4.0  * 2.0 )); //Good
-//vec3 _vMyNorm =  vec3(0.0, 0.0 , _nMonoCrome*2.0);
-//vec3 _vMyNorm =  vec3(0.0, 0.0 , 1.0);
+//vec3 _vGenNorm =  vec3(_nRevMonoCrome/ 8.0, _nRevMonoCrome/ 8.0, 1.0 - (  _nRevMonoCrome / 4.0  * 2.0 )); //Good
+//vec3 _vGenNorm =  vec3(0.0, 0.0 , _nMonoCrome*2.0);
+//vec3 _vGenNorm =  vec3(_nMonoCrome / 2.0, _nMonoCrome , 1);
+//vec3 _vGenNorm =  vec3(_nMonoCrome / 2.0, 0 , 1);
+//vec3 _vGenNorm =  vec3(0.0, 0.0 , 1.0);
 
 //_vMyNorm =  vec3(0.0, 0.0 , -1.0);
 
@@ -483,7 +485,7 @@ float _nRevMonoCrome =   _nMonoCrome2 * -1.0;
 
 //vec3 _vGenNorm =  vec3(0, _nMonoCrome2/2.0 , 0);
 //vec3 _vGenNorm =  normalize(vec3(0.0, _nMonoCrome2/2.0, 1.0));
-vec3 _vGenNorm =  normalize(vec3(0.0, _nMonoCrome2/2.0, 1.0));
+vec3 _vGenNorm =  normalize(vec3( _nMonoCrome*-2.0, 0.0, 1.0));
 
 ////////////
 //_vMyNorm.z *= -1.0; 
@@ -544,12 +546,10 @@ vec3 b = cross(t, n) + cross(n, t);
    
  */  
    
-   _vGenNorm = vec3(0,0,1);
+
    
     // mat3 TBN =   cotangent_frame(vPtNorm, vPtWorld, uv);
-     mat3 TBN =   cotangent_frame(vPtNorm, (vPtWorld), uv);
-	 
-//vPtNorm = normalize(_vGenNorm * TBN) ;
+     
 
 
 //	vec3 vEye_position = vec3(  400.0, 300.0, -450.0); //Auto reverse norm
@@ -559,7 +559,33 @@ vec3 b = cross(t, n) + cross(n, t);
 	if(nLdotN < 0.0){
 		vPtNorm *= -1;
 	}
+	
 
+
+	
+	
+///	vec3 _ptNorm = vec3(0.0,0.0,0.0);
+	//vPtNorm = fRotate(_ptNorm, vPtNorm.zyx);
+//	vPtNorm = fRotate(_ptNorm, vPtNorm.yzx);
+	//vPtNorm = fRotate(_ptNorm, vPtNorm.zxy *-1.0);
+	
+	
+//_vGenNorm = fRotate( vec3(0,0,1), vec3(0.0, uv.x/-2.0, 0.0) );
+//_vGenNorm = fRotate( vec3(0,0,-1), vec3(0.0,  uv.x, uv.y) );
+//_vGenNorm = fRotate( vec3(0,0,-1), vec3(0.0,  0.0, uv.y) );
+//_vGenNorm = fRotate( vec3(0,0,-1), vec3(0.0,  (_nMonoCrome2), 0.0) );
+
+_vGenNorm = fRotate( vec3(0,0,-1), vec3(0.0,  -(uv.x-0.5)*3.0, 0.0) ); //Good, 
+//_vGenNorm = normalize( vec3(-(uv.x-0.5)*4.0, 0.0, 1.0)); 
+
+//_vGenNorm = fRotate( vec3(0,0,-1), vec3(0.0,  -(_nMonoCrome), 0.0) ); 
+
+mat3 TBN =   cotangent_frame(vPtNorm, -nLDir, uv); 
+		
+vPtNorm = normalize(TBN * _vGenNorm);
+
+	
+	
 
 //vPtNorm =  normalize(( vPtNorm.xyz ) *  ( _vGenNorm.xyz));//good effect
       //  vec3 light_position = vec3(1514.0 ,-600.0, -800.0);
@@ -590,7 +616,7 @@ FragColor =  pixTex;
 //FragColor =  vec4(_nMonoCrome, _nMonoCrome, _nMonoCrome, 1.0);
 //FragColor =  vec4(pixTex.r, pixTex.g, pixTex.b, 1.0);
 
-//FragColor =  vec4(0.0, 0.0, 0.0, 0.8);
+//FragColor =  vec4(uv.x, uv.y, 0.0, 1.0);
 //FragColor =  vec4(vPtNorm, 1.0);
 
 

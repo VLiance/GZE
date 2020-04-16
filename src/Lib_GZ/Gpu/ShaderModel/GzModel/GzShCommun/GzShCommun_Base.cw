@@ -148,6 +148,20 @@ public class GzShCommun_Base {
 			vec3 fWoldTransInv(vec3 v, vec3 pos, vec4 rot,  vec3 size){
 				return fQRot3( vec4(-rot.xyz, rot.w), (v - pos)/size );
 			}
+			
+			vec3 fRotate(vec3 vPt, vec3 vRot){
+				float _nYaw = vRot.y *   3.1416 / 2.0;
+				float _nPitch = vRot.z *   3.1416/ 2.0;
+				float _nRoll = vRot.x *   3.1416/ 2.0;
+				float _nTx  = (vPt.x * cos(_nYaw)) - (vPt.z * sin(_nYaw));
+				float _nTz  = (vPt.x * sin(_nYaw)) + (vPt.z * cos(_nYaw));
+				float _nTy  = (vPt.y * cos(_nPitch)) - (_nTz * sin(_nPitch));
+				vPt.z = (vPt.y * sin(_nPitch) * -1.0) - (_nTz * cos(_nPitch));
+				vPt.x = (_nTx * cos(_nRoll)) - (_nTy * sin(_nRoll));
+				vPt.y = (_nTx * sin(_nRoll)) + (_nTy * cos(_nRoll));
+				return vPt;
+			}
+			
 				
 			
 		</glsl>	
