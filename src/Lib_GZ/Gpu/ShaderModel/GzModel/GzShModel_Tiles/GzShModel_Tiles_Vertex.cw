@@ -90,10 +90,13 @@ package  {
 	out vec2 coord_TextureSource;
 //	out vec2 coord_Corner;
 
+/*
 	flat out vec4 coord_Color1;
 	flat out vec4 coord_Color2;
 	flat out vec4 coord_Color3;
-	flat out vec4 coord_Color4;
+	flat out vec4 coord_Color4
+	
+*/	
 
 	/*
 	flat out vec4 coord_Pt1;
@@ -108,7 +111,7 @@ package  {
 //xflat out mat4 iomColor;
 
 uniform vec2 vTexDimFetch;
-smooth out vec3 vTriPtWorld; //Current UV
+//smooth out vec3 vTriPtWorld; //Current UV
 
 //in int gl_VertexID;
 
@@ -153,7 +156,15 @@ shared_ivec4 _Slot_14;
 #define ish_Slot_0  _Slot_13
 #define ish_Slot_1  _Slot_14
 
+/////////////////////////////////////////////
+#define sh_vTriPtWorld (rv_Slot_0)
+#define sh_vCoord_Color1 (rv_Slot_6)
 
+////////////// TILE ///////////////////////
+#define sh_ioSrcTL (ish_Slot_0.xy)
+#define sh_ioSrcTR (ish_Slot_0.ba)
+#define sh_ioSrcBR (ish_Slot_1.xy)
+#define sh_ioSrcBL (ish_Slot_1.ba)
 
 #define sh_ioOffsetL1 (sh_Slot_0.xy)
 #define sh_ioOffsetT1 (sh_Slot_0.ba)
@@ -165,10 +176,10 @@ shared_ivec4 _Slot_14;
 #define sh_ioOffsetBR (sh_Slot_3.xy)
 #define sh_ioOffsetBL (sh_Slot_3.ba)
 
-#define sh_ioSrcTL (sh_Slot_4.xy)
-#define sh_ioSrcTR (sh_Slot_4.ba)
-#define sh_ioSrcBR (sh_Slot_5.xy)
-#define sh_ioSrcBL (sh_Slot_5.ba)
+#define sh_ioSrcTRBL (sh_Slot_4)
+#define sh_vFlip (sh_Slot_5.xy)
+//////////////////////////////////////////
+
 
 
 #define bump(Type, Val) Type(Val) + 0.1
@@ -208,7 +219,7 @@ xflat out vec3 ioNorm;
 //xflat out vec3 ioNorm3;
 //xflat out vec3 ioNorm4;
 
-xflat out mat4 iomWorldPt;
+mat4 iomWorldPt;
 //xflat out mat4 iomNorm;
 /////////
 
@@ -225,11 +236,13 @@ ivec2 ioSrcTR;
 ivec2 ioSrcBR;
 ivec2 ioSrcBL;
 
+/*
 xflat out ivec2 ioSrcOT;
 xflat out ivec2 ioSrcOR;
 xflat out ivec2 ioSrcOB;
 xflat out ivec2 ioSrcOL;
-xflat out ivec4 ioSrcTRBL;
+*/
+ivec4 ioSrcTRBL;
 
 
 /*
@@ -252,7 +265,7 @@ ivec2 ioOffsetBL;
 
 ivec2 ivTexDim;
 	
-xflat out ivec2 vFlip; //Sure?
+ivec2 vFlip; //Sure?
 
 //xflat out int ioTexID;
 
@@ -349,7 +362,7 @@ int nOriRY;
 		////////////////////////////////
 		
 		//Send color
-		coord_Color1 = in_Color1;
+		sh_vCoord_Color1 = in_Color1;
 		//coord_Color2 = in_Color2;
 		//coord_Color3 = in_Color3;
 		//coord_Color4 = in_Color4;
@@ -447,16 +460,16 @@ int nOriRY;
 		//////////////////////////////////////////////
 		
 		if (nVertexID == 0){  
-			vTriPtWorld = iomWorldPt[0].xyz;
+			sh_vTriPtWorld = iomWorldPt[0].xyz;
 		}
 		if (nVertexID == 1){  
-			vTriPtWorld = iomWorldPt[1].xyz;
+			sh_vTriPtWorld = iomWorldPt[1].xyz;
 		}
 		if (nVertexID == 2){  
-			vTriPtWorld = iomWorldPt[2].xyz;
+			sh_vTriPtWorld = iomWorldPt[2].xyz;
 		}
 		if (nVertexID == 3){  
-			vTriPtWorld = iomWorldPt[3].xyz;
+			sh_vTriPtWorld = iomWorldPt[3].xyz;
 		}
 		
 		
@@ -686,10 +699,19 @@ sh_ioOffsetTR = bump(vec2, ioOffsetTR);
 sh_ioOffsetBR = bump(vec2, ioOffsetBR);
 sh_ioOffsetBL = bump(vec2, ioOffsetBL);
 
+sh_ioSrcTRBL = bump(vec4, ioSrcTRBL);
+
+sh_vFlip  = bump(vec2, vFlip ); 
+/*
 sh_ioSrcTL =  bump(vec2, ioSrcTL);
 sh_ioSrcTR =  bump(vec2, ioSrcTR);
 sh_ioSrcBR =  bump(vec2, ioSrcBR);
 sh_ioSrcBL =  bump(vec2, ioSrcBL);
+*/
+sh_ioSrcTL =  ioSrcTL;
+sh_ioSrcTR =  ioSrcTR;
+sh_ioSrcBR =  ioSrcBR;
+sh_ioSrcBL =  ioSrcBL;
 
 }
 </glsl>

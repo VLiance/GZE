@@ -69,12 +69,7 @@ package  {
 //xflat in ivec2 ioSrcOL;
 
 /////////////////////////// Can be flaot 
-xflat in ivec4 ioSrcTRBL;
 
-#define ioSrcOT int(ioSrcTRBL.r)
-#define ioSrcOR int(ioSrcTRBL.g)
-#define ioSrcOB int(ioSrcTRBL.b)
-#define ioSrcOL int(ioSrcTRBL.a)
 
 
 /////////////////////////// Can be flaot 
@@ -113,8 +108,19 @@ shared_ivec4 _Slot_14;
 #define ish_Slot_1  _Slot_14
 
 
+/////////////////////////////////////////////
 
-////////////////////////////////////////////
+#define sh_vCoord_Color1 (rv_Slot_6)
+
+#define sh_vTriPtWorld
+
+////////////// TILE ///////////////////////
+
+#define ioSrcTL (ish_Slot_0.xy)
+#define ioSrcTR (ish_Slot_0.ba)
+#define ioSrcBR (ish_Slot_1.xy)
+#define ioSrcBL (ish_Slot_1.ba)
+
 #define ioOffsetL1 ivec2(sh_Slot_0.xy)
 #define ioOffsetT1 ivec2(sh_Slot_0.ba)
 #define ioOffsetR1 ivec2(sh_Slot_1.xy)
@@ -125,10 +131,14 @@ shared_ivec4 _Slot_14;
 #define ioOffsetBR ivec2(sh_Slot_3.xy)
 #define ioOffsetBL ivec2(sh_Slot_3.ba)
 
-#define ioSrcTL ivec2(sh_Slot_4.xy)
-#define ioSrcTR ivec2(sh_Slot_4.ba)
-#define ioSrcBR ivec2(sh_Slot_5.xy)
-#define ioSrcBL ivec2(sh_Slot_5.ba)
+#define ioSrcTRBL (sh_Slot_4)
+#define ioSrcOT int(ioSrcTRBL.r)
+#define ioSrcOR int(ioSrcTRBL.g)
+#define ioSrcOB int(ioSrcTRBL.b)
+#define ioSrcOL int(ioSrcTRBL.a)
+
+#define vFlip ivec2(sh_Slot_5.xy)
+
 
 
 /*
@@ -159,7 +169,7 @@ xflat in ivec2 ioOffsetBL;
 
 //8 variyng vector
 
-xflat in vec4 coord_Color1; //Essential
+//xflat in vec4 coord_Color1; //Essential
 //9 variyng vector
 
 smooth in vec4 ioTextureTest;
@@ -169,15 +179,15 @@ smooth in vec2 uv; //Optional?
 //10 variyng vector
 
 xflat in vec3 ioNorm; //Essential?
-smooth in vec3 vTriPtWorld; //Essential or iomWorldPt
+//smooth in vec3 vTriPtWorld; //Essential or iomWorldPt
 
 xflat in float nTypeVal; //Essential
 xflat in int iTexIDVal;  //Essential
 //12 variyng vector
 
 //Optinal
-xflat in mat4 iomWorldPt;  //Removed for tri
-xflat in ivec2 vFlip; //Removable Sure?
+//xflat in mat4 iomWorldPt;  //Removed for tri
+//xflat in ivec2 vFlip; //Removable Sure?
 	
 	
 //#define nType iomWorldPt[0].w
@@ -255,7 +265,7 @@ void main()
 	/// Make a bilinear interpolation from uv ///
 	vec4 _vCoDist = vec4((1.0-uv.x)*(1.0-uv.y), (uv.x)*(1.0-uv.y), (uv.x)*(uv.y), (1.0-uv.x)*(uv.y));
 	////////////////////////////////////////
-		vec4 vPtDist = coord_Color1; 
+		vec4 vPtDist = sh_vCoord_Color1; 
 		
 	if( nType == 8.0 ){ //Vector Line<
 		
@@ -498,7 +508,7 @@ FragColor =  pixTex; //Disable light
        // vec3 vPtWorld = (iomWorldPt * _vCoDist).xyz;
 		
 		
-		 vec3 vPtWorld = vTriPtWorld;
+		 vec3 vPtWorld = sh_vTriPtWorld;
         //vec3 vPtNorm =  (iomNorm * _vCoDist).xyz;
 		//vec3 vPtNorm =  iomNorm[0].xyz;
 		vec3 vPtNorm =  ioNorm.xyz;
