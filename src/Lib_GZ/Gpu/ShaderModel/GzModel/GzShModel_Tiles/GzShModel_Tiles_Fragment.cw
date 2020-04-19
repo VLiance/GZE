@@ -36,11 +36,7 @@ package  {
 //11 variyng vector
 
 
-
 /////////////////////////////////////////////
-
-		
-	//out vec4 outputColor;
 
 	uniform sampler2D TexCurrent; 
 		uniform vec2 vTexCurrent;
@@ -51,25 +47,6 @@ package  {
 	uniform sampler2D TexSprites;
 		uniform vec2 vTexSprites;
 		
-	//uniform sampler2D TexSource;
-	//uniform sampler2D TexFragPos;
-	//uniform sampler2D TexPixSrc;
-
-	//uniform sampler2DArray TexArray;  
-
-	//in vec2 coord_TextureSource;
-
-//////////////////////////// INPUT ////////////
-
-
-/////// 1 varying
-//xflat in ivec2 ioSrcOT;
-//xflat in ivec2 ioSrcOR;
-//xflat in ivec2 ioSrcOB;
-//xflat in ivec2 ioSrcOL;
-
-/////////////////////////// Can be flaot 
-
 
 
 /////////////////////////// Can be flaot 
@@ -109,10 +86,14 @@ shared_ivec4 _Slot_14;
 
 
 /////////////////////////////////////////////
+#define sh_iTexID (irv_Slot_0.x) 
+#define sh_iType  (irv_Slot_0.y) 
 
+#define sh_vTriPtWorld (rv_Slot_0.xyz)
+#define sh_vNorm (rv_Slot_4.xyz)
+#define sh_uv (rv_Slot_5.xy)
+#define sh_vTexture (rv_Slot_5.ab)
 #define sh_vCoord_Color1 (rv_Slot_6)
-
-#define sh_vTriPtWorld
 
 ////////////// TILE ///////////////////////
 
@@ -141,84 +122,19 @@ shared_ivec4 _Slot_14;
 
 
 
-/*
-/////// 2 varying
-xflat in ivec2 ioSrcTL;
-xflat in ivec2 ioSrcTR;
-xflat in ivec2 ioSrcBR;
-xflat in ivec2 ioSrcBL;
-
-
-
-/////// 2 varying
-xflat in ivec2 ioOffsetL1;
-xflat in ivec2 ioOffsetT1;
-xflat in ivec2 ioOffsetR1;
-xflat in ivec2 ioOffsetB1;
-*/
-
-
-/*
-/////// 2 varying
-xflat in ivec2 ioOffsetTL;
-xflat in ivec2 ioOffsetTR;
-xflat in ivec2 ioOffsetBR;
-xflat in ivec2 ioOffsetBL;
-/////////////////////////////////////
-*/
-
-//8 variyng vector
-
-//xflat in vec4 coord_Color1; //Essential
-//9 variyng vector
-
-smooth in vec4 ioTextureTest;
-smooth in vec2 ioTexture; //Essential
-smooth in vec2 uv; //Optional? 
-
-//10 variyng vector
-
-xflat in vec3 ioNorm; //Essential?
-//smooth in vec3 vTriPtWorld; //Essential or iomWorldPt
-
-xflat in float nTypeVal; //Essential
-xflat in int iTexIDVal;  //Essential
-//12 variyng vector
-
-//Optinal
-//xflat in mat4 iomWorldPt;  //Removed for tri
-//xflat in ivec2 vFlip; //Removable Sure?
 	
-	
-//#define nType iomWorldPt[0].w
-//#define iTexID int(iomWorldPt[1].w)
-
-
-
-
-
-
-#define nType nTypeVal
-#define iTexID iTexIDVal
-
-
-
-
 
 vec4 pixTex;
-
 
 vec4 vPixTL;
 vec4 vPixTR;
 vec4 vPixBR;
 vec4 vPixBL;
 
-
 ivec2 vPosTL;
 ivec2 vPosTR;
 ivec2 vPosBR;
 ivec2 vPosBL;
-
 
 
 // http://www.thetenthplanet.de/archives/1180
@@ -263,19 +179,19 @@ void main()
 
 
 	/// Make a bilinear interpolation from uv ///
-	vec4 _vCoDist = vec4((1.0-uv.x)*(1.0-uv.y), (uv.x)*(1.0-uv.y), (uv.x)*(uv.y), (1.0-uv.x)*(uv.y));
+	vec4 _vCoDist = vec4((1.0-sh_uv.x)*(1.0-sh_uv.y), (sh_uv.x)*(1.0-sh_uv.y), (sh_uv.x)*(sh_uv.y), (1.0-sh_uv.x)*(sh_uv.y));
 	////////////////////////////////////////
 		vec4 vPtDist = sh_vCoord_Color1; 
 		
-	if( nType == 8.0 ){ //Vector Line<
+	if( sh_iType == 8 ){ //Vector Line<
 		
 			//pixTex = vec4(0.0, 1.0, 0.5, 1.0);
 			pixTex = vPtDist;
-			pixTex.a = (1.0- (uv.y*uv.y))*vPtDist.a;
+			pixTex.a = (1.0- (sh_uv.y*sh_uv.y))*vPtDist.a;
 			FragColor =  pixTex;
 			return;
 		
-	}else if( nType == 4.0 ||  nType == 6.0){ //Normal
+	}else if( sh_iType == 4 ||  sh_iType == 6){ //Normal
 
       //  vec4 vPtDist = vec4(0.0, 0.0, 0.0, 1.0); //No Color
 		//vec4 vPtDist = ( coord_Color1 * _vCoDist.a) + (coord_Color2 * _vCoDist.r) + (coord_Color3 * _vCoDist.b) + (coord_Color4 * _vCoDist.g);
@@ -287,7 +203,7 @@ void main()
 	
 	//	vec4 vPtDist = _vQuadColor; 
 		
-	if( nType == 6.0){
+	if( sh_iType == 6){
 
 			//Normal
 			//pixTex = texture(TexCurrent, ioTexture);
@@ -324,7 +240,7 @@ void main()
 
 				//float _nRatio = float(nRetroRatio);
 				//vec2 vPosTex = ( (ioTexture.xy).xy  * vRetroR  );
-				vec2 vPosTex = ( (ioTextureTest.zw).xy  * vRetroR  );
+				vec2 vPosTex = ( sh_vTexture.xy  * vRetroR  );
 //vec2 vPosTex = (ioTexture * vTexDimFetch * vRetroR  - 0.5);
 
 
@@ -404,10 +320,10 @@ void main()
 				vec4 vPixBL = texelFetch(TexCurrent, vPosBL,0);
 				*/
 				
-				vec4 vPixTL = fTexelFetch(iTexID, vPosTL);
-				vec4 vPixTR = fTexelFetch(iTexID, vPosTR);
-				vec4 vPixBR = fTexelFetch(iTexID, vPosBR);
-				vec4 vPixBL = fTexelFetch(iTexID, vPosBL);
+				vec4 vPixTL = fTexelFetch(sh_iTexID, vPosTL);
+				vec4 vPixTR = fTexelFetch(sh_iTexID, vPosTR);
+				vec4 vPixBR = fTexelFetch(sh_iTexID, vPosBR);
+				vec4 vPixBL = fTexelFetch(sh_iTexID, vPosBL);
 				
 				//pixTex = fTexelFetch(ioTexID, ioTexture);
 				
@@ -431,7 +347,7 @@ void main()
 				
 			}else{
 			
-				pixTex =  fTexture(iTexID, (ioTexture + 0.5)/ vTexSprites );
+				pixTex =  fTexture(sh_iTexID, (sh_vTexture + 0.5)/ vTexSprites );
 				//pixTex = texture(TexSprites, ioTexture);// ( + 0.5 )  / (vTexDimFetch
 				//pixTex = texture(TexSprites, (ioTexture + 0.5)/ vTexSprites );// ( + 0.5 )  / (vTexDimFetch
 				//	pixTex = fTexture(ioTexID, ioTexture);
@@ -511,7 +427,7 @@ FragColor =  pixTex; //Disable light
 		 vec3 vPtWorld = sh_vTriPtWorld;
         //vec3 vPtNorm =  (iomNorm * _vCoDist).xyz;
 		//vec3 vPtNorm =  iomNorm[0].xyz;
-		vec3 vPtNorm =  ioNorm.xyz;
+		vec3 vPtNorm =  sh_vNorm.xyz;
 		
 		
 		
@@ -672,7 +588,7 @@ vec3 b = cross(t, n) + cross(n, t);
 
 //_vGenNorm = fRotate( vec3(0,0,-1), vec3(0.0,  -(_nMonoCrome), 0.0) ); 
 
-mat3 TBN =   cotangent_frame(vPtNorm, -nLDir, uv); 
+mat3 TBN =   cotangent_frame(vPtNorm, -nLDir, sh_uv); 
 		
 vPtNorm = normalize(TBN * _vGenNorm);
 

@@ -33,12 +33,9 @@ public class GzShCommun_Base {
 			uniform vec2 	  TexSize[nMaxTextures];
 			//uniform sampler2D Texture[nMaxTextures];
 			
-			#define iTexID int(in_ObjSize.w)
-			#define nTexID in_ObjSize.w
-			#define nType in_ObjPos.w
-			
-			xflat out float nTypeVal;
-			xflat out int iTexIDVal;
+			#define iTexID int(in_ObjSize.w + 0.1)
+			#define iType int(in_ObjPos.w + 0.1)
+
 
 			in vec4 in_ObjPos; //x, y, z, nType 
 			in vec4 in_ObjSize;  //Width,Height,Length, TextureLocationID

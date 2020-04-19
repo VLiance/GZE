@@ -87,7 +87,7 @@ package  {
 	/////////////////
 
 	//out vec2 coord_Texture;
-	out vec2 coord_TextureSource;
+	//out vec2 coord_TextureSource;
 //	out vec2 coord_Corner;
 
 /*
@@ -116,11 +116,11 @@ uniform vec2 vTexDimFetch;
 //in int gl_VertexID;
 
 
-smooth out vec2 ioTexture;
-smooth out vec2 uv; //Current UV
+vec2 ioTexture;
+//vec2 uv; //Current UV
 
 
-smooth out vec4 ioTextureTest;
+//smooth out vec4 ioTextureTest;
 
 
 #define xshared out
@@ -157,8 +157,15 @@ shared_ivec4 _Slot_14;
 #define ish_Slot_1  _Slot_14
 
 /////////////////////////////////////////////
-#define sh_vTriPtWorld (rv_Slot_0)
+#define sh_iTexID (irv_Slot_0.x) 
+#define sh_iType  (irv_Slot_0.y) 
+
+#define sh_vTriPtWorld (rv_Slot_0.xyz)
+#define sh_vNorm (rv_Slot_4.xyz)
+#define sh_uv (rv_Slot_5.xy)
+#define sh_vTexture (rv_Slot_5.ab)
 #define sh_vCoord_Color1 (rv_Slot_6)
+
 
 ////////////// TILE ///////////////////////
 #define sh_ioSrcTL (ish_Slot_0.xy)
@@ -194,8 +201,6 @@ xflat out ivec2 ioOffsetBR;
 xflat out ivec2 ioOffsetBL;
 */
 //vec2 ioTexture;
-//#define sh_vTexture (sh_Slot_1.zw);
-
 
 //LIGHT
 float nFrontFacing;
@@ -213,7 +218,7 @@ xflat out vec3 ioPt4;
 */
 
 xflat out vec4 ioObjRot;
-xflat out vec3 ioNorm;
+vec3 ioNorm;
 //xflat out vec3 ioNorm1;
 //xflat out vec3 ioNorm2;
 //xflat out vec3 ioNorm3;
@@ -286,8 +291,9 @@ int nOriRY;
 
 	void main(){
 	
-		nTypeVal = nType;
-		iTexIDVal = iTexID;
+		sh_iTexID =  iTexID;
+		sh_iType = iType;
+		
 		//ioTexID = iTexID;
 			
             ///////////////////////////////////////////////////
@@ -297,7 +303,7 @@ int nOriRY;
 			if (nVertexID < 2){     // 0 || 1
                 if(nVertexID == 0){
                     //////// Vertex 0 ////////
-					uv = vec2(0,0);
+					sh_uv = vec2(0,0);
 					//color = in_Color1;
 					//vCoDist = vec4(1.0,0.0,0.0,0.0);
 					
@@ -307,7 +313,7 @@ int nOriRY;
                     vSrc.y = in_TexSource0.y;
                 }else{
 				
-					uv = vec2(1,0);
+					sh_uv = vec2(1,0);
 				//	color = in_Color2;
 					//vCoDist = vec4(0.0,1.0,0.0,0.0);
 		
@@ -320,7 +326,7 @@ int nOriRY;
 			}else{                  // 2 || 3
                 if(nVertexID == 2){
                     //////// Vertex 2 ////////
-					uv = vec2(1,1);
+					sh_uv = vec2(1,1);
 					//color = in_Color3;
 					//vCoDist = vec4(0.0,0.0,1.0,0.0);
 					
@@ -331,7 +337,7 @@ int nOriRY;
 
                 }else{
                     //////// Vertex 3 ////////
-					uv = vec2(0,1);
+					sh_uv = vec2(0,1);
 					//color = in_Color4;
 					//vCoDist = vec4(0.0,0.0,0.0,1.0);
 					
@@ -358,7 +364,8 @@ int nOriRY;
 		ioTexture.x = (vSrc.x  ) ;
 		ioTexture.y = (vSrc.y );
 		
-		ioTextureTest.zw = vSrc.xy;
+		sh_vTexture =  vSrc.xy;
+	//	ioTextureTest.zw = vSrc.xy;
 		////////////////////////////////
 		
 		//Send color
@@ -448,8 +455,8 @@ int nOriRY;
 	*/
 		
 		///// Only for quad shaders /////////////////
-		iomWorldPt[0] = vec4(ioPt1 + in_ObjPos.xyz, nType);
-		iomWorldPt[1] = vec4(ioPt2 + in_ObjPos.xyz, nTexID);
+		iomWorldPt[0] = vec4(ioPt1 + in_ObjPos.xyz,0);
+		iomWorldPt[1] = vec4(ioPt2 + in_ObjPos.xyz,0);
 		iomWorldPt[2] = vec4(ioPt3 + in_ObjPos.xyz,0);
 		iomWorldPt[3] = vec4(ioPt4 + in_ObjPos.xyz,0);
 		////////////////// FS ////////////////////
@@ -474,7 +481,7 @@ int nOriRY;
 		
 		
 	ioNorm.xyz = normalize((cross(( ioPt2 -ioPt1), (ioPt3 - ioPt1)))) * nFrontFacing;
-	
+	sh_vNorm = ioNorm;
 
 /////////////////////////// TILES ///////////////////////////////////////////
 	//in vec4 in_TilesHV; //Vertical
