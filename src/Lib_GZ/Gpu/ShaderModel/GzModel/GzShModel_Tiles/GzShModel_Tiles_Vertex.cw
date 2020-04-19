@@ -103,17 +103,88 @@ package  {
 	*/
 	///////////////////
 
-	
-	
-	//out vec2 ioCorner;
-	//xflat out mat4 iomColor;
-	smooth out vec2 ioTexture;
-	uniform vec2 vTexDimFetch;
-	//in int gl_VertexID;
-	
 
-smooth out vec2 uv; //Current UV
+//out vec2 ioCorner;
+//xflat out mat4 iomColor;
+
+uniform vec2 vTexDimFetch;
 smooth out vec3 vTriPtWorld; //Current UV
+
+//in int gl_VertexID;
+
+
+smooth out vec2 ioTexture;
+smooth out vec2 uv; //Current UV
+
+
+smooth out vec4 ioTextureTest;
+
+
+#define xshared out
+
+#define shared_ivec4 xflat xshared ivec4 
+#define shared_vec4  xshared vec4 
+#define shared_mat4  xshared mat4 
+
+//Max is 15 Slot to be portable -> Max slot #14
+shared_mat4 _Slot_0_3; //WorldPos
+shared_mat4 _Slot_4_7;
+shared_mat4 _Slot_8_11;
+shared_ivec4 _Slot_12;
+shared_ivec4 _Slot_13;
+shared_ivec4 _Slot_14;
+
+#define rv_Slot_0   _Slot_0_3[0]  //in vec3 vTriPtWorld; [Time]
+#define sh_Slot_4   _Slot_0_3[1]  //iomWorldPt?
+#define sh_Slot_5   _Slot_0_3[2]  //iomWorldPt?
+#define sh_Slot_6   _Slot_0_3[3]  //iomWorldPt?
+
+#define rv_Slot_4   _Slot_4_7[0] //in vec3 ioNorm; 
+#define rv_Slot_5   _Slot_4_7[1] //uv / ioTexture
+#define rv_Slot_6   _Slot_4_7[2] //coord_Color1
+#define rv_Slot_7   _Slot_4_7[3] 
+
+#define sh_Slot_0   _Slot_8_11[0]
+#define sh_Slot_1   _Slot_8_11[1]
+#define sh_Slot_2  _Slot_8_11[2]
+#define sh_Slot_3  _Slot_8_11[3]
+
+#define irv_Slot_0  _Slot_12		//iTexID / nType
+#define ish_Slot_0  _Slot_13
+#define ish_Slot_1  _Slot_14
+
+
+
+#define sh_ioOffsetL1 (sh_Slot_0.xy)
+#define sh_ioOffsetT1 (sh_Slot_0.ba)
+#define sh_ioOffsetR1 (sh_Slot_1.xy)
+#define sh_ioOffsetB1 (sh_Slot_1.ba)
+
+#define sh_ioOffsetTL (sh_Slot_2.xy)
+#define sh_ioOffsetTR (sh_Slot_2.ba)
+#define sh_ioOffsetBR (sh_Slot_3.xy)
+#define sh_ioOffsetBL (sh_Slot_3.ba)
+
+#define sh_ioSrcTL (sh_Slot_4.xy)
+#define sh_ioSrcTR (sh_Slot_4.ba)
+#define sh_ioSrcBR (sh_Slot_5.xy)
+#define sh_ioSrcBL (sh_Slot_5.ba)
+
+
+#define bump(Type, Val) Type(Val) + 0.1
+
+
+
+
+/*
+xflat out ivec2 ioOffsetTL;
+xflat out ivec2 ioOffsetTR;
+xflat out ivec2 ioOffsetBR;
+xflat out ivec2 ioOffsetBL;
+*/
+//vec2 ioTexture;
+//#define sh_vTexture (sh_Slot_1.zw);
+
 
 //LIGHT
 float nFrontFacing;
@@ -148,30 +219,36 @@ xflat out vec2 ioPtSrc2;
 xflat out vec2 ioPtSrc3;
 xflat out vec2 ioPtSrc4;
 */
-xflat out ivec2 ioSrcTL;
-xflat out ivec2 ioSrcTR;
-xflat out ivec2 ioSrcBR;
-xflat out ivec2 ioSrcBL;
+
+ivec2 ioSrcTL;
+ivec2 ioSrcTR;
+ivec2 ioSrcBR;
+ivec2 ioSrcBL;
 
 xflat out ivec2 ioSrcOT;
 xflat out ivec2 ioSrcOR;
 xflat out ivec2 ioSrcOB;
 xflat out ivec2 ioSrcOL;
+xflat out ivec4 ioSrcTRBL;
 
+
+/*
 xflat out ivec2 ioOffsetL1;
 xflat out ivec2 ioOffsetT1;
 xflat out ivec2 ioOffsetR1;
 xflat out ivec2 ioOffsetB1;
-/*
-xflat out ivec2 ioOffsetL2;
-xflat out ivec2 ioOffsetT2;
-xflat out ivec2 ioOffsetR2;
-xflat out ivec2 ioOffsetB2;
 */
-xflat out ivec2 ioOffsetTL;
-xflat out ivec2 ioOffsetTR;
-xflat out ivec2 ioOffsetBR;
-xflat out ivec2 ioOffsetBL;
+
+ivec2 ioOffsetL1;
+ivec2 ioOffsetT1;
+ivec2 ioOffsetR1;
+ivec2 ioOffsetB1;
+
+
+ivec2 ioOffsetTL;
+ivec2 ioOffsetTR;
+ivec2 ioOffsetBR;
+ivec2 ioOffsetBL;
 
 ivec2 ivTexDim;
 	
@@ -267,6 +344,8 @@ int nOriRY;
 		//ioTexture.y = (vSrc.y + 0.5 ) / (vTexDimFetch.y );
 		ioTexture.x = (vSrc.x  ) ;
 		ioTexture.y = (vSrc.y );
+		
+		ioTextureTest.zw = vSrc.xy;
 		////////////////////////////////
 		
 		//Send color
@@ -542,27 +621,35 @@ if(_nRevY < 0.0){ //Reverse
 
 
 if(nOriTX > 0){
-	ioSrcOT = ioSrcTL;
+	//ioSrcOT = ioSrcTL;
+	ioSrcTRBL.r = ioSrcTL.x;
 }else{
-	ioSrcOT = ioSrcTR;
+	//ioSrcOT = ioSrcTR;
+	ioSrcTRBL.r = ioSrcTR.x;
 }
 
 if(nOriRY > 0){
-	ioSrcOR = ioSrcTR;
+	//ioSrcOR = ioSrcTR;
+	ioSrcTRBL.g = ioSrcTR.y;
 }else{
-	ioSrcOR = ioSrcBR;
+	//ioSrcOR = ioSrcBR;
+	ioSrcTRBL.g = ioSrcBR.y;
 }
 
 if(nOriBX > 0){
-	ioSrcOB = ioSrcBL;
+	//ioSrcOB = ioSrcBL;
+	ioSrcTRBL.b = ioSrcBL.x;
 }else{
-	ioSrcOB = ioSrcBR;
+	//ioSrcOB = ioSrcBR;
+	ioSrcTRBL.b = ioSrcBR.x;
 }
 
 if(nOriLY > 0){
-	ioSrcOL = ioSrcTL;
+	//ioSrcOL = ioSrcTL;
+	ioSrcTRBL.a = ioSrcTL.y;
 }else{
-	ioSrcOL = ioSrcBL;
+	//ioSrcOL = ioSrcBL;
+	ioSrcTRBL.a = ioSrcBL.y;
 }
 
 //////////////  CORNER  //////////
@@ -583,28 +670,26 @@ ioOffsetBL.y = nOBL /  ivTexDim.x;
 ioOffsetBL.x = nOBL - ioOffsetBL.y * ivTexDim.x;
 /////////////////////////////////////////
 
-
-
-/*	
-//Clamp			
-ioOffsetT =  ivec2(0,1);
-ioOffsetR =  ivec2(-1,0);
-ioOffsetB =  ivec2(0,-1);
-ioOffsetL =  ivec2(1,0);
-
-	
-ioOffsetTL =  ivec2(1,1);
-ioOffsetTR =  ivec2(-1,1);
-ioOffsetBR =  ivec2(-1,-1);
-ioOffsetBL =  ivec2(1,-1);
-*/
-
 vFlip =  ivec2(1,0);
 if(_nIRevD < 0){
 	vFlip =  ivec2(0,1);
-	
 }
 
+///Send data:
+sh_ioOffsetL1 = bump(vec2, ioOffsetL1);
+sh_ioOffsetT1 = bump(vec2, ioOffsetT1);
+sh_ioOffsetR1 = bump(vec2, ioOffsetR1);
+sh_ioOffsetB1 = bump(vec2, ioOffsetB1);
+
+sh_ioOffsetTL = bump(vec2, ioOffsetTL);
+sh_ioOffsetTR = bump(vec2, ioOffsetTR);
+sh_ioOffsetBR = bump(vec2, ioOffsetBR);
+sh_ioOffsetBL = bump(vec2, ioOffsetBL);
+
+sh_ioSrcTL =  bump(vec2, ioSrcTL);
+sh_ioSrcTR =  bump(vec2, ioSrcTR);
+sh_ioSrcBR =  bump(vec2, ioSrcBR);
+sh_ioSrcBL =  bump(vec2, ioSrcBL);
 
 }
 </glsl>

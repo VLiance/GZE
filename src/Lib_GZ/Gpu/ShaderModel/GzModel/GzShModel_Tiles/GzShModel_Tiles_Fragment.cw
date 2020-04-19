@@ -60,36 +60,109 @@ package  {
 	//in vec2 coord_TextureSource;
 
 //////////////////////////// INPUT ////////////
+
+
+/////// 1 varying
+//xflat in ivec2 ioSrcOT;
+//xflat in ivec2 ioSrcOR;
+//xflat in ivec2 ioSrcOB;
+//xflat in ivec2 ioSrcOL;
+
+/////////////////////////// Can be flaot 
+xflat in ivec4 ioSrcTRBL;
+
+#define ioSrcOT int(ioSrcTRBL.r)
+#define ioSrcOR int(ioSrcTRBL.g)
+#define ioSrcOB int(ioSrcTRBL.b)
+#define ioSrcOL int(ioSrcTRBL.a)
+
+
+/////////////////////////// Can be flaot 
+
+#define xshared in
+
+#define shared_ivec4 xflat xshared ivec4 
+#define shared_vec4 xshared vec4 
+#define shared_mat4 xshared mat4 
+
+//Max is 15 Slot to be portable -> Max slot #14
+shared_mat4 _Slot_0_3; //WorldPos
+shared_mat4 _Slot_4_7;
+shared_mat4 _Slot_8_11;
+shared_ivec4 _Slot_12;
+shared_ivec4 _Slot_13;
+shared_ivec4 _Slot_14;
+
+#define rv_Slot_0   _Slot_0_3[0]  //in vec3 vTriPtWorld; [Time]
+#define sh_Slot_4   _Slot_0_3[1]  //iomWorldPt?
+#define sh_Slot_5   _Slot_0_3[2]  //iomWorldPt?
+#define sh_Slot_6   _Slot_0_3[3]  //iomWorldPt?
+
+#define rv_Slot_4   _Slot_4_7[0] //in vec3 ioNorm; 
+#define rv_Slot_5   _Slot_4_7[1] //uv / ioTexture
+#define rv_Slot_6   _Slot_4_7[2] //coord_Color1
+#define rv_Slot_7   _Slot_4_7[3] 
+
+#define sh_Slot_0   _Slot_8_11[0]
+#define sh_Slot_1   _Slot_8_11[1]
+#define sh_Slot_2  _Slot_8_11[2]
+#define sh_Slot_3  _Slot_8_11[3]
+
+#define irv_Slot_0  _Slot_12		//iTexID / nType
+#define ish_Slot_0  _Slot_13
+#define ish_Slot_1  _Slot_14
+
+
+
+////////////////////////////////////////////
+#define ioOffsetL1 ivec2(sh_Slot_0.xy)
+#define ioOffsetT1 ivec2(sh_Slot_0.ba)
+#define ioOffsetR1 ivec2(sh_Slot_1.xy)
+#define ioOffsetB1 ivec2(sh_Slot_1.ba)
+
+#define ioOffsetTL ivec2(sh_Slot_2.xy)
+#define ioOffsetTR ivec2(sh_Slot_2.ba)
+#define ioOffsetBR ivec2(sh_Slot_3.xy)
+#define ioOffsetBL ivec2(sh_Slot_3.ba)
+
+#define ioSrcTL ivec2(sh_Slot_4.xy)
+#define ioSrcTR ivec2(sh_Slot_4.ba)
+#define ioSrcBR ivec2(sh_Slot_5.xy)
+#define ioSrcBL ivec2(sh_Slot_5.ba)
+
+
+/*
 /////// 2 varying
 xflat in ivec2 ioSrcTL;
 xflat in ivec2 ioSrcTR;
 xflat in ivec2 ioSrcBR;
 xflat in ivec2 ioSrcBL;
 
-/////// 2 varying
-xflat in ivec2 ioSrcOT;
-xflat in ivec2 ioSrcOR;
-xflat in ivec2 ioSrcOB;
-xflat in ivec2 ioSrcOL;
+
 
 /////// 2 varying
 xflat in ivec2 ioOffsetL1;
 xflat in ivec2 ioOffsetT1;
 xflat in ivec2 ioOffsetR1;
 xflat in ivec2 ioOffsetB1;
+*/
 
+
+/*
 /////// 2 varying
 xflat in ivec2 ioOffsetTL;
 xflat in ivec2 ioOffsetTR;
 xflat in ivec2 ioOffsetBR;
 xflat in ivec2 ioOffsetBL;
+/////////////////////////////////////
+*/
 
 //8 variyng vector
 
 xflat in vec4 coord_Color1; //Essential
 //9 variyng vector
 
-
+smooth in vec4 ioTextureTest;
 smooth in vec2 ioTexture; //Essential
 smooth in vec2 uv; //Optional? 
 
@@ -113,8 +186,13 @@ xflat in ivec2 vFlip; //Removable Sure?
 
 
 
+
+
 #define nType nTypeVal
 #define iTexID iTexIDVal
+
+
+
 
 
 vec4 pixTex;
@@ -235,7 +313,8 @@ void main()
 
 
 				//float _nRatio = float(nRetroRatio);
-				vec2 vPosTex = (ioTexture  * vRetroR  );
+				//vec2 vPosTex = ( (ioTexture.xy).xy  * vRetroR  );
+				vec2 vPosTex = ( (ioTextureTest.zw).xy  * vRetroR  );
 //vec2 vPosTex = (ioTexture * vTexDimFetch * vRetroR  - 0.5);
 
 
@@ -257,10 +336,10 @@ void main()
 					vPosTL = ioOffsetTL; //Corner TL
 				}else if(vPosTL.y <= ioSrcTL.y ){
 					//vPosTL += ivec2(ioOffsetT1); //TOP
-					vPosTL = ioOffsetT1 +  abs( ivec2(vPosTL.x - ioSrcOT.x, vPosTL.x - ioSrcOT.x) * vFlip.xy ) ;  //TOP
+					vPosTL = ioOffsetT1 +  abs( ivec2(vPosTL.x - ioSrcOT, vPosTL.x - ioSrcOT) * vFlip.xy ) ;  //TOP
 				}else if(vPosTL.x <= ioSrcTL.x ){
 					//vPosTL += ivec2(ioOffsetL1);  //Left
-					vPosTL =  ioOffsetL1 + abs( ivec2(vPosTL.y - ioSrcOL.y,vPosTL.y - ioSrcOL.y) * vFlip.yx  ) ;  //Left
+					vPosTL =  ioOffsetL1 + abs( ivec2(vPosTL.y - ioSrcOL,vPosTL.y - ioSrcOL) * vFlip.yx  ) ;  //Left
 				}
 		
 
@@ -272,11 +351,11 @@ void main()
 					vPosTR = ioOffsetTR; //Corner TR
 				}else if(vPosTR.y <= ioSrcTR.y ){
 					//vPosTR += ivec2(ioOffsetT1); //Top
-					vPosTR =  ioOffsetT1 +  abs(ivec2(vPosTR.x - ioSrcOT.x,vPosTR.x - ioSrcOT.x )* vFlip.xy ) ;  //TOP	
+					vPosTR =  ioOffsetT1 +  abs(ivec2(vPosTR.x - ioSrcOT,vPosTR.x - ioSrcOT )* vFlip.xy ) ;  //TOP	
 					
 				}else if(vPosTR.x >= ioSrcTR.x ){
 					//vPosTR += ivec2(ioOffsetR1); //RIGHT
-					vPosTR = ioOffsetR1 + abs( ivec2(vPosTR.y - ioSrcOR.y,vPosTR.y - ioSrcOR.y )* vFlip.yx  ) ; //RIGHT	
+					vPosTR = ioOffsetR1 + abs( ivec2(vPosTR.y - ioSrcOR,vPosTR.y - ioSrcOR )* vFlip.yx  ) ; //RIGHT	
 				}
 			
 
@@ -287,10 +366,10 @@ void main()
 				if(vPosBR == ioSrcBR ){
 					vPosBR = ioOffsetBR; //Corner BR
 				}else if(vPosBR.y >= ioSrcBR.y){
-					vPosBR = ioOffsetB1 +  abs( ivec2(vPosBR.x - ioSrcOB.x, vPosBR.x - ioSrcOB.x) * vFlip.xy  ) ;  //BOT
+					vPosBR = ioOffsetB1 +  abs( ivec2(vPosBR.x - ioSrcOB, vPosBR.x - ioSrcOB) * vFlip.xy  ) ;  //BOT
 
 				}else if(vPosBR.x >= ioSrcBR.x){
-					vPosBR = ioOffsetR1 + abs( ivec2(vPosBR.y - ioSrcOR.y,vPosBR.y - ioSrcOR.y) * vFlip.yx  ) ; //Right
+					vPosBR = ioOffsetR1 + abs( ivec2(vPosBR.y - ioSrcOR,vPosBR.y - ioSrcOR) * vFlip.yx  ) ; //Right
 				}
 			
 
@@ -302,10 +381,10 @@ void main()
 					vPosBL = ioOffsetBL; //Corner BL
 					
 				}else if(vPosBL.y >= ioSrcBL.y ){
-					vPosBL = ioOffsetB1 +  abs( ivec2(vPosBL.x - ioSrcOB.x,vPosBL.x - ioSrcOB.x ) * vFlip.xy ) ;  //BOT
+					vPosBL = ioOffsetB1 +  abs( ivec2(vPosBL.x - ioSrcOB,vPosBL.x - ioSrcOB ) * vFlip.xy ) ;  //BOT
 					
 				}else if(vPosBL.x <= ioSrcBL.x){
-					vPosBL =  ioOffsetL1 + abs( ivec2(vPosBL.y - ioSrcOL.y,vPosBL.y - ioSrcOL.y) * vFlip.yx   );  //Left
+					vPosBL =  ioOffsetL1 + abs( ivec2(vPosBL.y - ioSrcOL,vPosBL.y - ioSrcOL) * vFlip.yx   );  //Left
 				}
 			
 				/*
@@ -448,7 +527,7 @@ vPtNorm = cross(vPtNorm.xyz, pixNormal.xyz);
 //float _nMonoCrome =  ((pixTex.r + pixTex.g + pixTex.b)/1.5)-1.0 ;
 float _nMonoCrome =  (((pixTex.r + pixTex.g + pixTex.b)/3.0)-0.5);
 
-float _nMonoCrome2 =  max(((pixTex.r + pixTex.g + pixTex.b)/1.5)-0.2, 0);
+float _nMonoCrome2 =  max(((pixTex.r + pixTex.g + pixTex.b)/1.5)-0.2, 0.0);
 //float _nMonoCrome2 =  (((pixTex.r + pixTex.g + pixTex.b)/1.5)-0.5);
 
 
@@ -557,7 +636,7 @@ vec3 b = cross(t, n) + cross(n, t);
 	//vec3 nLDir = normalize(gl_FragCoord.xyz - 0.5   );//light direction
 	float nLdotN =  dot(vPtNorm.xyz, nLDir);
 	if(nLdotN < 0.0){
-		vPtNorm *= -1;
+		vPtNorm *= -1.0;
 	}
 	
 
@@ -575,7 +654,10 @@ vec3 b = cross(t, n) + cross(n, t);
 //_vGenNorm = fRotate( vec3(0,0,-1), vec3(0.0,  0.0, uv.y) );
 //_vGenNorm = fRotate( vec3(0,0,-1), vec3(0.0,  (_nMonoCrome2), 0.0) );
 
-_vGenNorm = fRotate( vec3(0,0,-1), vec3(0.0,  -(uv.x-0.5)*3.0, 0.0) ); //Good, 
+//_vGenNorm = fRotate( vec3(0,0,-1), vec3(0.0,  -(uv.x-0.5)*3.0, 0.0) ); //Good, 
+//_vGenNorm = fRotate( vec3(0.0,0.0,-1.0), vec3(0.0,   -(uv.x-0.5), 0.0) ); //Good, 
+
+
 //_vGenNorm = normalize( vec3(-(uv.x-0.5)*4.0, 0.0, 1.0)); 
 
 //_vGenNorm = fRotate( vec3(0,0,-1), vec3(0.0,  -(_nMonoCrome), 0.0) ); 

@@ -233,7 +233,7 @@ public class GzShCommun_Light {
 					vec3 nLDir = normalize( vPtWorld -avLight_Position[i].xyz     );//light direction
 					//float nLdotN = max(0.0, dot(nLDir,vPtNorm));
 					float nLdotN =  dot(vPtNorm, nLDir);
-					if(nLdotN < 0){
+					if(nLdotN < 0.0){
 						nLdotN *= nDiffuseTranslucidity; //Must be negative
 					}
 
@@ -263,7 +263,7 @@ public class GzShCommun_Light {
 						//vec3 viewDir = normalize(vPtWorld - vEye_position  );
 						vec3 viewDir = normalize(vPtWorld - vPersp.xyz  );
 						vec3 reflectDir = reflect(-nLDir, vPtNorm);  
-						specular =  pow(max(0.0, dot(viewDir, reflectDir)), 56); //pow = shininess https://learnopengl.com/img/lighting/basic_lighting_specular_shininess.png
+						specular =  pow(max(0.0, dot(viewDir, reflectDir)), 56.0); //pow = shininess https://learnopengl.com/img/lighting/basic_lighting_specular_shininess.png
 
 						_nGSpecular += specular;
 					}
