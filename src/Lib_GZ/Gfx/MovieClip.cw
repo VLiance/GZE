@@ -29,7 +29,7 @@ package  {
 		public var aTimeline : Array< Clip >;
 		public var nLimit : Float;
 		
-		public var nAnimSpeed : Float = 0.5;
+		public var nAnimSpeed : Float = 0.05;
 		
 		public var aOwnTest : Array<Root>;
 		

@@ -348,7 +348,7 @@ void main()
 			}else{
 					pixTex = fTexture(sh_iTexID, sh_vTexture);
 					FragColor =  pixTex;
-				//	FragColor =  vec4(1.0, 0.5, 0.5, 1.0);;
+					//FragColor =  vec4(1.0, 0.5, 0.5, 1.0);;
 					return;
 			//	pixTex =  fTexture(sh_iTexID, (sh_vTexture + 0.5)/ vTexSprites );
 				//pixTex = texture(TexSprites, ioTexture);// ( + 0.5 )  / (vTexDimFetch
