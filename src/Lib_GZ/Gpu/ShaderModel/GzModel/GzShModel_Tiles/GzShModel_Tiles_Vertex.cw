@@ -116,7 +116,7 @@ uniform vec2 vTexDimFetch;
 //in int gl_VertexID;
 
 
-vec2 ioTexture;
+//vec2 ioTexture;
 //vec2 uv; //Current UV
 
 
@@ -361,10 +361,21 @@ int nOriRY;
 		//////////// SRC ///////////////
 		//ioTexture.x = (vSrc.x + 0.5 ) / (vTexDimFetch.x );
 		//ioTexture.y = (vSrc.y + 0.5 ) / (vTexDimFetch.y );
-		ioTexture.x = (vSrc.x  ) ;
-		ioTexture.y = (vSrc.y );
+	//	ioTexture.x = (vSrc.x  ) ;
+	//	ioTexture.y = (vSrc.y );
 		
-		sh_vTexture =  vSrc.xy;
+		
+	
+		if(sh_iType == 6){
+		
+			sh_vTexture =  vSrc.xy;
+		}else{
+			//////////// SRC ///////////////
+			sh_vTexture.x = (vSrc.x + 0.5 ) / (TexSize[iTexID].x );
+			sh_vTexture.y = (vSrc.y + 0.5 ) / (TexSize[iTexID].y );
+			////////////////////////////////
+		}
+		//sh_vTexture =  vSrc.xy;
 	//	ioTextureTest.zw = vSrc.xy;
 		////////////////////////////////
 		

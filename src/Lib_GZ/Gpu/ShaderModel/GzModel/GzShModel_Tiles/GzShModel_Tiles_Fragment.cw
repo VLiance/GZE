@@ -346,8 +346,11 @@ void main()
 				pixTex = vPixTL * _nRAlphaTL +  vPixTR * _nRAlphaTR +  vPixBR * _nRAlphaBR +  vPixBL * _nRAlphaBL;
 				
 			}else{
-			
-				pixTex =  fTexture(sh_iTexID, (sh_vTexture + 0.5)/ vTexSprites );
+					pixTex = fTexture(sh_iTexID, sh_vTexture);
+					FragColor =  pixTex;
+					FragColor =  vec4(1.0, 0.5, 0.5, 1.0);;
+					return;
+			//	pixTex =  fTexture(sh_iTexID, (sh_vTexture + 0.5)/ vTexSprites );
 				//pixTex = texture(TexSprites, ioTexture);// ( + 0.5 )  / (vTexDimFetch
 				//pixTex = texture(TexSprites, (ioTexture + 0.5)/ vTexSprites );// ( + 0.5 )  / (vTexDimFetch
 				//	pixTex = fTexture(ioTexID, ioTexture);
@@ -656,8 +659,8 @@ FragColor =  pixTex;
 	//FragColor = vec4( _vQuadColor.rgb, 1.0);
 	//FragColor = vec4( (1.0-uv.x)*(uv.y), 0.0 ,0.0,  1.0);
 	
-	
-//	FragColor =  vec4(1.0, 0.5, 0.5, 0.5);
+	//FragColor = fTexture(sh_iTexID, sh_vTexture);
+	//FragColor =  vec4(1.0, 0.5, 0.5, 1.0);
 	
 	
 }
