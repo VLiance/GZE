@@ -344,10 +344,30 @@ void main()
 				float _nRAlphaTL = 1.0 - (_nRAlphaTR +_nRAlphaBR + _nRAlphaBL) ;
 
 				pixTex = vPixTL * _nRAlphaTL +  vPixTR * _nRAlphaTR +  vPixBR * _nRAlphaBR +  vPixBL * _nRAlphaBL;
-				
+				return;
 			}else{
 					pixTex = fTexture(sh_iTexID, sh_vTexture);
-					FragColor =  pixTex;
+					//FragColor =  vec4(pixTex);
+					//FragColor =  vec4(pixTex.xyz, max(0.0, pixTex.a));
+					//FragColor =  vec4(pixTex.rgb, pixTex.a);
+					
+					FragColor = vec4(1.0, 0.0, 0.0, 0.5);
+					//FragColor =  pixTex;
+					//if((pixTex.a ) < 0.0){}
+					return;
+										
+					/*
+					if((pixTex.a + 0.1) < 0.1){
+						FragColor = vec4(1.0, 0.0, 0.0, 0.5);
+					}
+					*/
+						return;
+					FragColor =  vec4(pixTex.xyz,  pixTex.a);
+					
+					//pixTex = texture(Tex, uv);
+					//FragColor =  vec4(pixTex.xyz, max(0.0, pixTex.a));
+					
+					//FragColor = fTexelFetch(sh_iTexID, ivec2( sh_vTexture.xy));
 					//FragColor =  vec4(1.0, 0.5, 0.5, 1.0);;
 					return;
 			//	pixTex =  fTexture(sh_iTexID, (sh_vTexture + 0.5)/ vTexSprites );

@@ -84,6 +84,9 @@ package  {
 					#line 2
 					#define d_Desktop
 					
+				//	#define SetPrecision highp
+				//	precision SetPrecision float;  //highp only works in fragment shaders if you have the GL_FRAGMENT_PRECISION_HIGH extension enabled.
+				//	precision SetPrecision int;  //highp only works in fragment shaders if you have the GL_FRAGMENT_PRECISION_HIGH extension enabled.
 					
 					#define xflat flat
 					out vec4 FragColor;

@@ -56,7 +56,9 @@ package  {
 				}
 				
 				nFps = nFrame;
-				Debug.fTrace("Fps: " + nFrame);
+				if(bFrMax){
+					Debug.fTrace("Fps: " + nFrame);
+				}
 				nFrame = 0;
 			}
 			
