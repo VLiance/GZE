@@ -83,6 +83,7 @@ package  {
 					Debug.fWarning("EXIST!"); 
 					//File.fLoadFileFromVDrive(_sFullPath);
 				}else{
+					Debug.fWarning("File not exist: " +  _sFullPath); 
 					_nVal = -1;
 				}
 			}

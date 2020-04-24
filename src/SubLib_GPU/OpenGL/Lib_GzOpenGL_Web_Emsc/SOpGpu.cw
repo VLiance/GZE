@@ -10,6 +10,7 @@
 	import GZ.Gpu.ShaderBase.FragmentShader;
 	import GZ.Gpu.ShaderBase.ProgramShader;
 	import GZ.Gpu.ShaderModel.GzModel.GzShModel;
+	import GZ.Sys.Interface.Context;
 	
 	<cpp>
 		Lib_GZ::Gpu::ShaderModel::GzModel::cGzShModel* ptrGzShModel = 0;
@@ -100,22 +101,37 @@
 			}*/
 			 
 			 
-			 
+			 /*
 			//val window = val::global("window");
 			val FPSMeter = val::global("meter");
 			if(!FPSMeter.isUndefined()){
 				 FPSMeter.call<Void>("tickStart");
 			}
+			*/
+		
+		   </cpp>
+			var _nColor : UInt32 =  Context.nBgColor;
+			 if(_nColor & 0x000000FF) != 0){ //Not for completly alpha
+				var _nRed : Float = ((_nColor & 0xFF000000) >> 24) / 256.0;
+				var _nGreen : Float = ((_nColor & 0x00FF0000) >> 16) / 256.0;
+				var _nBlue : Float = ((_nColor & 0x0000FF00) >> 4) / 256.0;
+				var _nAlpha : Float = ((_nColor & 0x000000FF) ) / 256.0;
+			
+				OpenGL.fClearColor(_nRed,_nGreen,_nBlue,_nAlpha); //Just to change background color, TODO maybe faster to use shader, or maybe not (Blend is slow)
+				OpenGL.fClear(COLOR_BUFFER_BIT);
+			}
+			
 			//val FPSMeter = window.get("FPSMeter");
 			
-			  </cpp>
 			// Debug.fTrace("fBlit: Gpu");
 			oGzShModel.fUpdate();
 			oGzShModel.fRenderFrame();
 			<cpp>
+			/*
 			if(!FPSMeter.isUndefined()){
 				FPSMeter.call<Void>("tick");
 			}
+			*/
 			</cpp>
 		 }
 		

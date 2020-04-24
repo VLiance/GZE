@@ -177,6 +177,11 @@ void main()
 
 //nType = iomWorldPt[0].w;
 
+	FragColor = vec4(1.0, 0.0, 0.0, 0.5);
+					//FragColor =  pixTex;
+					//if((pixTex.a ) < 0.0){}
+					return;
+
 
 	/// Make a bilinear interpolation from uv ///
 	vec4 _vCoDist = vec4((1.0-sh_uv.x)*(1.0-sh_uv.y), (sh_uv.x)*(1.0-sh_uv.y), (sh_uv.x)*(sh_uv.y), (1.0-sh_uv.x)*(sh_uv.y));
