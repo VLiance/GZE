@@ -9,6 +9,9 @@ package  {
 	#include "Lib_GzWeb_Emsc/Emscripten/EmscHeader.h"
 	#include <stdio.h>
 	#include <string.h>
+	
+	#include <sys/stat.h>   // stat
+
 	</cpp>
 
 	<cpp_namespace>
@@ -27,6 +30,14 @@ package  {
 			return "/"; //MEMFS, This is the default file system mounted at / when the runtime is initialized. All files exist strictly in-memory, and any data written to them is lost when the page is reloaded.
 		}
 
+		
+		override static function fIsSysFileExist(_sFile : String):Bool {
+			<cpp>
+			 struct stat   buffer;   
+			return (stat((char*)_sFile.fToCStr().get(), &buffer) == 0);
+			</cpp>
+		}
+	
 		
 		//"r" 	Opens for reading. If the file does not exist or cannot be found, the fopen call fails.
 		//"w" 	Opens an empty file for writing. If the given file exists, its contents are destroyed.
