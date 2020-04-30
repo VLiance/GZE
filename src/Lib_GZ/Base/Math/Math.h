@@ -18,6 +18,8 @@
 
 //#define USE_MATH_FUNCTION_INSTEAD
 
+#define GZ_tDONT_USE_MATH_ABS
+
 
 #define GZ_M_nR90  1.57079633
 #define GZ_M_nHPI  1.57079633
@@ -139,7 +141,7 @@ inline int fFloatToInt( double d )
    return c.l;
 }
 
-#define GZ_tDONT_USE_MATH_ABS
+
 #ifdef GZ_tDONT_USE_MATH_ABS
 	
 	#ifdef GZ_tLibRT
@@ -187,7 +189,7 @@ inline int fFloatToInt( double d )
     }
 #endif
 
-//#define USE_MATH_FUNCTION_INSTEAD
+
 #ifdef GZ_tUSE_MATH_FUNCTION_INSTEAD
     #include <math.h>
     gzFloat inline fPow(gzFloat _nVal, gzFloat _nPower){return pow(_nVal, _nPower);}

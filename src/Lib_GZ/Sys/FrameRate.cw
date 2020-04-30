@@ -13,7 +13,8 @@ package  {
 		
 		public var nFps : UInt;
 		
-		public var bFrMax : Bool = false;
+		//public var bFrMax : Bool = false;
+		public var bFrMax : Bool = true;
 		public var bFrBasedOnTime : Bool = false;
 		public var nFrBasedOnTime_MaxFPS : Int = 60;
 		public var nFrBasedOnFrame_RenderAtEachFR : UInt = 1;

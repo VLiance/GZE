@@ -79,17 +79,16 @@ package  {
 		oAt.oAtTexSource1.fSetVal(1, oFace.rPtS3.nY);
 		oAt.oAtTexSource1.fSetVal(2, oFace.rPtS4.nX);
 		oAt.oAtTexSource1.fSetVal(3, oFace.rPtS4.nY);
-		
 
 		
 		
 		oAt.oAtColor1.fSet(oFace.oShape.vGblColor);
-		oAt.oAtColor2.fSet(oFace.oShape.vGblColor); //Not used
-		oAt.oAtColor3.fSet(oFace.oShape.vGblColor); //Not used
+	//	oAt.oAtColor2.fSet(oFace.oShape.vGblColor); //Not used
+	//	oAt.oAtColor3.fSet(oFace.oShape.vGblColor); //Not used
 		
-		var _vColor4 : Vec4<Float> = new Vec4<Float>(0.0,1.0,0.5,1.0);
+	//	var _vColor4 : Vec4<Float> = new Vec4<Float>(0.0,1.0,0.5,1.0);
 	//	oAt.oAtColor4.fSet(_vColor4); //Not used
-		oAt.oAtColor4.fSet(oFace.oShape.vGblColor); //Not used
+	//	oAt.oAtColor4.fSet(oFace.oShape.vGblColor); //Not used
 
 		
 
@@ -111,10 +110,14 @@ package  {
 			
 		}
 		
+		
+		
+		
 		//if (oFace.oShape.oParent.hType == Root.eType.Tile){//BAD evil Cast
 		if (oFace.oShape.hType == Root.eType.Tile){//BAD evil Cast
 		
 			oAtTiles = Attribute_Tiles;
+			
 			<cpp>
 			if(oAtTiles == 0){ //TODO correction in C~ if(oAt == null){
 				return;
@@ -137,17 +140,18 @@ package  {
 			oAtTiles.oAtTilesHV.fSetVal(1, _oTile.nPosT);
 			oAtTiles.oAtTilesHV.fSetVal(2, _oTile.nPosR);
 			oAtTiles.oAtTilesHV.fSetVal(3, _oTile.nPosB);
-			
+				
 			oAtTiles.oAtTilesC.fSetVal(0, _oTile.nNPosTL);
 			oAtTiles.oAtTilesC.fSetVal(1, _oTile.nNPosTR);
 			oAtTiles.oAtTilesC.fSetVal(2, _oTile.nNPosBR);
 			oAtTiles.oAtTilesC.fSetVal(3, _oTile.nNPosBL);
+		
 		}
 		
 
 		oAt.oAtObjPos.fSetVal(3, _nType); //Merge pos and type to save space
 		
-		
+		//	return;
 		
 		
 		/*

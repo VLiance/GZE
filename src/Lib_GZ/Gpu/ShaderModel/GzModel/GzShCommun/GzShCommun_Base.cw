@@ -86,7 +86,10 @@ public class GzShCommun_Base {
 						}
 					}*/
 				#else
-					return texture(Texture[ndx], uv);
+					vec4 _pix = texture(Texture[ndx], uv);
+					if(_pix.x){};//Resolve wrong lookup bug on AMD
+					return _pix;
+					
 				#endif
 			}
 
