@@ -217,7 +217,7 @@ xflat out vec3 ioPt3;
 xflat out vec3 ioPt4;
 */
 
-xflat out vec4 ioObjRot;
+///xflat out vec4 ioObjRot;
 vec3 ioNorm;
 //xflat out vec3 ioNorm1;
 //xflat out vec3 ioNorm2;
@@ -445,7 +445,7 @@ int nOriRY;
 		ioNorm = normalize(vec3(0.0,0.0,1.0 * nFrontFacing  ));
 		//ioNorm.xyz = fQRot_2(ioNorm.xyz, in_ObjRot);
 		ioNorm.xyz = fQRot_2(ioNorm.xyz, in_ObjRot);
-		ioObjRot = in_ObjRot;
+		//ioObjRot = in_ObjRot;
 		/*
 		ioNorm1 = normalize(vec3(-1.0,-1.0,-1.0 * nFrontFacing ));
 		ioNorm2 = normalize(vec3( 1.0,-1.0,-1.0 * nFrontFacing));
