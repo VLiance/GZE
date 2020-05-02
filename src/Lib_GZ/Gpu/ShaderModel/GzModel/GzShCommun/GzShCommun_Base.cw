@@ -20,11 +20,81 @@ import GZ.Gpu.ShaderBase.ShaderBase;
 
 public class GzShCommun_Base {
 
+
+	public static function fAdd_Default_Vertex_Attribut(_oShader:VertexShader):Bool {
+		<glsl(_oShader)>
+			
+			//////// TODO INPUT Attribute ///////////////////
+			in vec4 in_Pt1;  //x,y,z, Width
+			in vec4 in_Pt2;  //x,y,z, Height
+			in vec4 in_Pt3;  //x,y,z, Length
+			in vec4 in_Pt4;  //x,y,z, ?????
+			
+			//in vec2 in_TexCoord0;  //Sx1,Sy1,Sx2,Sy2 
+			in vec4 in_TexSource0;  //Sx3,Sy3,Sx4,Sy4
+			in vec4 in_TexSource1;  //Sx3,Sy3,Sx4,Sy4
+			in vec4 in_Color1; //R,G,B,A
+			
+			///TILES 
+			in vec4 in_TilesHV; //Vertical //Horizontal
+			in vec4 in_TilesC; //Corner
+			/////////////////////////////////////////	
+		</glsl>	
+	}
+	
+
+	public static function fAdd_Default_15_Slot(_oShader:ShaderBase):Bool {
+		<glsl(_oShader)>
+			//Max is 15 Slot to be portable -> Max slot #14
+			shared_mat4 _Slot_0_3; //WorldPos
+			shared_mat4 _Slot_4_7;
+			shared_mat4 _Slot_8_11;
+			shared_ivec4 _Slot_12;
+			shared_ivec4 _Slot_13;
+			shared_ivec4 _Slot_14;
+
+			#define rv_Slot_0   _Slot_0_3[0]  //in vec3 vTriPtWorld; [Time]
+			#define sh_Slot_4   _Slot_0_3[1]  //iomWorldPt?
+			#define sh_Slot_5   _Slot_0_3[2]  //iomWorldPt?
+			#define sh_Slot_6   _Slot_0_3[3]  //iomWorldPt?
+
+			#define rv_Slot_4   _Slot_4_7[0] //in vec3 ioNorm; 
+			#define rv_Slot_5   _Slot_4_7[1] //uv / ioTexture
+			#define rv_Slot_6   _Slot_4_7[2] //coord_Color1
+			#define rv_Slot_7   _Slot_4_7[3] 
+
+			#define sh_Slot_0   _Slot_8_11[0]
+			#define sh_Slot_1   _Slot_8_11[1]
+			#define sh_Slot_2  _Slot_8_11[2]
+			#define sh_Slot_3  _Slot_8_11[3]
+
+			#define irv_Slot_0  _Slot_12		//iTexID / nType
+			#define ish_Slot_0  _Slot_13
+			#define ish_Slot_1  _Slot_14
+
+
+			/////////////////////////////////////////////
+			#define sh_iTexID (irv_Slot_0.x) 
+			#define sh_iType  (irv_Slot_0.y) 
+
+			#define sh_vTriPtWorld (rv_Slot_0.xyz)
+			#define sh_vNorm (rv_Slot_4.xyz)
+			#define sh_uv (rv_Slot_5.xy)
+			#define sh_vTexture (rv_Slot_5.ab)
+			#define sh_vCoord_Color1 (rv_Slot_6)
+						
+		</glsl>	
+	}
+
+	
 	public static function fAdd_VertexBasics(_oVertex:VertexShader):Bool {
 		<glsl(_oVertex)>
-					
+		
+			#define xshared out	
+			
 			#define nMaxTextures 8
-					
+			
+	
 			uniform int ID_TexCurrent; 
 			uniform int ID_TexNormal; 
 			uniform int ID_TexSprites; 
@@ -42,13 +112,19 @@ public class GzShCommun_Base {
 			in vec4 in_ObjRot; //Quaternion -> x, y, z, w
 				
 			uniform vec4 vPersp;
-				
+
+			#define shared_ivec4 xflat xshared ivec4 
+			#define shared_vec4 xshared vec4 
+			#define shared_mat4 xshared mat4 
+
+			
 		</glsl>	
 	}
 	
 	public static function fAdd_FragmentBasics(_oVertex:VertexShader):Bool {
 		<glsl(_oVertex)>
-					
+				
+			#define xshared in				
 			#define nMaxTextures 8
 				
 			uniform int ID_TexCurrent; 
@@ -60,6 +136,22 @@ public class GzShCommun_Base {
 			uniform sampler2D Texture[nMaxTextures];
 			
 			uniform vec4 vPersp;
+			
+		
+			#define shared_ivec4 xflat xshared ivec4 
+			#define shared_vec4 xshared vec4 
+			#define shared_mat4 xshared mat4 
+
+			
+			////////////////  SLot
+			
+
+
+			
+			
+			//////////////////////////
+			
+
 			
 			//E:Error linking OpenGL Program:: 
 			//error X3512: sampler array index must be a literal expression
@@ -115,6 +207,8 @@ public class GzShCommun_Base {
 	public static function fAdd_Func_Basics(_oShader:ShaderBase):Bool {
 		<glsl(_oShader)>
 				
+			#define bump(Type, Val) Type(Val) + 0.1
+				
 			vec3 fQRot( vec3 pt, vec4 rot)       {
 				return pt + 2.0*cross(rot.xyz, cross(rot.xyz,pt) + rot.w*pt);
 			}
@@ -168,6 +262,35 @@ public class GzShCommun_Base {
 	
 	}
 	
+	
+		public static function fAdd_Fragment_Func_Basics(_oShader:ShaderBase):Bool {
+		<glsl(_oShader)>
+						
+			// http://www.thetenthplanet.de/archives/1180
+			mat3 fCotangent_frame(vec3 N, vec3 p, vec2 uv){
+				// get edge vectors of the pixel triangle
+				vec3 dp1 = dFdx( p );
+				vec3 dp2 = dFdy( p );
+				vec2 duv1 = dFdx( uv );
+				vec2 duv2 = dFdy( uv );
+			 
+				// solve the linear system
+				vec3 dp2perp = cross( dp2, N );
+				vec3 dp1perp = cross( N, dp1 );
+				vec3 T = dp2perp * duv1.x + dp1perp * duv2.x;
+				vec3 B = dp2perp * duv1.y + dp1perp * duv2.y;
+			 
+				// construct a scale-invariant frame 
+				float invmax = inversesqrt( max( dot(T,T), dot(B,B) ) );
+				return mat3( T * invmax, B * invmax, N );
+			}
+			
+		</glsl>	
+		}
+	
+	
+	
+	
 		public static function fAdd_Vertex_Func_Basics(_oShader:ShaderBase):Bool {
 		<glsl(_oShader)>
 				
@@ -197,8 +320,7 @@ public class GzShCommun_Base {
 			}
 			
 		</glsl>	
-	
-	}
+		}
 	
 	
 }

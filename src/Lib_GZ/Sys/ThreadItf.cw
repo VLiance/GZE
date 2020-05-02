@@ -14,6 +14,7 @@
 	
 	import GZ.Gpu.ShaderModel.GzModel.GzShCommun.GzShCommun_Base;
 	import GZ.Gpu.ShaderModel.GzModel.GzShCommun.GzShCommun_Light;
+	import GZ.Gpu.ShaderModel.GzModel.GzShCommun.GzShCommun_Tile;
 	
 	
 
@@ -37,6 +38,7 @@
 			OpenGL = new OpenGL();
 			GzShCommun_Base = new GzShCommun_Base();
 			GzShCommun_Light = new GzShCommun_Light();
+			GzShCommun_Tile = new GzShCommun_Tile();
 			//GpuObject = new GpuObject();
 			<cpp>
 			GZ_printf("\n-- thread -- ");
