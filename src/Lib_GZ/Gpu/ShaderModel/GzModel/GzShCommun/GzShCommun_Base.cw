@@ -59,9 +59,9 @@ public class GzShCommun_Base {
 			#define sh_Slot_6   _Slot_0_3[3]  //iomWorldPt?
 
 			#define rv_Slot_4   _Slot_4_7[0] //in vec3 ioNorm; 
-			#define rv_Slot_5   _Slot_4_7[1] //uv / ioTexture
+			#define rv_Slot_5   _Slot_4_7[1] //uv / TBD
 			#define rv_Slot_6   _Slot_4_7[2] //coord_Color1
-			#define rv_Slot_7   _Slot_4_7[3] 
+			#define rv_Slot_7   _Slot_4_7[3] //ioTexture
 
 			#define sh_Slot_0   _Slot_8_11[0]
 			#define sh_Slot_1   _Slot_8_11[1]
@@ -80,8 +80,10 @@ public class GzShCommun_Base {
 			#define sh_vTriPtWorld (rv_Slot_0.xyz)
 			#define sh_vNorm (rv_Slot_4.xyz)
 			#define sh_uv (rv_Slot_5.xy)
-			#define sh_vTexture (rv_Slot_5.ab)
+			//#define sh_vTexture (rv_Slot_5.ab)
 			#define sh_vCoord_Color1 (rv_Slot_6)
+			#define sh_vTexture (rv_Slot_7.xy)
+			#define sh_vTextureNorm (rv_Slot_7.ab)
 						
 		</glsl>	
 	}
@@ -146,13 +148,10 @@ public class GzShCommun_Base {
 			////////////////  SLot
 			
 
-
-			
 			
 			//////////////////////////
 			
 
-			
 			//E:Error linking OpenGL Program:: 
 			//error X3512: sampler array index must be a literal expression
 			//Warning: D3D shader compilation failed with default flags. (ps_5_0)
@@ -201,6 +200,15 @@ public class GzShCommun_Base {
 					return texelFetch(Texture[ndx], uv,0);
 				#endif
 			}
+			
+			vec3 fAutoReverseNorm(vec3 _vPtNorm, vec3 _vLDir){
+				float nLdotN =  dot(_vPtNorm.xyz, _vLDir);
+				if(nLdotN < 0.0){
+					_vPtNorm *= -1.0;
+				}
+				return _vPtNorm;
+			}
+			
 		</glsl>	
 	}
 

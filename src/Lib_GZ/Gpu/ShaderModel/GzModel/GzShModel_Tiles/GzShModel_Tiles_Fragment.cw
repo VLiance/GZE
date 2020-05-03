@@ -37,19 +37,16 @@ package  {
 			///////////// Fragment Shader //////////////
 <glsl(oFragement)>
 
-
-
 vec4 pixTex;
 
 void main(){
 
 	/// Make a bilinear interpolation from uv ///
-	vec4 _vCoDist = vec4((1.0-sh_uv.x)*(1.0-sh_uv.y), (sh_uv.x)*(1.0-sh_uv.y), (sh_uv.x)*(sh_uv.y), (1.0-sh_uv.x)*(sh_uv.y));
+	//vec4 _vCoDist = vec4((1.0-sh_uv.x)*(1.0-sh_uv.y), (sh_uv.x)*(1.0-sh_uv.y), (sh_uv.x)*(sh_uv.y), (1.0-sh_uv.x)*(sh_uv.y));
 	////////////////////////////////////////
 	vec4 vPtDist = sh_vCoord_Color1; 
 	
-		
-	if( sh_iType == 8 ){ //Vector Line<
+	if( sh_iType == 8 ){ //Vector Line
 		
 			//pixTex = vec4(0.0, 1.0, 0.5, 1.0);
 			pixTex = vPtDist;
@@ -62,76 +59,52 @@ void main(){
 		pixTex = fTile();
 		
 	}else{
-			pixTex = fTexture(sh_iTexID, sh_vTexture);
+			pixTex = fTexture(sh_iTexID, sh_vTextureNorm);
 		//	FragColor =  pixTex;
-		//	return;		
+		//	return;
 	}
 	
 
-       // vec3 vPtWorld = (iomWorldPt * _vCoDist).xyz;
-		vec3 vPtWorld = sh_vTriPtWorld;
-		vec3 vPtNorm =  sh_vNorm.xyz;
-		
-
-/////// MY AUTO Bump //////////
-
-//float _nMonoCrome =   0.5-(pixTex.r + pixTex.g + pixTex.b)/3.0;
-//vec3 _vMyNorm = (  vec3((_nMonoCrome-0.5)*-3.0, (_nMonoCrome), (0.5- _nMonoCrome)*3.0 ));
-
-//float _nMonoCrome =   0.5-(pixTex.r + pixTex.g + pixTex.b)/3.0;
-//vec3 _vMyNorm = vec3((_nMonoCrome-0.5)*3.0, (_nMonoCrome), (0.5- _nMonoCrome)*3.0 );
+	// vec3 vPtWorld = (iomWorldPt * _vCoDist).xyz;
+	vec3 vPtWorld = sh_vTriPtWorld;
+	vec3 vPtNorm =  sh_vNorm.xyz;
 
 
-//float _nMonoCrome =  ((pixTex.r + pixTex.g + pixTex.b)/1.5)-1.0 ;
-float _nMonoCrome =  (((pixTex.r + pixTex.g + pixTex.b)/3.0)-0.5);
-float _nMonoCrome2 =  max(((pixTex.r + pixTex.g + pixTex.b)/1.5)-0.2, 0.0);
-//float _nMonoCrome2 =  (((pixTex.r + pixTex.g + pixTex.b)/1.5)-0.5);
+	/////// MY AUTO Bump //////////
+	float _nMonoCrome =  (((pixTex.r + pixTex.g + pixTex.b)/3.0)-0.5);
+	float _nMonoCrome2 =  max(((pixTex.r + pixTex.g + pixTex.b)/1.5)-0.2, 0.0);
+	float _nRevMonoCrome =   _nMonoCrome2 * -1.0;
+	vec3 _vGenNorm =  normalize(vec3( _nMonoCrome*-2.0, 0.0, 1.0));
 
-
-float _nRevMonoCrome =   _nMonoCrome2 * -1.0;
-
-
-//vec3 _vGenNorm =  vec3(0, _nMonoCrome2/2.0 , 0);
-//vec3 _vGenNorm =  normalize(vec3(0.0, _nMonoCrome2/2.0, 1.0));
-vec3 _vGenNorm =  normalize(vec3( _nMonoCrome*-2.0, 0.0, 1.0));
-
-		
-		
 
 	//// Auto reverse norm ////
-	vec3 nLDir = normalize(vPtWorld - vPersp.xyz  );//light direction
-	float nLdotN =  dot(vPtNorm.xyz, nLDir);
-	if(nLdotN < 0.0){
-		vPtNorm *= -1.0;
-	}
+	vec3 vLDir = normalize(vPtWorld - vPersp.xyz  );//light direction
+	vPtNorm = fAutoReverseNorm(vPtNorm, vLDir);
 	//////////////////////////
 
-
-	_vGenNorm = fRotate( vec3(0.0,0.0,-1.0), vec3(0.0,   -(sh_uv.x-0.5), 0.0) ); //Good, 
-	mat3 TBN =  fCotangent_frame(vPtNorm, -nLDir, sh_uv); 
+	//_vGenNorm = fRotate( vec3(0.0,0.0,-1.0), vec3(0.0,   -(sh_uv.x-0.5), 0.0) ); //Good, 
+	mat3 TBN =  fCotangent_frame(vPtNorm, -vLDir, sh_uv); 
 	vPtNorm = normalize(TBN * _vGenNorm);
-
 	//////////////////////////////////////////
 
+	//// Custom interpolated color ////
+	vec3 vDark  = clamp(vPtDist.rgb + 1.0, 0.0, 1.0); //0 a 1 -> = 1 if bright
+	vec3 vLight = clamp(vPtDist.rgb , 0.0, 1.0); //0 a 1 -> = 0 if Dark
+	pixTex.rgb = (((( vec3(pixTex.a) -  pixTex.rgb ) * vLight) + pixTex.rgb) * vec3(vPtDist.a) * vDark);
+	pixTex.a *= vPtDist.a;
 
-		//// Custom interpolated color ////
-		vec3 vDark  = clamp(vPtDist.rgb + 1.0, 0.0, 1.0); //0 a 1 -> = 1 if bright
-		vec3 vLight = clamp(vPtDist.rgb , 0.0, 1.0); //0 a 1 -> = 0 if Dark
-		pixTex.rgb = (((( vec3(pixTex.a) -  pixTex.rgb ) * vLight) + pixTex.rgb) * vec3(vPtDist.a) * vDark);
-		pixTex.a *= vPtDist.a;
-
-		pixTex = fAddLight(pixTex, vPtWorld, vPtNorm);
+	pixTex = fAddLight(pixTex, vPtWorld, vPtNorm);
 
 
-		FragColor =  pixTex;
+	FragColor =  pixTex;
 }
 				
 </glsl>
-		}
+}
 		
 		
-		public function fInsert_Body_Fragment():Void{ ///overrided
-		}
+	public function fInsert_Body_Fragment():Void{ ///overrided
+	}
 		
 
 	}
