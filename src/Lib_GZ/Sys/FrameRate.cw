@@ -111,7 +111,7 @@ package  {
 			//#define D_Render_100_Frames
 			#ifdef D_Render_100_Frames
 			</cpp>
-			if(nTotalFrameRended > 100){
+			if(nTotalFrameRended > 300){
 				Thread.bAppIsAlive = false;
 			}
 			<cpp>
