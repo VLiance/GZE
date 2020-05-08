@@ -59,7 +59,7 @@ package  {
 	
 			oVboBatch  = oProgram.fAddVbo();
 			oGpuBatch = new GpuBatch(this);
-
+			
 			
 			var _oAtVertexID : Attribute =  new Attribute("atVertexID", oVboBatch, 0);//TODO null!
 		
@@ -116,7 +116,12 @@ package  {
 			GzShCommun_Light.fSendLight();
 			
 			oGpuBatch.fDraw();
-	
+			
+			if(oGpuBatch.oFBO_Destination != null){ //We must render on screen now
+				oGpuBatch.oFBO_Destination.fToDefaultFrameBuffer();
+			}
+			
+			
 		
 		}
 		

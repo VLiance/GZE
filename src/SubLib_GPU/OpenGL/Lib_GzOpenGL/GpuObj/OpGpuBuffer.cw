@@ -5,6 +5,7 @@ package  {
 	import GZ.Gpu.GpuObj.GpuBuffer;
 	import GZ.Gfx.Buffer;
 	import GZ.Gfx.Object;
+	import GZ.Gpu.ShaderModel.AtModel.Attribute_Quad;
 	
 	<cpp>
 		#define GL_DEPTH_COMP_X GL_DEPTH_COMPONENT
@@ -190,6 +191,52 @@ package  {
 		}
 		override public function fFinishRender():Void{
 		
+		}
+		
+		
+		override public function fToDefaultFrameBuffer(){
+			oAt = Attribute_Quad;
+			oAt.oVbo.fIniData(1,4,13);
+			oAt.fSetIndex(0);
+				
+		//	Debug.fTrace("aBefDataLinkedSize! " + Attribute_Quad.oAtObjPos.aDataLinked.nSize  );
+			oAt.oAtObjPos.fSet(oFace.oShape.oParent.oGblPt.vPt);
+			oAt.oAtObjSize.fSet(oFace.oShape.oParent.vGblSize);
+			
+			oAt.oAtObjRot.fSet(oFace.oShape.oParent.vQuaternion);
+		
+			oAt.oAtPt1.fSet(oFace.oPt1.vTf);
+			oAt.oAtPt2.fSet(oFace.oPt2.vTf);
+			oAt.oAtPt3.fSet(oFace.oPt3.vTf);
+			oAt.oAtPt4.fSet(oFace.oPt4.vTf);
+			
+			//var _aSrc : Array<Float> = new  Array<Float>(oFace.rPtS1);
+			/*
+			oAt.oAtTexSource0.fSetVal(0, oFace.rPtS1.nX);
+			oAt.oAtTexSource0.fSetVal(1, oFace.rPtS1.nY);
+			oAt.oAtTexSource0.fSetVal(2, oFace.rPtS2.nX);
+			oAt.oAtTexSource0.fSetVal(3, oFace.rPtS2.nY);
+			
+			oAt.oAtTexSource1.fSetVal(0, oFace.rPtS3.nX);
+			oAt.oAtTexSource1.fSetVal(1, oFace.rPtS3.nY);
+			oAt.oAtTexSource1.fSetVal(2, oFace.rPtS4.nX);
+			oAt.oAtTexSource1.fSetVal(3, oFace.rPtS4.nY);
+			*/
+			
+			
+			
+			oAt.oAtColor1.fSet(oFace.oShape.vGblColor);
+
+	
+			oAt.oVbo.fSendData();
+			
+			
+			OpenGL.fBindFramebuffer(FRAMEBUFFER, null); //Default
+			OpenGL.fDisable( BLEND );
+			
+			OpenGL.fDrawElementsInstanced(TRIANGLES, 6, UNSIGNED_BYTE, 0, 1);
+			
+			
 		}
 		
 		override public function fDraw( _oSource : Object, _nX_Start : Int, _nX_End : Int, _nY_Start : Int, _nY_End : Int):Void{

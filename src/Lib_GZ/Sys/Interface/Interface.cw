@@ -93,6 +93,7 @@ package  {
 			
 			if(bGpuDraw ) {
 				oGpuObj = new GpuBuffer(this);
+
 			}
 			
 			oThreadItf.oWindow = oContext; //Will destroy windws when thread finish (shared_ptr)

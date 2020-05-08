@@ -28,6 +28,10 @@ package  {
 			oBuffer = _oBuffer;
 		}
 		
+		public function fToDefaultFrameBuffer(){
+
+			
+		}
 	
 		override public function fDraw( _oSource : Object, _nX_Start : Int, _nX_End : Int, _nY_Start : Int, _nY_End : Int):Void{
 		

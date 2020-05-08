@@ -36,6 +36,8 @@ package  {
 
 		override function fDraw():Void {
 			
+			
+
 			oEvbo.fBind();
 			
 			
@@ -46,8 +48,10 @@ package  {
 			
 			//Debug.fTrace("---Draw _nNbElement: " + _nNbElement);
 			
+	
 			if(oFBO_Destination == null){
 				OpenGL.fBindFramebuffer(FRAMEBUFFER, null); //Default
+				
 			}else{
 				oFBO_Destination.fBind();
 			}

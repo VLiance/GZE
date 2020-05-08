@@ -44,7 +44,6 @@ package  {
 			}*/
 		}
 		public function fDraw():Void {
-			
 		}
 		
 	}
