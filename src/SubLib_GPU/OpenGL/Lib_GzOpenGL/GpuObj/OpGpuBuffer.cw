@@ -78,7 +78,11 @@ package  {
 				
 				bAutoClear = true;
 
-
+		//FBO
+				nIdBuff = OpenGL.fCreateFramebuffer();
+				OpenGL.fBindFramebuffer(FRAMEBUFFER, nIdBuff);
+				
+				
 				
 				oTexture = new Texture(oProgram, "ID_FBO");
 				OpenGL.fActiveTexture(TEXTURE0 + oTexture.nSlot);
@@ -106,10 +110,7 @@ package  {
 				
 				
 			
-				//FBO
-				nIdBuff = OpenGL.fCreateFramebuffer();
-				OpenGL.fBindFramebuffer(FRAMEBUFFER, nIdBuff);
-				
+		
 				//Attach the created texture to FBO color attachement point: oTexId = COLOR_ATTACHMENT0
 				OpenGL.fFramebufferTexture2D(FRAMEBUFFER, COLOR_ATTACHMENT0  + oTexture.nSlot, TEXTURE_2D, oTexId, 0);
 			   // glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, nLastTexture, 0);
@@ -122,6 +123,7 @@ package  {
 				OpenGL.fGenRenderbuffers(1, _nIdRbo);
 				OpenGL.fBindRenderbuffer(RENDERBUFFER, _nIdRbo);
 				OpenGL.fRenderbufferStorage(RENDERBUFFER, DEPTH_COMPONENT,  oBuffer.nBuffWidth, oBuffer.nBuffHeight); //ES2 requie GL_DEPTH_COMPONENT16?
+				
 				OpenGL.fBindRenderbuffer(RENDERBUFFER, 0);
 				
 				// Attach a renderbuffer object the binded framebuffer object: _nIdRbo => nIdBuff
