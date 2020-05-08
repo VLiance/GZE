@@ -843,6 +843,16 @@ generate "OpenGL" {
 			</cpp>
 		}
 		
+		gen public static function fCreateRenderBuffer():Val{
+			<cpp>
+			#ifndef D_Platform_Web_Emsc
+				gzVal _nIdBuff;
+				fGenRenderbuffers(1, (gzUInt*)(&_nIdBuff));
+				return _nIdBuff;
+			#endif
+			</cpp>
+		}
+		
 		gen private static function fGenFramebuffers(_nNb : Int, _aFrameBuffers : CArray<UInt>):Void; //Use fCreateFramebuffer instead
 		gen public static function fBindFramebuffer(_hTarget : eBindFramebuffer, _nFrameBufferId : Val ):Void;
 		gen public static function fGenRenderbuffers(_nNb : Int, _aRenderBuffers : CArray<UInt>):Void;

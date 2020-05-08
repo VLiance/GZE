@@ -31,6 +31,7 @@ package  {
 	public class OpGpuBuffer overplace GpuBuffer  {
 		public var oTexId : Val;
 		public var nIdBuff : Val;
+		public var nIdRender : Val;
 		
 		public var oAt : Attribute_Quad;
 		
@@ -119,15 +120,14 @@ package  {
 				
 				
 				//RENDERBUFFER
-				var _nIdRbo : Int = 0;
-				OpenGL.fGenRenderbuffers(1, _nIdRbo);
-				OpenGL.fBindRenderbuffer(RENDERBUFFER, _nIdRbo);
+				nIdRender = OpenGL.fCreateRenderBuffer();
+				OpenGL.fBindRenderbuffer(RENDERBUFFER, nIdRender);
 				OpenGL.fRenderbufferStorage(RENDERBUFFER, DEPTH_COMPONENT,  oBuffer.nBuffWidth, oBuffer.nBuffHeight); //ES2 requie GL_DEPTH_COMPONENT16?
 				
 				OpenGL.fBindRenderbuffer(RENDERBUFFER, 0);
 				
 				// Attach a renderbuffer object the binded framebuffer object: _nIdRbo => nIdBuff
-				OpenGL.fFramebufferRenderbuffer(FRAMEBUFFER, DEPTH_ATTACHMENT, RENDERBUFFER, _nIdRbo);
+				OpenGL.fFramebufferRenderbuffer(FRAMEBUFFER, DEPTH_ATTACHMENT, RENDERBUFFER, nIdRender);
 				
 				
 				
