@@ -80,18 +80,16 @@ package  {
 				bAutoClear = true;
 
 		//FBO
-				nIdBuff = OpenGL.fCreateFramebuffer();
-				OpenGL.fBindFramebuffer(FRAMEBUFFER, nIdBuff);
-				
-				
-				
+			
 				oTexture = new Texture(oProgram, "ID_FBO");
 				OpenGL.fActiveTexture(TEXTURE0 + oTexture.nSlot);
 
-				
 				oTexId = OpenGL.fCreateTexture();
 				OpenGL.fBindTexture(TEXTURE_2D, oTexId);
 				
+				<cpp>
+				//printf("\nTesture %d", oTexId);
+				</cpp>
 			
 			
 	//WebGL 2.0		
@@ -107,30 +105,40 @@ package  {
 		
 				OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_WRAP_S, OpenGL.eTextureWrapMode.REPEAT); // Repeat on X axis
 				OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_WRAP_T, OpenGL.eTextureWrapMode.REPEAT);  // Stretch on Y axis 
-			//	OpenGL.fBindTexture(TEXTURE_2D, null);
+				//OpenGL.fBindTexture(TEXTURE_2D, null);
 				
 				
-			
-		
-				//Attach the created texture to FBO color attachement point: oTexId = COLOR_ATTACHMENT0
-			//	OpenGL.fFramebufferTexture2D(FRAMEBUFFER, COLOR_ATTACHMENT0  + oTexture.nSlot, TEXTURE_2D, oTexId, 0);
-				OpenGL.fFramebufferTexture2D(FRAMEBUFFER, COLOR_ATTACHMENT0, TEXTURE_2D, oTexId, 0); //COLOR_ATTACHMENT0?
+				nIdBuff = OpenGL.fCreateFramebuffer();
+				OpenGL.fBindFramebuffer(FRAMEBUFFER, nIdBuff);
+				
+				OpenGL.fFramebufferTexture2D(FRAMEBUFFER, COLOR_ATTACHMENT0, TEXTURE_2D, oTexId, 0);  //COLOR_ATTACHMENT0 is the output
 			   // glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, nLastTexture, 0);
+	
+				// Set the list of draw buffers.
+			//GLenum DrawBuffers[1] = {GL_COLOR_ATTACHMENT0};
+			//glDrawBuffers(1, DrawBuffers); // "1" is the size of DrawBuffers
 				
 				
+				var _aBuffer : Array<UInt32>;
+				_aBuffer.fPush(OpenGL.eAttachments.COLOR_ATTACHMENT0);
+				OpenGL.fDrawBuffers(1, _aBuffer);
 				
-				
-				//RENDERBUFFER
+				/*
 				nIdRender = OpenGL.fCreateRenderBuffer();
 				OpenGL.fBindRenderbuffer(RENDERBUFFER, nIdRender);
 				OpenGL.fRenderbufferStorage(RENDERBUFFER, DEPTH_COMPONENT,  oBuffer.nBuffWidth, oBuffer.nBuffHeight); //ES2 requie GL_DEPTH_COMPONENT16?
-				
-				OpenGL.fBindRenderbuffer(RENDERBUFFER, 0);
+				//OpenGL.fBindRenderbuffer(RENDERBUFFER, 0);
+							
 				
 				// Attach a renderbuffer object the binded framebuffer object: _nIdRbo => nIdBuff
 				OpenGL.fFramebufferRenderbuffer(FRAMEBUFFER, DEPTH_ATTACHMENT, RENDERBUFFER, nIdRender);
 				
+				*/
 				
+				//Attach the created texture to FBO color attachement point: oTexId = COLOR_ATTACHMENT0
+			//	OpenGL.fFramebufferTexture2D(FRAMEBUFFER, COLOR_ATTACHMENT0  + oTexture.nSlot, TEXTURE_2D, oTexId, 0);
+			//Must be one of the following symbolic constants: GL_COLOR_ATTACHMENT0, GL_DEPTH_ATTACHMENT, or GL_STENCIL_ATTACHMENT.
+			
 				
 		
 				//if(status != GL_FRAMEBUFFER_COMPLETE)
@@ -151,7 +159,7 @@ package  {
 
 				
 				fGetStatus();
-				
+				//OpenGL.fBindTexture(TEXTURE_2D, null);
 				OpenGL.fBindFramebuffer(FRAMEBUFFER, null);
 	
 	
@@ -261,7 +269,12 @@ package  {
 		
 		override public function fToDefaultFrameBuffer():Void {
 		
-			
+				
+	//	OpenGL.fBindTexture(TEXTURE_2D, 1);
+	//	OpenGL.fBindTexture(TEXTURE_2D, 2);
+	//	OpenGL.fBindTexture(TEXTURE_2D, 3);
+		
+		
 			
 			var _vPt : Vec4<Float> ;
 			oAt = Attribute_Quad;
@@ -312,7 +325,7 @@ package  {
 			/*
 			////// ASSSS ////////
 			OpenGL.fBindFramebuffer(FRAMEBUFFER, nIdBuff);
-			OpenGL.fClearColor(0.5, 1.0, 0.5, 0.5);
+			OpenGL.fClearColor(1.0, 0.0, 0.5, 0.5);
 			OpenGL.fClear(COLOR_BUFFER_BIT );
 
 			OpenGL.fDisable( BLEND );
@@ -321,11 +334,9 @@ package  {
 			*/
 			
 			OpenGL.fBindFramebuffer(FRAMEBUFFER, null); //Default
-			//OpenGL.fDisable( BLEND );
-			//OpenGL.fDisable( DEPTH_TEST );
-			
 			OpenGL.fDrawElementsInstanced(TRIANGLES, 6, UNSIGNED_BYTE, 0, 1);
 			
+		
 			
 		}
 		

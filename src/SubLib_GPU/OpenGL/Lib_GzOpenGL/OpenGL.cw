@@ -852,14 +852,17 @@ generate "OpenGL" {
 			#endif
 			</cpp>
 		}
+
+		gen public static function fDrawBuffers(_nSize : Int, _aValue : CArray<Int32>):Void;
+
 		
 		gen private static function fGenFramebuffers(_nNb : Int, _aFrameBuffers : CArray<UInt>):Void; //Use fCreateFramebuffer instead
 		gen public static function fBindFramebuffer(_hTarget : eBindFramebuffer, _nFrameBufferId : Val ):Void;
 		gen public static function fGenRenderbuffers(_nNb : Int, _aRenderBuffers : CArray<UInt>):Void;
-		gen public static function fBindRenderbuffer(_hTarget : eBindRenderbuffer, _nRenderBufferId : UInt ):Void;
+		gen public static function fBindRenderbuffer(_hTarget : eBindRenderbuffer, _nRenderBufferId : Val ):Void;
 		gen public static function fRenderbufferStorage(_hTarget : eBindRenderbuffer, _hInternalFormat : ePixelFormat, _nWidth : Int, _nHeight : Int):Void;
 		gen public static function fFramebufferTexture2D(_hTarget : eBindFramebuffer, _hAttachement : eAttachments, _hTextureTarget: eTargetTexture, _nTexture : Val, _nLevel : Int):Void;
-		gen public static function fFramebufferRenderbuffer(_hTarget : eBindFramebuffer, _hAttachement : eAttachments, _hRenderBufferTarget: eBindRenderbuffer, _nRenderBufferId : UInt):Void;
+		gen public static function fFramebufferRenderbuffer(_hTarget : eBindFramebuffer, _hAttachement : eAttachments, _hRenderBufferTarget: eBindRenderbuffer, _nRenderBufferId : Val):Void;
 		gen public static function fCheckFramebufferStatus(_hTarget : eBindFramebuffer):UInt;
 		gen public static function fDeleteBuffers(_nNb:Int, _aBuffers: CArray<UInt>):Void;
 

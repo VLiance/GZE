@@ -64,13 +64,31 @@ package  {
 			OpenGL.fEnable( BLEND );
 			//OpenGL.fDisable( BLEND );
 			//OpenGL.fBlendFunc(ONE_MINUS_DST_ALPHA, ONE); //Front to back
-		//	OpenGL.fBlendFunc(ONE_MINUS_SRC_ALPHA, ONE); //Back to front
+			OpenGL.fBlendFunc(ONE_MINUS_SRC_ALPHA, ONE); //Back to front
 			//OpenGL.fBlendFunc(ONE,ONE_MINUS_SRC_ALPHA );  //Front to back
 			//////////////////////////////////
 		}
+			OpenGL.fDisable( BLEND );
 		
 		
+		oFBO_Destination.fBind();
+		OpenGL.fClearColor(0.0, 5.0, 0.5, 0.5);
+		OpenGL.fClear(COLOR_BUFFER_BIT );
+
+		//OpenGL.fDisable( BLEND );
+		//OpenGL.fDisable( DEPTH_TEST );
+	
 		
+	//	OpenGL.fBindTexture(TEXTURE_2D, 1);
+	//	OpenGL.fBindTexture(TEXTURE_2D, 2);
+	//	OpenGL.fBindTexture(TEXTURE_2D, 3);
+				
+		//	//Blending kill FPS on Android!!
+		//	OpenGL.fEnable( BLEND );
+			//OpenGL.fDisable( BLEND );
+			//OpenGL.fBlendFunc(ONE_MINUS_DST_ALPHA, ONE); //Front to back
+			//OpenGL.fBlendFunc(ONE_MINUS_SRC_ALPHA, ONE); //Back to front
+			
 			//oShModel.oUnType.nVal = 4;
 			//oShModel.oUnType.nVal = 6;//Tiles
 			
@@ -96,6 +114,8 @@ package  {
 
 			  //TODO crash with no info if VBO as not sended DATA
 		    OpenGL.fDrawElementsInstanced(TRIANGLES, 6, UNSIGNED_BYTE, 0, _nNbElement);
+
+			//GL_fDrawElementsInstancedfDrawElementsInstanced(TRIANGLES, 6, UNSIGNED_BYTE, 0, _nNbElement);
 			//GL_fDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, _aIndice2Tri, nNbElement );
 		 //   GL_fDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, _aIndice2Tri );
 			//GL_fBindBuffer(GL_ARRAY_BUFFER,0);
