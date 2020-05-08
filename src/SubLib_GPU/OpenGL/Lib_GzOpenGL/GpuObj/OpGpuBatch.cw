@@ -60,18 +60,19 @@ package  {
 		if(hBlendMode ==  eBlendMode.Alpha){
 			//Blending kill FPS on Android!!
 			OpenGL.fEnable( BLEND );
+			//OpenGL.fDisable( BLEND );
 			//OpenGL.fBlendFunc(ONE_MINUS_DST_ALPHA, ONE); //Front to back
 		//	OpenGL.fBlendFunc(ONE_MINUS_SRC_ALPHA, ONE); //Back to front
-			OpenGL.fBlendFunc(ONE,ONE_MINUS_SRC_ALPHA );  //Front to back
+			//OpenGL.fBlendFunc(ONE,ONE_MINUS_SRC_ALPHA );  //Front to back
 			//////////////////////////////////
 		}
 		
 		
 		
 			//oShModel.oUnType.nVal = 4;
-			oShModel.oUnType.nVal = 6;//Tiles
+			//oShModel.oUnType.nVal = 6;//Tiles
 			
-			oShModel.oUnType.fSend();
+			//oShModel.oUnType.fSend();
 			
 			
 			/*

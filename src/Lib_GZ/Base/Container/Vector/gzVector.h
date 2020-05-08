@@ -199,7 +199,7 @@ gzDef_Vec_Func_fPrint(gzUInt32, "%u");
 	inline void fSetSpeed(T _nSpeed) const { const_cast<gzVec##_Name<SubT,T>*>(this)->vSpeed.nVal = _nSpeed; }; \
 	inline void fSetLimit(T _nLimit) const { const_cast<gzVec##_Name<SubT,T>*>(this)->vSpeed.nTo = _nLimit; }; \
 	inline operator gzVec##_SubName<SubT> () const { gzVec##_SubName<SubT> _vNew; GzVector::fTabAssign<SubT, T>(_vNew.aTab,(_nSize-1), *this); return _vNew;}; /* -1 --> Remove vSpeed value from stepping itself */ \
-	inline gzVec##_Name operator*(const gzVecSized<T>&   _vVec) const {gzDef_Operate(_Name, _nSize, _vVec.nSize, GZ_EuOpp::Mul)}; \
+	inline gzVec##_Name operator*(const gzVecSized<T>&   _vVec) const {gzDef_Operate(_Name, _nSize-1, _vVec.nSize, GZ_EuOpp::Mul)}; \
 	//inline operator gzVecSized<SubT> () const {      gzVec##_SubName<SubT> _vNew; GzVector::fTabAssign<SubT, T>(_vNew.aTab,_nSize, *this); gzVecSized<SubT> _v = {(_vNew.aTab),(sizeof(_vNew.aTab)/sizeof(SubT))};return _v;}; \
 	//inline gzVec##_SubName<SubT>  fToSubType() {gzVec##_SubName<SubT> _vNew; GzVector::fTabAssign<SubT, T>(_vNew.aTab,_nSize, *this);return _vNew;};
 

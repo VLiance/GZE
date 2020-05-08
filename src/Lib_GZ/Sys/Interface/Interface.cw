@@ -173,9 +173,7 @@ package  {
 			
 		//	if (bSreenCreated && oWindow.bBlitInProgress == false) {
 			if (oContext.bIniDrawZone && bSreenCreated && oContext.bBlitInProgress == false) {
-			
-			+//	Debug.fTrace("fUpdateChild");
-			
+				
 				//RESET GpuFace
 				GpuFace.nCurrent = 0; //Reset Quad face count 
 				
