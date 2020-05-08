@@ -6,7 +6,7 @@ package  {
 	import GZ.Sys.Interface.Interface;
 	import GZ.Gfx.Object;
 	import GZ.Gfx.Buffer;
-	
+
 	
 	public overclass GpuBuffer extends GpuObject  {
 		
@@ -28,7 +28,7 @@ package  {
 			oBuffer = _oBuffer;
 		}
 		
-		public function fToDefaultFrameBuffer(){
+		public function fToDefaultFrameBuffer():Void {
 
 			
 		}
@@ -43,7 +43,7 @@ package  {
 		public function  fUnload():Void {
 			
 		}
-		public function  fIni():Void {
+		override function  fIni(_oProgram : ProgramShader):Void {
 			
 		}
 		

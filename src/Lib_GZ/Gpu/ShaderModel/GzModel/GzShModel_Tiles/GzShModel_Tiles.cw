@@ -58,6 +58,8 @@ package  {
 
 			//oVertex.fLoad();
 			//oFragement.fLoad();
+			Debug.fPass("Load Shader GzModel_Tiles");
+			
 
 			////////////// TODO Create Vertext ID since ES2/WebGl_1.0 not support gl_VertexID  //////////////
 			oProgram.fSetDefaultAttribDivisor(1);

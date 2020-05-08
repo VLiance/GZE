@@ -6,7 +6,16 @@ package  {
 	import GZ.Gfx.Buffer;
 	import GZ.Gfx.Object;
 	import GZ.Gpu.ShaderModel.AtModel.Attribute_Quad;
-	
+	import GZ.Base.PtA;
+	import GZ.Base.Pod.Point;
+	import GZ.Base.Pod.Rotation;
+	import GZ.Base.Pod.Size;
+	import GZ.Base.Pod.Color;
+	import GZ.Base.Quaternion;
+	import GZ.Base.Vec4;
+	import GZ.Gpu.Base.Texture;
+	import GZ.Gpu.ShaderBase.ProgramShader;
+
 	<cpp>
 		#define GL_DEPTH_COMP_X GL_DEPTH_COMPONENT
 		#ifdef GZ_tAndroid
@@ -22,6 +31,10 @@ package  {
 	public class OpGpuBuffer overplace GpuBuffer  {
 		public var oTexId : Val;
 		public var nIdBuff : Val;
+		
+		public var oAt : Attribute_Quad;
+		
+		public var oTexture : Texture;
 	
 	/*
     GZ::cBuffer* oBuffer;
@@ -52,8 +65,10 @@ package  {
 		
 		
 		
-		override public function fIni():Void{
+		override public function fIni(_oProgram : ProgramShader):Void{
+			oProgram = _oProgram;
 			fCreate();
+			
 		}
 		
 	
@@ -61,28 +76,33 @@ package  {
 		public function fCreate():Void{
 				//return;
 				
-				OpenGL.fActiveTexture(TEXTURE5);
+				bAutoClear = true;
+
+
 				
+				oTexture = new Texture(oProgram, "ID_FBO");
+				OpenGL.fActiveTexture(TEXTURE0 + oTexture.nSlot);
+
 				
-				//New Texture of buffer size
-				//OpenGL.fGenTextures(1, oTexId);
 				oTexId = OpenGL.fCreateTexture();
-				//
 				OpenGL.fBindTexture(TEXTURE_2D, oTexId);
+				
+			
 			
 	//WebGL 2.0		
 	//Sized internal formats are supported in WebGL 2.0 and internalformat is no longer required to be the same as format. Instead, the combination of internalformat, format, and type must be listed in the following table:		
 	//RGBA :	RGBA : UNSIGNED_BYTE/UNSIGNED_SHORT_4_4_4_4/UNSIGNED_SHORT_5_5_5_1
 
 				//OpenGL.fTexImage2D(TEXTURE_2D, 0, RGBA, oBuffer.nBuffWidth, oBuffer.nBuffHeight, 0, BGRA, UNSIGNED_BYTE, 0);
-				OpenGL.fTexImage2D(TEXTURE_2D, 0, RGBA, oBuffer.nBuffWidth, oBuffer.nBuffHeight, 0, RGBA, UNSIGNED_BYTE, 0);
+				//OpenGL.fTexImage2D(TEXTURE_2D, 0, RGBA, oBuffer.nBuffWidth, oBuffer.nBuffHeight, 0, RGBA, UNSIGNED_BYTE, 0);
+				OpenGL.fTexImage2D(TEXTURE_2D, 0, RGBA, oBuffer.nBuffWidth, oBuffer.nBuffHeight, 0, BGRA, UNSIGNED_BYTE, 0);
 
 				OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_MAG_FILTER , OpenGL.eTextureMagFilter.LINEAR);
 				OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_MIN_FILTER , OpenGL.eTextureMinFilter.LINEAR);
 		
 				OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_WRAP_S, OpenGL.eTextureWrapMode.REPEAT); // Repeat on X axis
 				OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_WRAP_T, OpenGL.eTextureWrapMode.REPEAT);  // Stretch on Y axis 
-				OpenGL.fBindTexture(TEXTURE_2D, null);
+			//	OpenGL.fBindTexture(TEXTURE_2D, null);
 				
 				
 			
@@ -90,22 +110,29 @@ package  {
 				nIdBuff = OpenGL.fCreateFramebuffer();
 				OpenGL.fBindFramebuffer(FRAMEBUFFER, nIdBuff);
 				
-				/*
+				//Attach the created texture to FBO color attachement point: oTexId = COLOR_ATTACHMENT0
+				OpenGL.fFramebufferTexture2D(FRAMEBUFFER, COLOR_ATTACHMENT0  + oTexture.nSlot, TEXTURE_2D, oTexId, 0);
+			   // glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, nLastTexture, 0);
+				
+				
+				
+				
 				//RENDERBUFFER
 				var _nIdRbo : Int = 0;
 				OpenGL.fGenRenderbuffers(1, _nIdRbo);
 				OpenGL.fBindRenderbuffer(RENDERBUFFER, _nIdRbo);
 				OpenGL.fRenderbufferStorage(RENDERBUFFER, DEPTH_COMPONENT,  oBuffer.nBuffWidth, oBuffer.nBuffHeight); //ES2 requie GL_DEPTH_COMPONENT16?
 				OpenGL.fBindRenderbuffer(RENDERBUFFER, 0);
-				*/
-			
-				//Attach the created texture to FBO color attachement point: oTexId = COLOR_ATTACHMENT0
-				OpenGL.fFramebufferTexture2D(FRAMEBUFFER, COLOR_ATTACHMENT0, TEXTURE_2D, oTexId, 0);
-			   // glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, nLastTexture, 0);
-				/*
+				
 				// Attach a renderbuffer object the binded framebuffer object: _nIdRbo => nIdBuff
 				OpenGL.fFramebufferRenderbuffer(FRAMEBUFFER, DEPTH_ATTACHMENT, RENDERBUFFER, _nIdRbo);
-				*/
+				
+				
+				
+		
+				//if(status != GL_FRAMEBUFFER_COMPLETE)
+
+							
 				
 				//aTexCoord[0] = 0.0f;   aTexCoord[1] =  oBuffer->nBuffHeight;   aTexCoord[2] =  oBuffer->nBuffWidth;   aTexCoord[3] = oBuffer->nBuffHeight;
 				//aTexCoord[4] = oBuffer->nBuffWidth;   aTexCoord[5] = 0.0f ;   aTexCoord[6] = 0.0f ;       aTexCoord[7] = 0.0f ;
@@ -113,17 +140,21 @@ package  {
 				if(bAutoClear){
 					//Clear
 					OpenGL.fBindFramebuffer(FRAMEBUFFER, nIdBuff);
-					OpenGL.fClearColor(0.5, 0.5, 0.5, 0.5);
+					OpenGL.fClearColor(0.5, 1.0, 0.5, 0.5);
 					OpenGL.fClear(COLOR_BUFFER_BIT );
 					//GL_fClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 					//GL_fBindFramebuffer(GL_FRAMEBUFFER, 0); // unbind
 				}
 
+				
+				fGetStatus();
+				
 				OpenGL.fBindFramebuffer(FRAMEBUFFER, null);
 	
-				Debug.fPass("Create FBO!");
-				
-					
+	
+			//	Debug.fPass("FBO Created|" + nIdBuff + "|Slot:" + oTexture.nSlot + "| [" + (oBuffer.nBuffWidth) + " x " +  (oBuffer.nBuffHeight) + "]" );
+				Debug.fPass("FBO Created|"  + "|Slot:" + oTexture.nSlot + "| [" + (oBuffer.nBuffWidth) + " x " +  (oBuffer.nBuffHeight) + "]" );
+
 				/*
 				/////////////////////////////////////////////////////////////////
 				GL_fActiveTexture( GL_TEXTURE1 );
@@ -180,11 +211,42 @@ package  {
 			
 		}
 		
-		
 		override public function fBind():Void{
-			//TODO test inf nIdBuf != 0
 			OpenGL.fBindFramebuffer(FRAMEBUFFER, nIdBuff);
 		}	
+		
+		
+		public function fGetStatus():UInt{
+			var _nStatus : UInt = OpenGL.fCheckFramebufferStatus(FRAMEBUFFER);
+			
+			if(_nStatus == OpenGL.eFrameBufferStatus.FRAMEBUFFER_COMPLETE){
+				return _nStatus;
+			}
+			if(_nStatus == OpenGL.eFrameBufferStatus.INCOMPLETE_ATTACHMENT){
+				Debug.fError("FBO Error: INCOMPLETE_ATTACHMENT");
+			}else if(_nStatus == OpenGL.eFrameBufferStatus.INCOMPLETE_MISSING_ATTACHMENT){
+				Debug.fError("FBO Error: INCOMPLETE_MISSING_ATTACHMENT");
+			}else if(_nStatus == OpenGL.eFrameBufferStatus.INCOMPLETE_DIMENSIONS){
+				Debug.fError("FBO Error: INCOMPLETE_DIMENSIONS");
+			}else if(_nStatus == OpenGL.eFrameBufferStatus.UNSUPPORTED){
+				Debug.fError("FBO Error: UNSUPPORTED");
+			}else if(_nStatus == OpenGL.eFrameBufferStatus.INCOMPLETE_MULTISAMPLE){
+				Debug.fError("FBO Error: INCOMPLETE_MULTISAMPLE");
+			}else if(_nStatus == OpenGL.eFrameBufferStatus.RENDERBUFFER_SAMPLES){
+				Debug.fError("FBO Error: RENDERBUFFER_SAMPLES");
+			}
+			Debug.fError("FBO Error: " + _nStatus);
+			
+			return _nStatus;
+		}
+		
+		
+		
+		
+		
+		
+		
+		
 
 		override public function fIniRender():Void{
 		
@@ -194,45 +256,70 @@ package  {
 		}
 		
 		
-		override public function fToDefaultFrameBuffer(){
+		override public function fToDefaultFrameBuffer():Void {
+		
+			
+			
+			var _vPt : Vec4<Float> ;
 			oAt = Attribute_Quad;
 			oAt.oVbo.fIniData(1,4,13);
 			oAt.fSetIndex(0);
 				
-		//	Debug.fTrace("aBefDataLinkedSize! " + Attribute_Quad.oAtObjPos.aDataLinked.nSize  );
-			oAt.oAtObjPos.fSet(oFace.oShape.oParent.oGblPt.vPt);
-			oAt.oAtObjSize.fSet(oFace.oShape.oParent.vGblSize);
-			
-			oAt.oAtObjRot.fSet(oFace.oShape.oParent.vQuaternion);
-		
-			oAt.oAtPt1.fSet(oFace.oPt1.vTf);
-			oAt.oAtPt2.fSet(oFace.oPt2.vTf);
-			oAt.oAtPt3.fSet(oFace.oPt3.vTf);
-			oAt.oAtPt4.fSet(oFace.oPt4.vTf);
-			
-			//var _aSrc : Array<Float> = new  Array<Float>(oFace.rPtS1);
-			/*
-			oAt.oAtTexSource0.fSetVal(0, oFace.rPtS1.nX);
-			oAt.oAtTexSource0.fSetVal(1, oFace.rPtS1.nY);
-			oAt.oAtTexSource0.fSetVal(2, oFace.rPtS2.nX);
-			oAt.oAtTexSource0.fSetVal(3, oFace.rPtS2.nY);
-			
-			oAt.oAtTexSource1.fSetVal(0, oFace.rPtS3.nX);
-			oAt.oAtTexSource1.fSetVal(1, oFace.rPtS3.nY);
-			oAt.oAtTexSource1.fSetVal(2, oFace.rPtS4.nX);
-			oAt.oAtTexSource1.fSetVal(3, oFace.rPtS4.nY);
-			*/
+				
+			var _vPos  : Point<Float> = new Point<Float>(0,0,0);
+			var _vSize  : Size<Float> = new Size<Float>(1,1,1);
+			var _vQuaternion : Quaternion<Float> = new Quaternion<Float>();
+			_vQuaternion.fReset();
 			
 			
+			oAt.oAtObjPos.fSet(_vPos);
+			oAt.oAtObjSize.fSet(_vSize);
+			oAt.oAtObjRot.fSet(_vQuaternion);
 			
-			oAt.oAtColor1.fSet(oFace.oShape.vGblColor);
+			var _nWidth : Float = 800;
+			var _nHeight : Float = 600;
+			
+			_vPt = new Vec4<Float>(0,0,0,0);
+			oAt.oAtPt1.fSet(_vPt);
+			
+			_vPt = new Vec4<Float>(_nWidth,0,0,0);
+			oAt.oAtPt2.fSet(_vPt);
+			
+			_vPt = new Vec4<Float>(_nWidth,_nHeight,0,0);
+			oAt.oAtPt3.fSet(_vPt);
+			
+			_vPt = new Vec4<Float>(0,_nHeight,0,0);
+			oAt.oAtPt4.fSet(_vPt);
+			
+			
+			_vPt = new Vec4<Float>(0.5,0.5,0.5,0.5);
+			oAt.oAtColor1.fSet(_vPt);
 
+			
+			var _nType : Float = 3;
+			var _nSlot : Float = 3;
+			oAt.oAtObjPos.fSetVal(3, _nType); //Merge pos and type to save space
+			oAt.oAtObjSize.fSetVal(3, _nSlot); //Texture location
 	
 			oAt.oVbo.fSendData();
 			
 			
+			
+			
+			
+			////// ASSSS ////////
+			OpenGL.fBindFramebuffer(FRAMEBUFFER, nIdBuff);
+			OpenGL.fClearColor(0.5, 1.0, 0.5, 0.5);
+			OpenGL.fClear(COLOR_BUFFER_BIT );
+
+			OpenGL.fDisable( BLEND );
+			OpenGL.fDisable( DEPTH_TEST );
+			/////////////////////////////////
+			
+			
 			OpenGL.fBindFramebuffer(FRAMEBUFFER, null); //Default
 			OpenGL.fDisable( BLEND );
+			OpenGL.fDisable( DEPTH_TEST );
 			
 			OpenGL.fDrawElementsInstanced(TRIANGLES, 6, UNSIGNED_BYTE, 0, 1);
 			

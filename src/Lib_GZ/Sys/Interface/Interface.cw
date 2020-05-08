@@ -20,6 +20,7 @@ package  {
 	import GZ.Input.Key;
 	import GZ.Gpu.ShaderModel.GzModel.GzShModel;
 
+	
 	/**
 	 * @author Maeiky
 	 */
@@ -146,13 +147,14 @@ package  {
 		public function fRegistred():Void {
 
 			if(oContext.bWinGPU ) {
-				oGpuObj.fIni();
+		
 				if(fLoadShader() == false){
 					oContext.oGpu.fLoadDefaultShader();
 				}else{
 					oContext.oGpu.fSetShader(oGzShModel);
 				}
 				
+				oGpuObj.fIni(oGzShModel.oProgram); //FBO
 			}
 			fWinStart();
 			

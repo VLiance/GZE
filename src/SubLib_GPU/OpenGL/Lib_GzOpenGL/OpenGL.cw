@@ -58,6 +58,17 @@ generate "OpenGL" {
 				ONE_MINUS_DST_ALPHA     = 0x0305;
 		}
 		
+		public enum eFrameBufferStatus : Int {
+			FRAMEBUFFER_COMPLETE = 0x8CD5;
+			INCOMPLETE_ATTACHMENT = 0x8CD6;
+			INCOMPLETE_MISSING_ATTACHMENT = 0x8CD7;
+			INCOMPLETE_DIMENSIONS = 0x8CD9;
+			UNSUPPORTED  =  0x8CDD;
+			INCOMPLETE_MULTISAMPLE = 0x8D56;
+			RENDERBUFFER_SAMPLES = 0x8CAB;
+		}
+
+		
 		
 		public enum eParameter_Int  : Int {
 			MAX_COMBINED_TEXTURE_IMAGE_UNITS  =  0x8B4D;
@@ -127,34 +138,30 @@ generate "OpenGL" {
 			TODO;
 		}
 		
-		
 		public enum eCapability : Int { //TODO all other
-			BLEND	= 0x0BE2;
+			LIGHTING                     =  0x0B50;
+			TEXTURE_2D                   =  0x0DE1;
+			CULL_FACE                    =  0x0B44;
+			ALPHA_TEST                   =  0x0BC0;
+			BLEND                        =  0x0BE2;
+			STENCIL_TEST                 =  0x0B90;
+			DEPTH_TEST                   =  0x0B71;
+			LIGHT0                       =  0x4000;
+			LIGHT1                       =  0x4001;
+			POINT_SMOOTH                 =  0x0B10;
+			LINE_STIPPLE                 =  0x0B24;
+			LINE_SMOOTH                  =  0x0B20;
+			SCISSOR_TEST                 =  0x0C11;
+			COLOR_MATERIAL               =  0x0B57;
+			NORMALIZE                    =  0x0BA1;
+			RESCALE_NORMAL               =  0x803A;
+			POLYGON_OFFSET_FILL          =  0x8037;
+			POLYGON_STIPPLE              =  0x0B42;
+			VERTEX_ARRAY                 =  0x8074;
+			NORMAL_ARRAY                 =  0x8075;
+			COLOR_ARRAY                  =  0x8076;
+			TEXTURE_COORD_ARRAY          =  0x8078;
 		}
-		/*
-#define GL_LIGHTING                       0x0B50
-#define GL_TEXTURE_2D                     0x0DE1
-#define GL_CULL_FACE                      0x0B44
-#define GL_ALPHA_TEST                     0x0BC0
-#define GL_BLEND                          0x0BE2
-#define GL_STENCIL_TEST                   0x0B90
-#define GL_DEPTH_TEST                     0x0B71
-#define GL_LIGHT0                         0x4000
-#define GL_LIGHT1                         0x4001
-#define GL_POINT_SMOOTH                   0x0B10
-#define GL_LINE_STIPPLE                   0x0B24
-#define GL_LINE_SMOOTH                    0x0B20
-#define GL_SCISSOR_TEST                   0x0C11
-#define GL_COLOR_MATERIAL                 0x0B57
-#define GL_NORMALIZE                      0x0BA1
-#define GL_RESCALE_NORMAL                 0x803A
-#define GL_POLYGON_OFFSET_FILL            0x8037
-#define GL_POLYGON_STIPPLE                0x0B42
-#define GL_VERTEX_ARRAY                   0x8074
-#define GL_NORMAL_ARRAY                   0x8075
-#define GL_COLOR_ARRAY                    0x8076
-#define GL_TEXTURE_COORD_ARRAY            0x8078
-*/
 		
 		
 

@@ -51,6 +51,9 @@ package  {
 				.
 		override public function fLoad_Base():Void {
 
+		
+			Debug.fPass("Load Shader GzModel_Quad");
+			
 			//oVertex.fLoad();
 			//oFragement.fLoad();
 
@@ -115,6 +118,7 @@ package  {
 			GzShCommun_Light.fSetAmbiant();
 			GzShCommun_Light.fSendLight();
 			
+		
 			oGpuBatch.fDraw();
 			
 			if(oGpuBatch.oFBO_Destination != null){ //We must render on screen now

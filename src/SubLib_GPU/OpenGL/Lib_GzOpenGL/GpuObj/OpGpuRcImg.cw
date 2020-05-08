@@ -37,32 +37,7 @@ package  {
 				return null;
 			}
 			
-		
 			OpenGL.fActiveTexture(TEXTURE0 + oGpuTexLayer.nSlot);
-			
-			//Debug.fDebug(TEXTURE0 + oGpuTexLayer.nSlot);
-			
-			//OpenGL.fActiveTexture(TEXTURE2);
-			/*
-			if(oGpuTexLayer.nSlot == 0){
-				OpenGL.fActiveTexture(TEXTURE0);
-			}
-			if(oGpuTexLayer.nSlot == 1){
-				OpenGL.fActiveTexture(TEXTURE1);
-			}
-			if(oGpuTexLayer.nSlot == 2){
-				OpenGL.fActiveTexture(TEXTURE2);
-			}*/
-			
-			
-			/*
-			if(oGpuTexLayer == null){ //TODO link text layer
-				OpenGL.fActiveTexture(TEXTURE0);
-			}else{
-				OpenGL.fActiveTexture(TEXTURE1);
-				Debug.fInfo("Enable TEXTURE1 !!!!!!!!");
-			}*/
-			
 			
 			oTexId = OpenGL.fCreateTexture();
 			OpenGL.fBindTexture(TEXTURE_2D, oTexId);

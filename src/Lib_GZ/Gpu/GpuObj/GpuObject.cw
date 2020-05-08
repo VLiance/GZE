@@ -3,13 +3,14 @@ package  {
 	
 	import GZ.Gfx.Object;
 	import GZ.Sys.Interface.Interface;
+	import GZ.Gpu.ShaderBase.ProgramShader;
 	
 	public extension GpuObject  {
 	
 
 		public function GpuObject( ):Void;
 		
-		public function fIni(_oInterface : Interface):Void;
+		public function fIni(_oProgram : ProgramShader):Void;
 
 		public function fIniRender():Void;
 		public function fFinishRender():Void;

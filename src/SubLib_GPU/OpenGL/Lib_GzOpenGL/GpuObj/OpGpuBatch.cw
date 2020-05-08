@@ -35,8 +35,6 @@ package  {
 		
 
 		override function fDraw():Void {
-			
-			
 
 			oEvbo.fBind();
 			

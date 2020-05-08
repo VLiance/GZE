@@ -16,14 +16,14 @@ package  {
 	import GZ.Base.Perspective;
 	import GZ.Sys.Interface.Context;
 	import GZ.Gpu.ShaderModel.GzModel.GzShModel;
-	import GZ.Gpu.ShaderModel.GzModel.GzShModel_Tiles.GzShModel_Tiles;
-	import GZ.Gpu.ShaderModel.GzModel.GzShModel_Tiles.GzShModel_Tiles_Fragment;
+	import GZ.Gpu.ShaderModel.GzModel.GzShModel_Quad.GzShModel_Quad;
+	import GZ.Gpu.ShaderModel.GzModel.GzShModel_Quad.GzShModel_Quad_Fragment;
 	import GZ.Gpu.ShaderModel.AtModel.Attribute_Quad;
 	import GZ.Gpu.ShaderModel.GzModel.GzShCommun.GzShCommun_Base;
 	import GZ.Gpu.ShaderModel.GzModel.GzShCommun.GzShCommun_Tile;
 	
 	
-	public extension GzShModel_Quad_Vertex extends GzShModel_Tiles_Fragment {
+	public extension GzShModel_Quad_Vertex extends GzShModel_Quad_Fragment {
 
 
 		override public function fLoad_Vertex():Bool {

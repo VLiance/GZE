@@ -27,6 +27,9 @@ package  {
 
 		override public function fLoad_Fragment():Bool {
 			
+
+			
+			
 			GzShCommun_Base.fAdd_FragmentBasics(oFragement);
 			GzShCommun_Base.fAdd_Default_15_Slot(oFragement);
 			GzShCommun_Base.fAdd_Func_Basics(oFragement);
@@ -57,6 +60,22 @@ void main(){
 	}else if( sh_iType == 6){
 	
 		pixTex = fTile();
+		
+		
+	}else if( sh_iType == 2){ //Buffer without Interpolation
+		
+		FragColor = fTexelFetch(sh_iTexID, ivec2(sh_vTexture));
+		return;	
+	}else if( sh_iType == 3){ //Buffer with Bilinear filtering
+		
+		FragColor = fTexture(sh_iTexID, sh_vTextureNorm);
+		return;	
+		
+	}else if( sh_iType == 4){
+		
+		FragColor =  vec4(0.5,0.5,1.5,0.5);
+		return;
+		
 		
 	}else{
 			pixTex = fTexture(sh_iTexID, sh_vTextureNorm);
