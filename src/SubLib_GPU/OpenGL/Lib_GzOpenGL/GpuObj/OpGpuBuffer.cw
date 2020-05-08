@@ -113,7 +113,8 @@ package  {
 			
 		
 				//Attach the created texture to FBO color attachement point: oTexId = COLOR_ATTACHMENT0
-				OpenGL.fFramebufferTexture2D(FRAMEBUFFER, COLOR_ATTACHMENT0  + oTexture.nSlot, TEXTURE_2D, oTexId, 0);
+			//	OpenGL.fFramebufferTexture2D(FRAMEBUFFER, COLOR_ATTACHMENT0  + oTexture.nSlot, TEXTURE_2D, oTexId, 0);
+				OpenGL.fFramebufferTexture2D(FRAMEBUFFER, COLOR_ATTACHMENT0, TEXTURE_2D, oTexId, 0); //COLOR_ATTACHMENT0?
 			   // glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, nLastTexture, 0);
 				
 				
@@ -142,7 +143,7 @@ package  {
 				if(bAutoClear){
 					//Clear
 					OpenGL.fBindFramebuffer(FRAMEBUFFER, nIdBuff);
-					OpenGL.fClearColor(0.5, 1.0, 0.5, 0.5);
+					OpenGL.fClearColor(0.5, 1.0, 0.5, 1.0);
 					OpenGL.fClear(COLOR_BUFFER_BIT );
 					//GL_fClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 					//GL_fBindFramebuffer(GL_FRAMEBUFFER, 0); // unbind
@@ -299,7 +300,7 @@ package  {
 
 			
 			var _nType : Float = 3;
-			var _nSlot : Float = 3;
+			var _nSlot : Float = oTexture.nSlot;
 			oAt.oAtObjPos.fSetVal(3, _nType); //Merge pos and type to save space
 			oAt.oAtObjSize.fSetVal(3, _nSlot); //Texture location
 	
@@ -308,7 +309,7 @@ package  {
 			
 			
 			
-			
+			/*
 			////// ASSSS ////////
 			OpenGL.fBindFramebuffer(FRAMEBUFFER, nIdBuff);
 			OpenGL.fClearColor(0.5, 1.0, 0.5, 0.5);
@@ -317,11 +318,11 @@ package  {
 			OpenGL.fDisable( BLEND );
 			OpenGL.fDisable( DEPTH_TEST );
 			/////////////////////////////////
-			
+			*/
 			
 			OpenGL.fBindFramebuffer(FRAMEBUFFER, null); //Default
-			OpenGL.fDisable( BLEND );
-			OpenGL.fDisable( DEPTH_TEST );
+			//OpenGL.fDisable( BLEND );
+			//OpenGL.fDisable( DEPTH_TEST );
 			
 			OpenGL.fDrawElementsInstanced(TRIANGLES, 6, UNSIGNED_BYTE, 0, 1);
 			
