@@ -316,8 +316,8 @@ package  {
 
 			
 			var _nType : Float = 3;
-			//var _nSlot : Float = oTexture.nSlot;
-			var _nSlot : Float = 3;
+			var _nSlot : Float = oTexture.nSlot;
+			//var _nSlot : Float = 3;
 			
 			oAt.oAtObjPos.fSetVal(3, _nType); //Merge pos and type to save space
 			oAt.oAtObjSize.fSetVal(3, _nSlot); //Texture location
@@ -333,7 +333,6 @@ package  {
 		oAt.oAtTexSource1.fSetVal(2, 0);
 		oAt.oAtTexSource1.fSetVal(3, 600);
 
-			
 			
 	
 			oAt.oVbo.fSendData();
@@ -353,7 +352,7 @@ package  {
 			*/
 			
 			OpenGL.fBindFramebuffer(FRAMEBUFFER, null); //Default
-			
+			OpenGL.fDisable( BLEND );
 				//var _aBuffer : Array<UInt32>;
 				//_aBuffer.fPush(OpenGL.eAttachments.COLOR_ATTACHMENT0);
 				//OpenGL.fDrawBuffers(1, _aBuffer);

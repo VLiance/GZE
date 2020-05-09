@@ -21,6 +21,7 @@ package  {
 
 		public var hBlendMode : eBlendMode = eBlendMode.Alpha;
 		public var oFBO_Destination : GpuBuffer;
+		public var bAutoClear : Bool = true;
 		
 	
 		public wvar oShModel : GzShModel;

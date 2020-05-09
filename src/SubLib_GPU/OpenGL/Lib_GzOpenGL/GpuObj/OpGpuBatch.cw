@@ -55,6 +55,14 @@ package  {
 			}
 			
 			
+			
+		
+		//OpenGL.fClearColor(0.0, 5.0, 0.5, 1.0);
+		if(bAutoClear){
+			OpenGL.fClear(COLOR_BUFFER_BIT );
+		}
+		
+			
 		//TODO Switch case
 		if(hBlendMode ==  eBlendMode.None){
 			OpenGL.fDisable( BLEND );
@@ -64,16 +72,15 @@ package  {
 			OpenGL.fEnable( BLEND );
 			//OpenGL.fDisable( BLEND );
 			//OpenGL.fBlendFunc(ONE_MINUS_DST_ALPHA, ONE); //Front to back
-			OpenGL.fBlendFunc(ONE_MINUS_SRC_ALPHA, ONE); //Back to front
-			//OpenGL.fBlendFunc(ONE,ONE_MINUS_SRC_ALPHA );  //Front to back
+			//OpenGL.fBlendFunc(ONE_MINUS_SRC_ALPHA, ONE); //Back to front
+			
+			//With FBO, this is reversed?
+			//OpenGL.fBlendFunc(ONE, ONE_MINUS_DST_ALPHA); //Front to front
+			OpenGL.fBlendFunc(ONE, ONE_MINUS_SRC_ALPHA); //Back to front
 			//////////////////////////////////
 		}
-			OpenGL.fDisable( BLEND );
+			//OpenGL.fDisable( BLEND );
 		
-		
-		//oFBO_Destination.fBind();
-		OpenGL.fClearColor(0.0, 5.0, 0.5, 0.5);
-		OpenGL.fClear(COLOR_BUFFER_BIT );
 
 		//OpenGL.fDisable( BLEND );
 		//OpenGL.fDisable( DEPTH_TEST );

@@ -41,11 +41,11 @@ package  {
 <glsl(oFragement)>
 
 vec4 pixTex;
-layout(location = 0) out vec4 color;
+vec4 color;
 
 void main(){
 	vec4 vPtDist = sh_vCoord_Color1; 
-
+/*
 	if( sh_iType != 3){
 		color = vec4(1.0,0.0,0.0,0.5);
 		//	color = vPtDist;
@@ -62,7 +62,7 @@ void main(){
 		FragColor =  color;
 		return;	
 	}
-		
+	*/	
 	/// Make a bilinear interpolation from uv ///
 	//vec4 _vCoDist = vec4((1.0-sh_uv.x)*(1.0-sh_uv.y), (sh_uv.x)*(1.0-sh_uv.y), (sh_uv.x)*(sh_uv.y), (1.0-sh_uv.x)*(sh_uv.y));
 	////////////////////////////////////////
@@ -89,13 +89,7 @@ void main(){
 		
 		FragColor = fTexture(sh_iTexID, sh_vTextureNorm);
 		return;	
-		
-	}else if( sh_iType == 4){
-		
-		FragColor =  vec4(0.5,0.5,1.5,0.5);
-		return;
-		
-		
+
 	}else{
 			pixTex = fTexture(sh_iTexID, sh_vTextureNorm);
 		//	FragColor =  pixTex;
