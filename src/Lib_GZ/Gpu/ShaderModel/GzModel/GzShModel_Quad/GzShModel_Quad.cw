@@ -118,7 +118,7 @@ package  {
 			GzShCommun_Light.fSetAmbiant();
 			GzShCommun_Light.fSendLight();
 			
-		
+	//oGpuBatch.fSetDestination(null); For test
 			oGpuBatch.fDraw();
 			
 			if(oGpuBatch.oFBO_Destination != null){ //We must render on screen now

@@ -71,7 +71,7 @@ package  {
 			OpenGL.fDisable( BLEND );
 		
 		
-		oFBO_Destination.fBind();
+		//oFBO_Destination.fBind();
 		OpenGL.fClearColor(0.0, 5.0, 0.5, 0.5);
 		OpenGL.fClear(COLOR_BUFFER_BIT );
 

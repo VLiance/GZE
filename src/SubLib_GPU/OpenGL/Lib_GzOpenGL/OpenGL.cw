@@ -390,6 +390,7 @@ generate "OpenGL" {
  //MAX_COLOR_ATTACHMENTS          0x8CDF;
  
 		public enum eAttachments : Int {
+			NONE 					       = 0;	
 			COLOR_ATTACHMENT0              = 0x8CE0;
 			COLOR_ATTACHMENT1              = 0x8CE1;
 			COLOR_ATTACHMENT2              = 0x8CE2;

@@ -36,6 +36,7 @@ package  {
 		public var oAt : Attribute_Quad;
 		
 		public var oTexture : Texture;
+		public var nTest : Float;
 	
 	/*
     GZ::cBuffer* oBuffer;
@@ -87,26 +88,26 @@ package  {
 				oTexId = OpenGL.fCreateTexture();
 				OpenGL.fBindTexture(TEXTURE_2D, oTexId);
 				
-				<cpp>
-				//printf("\nTesture %d", oTexId);
-				</cpp>
+				//if(oTexId != null){
+					oTexture.fSendSize( oBuffer.nBuffWidth, oBuffer.nBuffHeight);
 			
 			
-	//WebGL 2.0		
-	//Sized internal formats are supported in WebGL 2.0 and internalformat is no longer required to be the same as format. Instead, the combination of internalformat, format, and type must be listed in the following table:		
-	//RGBA :	RGBA : UNSIGNED_BYTE/UNSIGNED_SHORT_4_4_4_4/UNSIGNED_SHORT_5_5_5_1
+		//WebGL 2.0		
+		//Sized internal formats are supported in WebGL 2.0 and internalformat is no longer required to be the same as format. Instead, the combination of internalformat, format, and type must be listed in the following table:		
+		//RGBA :	RGBA : UNSIGNED_BYTE/UNSIGNED_SHORT_4_4_4_4/UNSIGNED_SHORT_5_5_5_1
 
-				//OpenGL.fTexImage2D(TEXTURE_2D, 0, RGBA, oBuffer.nBuffWidth, oBuffer.nBuffHeight, 0, BGRA, UNSIGNED_BYTE, 0);
-				//OpenGL.fTexImage2D(TEXTURE_2D, 0, RGBA, oBuffer.nBuffWidth, oBuffer.nBuffHeight, 0, RGBA, UNSIGNED_BYTE, 0);
-				OpenGL.fTexImage2D(TEXTURE_2D, 0, RGBA, oBuffer.nBuffWidth, oBuffer.nBuffHeight, 0, BGRA, UNSIGNED_BYTE, 0);
+					//OpenGL.fTexImage2D(TEXTURE_2D, 0, RGBA, oBuffer.nBuffWidth, oBuffer.nBuffHeight, 0, BGRA, UNSIGNED_BYTE, 0);
+					//OpenGL.fTexImage2D(TEXTURE_2D, 0, RGBA, oBuffer.nBuffWidth, oBuffer.nBuffHeight, 0, RGBA, UNSIGNED_BYTE, 0);
+					OpenGL.fTexImage2D(TEXTURE_2D, 0, RGBA, oBuffer.nBuffWidth, oBuffer.nBuffHeight, 0, BGRA, UNSIGNED_BYTE, 0);
 
-				OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_MAG_FILTER , OpenGL.eTextureMagFilter.LINEAR);
-				OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_MIN_FILTER , OpenGL.eTextureMinFilter.LINEAR);
-		
-				OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_WRAP_S, OpenGL.eTextureWrapMode.REPEAT); // Repeat on X axis
-				OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_WRAP_T, OpenGL.eTextureWrapMode.REPEAT);  // Stretch on Y axis 
-				//OpenGL.fBindTexture(TEXTURE_2D, null);
-				
+					OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_MAG_FILTER , OpenGL.eTextureMagFilter.LINEAR);
+					OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_MIN_FILTER , OpenGL.eTextureMinFilter.LINEAR);
+			
+					OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_WRAP_S, OpenGL.eTextureWrapMode.REPEAT); // Repeat on X axis
+					OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_WRAP_T, OpenGL.eTextureWrapMode.REPEAT);  // Stretch on Y axis 
+					//OpenGL.fBindTexture(TEXTURE_2D, null);
+			//	}
+			
 				
 				nIdBuff = OpenGL.fCreateFramebuffer();
 				OpenGL.fBindFramebuffer(FRAMEBUFFER, nIdBuff);
@@ -282,8 +283,8 @@ package  {
 			oAt.fSetIndex(0);
 				
 				
-			var _vPos  : Point<Float> = new Point<Float>(0,0,0);
-			var _vSize  : Size<Float> = new Size<Float>(1,1,1);
+			var _vPos  : Point<Float> = new Point<Float>(0,600,0);
+			var _vSize  : Size<Float> = new Size<Float>(1,-1,1);
 			var _vQuaternion : Quaternion<Float> = new Quaternion<Float>();
 			_vQuaternion.fReset();
 			
@@ -307,15 +308,33 @@ package  {
 			_vPt = new Vec4<Float>(0,_nHeight,0,0);
 			oAt.oAtPt4.fSet(_vPt);
 			
+			nTest+= 0.01;
 			
-			_vPt = new Vec4<Float>(0.5,0.5,0.5,0.5);
+			
+			_vPt = new Vec4<Float>(nTest,0.5,0.5,0.5);
 			oAt.oAtColor1.fSet(_vPt);
 
 			
 			var _nType : Float = 3;
-			var _nSlot : Float = oTexture.nSlot;
+			//var _nSlot : Float = oTexture.nSlot;
+			var _nSlot : Float = 3;
+			
 			oAt.oAtObjPos.fSetVal(3, _nType); //Merge pos and type to save space
 			oAt.oAtObjSize.fSetVal(3, _nSlot); //Texture location
+			
+			
+		oAt.oAtTexSource0.fSetVal(0, 0);
+		oAt.oAtTexSource0.fSetVal(1, 0);
+		oAt.oAtTexSource0.fSetVal(2, 800);
+		oAt.oAtTexSource0.fSetVal(3, 0);
+		
+		oAt.oAtTexSource1.fSetVal(0, 800);
+		oAt.oAtTexSource1.fSetVal(1, 600);
+		oAt.oAtTexSource1.fSetVal(2, 0);
+		oAt.oAtTexSource1.fSetVal(3, 600);
+
+			
+			
 	
 			oAt.oVbo.fSendData();
 			
@@ -334,6 +353,11 @@ package  {
 			*/
 			
 			OpenGL.fBindFramebuffer(FRAMEBUFFER, null); //Default
+			
+				//var _aBuffer : Array<UInt32>;
+				//_aBuffer.fPush(OpenGL.eAttachments.COLOR_ATTACHMENT0);
+				//OpenGL.fDrawBuffers(1, _aBuffer);
+				
 			OpenGL.fDrawElementsInstanced(TRIANGLES, 6, UNSIGNED_BYTE, 0, 1);
 			
 		

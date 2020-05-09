@@ -44,19 +44,29 @@ vec4 pixTex;
 layout(location = 0) out vec4 color;
 
 void main(){
-
+	vec4 vPtDist = sh_vCoord_Color1; 
 
 	if( sh_iType != 3){
 		color = vec4(1.0,0.0,0.0,0.5);
-	
+		//	color = vPtDist;
 		//FragColor[0] =  vec4(1.0,0.0,0.0,0.5);
+				FragColor =  color;
 		return;
-	}	
+	}else{
+		color = vPtDist;
+		//		color = fTexelFetch(sh_iTexID, ivec2(sh_vTexture));
+		
+		
+	//	color = fTexture(sh_iTexID, sh_vTextureNorm * vec2(800,600));
+		color = fTexture(sh_iTexID, sh_vTextureNorm );
+		FragColor =  color;
+		return;	
+	}
 		
 	/// Make a bilinear interpolation from uv ///
 	//vec4 _vCoDist = vec4((1.0-sh_uv.x)*(1.0-sh_uv.y), (sh_uv.x)*(1.0-sh_uv.y), (sh_uv.x)*(sh_uv.y), (1.0-sh_uv.x)*(sh_uv.y));
 	////////////////////////////////////////
-	vec4 vPtDist = sh_vCoord_Color1; 
+
 	
 	if( sh_iType == 8 ){ //Vector Line
 		
