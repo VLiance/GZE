@@ -37,7 +37,7 @@ package  {
 		private var nWIntype : UInt = 20;
 		private var sWindowName : String;
 		private var oBackground : Rectangle;
-		public var oContext : Context;
+
 		public var nFrameWidth : Float;
 		public var nFrameHeight : Float;
 		public var nHalfFrameWidth : Float;

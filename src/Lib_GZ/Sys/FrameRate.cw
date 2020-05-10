@@ -8,12 +8,15 @@ package  {
 	import GZ.Sys.Timer;
 	import GZ.Base.Math.Math;
 	import GZ.Base.Thread.Thread;
+	import GZ.Sys.Interface.Context;
 
 	public extension FrameRate extends Buffer {
 		
 		public var nFps : UInt;
 		
-		public var bFrMax : Bool = false;
+		public var bFrMax : Bool = true;
+		public var bFpsInTitle : Bool = true;
+		
 		//public var bFrMax : Bool = true;
 		public var bFrBasedOnTime : Bool = false;
 		public var nFrBasedOnTime_MaxFPS : Int = 60;
@@ -22,6 +25,7 @@ package  {
 		private var nFrBasedOnFrame_Current : UInt = 0;
 		public var nToFrameMilli : Float;
 		
+		public var oContext : Context;
 		
 		public var oTimer : Timer;
 		public var nLastTime : Float;
@@ -58,7 +62,10 @@ package  {
 				
 				nFps = nFrame;
 				if(bFrMax){
-					Debug.fTrace("Fps: " + nFrame);
+					//Debug.fTrace("Fps: " + nFrame);
+				}
+				if(bFpsInTitle){
+					oContext.fSetTitle( oContext.sName + " - " + nFrame);
 				}
 				nFrame = 0;
 			}

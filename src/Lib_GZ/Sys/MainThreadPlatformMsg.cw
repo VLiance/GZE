@@ -27,6 +27,11 @@ package  {
 			Debug.fError("fCreateForm: not implemented");
 		}
 
+		atomic function fSetTitle(_sTitle : String):Void {
+			Debug.fError("fSetTitle: not implemented");
+		}
+		
+		
 	}
 }
 

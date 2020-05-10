@@ -1,4 +1,3 @@
-
 #define MONITOR_CENTER   0x0001        // center rect to monitor 
 #define MONITOR_CLIP     0x0000        // clip rect to monitor 
 #define MONITOR_WORKAREA 0x0002        // use monitor work area 

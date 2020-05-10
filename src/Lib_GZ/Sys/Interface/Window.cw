@@ -155,6 +155,8 @@ package  {
 		
 	
 		
+		public function fSetTitle(_sTitle : String):Void;
+		
 		public function fFrameEnd():Void;
 		public function fGetPixelArray():CArray<Int, 2>{
 			Debug.fTrace("ss");

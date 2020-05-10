@@ -32,8 +32,12 @@ package  {
 
 	public class OpMainThreadPlatformMsg overplace MainThreadPlatformMsg {
 	
-			use Window.ePositioning;
-
+		use Window.ePositioning;
+		
+		public var nHandleId : UIntX;
+		public var nWinHandleId : UIntX;
+	
+		
 		
 		public function OpMainThreadPlatformMsg() : Void{
 			//Debug.fTrace("--OpMainThreadPlatformMsg--");
@@ -64,6 +68,14 @@ package  {
 			</cpp>
 		 }
 		 
+		 override public function fSetTitle(_sTitle : String):Void {
+			<cpp>
+			SetWindowText((HWND)nWinHandleId, _sTitle.fToWStr().get());
+			</cpp>
+		}
+		 
+		 
+		 
 		override public function fRegisterContext(_gFrom : Gate<Context>, _oWindow : Window):Void {
 /*
 			Debug.fTrace("RECTxxxx "  + _oWindow.vFrame.nX);
@@ -72,8 +84,8 @@ package  {
 			Debug.fTrace("RECThhh"  + _oWindow.vFrame.nHeight);
 			*/
 					
-			var _nHandleId : UIntX = 0;
-			var _nWinHandleId : UIntX = 0;
+			//var _nHandleId : UIntX = 0;
+			//var _nWinHandleId : UIntX = 0;
 	
 		//	var hBorder : Window.eWinBorder;
 			var _hBorder : Window.eWinBorder = Window.eWinBorder.Normal;
@@ -219,8 +231,8 @@ package  {
 					MessageBox(GZ_Null, buffer, L"Window Creation Failed!", MB_ICONERROR);
 				}
 				dcScreen = GetDC(hWnd);		
-				_nHandleId = (gzUIntX)dcScreen;
-				_nWinHandleId = (gzUIntX)hWnd;
+				nHandleId = (gzUIntX)dcScreen;
+				nWinHandleId = (gzUIntX)hWnd;
 				
 				int _nTitleOffset = fClientResize(hWnd, _oWindow->vFrame.nWidth, _oWindow->vFrame.nHeight); //Set correct client size
 				ClipOrCenterWindowToMonitor(hWnd, MONITOR_CENTER | MONITOR_WORKAREA, _nTitleOffset);
@@ -230,9 +242,9 @@ package  {
 			</cpp>
 
 //			ThreadMsg.fSend(new MsgCreateWindow("MonMessage!"));
-			Debug.fTrace("Finsish Create: " + _nHandleId);
+			Debug.fTrace("Finsish Create: " + nHandleId);
 
-			_gFrom.fContextRegistred(_nHandleId, _nWinHandleId);
+			_gFrom.fContextRegistred(nHandleId, nWinHandleId);
 		}
 		
 	<cpp>	

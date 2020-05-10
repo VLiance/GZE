@@ -105,7 +105,6 @@ package  {
 			_oMsg.gFrom = gContextGate;
 			gMainThreadGate.fSend(_oMsg);
 			*/
-			
 		}
 		
 		override public function fFrameStart():Void{
@@ -212,6 +211,11 @@ package  {
 		override function fGetPixelArray():CArray<Int, 2>;
 		
 		override function  fGetKey(_oKey : Key):Void;
+		
+		
+		override public function fSetTitle(_sTitle : String):Void {
+			MainThreadPlatformMsg.gMainThreadGate.fSetTitle(_sTitle);
+		}
 		
 
 		
