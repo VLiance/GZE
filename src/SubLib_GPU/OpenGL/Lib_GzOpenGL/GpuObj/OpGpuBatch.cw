@@ -9,6 +9,7 @@ package  {
 	import GZ.Gpu.ShaderBase.Evbo;
 	import GZ.Gpu.ShaderModel.GzModel.GzShModel;
 	import GZ.Sys.Interface.Context;
+	import GZ.Gpu.GpuObj.GpuFace;
 	
 	public class OpGpuBatch overplace GpuBatch {
 		
@@ -42,7 +43,9 @@ package  {
 			//var _nNbElement : Int  = Context.oItf.nTotalFaces;
 			//var _nNbElement : Int  = Context.oItf.nTotalFaces-1; //TODO bakcround (-1)
 		//	var _nNbElement : Int  = Context.oItf.nTotalFaces-1; //TODO bakcround (-1)
-			var _nNbElement : Int  = Context.oItf.nTotalFaces-1; //TODO bakcround (-1)
+		//	var _nNbElement : Int  = Context.oItf.nTotalFaces-1; //TODO bakcround (-1)
+	
+			var _nNbElement : Int  = GpuFace.nCurrent;
 			
 			//Debug.fTrace("---Draw _nNbElement: " + _nNbElement);
 			
@@ -80,7 +83,6 @@ package  {
 			//////////////////////////////////
 		}
 			//OpenGL.fDisable( BLEND );
-		
 
 		//OpenGL.fDisable( BLEND );
 		//OpenGL.fDisable( DEPTH_TEST );

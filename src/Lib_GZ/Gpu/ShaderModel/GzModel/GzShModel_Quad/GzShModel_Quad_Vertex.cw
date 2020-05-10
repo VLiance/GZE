@@ -35,7 +35,7 @@ package  {
 			GzShCommun_Base.fAdd_Func_Basics(oVertex);
 			GzShCommun_Base.fAdd_Vertex_Func_Basics(oVertex);
 			
-			GzShCommun_Tile.fAdd_Vertex_Func_fTile(oVertex);
+		//	GzShCommun_Tile.fAdd_Vertex_Func_fTile(oVertex);
 			
 			
 <glsl(oVertex)>
@@ -216,7 +216,7 @@ mat4 iomWorldPt;
 	ioNorm.xyz = normalize((cross(( ioPt2 -ioPt1), (ioPt3 - ioPt1)))) * nFrontFacing;
 	sh_vNorm = ioNorm;
 
-	 fTile();
+	// fTile();
 
 
 }

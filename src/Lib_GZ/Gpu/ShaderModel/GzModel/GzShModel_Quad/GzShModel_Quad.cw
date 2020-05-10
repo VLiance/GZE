@@ -121,10 +121,11 @@ package  {
 	//oGpuBatch.fSetDestination(null); For test
 			oGpuBatch.fDraw();
 			
+		//	for(var i : Int = 0; i < 50; i++){
 			if(oGpuBatch.oFBO_Destination != null){ //We must render on screen now
 				oGpuBatch.oFBO_Destination.fToDefaultFrameBuffer();
 			}
-			
+			//}
 			
 		
 		}

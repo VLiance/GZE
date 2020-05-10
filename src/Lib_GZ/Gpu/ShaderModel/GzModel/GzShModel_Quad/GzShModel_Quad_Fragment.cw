@@ -35,7 +35,7 @@ package  {
 			GzShCommun_Base.fAdd_Func_Basics(oFragement);
 			GzShCommun_Base.fAdd_Fragment_Func_Basics(oFragement);
 			GzShCommun_Light.fAdd_Func_fAddLight(oFragement);
-			GzShCommun_Tile.fAdd_Fragment_Func_fTile(oFragement);
+		//	GzShCommun_Tile.fAdd_Fragment_Func_fTile(oFragement);
 		
 			///////////// Fragment Shader //////////////
 <glsl(oFragement)>
@@ -78,7 +78,7 @@ void main(){
 		
 	}else if( sh_iType == 6){
 	
-		pixTex = fTile();
+		//pixTex = fTile();
 		
 		
 	}else if( sh_iType == 2){ //Buffer without Interpolation
