@@ -721,14 +721,12 @@ generate "OpenGL" {
 		gen public static function fTexImage2D(_hTarget : eTargetTexture, _nLevel : Int, _hInternalformat : eInternalPixelFormat, _nWidth:Int, _nHeight:Int, _nBorder:Int, _hFormat:ePixelFormat,  _hType: ePixelType, _pPixel:Any ):Void{
 				<cpp>
 				#ifdef D_Platform_Web_Emsc
-					gzUIntX _nSize = 0;
-					if(_pPixel != 0){
-						_nSize = _nWidth * _nHeight*4; //32bits, use the a larger possible size (32bit) to create the array view, TODO check if it's valid for smaller pixel format. 
-						oGL.call<void>("texImage2D", gzVal(gzInt(_hTarget)), gzVal(_nLevel), gzVal(gzInt(_hInternalformat)), gzVal(_nWidth), gzVal(_nHeight), gzVal(_nBorder), gzVal(gzInt(_hFormat)), gzVal(gzInt(_hType)), typed_memory_view(_nSize, (gzUInt8*)_pPixel));
+					gzUIntX _nSize = _nWidth * _nHeight*4; //32bits, use the a larger possible size (32bit) to create the array view, TODO check if it's valid for smaller pixel format. 
+					if(_pPixel == 0){ //Require for FBO
+						//_nSize = 0; //Just to be safe, or maybe send 'null'? Unfortunatly FBO require a array view of full size?
+						oGL.call<void>("texImage2D", gzVal(gzInt(_hTarget)), gzVal(_nLevel), gzVal(gzInt(_hInternalformat)), gzVal(_nWidth), gzVal(_nHeight), gzVal(_nBorder), gzVal(gzInt(_hFormat)), gzVal(gzInt(_hType)), GzNullVal); //FBO: Maybe a typed_memory_view of null_ptr is ok? (just to be safe)
 					}else{
-						</cpp>
-						Debug.fError("glTexImage2D have an empty src image");
-						<cpp>
+						oGL.call<void>("texImage2D", gzVal(gzInt(_hTarget)), gzVal(_nLevel), gzVal(gzInt(_hInternalformat)), gzVal(_nWidth), gzVal(_nHeight), gzVal(_nBorder), gzVal(gzInt(_hFormat)), gzVal(gzInt(_hType)), typed_memory_view(_nSize, (gzUInt8*)_pPixel));
 					}
 					return;
 				#endif

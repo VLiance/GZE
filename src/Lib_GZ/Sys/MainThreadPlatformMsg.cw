@@ -28,7 +28,7 @@ package  {
 		}
 
 		atomic function fSetTitle(_sTitle : String):Void {
-			Debug.fError("fSetTitle: not implemented");
+			//Debug.fError("fSetTitle: not implemented");//TOFO print only when debuging
 		}
 		
 		

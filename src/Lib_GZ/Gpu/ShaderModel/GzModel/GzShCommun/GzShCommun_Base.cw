@@ -101,6 +101,7 @@ public class GzShCommun_Base {
 			uniform int ID_TexNormal; 
 			uniform int ID_TexSprites; 
 			uniform int ID_TexFont; 
+			uniform int ID_TexDepth; 
 			uniform int ID_FBO; 
 
 			uniform vec2 	  TexSize[nMaxTextures];
@@ -134,6 +135,7 @@ public class GzShCommun_Base {
 			uniform int ID_TexNormal; 
 			uniform int ID_TexSprites; 
 			uniform int ID_TexFont; 
+			uniform int ID_TexDepth; 
 			uniform int ID_FBO; 
 
 			uniform vec2 	  TexSize[nMaxTextures];

@@ -79,11 +79,17 @@ package  {
 			
 			//With FBO, this is reversed?
 			//OpenGL.fBlendFunc(ONE, ONE_MINUS_DST_ALPHA); //Front to front
+			
 			OpenGL.fBlendFunc(ONE, ONE_MINUS_SRC_ALPHA); //Back to front
+			
 			//////////////////////////////////
 		}
-			//OpenGL.fDisable( BLEND );
-
+		
+		//OpenGL.fDisable( BLEND );
+		//OpenGL.fClearColor(1.0, 1.0, 0.0, 1.0);
+		//OpenGL.fClear(COLOR_BUFFER_BIT );
+		
+		
 		//OpenGL.fDisable( BLEND );
 		//OpenGL.fDisable( DEPTH_TEST );
 	

@@ -11,6 +11,8 @@
 	import GzOpenGL_Windows.GlWin;
 	import GzOpenGL.OpGpu;
 	import GzOpenGL.OpGpuInfo;
+	import GZ.Sys.Interface.Context;
+	
 
 
 	<cpp_h>
@@ -220,10 +222,22 @@
 			<cpp>
 			SwapBuffers(hDC); //Window func
 			</cpp>
-			OpenGL.fClearColor(1.0, 1.0, 1.0, 1.0);
+			
+			
+			var _nColor : UInt32 =  Context.nBgColor;
+			 if(_nColor & 0x000000FF) != 0){ //Not for completly alpha
+				var _nRed : Float = ((_nColor & 0xFF000000) >> 24) / 256.0;
+				var _nGreen : Float = ((_nColor & 0x00FF0000) >> 16) / 256.0;
+				var _nBlue : Float = ((_nColor & 0x0000FF00) >> 4) / 256.0;
+				var _nAlpha : Float = ((_nColor & 0x000000FF) ) / 256.0;
+			
+				OpenGL.fClearColor(_nRed,_nGreen,_nBlue,_nAlpha); //Just to change background color, TODO maybe faster to use shader, or maybe not (Blend is slow)
+				//OpenGL.fClear(COLOR_BUFFER_BIT)
+				//OpenGL.fClearColor(1.0, 1.0, 1.0, 1.0);
+			}
 			OpenGL.fClear(COLOR_BUFFER_BIT );
-		 }
-		
+			
+		}
 		 override public function fSetShader(_oShader: GzShModel):Void {
 			oGzShModel = _oShader;
 		

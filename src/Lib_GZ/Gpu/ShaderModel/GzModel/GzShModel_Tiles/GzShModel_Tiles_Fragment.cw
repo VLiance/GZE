@@ -93,7 +93,7 @@ void main(){
 	pixTex.rgb = (((( vec3(pixTex.a) -  pixTex.rgb ) * vLight) + pixTex.rgb) * vec3(vPtDist.a) * vDark);
 	pixTex.a *= vPtDist.a;
 
-	pixTex = fAddLight(pixTex, vPtWorld, vPtNorm);
+	pixTex = fAddLight(pixTex, vPtWorld, vPtNorm, 1.0);
 
 
 	FragColor =  pixTex;

@@ -31,6 +31,7 @@ package  {
 		public var oTexture : Texture;
 		public var oTexSprites : Texture;
 		public var oTexFont : Texture;
+		public var oTexDepth : Texture;
 		
 		
 		
@@ -99,6 +100,7 @@ package  {
 			oTexture = new Texture(oProgram, "ID_TexCurrent");
 			oTexSprites = new Texture(oProgram, "ID_TexSprites");
 			oTexFont = new Texture(oProgram, "ID_TexFont");
+			oTexDepth = new Texture(oProgram, "ID_TexDepth");
 			
 			//TODO Normals in AtQuad?
 			

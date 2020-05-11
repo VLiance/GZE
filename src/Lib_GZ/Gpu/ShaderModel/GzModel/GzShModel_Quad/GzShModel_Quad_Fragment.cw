@@ -93,8 +93,15 @@ void main(){
 	}else{
 			pixTex = fTexture(sh_iTexID, sh_vTextureNorm);
 		//	FragColor =  pixTex;
+
+		
 		//	return;
 	}
+	
+	
+	vec4 pixDepth = fTexture(ID_TexDepth, sh_vTextureNorm);
+	float nDepth = pixDepth.r; //Monocrome
+	
 	
 
 	// vec3 vPtWorld = (iomWorldPt * _vCoDist).xyz;
@@ -107,8 +114,18 @@ void main(){
 	float _nMonoCrome2 =  max(((pixTex.r + pixTex.g + pixTex.b)/1.5)-0.2, 0.0);
 	float _nRevMonoCrome =   _nMonoCrome2 * -1.0;
 	vec3 _vGenNorm =  normalize(vec3( _nMonoCrome*-2.0, 0.0, 1.0));
+	//vec3 _vGenNorm =  normalize(vec3(_nMonoCrome*-2.0 + ( nDepth-0.5)*-2.0, 0,  1.0));
 
+//vPtWorld += _vGenNorm * 1000;
+//vPtWorld.y += _nMonoCrome2 * 10.0;
+	
 
+	
+	//vec3 _vPtDisplacement = fRotate(vec3(0,0, (_nMonoCrome + 0.5) * 10.0), vec3(0.0,   -(sh_uv.x-0.5), 0.0) ); //Good, 
+	
+
+	
+	
 	//// Auto reverse norm ////
 	vec3 vLDir = normalize(vPtWorld - vPersp.xyz  );//light direction
 	vPtNorm = fAutoReverseNorm(vPtNorm, vLDir);
@@ -118,6 +135,25 @@ void main(){
 	mat3 TBN =  fCotangent_frame(vPtNorm, -vLDir, sh_uv); 
 	vPtNorm = normalize(TBN * _vGenNorm);
 	//////////////////////////////////////////
+	
+	
+//	vPtWorld.y += _nMonoCrome * 10000.0;
+
+	/*
+	vec3 _vPtDisplacement = fRotate(vec3(0,(nDepth) * 0.2,0 ), vPtNorm); //Good, 
+	//vPtWorld += _vPtDisplacement;
+	//vPtWorld.y -= (nDepth-0.5) * 100.0;
+	vec3 _vTexDisp  = (_vPtDisplacement);
+	_vTexDisp.x *=-1.0;
+	vec2 _vTex = sh_vTextureNorm;
+	_vTex.xy += _vTexDisp.xy * (nDepth ) * 0.2;
+	pixTex = fTexture(sh_iTexID, _vTex);	
+	*/
+	
+	
+	float _nIntentity = nDepth/2.0 + 0.5;
+	////////////
+	
 
 	//// Custom interpolated color ////
 	vec3 vDark  = clamp(vPtDist.rgb + 1.0, 0.0, 1.0); //0 a 1 -> = 1 if bright
@@ -125,7 +161,7 @@ void main(){
 	pixTex.rgb = (((( vec3(pixTex.a) -  pixTex.rgb ) * vLight) + pixTex.rgb) * vec3(vPtDist.a) * vDark);
 	pixTex.a *= vPtDist.a;
 
-	pixTex = fAddLight(pixTex, vPtWorld, vPtNorm);
+	pixTex = fAddLight(pixTex, vPtWorld, vPtNorm, _nIntentity);
 
 
 	FragColor =  pixTex;

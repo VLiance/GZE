@@ -84,27 +84,51 @@ package  {
 			
 				oTexture = new Texture(oProgram, "ID_FBO");
 				OpenGL.fActiveTexture(TEXTURE0 + oTexture.nSlot);
-
+				OpenGL.fDisable(TEXTURE_2D); //"Feedback loop formed between Framebuffer and active Texture"
+				
 				oTexId = OpenGL.fCreateTexture();
 				OpenGL.fBindTexture(TEXTURE_2D, oTexId);
 				
-				//if(oTexId != null){
-					oTexture.fSendSize( oBuffer.nBuffWidth, oBuffer.nBuffHeight);
+				if(oTexId == null){
+					Debug.fError("FBO creation Texture is null");
+					return;
+				}
+				
+				oTexture.fSendSize( oBuffer.nBuffWidth, oBuffer.nBuffHeight);
 			
 			
-		//WebGL 2.0		
-		//Sized internal formats are supported in WebGL 2.0 and internalformat is no longer required to be the same as format. Instead, the combination of internalformat, format, and type must be listed in the following table:		
-		//RGBA :	RGBA : UNSIGNED_BYTE/UNSIGNED_SHORT_4_4_4_4/UNSIGNED_SHORT_5_5_5_1
+			// -- WebGL1 Doc --
+			//The following combinations of framebuffer object attachments, when all of the attachments are framebuffer attachment complete, non-zero, and have the same width and height, must result in the framebuffer being framebuffer complete
+			//COLOR_ATTACHMENT0 = RGBA/UNSIGNED_BYTE texture
+			//COLOR_ATTACHMENT0 = RGBA/UNSIGNED_BYTE texture + DEPTH_ATTACHMENT = DEPTH_COMPONENT16 renderbuffer
+			//COLOR_ATTACHMENT0 = RGBA/UNSIGNED_BYTE texture + DEPTH_STENCIL_ATTACHMENT = DEPTH_STENCIL renderbuffer
+			
+			//WebGL2:
+			//https://webgl2fundamentals.org/webgl/lessons/webgl-data-textures.html
 
+			//Sized internal formats are supported in WebGL 2.0 and internalformat is no longer required to be the same as format. Instead, the combination of internalformat, format, and type must be listed in the following table:		
+			//RGBA :	RGBA : UNSIGNED_BYTE/UNSIGNED_SHORT_4_4_4_4/UNSIGNED_SHORT_5_5_5_1
+
+			
+		
 					//OpenGL.fTexImage2D(TEXTURE_2D, 0, RGBA, oBuffer.nBuffWidth, oBuffer.nBuffHeight, 0, BGRA, UNSIGNED_BYTE, 0);
 					//OpenGL.fTexImage2D(TEXTURE_2D, 0, RGBA, oBuffer.nBuffWidth, oBuffer.nBuffHeight, 0, RGBA, UNSIGNED_BYTE, 0);
-					OpenGL.fTexImage2D(TEXTURE_2D, 0, RGBA, oBuffer.nBuffWidth, oBuffer.nBuffHeight, 0, BGRA, UNSIGNED_BYTE, 0);
-
+					OpenGL.fTexImage2D(TEXTURE_2D, 0, RGBA, oBuffer.nBuffWidth, oBuffer.nBuffHeight, 0, RGBA, UNSIGNED_BYTE, null); //No BGRA in WebGL
+				/*
 					OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_MAG_FILTER , OpenGL.eTextureMagFilter.LINEAR);
 					OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_MIN_FILTER , OpenGL.eTextureMinFilter.LINEAR);
 			
 					OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_WRAP_S, OpenGL.eTextureWrapMode.REPEAT); // Repeat on X axis
 					OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_WRAP_T, OpenGL.eTextureWrapMode.REPEAT);  // Stretch on Y axis 
+				*/	
+						
+					OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_MAG_FILTER , OpenGL.eTextureMagFilter.NEAREST);
+					OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_MIN_FILTER , OpenGL.eTextureMinFilter.NEAREST);
+			
+					OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_WRAP_S, OpenGL.eTextureWrapMode.CLAMP_TO_EDGE); 
+					OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_WRAP_T, OpenGL.eTextureWrapMode.CLAMP_TO_EDGE);  
+					
+					
 					//OpenGL.fBindTexture(TEXTURE_2D, null);
 			//	}
 			
@@ -119,10 +143,11 @@ package  {
 			//GLenum DrawBuffers[1] = {GL_COLOR_ATTACHMENT0};
 			//glDrawBuffers(1, DrawBuffers); // "1" is the size of DrawBuffers
 				
-				
+				/*
 				var _aBuffer : Array<UInt32>;
 				_aBuffer.fPush(OpenGL.eAttachments.COLOR_ATTACHMENT0);
 				OpenGL.fDrawBuffers(1, _aBuffer);
+				*/
 				
 				/*
 				nIdRender = OpenGL.fCreateRenderBuffer();
@@ -130,11 +155,10 @@ package  {
 				OpenGL.fRenderbufferStorage(RENDERBUFFER, DEPTH_COMPONENT,  oBuffer.nBuffWidth, oBuffer.nBuffHeight); //ES2 requie GL_DEPTH_COMPONENT16?
 				//OpenGL.fBindRenderbuffer(RENDERBUFFER, 0);
 							
-				
 				// Attach a renderbuffer object the binded framebuffer object: _nIdRbo => nIdBuff
 				OpenGL.fFramebufferRenderbuffer(FRAMEBUFFER, DEPTH_ATTACHMENT, RENDERBUFFER, nIdRender);
-				
 				*/
+				
 				
 				//Attach the created texture to FBO color attachement point: oTexId = COLOR_ATTACHMENT0
 			//	OpenGL.fFramebufferTexture2D(FRAMEBUFFER, COLOR_ATTACHMENT0  + oTexture.nSlot, TEXTURE_2D, oTexId, 0);
@@ -167,59 +191,6 @@ package  {
 			//	Debug.fPass("FBO Created|" + nIdBuff + "|Slot:" + oTexture.nSlot + "| [" + (oBuffer.nBuffWidth) + " x " +  (oBuffer.nBuffHeight) + "]" );
 				Debug.fPass("FBO Created|"  + "|Slot:" + oTexture.nSlot + "| [" + (oBuffer.nBuffWidth) + " x " +  (oBuffer.nBuffHeight) + "]" );
 
-				/*
-				/////////////////////////////////////////////////////////////////
-				GL_fActiveTexture( GL_TEXTURE1 );
-
-				//Create a texture fbo
-				GL_fGenTextures(1, &oTexId);
-				GL_fBindTexture(GL_TEXTURE_2D, oTexId);
-
-				GL_fTexImage2D(GL_TEXTURE_2D, 0, GL_INTERNAL_FOMAT, oBuffer->nBuffWidth, oBuffer->nBuffHeight, 0, GL_TEXTURE_FOMAT, GL_UNSIGNED_BYTE, 0);
-
-				GL_fTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER , GL_LINEAR);
-				GL_fTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-				//GL_fTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER , GL_NEAREST);
-				//GL_fTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-
-				GL_fTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // Repeat on X axis
-				GL_fTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);  // Stretch on Y axis
-
-				GL_fBindTexture(GL_TEXTURE_2D, 0);
-
-				GL_fGenFramebuffers(1, &nIdBuff);
-				GL_fBindFramebuffer(GL_FRAMEBUFFER, nIdBuff);
-
-				gzUInt rboId = 0;
-				GL_fGenRenderbuffers(1, &rboId);
-				GL_fBindRenderbuffer(GL_RENDERBUFFER, rboId);
-			  //  glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, nTexWidth, nTexHeight);
-				GL_fRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMP_X,  oBuffer->nBuffWidth, oBuffer->nBuffHeight); //ES2 requie GL_DEPTH_COMPONENT16?
-
-				GL_fBindRenderbuffer(GL_RENDERBUFFER, 0);
-
-				// attach a texture to FBO color attachement point
-				GL_fFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, oTexId, 0);
-			   // glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, nLastTexture, 0);
-
-				// attach a renderbuffer to depth attachment point
-				GL_fFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, rboId);
-
-				aTexCoord[0] = 0.0f;   aTexCoord[1] =  oBuffer->nBuffHeight;   aTexCoord[2] =  oBuffer->nBuffWidth;   aTexCoord[3] = oBuffer->nBuffHeight;
-				aTexCoord[4] = oBuffer->nBuffWidth;   aTexCoord[5] = 0.0f ;   aTexCoord[6] = 0.0f ;       aTexCoord[7] = 0.0f ;
-
-
-				if(!bAutoClear){
-					//Clear
-					GL_fBindFramebuffer(GL_FRAMEBUFFER, nIdBuff);
-					GL_fClearColor(1.0, 1.0, 1.0, 1.0);
-					GL_fClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-					GL_fBindFramebuffer(GL_FRAMEBUFFER, 0); // unbind
-				}
-
-		
-				GL_fBindFramebuffer(GL_FRAMEBUFFER, null);
-			*/
 			
 		}
 		
@@ -232,6 +203,7 @@ package  {
 			var _nStatus : UInt = OpenGL.fCheckFramebufferStatus(FRAMEBUFFER);
 			
 			if(_nStatus == OpenGL.eFrameBufferStatus.FRAMEBUFFER_COMPLETE){
+				Debug.fPass("FBO Status: FRAMEBUFFER_COMPLETE");
 				return _nStatus;
 			}
 			if(_nStatus == OpenGL.eFrameBufferStatus.INCOMPLETE_ATTACHMENT){
@@ -333,11 +305,8 @@ package  {
 		oAt.oAtTexSource1.fSetVal(2, 0);
 		oAt.oAtTexSource1.fSetVal(3, 600);
 
-			
 	
 			oAt.oVbo.fSendData();
-			
-			
 			
 			
 			/*
@@ -351,15 +320,25 @@ package  {
 			/////////////////////////////////
 			*/
 			
+			
 			OpenGL.fBindFramebuffer(FRAMEBUFFER, null); //Default
+			
+			OpenGL.fActiveTexture(TEXTURE0 + oTexture.nSlot);
+			OpenGL.fEnable(TEXTURE_2D); //"Feedback loop formed between Framebuffer and active Texture"
+			
 			OpenGL.fDisable( BLEND );
+			
+			
 				//var _aBuffer : Array<UInt32>;
 				//_aBuffer.fPush(OpenGL.eAttachments.COLOR_ATTACHMENT0);
 				//OpenGL.fDrawBuffers(1, _aBuffer);
 				
 			OpenGL.fDrawElementsInstanced(TRIANGLES, 6, UNSIGNED_BYTE, 0, 1);
 			
-		
+			//Disable
+			OpenGL.fActiveTexture(TEXTURE0 + oTexture.nSlot);
+			OpenGL.fDisable(TEXTURE_2D); //"Feedback loop formed between Framebuffer and active Texture"
+			
 			
 		}
 		

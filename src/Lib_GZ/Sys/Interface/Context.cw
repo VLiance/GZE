@@ -128,7 +128,7 @@ package  {
 				for (gzInt y = 0; y < nFrameHeight; ++y){
 					aDrawZone2D[y] =  (gzInt*)&aDrawZone1D[y * nFrameWidth];
 				}
-				aDrawZone2D[10][5] = 0xFFFFFFFF;
+				//aDrawZone2D[10][5] = 0xFFFFFFFF;
 			</cpp>	
 			if(bWinGPU){
 				oGpu = new Gpu(_nHandleId, true);

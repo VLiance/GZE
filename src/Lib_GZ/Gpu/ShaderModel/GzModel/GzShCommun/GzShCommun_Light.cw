@@ -198,7 +198,7 @@ public class GzShCommun_Light {
 			uniform vec3 vEye_position;
 			//vec3 vEye_position = vec3(  400.0, 300.0, -500.0);
 		
-			vec4 fAddLight(vec4 pixTex, vec3 vPtWorld, vec3 vPtNorm) {
+			vec4 fAddLight(vec4 pixTex, vec3 vPtWorld, vec3 vPtNorm, float _nIntentity ) {
 				
 				vec3 vDark;
 				vec3 vLight;
@@ -294,7 +294,7 @@ public class GzShCommun_Light {
 			 
 				//vColorDiffuse.rgb = (vColorDiffuse.rgb) * ((att *diffuse)*vColorDiffuse.a+(1.0-vColorDiffuse.a)) + vAmbient;
 			//	vColorDiffuse.rgb = (vColorDiffuse.rgb) * (( diffuse*att )*vColorDiffuse.a+(1.0-vColorDiffuse.a)) + vAmbient;
-				vec3 _vDiffuse = (avLight_Color_Diffuse[0].rgb) * (( _nGDiffuse*_nGAtt )*avLight_Color_Diffuse[0].a) + vAmbient;
+				vec3 _vDiffuse = (avLight_Color_Diffuse[0].rgb) * (( _nGDiffuse*_nGAtt* _nIntentity )*avLight_Color_Diffuse[0].a) + vAmbient;
 				
 				vDark  = clamp(_vDiffuse + 1.0, 0.0, 1.0); //0 a 1 -> = 1 if bright
 				vLight = clamp(_vDiffuse , 0.0, 1.0); //0 a 1 -> = 0 if Dark
@@ -310,7 +310,7 @@ public class GzShCommun_Light {
 			  //  vLight = clamp(vColorSpecular.rgb * vColorSpecular.a * specular -1.0, 0.0, 1.0); //0 a 1 -> = 0 if Dark
 			   // vLight = clamp(vColorSpecular.rgb * vColorSpecular.a * (specular *att)  -1.0, 0.0, 1.0); //0 a 1 -> = 0 if Dark
 			  //  vLight = clamp(vColorSpecular.rgb * vColorSpecular.a * ((specular *att)-1.0), 0.0, 1.0); //0 a 1 -> = 0 if Dark
-				vLight = clamp(avLight_Color_Specular[0].rgb * avLight_Color_Specular[0].a * ((_nGSpecular *_nGAtt))  + vLight, 0.0, 1.0); //0 a 1 -> = 0 if Dark
+				vLight = clamp(avLight_Color_Specular[0].rgb * avLight_Color_Specular[0].a * ((_nGSpecular *_nGAtt * _nIntentity))  + vLight, 0.0, 1.0); //0 a 1 -> = 0 if Dark
 				
 
 				pixTex.rgb = (((( vec3(pixTex.a) -  pixTex.rgb )  * vLight) + pixTex.rgb) * vDark  );
