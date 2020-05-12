@@ -80,14 +80,15 @@ package  {
 				
 				bAutoClear = true;
 
-		//FBO
-			
+
 				oTexture = new Texture(oProgram, "ID_FBO");
-				OpenGL.fActiveTexture(TEXTURE0 + oTexture.nSlot);
-				OpenGL.fDisable(TEXTURE_2D); //"Feedback loop formed between Framebuffer and active Texture"
+				
+				//OpenGL.fDisable(TEXTURE_2D); //"Feedback loop formed between Framebuffer and active Texture"
 				
 				oTexId = OpenGL.fCreateTexture();
-				OpenGL.fBindTexture(TEXTURE_2D, oTexId);
+				fEnableTexture();
+				///OpenGL.fActiveTexture(TEXTURE0 + oTexture.nSlot);
+				///OpenGL.fBindTexture(TEXTURE_2D, oTexId);
 				
 				if(oTexId == null){
 					Debug.fError("FBO creation Texture is null");
@@ -186,8 +187,8 @@ package  {
 				fGetStatus();
 				//OpenGL.fBindTexture(TEXTURE_2D, null);
 				OpenGL.fBindFramebuffer(FRAMEBUFFER, null);
-	
-	
+				fDisableTexture();
+				
 			//	Debug.fPass("FBO Created|" + nIdBuff + "|Slot:" + oTexture.nSlot + "| [" + (oBuffer.nBuffWidth) + " x " +  (oBuffer.nBuffHeight) + "]" );
 				Debug.fPass("FBO Created|"  + "|Slot:" + oTexture.nSlot + "| [" + (oBuffer.nBuffWidth) + " x " +  (oBuffer.nBuffHeight) + "]" );
 
@@ -323,8 +324,7 @@ package  {
 			
 			OpenGL.fBindFramebuffer(FRAMEBUFFER, null); //Default
 			
-			OpenGL.fActiveTexture(TEXTURE0 + oTexture.nSlot);
-			OpenGL.fEnable(TEXTURE_2D); //"Feedback loop formed between Framebuffer and active Texture"
+			fEnableTexture();
 			
 			OpenGL.fDisable( BLEND );
 			
@@ -335,12 +335,26 @@ package  {
 				
 			OpenGL.fDrawElementsInstanced(TRIANGLES, 6, UNSIGNED_BYTE, 0, 1);
 			
-			//Disable
-			OpenGL.fActiveTexture(TEXTURE0 + oTexture.nSlot);
-			OpenGL.fDisable(TEXTURE_2D); //"Feedback loop formed between Framebuffer and active Texture"
-			
-			
+			//Disable Texture with buffer may have: "Feedback loop formed between Framebuffer and active Texture"
+			fDisableTexture();
 		}
+		
+		
+		 public function fEnableTexture():Void {
+			//Disable Texture with buffer may have: "Feedback loop formed between Framebuffer and active Texture"
+			OpenGL.fActiveTexture(TEXTURE0 + oTexture.nSlot);
+			OpenGL.fBindTexture(TEXTURE_2D, oTexId); 
+			////////////////////////////////////////
+		 }
+		
+		 public function fDisableTexture():Void {
+			//Disable Texture with buffer may have: "Feedback loop formed between Framebuffer and active Texture"
+			OpenGL.fActiveTexture(TEXTURE0 + oTexture.nSlot);
+			OpenGL.fBindTexture(TEXTURE_2D, null); 
+			////////////////////////////////////////
+		 }
+		
+		
 		
 		override public function fDraw( _oSource : Object, _nX_Start : Int, _nX_End : Int, _nY_Start : Int, _nY_End : Int):Void{
 			
