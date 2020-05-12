@@ -12,6 +12,7 @@ package  {
 	import GZ.Gfx.Attribute;  
 	import GZ.Base.Math.Math;
 	import GZ.Gpu.GpuObj.GpuObject;
+	import GZ.Pipeline.Processing;
 
 	
 	/**
@@ -112,7 +113,8 @@ package  {
 		}
 		
 		/////////////////////////////////////////////////
-		public function fRender( ):Void {
+		//Overited
+		public function fRender(_oProcessing:Processing):Void {
 			
 		}
 		

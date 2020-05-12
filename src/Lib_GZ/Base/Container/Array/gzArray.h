@@ -580,8 +580,23 @@ class gzArray {
 		}
 		 
 		return  ((T*)m.aData->aTab)[_nIndex];
-		
 	}
+	
+	
+	inline T&  fUnsafe_Get(gzUIntX _nIndex) const {
+		return  ((T*)m.aData->aTab)[_nIndex];
+	}
+	/*
+	inline T&  fUnsafe_Set(gzUIntX _nIndex) const {
+		return  ((T*)m.aData->aTab)[_nIndex];
+	}*/
+
+	inline void fUnsafe_Set(gzUIntX _nIndex, const T& _oObj) const {
+		return  ((T*)m.aData->aTab)[_nIndex] = _oObj;
+	}
+	
+	
+	
 	inline const T&  fPush(const T& _oObj) const {
 		
 		(*this)[gzp_length] = _oObj;

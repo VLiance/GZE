@@ -27,7 +27,10 @@ package  {
 		public var rPt4 : Mapped<uPoint3D>;
 */
 		
-
+		//public static var nRenderTotal : UInt;
+		
+		
+		
 		public var oPt1 : PtA;
 		public var oPt2 : PtA;
 		public var oPt3 : PtA;

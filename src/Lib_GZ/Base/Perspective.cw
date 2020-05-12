@@ -85,7 +85,11 @@ package  {
 			nHFov = Math.fToDegree(_nHFov);
 				
 			Debug.fWarning("nHFov " + nHFov );
-			
+			/*
+			<cpp>
+			printf("nVal %f ", nValue );
+			</cpp>
+			*/
 		}
 		
 		

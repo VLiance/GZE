@@ -14,11 +14,12 @@ package  {
 	import GZ.Gfx.Clip.Rectangle;
 	import GZ.Gpu.GpuObj.GpuBuffer;
 	import GZ.Gpu.GpuObj.GpuFace;
-
+	import GZ.Gfx.Face;
 	import GZ.Sys.System;
 	import GZ.Sys.ThreadItf;
 	import GZ.Input.Key;
 	import GZ.Gpu.ShaderModel.GzModel.GzShModel;
+	import GZ.Pipeline.Processing;
 
 	
 	/**
@@ -44,6 +45,7 @@ package  {
 		public var nHalfFrameHeight : Float;
 		
 		public var oKey : Key; 
+		public var oProcessing : Processing; 
 
 
 
@@ -109,7 +111,7 @@ package  {
 			nHalfFrameWidth = nFrameWidth/2.0;
 			nHalfFrameHeight = nFrameHeight/2.0;
 			
-			
+			oProcessing = new Processing(this);
 			
 		}
 
@@ -201,10 +203,13 @@ package  {
 				//fDispatchAll(rAllDispacher.qa Render);
 				
 				if(oContext.bIniDrawZone ){ //Temp
-					fDispatchRender(); 
+					//Face.nRenderTotal = 0;
+					oProcessing.fIni();
+					fDispatchRender(oProcessing);
+					oProcessing.fBuild_Array();
+					oProcessing.fGpuDraw();
 				}
 				
-			
 				if (oBackground) { 
 					oBackground.fDraw();
 				//	Debug.fTrace("Draw Background")

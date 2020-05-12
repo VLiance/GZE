@@ -9,6 +9,7 @@ package  {
 	import GZ.Gfx.Object;
 	import GZ.Gfx.Root;
 	import GZ.Base.Math.Math;
+	import GZ.Pipeline.Processing;
 	
 	/**
 	 * @author Maeiky
@@ -31,12 +32,17 @@ package  {
 			
 		}
 		
-
-		override public function fDraw():Void {
-			fDispatchRender();
+		//TODO I change method of render this function is a new one
+		override public function fRender(_oProcessing:Processing):Void {
+			fDispatchRender(_oProcessing:Processing);
 
 		}
-		
+		/*
+		override public function fDraw(_oProcessing:Processing):Void {
+			fDispatchRender(_oProcessing:Processing);
+
+		}
+		*/
 		
 		override public function fContextResume():Void {
 			fDispatchContextResume();

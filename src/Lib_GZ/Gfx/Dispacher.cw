@@ -7,7 +7,8 @@ package  {
 	import GZ.Gfx.Object;
 	import GZ.Gfx.Buffer;
 	import GZ.Gfx.Root;
-
+	import GZ.Pipeline.Processing;
+	
 	/**
 	 * @author Maeiky
 	 */
@@ -92,12 +93,12 @@ package  {
 			}
 		}
 
-		public function fDispatchRender() :Void {
+		public function fDispatchRender(_oProcessing:Processing) :Void {
 
 			for(var i : Int = 0; i< aChild.nSize; i++){
 				var _oChild : Root = aChild[i];
 			//forEach(var _oChild : Root  in  aChild){
-				_oChild.fRender();
+				_oChild.fRender(_oProcessing:Processing);
 			}
 		}
 

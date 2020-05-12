@@ -17,6 +17,7 @@ package  {
 	import GZ.Base.Pt;
 	import GZ.Base.Poly4;
 	import GZ.Base.Quaternion;
+	import GZ.Pipeline.Processing;
 
 
 
@@ -26,6 +27,7 @@ package  {
 	public class Shape extends Object {   //Not shape but square form
 
 		public const var nBorder : UInt = 1; //Must be same ase png.h
+		public var nZLayer : Float; //Must be same ase png.h
 
 		use Triangle.uPoint3D;
 		//use Triangle.uPoint2D;
@@ -145,13 +147,7 @@ package  {
 		}
 
 
-		override public function fGpuDraw():Bool {
-			if(oFace != null){
-				oFace.fGpuDraw();
-			}
-			return true;
-		}
-
+	
 		public function fIsInside():Bool {
 			
 			var _nL : Float;
@@ -188,6 +184,12 @@ package  {
 		}
 
 
+		override public function fGpuDraw():Bool {
+			if(oFace != null){
+				oFace.fGpuDraw();
+			}
+			return true;
+		}
 
 		override public function fCpuDraw(_nPosX: Int, _nPosY:Int, _nX_Start : Int, _nX_End : Int, _nY_Start : Int, _nY_End : Int):Bool {
 		
@@ -196,9 +198,8 @@ package  {
 			if(	oGblPt.vPt.nZ < oItf.nHalfFrameHeight * -1){ //Todo find better way
 				return false;
 			}*/
-
-
-
+			
+			
 			fTransform();
 			fConvertTo2d();
 
@@ -304,6 +305,8 @@ package  {
 		
 		
 
+		
+
 		public function fTransform():Void {
 
 			//var _nRoll : Float = vGblRot.nRoll;
@@ -354,12 +357,14 @@ package  {
 
 
 		public function fConvertTo2d():Void {
-
+		
+			nZLayer = 99999999999999999.0; //Inf?
 		
 			//Debug.fTrace("AAAA: " +oDstBuff.oPerspective.nFromX + ", " +oDstBuff.oPerspective.nFromY + ", " + oDstBuff.oPerspective.nValue + ", " + oDstBuff.oPerspective.nType )
 			
 		
 			var _nFocal : Float = oDstBuff.oPerspective.nValue;
+		
 			
 			//var _nX : Float = oGblPt.vPt.nX + 0.25;
 			//var _nY : Float = oGblPt.vPt.nY - 0.25;
@@ -379,6 +384,9 @@ package  {
 					_oPt.o2d.nX = _oPt.vFinal.nX / _nZ + _nX;
 					_oPt.o2d.nY = _oPt.vFinal.nY / _nZ + _nY;
 					_oPt.o2d.nZ = _nZ;
+					if(_nZ < nZLayer){
+						nZLayer = _nZ;
+					}
 				}
 				
 
@@ -394,8 +402,10 @@ package  {
 					_oPt.o2d.nX = (_oPt.vFinal.nX + (_nX - _nFromX)) / _nZ - (_nX - _nFromX) + _nX;
 					_oPt.o2d.nY = (_oPt.vFinal.nY + (_nY - _nFromY)) / _nZ - (_nY - _nFromY) + _nY;
 					_oPt.o2d.nZ = _nZ;
+					if(_nZ < nZLayer){
+						nZLayer = _nZ;
+					}
 				}
-			
 			}
 		
 		}
@@ -426,6 +436,26 @@ package  {
 				
 			}
 		}
+		
+		
+		
+		
+		
+		override public function fRender(_oProcessing:Processing):Void {
+			//Is Apox Inside?
+			//fDraw();
+			if(oFace != null){ //TODO can we have no Face?
+				fTransform();
+				fConvertTo2d();
+				//TODO Keep only visible object
+				//if(fTestInside()){
+				_oProcessing.fAdd(this);	
+			}	
+				//Face.nRenderTotal++;
+			//	Debug.fTrace("aa");
+			//}
+		}
+		
 		
 		
 	}

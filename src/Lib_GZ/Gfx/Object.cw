@@ -11,6 +11,7 @@ package  {
 	import GZ.Base.Math.Math;
 	import GZ.Gfx.Pixel;
 	import GZ.Sys.Interface.Interface;
+	import GZ.Pipeline.Processing;
 	
 	//import GZ.image.Png;
 	
@@ -70,15 +71,32 @@ package  {
 		////////////////////////////////////////////////////////////////
 		
 		//public function draw(_oSource : Object):UInt {
-
+		
+		
+		/*
 		override public function fRender():Void {
 			//Is Apox Inside?
 			
-			fDraw();
+			//fDraw();
+			
+			fTransform();
+			fConvertTo2d();
+			//TODO Keep only visible object
+			//if(fTestInside()){
+				
+				
+			//}
 		}
+		*/
 		
-		
-		public function fDraw():Void {
+		override public function fRender(_oProcessing:Processing):Void {
+			//Is Apox Inside?
+			//Debug.fTrace("eee");
+			//TODO removed
+		//	fDraw(); 
+		}
+	
+		public function fDraw():Void { ///Temp Removed
 			
 			if (oItf.oContext.bWinGPU) {
 				fGpuDraw();
