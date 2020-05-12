@@ -14,9 +14,11 @@
 		public var nSort_Top :Float ;
 		public var nSort_Near :Float ;
 		public var nSort_Far :Float ;
+		public var nTotalFac :Int ;
 		public var nTotal :Int ;
 		public var nFloatTotal :Float ;
-		public var nRemaining :Float ;
+		public var nRemaining :Int ;
+		public var nPlacementFactor :Int = 4;
 		
 			
 		public function Processing(_oItf : Interface):Void {
@@ -51,7 +53,8 @@
 		
 		public function fBuild_Array():Void {
 			nTotal = aObj.nSize;
-			nFloatTotal = nTotal;
+			nTotalFac =  nTotal * nPlacementFactor;
+			nFloatTotal = nTotalFac;
 		
 			Debug.fTrace("Total Obj to draw: " + aObj.nSize);
 			//Debug.fTrace("nSort_Near: " + nSort_Near);
@@ -63,19 +66,7 @@
 		}
 		
 		
-		public function fMoveRight(_oObj : Shape, _nIndex:UInt):Void {
-			while(_nIndex < nTotal){
-				_nIndex++;
-				if(aShorted.fUnsafe_Get(_nIndex) == 0){
-					aShorted.fUnsafe_Get(_nIndex) = _oObj;
-				}else{
-					var _oGet : Shape =  aShorted.fUnsafe_Get(_nIndex);
-					if(_oObj.nZLayer <  _oGet.nZLayer){
-						
-					}
-				}
-			}
-		}
+
 		
 		public function fApproximateFill():Void {
 			aRemaining.fClear();
@@ -95,24 +86,71 @@
 			}
 		}
 		
+		public function fPlaceRemaining():Void {
+			Debug.fTrace("nRemaining " + nRemaining);
+			for(var i: Int = 0; i < nRemaining; i++){
+				var _oObj : Shape = aRemaining.fUnsafe_Get(i);
+				var _nApprox : Float = (_oObj.nZLayer - nSort_Far) * nFloatTotal / nSort_Top;
+				var _nIndex : Int = _nApprox;
+				/*
+				if(aShorted.fUnsafe_Get(_nIndex) == 0){
+				
+				}else{
+					if(){
+						fMoveRight(_oObj, _nIndex);
+						fMoveRight(_oObj, _nIndex);
+					}else{
+					
+					}
+				}*/
+			
+				/*
+				if(aShorted.fUnsafe_Get(_nApprox) == 0){
+					aShorted.fUnsafe_Get(_nApprox) = _oObj;
+				}else{
+					aRemaining.fUnsafe_Get(nRemaining) = _oObj;
+					nRemaining++;
+				}*/
+				
+			}
+		}
+		
+		
+		public function fMoveRight(_oObj : Shape, _nIndex:UInt):Void {
+			while(_nIndex < nTotalFac){
+				_nIndex++;
+				if(aShorted.fUnsafe_Get(_nIndex) == 0){
+					aShorted.fUnsafe_Get(_nIndex) = _oObj;
+				}else{
+					var _oGet : Shape =  aShorted.fUnsafe_Get(_nIndex);
+					if(_oObj.nZLayer <  _oGet.nZLayer){
+						
+					}
+				}
+			}
+		}
 		
 		public function fSortElements():Void {
 			aShorted.fClear();
-			aShorted.fSetSize(nTotal);
-			
+			aShorted.fSetSize(nTotalFac);
 			fApproximateFill();
+			fPlaceRemaining();
 		}
 		
 		
 		public function fGpuDraw():Bool {
-			var i : Int =  nTotal;
+			var _nTotalDraw :Int= 0;
+
+			var i : Int =  nTotalFac;
 			while(i > 0){
 				i--;
 				var _oObj : Shape = aShorted.fUnsafe_Get(i);
 				if(_oObj != 0){
 					_oObj.oFace.fGpuDraw();
+					_nTotalDraw++;
 				}
 			}
+			Debug.fTrace("_nTotalDraw " + _nTotalDraw);
 		}
 		
 		
