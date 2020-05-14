@@ -157,13 +157,13 @@ package  {
 				}
 				
 				oGpuObj.fIni(oGzShModel.oProgram); //FBO
+			}else{
+				if (oContext.bSemiTransparent != true) { //If transparent go to CPU draw
+					oBackground = new Rectangle(this, 0p, 0p, oContext.nFrameWidth, oContext.nFrameHeight,  oContext.nBgColor);
+				}
 			}
 			fWinStart();
 			
-			if (oContext.bSemiTransparent != true) { //If transparent go to CPU draw
-				oBackground = new Rectangle(this, 0p, 0p, oContext.nFrameWidth, oContext.nFrameHeight,  oContext.nBgColor);
-			}
-		
 
 			oContext.fInitialised();
 			

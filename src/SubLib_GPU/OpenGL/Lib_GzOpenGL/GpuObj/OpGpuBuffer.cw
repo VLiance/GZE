@@ -15,7 +15,8 @@ package  {
 	import GZ.Base.Vec4;
 	import GZ.Gpu.Base.Texture;
 	import GZ.Gpu.ShaderBase.ProgramShader;
-
+	import GZ.Sys.Interface.Context;
+	
 	<cpp>
 		#define GL_DEPTH_COMP_X GL_DEPTH_COMPONENT
 		#ifdef GZ_tAndroid
@@ -177,7 +178,21 @@ package  {
 				if(bAutoClear){
 					//Clear
 					OpenGL.fBindFramebuffer(FRAMEBUFFER, nIdBuff);
-					OpenGL.fClearColor(0.5, 1.0, 0.5, 1.0);
+					//OpenGL.fClearColor(0.5, 1.0, 0.5, 1.0);
+					
+					var _nColor : UInt32 =  Context.nBgColor;
+					 if(_nColor & 0x000000FF) != 0){ //Not for completly alpha
+						var _nRed : Float = ((_nColor & 0xFF000000) >> 24) / 256.0;
+						var _nGreen : Float = ((_nColor & 0x00FF0000) >> 16) / 256.0;
+						var _nBlue : Float = ((_nColor & 0x0000FF00) >> 4) / 256.0;
+						var _nAlpha : Float = ((_nColor & 0x000000FF) ) / 256.0;
+					
+						OpenGL.fClearColor(_nRed,_nGreen,_nBlue,_nAlpha); //Just to change background color, TODO maybe faster to use shader, or maybe not (Blend is slow)
+						//OpenGL.fClear(COLOR_BUFFER_BIT)
+						//OpenGL.fClearColor(1.0, 1.0, 1.0, 1.0);
+					}
+					
+					
 					OpenGL.fClear(COLOR_BUFFER_BIT );
 					//GL_fClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 					//GL_fBindFramebuffer(GL_FRAMEBUFFER, 0); // unbind
@@ -326,7 +341,7 @@ package  {
 			
 			fEnableTexture();
 			
-			OpenGL.fDisable( BLEND );
+			OpenGL.fDisable( BLEND ); //Not for webGL? 
 			
 			
 				//var _aBuffer : Array<UInt32>;

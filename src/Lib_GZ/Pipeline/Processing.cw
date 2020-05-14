@@ -56,7 +56,7 @@
 			nTotalFac =  nTotal * nPlacementFactor;
 			nFloatTotal = nTotalFac;
 		
-			Debug.fTrace("Total Obj to draw: " + aObj.nSize);
+			Debug.fDebug("Total Obj to draw: " + aObj.nSize);
 			//Debug.fTrace("nSort_Near: " + nSort_Near);
 			//Debug.fTrace("nSort_Far: " + nSort_Far);
 
@@ -87,7 +87,7 @@
 		}
 		
 		public function fPlaceRemaining():Void {
-			Debug.fTrace("nRemaining " + nRemaining);
+			Debug.fDebug("nRemaining " + nRemaining);
 			for(var i: Int = 0; i < nRemaining; i++){
 				var _oObj : Shape = aRemaining.fUnsafe_Get(i);
 				var _nApprox : Float = (_oObj.nZLayer - nSort_Far) * nFloatTotal / nSort_Top;
@@ -139,18 +139,28 @@
 		
 		
 		public function fGpuDraw():Bool {
+		
+			////////// Temp disable Sort
+			for(var i: Int = 0; i < nTotal; i++){
+				var _oObj : Shape = aObj.fUnsafe_Get(i);
+				_oObj.oFace.fGpuDraw();
+			}
+			return false;
+			//////////////////////////////////
+		
+		
 			var _nTotalDraw :Int= 0;
 
 			var i : Int =  nTotalFac;
 			while(i > 0){
 				i--;
 				var _oObj : Shape = aShorted.fUnsafe_Get(i);
-				if(_oObj != 0){
+				if(_oObj != null){
 					_oObj.oFace.fGpuDraw();
 					_nTotalDraw++;
 				}
 			}
-			Debug.fTrace("_nTotalDraw " + _nTotalDraw);
+			Debug.fDebug("_nTotalDraw " + _nTotalDraw);
 		}
 		
 		

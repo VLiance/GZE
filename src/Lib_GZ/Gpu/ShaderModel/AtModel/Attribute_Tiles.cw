@@ -34,7 +34,7 @@ package  {
 		
 		public function Attribute_Tiles(_oVbo : Vbo):Void {
 			oVbo = _oVbo;
-			Debug.fTrace("--- Attribute_Tiles Created!! ---");
+			//Debug.fTrace("--- Attribute_Tiles Created!! ---");
 			
 		}
 		

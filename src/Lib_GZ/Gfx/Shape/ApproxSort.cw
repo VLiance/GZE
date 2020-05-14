@@ -46,7 +46,7 @@
 			nTotalFac =  nTotal * nPlacementFactor;
 			nFloatTotal = nTotalFac;
 		
-			Debug.fTrace("Total Obj to draw: " + aObj.nSize);
+			Debug.fDebug("Total Obj to draw: " + aObj.nSize);
 			//Debug.fTrace("nSort_Near: " + nSort_Near);
 			//Debug.fTrace("nSort_Far: " + nSort_Far);
 

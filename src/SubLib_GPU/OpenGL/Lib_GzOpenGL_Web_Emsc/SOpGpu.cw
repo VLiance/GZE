@@ -62,8 +62,8 @@
 			Debug.fTrace("*********** SOP EMSC!! fContextIni GPU : " );
 			
 			
-			OpenGL.fClearColor(1.0, 0.0, 0.0, 0.5);
-			
+			//OpenGL.fClearColor(1.0, 0.0, 0.0, 0.5);
+			OpenGL.fClearColor(0.0, 0.0, 0.0, 0.0);
 			OpenGL.fClear(COLOR_BUFFER_BIT);
 			
 			//fLoadDefaultShader();

@@ -25,6 +25,15 @@ package {
 			</cpp>
 		}
 		
+		 function fDebug(_sValue:String):Void {
+			<cpp>
+			#ifdef D_Debug
+		 	</cpp>
+			Debug.fConsole(_sValue);
+			<cpp>
+			#endif
+		 	</cpp>
+		}
 
 		 function fTrace(_sValue:String):Void {
 			Debug.fConsole(_sValue);

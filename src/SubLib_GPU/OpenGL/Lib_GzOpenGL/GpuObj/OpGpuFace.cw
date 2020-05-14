@@ -53,15 +53,18 @@ package  {
 		oAt.oAtObjPos.fSet(oFace.oShape.oParent.oGblPt.vPt);
 		oAt.oAtObjSize.fSet(oFace.oShape.oParent.vGblSize);
 		
+		//Debug.fTrace("-+-----aaa " + oFace.oShape.oRc.nWidth);
+		
 		//Set Texture location
-		if(oFace.oShape.oRc.oLinkRc.oGpuTexLayer != null){
+		if(oFace.oShape.oRc != null && oFace.oShape.oRc.oLinkRc.oGpuTexLayer != null){
 			oAt.oAtObjSize.fSetVal(3, oFace.oShape.oRc.oLinkRc.oGpuTexLayer.nSlot);  //Use 4e value ObjSize var to save space
+		}else{
+			oAt.oAtObjSize.fSetVal(3,-1);//-1 = no RC
 		}
 
 		//oAtObjSize
 		oAt.oAtObjRot.fSet(oFace.oShape.oParent.vQuaternion);
-		
-
+	
 		
 		oAt.oAtPt1.fSet(oFace.oPt1.vTf);
 		oAt.oAtPt2.fSet(oFace.oPt2.vTf);
