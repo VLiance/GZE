@@ -86,7 +86,7 @@ package  {
 		override public function fUpdateChildToParent():Void {
 			nClipX += 40;
 			nClipY += 40;
-			fApplyPos();
+			//fApplyPos();
 		}
 		*/
 		

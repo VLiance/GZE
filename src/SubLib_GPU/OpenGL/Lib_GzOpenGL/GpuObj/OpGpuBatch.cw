@@ -47,7 +47,7 @@ package  {
 	
 			var _nNbElement : Int  = GpuFace.nCurrent;
 			
-			//Debug.fTrace("---Draw _nNbElement: " + _nNbElement);
+			Debug.fDebug("---Batch _nNbElement: " + _nNbElement);
 			
 	
 			if(oFBO_Destination == null){

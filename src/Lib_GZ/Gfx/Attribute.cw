@@ -164,11 +164,10 @@ package  {
 			<cpp>
 			//GZ_printf("Test0\n");
 			</cpp>
-			vGblSize = vSize;
+		//	vGblSize = vSize;
 			
 			vGblSize = vSize * oParent.vGblSize;
 		
-			
 		//	vGblColor = vGblColor * oParent.vGblColor;
 		}
 		
