@@ -38,11 +38,13 @@ package  {
 		
 		
 		public function GzShModel():Void {
+			Debug.fTrace("fLoad GzShModel");
 			fLoad();
 		}
 		
 		public function fLoad():Bool {
-
+			Debug.fTrace("fLoad GzShModel");
+			
 			oVertex = new VertexShader();
 			oFragement = new FragmentShader();
 			oProgram = new ProgramShader();
@@ -116,6 +118,7 @@ package  {
 		
 		
 		public function fIni_Base():Void {
+			Debug.fDebug("fIni_Base not implemented");
 		}
 		public function fLoad_Base():Void {
 		}

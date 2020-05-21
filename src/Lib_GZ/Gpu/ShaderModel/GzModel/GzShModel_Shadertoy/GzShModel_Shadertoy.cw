@@ -17,15 +17,12 @@ package  {
 	import GZ.Sys.Interface.Context;
 	import GZ.Gpu.ShaderModel.GzModel.GzShModel;
 	import GZ.Gpu.ShaderModel.AtModel.Attribute_Quad;
-	import GZ.Gpu.ShaderModel.GzModel.GzShModel_Quad.GzShModel_Quad_Vertex;
+	import GZ.Gpu.ShaderModel.GzModel.GzShModel_Shadertoy.GzShModel_Shadertoy_Vertex;
 	import GZ.Gpu.ShaderModel.GzModel.GzShCommun.GzShCommun_Light;
+	import GZ.Input.Key;
+	import GzOpenGL.OpenGL;
 	
-	
-	//import GZ.Base.TestPod;
-	//import GZ.Base.TestPod2;
-	
-	
-	public class GzShModel_Quad extends GzShModel_Quad_Vertex {
+	public class GzShModel_Shadertoy extends GzShModel_Shadertoy_Vertex {
 
 		public var oAt : Attribute_Quad;
 		
@@ -34,7 +31,7 @@ package  {
 		public var oVbo : Vbo;
 		
 	
-		public function GzShModel_Quad():Void {
+		public function GzShModel_Shadertoy():Void {
 			Debug.fTrace("--- GzShModel Created!! ---");
 		}
 		
@@ -75,6 +72,8 @@ package  {
 			oUnType = new UnInt(oProgram, "nType");
 			oUvPersp = new UnVec4(oProgram, "vPersp");
 			
+			oUvPosition = new UnVec2(oProgram, "vPosition");
+			
 			GzShCommun_Light.fIniData(oProgram);
 		}
 		
@@ -94,6 +93,34 @@ package  {
 			
 			oVboBatch.fSetDefaultDataVertexID();
 			oVboBatch.fSendData();
+		
+		
+			<cpp>
+				static gzFloat _nTime = 0;
+				_nTime+=0.01666; //60fps
+				oUiTime->nVal = _nTime;
+			</cpp>
+		
+			oUiTime.fSend();
+			
+			
+			//Key
+			var _nSpeed : Float = 0.1;
+			if(Key.fIsDown(Up)){
+				oUvPosition.vVal.nY += _nSpeed;
+			}
+			if(Key.fIsDown(Down)){
+				oUvPosition.vVal.nY -= _nSpeed;
+			}
+			if(Key.fIsDown(Left)){
+				oUvPosition.vVal.nX -= _nSpeed;
+				//Debug.fTrace("Left");
+			}
+			if(Key.fIsDown(Right)){
+				oUvPosition.vVal.nX += _nSpeed;
+			}
+			oUvPosition.fSend();
+		
 		
 
 			oUiMouse.vVal.nX = Context.nMouseX/Context.nFrameWidth - 0.5;
@@ -119,6 +146,8 @@ package  {
 			GzShCommun_Light.fSendLight();
 			
 	//oGpuBatch.fSetDestination(null); For test
+			OpenGL.fClearColor(0.0, 0.0, 0.0, 0.0);
+			
 			oGpuBatch.fDraw();
 			
 		//	for(var i : Int = 0; i < 50; i++){

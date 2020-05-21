@@ -44,7 +44,7 @@ package  {
 		
 
 		override public function fIni_Base():Void {
-		
+				Debug.fDebug("fIni_Base Tiles");
 			oVbo = new Vbo(oProgram);
 			
 			oAt = new Attribute_Quad(oVbo);

@@ -18,7 +18,7 @@ package  {
 	//import GZ.Base.TestPod2;
 	
 	
-	public overclass GzShModel_Shadertoy extends GzShModel {
+	public overclass GzShModel_Shadertoy_Sphere extends GzShModel {
 		/*
 		public var oVertex : VertexShader;
 		public var oFragement : FragmentShader;
@@ -27,8 +27,8 @@ package  {
 		public var oVboBatch : Vbo;
 		public var oUiMouse : UnVec2;
 		*/
-		public function GzShModel_Shadertoy():Void {
-			Debug.fTrace("--- GzShModel_Shadertoy Created!! ---");
+		public function GzShModel_Shadertoy_Sphere():Void {
+			Debug.fTrace("--- GzShModel_Shadertoy Sphere Created!! ---");
 		}
 		
 		override function fLoad():Bool {

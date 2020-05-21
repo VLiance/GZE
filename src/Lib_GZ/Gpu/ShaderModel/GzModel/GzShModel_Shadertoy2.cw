@@ -33,7 +33,7 @@ package  {
 		public var oVbo : Vbo;
 		
 		public function GzShModel_Shadertoy():Void {
-			Debug.fTrace("--- GzShModel_Shadertoy Created!! ---");
+			Debug.fTrace("--- GzShModel_Shadertoy Created!! AA ---");
 		}
 		
 		
@@ -44,10 +44,11 @@ package  {
 			
 			oAt = new Attribute_Quad(oVbo);
 			Attribute_Quad = oAt; //Singleton
+			fLoadAll();
 		}
 		
 		
-		override function fLoad():Bool {
+		public function fLoadAll():Bool {
 			oVertex = new VertexShader();
 			oFragement = new FragmentShader();
 			oProgram = new ProgramShader();
@@ -305,7 +306,8 @@ void mainImage(out vec4 fragColor,in vec2 fragCoord)
 			//oProgram.fAttachAttribute(_oAtObjPos);
 		//	oProgram.fAttachAttribute(_oAtVertexID);
 			
-			
+			oAt.fLocateAttribute(oProgram);
+
 			oUiTime = new UnFloat(oProgram, "iTime");
 			oUiMouse = new UnVec2(oProgram, "iMouse");
 			oUiResolution = new UnVec2(oProgram, "iResolution");
