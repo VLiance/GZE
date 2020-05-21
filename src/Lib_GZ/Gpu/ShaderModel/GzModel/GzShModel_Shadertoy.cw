@@ -14,6 +14,7 @@ package  {
 	import GZ.Gpu.ShaderModel.GzModel.GzShModel;
 	import GZ.Input.Key;
 	import GZ.Gpu.Base.UnInt;
+	import GZ.Gpu.ShaderModel.AtModel.Attribute_Quad;
 	//import GZ.Base.TestPod;
 	//import GZ.Base.TestPod2;
 	
@@ -27,9 +28,24 @@ package  {
 		public var oVboBatch : Vbo;
 		public var oUiMouse : UnVec2;
 		*/
+		
+		public var oAt : Attribute_Quad;
+		public var oVbo : Vbo;
+		
 		public function GzShModel_Shadertoy():Void {
 			Debug.fTrace("--- GzShModel_Shadertoy Created!! ---");
 		}
+		
+		
+			
+		override public function fIni_Base():Void {
+			Debug.fTrace("fIni_Base !!!  ------------------");
+			oVbo = new Vbo(oProgram);
+			
+			oAt = new Attribute_Quad(oVbo);
+			Attribute_Quad = oAt; //Singleton
+		}
+		
 		
 		override function fLoad():Bool {
 			oVertex = new VertexShader();

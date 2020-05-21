@@ -35,9 +35,10 @@ package  {
 	//	public function fIni(_oFace:Face):Void;
 
 	override public function fDraw( _oSource : Buffer, _nX_Start : Int, _nX_End : Int, _nY_Start : Int, _nY_End : Int):Void{
-	//	Debug.fTrace("GPU draw face! " );
+		//Debug.fTrace("GPU draw face! " );
 		//fCreateDara();
 		
+
 		oAt = Attribute_Quad;
 		<cpp>
 		if(oAt == 0){ //TODO correction in C~ if(oAt == null){

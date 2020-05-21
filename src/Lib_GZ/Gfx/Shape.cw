@@ -185,6 +185,7 @@ package  {
 
 
 		override public function fGpuDraw():Bool {
+			
 			if(oFace != null){
 				oFace.fGpuDraw();
 			}
