@@ -43,15 +43,31 @@ public class GzShCommun_Base {
 	}
 	
 
-	public static function fAdd_Default_15_Slot(_oShader:ShaderBase):Bool {
+	public static function fAdd_Default_15_Slot(_oShader:ShaderBase, _bMinimalShare : Bool = false):Bool {
+		
+		if(_bMinimalShare){
+			<glsl(_oShader)>
+				//Max is 15 Slot to be portable -> Max slot #14
+				no_shared_mat4 _Slot_0_3; //WorldPos
+				no_shared_mat4 _Slot_4_7;
+				no_shared_mat4 _Slot_8_11;
+				no_shared_ivec4 _Slot_12;
+				no_shared_ivec4 _Slot_13;
+				no_shared_ivec4 _Slot_14;
+			</glsl>	
+		}else{
+			<glsl(_oShader)>
+				//Max is 15 Slot to be portable -> Max slot #14
+				shared_mat4 _Slot_0_3; //WorldPos
+				shared_mat4 _Slot_4_7;
+				shared_mat4 _Slot_8_11;
+				shared_ivec4 _Slot_12;
+				shared_ivec4 _Slot_13;
+				shared_ivec4 _Slot_14;
+			</glsl>	
+		}
+		
 		<glsl(_oShader)>
-			//Max is 15 Slot to be portable -> Max slot #14
-			shared_mat4 _Slot_0_3; //WorldPos
-			shared_mat4 _Slot_4_7;
-			shared_mat4 _Slot_8_11;
-			shared_ivec4 _Slot_12;
-			shared_ivec4 _Slot_13;
-			shared_ivec4 _Slot_14;
 
 			#define rv_Slot_0   _Slot_0_3[0]  //in vec3 vTriPtWorld; [Time]
 			#define sh_Slot_4   _Slot_0_3[1]  //iomWorldPt?
@@ -120,8 +136,11 @@ public class GzShCommun_Base {
 			#define shared_ivec4 xflat xshared ivec4 
 			#define shared_vec4 xshared vec4 
 			#define shared_mat4 xshared mat4 
-
 			
+			#define no_shared_ivec4 ivec4 
+			#define no_shared_vec4  vec4 
+			#define no_shared_mat4  mat4 
+
 		</glsl>	
 	}
 	
@@ -147,6 +166,10 @@ public class GzShCommun_Base {
 			#define shared_ivec4 xflat xshared ivec4 
 			#define shared_vec4 xshared vec4 
 			#define shared_mat4 xshared mat4 
+			
+			#define no_shared_ivec4 ivec4 
+			#define no_shared_vec4  vec4 
+			#define no_shared_mat4  mat4 
 
 			
 			////////////////  SLot

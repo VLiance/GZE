@@ -377,6 +377,7 @@ generate "OpenGL" {
 		
 		public enum eBufferTarget : Int {
 			ARRAY_BUFFER		 = 0x8892;
+			UNIFORM_BUFFER       = 0x8A11;
 			READ_BUFFER          = 0x0C02;
 			TEXTURE_BUFFER       = 0x8C2A;
 			TRANSFORM_FEEDBACK_BUFFER = 0x8C8E;

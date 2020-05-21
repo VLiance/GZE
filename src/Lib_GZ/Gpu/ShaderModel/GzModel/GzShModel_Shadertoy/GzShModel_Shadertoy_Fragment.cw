@@ -28,7 +28,7 @@ package  {
 		override public function fLoad_Fragment():Bool {
 			
 			GzShCommun_Base.fAdd_FragmentBasics(oFragement);
-			GzShCommun_Base.fAdd_Default_15_Slot(oFragement);
+			GzShCommun_Base.fAdd_Default_15_Slot(oFragement, true);
 			GzShCommun_Base.fAdd_Func_Basics(oFragement);
 			GzShCommun_Base.fAdd_Fragment_Func_Basics(oFragement);
 			GzShCommun_Light.fAdd_Func_fAddLight(oFragement);

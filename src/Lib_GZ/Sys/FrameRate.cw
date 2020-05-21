@@ -14,7 +14,7 @@ package  {
 		
 		public var nFps : UInt;
 		
-		public var bFrMax : Bool = false;
+		public var bFrMax : Bool = true;
 		public var bFpsInTitle : Bool = true;
 		
 		//public var bFrMax : Bool = true;
