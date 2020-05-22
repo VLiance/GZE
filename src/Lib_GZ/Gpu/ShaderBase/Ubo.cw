@@ -50,7 +50,7 @@ package  {
 		//	fLoad();
 		}
 		
-		public function fLoad():Void {
+		override public function fLoad():Void {
 		}
 		
 		public function fSetIndex(_nIndex:UInt):Void { //Overrided

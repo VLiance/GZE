@@ -939,7 +939,7 @@ generate "OpenGL" {
 		
 		//Ubo
 		gen public static function fGetUniformBlockIndex(_nPorgramId : UInt, _cUboName:CArray<UInt8>):UInt;
-		gen public static function fBindBufferBase(_eTarget : UInt, _nIndex : UInt, _nBuffer : UInt):Void;
+		gen public static function fBindBufferBase(_hTarget : eBufferTarget, _nIndex : UInt, _nBuffer : UInt):Void;
 		gen public static function fUniformBlockBinding(_nPorgramId : UInt, _nUniformBlickId : UInt, _nBindPoint : UInt):Void;
 	}
 }

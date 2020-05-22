@@ -9,14 +9,15 @@ package  {
 	public class OpUbo overplace Ubo {
 
 	
-		public function OpUbo(_oProgram : ProgramShader):Void {
+		public function OpUbo(_oProgram : ProgramShader, _sName : String):Void {
+		
 		}
 	
 	
 		override public function fLoad():Void {
 
 			nIdBuff = OpenGL.fCreateBuffer();
-			OpenGL.fBindBuffer(UNIFORM_BUFFER, nId);
+			OpenGL.fBindBuffer(UNIFORM_BUFFER, nIdBuff);
 			
 			/*if(nId == -1){
 				Debug.fError("Invalid Buffer ");
@@ -28,6 +29,7 @@ package  {
 			//glUniformBlockBinding(shaderA.ID, lights_index, 2);
 			bValid = true; //Todo
 			
+			fSetIndex(0); //0 by default?
 		}
 		
 		
@@ -47,6 +49,7 @@ package  {
 			//GLuint binding_point_index = 2; //Max 12?
 			//glBindBufferBase(GL_UNIFORM_BUFFER, binding_point_index, gbo); //or glBindBufferRange(GL_UNIFORM_BUFFER, 2, uboExampleBlock, 0, 152);
 			//glUniformBlockBinding(program, block_index, binding_point_index);
+			
 		}
 		
 		
@@ -59,8 +62,8 @@ package  {
 			
 			if( aData.nSize != 0){
 				
-				
-				OpenGL.fBindBuffer(UNIFORM_BUFFER, nId, nIdBuff);
+				//OpenGL.fBindBuffer(UNIFORM_BUFFER, nId, nIdBuff);
+				OpenGL.fBindBuffer(UNIFORM_BUFFER, nIdBuff);
 				OpenGL.fBufferData(UNIFORM_BUFFER,  aData.nSize, Float32, aData, STREAM_DRAW); 
 				//glBufferSubData?
 			
