@@ -24,7 +24,6 @@ package  {
 			sName = _sName;
 			oProgram = _oProgram;
 			oProgram.aUniform.fPush(this);
-			Debug.fTrace("--- Unifrom Created!! ---");
 			fLoad();
 		}
 		

@@ -10,6 +10,7 @@ package  {
 	import GZ.Gpu.Base.UnVec4;
 	import GZ.Gpu.Base.UnFloat;
 	import GZ.Gpu.Base.UnInt;
+	import GZ.Gpu.ShaderBase.Ubo;
 	import GZ.Gpu.Base.Texture;
 	import GZ.Gpu.ShaderBase.Vbo;
 	import GZ.Gpu.GpuObj.GpuBatch;
@@ -29,6 +30,7 @@ package  {
 		public var nTest : Int = 0;
 		
 		public var oVbo : Vbo;
+		public var oUbo : Ubo;
 		
 	
 		public function GzShModel_Shadertoy():Void {
@@ -44,6 +46,7 @@ package  {
 			
 			oAt = new Attribute_Quad(oVbo);
 			Attribute_Quad = oAt; //Singleton
+			
 		}
 				.
 		override public function fLoad_Base():Void {
@@ -75,6 +78,9 @@ package  {
 			oUvPosition = new UnVec2(oProgram, "vPosition");
 			
 			GzShCommun_Light.fIniData(oProgram);
+			
+			
+			oUbo = new Ubo(oProgram, "myUBO" );
 		}
 		
 
@@ -145,6 +151,9 @@ package  {
 			GzShCommun_Light.fSetAmbiant();
 			GzShCommun_Light.fSendLight();
 			
+			
+			
+			
 	//oGpuBatch.fSetDestination(null); For test
 			OpenGL.fClearColor(0.0, 0.0, 0.0, 0.0);
 			
@@ -156,9 +165,24 @@ package  {
 			}
 			//}
 			
-		
+			oUbo.aDataFloat[0] = 111;
+			oUbo.aDataFloat[1] = 222;
+			oUbo.aDataFloat[2] = 333;
+			oUbo.aDataFloat[3] = 666;
+			
+			oUbo.aDataFloat[4] = 1.0;
+			oUbo.aDataFloat[5] = 0.0;
+			oUbo.aDataFloat[6] = 0.0;
+			oUbo.aDataFloat[7] = 1.0;
+			
+			/*
+			oUbo.aDataFloat[4] = -1;
+			oUbo.aDataFloat[5] = -2;
+			oUbo.aDataFloat[6] = -3;
+			oUbo.aDataFloat[7] = -4;
+			*/
+			oUbo.fSendDataFloat();
+			
 		}
-		
-		
 	}
 }

@@ -10,7 +10,6 @@ package  {
 
 	
 		public function OpUbo(_oProgram : ProgramShader, _sName : String):Void {
-		
 		}
 	
 	
@@ -19,12 +18,22 @@ package  {
 			nIdBuff = OpenGL.fCreateBuffer();
 			OpenGL.fBindBuffer(UNIFORM_BUFFER, nIdBuff);
 			
-			/*if(nId == -1){
+			/*if(nIdBuff == -1){
 				Debug.fError("Invalid Buffer ");
 			}*/
 			
 			
 			nId = OpenGL.fGetUniformBlockIndex(oProgram.nId, sName);
+			<cpp>
+			if(nId == gzVal(-1) ){
+			</cpp>
+				Debug.fWarning("OpenGL: Unabled to find UniformBlock (or optimised out): " + sName );
+				bValid = false
+				return;
+			<cpp>
+			}
+			</cpp>
+						
 			//nId = OpenGL.fGetUniformLocation(oProgram.nId, sName);
 			//glUniformBlockBinding(shaderA.ID, lights_index, 2);
 			bValid = true; //Todo
@@ -42,34 +51,24 @@ package  {
 		}
 		*/
 
-		
-
-		override public function fSetIndex(_nIndex:UInt):Void { //Max 12 (portable)?
-			
-			//GLuint binding_point_index = 2; //Max 12?
-			//glBindBufferBase(GL_UNIFORM_BUFFER, binding_point_index, gbo); //or glBindBufferRange(GL_UNIFORM_BUFFER, 2, uboExampleBlock, 0, 152);
-			//glUniformBlockBinding(program, block_index, binding_point_index);
-			
+		override public function fSetIndex(_nBindPointIndex:UInt):Void { //Max 12 (portable)?
+			nBindPointIndex = _nBindPointIndex;
+			//Link block with UBO 
+			OpenGL.fBindBufferBase(UNIFORM_BUFFER, nBindPointIndex, nIdBuff);
+			OpenGL.fUniformBlockBinding(oProgram.nId, nId, nBindPointIndex);
 		}
 		
 		
-		
-		
-		override public function fSendData():Void {
+		override public function fSendDataFloat():Void {
 		
 			//Debug.fTrace("SEND! : "   + aData.nSize/4);
 			//Send all data
-			
-			if( aData.nSize != 0){
-				
+			if( aDataFloat.nSize != 0){
 				//OpenGL.fBindBuffer(UNIFORM_BUFFER, nId, nIdBuff);
 				OpenGL.fBindBuffer(UNIFORM_BUFFER, nIdBuff);
-				OpenGL.fBufferData(UNIFORM_BUFFER,  aData.nSize, Float32, aData, STREAM_DRAW); 
+				OpenGL.fBufferData(UNIFORM_BUFFER,  aDataFloat.nSize, Float32, aDataFloat, STREAM_DRAW); 
 				//glBufferSubData?
-			
 			}
-			
-			
 		}
 		
 

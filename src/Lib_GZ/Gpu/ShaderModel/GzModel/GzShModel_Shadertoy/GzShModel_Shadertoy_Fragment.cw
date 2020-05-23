@@ -39,6 +39,14 @@ package  {
 			///////////// Fragment Shader //////////////
 <glsl(oFragement)>
 
+//Test UBO
+layout (std140) uniform myUBO{ 
+  vec4 uboAA;
+  vec4 uboBB;
+};
+
+
+
 #define time iTime
 #define res iResolution
 
@@ -195,7 +203,7 @@ void mainImage(out vec4 fragColor,in vec2 fragCoord)
 //	scene depth included in alpha channel
     fragColor = vec4(  vec3( 0.8 *  color2 ),   0.1) ;
 	
-	 //  fragColor = vec4(1.0);
+  //  fragColor = uboBB;
 }
 				
 </glsl>
