@@ -18,12 +18,12 @@ package  {
 	import GZ.Sys.Interface.Context;
 	import GZ.Gpu.ShaderModel.GzModel.GzShModel;
 	import GZ.Gpu.ShaderModel.AtModel.Attribute_Quad;
-	import GZ.Gpu.ShaderModel.GzModel.GzShModel_Shadertoy.GzShModel_Shadertoy_Vertex;
+	import GZ.Gpu.ShaderModel.GzModel.GzShModel_Raytracing.GzShModel_Raytracing_Vertex;
 	import GZ.Gpu.ShaderModel.GzModel.GzShCommun.GzShCommun_Light;
 	import GZ.Input.Key;
 	import GzOpenGL.OpenGL;
 	
-	public class GzShModel_Shadertoy extends GzShModel_Shadertoy_Vertex {
+	public class GzShModel_Raytracing extends GzShModel_Raytracing_Vertex {
 
 		public var oAt : Attribute_Quad;
 		
@@ -33,9 +33,8 @@ package  {
 		public var oUbo : Ubo;
 		
 	
-		public function GzShModel_Shadertoy():Void {
+		public function GzShModel_Raytracing():Void {
 			Debug.fTrace("--- GzShModel Created!! ---");
-			
 		}
 		
 		
@@ -47,7 +46,7 @@ package  {
 			
 			oAt = new Attribute_Quad(oVbo);
 			Attribute_Quad = oAt; //Singleton
-			GzShModel_Shadertoy = this;//Singleton
+			GzShModel_Raytracing = this;//Singleton
 			
 		}
 				.
@@ -166,17 +165,17 @@ package  {
 				oGpuBatch.oFBO_Destination.fToDefaultFrameBuffer();
 			}
 			//}
-			/*
-			oUbo.aDataFloat[0] = 111;
-			oUbo.aDataFloat[1] = 222;
-			oUbo.aDataFloat[2] = 333;
-			oUbo.aDataFloat[3] = 666;
+			
+			oUbo.aDataFloat[0] = 1.0;
+			oUbo.aDataFloat[1] = 0.5;
+			oUbo.aDataFloat[2] = 0.5;
+			oUbo.aDataFloat[3] = 0.0;
 			
 			oUbo.aDataFloat[4] = 1.0;
 			oUbo.aDataFloat[5] = 0.0;
 			oUbo.aDataFloat[6] = 0.0;
-			oUbo.aDataFloat[7] = 1.0;
-			*/
+			oUbo.aDataFloat[7] = 0.0;
+			
 			/*
 			oUbo.aDataFloat[4] = -1;
 			oUbo.aDataFloat[5] = -2;

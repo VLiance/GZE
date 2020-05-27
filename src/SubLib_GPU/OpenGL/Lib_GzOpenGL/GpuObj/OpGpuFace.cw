@@ -17,14 +17,18 @@ package  {
 	
 	import GZ.Gfx.Tile.Tile;
 	
-	
+	//Temp?
+	import GZ.Gpu.ShaderModel.GzModel.GzShModel_Raytracing.GzShModel_Raytracing;
+	import GZ.Gpu.ShaderModel.GzModel.GzShModel;
+	import GZ.Gpu.ShaderBase.Ubo;
+		
 	public class OpGpuFace overplace GpuFace {
 	
 	public var oAt : Attribute_Quad;
 	public var oAtTiles : Attribute_Tiles;
 	
 	
-
+	public var oShaderModel : GzShModel_Raytracing;
 	
 	
 	
@@ -37,6 +41,29 @@ package  {
 	override public function fDraw( _oSource : Buffer, _nX_Start : Int, _nX_End : Int, _nY_Start : Int, _nY_End : Int):Void{
 		//Debug.fTrace("GPU draw face! " );
 		//fCreateDara();
+		
+		//Test
+		oShaderModel = GzShModel_Raytracing;
+		<cpp>
+		if(oShaderModel != 0){
+		</cpp>
+			var _nNB_Data_per_object : UInt = 4;
+			var _nIndex : UInt = GpuFace.nCurrent * _nNB_Data_per_object;
+			var _oUbo : Ubo = oShaderModel.oUbo;
+			//_oUbo.aDataFloat[_nIndex + 4] =  0.0;
+			_oUbo.aDataFloat[_nIndex + 0] =  0.0;
+			_oUbo.aDataFloat[_nIndex + 1] =  1.0;
+			_oUbo.aDataFloat[_nIndex + 2] =  0.0;
+			_oUbo.aDataFloat[_nIndex + 3] =  0.0;
+			
+			//return;//GpuFace.nCurrent++
+		<cpp>
+		}
+		</cpp>
+	
+		//////////////////////////////////////////////////////////
+		
+		
 		
 
 		oAt = Attribute_Quad;

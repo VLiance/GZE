@@ -937,9 +937,20 @@ generate "OpenGL" {
 	//	gen public static function fMapBufferRange(_eTarget : UInt, _nOffset : UIntX, _nLength : UIntX, _eAccess : UInt):Any;
 	//	gen public static function fUnmapBuffer(_eTarget : UInt):Bool;
 		
-		//Ubo
-		gen public static function fGetUniformBlockIndex(_nPorgramId : UInt, _cUboName:CArray<UInt8>):UInt;
-		gen public static function fBindBufferBase(_hTarget : eBufferTarget, _nIndex : UInt, _nBuffer : UInt):Void;
-		gen public static function fUniformBlockBinding(_nPorgramId : UInt, _nUniformBlickId : UInt, _nBindPoint : UInt):Void;
+		//Ubo	
+		//gen public static function fGetUniformBlockIndex(_nPorgramId : Val, _cUboName:CArray<UInt8>):Val;
+		
+		gen public static function fGetUniformBlockIndex(_nIdProgram : Val, _cUboName:CArray<UInt8>):Val {
+			<cpp>
+			#ifdef D_Platform_Web_Emsc
+				std::string _sTest = (char*)_cUboName;
+				return GL_fGetUniformBlockIndex(_nIdProgram, _sTest);
+			#endif
+			</cpp>
+		}
+		
+		
+		gen public static function fBindBufferBase(_hTarget : eBufferTarget, _nIndex : UInt, _nBuffer : Val):Void;
+		gen public static function fUniformBlockBinding(_nPorgramId : Val, _nUniformBlickId : Val, _nBindPoint : Val):Void;
 	}
 }

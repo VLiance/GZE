@@ -23,7 +23,7 @@ package  {
 	import GZ.Gpu.ShaderModel.GzModel.GzShCommun.GzShCommun_Tile;
 
 	
-	public extension GzShModel_Shadertoy_Fragment extends GzShModel {
+	public extension GzShModel_Raytracing_Fragment extends GzShModel {
 
 		override public function fLoad_Fragment():Bool {
 			
@@ -40,9 +40,10 @@ package  {
 <glsl(oFragement)>
 
 //Test UBO
+#define MAX_UBO_vec4 4096
+
 layout (std140) uniform myUBO{ 
-  vec4 uboAA;
-  vec4 uboBB;
+  vec4 uboVal[MAX_UBO_vec4];
 };
 
 
@@ -203,7 +204,8 @@ void mainImage(out vec4 fragColor,in vec2 fragCoord)
 //	scene depth included in alpha channel
     fragColor = vec4(  vec3( 0.8 *  color2 ),   0.1) ;
 	
-    //fragColor = uboBB;
+    fragColor = uboVal[0];
+ //   fragColor = vec4( 1.0,1.0,1.0, 0.1) ;
 }
 				
 </glsl>
