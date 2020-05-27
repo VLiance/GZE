@@ -60,14 +60,19 @@ package  {
 		
 		
 		override public function fSendDataFloat():Void {
-		
+			//Must be exact size: It is undefined behaviour to use a uniform buffer that is too small.
+			//Or use subdata?
+			aDataFloat.fSetSize(4096 * 4);
+			
 			//Debug.fTrace("SEND! : "   + aData.nSize/4);
 			//Send all data
 			if( aDataFloat.nSize != 0){
+				//Debug.fTrace("SendUBO: " + aDataFloat.nSize);
 				//OpenGL.fBindBuffer(UNIFORM_BUFFER, nId, nIdBuff);
 				OpenGL.fBindBuffer(UNIFORM_BUFFER, nIdBuff);
 				OpenGL.fBufferData(UNIFORM_BUFFER,  aDataFloat.nSize, Float32, aDataFloat, STREAM_DRAW); 
 				//glBufferSubData?
+				//Debug.fTrace("Finish SendUBO");
 			}
 		}
 		
