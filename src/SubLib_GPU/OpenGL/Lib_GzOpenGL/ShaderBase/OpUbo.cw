@@ -62,7 +62,7 @@ package  {
 		override public function fSendDataFloat():Void {
 			//Must be exact size: It is undefined behaviour to use a uniform buffer that is too small.
 			//Or use subdata?
-			aDataFloat.fSetSize(4096 * 4);
+			aDataFloat.fSetSize(1024 * 4);
 			
 			//Debug.fTrace("SEND! : "   + aData.nSize/4);
 			//Send all data

@@ -40,7 +40,7 @@ package  {
 <glsl(oFragement)>
 
 //Test UBO
-#define MAX_UBO_vec4 4096
+#define MAX_UBO_vec4 1024
 
 layout (std140) uniform myUBO{ 
   vec4 uboVal[MAX_UBO_vec4];
