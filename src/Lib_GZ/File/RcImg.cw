@@ -36,6 +36,8 @@ package  {
 		public wvar oLinkRc : RcImg;
 	//	public var vFullSize : Vec2<UInt>;
 	
+	
+	
 		
 		
 		public function RcImg(_sPath : String ):Void {
@@ -119,7 +121,7 @@ package  {
 				if(Context.oItf.bGpuDraw && oLinkRc.bGpuLoaded == false){
 					oLinkRc.bGpuLoaded = true;
 					if(oLinkRc.aImg != null){
-						oLinkRc.oGpuTexId = oLinkRc.oGpuRcImg.fLoadImg(oLinkRc.aImg[0], oLinkRc.nWidth,  oLinkRc.nHeight, oLinkRc.oGpuTexLayer);
+						oLinkRc.oGpuTexId = oLinkRc.oGpuRcImg.fLoadImg(oLinkRc.aImg[0], oLinkRc.nWidth,  oLinkRc.nHeight, oLinkRc.oGpuTexLayer, Default);
 					}
 					
 					return true;
