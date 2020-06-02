@@ -25,7 +25,7 @@ package  {
 		public var oUvTexDimNorm : UnVec2;
 		
 		
-		override function fLoadImg(_aImg : CArray<Int, 1>, _nWidth : Int, _nHeight : Int, _oGpuTexLayer : Texture, _hFormat : eImgFormat, _bBorder : Bool = true):Val{
+		override function fLoadImg(_aImg : CArray<Int, 1>, _nWidth : Int, _nHeight : Int, _oGpuTexLayer : Texture, _hInternalFormat : eImgFormat, _hFormat : eImgFormat, _bBorder : Bool = true):Val{
 		
 			oGpuTexLayer = _oGpuTexLayer;
 				
@@ -45,7 +45,9 @@ package  {
 	//WebGL 2.0		
 	//Sized internal formats are supported in WebGL 2.0 and internalformat is no longer required to be the same as format. Instead, the combination of internalformat, format, and type must be listed in the following table:		
 	//RGBA :	RGBA : UNSIGNED_BYTE/UNSIGNED_SHORT_4_4_4_4/UNSIGNED_SHORT_5_5_5_1
-			
+	
+		//https://developer.mozilla.org/fr/docs/Web/API/WebGLRenderingContext/texImage2D
+		
 			
 		var _nBWidth : UInt =   _nWidth;
 		var _nBHeight : UInt =   _nWidth;
@@ -53,19 +55,23 @@ package  {
 			_nBWidth+=2;
 			_nBHeight+=2;
 		}
-			
-		<cpp>
-		#ifdef GZ_D_CpuRenderer_Reverse_BlueAndRed
-		</cpp>
-			OpenGL.fTexImage2D(TEXTURE_2D, 0, RGBA, _nBWidth ,_nBHeight, 0, RGBA, UNSIGNED_BYTE, _aImg);
-		<cpp>
-		#else
-		</cpp>
-			OpenGL.fTexImage2D(TEXTURE_2D, 0, RGBA, _nBWidth ,_nBHeight, 0, BGRA, UNSIGNED_BYTE, _aImg);
-		<cpp>
-		#endif
-		</cpp>
-			
+		
+
+		if(_hFormat == eImgFormat.Default){
+			<cpp>
+			#ifdef GZ_D_CpuRenderer_Reverse_BlueAndRed
+			</cpp>
+				OpenGL.fTexImage2D(TEXTURE_2D, 0, _hInternalFormat, _nBWidth ,_nBHeight, 0, RGBA, UNSIGNED_BYTE, _aImg);
+			<cpp>
+			#else
+			</cpp>
+				OpenGL.fTexImage2D(TEXTURE_2D, 0, _hInternalFormat, _nBWidth ,_nBHeight, 0, BGRA, UNSIGNED_BYTE, _aImg);
+			<cpp>
+			#endif
+			</cpp>
+		}else{
+			OpenGL.fTexImage2D(TEXTURE_2D, 0, _hInternalFormat, _nBWidth ,_nBHeight, 0, _hFormat, UNSIGNED_BYTE, _aImg);
+		}
 		
 		
 			

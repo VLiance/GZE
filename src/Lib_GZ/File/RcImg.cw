@@ -27,9 +27,14 @@ package  {
 		public var nWidth : UInt = 0;
 		public var nHeight : UInt = 0;
 		public var aImg : CArray<Int32, 2>
+		public var aImg1D : CArray<Int32>
+		
 		
 		public var oGpuRcImg : GpuRcImg;
 				
+		public  var hArrayFormat : GpuRcImg.eImgFormat;
+		public  var hImgFormat : GpuRcImg.eImgFormat;
+		
 		
 		public var vOffset : Vec2<Float>;
 		
@@ -41,7 +46,7 @@ package  {
 		
 		
 		public function RcImg(_sPath : String ):Void {
-	
+
 			Resource(_sPath);
 			
 			oGpuRcImg = new GpuRcImg();
@@ -54,35 +59,20 @@ package  {
 		}
 		
 		
-		//Embed
+		<cpp_class_h>
 		
-		/*
-		
-			RcImg( _sPath : String) {
+			cRcImg(gzBool _bStartRc = false):cResource(0) {
 				
 				//Image.fTestShape();
 				//	aImg = 0; //Todo always
 			
-					GZ_printf("\nNew RcTestImg");
-
+					GZ_printf("\n RcImg");
+			
+				
 				//Debug.fConsole("RcImg");
 			}
-		*/
+		</cpp_class_h>
 		
-			<cpp_class_h>
-			
-				cRcImg(gzBool _bStartRc = false):cResource(0) {
-					
-					//Image.fTestShape();
-					//	aImg = 0; //Todo always
-				
-						GZ_printf("\n RcImg");
-				
-					
-					//Debug.fConsole("RcImg");
-				}
-			</cpp_class_h>
-			
 		/*
 		override public function fLoadFromDrive(_sRoot:String, _sSubPath:String):Void {
 			
@@ -120,8 +110,18 @@ package  {
 			//if(System.bHaveGpu){
 				if(Context.oItf.bGpuDraw && oLinkRc.bGpuLoaded == false){
 					oLinkRc.bGpuLoaded = true;
-					if(oLinkRc.aImg != null){
-						oLinkRc.oGpuTexId = oLinkRc.oGpuRcImg.fLoadImg(oLinkRc.aImg[0], oLinkRc.nWidth,  oLinkRc.nHeight, oLinkRc.oGpuTexLayer, Default);
+					
+					var _aImg1D : CArray<Int32>;
+					
+					//TODO use only img1D
+					if(oLinkRc.aImg1D != null){
+						_aImg1D = oLinkRc.aImg1D;
+					}else if(oLinkRc.aImg != null){
+						_aImg1D = oLinkRc.aImg[0];
+					}
+					
+					if(_aImg1D != null){
+						oLinkRc.oGpuTexId = oLinkRc.oGpuRcImg.fLoadImg(_aImg1D, oLinkRc.nWidth,  oLinkRc.nHeight, oLinkRc.oGpuTexLayer, hImgFormat, hArrayFormat);
 					}
 					
 					return true;
