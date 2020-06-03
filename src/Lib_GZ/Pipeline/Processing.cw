@@ -3,6 +3,9 @@
 	import GZ.Sys.Interface.Interface;  
 	import GZ.Gfx.Object;
 	import GZ.Gfx.Shape;
+	
+	import GZ.Pipeline.Raytracer.TileView;
+	
 
 	public class Processing  {
 			
@@ -20,16 +23,30 @@
 		public var nRemaining :Int ;
 		public var nPlacementFactor :Int = 4;
 		
+		
+		public var bHaveRaytracing :Bool = true;
+		public var oTileView :TileView;
+		
+		
 			
 		public function Processing(_oItf : Interface):Void {
 			oItf = _oItf;
+			
+			if(bHaveRaytracing){
+				oTileView = new TileView(_oItf);
+			}
+			
 		}
 		
 		public function fIni():Void {
+			if(oTileView != null){
+				oTileView.fIni();
+			}
+		
+		
 			aObj.fClear();
 			
-			
-			
+
 			nSort_Near = -9999999999999.0; //-Inf?
 			nSort_Far = 9999999999999.0; //-Inf?
 			
