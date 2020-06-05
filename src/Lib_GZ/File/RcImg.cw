@@ -32,9 +32,9 @@ package  {
 		
 		public var oGpuRcImg : GpuRcImg;
 				
-		public  var hArrayFormat : GpuRcImg.eImgFormat;
-		public  var hImgFormat : GpuRcImg.eImgFormat;
-		
+
+		public  var hPixFormat : GpuRcImg.ePixFormat;
+	
 		
 		public var vOffset : Vec2<Float>;
 		
@@ -121,7 +121,7 @@ package  {
 					}
 					
 					if(_aImg1D != null){
-						oLinkRc.oGpuTexId = oLinkRc.oGpuRcImg.fLoadImg(_aImg1D, oLinkRc.nWidth,  oLinkRc.nHeight, oLinkRc.oGpuTexLayer, hImgFormat, hArrayFormat);
+						oLinkRc.oGpuTexId = oLinkRc.oGpuRcImg.fLoadImg(_aImg1D, oLinkRc.nWidth,  oLinkRc.nHeight, oLinkRc.oGpuTexLayer, hPixFormat);
 					}
 					
 					return true;

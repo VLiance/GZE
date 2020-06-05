@@ -25,7 +25,7 @@ package  {
 		public var oUvTexDimNorm : UnVec2;
 		
 		
-		override function fLoadImg(_aImg : CArray<Int, 1>, _nWidth : Int, _nHeight : Int, _oGpuTexLayer : Texture, _hInternalFormat : eImgFormat, _hFormat : eImgFormat, _bBorder : Bool = true):Val{
+		override function fLoadImg(_aImg : CArray<Int, 1>, _nWidth : Int, _nHeight : Int, _oGpuTexLayer : Texture, _hPixFormat : ePixFormat, _bBorder : Bool = true):Val{
 		
 			oGpuTexLayer = _oGpuTexLayer;
 				
@@ -93,45 +93,76 @@ package  {
 //////////////////////////////////////////////////////////////////////////////////
 
 
-/*
-
-public enum eImgFormat : Int {	//Follow OGL spec Default = RGBA
-			Default 					    = 0x1908;
-			RGB                             = 0x1907;
-			RGBA                            = 0x1908;
-			R8						  	    = 0x8229;
-			RG8 							= 0x822B;
-			RGB8 							= 0x8051;
-			R16F						    = 0x822E;
-			R32F						    = 0x8230;
-			RG16F							= 0x822F;
-			RG32F 							= 0x8230;
-			R8UI 							= 0x8232;
-			RG8UI 							= 0x8238;
-			RGB8UI 							= 0x8D7D;
-			RGBA8UI 						= 0x8D7C;
-			RG16UI							= 0x823A;
-			RG32UI 							= 0x823C;
-			SRGB8 							= 0x8C41;
-			RGB565 							= 0x8D62;
-			R11F_G11F_B10F 					= 0x8C3A;
-			RGB9_E5 						= 0x8C3D;
-			RGB16F 							= 0x881B;
-			RGB32F 							= 0x8815;
-			RGBA8 							= 0x8058;
-			SRGB8_APLHA8 					= 0x8C43;
-			RGB5_A1 						= 0x8057;
-			RGB10_A2 						= 0x8059;
-			RGBA4 							= 0x8056;
-			RGBA16F 						= 0x881A;
-			RGBA32F 						= 0x8814;
-		}
-
-*/
-
 //Lib_GzOpenGL::OpenGL::eTargetTexture::TEXTURE_2D
+//Lib_GzOpenGL::OpenGL::ePixelFormat::RGBA
+	
+		// Lib_GZ::Gpu::GpuObj::GpuRcImg::ePixFormat _hPixFormat
+		//ePixelType
+<cpp>
+using namespace Lib_GZ::Gpu::GpuObj;
+using namespace Lib_GzOpenGL;
+//Please refer to:  GpuRcImg.cw
+/*
+Default                         ;
+R8						  	    ;
+RG8 							;
+RGB8 							;
+RGBA8                           ;
+SRGB8 							;
+RGB565 							;
+SRGB8_APLHA8 					;
+RGB5_A1 						;
+RGB10_A2 						;
+RGBA4 							;
+R16F						    ;
+R32F						    ;
+RG16F							;
+RG32F 							;
+R11F_G11F_B10F 					;
+RGB9_E5 						;
+RGB16F 							;
+RGB32F 							;
+RGBA16F 						;
+RGBA32F 						;
+R8UI 							;
+RG8UI 							;
+RGB8UI 							;
+RGBA8UI 						;
+RG16UI							;
+RG32UI 							;
+*/
+static gzUInt32 _aCompFormat[][4] =  
+{ 	
+{GpuRcImg::ePixFormat::Default, 		OpenGL::eInternalPixelFormat::RGBA8,  			OpenGL::ePixelFormat::RGBA, 		OpenGL::ePixelType::UNSIGNED_BYTE},
+{GpuRcImg::ePixFormat::R8, 				OpenGL::eInternalPixelFormat::R8,  				OpenGL::ePixelFormat::RED, 			OpenGL::ePixelType::UNSIGNED_BYTE},
+{GpuRcImg::ePixFormat::RG8, 			OpenGL::eInternalPixelFormat::RG8,  			OpenGL::ePixelFormat::RG, 			OpenGL::ePixelType::UNSIGNED_BYTE},
+{GpuRcImg::ePixFormat::RGB8, 			OpenGL::eInternalPixelFormat::RGB8,  			OpenGL::ePixelFormat::RGB, 			OpenGL::ePixelType::UNSIGNED_BYTE},
+{GpuRcImg::ePixFormat::RGBA8, 			OpenGL::eInternalPixelFormat::RGBA8,  			OpenGL::ePixelFormat::RGBA, 		OpenGL::ePixelType::UNSIGNED_BYTE},
+{GpuRcImg::ePixFormat::SRGB8, 			OpenGL::eInternalPixelFormat::SRGB8,  			OpenGL::ePixelFormat::RGB, 			OpenGL::ePixelType::UNSIGNED_BYTE},
+{GpuRcImg::ePixFormat::RGB565, 			OpenGL::eInternalPixelFormat::RGB565,  			OpenGL::ePixelFormat::RGB, 			OpenGL::ePixelType::UNSIGNED_BYTE},
+{GpuRcImg::ePixFormat::SRGB8_APLHA8,	OpenGL::eInternalPixelFormat::SRGB8_APLHA8,  	OpenGL::ePixelFormat::RGBA, 		OpenGL::ePixelType::UNSIGNED_BYTE},
+{GpuRcImg::ePixFormat::RGB5_A1, 		OpenGL::eInternalPixelFormat::RGB5_A1,  		OpenGL::ePixelFormat::RGBA, 		OpenGL::ePixelType::UNSIGNED_BYTE},
+{GpuRcImg::ePixFormat::RGB10_A2, 		OpenGL::eInternalPixelFormat::RGB10_A2,  		OpenGL::ePixelFormat::RGBA, 		OpenGL::ePixelType::UNSIGNED_BYTE},
+{GpuRcImg::ePixFormat::RGBA4, 			OpenGL::eInternalPixelFormat::RGBA4,  			OpenGL::ePixelFormat::RGBA, 		OpenGL::ePixelType::UNSIGNED_BYTE},
+{GpuRcImg::ePixFormat::R16F, 			OpenGL::eInternalPixelFormat::R16F,  			OpenGL::ePixelFormat::RED, 			OpenGL::ePixelType::FLOAT},
+{GpuRcImg::ePixFormat::R32F, 			OpenGL::eInternalPixelFormat::R32F,  			OpenGL::ePixelFormat::RED, 			OpenGL::ePixelType::FLOAT},
+{GpuRcImg::ePixFormat::RG16F, 			OpenGL::eInternalPixelFormat::RG16F,  			OpenGL::ePixelFormat::RG, 			OpenGL::ePixelType::FLOAT},
+{GpuRcImg::ePixFormat::RG32F, 			OpenGL::eInternalPixelFormat::RG32F,  			OpenGL::ePixelFormat::RG, 			OpenGL::ePixelType::FLOAT},
+{GpuRcImg::ePixFormat::R11F_G11F_B10F, 	OpenGL::eInternalPixelFormat::R11F_G11F_B10F,  	OpenGL::ePixelFormat::RGB, 			OpenGL::ePixelType::FLOAT},
+{GpuRcImg::ePixFormat::RGB9_E5, 		OpenGL::eInternalPixelFormat::RGB9_E5,  		OpenGL::ePixelFormat::RGB, 			OpenGL::ePixelType::FLOAT},
+{GpuRcImg::ePixFormat::RGB16F, 			OpenGL::eInternalPixelFormat::RGB16F,  			OpenGL::ePixelFormat::RGB, 			OpenGL::ePixelType::FLOAT},
+{GpuRcImg::ePixFormat::RGB32F, 			OpenGL::eInternalPixelFormat::RGB32F,  			OpenGL::ePixelFormat::RGB, 			OpenGL::ePixelType::FLOAT},
+{GpuRcImg::ePixFormat::RGBA16F, 		OpenGL::eInternalPixelFormat::RGBA16F,  		OpenGL::ePixelFormat::RGBA, 		OpenGL::ePixelType::FLOAT},
+{GpuRcImg::ePixFormat::RGBA32F, 		OpenGL::eInternalPixelFormat::RGBA32F,  		OpenGL::ePixelFormat::RGBA, 		OpenGL::ePixelType::FLOAT},
+{GpuRcImg::ePixFormat::R8UI, 			OpenGL::eInternalPixelFormat::R8UI,  			OpenGL::ePixelFormat::RED_INTEGER, 	OpenGL::ePixelType::UNSIGNED_BYTE},
+{GpuRcImg::ePixFormat::RG8UI, 			OpenGL::eInternalPixelFormat::RG8UI,  			OpenGL::ePixelFormat::RG_INTEGER, 	OpenGL::ePixelType::UNSIGNED_BYTE},
+{GpuRcImg::ePixFormat::RGB8UI, 			OpenGL::eInternalPixelFormat::RGB8UI,  			OpenGL::ePixelFormat::RGB_INTEGER, 	OpenGL::ePixelType::UNSIGNED_BYTE},
+{GpuRcImg::ePixFormat::RGBA8UI, 		OpenGL::eInternalPixelFormat::RGBA8UI,  		OpenGL::ePixelFormat::RGBA_INTEGER, OpenGL::ePixelType::UNSIGNED_BYTE},
+{GpuRcImg::ePixFormat::RG16UI, 			OpenGL::eInternalPixelFormat::RG16UI,  			OpenGL::ePixelFormat::RG_INTEGER, 	OpenGL::ePixelType::UNSIGNED_BYTE},
+{GpuRcImg::ePixFormat::RG32UI, 			OpenGL::eInternalPixelFormat::RG32UI,  			OpenGL::ePixelFormat::RG_INTEGER, 	OpenGL::ePixelType::UNSIGNED_BYTE},
 
-
+};
+</cpp>
 
 
 
@@ -145,20 +176,20 @@ public enum eImgFormat : Int {	//Follow OGL spec Default = RGBA
 		}
 		
 
-		if(_hFormat == eImgFormat.Default){
+		if(_hPixFormat == ePixFormat.Default){
 			<cpp>
 			#ifdef GZ_D_CpuRenderer_Reverse_BlueAndRed
 			</cpp>
-				OpenGL.fTexImage2D(TEXTURE_2D, 0, _hInternalFormat, _nBWidth ,_nBHeight, 0, RGBA, UNSIGNED_BYTE, _aImg);
+				OpenGL.fTexImage2D(TEXTURE_2D, 0, RGBA, _nBWidth ,_nBHeight, 0, RGBA, UNSIGNED_BYTE, _aImg);
 			<cpp>
 			#else
 			</cpp>
-				OpenGL.fTexImage2D(TEXTURE_2D, 0, _hInternalFormat, _nBWidth ,_nBHeight, 0, BGRA, UNSIGNED_BYTE, _aImg);
+				OpenGL.fTexImage2D(TEXTURE_2D, 0, RGBA, _nBWidth ,_nBHeight, 0, BGRA, UNSIGNED_BYTE, _aImg);
 			<cpp>
 			#endif
 			</cpp>
 		}else{
-			OpenGL.fTexImage2D(TEXTURE_2D, 0, _hInternalFormat, _nBWidth ,_nBHeight, 0, _hFormat, UNSIGNED_BYTE, _aImg);
+			OpenGL.fTexImage2D(TEXTURE_2D, 0, _hPixFormat, _nBWidth ,_nBHeight, 0, _hPixFormat, UNSIGNED_BYTE, _aImg);
 		}
 		
 		

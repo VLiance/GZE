@@ -7,37 +7,36 @@ package  {
 		
 	public overclass GpuRcImg  {
 	
-	
-		public enum eImgFormat : Int {	//Follow OGL spec Default = RGBA
-			Default 					    = 0x1908;
-			RGB                             = 0x1907;
-			RGBA                            = 0x1908;
-			R8						  	    = 0x8229;
-			RG8 							= 0x822B;
-			RGB8 							= 0x8051;
-			R16F						    = 0x822E;
-			R32F						    = 0x8230;
-			RG16F							= 0x822F;
-			RG32F 							= 0x8230;
-			R8UI 							= 0x8232;
-			RG8UI 							= 0x8238;
-			RGB8UI 							= 0x8D7D;
-			RGBA8UI 						= 0x8D7C;
-			RG16UI							= 0x823A;
-			RG32UI 							= 0x823C;
-			SRGB8 							= 0x8C41;
-			RGB565 							= 0x8D62;
-			R11F_G11F_B10F 					= 0x8C3A;
-			RGB9_E5 						= 0x8C3D;
-			RGB16F 							= 0x881B;
-			RGB32F 							= 0x8815;
-			RGBA8 							= 0x8058;
-			SRGB8_APLHA8 					= 0x8C43;
-			RGB5_A1 						= 0x8057;
-			RGB10_A2 						= 0x8059;
-			RGBA4 							= 0x8056;
-			RGBA16F 						= 0x881A;
-			RGBA32F 						= 0x8814;
+	//Refer to "Lib_GzOpenGL\GpuObj\OpGpuRcImg.cw"
+		public enum ePixFormat : Int {
+		
+			Default                         ;
+			R8						  	    ;
+			RG8 							;
+			RGB8 							;
+			RGBA8                           ;
+			SRGB8 							;
+			RGB565 							;
+			SRGB8_APLHA8 					;
+			RGB5_A1 						;
+			RGB10_A2 						;
+			RGBA4 							;
+			R16F						    ;
+			R32F						    ;
+			RG16F							;
+			RG32F 							;
+			R11F_G11F_B10F 					;
+			RGB9_E5 						;
+			RGB16F 							;
+			RGB32F 							;
+			RGBA16F 						;
+			RGBA32F 						;
+			R8UI 							;
+			RG8UI 							;
+			RGB8UI 							;
+			RGBA8UI 						;
+			RG16UI							;
+			RG32UI 							;
 		}
 		
 		
@@ -48,7 +47,7 @@ package  {
 	
 		public function GpuRcImg( ):Void;
 
-		public function fLoadImg(_aImg : CArray<Int, 1>, _nWidth : Int, _nHeight : Int, _oGpuTexLayer : Texture, _hInternalFormat : eImgFormat, _hFormat : eImgFormat, _bBorder : Bool = true):Val;
+		public function fLoadImg(_aImg : CArray<Int, 1>, _nWidth : Int, _nHeight : Int, _oGpuTexLayer : Texture, _hInternalFormat : ePixFormat, _bBorder : Bool = true):Val;
 
 	}
 }
