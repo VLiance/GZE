@@ -166,97 +166,68 @@ generate "OpenGL" {
 		
 
 		
-		/*
-	//Specifies the number of color components in the texture.
-                    Must be 1, 2, 3, or 4, or one of the following symbolic constants:
-                    GL_ALPHA,
-                    GL_ALPHA4,
-                    GL_ALPHA8,
-                    GL_ALPHA12,
-                    GL_ALPHA16,
-                    GL_COMPRESSED_ALPHA,
-                    GL_COMPRESSED_LUMINANCE,
-                    GL_COMPRESSED_LUMINANCE_ALPHA,
-                    GL_COMPRESSED_INTENSITY,
-                    GL_COMPRESSED_RGB,
-                    GL_COMPRESSED_RGBA,
-                    GL_DEPTH_COMPONENT,
-                    GL_DEPTH_COMPONENT16,
-                    GL_DEPTH_COMPONENT24,
-                    GL_DEPTH_COMPONENT32,
-                    GL_LUMINANCE,
-                    GL_LUMINANCE4,
-                    GL_LUMINANCE8,
-                    GL_LUMINANCE12,
-                    GL_LUMINANCE16,
-                    GL_LUMINANCE_ALPHA,
-                    GL_LUMINANCE4_ALPHA4,
-                    GL_LUMINANCE6_ALPHA2,
-                    GL_LUMINANCE8_ALPHA8,
-                    GL_LUMINANCE12_ALPHA4,
-                    GL_LUMINANCE12_ALPHA12,
-                    GL_LUMINANCE16_ALPHA16,
-                    GL_INTENSITY,
-                    GL_INTENSITY4,
-                    GL_INTENSITY8,
-                    GL_INTENSITY12,
-                    GL_INTENSITY16,
-                    GL_R3_G3_B2,
-                    GL_RGB,
-                    GL_RGB4,
-                    GL_RGB5,
-                    GL_RGB8,
-                    GL_RGB10,
-                    GL_RGB12,
-                    GL_RGB16,
-                    GL_RGBA,
-                    GL_RGBA2,
-                    GL_RGBA4,
-                    GL_RGB5_A1,
-                    GL_RGBA8,
-                    GL_RGB10_A2,
-                    GL_RGBA12,
-                    GL_RGBA16,
-                    GL_SLUMINANCE,
-                    GL_SLUMINANCE8,
-                    GL_SLUMINANCE_ALPHA,
-                    GL_SLUMINANCE8_ALPHA8,
-                    GL_SRGB,
-                    GL_SRGB8,
-                    GL_SRGB_ALPHA, or 
-                    GL_SRGB8_ALPHA8.
-                */	
-		
 	//Specifies the format of the pixel data. The following symbolic values are accepted: GL_RED, GL_RG, GL_RGB, GL_BGR, GL_RGBA, GL_BGRA, GL_RED_INTEGER, GL_RG_INTEGER, GL_RGB_INTEGER, GL_BGR_INTEGER, GL_RGBA_INTEGER, GL_BGRA_INTEGER, GL_STENCIL_INDEX, GL_DEPTH_COMPONENT, GL_DEPTH_STENCIL. 	
 		public enum ePixelFormat : Int {	
-			ALPHA                          = 0x1906;
-			RGB                            = 0x1907;
-			RGBA                           = 0x1908;
-			LUMINANCE                      = 0x1909;
-			LUMINANCE_ALPHA                = 0x190A;
-			BGR                            = 0x80E0;
-			BGRA                           = 0x80E1;
-			DEPTH_COMPONENT				   = 0x1902
-			DEPTH_COMPONENT16              = 0x81A5
-			DEPTH_COMPONENT24              = 0x81A6
-			DEPTH_COMPONENT32              = 0x81A7
+			ALPHA                        	= 0x1906;
+			RGB                          	= 0x1907;
+			RGBA                          	= 0x1908;
+			BGR                           	= 0x80E0;
+			BGRA                           	= 0x80E1;
+			RED 							= 0x1903;
+			RG  							= 0x8227;
+			RED_INTEGER 					= 0x8D94;
+			RG_INTEGER 						= 0x8228;
+			RGB_INTEGER 					= 0x8D98;
+			RGBA_INTEGER 					= 0x8D99;
 		}
 
+/*
 
+LUMINANCE                      = 0x1909;
+LUMINANCE_ALPHA                = 0x190A;
+DEPTH_COMPONENT				   = 0x1902
+DEPTH_COMPONENT16              = 0x81A5
+DEPTH_COMPONENT24              = 0x81A6
+DEPTH_COMPONENT32              = 0x81A7
+
+*/
 		
 		public enum eInternalPixelFormat : Int {	
-			ALPHA                          = 0x1906;
-			RGB                            = 0x1907;
-			RGBA                           = 0x1908;
-			LUMINANCE                      = 0x1909;
-			LUMINANCE_ALPHA                = 0x190A;
-			DEPTH_COMPONENT				   = 0x1902
-			DEPTH_COMPONENT16              = 0x81A5
-			DEPTH_COMPONENT24              = 0x81A6
-			DEPTH_COMPONENT32              = 0x81A7
-		} //TODO add Table 2. Sized Internal Formats
+			RGB8 							= 0x8051;
+			SRGB8 							= 0x8C41;
+			RGB                             = 0x1907;
+			RGBA8 							= 0x8058;
+			RGBA                            = 0x1908;
+			ALPHA                           = 0x1906;
+			R8						  	    = 0x8229;
+			RG8 							= 0x822B;
+			R16F						    = 0x822E;
+			R32F						    = 0x8230;
+			RG16F							= 0x822F;
+			RG32F 							= 0x8230;
+			RGB16F 							= 0x881B;
+			RGB32F 							= 0x8815;
+			RGB9_E5 						= 0x8C3D;	
+			RGBA16F 						= 0x881A;
+			RGBA32F 						= 0x8814;	
+			R11F_G11F_B10F 					= 0x8C3A;		
+			R8UI 							= 0x8232;
+			RG8UI 							= 0x8238;
+			RGB8UI 							= 0x8D7D;
+			RGBA8UI 						= 0x8D7C;
+			RG16UI							= 0x823A;
+			RG32UI 							= 0x823C;
+			RGB565 							= 0x8D62;
+			SRGB8_APLHA8 					= 0x8C43;
+			RGB5_A1 						= 0x8057;
+			RGB10_A2 						= 0x8059;
+			RGBA4 							= 0x8056;
+			DEPTH_COMPONENT				   	= 0x1902;
+			DEPTH_COMPONENT16             	= 0x81A5;
+			DEPTH_COMPONENT24               = 0x81A6;
+			DEPTH_COMPONENT32               = 0x81A7;
+		}
 
-		
 		
 		public enum ePixelStoreParameter : Int {
 			UNPACK_ALIGNMENT               = 0x0CF5;

@@ -48,6 +48,94 @@ package  {
 	
 		//https://developer.mozilla.org/fr/docs/Web/API/WebGLRenderingContext/texImage2D
 		
+//
+///Most languages don't have built-in types for half-floats. So you either will have to write a few lines of code to do the conversion from float to half-float, or use code that somebody else wrote
+
+//InternalFormat	Format			Type  
+//////////////////////////////////////////////////////////////////////////////////
+// RGB8				RGB				[UNSIGNED_BYTE]
+// SRGB8			RGB				[UNSIGNED_BYTE]
+// RGB				RGB				[UNSIGNED_BYTE, UNSIGNED_SHORT_5_6_5]	 						 //UNSIGNED_BYTE = RGB8
+//////////////////////////////////////////////////////////////////////////////////
+// RGBA8			RGBA			[UNSIGNED_BYTE]				
+// RGBA				RGBA			[UNSIGNED_BYTE, UNSIGNED_SHORT_4_4_4_4, UNSIGNED_SHORT_5_5_5_1]	 //UNSIGNED_BYTE = RGBA8
+//////////////////////////////////////////////////////////////////////////////////
+// LUMINANCE_ALPHA	LUMINANCE_ALPHA	[UNSIGNED_BYTE]				//Not used
+// LUMINANCE		LUMINANCE		[UNSIGNED_BYTE]				//Not used
+//////////////////////////////////////////////////////////////////////////////////
+// ALPHA			ALPHA			[UNSIGNED_BYTE]
+// R8				RED				[UNSIGNED_BYTE]
+// RG8				RG				[UNSIGNED_BYTE]
+//////////////////////////////////////////////////////////////////////////////////
+// R16F				RED				[HALF_FLOAT, FLOAT]
+// R32F				RED				[FLOAT]
+// RG16F			RG				[HALF_FLOAT, FLOAT]	
+// RG32F			RG				[FLOAT]
+// RGB16F			RGB				[HALF_FLOAT, FLOAT]
+// RGB32F			RGB				[FLOAT]
+// RGB9_E5			RGB				[HALF_FLOAT, FLOAT]
+// RGBA16F			RGBA			[HALF_FLOAT, FLOAT]
+// RGBA32F			RGBA			[FLOAT]
+// R11F_G11F_B10F	RGB				[UNSIGNED_INT_10F_11F_11F_REV, HALF_FLOAT, FLOAT]
+//////////////////////////////////////////////////////////////////////////////////
+// RGB565			RGB				[UNSIGNED_BYTE, UNSIGNED_SHORT_5_6_5]
+// SRGB8_ALPHA8		RGBA			[UNSIGNED_BYTE]
+// RGB5_A1			RGBA			[UNSIGNED_BYTE, UNSIGNED_SHORT_5_5_5_1]
+// RGB10_A2			RGBA			[UNSIGNED_INT_2_10_10_10_REV]
+// RGBA4			RGBA			[UNSIGNED_BYTE, UNSIGNED_SHORT_4_4_4_4]
+//////////////////////////////////////////////////////////////////////////////////
+// R8UI				RED_INTEGER		[UNSIGNED_BYTE]
+// RG8UI			RG_INTEGER		[UNSIGNED_BYTE]
+// RGB8UI			RGB_INTEGER		[UNSIGNED_BYTE]
+// RGBA8UI			RGBA_INTEGER	[UNSIGNED_BYTE]
+// RG16UI			RG_INTEGER		[UNSIGNED_BYTE] //Added from original table
+// RG32UI			RG_INTEGER		[UNSIGNED_BYTE] //Added from original table
+//////////////////////////////////////////////////////////////////////////////////
+
+
+/*
+
+public enum eImgFormat : Int {	//Follow OGL spec Default = RGBA
+			Default 					    = 0x1908;
+			RGB                             = 0x1907;
+			RGBA                            = 0x1908;
+			R8						  	    = 0x8229;
+			RG8 							= 0x822B;
+			RGB8 							= 0x8051;
+			R16F						    = 0x822E;
+			R32F						    = 0x8230;
+			RG16F							= 0x822F;
+			RG32F 							= 0x8230;
+			R8UI 							= 0x8232;
+			RG8UI 							= 0x8238;
+			RGB8UI 							= 0x8D7D;
+			RGBA8UI 						= 0x8D7C;
+			RG16UI							= 0x823A;
+			RG32UI 							= 0x823C;
+			SRGB8 							= 0x8C41;
+			RGB565 							= 0x8D62;
+			R11F_G11F_B10F 					= 0x8C3A;
+			RGB9_E5 						= 0x8C3D;
+			RGB16F 							= 0x881B;
+			RGB32F 							= 0x8815;
+			RGBA8 							= 0x8058;
+			SRGB8_APLHA8 					= 0x8C43;
+			RGB5_A1 						= 0x8057;
+			RGB10_A2 						= 0x8059;
+			RGBA4 							= 0x8056;
+			RGBA16F 						= 0x881A;
+			RGBA32F 						= 0x8814;
+		}
+
+*/
+
+//Lib_GzOpenGL::OpenGL::eTargetTexture::TEXTURE_2D
+
+
+
+
+
+			
 			
 		var _nBWidth : UInt =   _nWidth;
 		var _nBHeight : UInt =   _nWidth;
