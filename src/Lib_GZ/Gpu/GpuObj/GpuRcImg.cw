@@ -8,6 +8,7 @@ package  {
 	public overclass GpuRcImg  {
 	
 	//Refer to "Lib_GzOpenGL\GpuObj\OpGpuRcImg.cw"
+	//https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/renderbufferStorage
 		public enum ePixFormat : Int {
 		
 			Default                         ;
@@ -31,11 +32,16 @@ package  {
 			RGB32F 							;
 			RGBA16F 						;
 			RGBA32F 						;
+			R8I 							;
 			R8UI 							;
 			RG8UI 							;
 			RGB8UI 							;
 			RGBA8UI 						;
+			R16I							;
+			R16UI							;
 			RG16UI							;
+			R32I 							;
+			R32UI 							;
 			RG32UI 							;
 		}
 		

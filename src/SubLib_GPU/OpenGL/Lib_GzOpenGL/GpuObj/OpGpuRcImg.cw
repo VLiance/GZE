@@ -98,6 +98,9 @@ package  {
 	
 		// Lib_GZ::Gpu::GpuObj::GpuRcImg::ePixFormat _hPixFormat
 		//ePixelType
+		
+		var _aFormat : CArray<UInt, 1>;
+		
 <cpp>
 using namespace Lib_GZ::Gpu::GpuObj;
 using namespace Lib_GzOpenGL;
@@ -131,6 +134,9 @@ RGBA8UI 						;
 RG16UI							;
 RG32UI 							;
 */
+//TODO
+//	//https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/renderbufferStorage
+	
 static gzUInt32 _aCompFormat[][4] =  
 { 	
 {GpuRcImg::ePixFormat::Default, 		OpenGL::eInternalPixelFormat::RGBA8,  			OpenGL::ePixelFormat::RGBA, 		OpenGL::ePixelType::UNSIGNED_BYTE},
@@ -154,14 +160,20 @@ static gzUInt32 _aCompFormat[][4] =
 {GpuRcImg::ePixFormat::RGB32F, 			OpenGL::eInternalPixelFormat::RGB32F,  			OpenGL::ePixelFormat::RGB, 			OpenGL::ePixelType::FLOAT},
 {GpuRcImg::ePixFormat::RGBA16F, 		OpenGL::eInternalPixelFormat::RGBA16F,  		OpenGL::ePixelFormat::RGBA, 		OpenGL::ePixelType::FLOAT},
 {GpuRcImg::ePixFormat::RGBA32F, 		OpenGL::eInternalPixelFormat::RGBA32F,  		OpenGL::ePixelFormat::RGBA, 		OpenGL::ePixelType::FLOAT},
+{GpuRcImg::ePixFormat::R8I, 			OpenGL::eInternalPixelFormat::R8I,  			OpenGL::ePixelFormat::RED_INTEGER, 	OpenGL::ePixelType::UNSIGNED_BYTE},
 {GpuRcImg::ePixFormat::R8UI, 			OpenGL::eInternalPixelFormat::R8UI,  			OpenGL::ePixelFormat::RED_INTEGER, 	OpenGL::ePixelType::UNSIGNED_BYTE},
 {GpuRcImg::ePixFormat::RG8UI, 			OpenGL::eInternalPixelFormat::RG8UI,  			OpenGL::ePixelFormat::RG_INTEGER, 	OpenGL::ePixelType::UNSIGNED_BYTE},
 {GpuRcImg::ePixFormat::RGB8UI, 			OpenGL::eInternalPixelFormat::RGB8UI,  			OpenGL::ePixelFormat::RGB_INTEGER, 	OpenGL::ePixelType::UNSIGNED_BYTE},
 {GpuRcImg::ePixFormat::RGBA8UI, 		OpenGL::eInternalPixelFormat::RGBA8UI,  		OpenGL::ePixelFormat::RGBA_INTEGER, OpenGL::ePixelType::UNSIGNED_BYTE},
+{GpuRcImg::ePixFormat::R16I, 			OpenGL::eInternalPixelFormat::R16I,  			OpenGL::ePixelFormat::RG_INTEGER, 	OpenGL::ePixelType::UNSIGNED_BYTE},
+{GpuRcImg::ePixFormat::R16UI, 			OpenGL::eInternalPixelFormat::R16UI,  			OpenGL::ePixelFormat::RG_INTEGER, 	OpenGL::ePixelType::UNSIGNED_BYTE},
 {GpuRcImg::ePixFormat::RG16UI, 			OpenGL::eInternalPixelFormat::RG16UI,  			OpenGL::ePixelFormat::RG_INTEGER, 	OpenGL::ePixelType::UNSIGNED_BYTE},
+{GpuRcImg::ePixFormat::R32I, 			OpenGL::eInternalPixelFormat::R32I,  			OpenGL::ePixelFormat::RG_INTEGER, 	OpenGL::ePixelType::UNSIGNED_BYTE},
+{GpuRcImg::ePixFormat::R32UI, 			OpenGL::eInternalPixelFormat::R32UI,  			OpenGL::ePixelFormat::RG_INTEGER, 	OpenGL::ePixelType::UNSIGNED_BYTE},
 {GpuRcImg::ePixFormat::RG32UI, 			OpenGL::eInternalPixelFormat::RG32UI,  			OpenGL::ePixelFormat::RG_INTEGER, 	OpenGL::ePixelType::UNSIGNED_BYTE},
 
 };
+_aFormat = (gzUInt32*)_aCompFormat;
 </cpp>
 
 
@@ -189,11 +201,24 @@ static gzUInt32 _aCompFormat[][4] =
 			#endif
 			</cpp>
 		}else{
-			OpenGL.fTexImage2D(TEXTURE_2D, 0, _hPixFormat, _nBWidth ,_nBHeight, 0, _hPixFormat, UNSIGNED_BYTE, _aImg);
+			<cpp>
+			
+			printf("\nTest: %d\n", _hPixFormat);
+			</cpp>
+			var _nIdx : UInt = (_hPixFormat- 1) * 4 ;
+			Debug.fInfo("_nIdx:  " + _nIdx);
+			if(_aFormat[_nIdx] != _hPixFormat){
+				Debug.fError("Format does not mach!");
+				return null;
+			}
+			Debug.fInfo("111:  "  + _aFormat[_nIdx + 1]);
+			Debug.fInfo("222:  "  + _aFormat[_nIdx + 2]);
+			Debug.fInfo("333:  "  + _aFormat[_nIdx + 3]);
+			OpenGL.fTexImage2D(TEXTURE_2D, 0, _aFormat[_nIdx + 1], _nBWidth ,_nBHeight, 0, _aFormat[_nIdx + 2], _aFormat[_nIdx + 3], _aImg);
+			Debug.fInfo("bbbb:  " );
 		}
 		
-		
-			
+				
 		if(oGpuTexLayer == null){
 			OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_MAG_FILTER , OpenGL.eTextureMagFilter.LINEAR);
 			OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_MIN_FILTER , OpenGL.eTextureMinFilter.LINEAR);

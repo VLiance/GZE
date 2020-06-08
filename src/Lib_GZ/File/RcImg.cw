@@ -24,6 +24,7 @@ package  {
 		public var oGpuTexId : Val = 0;
 
 		
+		public var bBorder : Bool = true;
 		public var nWidth : UInt = 0;
 		public var nHeight : UInt = 0;
 		public var aImg : CArray<Int32, 2>
@@ -121,7 +122,7 @@ package  {
 					}
 					
 					if(_aImg1D != null){
-						oLinkRc.oGpuTexId = oLinkRc.oGpuRcImg.fLoadImg(_aImg1D, oLinkRc.nWidth,  oLinkRc.nHeight, oLinkRc.oGpuTexLayer, hPixFormat);
+						oLinkRc.oGpuTexId = oLinkRc.oGpuRcImg.fLoadImg(_aImg1D, oLinkRc.nWidth,  oLinkRc.nHeight, oLinkRc.oGpuTexLayer, hPixFormat, bBorder);
 					}
 					
 					return true;
