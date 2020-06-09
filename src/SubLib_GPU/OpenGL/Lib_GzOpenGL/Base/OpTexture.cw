@@ -11,17 +11,22 @@ package  {
 		
 		
 		
-		public function OpTexture(_oProgram : ProgramShader, _sName : String):Void {
+		public function OpTexture(_oProgram : ProgramShader, _sName : String, _bTexInteger : Bool = false):Void {
 		
 		}
 		
 		override public function fLoad():Void {
+			// GZ_printf("%s" , (gzInt8*)(_sName.sStr->array + 1));
+			//GL_fUniform1i(GL_fGetUniformLocation(nId, _sName.fcStr() ), _nSlot);
 		
-				   // GZ_printf("%s" , (gzInt8*)(_sName.sStr->array + 1));
-	//		GL_fUniform1i(GL_fGetUniformLocation(nId, _sName.fcStr() ), _nSlot);
-		
-			nId = OpenGL.fGetUniformLocation(oProgram.nId, "Texture["  + nSlot + "]" );
-			nSizeId = OpenGL.fGetUniformLocation(oProgram.nId,  "TexSize["  + nSlot + "]" );
+			if(bTexInteger){
+				nId = OpenGL.fGetUniformLocation(oProgram.nId, "ITexture["  + nSlot + "]" );
+				nSizeId = OpenGL.fGetUniformLocation(oProgram.nId,  "ITexSize["  + nSlot + "]" );
+			}else{
+				nId = OpenGL.fGetUniformLocation(oProgram.nId, "Texture["  + nSlot + "]" );
+				nSizeId = OpenGL.fGetUniformLocation(oProgram.nId,  "TexSize["  + nSlot + "]" );
+			}
+			
 			nNumId = OpenGL.fGetUniformLocation(oProgram.nId,  sName );
 			bValid = true;
 			

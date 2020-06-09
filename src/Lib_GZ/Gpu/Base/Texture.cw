@@ -21,18 +21,16 @@ package  {
 		public var bValid : Bool = false;
 		
 		public var nSlot : UInt;
+		public var bTexInteger : Bool = false;
 		
 		public wvar oProgram : ProgramShader;
 
 		
 				
 	//	public function Texture(_oProgram : ProgramShader, _sName : String,  _sSizeName : String):Void {
-		public function Texture(_oProgram : ProgramShader, _sName : String):Void {
-
+		public function Texture(_oProgram : ProgramShader, _sName : String, _bTexInteger : Bool = false):Void {
+			bTexInteger = _bTexInteger;
 			sName = _sName;
-		//	nSlot = _nSlot;
-			//sSizeName = _sSizeName;
-			
 			oProgram = _oProgram;
 			
 			

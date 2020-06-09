@@ -32,6 +32,7 @@ package  {
 		public var oTexSprites : Texture;
 		public var oTexFont : Texture;
 		public var oTexDepth : Texture;
+		public var oITexID : Texture;
 		
 		
 		
@@ -101,6 +102,7 @@ package  {
 			oTexSprites = new Texture(oProgram, "ID_TexSprites");
 			oTexFont = new Texture(oProgram, "ID_TexFont");
 			oTexDepth = new Texture(oProgram, "ID_TexDepth");
+			oITexID = new Texture(oProgram, "ID_ITexID", true);
 			
 			//TODO Normals in AtQuad?
 			

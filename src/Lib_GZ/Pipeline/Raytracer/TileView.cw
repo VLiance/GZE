@@ -43,11 +43,10 @@
 		
 			if(bLoaded == false){
 				bLoaded = true;
-				oImg.fSetGpuTexLayer(Attribute_Quad.oTexture);
+				oImg.fSetGpuTexLayer(Attribute_Quad.oITexID);
 				//	public var aKeyRelease : CArray<Bool, 1, 256>
-			
-				//oImg.aImg1D
 				
+
 				oImg.fGpuLoad();
 			}
 			

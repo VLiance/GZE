@@ -111,17 +111,18 @@ public class GzShCommun_Base {
 			#define xshared out	
 			
 			#define nMaxTextures 8
-			
+			#define nMaxITextures 8
 	
 			uniform int ID_TexCurrent; 
 			uniform int ID_TexNormal; 
 			uniform int ID_TexSprites; 
 			uniform int ID_TexFont; 
 			uniform int ID_TexDepth; 
+			uniform int ID_ITexID; 
 			uniform int ID_FBO; 
 
 			uniform vec2 	  TexSize[nMaxTextures];
-			//uniform sampler2D Texture[nMaxTextures];
+			uniform vec2 	  ITexSize[nMaxITextures];
 			
 			#define iTexID int(in_ObjSize.w + 0.1)
 			#define iType int(in_ObjPos.w + 0.1)
@@ -149,17 +150,20 @@ public class GzShCommun_Base {
 				
 			#define xshared in				
 			#define nMaxTextures 8
+			#define nMaxITextures 8
 				
 			uniform int ID_TexCurrent; 
 			uniform int ID_TexNormal; 
 			uniform int ID_TexSprites; 
 			uniform int ID_TexFont; 
 			uniform int ID_TexDepth; 
+			uniform int ID_ITexID;
 			uniform int ID_FBO; 
 
 			uniform vec2 	  TexSize[nMaxTextures];
 			uniform sampler2D Texture[nMaxTextures];
-			//uniform usampler2D Texture[nMaxTextures];
+			uniform vec2 	  ITexSize[nMaxITextures];
+			uniform usampler2D ITexture[nMaxITextures];
 			
 			uniform vec4 vPersp;
 			

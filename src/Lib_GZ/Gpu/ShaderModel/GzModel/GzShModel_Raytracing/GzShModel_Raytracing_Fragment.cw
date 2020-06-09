@@ -209,7 +209,11 @@ void mainImage(out vec4 fragColor,in vec2 fragCoord)
     fragColor = vec4(  vec3( 0.8 *  color2 ),   0.1) ;
 	
 	//vec4 pixDepth = fTexture(ID_TexCurrent, sh_vTextureNorm);
-	vec4 pixDepth = fTexture(0, sh_uv);
+	//vec4 pixDepth = fTexture(0, sh_uv);
+//	vec4 pixDepth =   texture(ID_ITexID, sh_uv);
+	vec4 pixDepth  = texture(ITexture[ID_ITexID], sh_uv);
+	
+	
 	fragColor = pixDepth + vec4(0.1,0.0,0.0,0.5);
 //	fragColor = vec4(sh_uv.x, sh_uv.y, 0.0, 0.5);
 	
