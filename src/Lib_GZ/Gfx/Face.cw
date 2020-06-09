@@ -113,7 +113,7 @@ package  {
 			*/
 			
 			oGpuObj = new GpuFace(this);
-			oGpuObj.fIni(this);
+			//oGpuObj.fIni(this);
 		}
 		
 		public function fGpuDraw( ):Bool {

@@ -25,12 +25,13 @@ package  {
 		public var oPtTR : PtA;
 		public var oPtBR : PtA;
 		public var oPtBL : PtA;
-
+		
 
 		public function View(  _nX: Float, _nY:Float, _nW: Float, _nH:Float):Void {
 		
 			Shape(parent, _nX , _nY, 4, false);
-
+			hType = Root.eType.View;
+			
 			var _nCenterX :Float = 0;
 			var _nCenterY :Float = 0;
 

@@ -14,15 +14,19 @@
 		public var oImg : RcImg;
 		public var nWidth : UInt;
 		public var nHeight : UInt;
-		public var aArray : CArray<Int32, 1, 320000>;//800x800
+		//public var aArray : CArray<Int32, 1, 320000>;//800x800
+		public var aArray : CArray<Int32, 1, 640000>;//800x800
+		public var bLoaded : Bool = false;
 		
 		public function TileView(_oItf : Interface):Void {
 			oItf = _oItf;
-		}
+			
+			for(var i:Int = 0; i < 20000; i++;){
+				aArray[i] = 0xFFFFFFFF;
+			}
+			
 		
-		
-		public function fIni():Void {
-		
+			
 			oImg = new RcImg("");
 			oImg.aImg1D = aArray;
 			oImg.hPixFormat = GpuRcImg.ePixFormat.R16UI;
@@ -30,13 +34,22 @@
 			oImg.nHeight = 800;
 			oImg.bBorder = false;
 			
-			oImg.fSetGpuTexLayer(Attribute_Quad.oTexture);
-			//	public var aKeyRelease : CArray<Bool, 1, 256>
+			
+			
+		}
 		
-			//oImg.aImg1D
+		
+		public function fIni():Void {
+		
+			if(bLoaded == false){
+				bLoaded = true;
+				oImg.fSetGpuTexLayer(Attribute_Quad.oTexture);
+				//	public var aKeyRelease : CArray<Bool, 1, 256>
 			
-			oImg.fGpuLoad();
-			
+				//oImg.aImg1D
+				
+				oImg.fGpuLoad();
+			}
 			
 		}
 

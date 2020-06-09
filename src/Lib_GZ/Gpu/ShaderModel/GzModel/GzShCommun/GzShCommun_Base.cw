@@ -159,6 +159,7 @@ public class GzShCommun_Base {
 
 			uniform vec2 	  TexSize[nMaxTextures];
 			uniform sampler2D Texture[nMaxTextures];
+			//uniform usampler2D Texture[nMaxTextures];
 			
 			uniform vec4 vPersp;
 			

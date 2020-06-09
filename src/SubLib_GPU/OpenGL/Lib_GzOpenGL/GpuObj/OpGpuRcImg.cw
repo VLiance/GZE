@@ -26,7 +26,12 @@ package  {
 		
 		
 		override function fLoadImg(_aImg : CArray<Int, 1>, _nWidth : Int, _nHeight : Int, _oGpuTexLayer : Texture, _hPixFormat : ePixFormat, _bBorder : Bool = true):Val{
+			var _bNew : Bool = true;
+			if(oTexId != null){ 
+				_bNew = false; //Reload only
+			}
 		
+				
 			oGpuTexLayer = _oGpuTexLayer;
 				
 			if(_nWidth = 0 && _nHeight == 0){
@@ -39,7 +44,10 @@ package  {
 			
 			OpenGL.fActiveTexture(TEXTURE0 + oGpuTexLayer.nSlot);
 			
-			oTexId = OpenGL.fCreateTexture();
+			
+			if(_bNew){
+				oTexId = OpenGL.fCreateTexture();
+			}
 			OpenGL.fBindTexture(TEXTURE_2D, oTexId);
 
 	//WebGL 2.0		
@@ -136,7 +144,7 @@ RG32UI 							;
 */
 //TODO
 //	//https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/renderbufferStorage
-	
+	//https://www.khronos.org/registry/OpenGL-Refpages/es3.0/html/glTexImage2D.xhtml
 static gzUInt32 _aCompFormat[][4] =  
 { 	
 {GpuRcImg::ePixFormat::Default, 		OpenGL::eInternalPixelFormat::RGBA8,  			OpenGL::ePixelFormat::RGBA, 		OpenGL::ePixelType::UNSIGNED_BYTE},
@@ -165,11 +173,11 @@ static gzUInt32 _aCompFormat[][4] =
 {GpuRcImg::ePixFormat::RG8UI, 			OpenGL::eInternalPixelFormat::RG8UI,  			OpenGL::ePixelFormat::RG_INTEGER, 	OpenGL::ePixelType::UNSIGNED_BYTE},
 {GpuRcImg::ePixFormat::RGB8UI, 			OpenGL::eInternalPixelFormat::RGB8UI,  			OpenGL::ePixelFormat::RGB_INTEGER, 	OpenGL::ePixelType::UNSIGNED_BYTE},
 {GpuRcImg::ePixFormat::RGBA8UI, 		OpenGL::eInternalPixelFormat::RGBA8UI,  		OpenGL::ePixelFormat::RGBA_INTEGER, OpenGL::ePixelType::UNSIGNED_BYTE},
-{GpuRcImg::ePixFormat::R16I, 			OpenGL::eInternalPixelFormat::R16I,  			OpenGL::ePixelFormat::RG_INTEGER, 	OpenGL::ePixelType::UNSIGNED_BYTE},
-{GpuRcImg::ePixFormat::R16UI, 			OpenGL::eInternalPixelFormat::R16UI,  			OpenGL::ePixelFormat::RG_INTEGER, 	OpenGL::ePixelType::UNSIGNED_BYTE},
+{GpuRcImg::ePixFormat::R16I, 			OpenGL::eInternalPixelFormat::R16I,  			OpenGL::ePixelFormat::RED_INTEGER, 	OpenGL::ePixelType::UNSIGNED_BYTE},
+{GpuRcImg::ePixFormat::R16UI, 			OpenGL::eInternalPixelFormat::R16UI,  			OpenGL::ePixelFormat::RED_INTEGER, 	OpenGL::ePixelType::UNSIGNED_BYTE},
 {GpuRcImg::ePixFormat::RG16UI, 			OpenGL::eInternalPixelFormat::RG16UI,  			OpenGL::ePixelFormat::RG_INTEGER, 	OpenGL::ePixelType::UNSIGNED_BYTE},
-{GpuRcImg::ePixFormat::R32I, 			OpenGL::eInternalPixelFormat::R32I,  			OpenGL::ePixelFormat::RG_INTEGER, 	OpenGL::ePixelType::UNSIGNED_BYTE},
-{GpuRcImg::ePixFormat::R32UI, 			OpenGL::eInternalPixelFormat::R32UI,  			OpenGL::ePixelFormat::RG_INTEGER, 	OpenGL::ePixelType::UNSIGNED_BYTE},
+{GpuRcImg::ePixFormat::R32I, 			OpenGL::eInternalPixelFormat::R32I,  			OpenGL::ePixelFormat::RED_INTEGER, 	OpenGL::ePixelType::UNSIGNED_BYTE},
+{GpuRcImg::ePixFormat::R32UI, 			OpenGL::eInternalPixelFormat::R32UI,  			OpenGL::ePixelFormat::RED_INTEGER, 	OpenGL::ePixelType::UNSIGNED_BYTE},
 {GpuRcImg::ePixFormat::RG32UI, 			OpenGL::eInternalPixelFormat::RG32UI,  			OpenGL::ePixelFormat::RG_INTEGER, 	OpenGL::ePixelType::UNSIGNED_BYTE},
 
 };
@@ -187,7 +195,7 @@ _aFormat = (gzUInt32*)_aCompFormat;
 			_nBHeight+=2;
 		}
 		
-
+		//TODO only if format change
 		if(_hPixFormat == ePixFormat.Default){
 			<cpp>
 			#ifdef GZ_D_CpuRenderer_Reverse_BlueAndRed
@@ -203,19 +211,21 @@ _aFormat = (gzUInt32*)_aCompFormat;
 		}else{
 			<cpp>
 			
-			printf("\nTest: %d\n", _hPixFormat);
+			//printf("\nTest: %d\n", _hPixFormat);
 			</cpp>
 			var _nIdx : UInt = (_hPixFormat- 1) * 4 ;
-			Debug.fInfo("_nIdx:  " + _nIdx);
+			//Debug.fInfo("_nIdx:  " + _nIdx);
 			if(_aFormat[_nIdx] != _hPixFormat){
 				Debug.fError("Format does not mach!");
 				return null;
 			}
-			Debug.fInfo("111:  "  + _aFormat[_nIdx + 1]);
-			Debug.fInfo("222:  "  + _aFormat[_nIdx + 2]);
-			Debug.fInfo("333:  "  + _aFormat[_nIdx + 3]);
-			OpenGL.fTexImage2D(TEXTURE_2D, 0, _aFormat[_nIdx + 1], _nBWidth ,_nBHeight, 0, _aFormat[_nIdx + 2], _aFormat[_nIdx + 3], _aImg);
-			Debug.fInfo("bbbb:  " );
+			
+			//Debug.fInfo("111:  "  + _aFormat[_nIdx + 1]);
+			//Debug.fInfo("222:  "  + _aFormat[_nIdx + 2]);
+			//Debug.fInfo("333:  "  + _aFormat[_nIdx + 3]);
+			//OpenGL.fTexImage2D(TEXTURE_2D, 0, _aFormat[_nIdx + 1], _nBWidth ,_nBHeight, 0, _aFormat[_nIdx + 2], _aFormat[_nIdx + 3], _aImg);
+			OpenGL.fTexImage2D(TEXTURE_2D, 0, R8UI, _nBWidth ,_nBHeight, 0, RED_INTEGER, UNSIGNED_BYTE, _aImg);
+	//		OpenGL.fTexImage2D(TEXTURE_2D, 0, RGBA, _nBWidth ,_nBHeight, 0, RGBA, UNSIGNED_BYTE, _aImg);
 		}
 		
 				
@@ -240,8 +250,9 @@ _aFormat = (gzUInt32*)_aCompFormat;
 			
 			if(oTexId != null){
 				//Debug.fPass("Image Gpu Loaded: " + oTexId);
-				Debug.fPass("Image Gpu Loaded |" + oGpuTexLayer.nSlot + "| [" + (_nBWidth) + " x " +  (_nBHeight) + "]" );
-
+				if(_bNew){
+					Debug.fPass("Image Gpu Loaded |" + oGpuTexLayer.nSlot + "| [" + (_nBWidth) + " x " +  (_nBHeight) + "]" );
+				}
 			//if(oGpuTexLayer != null){
 				
 				oGpuTexLayer.fSendSize(_nWidth+2, _nHeight+2);

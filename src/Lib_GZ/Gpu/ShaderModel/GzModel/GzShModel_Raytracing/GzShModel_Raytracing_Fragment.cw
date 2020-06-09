@@ -28,7 +28,8 @@ package  {
 		override public function fLoad_Fragment():Bool {
 			
 			GzShCommun_Base.fAdd_FragmentBasics(oFragement);
-			GzShCommun_Base.fAdd_Default_15_Slot(oFragement, true);
+		//	GzShCommun_Base.fAdd_Default_15_Slot(oFragement, true);
+			GzShCommun_Base.fAdd_Default_15_Slot(oFragement);
 			GzShCommun_Base.fAdd_Func_Basics(oFragement);
 			GzShCommun_Base.fAdd_Fragment_Func_Basics(oFragement);
 			GzShCommun_Light.fAdd_Func_fAddLight(oFragement);
@@ -201,10 +202,19 @@ void mainImage(out vec4 fragColor,in vec2 fragCoord)
     //color2+= (1.-depth);	// subtle mist white background
 
     
+
+		
+		
 //	scene depth included in alpha channel
     fragColor = vec4(  vec3( 0.8 *  color2 ),   0.1) ;
 	
-    fragColor = uboVal[0];
+	//vec4 pixDepth = fTexture(ID_TexCurrent, sh_vTextureNorm);
+	vec4 pixDepth = fTexture(0, sh_uv);
+	fragColor = pixDepth + vec4(0.1,0.0,0.0,0.5);
+//	fragColor = vec4(sh_uv.x, sh_uv.y, 0.0, 0.5);
+	
+  //  fragColor = uboVal[0];
+  
  //   fragColor = vec4( 1.0,1.0,1.0, 0.1) ;
 }
 				

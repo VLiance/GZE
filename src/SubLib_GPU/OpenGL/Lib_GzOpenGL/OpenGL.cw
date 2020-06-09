@@ -248,6 +248,9 @@ DEPTH_COMPONENT32              = 0x81A7
 			BYTE 						   = 0x1400;
 			UNSIGNED_BYTE				   = 0x1401;
 			FLOAT 					   	   = 0x1406;
+			SHORT 							= 0x1402;
+			UNSIGNED_SHORT            		= 0x1403;
+			INT 							= 0x1404;
 		}
 
 		public enum eShadingModel : Int {

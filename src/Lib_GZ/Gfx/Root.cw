@@ -25,12 +25,14 @@ package  {
 
 	
 		public enum eType : Int {
-			None;
-			Tile;
-			Font;
-			Img;
-			Line;
+			None = 0;
+			Tile = 1000;
+			Font = 2000;
+			Img  = 3000;
+			Line = 4000;
+			View = 5000;
 		}
+		public var nSubType : Int; //Max: 1000 subtype
 		
 		public var hType : eType;
 		
