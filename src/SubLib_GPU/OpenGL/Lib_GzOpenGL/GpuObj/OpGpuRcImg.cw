@@ -225,9 +225,13 @@ _aFormat = (gzUInt32*)_aCompFormat;
 			//Debug.fInfo("333:  "  + _aFormat[_nIdx + 3]);
 			//OpenGL.fTexImage2D(TEXTURE_2D, 0, _aFormat[_nIdx + 1], _nBWidth ,_nBHeight, 0, _aFormat[_nIdx + 2], _aFormat[_nIdx + 3], _aImg);
 			
+			
+			if(_aImg == null){
+				Debug.fError("_aImg is null!");
+			}
+			
 			OpenGL.fTexImage2D(TEXTURE_2D, 0, R8UI, _nBWidth ,_nBHeight, 0, RED_INTEGER, UNSIGNED_BYTE, _aImg); //Work
 			//OpenGL.fTexImage2D(TEXTURE_2D, 0, R8UI, _nBWidth ,_nBHeight, 0, RED_INTEGER, UNSIGNED_BYTE, _aImg);
-			
 			
 	//		OpenGL.fTexImage2D(TEXTURE_2D, 0, RGBA, _nBWidth ,_nBHeight, 0, RGBA, UNSIGNED_BYTE, _aImg);
 		}
@@ -238,16 +242,20 @@ _aFormat = (gzUInt32*)_aCompFormat;
 			OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_MIN_FILTER , OpenGL.eTextureMinFilter.LINEAR);
 	
 		}else{
-			OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_MAG_FILTER , OpenGL.eTextureMagFilter.LINEAR);
-			OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_MIN_FILTER , OpenGL.eTextureMinFilter.LINEAR);
+			if(oGpuTexLayer.bTexInteger){
+				//IF is a integer texture we must specifie the interpolation NEAREST 
+				OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_MAG_FILTER , OpenGL.eTextureMagFilter.NEAREST);
+				OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_MIN_FILTER , OpenGL.eTextureMinFilter.NEAREST);
+			}else{
+				OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_MAG_FILTER , OpenGL.eTextureMagFilter.LINEAR);
+				OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_MIN_FILTER , OpenGL.eTextureMinFilter.LINEAR);
+			}
 		}	
 			
-	
-	
+
 			OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_WRAP_S, OpenGL.eTextureWrapMode.REPEAT); // Repeat on X axis
 			OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_WRAP_T, OpenGL.eTextureWrapMode.REPEAT); // Repeat on Y axis 
 
-	
 			
 		//	OpenGL.fBindTexture(TEXTURE_2D, null);  //Must keep bounded
 			//TODO Texture must keep being bound to a texture unit ->
@@ -259,7 +267,7 @@ _aFormat = (gzUInt32*)_aCompFormat;
 				}
 			//if(oGpuTexLayer != null){
 				
-				oGpuTexLayer.fSendSize(_nWidth+2, _nHeight+2);
+				oGpuTexLayer.fSendSize(_nBWidth, _nBHeight);
 				/*
 				oUvTexDimNorm = new UnVec2(Attribute_Quad.oProgram, "vTexDimNorm");
 				oUvTexDimNorm.vVal.nX = _nWidth+2;

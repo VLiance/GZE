@@ -214,14 +214,22 @@ void mainImage(out vec4 fragColor,in vec2 fragCoord)
 	//vec4 pixDepth  = texture(ITexture[ID_ITexID], sh_uv);
 //	uint pixDepth  = texelFetch(UTexture[ID_ITexID], ivec2(UTexSize[ID_ITexID] * sh_uv), 0).r;
 	uint pixDepth  = texelFetch(UTexture[0], ivec2(UTexSize[ID_ITexID] * sh_uv), 0).r;
+	// pixDepth  =  pixDepth + texelFetch(UTexture[0], ivec2(UTexSize[ID_ITexID] * sh_uv), 0).r;
+	// pixDepth  = pixDepth + texelFetch(UTexture[0], ivec2(UTexSize[ID_ITexID] * sh_uv), 0).g;
+	// pixDepth  = pixDepth +texelFetch(UTexture[0], ivec2(UTexSize[ID_ITexID] * sh_uv), 0).b;
+	 
+//	uint pixDepth  = texelFetch(UTexture[0], ivec2(5,1), 0).r;
 	
 	
 	
-	fragColor = vec4( float(pixDepth)/256.0,0.0,0.0,0.5);
+//	fragColor = vec4( float(pixDepth)/256.0,0.0,0.0,0.5);
+	fragColor = vec4( float(pixDepth),0.0,0.0,0.5);
 //	fragColor = vec4(sh_uv.x, sh_uv.y, 0.0, 0.5);
 	
   //  fragColor = uboVal[0];
-  
+
+	// fragColor  =  vec4(texture(UTexture[0],sh_uv ));//work
+		 
  //   fragColor = vec4( 1.0,1.0,1.0, 0.1) ;
 }
 				
