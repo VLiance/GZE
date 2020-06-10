@@ -88,8 +88,8 @@ package  {
 				
 				oTexId = OpenGL.fCreateTexture();
 				fEnableTexture();
-				///OpenGL.fActiveTexture(TEXTURE0 + oTexture.nSlot);
-				///OpenGL.fBindTexture(TEXTURE_2D, oTexId);
+
+				
 				
 				if(oTexId == null){
 					Debug.fError("FBO creation Texture is null");
@@ -205,7 +205,7 @@ package  {
 				fDisableTexture();
 				
 			//	Debug.fPass("FBO Created|" + nIdBuff + "|Slot:" + oTexture.nSlot + "| [" + (oBuffer.nBuffWidth) + " x " +  (oBuffer.nBuffHeight) + "]" );
-				Debug.fPass("FBO Created|"  + "|Slot:" + oTexture.nSlot + "| [" + (oBuffer.nBuffWidth) + " x " +  (oBuffer.nBuffHeight) + "]" );
+				Debug.fPass("FBO Created|"  + "|Slot:" + oTexture.nSlot  + "[" + oTexture.nIndex +"]" +  "| [" + (oBuffer.nBuffWidth) + " x " +  (oBuffer.nBuffHeight) + "]" );
 
 			
 		}
@@ -304,11 +304,11 @@ package  {
 
 			
 			var _nType : Float = 3;
-			var _nSlot : Float = oTexture.nSlot;
-			//var _nSlot : Float = 3;
+			var _nIndex : Float = oTexture.nIndex;
+
 			
 			oAt.oAtObjPos.fSetVal(3, _nType); //Merge pos and type to save space
-			oAt.oAtObjSize.fSetVal(3, _nSlot); //Texture location
+			oAt.oAtObjSize.fSetVal(3, _nIndex); //Texture location
 			
 			
 		oAt.oAtTexSource0.fSetVal(0, 0);

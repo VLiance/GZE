@@ -85,7 +85,7 @@ package  {
 		
 		//Set Texture location
 		if(oFace.oShape.oRc != null && oFace.oShape.oRc.oLinkRc.oGpuTexLayer != null){
-			oAt.oAtObjSize.fSetVal(3, oFace.oShape.oRc.oLinkRc.oGpuTexLayer.nSlot);  //Use 4e value ObjSize var to save space
+			oAt.oAtObjSize.fSetVal(3, oFace.oShape.oRc.oLinkRc.oGpuTexLayer.nIndex);  //Use 4e value ObjSize var to save space
 		}else{
 			oAt.oAtObjSize.fSetVal(3,-1);//-1 = no RC
 		}

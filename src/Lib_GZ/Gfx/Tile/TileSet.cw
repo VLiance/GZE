@@ -82,7 +82,7 @@ package  {
 				
 				if(Context.oItf.bGpuDraw){
 					oRc.fSetGpuTexLayer(Attribute_Quad.oTexture);
-					Debug.fTrace("TileSetLayer: " + Attribute_Quad.oTexture.nSlot);
+					//Debug.fTrace("TileSetLayer: " + Attribute_Quad.oTexture.nSlot);
 				}
 				
 				//oRc.fLoadFromDrive(_sSrc);

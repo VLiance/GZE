@@ -251,7 +251,7 @@ _aFormat = (gzUInt32*)_aCompFormat;
 			if(oTexId != null){
 				//Debug.fPass("Image Gpu Loaded: " + oTexId);
 				if(_bNew){
-					Debug.fPass("Image Gpu Loaded |" + oGpuTexLayer.nSlot + "| [" + (_nBWidth) + " x " +  (_nBHeight) + "]" );
+					Debug.fPass("Image Gpu Loaded |" + oGpuTexLayer.nSlot + "[" + oGpuTexLayer.nIndex +"]" + "| [" + (_nBWidth) + " x " +  (_nBHeight) + "]" );
 				}
 			//if(oGpuTexLayer != null){
 				

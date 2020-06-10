@@ -21,6 +21,7 @@ package  {
 		public var bValid : Bool = false;
 		
 		public var nSlot : UInt;
+		public var nIndex : UInt;
 		public var bTexInteger : Bool = false;
 		
 		public wvar oProgram : ProgramShader;
@@ -34,7 +35,8 @@ package  {
 			oProgram = _oProgram;
 			
 			
-			nSlot =  oProgram.fAttachTexture(this);
+			nIndex =  oProgram.fAttachTexture(this);
+			nSlot =  oProgram.fGetLastTexSlot();
 			
 			//oProgram.aTex.fPush(this); //Todo
 			

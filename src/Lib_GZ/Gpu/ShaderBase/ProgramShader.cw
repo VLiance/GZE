@@ -15,7 +15,12 @@ package  {
 		public var bLinked : Bool;
 		public var aAttribute : Array<Attribute>;
 		public var aUniform : Array<Uniform>;
+		
 		public var aTexture : Array<Texture>;
+		public var aTexFloat : Array<Texture>;
+		public var aTexInt : Array<Texture>;
+		public var aTex3D : Array<Texture>;
+		
 		public var aVbo : Array<Vbo>;
 		public var aEvbo : Array<Evbo>;
 		public var nDefaultAttribDivisor : UInt = 0;
@@ -67,8 +72,20 @@ package  {
 		
 		public function fAttachTexture(_oTex: Texture):UInt {
 			aTexture.fPush(_oTex);
+			if(_oTex.bTexInteger){
+				aTexInt.fPush(_oTex);
+				return aTexInt.nSize - 1;
+			}else{
+				aTexFloat.fPush(_oTex);
+				return aTexFloat.nSize - 1;
+			}
+			
+			//return aTexture.nSize - 1;
+		}
+		public function fGetLastTexSlot():UInt {
 			return aTexture.nSize - 1;
 		}
+		
 		public function fAttachAttribute(_oAttribute: Attribute):Attribute{
 			aAttribute.fPush(_oAttribute);
 			_oAttribute.oProgram = this;

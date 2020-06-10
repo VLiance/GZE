@@ -20,11 +20,11 @@ package  {
 			//GL_fUniform1i(GL_fGetUniformLocation(nId, _sName.fcStr() ), _nSlot);
 		
 			if(bTexInteger){
-				nId = OpenGL.fGetUniformLocation(oProgram.nId, "ITexture["  + nSlot + "]" );
-				nSizeId = OpenGL.fGetUniformLocation(oProgram.nId,  "ITexSize["  + nSlot + "]" );
+				nId = OpenGL.fGetUniformLocation(oProgram.nId, "ITexture["  + nIndex + "]" );
+				nSizeId = OpenGL.fGetUniformLocation(oProgram.nId,  "ITexSize["  + nIndex + "]" );
 			}else{
-				nId = OpenGL.fGetUniformLocation(oProgram.nId, "Texture["  + nSlot + "]" );
-				nSizeId = OpenGL.fGetUniformLocation(oProgram.nId,  "TexSize["  + nSlot + "]" );
+				nId = OpenGL.fGetUniformLocation(oProgram.nId, "Texture["  + nIndex + "]" );
+				nSizeId = OpenGL.fGetUniformLocation(oProgram.nId,  "TexSize["  + nIndex + "]" );
 			}
 			
 			nNumId = OpenGL.fGetUniformLocation(oProgram.nId,  sName );
@@ -51,14 +51,8 @@ package  {
 			
 			
 			OpenGL.fUniform1i(nId, nSlot);
-			OpenGL.fUniform1i(nNumId, nSlot);
+			OpenGL.fUniform1i(nNumId, nIndex);
 			
-			
-			//fSend(nSlot);
-			
-			//var _nID : Int = nId;
-			//Debug.fPass("--- Texture Created!:--- "  + _nID);
-			// _nSlot + GL_TEXTURE0;
 		}
 		
 		override public function fSend(_nSlot : UInt):Void {
