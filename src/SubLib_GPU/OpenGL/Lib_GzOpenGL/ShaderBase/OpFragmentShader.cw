@@ -56,6 +56,7 @@ package  {
 					///#version 100  //WebGl 1 //ES2
 					precision SetPrecision float;  //highp only works in fragment shaders if you have the GL_FRAGMENT_PRECISION_HIGH extension enabled.
 					precision SetPrecision int;  //highp only works in fragment shaders if you have the GL_FRAGMENT_PRECISION_HIGH extension enabled.
+					precision highp usampler2D; //Require precision?!
 					
 					//#define texture(s,t) texture2D(s, t) //WebGL2 not required
 					//#define in varying

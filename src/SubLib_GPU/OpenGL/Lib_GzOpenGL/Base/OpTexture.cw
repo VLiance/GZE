@@ -20,8 +20,8 @@ package  {
 			//GL_fUniform1i(GL_fGetUniformLocation(nId, _sName.fcStr() ), _nSlot);
 		
 			if(bTexInteger){
-				nId = OpenGL.fGetUniformLocation(oProgram.nId, "ITexture["  + nIndex + "]" );
-				nSizeId = OpenGL.fGetUniformLocation(oProgram.nId,  "ITexSize["  + nIndex + "]" );
+				nId = OpenGL.fGetUniformLocation(oProgram.nId, "UTexture["  + nIndex + "]" );
+				nSizeId = OpenGL.fGetUniformLocation(oProgram.nId,  "UTexSize["  + nIndex + "]" );
 			}else{
 				nId = OpenGL.fGetUniformLocation(oProgram.nId, "Texture["  + nIndex + "]" );
 				nSizeId = OpenGL.fGetUniformLocation(oProgram.nId,  "TexSize["  + nIndex + "]" );
