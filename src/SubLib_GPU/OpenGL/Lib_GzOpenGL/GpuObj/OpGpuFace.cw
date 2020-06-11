@@ -47,6 +47,7 @@ package  {
 		<cpp>
 		if(oShaderModel != 0){
 		</cpp>
+		/*
 			var _nNB_Data_per_object : UInt = 4;
 			var _nIndex : UInt = GpuFace.nCurrent * _nNB_Data_per_object;
 			var _oUbo : Ubo = oShaderModel.oUbo;
@@ -55,7 +56,7 @@ package  {
 			_oUbo.aDataFloat[_nIndex + 1] =  1.0;
 			_oUbo.aDataFloat[_nIndex + 2] =  0.0;
 			_oUbo.aDataFloat[_nIndex + 3] =  0.0;
-			
+			*/
 			//return;//GpuFace.nCurrent++
 		<cpp>
 		}

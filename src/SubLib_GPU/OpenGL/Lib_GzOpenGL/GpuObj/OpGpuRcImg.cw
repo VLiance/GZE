@@ -224,14 +224,14 @@ _aFormat = (gzUInt32*)_aCompFormat;
 			//Debug.fInfo("222:  "  + _aFormat[_nIdx + 2]);
 			//Debug.fInfo("333:  "  + _aFormat[_nIdx + 3]);
 			
-		//OpenGL.fTexImage2D(TEXTURE_2D, 0, _aFormat[_nIdx + 1], _nBWidth ,_nBHeight, 0, _aFormat[_nIdx + 2], _aFormat[_nIdx + 3], _aImg);
+		OpenGL.fTexImage2D(TEXTURE_2D, 0, _aFormat[_nIdx + 1], _nBWidth ,_nBHeight, 0, _aFormat[_nIdx + 2], _aFormat[_nIdx + 3], _aImg);
 			
 			
 			if(_aImg == null){
 				Debug.fError("_aImg is null!");
 			}
 			
-			OpenGL.fTexImage2D(TEXTURE_2D, 0, R8UI, _nBWidth ,_nBHeight, 0, RED_INTEGER, UNSIGNED_BYTE, _aImg); //Work
+			//OpenGL.fTexImage2D(TEXTURE_2D, 0, R8UI, _nBWidth ,_nBHeight, 0, RED_INTEGER, UNSIGNED_BYTE, _aImg); //Work
 			//OpenGL.fTexImage2D(TEXTURE_2D, 0, R8UI, _nBWidth ,_nBHeight, 0, RED_INTEGER, UNSIGNED_BYTE, _aImg);
 			
 	//		OpenGL.fTexImage2D(TEXTURE_2D, 0, RGBA, _nBWidth ,_nBHeight, 0, RGBA, UNSIGNED_BYTE, _aImg);

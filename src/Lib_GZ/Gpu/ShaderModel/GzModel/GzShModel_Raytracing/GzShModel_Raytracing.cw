@@ -81,7 +81,7 @@ package  {
 			GzShCommun_Light.fIniData(oProgram);
 			
 			
-			oUbo = new Ubo(oProgram, "myUBO" );
+		//	oUbo = new Ubo(oProgram, "myUBO" );
 		}
 		
 
@@ -165,7 +165,7 @@ package  {
 				oGpuBatch.oFBO_Destination.fToDefaultFrameBuffer();
 			}
 			//}
-			
+			/*
 			oUbo.aDataFloat[0] = 1.0;
 			oUbo.aDataFloat[1] = 0.5;
 			oUbo.aDataFloat[2] = 0.5;
@@ -176,14 +176,8 @@ package  {
 			oUbo.aDataFloat[6] = 0.0;
 			oUbo.aDataFloat[7] = 0.0;
 			
-			/*
-			oUbo.aDataFloat[4] = -1;
-			oUbo.aDataFloat[5] = -2;
-			oUbo.aDataFloat[6] = -3;
-			oUbo.aDataFloat[7] = -4;
-			*/
 			oUbo.fSendDataFloat();
-			
+			*/
 		}
 	}
 }

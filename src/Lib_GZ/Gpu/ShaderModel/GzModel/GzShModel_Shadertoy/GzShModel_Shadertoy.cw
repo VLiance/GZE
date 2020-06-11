@@ -82,7 +82,7 @@ package  {
 			GzShCommun_Light.fIniData(oProgram);
 			
 			
-			oUbo = new Ubo(oProgram, "myUBO" );
+		//	oUbo = new Ubo(oProgram, "myUBO" );
 		}
 		
 

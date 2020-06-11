@@ -697,17 +697,85 @@ DEPTH_COMPONENT32              = 0x81A7
 		gen public static function fAttachShader(_nIdProgram : Val, _nShaderId : Val):Void;
 		gen public static function fDetachShader(_nIdProgram : Val, _nShaderId : Val):Void;
 
+		/*
+		UNSIGNED_SHORT_4_4_4_4         = 0x8033;
+			UNSIGNED_SHORT_5_5_5_1         = 0x8034;
+			UNSIGNED_SHORT_5_6_5           = 0x8363;
+			BYTE 						   = 0x1400;
+			UNSIGNED_BYTE				   = 0x1401;
+			FLOAT 					   	   = 0x1406;
+			SHORT 							= 0x1402;
+			UNSIGNED_SHORT            		= 0x1403;
+			INT 							= 0x1404;
+			UNSIGNED_INT 					= 0x1405;
+			
+		//FORMAT
+			ALPHA                        	= 0x1906;
+			RGB                          	= 0x1907;
+			RGBA                          	= 0x1908;
+			BGR                           	= 0x80E0;
+			BGRA                           	= 0x80E1;
+			RED 							= 0x1903;
+			RG  							= 0x8227;
+			RED_INTEGER 					= 0x8D94;
+			RG_INTEGER 						= 0x8228;
+			RGB_INTEGER 					= 0x8D98;
+			RGBA_INTEGER 					= 0x8D99;
+		*/
+			
+		public static function fGetTypeMemView(_pPixel:Any,  _nSize: UIntX,  _hFormat:ePixelFormat, _hType: ePixelType):Val{
+			<cpp>
+			#ifdef D_Platform_Web_Emsc
+			
+				switch(_hFormat){
+					case OpenGL::ePixelFormat::RGBA_INTEGER:
+					case OpenGL::ePixelFormat::RGBA:
+					case OpenGL::ePixelFormat::BGRA:
+						_nSize *= 4;
+					break;
+					
+					case OpenGL::ePixelFormat::RGB:
+					case OpenGL::ePixelFormat::BGR:
+					case OpenGL::ePixelFormat::RGB_INTEGER:
+						_nSize *= 3;
+					break;
+					
+					case OpenGL::ePixelFormat::RG:
+					case OpenGL::ePixelFormat::RG_INTEGER:
+						_nSize *= 2;
+					break;
+				}
+			
+				
+				switch(_hType){
+					case OpenGL::ePixelType::UNSIGNED_BYTE :
+						return val(typed_memory_view(_nSize, (gzUInt8*)_pPixel));
+					break;
+					case OpenGL::ePixelType::UNSIGNED_SHORT :
+						return val(typed_memory_view(_nSize, (gzUInt16*)_pPixel));
+					break;
+				}
+				
+			//	return val(typed_memory_view(_nSize, (gzUInt8*)_pPixel));
+				
+			#endif
+
+			 </cpp>
+		}
+		
+		
 		//Texture
 		gen public static function fActiveTexture(_hTexture : eTexture):Void;
 		gen public static function fTexImage2D(_hTarget : eTargetTexture, _nLevel : Int, _hInternalformat : eInternalPixelFormat, _nWidth:Int, _nHeight:Int, _nBorder:Int, _hFormat:ePixelFormat,  _hType: ePixelType, _pPixel:Any ):Void{
 				<cpp>
 				#ifdef D_Platform_Web_Emsc
-					gzUIntX _nSize = _nWidth * _nHeight*4; //32bits, use the a larger possible size (32bit) to create the array view, TODO check if it's valid for smaller pixel format. 
+					gzUIntX _nSize = _nWidth * _nHeight; //32bits, use the a larger possible size (32bit) to create the array view, TODO check if it's valid for smaller pixel format. 
 					if(_pPixel == 0){ //Require for FBO
 						//_nSize = 0; //Just to be safe, or maybe send 'null'? Unfortunatly FBO require a array view of full size?
 						oGL.call<void>("texImage2D", gzVal(gzInt(_hTarget)), gzVal(_nLevel), gzVal(gzInt(_hInternalformat)), gzVal(_nWidth), gzVal(_nHeight), gzVal(_nBorder), gzVal(gzInt(_hFormat)), gzVal(gzInt(_hType)), GzNullVal); //FBO: Maybe a typed_memory_view of null_ptr is ok? (just to be safe)
 					}else{
-						oGL.call<void>("texImage2D", gzVal(gzInt(_hTarget)), gzVal(_nLevel), gzVal(gzInt(_hInternalformat)), gzVal(_nWidth), gzVal(_nHeight), gzVal(_nBorder), gzVal(gzInt(_hFormat)), gzVal(gzInt(_hType)), typed_memory_view(_nSize, (gzUInt8*)_pPixel));
+						//oGL.call<void>("texImage2D", gzVal(gzInt(_hTarget)), gzVal(_nLevel), gzVal(gzInt(_hInternalformat)), gzVal(_nWidth), gzVal(_nHeight), gzVal(_nBorder), gzVal(gzInt(_hFormat)), gzVal(gzInt(_hType)), typed_memory_view(_nSize, (gzUInt8*)_pPixel));
+						oGL.call<void>("texImage2D", gzVal(gzInt(_hTarget)), gzVal(_nLevel), gzVal(gzInt(_hInternalformat)), gzVal(_nWidth), gzVal(_nHeight), gzVal(_nBorder), gzVal(gzInt(_hFormat)), gzVal(gzInt(_hType)),  fGetTypeMemView(_pPixel, _nSize, _hFormat, _hType));
 					}
 					return;
 				#endif

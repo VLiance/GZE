@@ -40,15 +40,22 @@ package  {
 			///////////// Fragment Shader //////////////
 <glsl(oFragement)>
 
+/*
 //Test UBO
-#define MAX_UBO_vec4 1024
+#define MAX_UBO_vec4 50
 
 layout (std140) uniform myUBO{ 
   vec4 uboVal[MAX_UBO_vec4];
 };
+*/
+/*
+//Test UBO
+layout (std140) uniform myUBO{ 
+  vec4 uboAA;
+  vec4 uboBB;
+};
 
-
-
+*/
 #define time iTime
 #define res iResolution
 
@@ -223,7 +230,8 @@ void mainImage(out vec4 fragColor,in vec2 fragCoord)
 	
 	
 //	fragColor = vec4( float(pixDepth)/256.0,0.0,0.0,0.5);
-	fragColor = vec4( float(pixDepth),0.0,0.0,0.5);
+	//fragColor = vec4( float(pixDepth)/65536.0,0.0,0.0,0.5);
+	fragColor = vec4( float(pixDepth)/256.0,0.0,0.0,0.5);
 //	fragColor = vec4(sh_uv.x, sh_uv.y, 0.0, 0.5);
 	
   //  fragColor = uboVal[0];
