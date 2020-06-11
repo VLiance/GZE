@@ -173,12 +173,12 @@ static gzUInt32 _aCompFormat[][4] =
 {GpuRcImg::ePixFormat::RG8UI, 			OpenGL::eInternalPixelFormat::RG8UI,  			OpenGL::ePixelFormat::RG_INTEGER, 	OpenGL::ePixelType::UNSIGNED_BYTE},
 {GpuRcImg::ePixFormat::RGB8UI, 			OpenGL::eInternalPixelFormat::RGB8UI,  			OpenGL::ePixelFormat::RGB_INTEGER, 	OpenGL::ePixelType::UNSIGNED_BYTE},
 {GpuRcImg::ePixFormat::RGBA8UI, 		OpenGL::eInternalPixelFormat::RGBA8UI,  		OpenGL::ePixelFormat::RGBA_INTEGER, OpenGL::ePixelType::UNSIGNED_BYTE},
-{GpuRcImg::ePixFormat::R16I, 			OpenGL::eInternalPixelFormat::R16I,  			OpenGL::ePixelFormat::RED_INTEGER, 	OpenGL::ePixelType::UNSIGNED_BYTE},
-{GpuRcImg::ePixFormat::R16UI, 			OpenGL::eInternalPixelFormat::R16UI,  			OpenGL::ePixelFormat::RED_INTEGER, 	OpenGL::ePixelType::UNSIGNED_BYTE},
-{GpuRcImg::ePixFormat::RG16UI, 			OpenGL::eInternalPixelFormat::RG16UI,  			OpenGL::ePixelFormat::RG_INTEGER, 	OpenGL::ePixelType::UNSIGNED_BYTE},
-{GpuRcImg::ePixFormat::R32I, 			OpenGL::eInternalPixelFormat::R32I,  			OpenGL::ePixelFormat::RED_INTEGER, 	OpenGL::ePixelType::UNSIGNED_BYTE},
-{GpuRcImg::ePixFormat::R32UI, 			OpenGL::eInternalPixelFormat::R32UI,  			OpenGL::ePixelFormat::RED_INTEGER, 	OpenGL::ePixelType::UNSIGNED_BYTE},
-{GpuRcImg::ePixFormat::RG32UI, 			OpenGL::eInternalPixelFormat::RG32UI,  			OpenGL::ePixelFormat::RG_INTEGER, 	OpenGL::ePixelType::UNSIGNED_BYTE},
+{GpuRcImg::ePixFormat::R16I, 			OpenGL::eInternalPixelFormat::R16I,  			OpenGL::ePixelFormat::RED_INTEGER, 	OpenGL::ePixelType::SHORT},
+{GpuRcImg::ePixFormat::R16UI, 			OpenGL::eInternalPixelFormat::R16UI,  			OpenGL::ePixelFormat::RED_INTEGER, 	OpenGL::ePixelType::UNSIGNED_SHORT},
+{GpuRcImg::ePixFormat::RG16UI, 			OpenGL::eInternalPixelFormat::RG16UI,  			OpenGL::ePixelFormat::RG_INTEGER, 	OpenGL::ePixelType::UNSIGNED_SHORT},
+{GpuRcImg::ePixFormat::R32I, 			OpenGL::eInternalPixelFormat::R32I,  			OpenGL::ePixelFormat::RED_INTEGER, 	OpenGL::ePixelType::INT},
+{GpuRcImg::ePixFormat::R32UI, 			OpenGL::eInternalPixelFormat::R32UI,  			OpenGL::ePixelFormat::RED_INTEGER, 	OpenGL::ePixelType::UNSIGNED_INT},
+{GpuRcImg::ePixFormat::RG32UI, 			OpenGL::eInternalPixelFormat::RG32UI,  			OpenGL::ePixelFormat::RG_INTEGER, 	OpenGL::ePixelType::UNSIGNED_INT},
 
 };
 _aFormat = (gzUInt32*)_aCompFormat;
@@ -223,7 +223,8 @@ _aFormat = (gzUInt32*)_aCompFormat;
 			//Debug.fInfo("111:  "  + _aFormat[_nIdx + 1]);
 			//Debug.fInfo("222:  "  + _aFormat[_nIdx + 2]);
 			//Debug.fInfo("333:  "  + _aFormat[_nIdx + 3]);
-			//OpenGL.fTexImage2D(TEXTURE_2D, 0, _aFormat[_nIdx + 1], _nBWidth ,_nBHeight, 0, _aFormat[_nIdx + 2], _aFormat[_nIdx + 3], _aImg);
+			
+		//OpenGL.fTexImage2D(TEXTURE_2D, 0, _aFormat[_nIdx + 1], _nBWidth ,_nBHeight, 0, _aFormat[_nIdx + 2], _aFormat[_nIdx + 3], _aImg);
 			
 			
 			if(_aImg == null){

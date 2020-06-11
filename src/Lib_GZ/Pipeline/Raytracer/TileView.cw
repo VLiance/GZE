@@ -29,7 +29,8 @@
 			
 			oImg = new RcImg("");
 			oImg.aImg1D = aArray;
-			oImg.hPixFormat = GpuRcImg.ePixFormat.R16UI;
+			//oImg.hPixFormat = GpuRcImg.ePixFormat.R16UI;
+			oImg.hPixFormat = GpuRcImg.ePixFormat.R8UI;
 			oImg.nWidth = 800;
 			oImg.nHeight = 800;
 			oImg.bBorder = false;
