@@ -137,7 +137,7 @@ package  {
 		
 		public function fCpuLoad():Bool {
 		}
-		public function fGpuLoad():Bool {
+		public function fGpuLoad(_bForce : Bool = false):Bool {
 		}
 		
 		destructor{

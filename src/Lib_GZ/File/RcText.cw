@@ -71,7 +71,7 @@ package  {
 		
 		
 		
-		override public function fGpuLoad():Bool {
+		override public function fGpuLoad(_bForce : Bool = false):Bool {
 		/*
 			if(bGpuLoaded == false){
 				bGpuLoaded = true;

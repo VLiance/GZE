@@ -106,26 +106,28 @@ package  {
 			return true;
 		}
 		
-		override public function fGpuLoad():Bool {
+		override public function fGpuLoad(_bForce : Bool = false):Bool {
 				//TODO Call direct function with  oLinkRc
 			//if(System.bHaveGpu){
-				if(Context.oItf.bGpuDraw && oLinkRc.bGpuLoaded == false){
-					oLinkRc.bGpuLoaded = true;
-					
-					var _aImg1D : CArray<Int32>;
-					
-					//TODO use only img1D
-					if(oLinkRc.aImg1D != null){
-						_aImg1D = oLinkRc.aImg1D;
-					}else if(oLinkRc.aImg != null){
-						_aImg1D = oLinkRc.aImg[0];
+				if(Context.oItf.bGpuDraw){
+					if(oLinkRc.bGpuLoaded == false || _bForce == true){
+						oLinkRc.bGpuLoaded = true;
+						
+						var _aImg1D : CArray<Int32>;
+						
+						//TODO use only img1D
+						if(oLinkRc.aImg1D != null){
+							_aImg1D = oLinkRc.aImg1D;
+						}else if(oLinkRc.aImg != null){
+							_aImg1D = oLinkRc.aImg[0];
+						}
+						
+						if(_aImg1D != null){
+							oLinkRc.oGpuTexId = oLinkRc.oGpuRcImg.fLoadImg(_aImg1D, oLinkRc.nWidth,  oLinkRc.nHeight, oLinkRc.oGpuTexLayer, hPixFormat, bBorder);
+						}
+						
+						return true;
 					}
-					
-					if(_aImg1D != null){
-						oLinkRc.oGpuTexId = oLinkRc.oGpuRcImg.fLoadImg(_aImg1D, oLinkRc.nWidth,  oLinkRc.nHeight, oLinkRc.oGpuTexLayer, hPixFormat, bBorder);
-					}
-					
-					return true;
 				}
 			//}
 			

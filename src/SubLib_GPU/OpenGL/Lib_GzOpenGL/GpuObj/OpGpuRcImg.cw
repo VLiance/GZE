@@ -26,6 +26,8 @@ package  {
 		
 		
 		override function fLoadImg(_aImg : CArray<Int, 1>, _nWidth : Int, _nHeight : Int, _oGpuTexLayer : Texture, _hPixFormat : ePixFormat, _bBorder : Bool = true):Val{
+			
+	
 			var _bNew : Bool = true;
 			if(oTexId != null){ 
 				_bNew = false; //Reload only
@@ -225,7 +227,7 @@ _aFormat = (gzUInt32*)_aCompFormat;
 			
 			OpenGL.fPixelStorei(UNPACK_ALIGNMENT,_aFormat[_nIdx + 4]);
 			OpenGL.fTexImage2D(TEXTURE_2D, 0, _aFormat[_nIdx + 1], _nBWidth ,_nBHeight, 0, _aFormat[_nIdx + 2], _aFormat[_nIdx + 3], _aImg);
-			
+	
 			
 			if(_aImg == null){
 				Debug.fError("_aImg is null!");

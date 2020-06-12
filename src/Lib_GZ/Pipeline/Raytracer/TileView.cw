@@ -18,6 +18,7 @@
 	//	public var aArray : CArray<Int16, 1, 625>;//800x800 => (25x25 / 32x32) = 
 		public var aArray : CArray<Int16, 1, 625>;//800x800 => (25x25 / 32x32) = 
 		public var bLoaded : Bool = false;
+		public var nOffset : Int;
 		
 		public function TileView(_oItf : Interface):Void {
 			oItf = _oItf;
@@ -45,16 +46,30 @@
 		}
 		
 		public function fIni():Void {
-		
-			if(bLoaded == false){
-				bLoaded = true;
+			
+			
+			
+			nOffset += 1;
+			for(var i:Int = 0; i < 625; i++;){
+				aArray[i] = i  + nOffset;
+				//aArray[i] = 0xFFFFFFFF;
+			}
+			if(nOffset > 625){
+				nOffset = 0;
+			}
+			
+			<cpp>
+				oImg->aImg1D = (gzInt32 *)(/*|LineArray|*/aArray);
+			</cpp>		
+			//if(bLoaded == false){
+			//	bLoaded = true;
 				//oImg.fSetGpuTexLayer(Attribute_Quad.oTexture);
 				oImg.fSetGpuTexLayer(Attribute_Quad.oITexID);
 				//	public var aKeyRelease : CArray<Bool, 1, 256>
 				
 
-				oImg.fGpuLoad();
-			}
+				oImg.fGpuLoad(true);
+			//}
 		}
 
 		public function fBuild_Array():Void {
