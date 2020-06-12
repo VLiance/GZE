@@ -145,40 +145,40 @@ RG32UI 							;
 //TODO
 //	//https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/renderbufferStorage
 	//https://www.khronos.org/registry/OpenGL-Refpages/es3.0/html/glTexImage2D.xhtml
-static gzUInt32 _aCompFormat[][4] =  
+static gzUInt32 _aCompFormat[][5] =  
 { 	
-{GpuRcImg::ePixFormat::Default, 		OpenGL::eInternalPixelFormat::RGBA8,  			OpenGL::ePixelFormat::RGBA, 		OpenGL::ePixelType::UNSIGNED_BYTE},
-{GpuRcImg::ePixFormat::R8, 				OpenGL::eInternalPixelFormat::R8,  				OpenGL::ePixelFormat::RED, 			OpenGL::ePixelType::UNSIGNED_BYTE},
-{GpuRcImg::ePixFormat::RG8, 			OpenGL::eInternalPixelFormat::RG8,  			OpenGL::ePixelFormat::RG, 			OpenGL::ePixelType::UNSIGNED_BYTE},
-{GpuRcImg::ePixFormat::RGB8, 			OpenGL::eInternalPixelFormat::RGB8,  			OpenGL::ePixelFormat::RGB, 			OpenGL::ePixelType::UNSIGNED_BYTE},
-{GpuRcImg::ePixFormat::RGBA8, 			OpenGL::eInternalPixelFormat::RGBA8,  			OpenGL::ePixelFormat::RGBA, 		OpenGL::ePixelType::UNSIGNED_BYTE},
-{GpuRcImg::ePixFormat::SRGB8, 			OpenGL::eInternalPixelFormat::SRGB8,  			OpenGL::ePixelFormat::RGB, 			OpenGL::ePixelType::UNSIGNED_BYTE},
-{GpuRcImg::ePixFormat::RGB565, 			OpenGL::eInternalPixelFormat::RGB565,  			OpenGL::ePixelFormat::RGB, 			OpenGL::ePixelType::UNSIGNED_BYTE},
-{GpuRcImg::ePixFormat::SRGB8_APLHA8,	OpenGL::eInternalPixelFormat::SRGB8_APLHA8,  	OpenGL::ePixelFormat::RGBA, 		OpenGL::ePixelType::UNSIGNED_BYTE},
-{GpuRcImg::ePixFormat::RGB5_A1, 		OpenGL::eInternalPixelFormat::RGB5_A1,  		OpenGL::ePixelFormat::RGBA, 		OpenGL::ePixelType::UNSIGNED_BYTE},
-{GpuRcImg::ePixFormat::RGB10_A2, 		OpenGL::eInternalPixelFormat::RGB10_A2,  		OpenGL::ePixelFormat::RGBA, 		OpenGL::ePixelType::UNSIGNED_BYTE},
-{GpuRcImg::ePixFormat::RGBA4, 			OpenGL::eInternalPixelFormat::RGBA4,  			OpenGL::ePixelFormat::RGBA, 		OpenGL::ePixelType::UNSIGNED_BYTE},
-{GpuRcImg::ePixFormat::R16F, 			OpenGL::eInternalPixelFormat::R16F,  			OpenGL::ePixelFormat::RED, 			OpenGL::ePixelType::FLOAT},
-{GpuRcImg::ePixFormat::R32F, 			OpenGL::eInternalPixelFormat::R32F,  			OpenGL::ePixelFormat::RED, 			OpenGL::ePixelType::FLOAT},
-{GpuRcImg::ePixFormat::RG16F, 			OpenGL::eInternalPixelFormat::RG16F,  			OpenGL::ePixelFormat::RG, 			OpenGL::ePixelType::FLOAT},
-{GpuRcImg::ePixFormat::RG32F, 			OpenGL::eInternalPixelFormat::RG32F,  			OpenGL::ePixelFormat::RG, 			OpenGL::ePixelType::FLOAT},
-{GpuRcImg::ePixFormat::R11F_G11F_B10F, 	OpenGL::eInternalPixelFormat::R11F_G11F_B10F,  	OpenGL::ePixelFormat::RGB, 			OpenGL::ePixelType::FLOAT},
-{GpuRcImg::ePixFormat::RGB9_E5, 		OpenGL::eInternalPixelFormat::RGB9_E5,  		OpenGL::ePixelFormat::RGB, 			OpenGL::ePixelType::FLOAT},
-{GpuRcImg::ePixFormat::RGB16F, 			OpenGL::eInternalPixelFormat::RGB16F,  			OpenGL::ePixelFormat::RGB, 			OpenGL::ePixelType::FLOAT},
-{GpuRcImg::ePixFormat::RGB32F, 			OpenGL::eInternalPixelFormat::RGB32F,  			OpenGL::ePixelFormat::RGB, 			OpenGL::ePixelType::FLOAT},
-{GpuRcImg::ePixFormat::RGBA16F, 		OpenGL::eInternalPixelFormat::RGBA16F,  		OpenGL::ePixelFormat::RGBA, 		OpenGL::ePixelType::FLOAT},
-{GpuRcImg::ePixFormat::RGBA32F, 		OpenGL::eInternalPixelFormat::RGBA32F,  		OpenGL::ePixelFormat::RGBA, 		OpenGL::ePixelType::FLOAT},
-{GpuRcImg::ePixFormat::R8I, 			OpenGL::eInternalPixelFormat::R8I,  			OpenGL::ePixelFormat::RED_INTEGER, 	OpenGL::ePixelType::UNSIGNED_BYTE},
-{GpuRcImg::ePixFormat::R8UI, 			OpenGL::eInternalPixelFormat::R8UI,  			OpenGL::ePixelFormat::RED_INTEGER, 	OpenGL::ePixelType::UNSIGNED_BYTE},
-{GpuRcImg::ePixFormat::RG8UI, 			OpenGL::eInternalPixelFormat::RG8UI,  			OpenGL::ePixelFormat::RG_INTEGER, 	OpenGL::ePixelType::UNSIGNED_BYTE},
-{GpuRcImg::ePixFormat::RGB8UI, 			OpenGL::eInternalPixelFormat::RGB8UI,  			OpenGL::ePixelFormat::RGB_INTEGER, 	OpenGL::ePixelType::UNSIGNED_BYTE},
-{GpuRcImg::ePixFormat::RGBA8UI, 		OpenGL::eInternalPixelFormat::RGBA8UI,  		OpenGL::ePixelFormat::RGBA_INTEGER, OpenGL::ePixelType::UNSIGNED_BYTE},
-{GpuRcImg::ePixFormat::R16I, 			OpenGL::eInternalPixelFormat::R16I,  			OpenGL::ePixelFormat::RED_INTEGER, 	OpenGL::ePixelType::SHORT},
-{GpuRcImg::ePixFormat::R16UI, 			OpenGL::eInternalPixelFormat::R16UI,  			OpenGL::ePixelFormat::RED_INTEGER, 	OpenGL::ePixelType::UNSIGNED_SHORT},
-{GpuRcImg::ePixFormat::RG16UI, 			OpenGL::eInternalPixelFormat::RG16UI,  			OpenGL::ePixelFormat::RG_INTEGER, 	OpenGL::ePixelType::UNSIGNED_SHORT},
-{GpuRcImg::ePixFormat::R32I, 			OpenGL::eInternalPixelFormat::R32I,  			OpenGL::ePixelFormat::RED_INTEGER, 	OpenGL::ePixelType::INT},
-{GpuRcImg::ePixFormat::R32UI, 			OpenGL::eInternalPixelFormat::R32UI,  			OpenGL::ePixelFormat::RED_INTEGER, 	OpenGL::ePixelType::UNSIGNED_INT},
-{GpuRcImg::ePixFormat::RG32UI, 			OpenGL::eInternalPixelFormat::RG32UI,  			OpenGL::ePixelFormat::RG_INTEGER, 	OpenGL::ePixelType::UNSIGNED_INT},
+{GpuRcImg::ePixFormat::Default, 		OpenGL::eInternalPixelFormat::RGBA8,  			OpenGL::ePixelFormat::RGBA, 		OpenGL::ePixelType::UNSIGNED_BYTE,	4},
+{GpuRcImg::ePixFormat::R8, 				OpenGL::eInternalPixelFormat::R8,  				OpenGL::ePixelFormat::RED, 			OpenGL::ePixelType::UNSIGNED_BYTE,	1},
+{GpuRcImg::ePixFormat::RG8, 			OpenGL::eInternalPixelFormat::RG8,  			OpenGL::ePixelFormat::RG, 			OpenGL::ePixelType::UNSIGNED_BYTE,	2},
+{GpuRcImg::ePixFormat::RGB8, 			OpenGL::eInternalPixelFormat::RGB8,  			OpenGL::ePixelFormat::RGB, 			OpenGL::ePixelType::UNSIGNED_BYTE,	1},
+{GpuRcImg::ePixFormat::RGBA8, 			OpenGL::eInternalPixelFormat::RGBA8,  			OpenGL::ePixelFormat::RGBA, 		OpenGL::ePixelType::UNSIGNED_BYTE,	4},
+{GpuRcImg::ePixFormat::SRGB8, 			OpenGL::eInternalPixelFormat::SRGB8,  			OpenGL::ePixelFormat::RGB, 			OpenGL::ePixelType::UNSIGNED_BYTE,	4},
+{GpuRcImg::ePixFormat::RGB565, 			OpenGL::eInternalPixelFormat::RGB565,  			OpenGL::ePixelFormat::RGB, 			OpenGL::ePixelType::UNSIGNED_BYTE,	2},
+{GpuRcImg::ePixFormat::SRGB8_APLHA8,	OpenGL::eInternalPixelFormat::SRGB8_APLHA8,  	OpenGL::ePixelFormat::RGBA, 		OpenGL::ePixelType::UNSIGNED_BYTE,	4},
+{GpuRcImg::ePixFormat::RGB5_A1, 		OpenGL::eInternalPixelFormat::RGB5_A1,  		OpenGL::ePixelFormat::RGBA, 		OpenGL::ePixelType::UNSIGNED_BYTE,	1},
+{GpuRcImg::ePixFormat::RGB10_A2, 		OpenGL::eInternalPixelFormat::RGB10_A2,  		OpenGL::ePixelFormat::RGBA, 		OpenGL::ePixelType::UNSIGNED_BYTE,	1},
+{GpuRcImg::ePixFormat::RGBA4, 			OpenGL::eInternalPixelFormat::RGBA4,  			OpenGL::ePixelFormat::RGBA, 		OpenGL::ePixelType::UNSIGNED_BYTE,	2},
+{GpuRcImg::ePixFormat::R16F, 			OpenGL::eInternalPixelFormat::R16F,  			OpenGL::ePixelFormat::RED, 			OpenGL::ePixelType::FLOAT,			2},
+{GpuRcImg::ePixFormat::R32F, 			OpenGL::eInternalPixelFormat::R32F,  			OpenGL::ePixelFormat::RED, 			OpenGL::ePixelType::FLOAT,			4},
+{GpuRcImg::ePixFormat::RG16F, 			OpenGL::eInternalPixelFormat::RG16F,  			OpenGL::ePixelFormat::RG, 			OpenGL::ePixelType::FLOAT,			2},
+{GpuRcImg::ePixFormat::RG32F, 			OpenGL::eInternalPixelFormat::RG32F,  			OpenGL::ePixelFormat::RG, 			OpenGL::ePixelType::FLOAT,			8},
+{GpuRcImg::ePixFormat::R11F_G11F_B10F, 	OpenGL::eInternalPixelFormat::R11F_G11F_B10F,  	OpenGL::ePixelFormat::RGB, 			OpenGL::ePixelType::FLOAT,			4},
+{GpuRcImg::ePixFormat::RGB9_E5, 		OpenGL::eInternalPixelFormat::RGB9_E5,  		OpenGL::ePixelFormat::RGB, 			OpenGL::ePixelType::FLOAT,			1},
+{GpuRcImg::ePixFormat::RGB16F, 			OpenGL::eInternalPixelFormat::RGB16F,  			OpenGL::ePixelFormat::RGB, 			OpenGL::ePixelType::FLOAT,			2},
+{GpuRcImg::ePixFormat::RGB32F, 			OpenGL::eInternalPixelFormat::RGB32F,  			OpenGL::ePixelFormat::RGB, 			OpenGL::ePixelType::FLOAT,			4},
+{GpuRcImg::ePixFormat::RGBA16F, 		OpenGL::eInternalPixelFormat::RGBA16F,  		OpenGL::ePixelFormat::RGBA, 		OpenGL::ePixelType::FLOAT,			4},
+{GpuRcImg::ePixFormat::RGBA32F, 		OpenGL::eInternalPixelFormat::RGBA32F,  		OpenGL::ePixelFormat::RGBA, 		OpenGL::ePixelType::FLOAT,			8},
+{GpuRcImg::ePixFormat::R8I, 			OpenGL::eInternalPixelFormat::R8I,  			OpenGL::ePixelFormat::RED_INTEGER, 	OpenGL::ePixelType::UNSIGNED_BYTE,	1},
+{GpuRcImg::ePixFormat::R8UI, 			OpenGL::eInternalPixelFormat::R8UI,  			OpenGL::ePixelFormat::RED_INTEGER, 	OpenGL::ePixelType::UNSIGNED_BYTE,	1},
+{GpuRcImg::ePixFormat::RG8UI, 			OpenGL::eInternalPixelFormat::RG8UI,  			OpenGL::ePixelFormat::RG_INTEGER, 	OpenGL::ePixelType::UNSIGNED_BYTE, 	2},
+{GpuRcImg::ePixFormat::RGB8UI, 			OpenGL::eInternalPixelFormat::RGB8UI,  			OpenGL::ePixelFormat::RGB_INTEGER, 	OpenGL::ePixelType::UNSIGNED_BYTE, 	1},
+{GpuRcImg::ePixFormat::RGBA8UI, 		OpenGL::eInternalPixelFormat::RGBA8UI,  		OpenGL::ePixelFormat::RGBA_INTEGER, OpenGL::ePixelType::UNSIGNED_BYTE, 	4},
+{GpuRcImg::ePixFormat::R16I, 			OpenGL::eInternalPixelFormat::R16I,  			OpenGL::ePixelFormat::RED_INTEGER, 	OpenGL::ePixelType::SHORT,			2},
+{GpuRcImg::ePixFormat::R16UI, 			OpenGL::eInternalPixelFormat::R16UI,  			OpenGL::ePixelFormat::RED_INTEGER, 	OpenGL::ePixelType::UNSIGNED_SHORT,	2},
+{GpuRcImg::ePixFormat::RG16UI, 			OpenGL::eInternalPixelFormat::RG16UI,  			OpenGL::ePixelFormat::RG_INTEGER, 	OpenGL::ePixelType::UNSIGNED_SHORT,	4},
+{GpuRcImg::ePixFormat::R32I, 			OpenGL::eInternalPixelFormat::R32I,  			OpenGL::ePixelFormat::RED_INTEGER, 	OpenGL::ePixelType::INT,			4},
+{GpuRcImg::ePixFormat::R32UI, 			OpenGL::eInternalPixelFormat::R32UI,  			OpenGL::ePixelFormat::RED_INTEGER, 	OpenGL::ePixelType::UNSIGNED_INT,	4},
+{GpuRcImg::ePixFormat::RG32UI, 			OpenGL::eInternalPixelFormat::RG32UI,  			OpenGL::ePixelFormat::RG_INTEGER, 	OpenGL::ePixelType::UNSIGNED_INT,	8},
 
 };
 _aFormat = (gzUInt32*)_aCompFormat;
@@ -189,7 +189,7 @@ _aFormat = (gzUInt32*)_aCompFormat;
 			
 			
 		var _nBWidth : UInt =   _nWidth;
-		var _nBHeight : UInt =   _nWidth;
+		var _nBHeight : UInt =   _nHeight;
 		if(_bBorder){
 			_nBWidth+=2;
 			_nBHeight+=2;
@@ -208,23 +208,23 @@ _aFormat = (gzUInt32*)_aCompFormat;
 			<cpp>
 			#endif
 			</cpp>
+			
+			OpenGL.fPixelStorei(UNPACK_ALIGNMENT, 4);
+					
 		}else{
 			<cpp>
 			
 			//printf("\nTest: %d\n", _hPixFormat);
 			</cpp>
-			var _nIdx : UInt = (_hPixFormat- 1) * 4 ;
+			var _nIdx : UInt = (_hPixFormat- 1) * 5 ;
 			//Debug.fInfo("_nIdx:  " + _nIdx);
 			if(_aFormat[_nIdx] != _hPixFormat){
-				Debug.fError("Format does not mach!");
+				Debug.fError("Format does not match!");
 				return null;
 			}
 			
-			//Debug.fInfo("111:  "  + _aFormat[_nIdx + 1]);
-			//Debug.fInfo("222:  "  + _aFormat[_nIdx + 2]);
-			//Debug.fInfo("333:  "  + _aFormat[_nIdx + 3]);
-			
-		OpenGL.fTexImage2D(TEXTURE_2D, 0, _aFormat[_nIdx + 1], _nBWidth ,_nBHeight, 0, _aFormat[_nIdx + 2], _aFormat[_nIdx + 3], _aImg);
+			OpenGL.fPixelStorei(UNPACK_ALIGNMENT,_aFormat[_nIdx + 4]);
+			OpenGL.fTexImage2D(TEXTURE_2D, 0, _aFormat[_nIdx + 1], _nBWidth ,_nBHeight, 0, _aFormat[_nIdx + 2], _aFormat[_nIdx + 3], _aImg);
 			
 			
 			if(_aImg == null){

@@ -259,6 +259,15 @@ DEPTH_COMPONENT32              = 0x81A7
 			SMOOTH                         = 0x1D01;
 		}
 				
+				
+		public enum ePixelStorage : Int {
+			PACK_ALIGNMENT						= 0x0D05;
+			UNPACK_ALIGNMENT					= 0x0CF5;
+			UNPACK_FLIP_Y_WEBGL					= 0x9240;
+			UNPACK_PREMULTIPLY_ALPHA_WEBGL 		= 0x9241;
+			UNPACK_COLORSPACE_CONVERSION_WEBGL	= 0x9243;
+		}
+				
 		public enum eTargetTexture : Int {
 			TEXTURE_1D = 0x0DE0
 			TEXTURE_2D = 0x0DE1
@@ -726,7 +735,7 @@ DEPTH_COMPONENT32              = 0x81A7
 		public static function fGetTypeMemView(_pPixel:Any,  _nSize: UIntX,  _hFormat:ePixelFormat, _hType: ePixelType):Val{
 			<cpp>
 			#ifdef D_Platform_Web_Emsc
-			
+			//see UNPACK_ALIGNMENT 
 				switch(_hFormat){
 					case OpenGL::ePixelFormat::RGBA_INTEGER:
 					case OpenGL::ePixelFormat::RGBA:
@@ -752,6 +761,7 @@ DEPTH_COMPONENT32              = 0x81A7
 						return val(typed_memory_view(_nSize, (gzUInt8*)_pPixel));
 					break;
 					case OpenGL::ePixelType::UNSIGNED_SHORT :
+						
 						return val(typed_memory_view(_nSize, (gzUInt16*)_pPixel));
 					break;
 				}
@@ -763,6 +773,9 @@ DEPTH_COMPONENT32              = 0x81A7
 			 </cpp>
 		}
 		
+		
+		gen public static function fPixelStorei(_hTarget : ePixelStorage, _nValue : Int):Void;
+	
 		
 		//Texture
 		gen public static function fActiveTexture(_hTexture : eTexture):Void;

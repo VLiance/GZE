@@ -15,32 +15,34 @@
 		public var nWidth : UInt;
 		public var nHeight : UInt;
 		//public var aArray : CArray<Int32, 1, 320000>;//800x800
-		public var aArray : CArray<Int32, 1, 640000>;//800x800
+	//	public var aArray : CArray<Int16, 1, 625>;//800x800 => (25x25 / 32x32) = 
+		public var aArray : CArray<Int16, 1, 625>;//800x800 => (25x25 / 32x32) = 
 		public var bLoaded : Bool = false;
 		
 		public function TileView(_oItf : Interface):Void {
 			oItf = _oItf;
 			
-			for(var i:Int = 0; i < 640000; i++;){
+			for(var i:Int = 0; i < 625; i++;){
 				aArray[i] = i;
 				//aArray[i] = 0xFFFFFFFF;
 			}
 			
-		
-			
 			oImg = new RcImg("");
-			oImg.aImg1D = aArray;
-			//oImg.hPixFormat = GpuRcImg.ePixFormat.R16UI;
-			oImg.hPixFormat = GpuRcImg.ePixFormat.R8UI;
+			
+			//TODO autocast
+			//oImg.aImg1D = aArray;
+			<cpp>
+				oImg->aImg1D = (gzInt32 *)(/*|LineArray|*/aArray);
+			</cpp>		
+			
+			
+			oImg.hPixFormat = GpuRcImg.ePixFormat.R16UI;
+		//	oImg.hPixFormat = GpuRcImg.ePixFormat.R8UI;
 			//oImg.hPixFormat = GpuRcImg.ePixFormat.Default;
-			oImg.nWidth = 800;
-			oImg.nHeight = 800;
+			oImg.nWidth =  800/32;
+			oImg.nHeight = 800/32;
 			oImg.bBorder = false;
-			
-			
-			
 		}
-		
 		
 		public function fIni():Void {
 		
@@ -53,7 +55,6 @@
 
 				oImg.fGpuLoad();
 			}
-			
 		}
 
 		public function fBuild_Array():Void {
@@ -61,8 +62,6 @@
 		}
 		
 		
-
-
 		
 		
 	}

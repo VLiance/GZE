@@ -238,8 +238,18 @@ void mainImage(out vec4 fragColor,in vec2 fragCoord)
 
 	 //fragColor  =  vec4(texture(UTexture[0],sh_uv ));//work
 //	 fragColor   = fTexture(ID_TexCurrent,sh_uv );
-	 fragColor   = vec4(fUTexture(ID_ITexID,sh_uv ));
-		 
+
+	 fragColor   = vec4(fUTexture(ID_ITexID,sh_uv ));//work
+	// fragColor   = vec4(fUTexelFetch(ID_ITexID,  ivec2(UTexSize[ID_ITexID] * sh_uv) ))/65536.0;//work
+//	fragColor   = vec4(fUTexelFetch(ID_ITexID,  ivec2(UTexSize[ID_ITexID] * sh_uv) ))/800.0;//work
+	fragColor   = vec4(fUTexelFetch(ID_ITexID,  ivec2(vec2(800.0/32.0, 800.0/32.0 ) * sh_uv) ))/800.0;//work
+		
+	uint _nObjId   = (fUTexelFetch(ID_ITexID,  ivec2(UTexSize[ID_ITexID] * sh_uv) )).r;
+	//fragColor = vec4( float(_nObjId) /65536.0, 0.0, 0.0, 0.5) ;
+	fragColor = vec4( float(_nObjId) /625.0, 0.0, 0.0, 0.5) ;
+	
+	//fragColor = vec4( float(_nObjId) /1000.0, 0.0, 0.0, 0.5) ;
+	
  //   fragColor = vec4( 1.0,1.0,1.0, 0.1) ;
 }
 				

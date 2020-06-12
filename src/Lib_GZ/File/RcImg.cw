@@ -34,7 +34,7 @@ package  {
 		public var oGpuRcImg : GpuRcImg;
 				
 
-		public  var hPixFormat : GpuRcImg.ePixFormat;
+		public  var hPixFormat : GpuRcImg.ePixFormat = GpuRcImg.ePixFormat.Default;
 	
 		
 		public var vOffset : Vec2<Float>;
