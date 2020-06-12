@@ -21,16 +21,18 @@
 		public function TileView(_oItf : Interface):Void {
 			oItf = _oItf;
 			
-			for(var i:Int = 0; i < 20000; i++;){
-				aArray[i] = 0xFFFFFFFF;
+			for(var i:Int = 0; i < 640000; i++;){
+				aArray[i] = i;
+				//aArray[i] = 0xFFFFFFFF;
 			}
 			
 		
 			
 			oImg = new RcImg("");
 			oImg.aImg1D = aArray;
-			oImg.hPixFormat = GpuRcImg.ePixFormat.R16UI;
-			//oImg.hPixFormat = GpuRcImg.ePixFormat.R8UI;
+			//oImg.hPixFormat = GpuRcImg.ePixFormat.R16UI;
+			oImg.hPixFormat = GpuRcImg.ePixFormat.R8UI;
+			//oImg.hPixFormat = GpuRcImg.ePixFormat.Default;
 			oImg.nWidth = 800;
 			oImg.nHeight = 800;
 			oImg.bBorder = false;
@@ -44,6 +46,7 @@
 		
 			if(bLoaded == false){
 				bLoaded = true;
+				//oImg.fSetGpuTexLayer(Attribute_Quad.oTexture);
 				oImg.fSetGpuTexLayer(Attribute_Quad.oITexID);
 				//	public var aKeyRelease : CArray<Bool, 1, 256>
 				

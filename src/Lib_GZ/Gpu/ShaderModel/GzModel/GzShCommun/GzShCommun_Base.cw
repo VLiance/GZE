@@ -235,6 +235,25 @@ public class GzShCommun_Base {
 				#endif
 			}
 			
+			uvec4 fUTexture(int ndx, vec2 uv) {
+				#ifdef d_WebGL
+					switch(ndx){
+						case 0:return texture(UTexture[0], uv);
+						case 1:return texture(UTexture[1], uv);
+						case 2:return texture(UTexture[2], uv);
+						case 3:return texture(UTexture[3], uv);
+						case 4:return texture(UTexture[4], uv);
+						case 5:return texture(UTexture[5], uv);
+						case 6:return texture(UTexture[6], uv);
+						case 7:return texture(UTexture[7], uv);
+					}
+				#else
+					uvec4 _pix = texture(UTexture[ndx], uv);
+					if(_pix.x == 0){};//Resolve wrong lookup bug on AMD
+					return _pix;
+				#endif
+			}
+			
 			vec3 fAutoReverseNorm(vec3 _vPtNorm, vec3 _vLDir){
 				float nLdotN =  dot(_vPtNorm.xyz, _vLDir);
 				if(nLdotN < 0.0){

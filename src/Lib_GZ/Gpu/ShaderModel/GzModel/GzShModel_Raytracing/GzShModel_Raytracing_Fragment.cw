@@ -236,7 +236,9 @@ void mainImage(out vec4 fragColor,in vec2 fragCoord)
 	
   //  fragColor = uboVal[0];
 
-	// fragColor  =  vec4(texture(UTexture[0],sh_uv ));//work
+	 //fragColor  =  vec4(texture(UTexture[0],sh_uv ));//work
+//	 fragColor   = fTexture(ID_TexCurrent,sh_uv );
+	 fragColor   = vec4(fUTexture(ID_ITexID,sh_uv ));
 		 
  //   fragColor = vec4( 1.0,1.0,1.0, 0.1) ;
 }
