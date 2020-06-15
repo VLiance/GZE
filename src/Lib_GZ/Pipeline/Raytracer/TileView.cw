@@ -24,8 +24,8 @@
 		public var nSceneResH : Float = 600;
 		//public var nCaseSize : Int = 32;
 		public var nCaseSize : Float = 32;
-		public var nXTotalCase : Float;
-		public var nYTotalCase : Float;
+		public var nXTotalCase : Int;
+		public var nYTotalCase : Int;
 		public var nArraySize : Int;
 		public var nFullArraySize : Int;
 		
@@ -114,6 +114,8 @@
 		
 		
 		public function fBuild_Array(_aObj :  Array<Shape>):Void {
+		
+			var _bOne : Bool = false;
 			//nOffset += 1;
 			for(var i:Int = 0; i < nFullArraySize; i++;){
 				//aArray[i] = i  + nOffset;
@@ -158,7 +160,20 @@
 				if(_oObj.nX_Max  < _nL2_XCaseNo * _nL2_CaseSize + _nL2_CaseSize){
 					if(_oObj.nY_Max  < _nL2_YCaseNo * _nL2_CaseSize + _nL2_CaseSize){
 						//var _nCase : UInt = (_nL2_YCaseNo + nLay1_H ) * oImg.nWidth  + _nL2_XCaseNo; 
-						var _nCase : UInt = (_nL2_YCaseNo + nLay1_H ) * oImg.nWidth  + _nL2_XCaseNo; 
+						//var _nCase : UInt = (_nL2_YCaseNo + nLay1_H ) * oImg.nWidth  + _nL2_XCaseNo; 
+						var _nCase : UInt = (_nL2_YCaseNo + nLay1_H  ) * oImg.nWidth + _nL2_XCaseNo  ; 
+						
+						/*
+						if(_bOne == false){
+							_bOne = true;
+							Debug.fTrace("_nL2_YCaseNo: " + _nL2_YCaseNo);
+							Debug.fTrace("nLay1_H: " + nLay1_H);
+							Debug.fTrace(" oImg.nWidth: " +  oImg.nWidth);
+							Debug.fTrace("_nCase: " + _nCase);
+						}*/
+						
+						
+						
 						if(_nCase <  nMax_L2_ArraySize  ){
 							aArray[ _nCase] += 0x00FF;
 						}
@@ -166,8 +181,13 @@
 				}
 				
 				///////////
-				
 			}
+			/*
+			for(var i: Int = 0; i < oImg.nHeight ; i++){
+				var _nCase : UInt = (i ) * oImg.nWidth  ; 
+				aArray[ _nCase] += 0x00FF;
+				
+			}*/
 			
 		}
 		
