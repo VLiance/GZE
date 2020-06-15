@@ -54,6 +54,8 @@ package  {
 		public function GpuRcImg( ):Void;
 
 		public function fLoadImg(_aImg : CArray<Int, 1>, _nWidth : Int, _nHeight : Int, _oGpuTexLayer : Texture, _hInternalFormat : ePixFormat, _bBorder : Bool = true):Val;
+		public function fBind():Void;
+		public function fUnBind():Void;
 
 	}
 }

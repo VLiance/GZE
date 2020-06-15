@@ -22,6 +22,7 @@ package  {
 	import GZ.Gpu.ShaderModel.GzModel.GzShCommun.GzShCommun_Light;
 	import GZ.Input.Key;
 	import GzOpenGL.OpenGL;
+	import GZ.Gpu.GpuObj.GpuRcImg;
 	
 	public class GzShModel_Raytracing extends GzShModel_Raytracing_Vertex {
 
@@ -157,6 +158,10 @@ package  {
 			
 	//oGpuBatch.fSetDestination(null); For test
 			OpenGL.fClearColor(0.0, 0.0, 0.0, 0.0);
+			
+			oProgram.fBindAllRcImg(); //temp
+		//	oProgram.aGpuRcImg[2].fBind();
+		//	oProgram.aGpuRcImg[0].fBind();
 			
 			oGpuBatch.fDraw();
 			

@@ -41,7 +41,6 @@ package  {
 		}
 		
 		public function  fUnload():Void {
-			
 		}
 		override function  fIni(_oProgram : ProgramShader):Void {
 			

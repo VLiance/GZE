@@ -49,6 +49,7 @@ package  {
 			
 			if(_bNew){
 				oTexId = OpenGL.fCreateTexture();
+				oGpuTexLayer.oProgram.fAttachRcImg(this);
 			}
 			OpenGL.fBindTexture(TEXTURE_2D, oTexId);
 
@@ -188,8 +189,6 @@ _aFormat = (gzUInt32*)_aCompFormat;
 
 
 
-			
-			
 		var _nBWidth : UInt =   _nWidth;
 		var _nBHeight : UInt =   _nHeight;
 		if(_bBorder){
@@ -212,6 +211,7 @@ _aFormat = (gzUInt32*)_aCompFormat;
 			</cpp>
 			
 			OpenGL.fPixelStorei(UNPACK_ALIGNMENT, 4);
+			Debug.fWarning("Load texture default!");
 					
 		}else{
 			<cpp>
@@ -246,10 +246,12 @@ _aFormat = (gzUInt32*)_aCompFormat;
 	
 		}else{
 			if(oGpuTexLayer.bTexInteger){
+				//Debug.fWarning("Load INTERGER Texture!");
 				//IF is a integer texture we must specifie the interpolation NEAREST 
 				OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_MAG_FILTER , OpenGL.eTextureMagFilter.NEAREST);
 				OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_MIN_FILTER , OpenGL.eTextureMinFilter.NEAREST);
 			}else{
+				Debug.fWarning("Load FLOAT Texture!");
 				OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_MAG_FILTER , OpenGL.eTextureMagFilter.LINEAR);
 				OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_MIN_FILTER , OpenGL.eTextureMinFilter.LINEAR);
 			}
@@ -260,7 +262,7 @@ _aFormat = (gzUInt32*)_aCompFormat;
 			OpenGL.fTexParameteri(TEXTURE_2D, TEXTURE_WRAP_T, OpenGL.eTextureWrapMode.REPEAT); // Repeat on Y axis 
 
 			
-		//	OpenGL.fBindTexture(TEXTURE_2D, null);  //Must keep bounded
+			OpenGL.fBindTexture(TEXTURE_2D, null);  //Must keep bounded
 			//TODO Texture must keep being bound to a texture unit ->
 			
 			if(oTexId != null){
@@ -293,8 +295,20 @@ _aFormat = (gzUInt32*)_aCompFormat;
 			
 		}
 		
+		
 		public function fDraw( _oSource : Object, _nX_Start : Int, _nX_End : Int, _nY_Start : Int, _nY_End : Int):Void{
 		
 		}
+		
+		override public function fBind():Void{
+			OpenGL.fActiveTexture(TEXTURE0 + oGpuTexLayer.nSlot);
+			OpenGL.fBindTexture(TEXTURE_2D, oTexId);
+		}
+		
+		override public function fUnBind():Void{
+			OpenGL.fActiveTexture(TEXTURE0 + oGpuTexLayer.nSlot);
+			OpenGL.fBindTexture(TEXTURE_2D, null); 
+		}
+		
 	}
 }

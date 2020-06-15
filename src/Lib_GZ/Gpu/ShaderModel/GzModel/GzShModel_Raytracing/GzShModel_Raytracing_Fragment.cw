@@ -26,7 +26,7 @@ package  {
 	public extension GzShModel_Raytracing_Fragment extends GzShModel {
 
 		override public function fLoad_Fragment():Bool {
-			
+			/*
 			GzShCommun_Base.fAdd_FragmentBasics(oFragement);
 		//	GzShCommun_Base.fAdd_Default_15_Slot(oFragement, true);
 			GzShCommun_Base.fAdd_Default_15_Slot(oFragement);
@@ -34,228 +34,187 @@ package  {
 			GzShCommun_Base.fAdd_Fragment_Func_Basics(oFragement);
 			GzShCommun_Light.fAdd_Func_fAddLight(oFragement);
 		//	GzShCommun_Tile.fAdd_Fragment_Func_fTile(oFragement);
-		
+			*/
+			
+			GzShCommun_Base.fAdd_FragmentBasics(oFragement);
+			GzShCommun_Base.fAdd_Default_15_Slot(oFragement);
+			GzShCommun_Base.fAdd_Func_Basics(oFragement);
+			GzShCommun_Base.fAdd_Fragment_Func_Basics(oFragement);
+			GzShCommun_Light.fAdd_Func_fAddLight(oFragement);
+		//	GzShCommun_Tile.fAdd_Fragment_Func_fTile(oFragement);
+	
 			
 		
 			///////////// Fragment Shader //////////////
 <glsl(oFragement)>
 
+vec4 pixTex;
+vec4 color;
+
+void main(){
+	vec4 vPtDist = sh_vCoord_Color1; 
 /*
-//Test UBO
-#define MAX_UBO_vec4 50
-
-layout (std140) uniform myUBO{ 
-  vec4 uboVal[MAX_UBO_vec4];
-};
-*/
-/*
-//Test UBO
-layout (std140) uniform myUBO{ 
-  vec4 uboAA;
-  vec4 uboBB;
-};
-
-*/
-#define time iTime
-#define res iResolution
-
-float bounce;
-
-// signed box
-float sdBox(vec3 p,vec3 b)
-{
-  vec3 d=abs(p)-b;
-  return min(max(d.x,max(d.y,d.z)),0.)+length(max(d,0.));
-}
-
-// rotation
-void pR(inout vec2 p,float a) 
-{
-	p=cos(a)*p+sin(a)*vec2(p.y,-p.x);
-}
-
-// 3D noise function (IQ)
-float noise(vec3 p)
-{
-	vec3 ip=floor(p);
-    p-=ip; 
-    vec3 s=vec3(7,2,0.1); //DENSITY
-    vec4 h=vec4(0.,s.yz,s.y+s.z)+dot(ip,s);
-  //  vec4 h=vec4(0.,s.yz,s.y+s.z); //Nice effect
-   // p=p*p*(3.0-2.*p); 
-   // p=p*p*(3.09-2.*p); 
-   //
-    
-    h=fract((h)*2000000.5);
-    //h=mix(fract((h)*1.5),fract((h+s.x)*1.5),p.x); //Cool effect
-    
-    h.xy=mix(h.xz,h.yw,p.y);
-    return mix(h.x,h.y,p.z); 
-}
-
-float map(vec3 p)
-{	
-	//z-=2.0;
-    p*=0.9;
-    pR(p.yz,bounce*0.1+0.4*p.x);
-    return sdBox(p+vec3(0,sin(1.6*time),0),vec3(20.0, 0.05, 1.2))-.4;
-}
-
-//	normal calculation
-vec3 calcNormal(vec3 pos)
-{
-    float eps=0.0001;
-	float d=map(pos);
-	return normalize(vec3(map(pos+vec3(eps,0,0))-d,map(pos+vec3(0,eps,0))-d,map(pos+vec3(0,0,eps))-d));
-}
-
-
-// 	standard sphere tracing inside and outside
-float castRayx(vec3 ro,vec3 rd) 
-{
-    float function_sign=(map(ro)<0.)?-1.:1.;
-    float precis=.01;
-    float h=precis*1.;
-    float t=0.;
-	for(int i=0;i<13;i++) 
-	{
-       // if(abs(h)<precis||t>12.)break;
-		h=function_sign*map(ro+rd*t);
-        t+=h;
+	if( sh_iType != 3){
+		color = vec4(1.0,0.0,0.0,0.5);
+		//	color = vPtDist;
+		//FragColor[0] =  vec4(1.0,0.0,0.0,0.5);
+				FragColor =  color;
+		return;
+	}else{
+		color = vPtDist;
+		//		color = fTexelFetch(sh_iTexID, ivec2(sh_vTexture));
+		
+		
+	//	color = fTexture(sh_iTexID, sh_vTextureNorm * vec2(800,600));
+		color = fTexture(sh_iTexID, sh_vTextureNorm );
+		FragColor =  color;
+		return;	
 	}
-    return t;
-}
+	*/	
+	/// Make a bilinear interpolation from uv ///
+	//vec4 _vCoDist = vec4((1.0-sh_uv.x)*(1.0-sh_uv.y), (sh_uv.x)*(1.0-sh_uv.y), (sh_uv.x)*(sh_uv.y), (1.0-sh_uv.x)*(sh_uv.y));
+	////////////////////////////////////////
 
-// 	refraction
-float refr(vec3 pos,vec3 lig,vec3 dir,vec3 nor,float angle,out float t2, out vec3 nor2)
-{
-    float h=0.;
-    t2=2.;
-	vec3 dir2=refract(dir,nor,angle);  
- 	for(int i=0;i<1;i++) 
-	{
-		if(abs(h)>3.) break;
-		h=map(pos+dir2*t2);
-		t2-=h;
+	
+	if( sh_iType == 8 ){ //Vector Line
+		
+			//pixTex = vec4(0.0, 1.0, 0.5, 1.0);
+			pixTex = vPtDist;
+			pixTex.a = (1.0- (sh_uv.y*sh_uv.y))*vPtDist.a;
+			FragColor =  pixTex;
+			return;
+		
+	}else if( sh_iType == 6){
+	
+		//pixTex = fTile();
+		
+		
+	}else if( sh_iType == 2){ //Buffer without Interpolation
+		
+		FragColor = fTexelFetch(sh_iTexID, ivec2(sh_vTexture));
+		return;	
+	}else if( sh_iType == 3){ //Buffer with Bilinear filtering
+		
+		FragColor = fTexture(sh_iTexID, sh_vTextureNorm);
+		return;	
+
+	}else{
+			pixTex = fTexture(sh_iTexID, sh_vTextureNorm);
+		//	FragColor =  pixTex;
+
+		
+		//	return;
 	}
-    nor2=calcNormal(pos+dir2*t2);
-    return(.5*clamp(dot(-lig,nor2),0.,1.)+pow(max(dot(reflect(dir2,nor2),lig),0.),8.));
-}
+	
+	
+	vec4 pixDepth = fTexture(ID_TexDepth, sh_vTextureNorm);
+	float nDepth = pixDepth.r; //Monocrome
+	
+	
 
-//	softshadow 
-float softshadow(vec3 ro,vec3 rd) 
-{
-    float sh=1.;
-    float t=.02;
-    float h=.0;
-    for(int i=0;i<1;i++)  
-  //  for(int i=0;i<10;i++)  
-	{
-      //  if(t>20.)continue;
-        h=map(ro+rd*t);
-        sh=min(sh,4.*h/t)*0.90;
-		//sh=min(sh,4.*h/t*0.9)*0.9;
-        t+=h;
-    }
-    return sh;
-}
-
-//	main function
-void mainImage(out vec4 fragColor,in vec2 fragCoord)
-{    
-   //bounce=abs(fract(0.05*time)-.5)*20.; // triangle function
-   // bounce=abs((0.004*time)+ time*0.6)*2.5; // triangle function - disable reverse
-  bounce=time * 20.0+ time*0.3;
-    
-	vec2 uv=gl_FragCoord.xy/res.xy; 
-    vec2 p=uv*2.-1.;
-    
-// 	bouncy cam every 10 seconds
-    float wobble=(fract(.1*(1.0-1.))>=0.9)?fract(10.0)*0.1*sin(300.):0.; //Disable bounce
-   // float wobble=(fract(.1*(time-1.))>=0.9)?fract(-time)*0.1*sin(30.*time):0.;
-
-//  camera    
-    vec3 dir = normalize(vec3(2.*gl_FragCoord.xy -res.xy, res.y));
-    vec3 org = vec3(0,2.*0.2,-3.);  
-    
-
-// 	standard sphere tracing:
-    vec3 color = vec3(0.);
-    vec3 color2 =vec3(0.);
-    float t=castRayx(org,dir);
-	vec3 pos=org+dir*t;
-	vec3 nor=calcNormal(pos);
-
-// 	lighting:
-    vec3 lig=normalize(vec3(.2,6.,.5));
-//	scene depth    
-    float depth=clamp((1.-0.09*t),0.,1.);
-
-    vec3 nor2 = vec3(0.);
-     // color2 = vec3(max(dot(lig,nor),0.)  +  (max(dot(reflect(dir,nor),lig),0.)));//
-    color2 = vec3(max(dot(lig,nor),0.)  +  pow(max(dot(reflect(dir,nor),lig),0.),100.));
-    //color2 *=clamp(softshadow(pos,lig),0.,1.);  // shadow            	
-    //color2 *=clamp((pos,lig),0.,1.);  // shadow    
-     color2 *=(2.,0.,(lig,pos));  // shadow      
-    float t2;
-    color2.rgb +=refr(pos,lig,dir,nor,0.02, t2, nor2)*depth;//refract
-   // color2-=clamp(.1*t2,0.,1.);				// inner intensity loss
+	// vec3 vPtWorld = (iomWorldPt * _vCoDist).xyz;
+	vec3 vPtWorld = sh_vTriPtWorld;
+	vec3 vPtNorm =  sh_vNorm.xyz;
 
 
+	/////// MY AUTO Bump //////////
+	float _nMonoCrome =  (((pixTex.r + pixTex.g + pixTex.b)/3.0)-0.5);
+	float _nMonoCrome2 =  max(((pixTex.r + pixTex.g + pixTex.b)/1.5)-0.2, 0.0);
+	float _nRevMonoCrome =   _nMonoCrome2 * -1.0;
+	vec3 _vGenNorm =  normalize(vec3( _nMonoCrome*-2.0, 0.0, 1.0));
+	//vec3 _vGenNorm =  normalize(vec3(_nMonoCrome*-2.0 + ( nDepth-0.5)*-2.0, 0,  1.0));
 
+//vPtWorld += _vGenNorm * 1000;
+//vPtWorld.y += _nMonoCrome2 * 10.0;
+	
 
 	
-    color2*=depth;
-    //color2+= (1.-depth);	// subtle mist white background
+	//vec3 _vPtDisplacement = fRotate(vec3(0,0, (_nMonoCrome + 0.5) * 10.0), vec3(0.0,   -(sh_uv.x-0.5), 0.0) ); //Good, 
+	
 
-    
+	
+	
+	//// Auto reverse norm ////
+	vec3 vLDir = normalize(vPtWorld - vPersp.xyz  );//light direction
+	vPtNorm = fAutoReverseNorm(vPtNorm, vLDir);
+	//////////////////////////
 
+	//_vGenNorm = fRotate( vec3(0.0,0.0,-1.0), vec3(0.0,   -(sh_uv.x-0.5), 0.0) ); //Good, 
+	mat3 TBN =  fCotangent_frame(vPtNorm, -vLDir, sh_uv); 
+	vPtNorm = normalize(TBN * _vGenNorm);
+	//////////////////////////////////////////
+	
+	
+//	vPtWorld.y += _nMonoCrome * 10000.0;
+
+	/*
+	vec3 _vPtDisplacement = fRotate(vec3(0,(nDepth) * 0.2,0 ), vPtNorm); //Good, 
+	//vPtWorld += _vPtDisplacement;
+	//vPtWorld.y -= (nDepth-0.5) * 100.0;
+	vec3 _vTexDisp  = (_vPtDisplacement);
+	_vTexDisp.x *=-1.0;
+	vec2 _vTex = sh_vTextureNorm;
+	_vTex.xy += _vTexDisp.xy * (nDepth ) * 0.2;
+	pixTex = fTexture(sh_iTexID, _vTex);	
+	*/
+	
+	
+	float _nIntentity = nDepth/2.0 + 0.5;
+	////////////
+	
+
+	//// Custom interpolated color ////
+	vec3 vDark  = clamp(vPtDist.rgb + 1.0, 0.0, 1.0); //0 a 1 -> = 1 if bright
+	vec3 vLight = clamp(vPtDist.rgb , 0.0, 1.0); //0 a 1 -> = 0 if Dark
+	pixTex.rgb = (((( vec3(pixTex.a) -  pixTex.rgb ) * vLight) + pixTex.rgb) * vec3(vPtDist.a) * vDark);
+	pixTex.a *= vPtDist.a;
+
+	pixTex = fAddLight(pixTex, vPtWorld, vPtNorm, _nIntentity);
+
+
+	if(sh_iType == 5000){
+
+	//	uint _nObjId   = (fUTexelFetch(ID_ITexID,  ivec2(UTexSize[ID_ITexID] * sh_uv) )).r;
+		//uint _nObjId   = (texelFetch(UTexture[0], ivec2(UTexSize[ID_ITexID] * sh_uv) ,0)).r;   //(ID_ITexID,  ivec2(UTexSize[ID_ITexID] * sh_uv) )).r;
+		
+		float _nL1_W = 800.0/32.0;
+		float _nL1_H = 600.0/32.0;
+		
+		float _nL2_W = _nL1_W/2;
+		float _nL2_H = _nL1_H/2;
 		
 		
-//	scene depth included in alpha channel
-    fragColor = vec4(  vec3( 0.8 *  color2 ),   0.1) ;
-	
-	//vec4 pixDepth = fTexture(ID_TexCurrent, sh_vTextureNorm);
-	//vec4 pixDepth = fTexture(0, sh_uv);
-//	vec4 pixDepth =   texture(ID_ITexID, sh_uv);
-	//vec4 pixDepth  = texture(ITexture[ID_ITexID], sh_uv);
-//	uint pixDepth  = texelFetch(UTexture[ID_ITexID], ivec2(UTexSize[ID_ITexID] * sh_uv), 0).r;
-	uint pixDepth  = texelFetch(UTexture[0], ivec2(UTexSize[ID_ITexID] * sh_uv), 0).r;
-	// pixDepth  =  pixDepth + texelFetch(UTexture[0], ivec2(UTexSize[ID_ITexID] * sh_uv), 0).r;
-	// pixDepth  = pixDepth + texelFetch(UTexture[0], ivec2(UTexSize[ID_ITexID] * sh_uv), 0).g;
-	// pixDepth  = pixDepth +texelFetch(UTexture[0], ivec2(UTexSize[ID_ITexID] * sh_uv), 0).b;
-	 
-//	uint pixDepth  = texelFetch(UTexture[0], ivec2(5,1), 0).r;
-	
-	
-	
-//	fragColor = vec4( float(pixDepth)/256.0,0.0,0.0,0.5);
-	//fragColor = vec4( float(pixDepth)/65536.0,0.0,0.0,0.5);
-	fragColor = vec4( float(pixDepth)/256.0,0.0,0.0,0.5);
-//	fragColor = vec4(sh_uv.x, sh_uv.y, 0.0, 0.5);
-	
-  //  fragColor = uboVal[0];
-
-	 //fragColor  =  vec4(texture(UTexture[0],sh_uv ));//work
-//	 fragColor   = fTexture(ID_TexCurrent,sh_uv );
-
-	 fragColor   = vec4(fUTexture(ID_ITexID,sh_uv ));//work
-	// fragColor   = vec4(fUTexelFetch(ID_ITexID,  ivec2(UTexSize[ID_ITexID] * sh_uv) ))/65536.0;//work
-//	fragColor   = vec4(fUTexelFetch(ID_ITexID,  ivec2(UTexSize[ID_ITexID] * sh_uv) ))/800.0;//work
-	fragColor   = vec4(fUTexelFetch(ID_ITexID,  ivec2(vec2(800.0/32.0, 800.0/32.0 ) * sh_uv) ))/800.0;//work
+		float _nL1_S = _nL1_W * _nL1_H;
 		
-	uint _nObjId   = (fUTexelFetch(ID_ITexID,  ivec2(UTexSize[ID_ITexID] * sh_uv) )).r;
-	//fragColor = vec4( float(_nObjId) /65536.0, 0.0, 0.0, 0.5) ;
-	fragColor = vec4( float(_nObjId) /625.0, 0.0, 0.0, 0.5) ;
+	//	vec2 uv = sh_uv -vec2(0.5,0.5);
+		
+		uint _nObjId_L1   = (fUTexelFetch(ID_ITexID,  ivec2( (vec2(_nL1_W, _nL1_H) * sh_uv)    )   )).r;
+		float _nL1 = float(_nObjId_L1) /625.0;
+		
+		uint _nObjId_L2   = (fUTexelFetch(ID_ITexID,  ivec2( vec2(_nL2_W , _nL2_H ) * sh_uv + vec2(0.0, _nL1_H)  ) )).r;
+		float _nL2 = float(_nObjId_L2) /625.0;	
+		
+		
+		pixTex = vec4( _nL1,_nL2, 0.0, 0.5) ;
+		
+		
+		
+	//	pixTex = vec4( 1.0, 1.0, 1.0, 1.0) ;
+	}else{
+
+	//	pixTex = vec4( 0.5, 0.5, 0.5, 0.1) ;
+
+	}
 	
-	//fragColor = vec4( float(_nObjId) /1000.0, 0.0, 0.0, 0.5) ;
-	
- //   fragColor = vec4( 1.0,1.0,1.0, 0.1) ;
+
+	FragColor =  pixTex;
 }
 				
 </glsl>
 
-	oFragement.fAddMain();
+
+
+	//oFragement.fAddMain();
 }
 		
 		

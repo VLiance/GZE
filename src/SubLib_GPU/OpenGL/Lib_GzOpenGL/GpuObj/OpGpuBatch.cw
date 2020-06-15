@@ -65,6 +65,8 @@ package  {
 			OpenGL.fClear(COLOR_BUFFER_BIT );
 		}
 		
+		OpenGL.fDisable( STENCIL_TEST ); 
+		OpenGL.fDisable( DEPTH_TEST );
 			
 		//TODO Switch case
 		if(hBlendMode ==  eBlendMode.None){

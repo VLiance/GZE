@@ -56,19 +56,28 @@
 		
 		
 		public function fAdd(_oObj : Shape):Void {
-		
-			aObj.fPush(_oObj);
-			if(_oObj.nZLayer < nSort_Far){
-				nSort_Far = _oObj.nZLayer;
-			}
-			if(_oObj.nZLayer > nSort_Near){
-				nSort_Near = _oObj.nZLayer;
-			}
+			//Reject all obj otside screen
+			//Screen Size:
+			var _nWidth : Float = 800;
+			var _nHeight : Float = 600;
 			
+			if(_oObj.nX_Max >= 0 && _oObj.nY_Max >= 0  && _oObj.nX_Min < _nWidth && _oObj.nY_Min <=_nHeight ){
+			
+				aObj.fPush(_oObj);
+				if(_oObj.nZLayer < nSort_Far){
+					nSort_Far = _oObj.nZLayer;
+				}
+				if(_oObj.nZLayer > nSort_Near){
+					nSort_Near = _oObj.nZLayer;
+				}
+			}
 		//	Debug.fTrace("fBuild_Array!!");
 		}
 		
 		public function fBuild_Array():Void {
+		
+		
+		
 			nTotal = aObj.nSize;
 			nTotalFac =  nTotal * nPlacementFactor;
 			nFloatTotal = nTotalFac;
@@ -77,9 +86,12 @@
 			//Debug.fTrace("nSort_Near: " + nSort_Near);
 			//Debug.fTrace("nSort_Far: " + nSort_Far);
 
-			nSort_Top = nSort_Near - nSort_Far;
-		
-			fSortElements();
+			if(oTileView != null){
+				oTileView.fBuild_Array(aObj);
+			}
+			
+			//nSort_Top = nSort_Near - nSort_Far;
+			//fSortElements();
 		}
 		
 		
@@ -162,6 +174,12 @@
 				var _oObj : Shape = aObj.fUnsafe_Get(i);
 				_oObj.oFace.fGpuDraw();
 			}
+			
+			if(oTileView != null){
+				oTileView.fGpuDraw();
+			}
+			
+			
 			return false;
 			//////////////////////////////////
 		

@@ -133,7 +133,7 @@ package  {
 
 		
 		if (oFace.oShape.hType == Root.eType.View){
-			_nType = oFace.oShape.hType + oFace.oShape.nSubType; //8 is Line
+			_nType = oFace.oShape.hType + oFace.oShape.nSubType; 
 		}
 		
 		if (oFace.oShape.hType == Root.eType.Line){

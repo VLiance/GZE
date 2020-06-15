@@ -28,6 +28,11 @@ package  {
 
 		public const var nBorder : UInt = 1; //Must be same ase png.h
 		public var nZLayer : Float; //Must be same ase png.h
+		public var nX_Min : Float;
+		public var nX_Max : Float;
+		public var nY_Min : Float;
+		public var nY_Max : Float;
+		
 
 		use Triangle.uPoint3D;
 		//use Triangle.uPoint2D;
@@ -360,7 +365,11 @@ package  {
 		public function fConvertTo2d():Void {
 		
 			nZLayer = 99999999999999999.0; //Inf?
-		
+			nX_Min 	= 99999999999999999.0; //Inf?
+			nX_Max	= -99999999999999999.0; //Inf?
+			nY_Min	= 99999999999999999.0; //Inf?
+			nY_Max	= -99999999999999999.0; //Inf?
+			
 			//Debug.fTrace("AAAA: " +oDstBuff.oPerspective.nFromX + ", " +oDstBuff.oPerspective.nFromY + ", " + oDstBuff.oPerspective.nValue + ", " + oDstBuff.oPerspective.nType )
 			
 		
@@ -385,9 +394,24 @@ package  {
 					_oPt.o2d.nX = _oPt.vFinal.nX / _nZ + _nX;
 					_oPt.o2d.nY = _oPt.vFinal.nY / _nZ + _nY;
 					_oPt.o2d.nZ = _nZ;
+					/////////////////////////////
 					if(_nZ < nZLayer){
 						nZLayer = _nZ;
 					}
+					if(_oPt.o2d.nX > nX_Max){
+						nX_Max = _oPt.o2d.nX;
+					}
+					if(_oPt.o2d.nX < nX_Min){
+						nX_Min = _oPt.o2d.nX;
+					}
+					if(_oPt.o2d.nY > nY_Max){
+						nY_Max = _oPt.o2d.nY;
+					}
+					if(_oPt.o2d.nY < nY_Min){
+						nY_Min = _oPt.o2d.nY;
+					}
+					/////////////////////////////
+					
 				}
 				
 
@@ -403,9 +427,23 @@ package  {
 					_oPt.o2d.nX = (_oPt.vFinal.nX + (_nX - _nFromX)) / _nZ - (_nX - _nFromX) + _nX;
 					_oPt.o2d.nY = (_oPt.vFinal.nY + (_nY - _nFromY)) / _nZ - (_nY - _nFromY) + _nY;
 					_oPt.o2d.nZ = _nZ;
+					/////////////////////////////
 					if(_nZ < nZLayer){
 						nZLayer = _nZ;
 					}
+					if(_oPt.o2d.nX > nX_Max){
+						nX_Max = _oPt.o2d.nX;
+					}
+					if(_oPt.o2d.nX < nX_Min){
+						nX_Min = _oPt.o2d.nX;
+					}
+					if(_oPt.o2d.nY > nY_Max){
+						nY_Max = _oPt.o2d.nY;
+					}
+					if(_oPt.o2d.nY < nY_Min){
+						nY_Min = _oPt.o2d.nY;
+					}
+					/////////////////////////////
 				}
 			}
 		

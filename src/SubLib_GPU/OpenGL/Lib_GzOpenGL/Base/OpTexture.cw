@@ -20,9 +20,11 @@ package  {
 			//GL_fUniform1i(GL_fGetUniformLocation(nId, _sName.fcStr() ), _nSlot);
 		
 			if(bTexInteger){
+				//Debug.fTrace("Create Integer Texture! " + nSlot);
 				nId = OpenGL.fGetUniformLocation(oProgram.nId, "UTexture["  + nIndex + "]" );
 				nSizeId = OpenGL.fGetUniformLocation(oProgram.nId,  "UTexSize["  + nIndex + "]" );
 			}else{
+				//Debug.fTrace("Create Float Texture!" + nSlot);
 				nId = OpenGL.fGetUniformLocation(oProgram.nId, "Texture["  + nIndex + "]" );
 				nSizeId = OpenGL.fGetUniformLocation(oProgram.nId,  "TexSize["  + nIndex + "]" );
 			}

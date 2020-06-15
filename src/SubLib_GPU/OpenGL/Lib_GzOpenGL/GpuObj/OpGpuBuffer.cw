@@ -111,7 +111,7 @@ package  {
 			//Sized internal formats are supported in WebGL 2.0 and internalformat is no longer required to be the same as format. Instead, the combination of internalformat, format, and type must be listed in the following table:		
 			//RGBA :	RGBA : UNSIGNED_BYTE/UNSIGNED_SHORT_4_4_4_4/UNSIGNED_SHORT_5_5_5_1
 
-			
+				OpenGL.fPixelStorei(UNPACK_ALIGNMENT, 4);
 		
 					//OpenGL.fTexImage2D(TEXTURE_2D, 0, RGBA, oBuffer.nBuffWidth, oBuffer.nBuffHeight, 0, BGRA, UNSIGNED_BYTE, 0);
 					//OpenGL.fTexImage2D(TEXTURE_2D, 0, RGBA, oBuffer.nBuffWidth, oBuffer.nBuffHeight, 0, RGBA, UNSIGNED_BYTE, 0);
@@ -342,6 +342,8 @@ package  {
 			fEnableTexture();
 			
 			OpenGL.fDisable( BLEND ); //Not for webGL? 
+			OpenGL.fDisable( STENCIL_TEST ); //Not for webGL? 
+			OpenGL.fDisable( DEPTH_TEST ); //Not for webGL? 
 			
 			
 				//var _aBuffer : Array<UInt32>;

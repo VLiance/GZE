@@ -30,7 +30,6 @@ package  {
 		
 			GzShCommun_Base.fAdd_VertexBasics(oVertex);
 			GzShCommun_Base.fAdd_Default_Vertex_Attribut(oVertex);
-			//GzShCommun_Base.fAdd_Default_15_Slot(oVertex, true);
 			GzShCommun_Base.fAdd_Default_15_Slot(oVertex);
 						
 			GzShCommun_Base.fAdd_Func_Basics(oVertex);

@@ -36,7 +36,13 @@ package  {
 			
 			
 			nIndex =  oProgram.fAttachTexture(this);
-			nSlot =  oProgram.fGetLastTexSlot();
+			
+			 //Using the "Texture unit 0" may lead to stange beahavior and error, because samppler are initialised by default with 0 "unit 0". 
+			 //By exemple when we bind a Floating Texture to 0 and we have un usample (default initialised '0'), then in WebGL we got this error:
+			 //[.WebGL-000001809B65BA30] GL_INVALID_OPERATION: Mismatch between texture format and sampler type (signed/unsigned/float/shadow).
+			 //So use Slot 0 only as a last resort
+			nSlot =  oProgram.fGetLastTexSlot() + 1;
+			
 			
 			//oProgram.aTex.fPush(this); //Todo
 			

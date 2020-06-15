@@ -132,7 +132,7 @@
 			if (!(hRC=wglCreateContext(hDC))){  //ReqOgl
 				return fFatal(gzU8("OGL: Can't get A Rendering Context"));
 			}
-
+ 
 			if(!wglMakeCurrent(hDC,hRC)) { //ReqOgl
 				return fFatal(gzU8("OGL: Can't Activate The GL Rendering Context"));
 			}
@@ -178,13 +178,18 @@
               };
 			  
 			  #define WGL_CONTEXT_CORE_PROFILE_BIT 0x00000001
+			  #define WGL_CONTEXT_PROFILE_MASK_ARB            0x9126
+			    // WGL_CONTEXT_PROFILE_MASK_ARB bits
+			  #define WGL_CONTEXT_CORE_PROFILE_BIT_ARB          0x00000001
+			  #define WGL_CONTEXT_COMPATIBILITY_PROFILE_BIT_ARB 0x00000002
 			  
               int iContextAttribs[] =
               {
                  WGL_CONTEXT_MAJOR_VERSION, _nMaj,
                  WGL_CONTEXT_MINOR_VERSION, _nMin,
-                 WGL_CONTEXT_FLAGS, WGL_CONTEXT_CORE_PROFILE_BIT,
-                 0
+				 WGL_CONTEXT_PROFILE_MASK_ARB,  WGL_CONTEXT_CORE_PROFILE_BIT_ARB,
+                 WGL_CONTEXT_FLAGS, 0,
+                 0, 0
               };
 
               int iPixelFormat, iNumFormats;

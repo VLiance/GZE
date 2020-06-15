@@ -252,22 +252,22 @@ public class GzShCommun_Base {
 				#endif
 			}
 			
-			uvec4 fUTexelFetch(int ndx, ivec2 uv) {
-				#ifdef d_WebGL
-					switch(ndx){
-						case 0:return texelFetch(UTexture[0], uv,0);
-						case 1:return texelFetch(UTexture[1], uv,0);
-						case 2:return texelFetch(UTexture[2], uv,0);
-						case 3:return texelFetch(UTexture[3], uv,0);
-						case 4:return texelFetch(UTexture[4], uv,0);
-						case 5:return texelFetch(UTexture[5], uv,0);
-						case 6:return texelFetch(UTexture[6], uv,0);
-						case 7:return texelFetch(UTexture[7], uv,0);
-					}
-				#else
-					return texelFetch(UTexture[ndx], uv,0);
-				#endif
-			}
+uvec4 fUTexelFetch(int ndx, ivec2 uv) {
+	#ifdef d_WebGL
+		switch(ndx){
+			case 0:return texelFetch(UTexture[0], uv,0);
+			case 1:return texelFetch(UTexture[1], uv,0);
+			case 2:return texelFetch(UTexture[2], uv,0);
+			case 3:return texelFetch(UTexture[3], uv,0);
+			case 4:return texelFetch(UTexture[4], uv,0);
+			case 5:return texelFetch(UTexture[5], uv,0);
+			case 6:return texelFetch(UTexture[6], uv,0);
+			case 7:return texelFetch(UTexture[7], uv,0);
+		}
+	#else
+		return texelFetch(UTexture[ndx], uv,0);
+	#endif
+}
 			
 			vec3 fAutoReverseNorm(vec3 _vPtNorm, vec3 _vLDir){
 				float nLdotN =  dot(_vPtNorm.xyz, _vLDir);

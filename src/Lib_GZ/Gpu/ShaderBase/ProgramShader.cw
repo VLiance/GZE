@@ -8,6 +8,7 @@ package  {
 	import GZ.Gpu.ShaderBase.Vbo;
 	import GZ.Gpu.ShaderBase.Evbo;
 	import GZ.Gpu.Base.Uniform;
+	import GZ.Gpu.GpuObj.GpuRcImg;
 	
 	public overclass ProgramShader  {
 		
@@ -15,6 +16,8 @@ package  {
 		public var bLinked : Bool;
 		public var aAttribute : Array<Attribute>;
 		public var aUniform : Array<Uniform>;
+		
+		public var aGpuRcImg : Array<GpuRcImg>;
 		
 		public var aTexture : Array<Texture>;
 		public var aTexFloat : Array<Texture>;
@@ -68,6 +71,13 @@ package  {
 		public function fLink():Bool;
 		
 		public function fUse():Bool;
+		
+		public function fAttachRcImg(_oRcImg: GpuRcImg):UInt {
+			aGpuRcImg.fPush(_oRcImg);
+				Debug.fTrace("---Attach RC : " +  (aGpuRcImg.nSize -1));
+			return aGpuRcImg.nSize - 1;
+		}
+		
 		
 		
 		public function fAttachTexture(_oTex: Texture):UInt {
@@ -123,6 +133,12 @@ package  {
 		}
 		
 		
+		public function fBindAllRcImg():Void {
+			for( var i : UInt = 0; i < aGpuRcImg.nSize; i++){
+				var _oGpuRcImg : GpuRcImg = aGpuRcImg[i];
+				_oGpuRcImg.fBind();
+			}
+		}
 		
 	}
 }
