@@ -155,10 +155,15 @@
 				}
 				
 				///////////
-				var _nL2_XCaseNo : Int = (_nXCaseNo+1)/2;
-				var _nL2_YCaseNo : Int = (_nYCaseNo+1)/2;
-				if(_oObj.nX_Max  < _nL2_XCaseNo * _nL2_CaseSize + _nL2_CaseSize){
-					if(_oObj.nY_Max  < _nL2_YCaseNo * _nL2_CaseSize + _nL2_CaseSize){
+				var _nL2_XCaseNo : Int = (_nXCaseNo)/2;
+				var _nL2_YCaseNo : Int = (_nYCaseNo)/2;
+			//	var _nL2_XCaseNo : Int = (_oObj.nX_Min-nCaseSize) / _nL2_CaseSize;
+			//	var _nL2_YCaseNo : Int = (_oObj.nY_Min-nCaseSize) / _nL2_CaseSize;
+				//			if( (_oObj.nX_Max - nCaseSize )  < _nL2_XCaseNo * _nL2_CaseSize + _nL2_CaseSize){
+				//	if( (_oObj.nY_Max - nCaseSize )  < _nL2_YCaseNo * _nL2_CaseSize + _nL2_CaseSize){
+				
+				if( (_oObj.nX_Max  )  < _nL2_XCaseNo * _nL2_CaseSize + _nL2_CaseSize){
+					if( (_oObj.nY_Max  )  < _nL2_YCaseNo * _nL2_CaseSize + _nL2_CaseSize){
 						//var _nCase : UInt = (_nL2_YCaseNo + nLay1_H ) * oImg.nWidth  + _nL2_XCaseNo; 
 						//var _nCase : UInt = (_nL2_YCaseNo + nLay1_H ) * oImg.nWidth  + _nL2_XCaseNo; 
 						var _nCase : UInt = (_nL2_YCaseNo + nLay1_H  ) * oImg.nWidth + _nL2_XCaseNo  ; 

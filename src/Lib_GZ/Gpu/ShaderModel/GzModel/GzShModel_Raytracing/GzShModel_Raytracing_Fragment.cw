@@ -177,8 +177,14 @@ void main(){
 	//	uint _nObjId   = (fUTexelFetch(ID_ITexID,  ivec2(UTexSize[ID_ITexID] * sh_uv) )).r;
 		//uint _nObjId   = (texelFetch(UTexture[0], ivec2(UTexSize[ID_ITexID] * sh_uv) ,0)).r;   //(ID_ITexID,  ivec2(UTexSize[ID_ITexID] * sh_uv) )).r;
 		
-		float _nL1_W = 26.0;  //800.0/32.0 + 1;
-		float _nL1_H = 19.0; // 600.0/32.0 + 1;
+		///float _nL1_W = 26.0;  //800.0/32.0 + 1;
+		//float _nL1_H = 19.0; // 600.0/32.0 + 1;
+		
+		float _nL1_W =  800.0/32.0;
+		float _nL1_H =  600.0/32.0;
+		float _nL1_OffH = 19.0;
+		
+		
 		
 		float _nL2_W = _nL1_W/2.0;
 		float _nL2_H = _nL1_H/2.0;
@@ -188,10 +194,11 @@ void main(){
 		
 	//	vec2 uv = sh_uv -vec2(0.5,0.5);
 		
-		uint _nObjId_L1   = (fUTexelFetch(ID_ITexID,  ivec2( (vec2(_nL1_W, _nL1_H) * sh_uv)    )   )).r;
+		uint _nObjId_L1   = (fUTexelFetch(ID_ITexID,  ivec2( (vec2(_nL1_W, _nL1_H) * sh_uv  )    )   )).r;
 		float _nL1 = float(_nObjId_L1) /625.0;
 		
-		uint _nObjId_L2   = (fUTexelFetch(ID_ITexID,  ivec2( vec2(_nL2_W , _nL2_H ) * sh_uv + vec2(0.0 , _nL1_H )  ) )).r;
+		//uint _nObjId_L2   = (fUTexelFetch(ID_ITexID,  ivec2( vec2(_nL2_W , _nL2_H ) * sh_uv + vec2(0.0 - 0.5, _nL1_OffH - 0.5 )  ) )).r;
+		uint _nObjId_L2   = (fUTexelFetch(ID_ITexID,  ivec2( vec2(_nL2_W , _nL2_H ) * sh_uv + vec2(0.0 , _nL1_OffH )  ) )).r;
 		float _nL2 = float(_nObjId_L2) /625.0;	
 		
 		
