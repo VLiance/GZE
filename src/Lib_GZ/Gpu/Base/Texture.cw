@@ -41,7 +41,7 @@ package  {
 			 //By exemple when we bind a Floating Texture to 0 and we have un usample (default initialised '0'), then in WebGL we got this error:
 			 //[.WebGL-000001809B65BA30] GL_INVALID_OPERATION: Mismatch between texture format and sampler type (signed/unsigned/float/shadow).
 			 //So use Slot 0 only as a last resort
-			nSlot =  oProgram.fGetLastTexSlot() + 1;
+			nSlot =  oProgram.fGetLastTexSlot() ;
 			
 			
 			//oProgram.aTex.fPush(this); //Todo

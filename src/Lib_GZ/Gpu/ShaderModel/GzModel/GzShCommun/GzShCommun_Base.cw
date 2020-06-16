@@ -111,7 +111,7 @@ public class GzShCommun_Base {
 			#define xshared out	
 			
 			#define nMaxTextures 8
-			#define nMaxUTextures 8
+			#define nMaxUTextures 1
 	
 			uniform int ID_TexCurrent; 
 			uniform int ID_TexNormal; 
@@ -150,7 +150,7 @@ public class GzShCommun_Base {
 				
 			#define xshared in				
 			#define nMaxTextures 8
-			#define nMaxUTextures 8
+			#define nMaxUTextures 1
 				
 			uniform int ID_TexCurrent; 
 			uniform int ID_TexNormal; 
@@ -239,13 +239,7 @@ public class GzShCommun_Base {
 				#ifdef d_WebGL
 					switch(ndx){
 						case 0:return texture(UTexture[0], uv);
-						case 1:return texture(UTexture[1], uv);
-						case 2:return texture(UTexture[2], uv);
-						case 3:return texture(UTexture[3], uv);
-						case 4:return texture(UTexture[4], uv);
-						case 5:return texture(UTexture[5], uv);
-						case 6:return texture(UTexture[6], uv);
-						case 7:return texture(UTexture[7], uv);
+			
 					}
 				#else
 					return texture(UTexture[ndx], uv);
@@ -256,13 +250,7 @@ uvec4 fUTexelFetch(int ndx, ivec2 uv) {
 	#ifdef d_WebGL
 		switch(ndx){
 			case 0:return texelFetch(UTexture[0], uv,0);
-			case 1:return texelFetch(UTexture[1], uv,0);
-			case 2:return texelFetch(UTexture[2], uv,0);
-			case 3:return texelFetch(UTexture[3], uv,0);
-			case 4:return texelFetch(UTexture[4], uv,0);
-			case 5:return texelFetch(UTexture[5], uv,0);
-			case 6:return texelFetch(UTexture[6], uv,0);
-			case 7:return texelFetch(UTexture[7], uv,0);
+
 		}
 	#else
 		return texelFetch(UTexture[ndx], uv,0);
