@@ -60,7 +60,8 @@ package  {
 			
 			
 		
-		//OpenGL.fClearColor(0.0, 5.0, 0.5, 1.0);
+		OpenGL.fClearColor(0.0, 5.0, 0.5, 0.5); //TODO
+	//	OpenGL.fClear(COLOR_BUFFER_BIT );
 		if(bAutoClear){
 			OpenGL.fClear(COLOR_BUFFER_BIT );
 		}

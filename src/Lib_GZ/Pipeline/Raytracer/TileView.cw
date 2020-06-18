@@ -5,6 +5,7 @@
 	import GZ.Gfx.Shape;
 	import GZ.File.RcImg;
 	import GZ.Gpu.ShaderModel.AtModel.Attribute_Quad;
+	import GZ.Gpu.ShaderModel.GzModel.GzShModel;
 	
 	import GZ.Gpu.GpuObj.GpuRcImg;
 		
@@ -39,7 +40,7 @@
 		public var nMax_L2_ArraySize : Int;
 		
 		
-		public function TileView(_oItf : Interface):Void {
+		public function TileView(_oItf : Interface, _oGzShModel : GzShModel):Void {
 			nXTotalCase = nSceneResW / nCaseSize  + 1; //TODO (+1  to simulate ceil and keep fraction)
 			nYTotalCase = nSceneResH / nCaseSize + 1; //TODO (+1  to simulate ceil and keep fraction)
 			nArraySize = nYTotalCase * nXTotalCase;
@@ -67,7 +68,7 @@
 			
 			
 			nLay2_W = nLay1_W / 2;
-			nLay2_H = nLay1_H / 2;
+			nLay2_H = nLay1_H / 2 + 1; //+ 1 to get the bottom one
 			nL2_ArraySize = nLay2_W * nLay2_H;
 			
 			oImg.nHeight += nLay2_H;
@@ -155,15 +156,20 @@
 				}
 				
 				///////////
+				
+				var _nL2_XCaseNo : Int = (_oObj.nX_Min+nCaseSize) / _nL2_CaseSize;
+				var _nL2_YCaseNo : Int = (_oObj.nY_Min+nCaseSize) / _nL2_CaseSize;
+				if( (_oObj.nX_Max + nCaseSize )  < _nL2_XCaseNo * _nL2_CaseSize + _nL2_CaseSize){
+					if( (_oObj.nY_Max + nCaseSize )  < _nL2_YCaseNo * _nL2_CaseSize + _nL2_CaseSize){
+				
+				
+				/*
 				var _nL2_XCaseNo : Int = (_nXCaseNo)/2;
 				var _nL2_YCaseNo : Int = (_nYCaseNo)/2;
-			//	var _nL2_XCaseNo : Int = (_oObj.nX_Min-nCaseSize) / _nL2_CaseSize;
-			//	var _nL2_YCaseNo : Int = (_oObj.nY_Min-nCaseSize) / _nL2_CaseSize;
-				//			if( (_oObj.nX_Max - nCaseSize )  < _nL2_XCaseNo * _nL2_CaseSize + _nL2_CaseSize){
-				//	if( (_oObj.nY_Max - nCaseSize )  < _nL2_YCaseNo * _nL2_CaseSize + _nL2_CaseSize){
-				
 				if( (_oObj.nX_Max  )  < _nL2_XCaseNo * _nL2_CaseSize + _nL2_CaseSize){
 					if( (_oObj.nY_Max  )  < _nL2_YCaseNo * _nL2_CaseSize + _nL2_CaseSize){
+					*/
+					
 						//var _nCase : UInt = (_nL2_YCaseNo + nLay1_H ) * oImg.nWidth  + _nL2_XCaseNo; 
 						//var _nCase : UInt = (_nL2_YCaseNo + nLay1_H ) * oImg.nWidth  + _nL2_XCaseNo; 
 						var _nCase : UInt = (_nL2_YCaseNo + nLay1_H  ) * oImg.nWidth + _nL2_XCaseNo  ; 

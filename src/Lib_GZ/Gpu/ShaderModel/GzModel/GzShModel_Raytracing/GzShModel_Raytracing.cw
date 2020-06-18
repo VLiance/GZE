@@ -33,6 +33,9 @@ package  {
 		public var oVbo : Vbo;
 		public var oUbo : Ubo;
 		
+		public var oUvOffset_L2: UnVec2;
+		
+		
 	
 		public function GzShModel_Raytracing():Void {
 			Debug.fTrace("--- GzShModel Created!! ---");
@@ -78,6 +81,10 @@ package  {
 			oUvPersp = new UnVec4(oProgram, "vPersp");
 			
 			oUvPosition = new UnVec2(oProgram, "vPosition");
+			
+			oUvOffset_L2 = new UnVec2(oProgram, "vOffset_L2");
+			
+			
 			
 			GzShCommun_Light.fIniData(oProgram);
 			

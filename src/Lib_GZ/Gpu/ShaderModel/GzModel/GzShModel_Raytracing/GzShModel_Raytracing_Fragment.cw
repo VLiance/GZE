@@ -48,6 +48,14 @@ package  {
 			///////////// Fragment Shader //////////////
 <glsl(oFragement)>
 
+
+
+////////////
+uniform vec2 vOffset_L2;
+
+////////////
+
+
 vec4 pixTex;
 vec4 color;
 
@@ -197,8 +205,8 @@ void main(){
 		uint _nObjId_L1   = (fUTexelFetch(ID_ITexID,  ivec2( (vec2(_nL1_W, _nL1_H) * sh_uv  )    )   )).r;
 		float _nL1 = float(_nObjId_L1) /625.0;
 		
-		//uint _nObjId_L2   = (fUTexelFetch(ID_ITexID,  ivec2( vec2(_nL2_W , _nL2_H ) * sh_uv + vec2(0.0 - 0.5, _nL1_OffH - 0.5 )  ) )).r;
-		uint _nObjId_L2   = (fUTexelFetch(ID_ITexID,  ivec2( vec2(_nL2_W , _nL2_H ) * sh_uv + vec2(0.0 , _nL1_OffH )  ) )).r;
+		uint _nObjId_L2   = (fUTexelFetch(ID_ITexID,  ivec2( vec2(_nL2_W , _nL2_H ) * sh_uv + vec2(0.0 + 0.5, _nL1_OffH + 0.5 )  ) )).r;
+		//uint _nObjId_L2   = (fUTexelFetch(ID_ITexID,  ivec2( vec2(_nL2_W , _nL2_H ) * sh_uv + vec2(0.0 , _nL1_OffH )  ) )).r;
 		float _nL2 = float(_nObjId_L2) /625.0;	
 		
 		
@@ -208,13 +216,14 @@ void main(){
 		
 	//	pixTex = vec4( 1.0, 1.0, 1.0, 1.0) ;
 	}else{
-
+	//	pixTex.a = 1.0;
 	//	pixTex = vec4( 0.5, 0.5, 0.5, 0.1) ;
 
 	}
 	
 
 	FragColor =  pixTex;
+	
 }
 				
 </glsl>

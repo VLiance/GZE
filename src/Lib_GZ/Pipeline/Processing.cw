@@ -33,7 +33,7 @@
 			oItf = _oItf;
 			
 			if(bHaveRaytracing){
-				oTileView = new TileView(_oItf);
+				oTileView = new TileView(_oItf, _oItf.oGzShModel);
 			}
 			
 		}
