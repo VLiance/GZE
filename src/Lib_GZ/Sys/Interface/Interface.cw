@@ -164,10 +164,8 @@ package  {
 			}
 			fWinStart();
 			
-
 			oContext.fInitialised();
-			
-	
+			oProcessing.fIni();
 		}
 
 		override public function fNewFrame():Void {
@@ -204,7 +202,7 @@ package  {
 				
 				if(oContext.bIniDrawZone ){ //Temp
 					//Face.nRenderTotal = 0;
-					oProcessing.fIni();
+					oProcessing.fFrameIni();
 					fDispatchRender(oProcessing);
 					oProcessing.fBuild_Array();
 					oProcessing.fGpuDraw();

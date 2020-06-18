@@ -33,7 +33,6 @@ package  {
 		public var oVbo : Vbo;
 		public var oUbo : Ubo;
 		
-		public var oUvOffset_L2: UnVec2;
 		
 		
 	
@@ -82,7 +81,7 @@ package  {
 			
 			oUvPosition = new UnVec2(oProgram, "vPosition");
 			
-			oUvOffset_L2 = new UnVec2(oProgram, "vOffset_L2");
+			
 			
 			
 			

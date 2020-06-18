@@ -6,7 +6,8 @@
 	import GZ.File.RcImg;
 	import GZ.Gpu.ShaderModel.AtModel.Attribute_Quad;
 	import GZ.Gpu.ShaderModel.GzModel.GzShModel;
-	
+	import GZ.Gpu.Base.UnVec2;
+		
 	import GZ.Gpu.GpuObj.GpuRcImg;
 		
 	public class TileView  {
@@ -39,14 +40,39 @@
 		public var nL2_ArraySize : Int;
 		public var nMax_L2_ArraySize : Int;
 		
+		public var oUvScreen_L1: UnVec2;
+		public var oUvScreen_L2: UnVec2;
+		
+		public var oUvOffset_L2: UnVec2;
+	
+		
 		
 		public function TileView(_oItf : Interface, _oGzShModel : GzShModel):Void {
+			oItf = _oItf;
+			
+			oUvScreen_L1 = new UnVec2(_oGzShModel.oProgram, "vScreen_L1");
+			oUvScreen_L2 = new UnVec2(_oGzShModel.oProgram, "vScreen_L2");
+			
+			oUvOffset_L2 = new UnVec2(_oGzShModel.oProgram, "vOffset_L2");
+			
+			
+			oUvScreen_L1.vVal.nX = nSceneResW / nCaseSize;
+			oUvScreen_L1.vVal.nY = nSceneResH / nCaseSize;
+			oUvScreen_L1.fSend();
+			
+			oUvScreen_L2.vVal.nX = nSceneResW / (nCaseSize*2);
+			oUvScreen_L2.vVal.nY = nSceneResH / (nCaseSize*2);
+			oUvScreen_L2.fSend();
+			
 			nXTotalCase = nSceneResW / nCaseSize  + 1; //TODO (+1  to simulate ceil and keep fraction)
 			nYTotalCase = nSceneResH / nCaseSize + 1; //TODO (+1  to simulate ceil and keep fraction)
 			nArraySize = nYTotalCase * nXTotalCase;
 			
 		
-			oItf = _oItf;
+		
+
+			
+		
 		
 			oImg = new RcImg("");
 			
@@ -66,9 +92,13 @@
 			nLay1_W = nXTotalCase ;
 			nLay1_H = nYTotalCase ;
 			
-			
 			nLay2_W = nLay1_W / 2;
 			nLay2_H = nLay1_H / 2 + 1; //+ 1 to get the bottom one
+			
+			oUvOffset_L2.vVal.nY = nLay1_H + 0.5;
+			oUvOffset_L2.vVal.nX = 0.5;
+			oUvOffset_L2.fSend();
+			
 			nL2_ArraySize = nLay2_W * nLay2_H;
 			
 			oImg.nHeight += nLay2_H;

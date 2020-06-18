@@ -20,7 +20,7 @@
 	
 		gzInt UpdateFragmentShader(std::string _sSrc) {
 			
-			GZ_printf("\n\nCalllll UpdateFragmentShader %s\n", _sSrc.c_str());
+			//GZ_printf("\n\nCalllll UpdateFragmentShader %s\n", _sSrc.c_str());
 			if(ptrGzShModel->oFragement->fUpdateShader(gzStrC(_sSrc.c_str()))){
 				ptrGzShModel->oProgram->fAttachShader(ptrGzShModel->oFragement);
 				if(ptrGzShModel->oProgram->fLink()){

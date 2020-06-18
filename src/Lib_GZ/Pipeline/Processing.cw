@@ -31,14 +31,16 @@
 			
 		public function Processing(_oItf : Interface):Void {
 			oItf = _oItf;
-			
-			if(bHaveRaytracing){
-				oTileView = new TileView(_oItf, _oItf.oGzShModel);
-			}
-			
 		}
 		
+		
 		public function fIni():Void {
+			if(bHaveRaytracing){
+				oTileView = new TileView(oItf, oItf.oGzShModel);
+			}
+		}
+		
+		public function fFrameIni():Void {
 			if(oTileView != null){
 				oTileView.fIni();
 			}
