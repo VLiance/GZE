@@ -192,36 +192,15 @@
 				if( (_oObj.nX_Max + nCaseSize )  < _nL2_XCaseNo * _nL2_CaseSize + _nL2_CaseSize){
 					if( (_oObj.nY_Max + nCaseSize )  < _nL2_YCaseNo * _nL2_CaseSize + _nL2_CaseSize){
 				
-				
-				/*
-				var _nL2_XCaseNo : Int = (_nXCaseNo)/2;
-				var _nL2_YCaseNo : Int = (_nYCaseNo)/2;
-				if( (_oObj.nX_Max  )  < _nL2_XCaseNo * _nL2_CaseSize + _nL2_CaseSize){
-					if( (_oObj.nY_Max  )  < _nL2_YCaseNo * _nL2_CaseSize + _nL2_CaseSize){
-					*/
-					
-						//var _nCase : UInt = (_nL2_YCaseNo + nLay1_H ) * oImg.nWidth  + _nL2_XCaseNo; 
-						//var _nCase : UInt = (_nL2_YCaseNo + nLay1_H ) * oImg.nWidth  + _nL2_XCaseNo; 
 						var _nCase : UInt = (_nL2_YCaseNo + nLay1_H  ) * oImg.nWidth + _nL2_XCaseNo  ; 
 						
-						/*
-						if(_bOne == false){
-							_bOne = true;
-							Debug.fTrace("_nL2_YCaseNo: " + _nL2_YCaseNo);
-							Debug.fTrace("nLay1_H: " + nLay1_H);
-							Debug.fTrace(" oImg.nWidth: " +  oImg.nWidth);
-							Debug.fTrace("_nCase: " + _nCase);
-						}*/
-						
-						
-						
+					
 						if(_nCase <  nMax_L2_ArraySize  ){
 							aArray[ _nCase] += 0x00FF;
 						}
 					}
 				}
-				
-				///////////
+
 			}
 			/*
 			for(var i: Int = 0; i < oImg.nHeight ; i++){
