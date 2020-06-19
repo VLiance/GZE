@@ -52,9 +52,13 @@ package  {
 
 ////////////
 uniform vec2 vScreen_L1;
-uniform vec2 vScreen_L2;
 
+uniform vec2 vScreen_L2;
 uniform vec2 vOffset_L2;
+
+uniform vec2 vScreen_L3;
+uniform vec2 vOffset_L3;
+
 
 ////////////
 
@@ -187,7 +191,6 @@ void main(){
 
 	//	uint _nObjId   = (fUTexelFetch(ID_ITexID,  ivec2(UTexSize[ID_ITexID] * sh_uv) )).r;
 		//uint _nObjId   = (texelFetch(UTexture[0], ivec2(UTexSize[ID_ITexID] * sh_uv) ,0)).r;   //(ID_ITexID,  ivec2(UTexSize[ID_ITexID] * sh_uv) )).r;
-
 		
 		uint _nObjId_L1   = (fUTexelFetch(ID_ITexID,  ivec2( (vScreen_L1 * sh_uv  )  ) )).r;
 		float _nL1 = float(_nObjId_L1) /625.0;
@@ -195,8 +198,11 @@ void main(){
 		uint _nObjId_L2   = (fUTexelFetch(ID_ITexID,  ivec2( vScreen_L2 * sh_uv + vOffset_L2  ) )).r;
 		float _nL2 = float(_nObjId_L2) /625.0;	
 		
+		uint _nObjId_L3   = (fUTexelFetch(ID_ITexID,  ivec2( vScreen_L3 * sh_uv + vOffset_L3  ) )).r;
+		float _nL3 = float(_nObjId_L3) /625.0;	
 		
-		pixTex = vec4( _nL1,_nL2, 0.0, 0.5) ;
+		
+		pixTex = vec4( _nL1,_nL2, _nL3, 0.5) ;
 		
 		
 	//	pixTex = vec4( 1.0, 1.0, 1.0, 1.0) ;

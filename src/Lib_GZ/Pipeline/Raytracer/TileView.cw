@@ -32,18 +32,25 @@
 		public var nFullArraySize : Int;
 		
 		
+				
+		//public var nL2_ArraySize : Int;
+		//public var nMax_L2_ArraySize : Int;
+		
+		
+		public var oUvScreen_L1: UnVec2;
 		public var nLay1_W : Float;
 		public var nLay1_H : Float;
 		
+		public var oUvScreen_L2: UnVec2;
+		public var oUvOffset_L2: UnVec2;
 		public var nLay2_W : Float;
 		public var nLay2_H : Float;
-		public var nL2_ArraySize : Int;
-		public var nMax_L2_ArraySize : Int;
 		
-		public var oUvScreen_L1: UnVec2;
-		public var oUvScreen_L2: UnVec2;
-		
-		public var oUvOffset_L2: UnVec2;
+		public var oUvScreen_L3: UnVec2;
+		public var oUvOffset_L3: UnVec2;
+		public var nLay3_W : Float;
+		public var nLay3_H : Float;
+		public var nPlaced : Int;
 	
 		
 		
@@ -51,86 +58,72 @@
 			oItf = _oItf;
 			
 			oUvScreen_L1 = new UnVec2(_oGzShModel.oProgram, "vScreen_L1");
-			oUvScreen_L2 = new UnVec2(_oGzShModel.oProgram, "vScreen_L2");
-			
-			oUvOffset_L2 = new UnVec2(_oGzShModel.oProgram, "vOffset_L2");
-			
-			
 			oUvScreen_L1.vVal.nX = nSceneResW / nCaseSize;
 			oUvScreen_L1.vVal.nY = nSceneResH / nCaseSize;
 			oUvScreen_L1.fSend();
 			
+			oUvScreen_L2 = new UnVec2(_oGzShModel.oProgram, "vScreen_L2");
+			oUvOffset_L2 = new UnVec2(_oGzShModel.oProgram, "vOffset_L2");
 			oUvScreen_L2.vVal.nX = nSceneResW / (nCaseSize*2);
 			oUvScreen_L2.vVal.nY = nSceneResH / (nCaseSize*2);
 			oUvScreen_L2.fSend();
+			
+			oUvScreen_L3 = new UnVec2(_oGzShModel.oProgram, "vScreen_L3");
+			oUvOffset_L3 = new UnVec2(_oGzShModel.oProgram, "vOffset_L3");
+			oUvScreen_L3.vVal.nX = nSceneResW / (nCaseSize*4);
+			oUvScreen_L3.vVal.nY = nSceneResH / (nCaseSize*4);
+			oUvScreen_L3.fSend();
+			
 			
 			nXTotalCase = nSceneResW / nCaseSize  + 1; //TODO (+1  to simulate ceil and keep fraction)
 			nYTotalCase = nSceneResH / nCaseSize + 1; //TODO (+1  to simulate ceil and keep fraction)
 			nArraySize = nYTotalCase * nXTotalCase;
 			
-		
-		
-
-			
-		
-		
 			oImg = new RcImg("");
-			
-			//TODO autocast
-			//oImg.aImg1D = aArray;
-			
-			
-			
-			
-			oImg.hPixFormat = GpuRcImg.ePixFormat.R16UI;
-		//	oImg.hPixFormat = GpuRcImg.ePixFormat.R8UI;
-			//oImg.hPixFormat = GpuRcImg.ePixFormat.Default;
 			oImg.nWidth =  nXTotalCase;
-			oImg.nHeight = nYTotalCase;
+			oImg.nHeight = nYTotalCase;	
 			
 			
 			nLay1_W = nXTotalCase ;
 			nLay1_H = nYTotalCase ;
 			
+			//Positionned at bottom of Lay1
+			//1:0
+			//2:X
 			nLay2_W = nLay1_W / 2;
 			nLay2_H = nLay1_H / 2 + 1; //+ 1 to get the bottom one
-			
-			oUvOffset_L2.vVal.nY = nLay1_H + 0.5;
-			oUvOffset_L2.vVal.nX = 0.5;
+			oUvOffset_L2.vVal.nX = 0.5;			//+ 0.5offset to interlace
+			oUvOffset_L2.vVal.nY = nLay1_H + 0.5; //+ 0.5 offset to interlace
 			oUvOffset_L2.fSend();
 			
-			nL2_ArraySize = nLay2_W * nLay2_H;
+			//Positionned at right of Lay2
+			//1:OO
+			//2:Ox
+			nLay3_W = nLay2_W / 2;
+			nLay3_H = nLay2_H / 2;
+			oUvOffset_L3.vVal.nX = nLay2_W;
+			oUvOffset_L3.vVal.nY = nLay1_H;
+			oUvOffset_L3.fSend();
+			
+			//nL2_ArraySize = nLay2_W * nLay2_H;
+			//nMax_L2_ArraySize =  oImg.nWidth *  oImg.nHeight ;
+			
 			
 			oImg.nHeight += nLay2_H;
 			
-			nMax_L2_ArraySize =  oImg.nWidth *  oImg.nHeight ;
-			
-			
+			//Img setup
 			nFullArraySize = oImg.nWidth *  oImg.nHeight ;
-			
+			//TODO autocast
+			//oImg.aImg1D = aArray;
 			<cpp>
 				aArray = (gzInt16*)GZ_fCalloc(nFullArraySize, sizeof(gzInt16));
 				oImg->aImg1D = (gzInt32 *)(/*|LineArray|*/aArray);
 			</cpp>	
-		
 			oImg.bBorder = false;
-			
+			oImg.hPixFormat = GpuRcImg.ePixFormat.R16UI;
+		//	oImg.hPixFormat = GpuRcImg.ePixFormat.R8UI;
+			//oImg.hPixFormat = GpuRcImg.ePixFormat.Default;
 
-			<cpp>
-			//oImg->aImg1D = (gzInt32 *)(/*|LineArray|*/aArray);
-			</cpp>		
-			
-				/*
-			for(var i:Int = 0; i < nArraySize; i++;){
-				aArray[i] = i;
-				//aArray[i] = 0xFFFFFFFF;
-			}
-			*/
-			
-			//if(bLoaded == false){
-			//	bLoaded = true;
-	
-			
 		}
 		
 		public function fIni():Void {
@@ -147,6 +140,7 @@
 		public function fBuild_Array(_aObj :  Array<Shape>):Void {
 		
 			var _bOne : Bool = false;
+			nPlaced = 0;
 			//nOffset += 1;
 			for(var i:Int = 0; i < nFullArraySize; i++;){
 				//aArray[i] = i  + nOffset;
@@ -158,22 +152,13 @@
 		//}
 			
 			var _nL2_CaseSize : Int = nCaseSize*2;
-			var _nL2_Offset : Int = nArraySize;
-		
-			/*
-			Debug.fTrace("_nL2_Offset "    +  _nL2_Offset );
-			Debug.fTrace("nL2_ArraySize "    +  nL2_ArraySize );
-			Debug.fTrace("_nL2_Offset + (nL2_ArraySize*2) "    +  (_nL2_Offset + (nLay2_H * nLay1_W)) );
-			Debug.fTrace("oImg.nWidth "    + oImg.nWidth );
-			Debug.fTrace("oImg.nHeight"    +  oImg.nHeight  );
-			Debug.fTrace("nFullArraySize "    + nFullArraySize );
-			*/
+			var _nL3_CaseSize : Int = _nL2_CaseSize*2;
 			
-		//	Debug.fTrace("nMax_L2_ArraySize "    + nMax_L2_ArraySize );
+		
 			
 			for(var i: Int = 0; i < _aObj.nSize; i++){
 				var _oObj : Shape = _aObj.fUnsafe_Get(i);
-				//////////
+				/*
 				var _nXCaseNo : Int = _oObj.nX_Min / nCaseSize;
 				var _nYCaseNo : Int = _oObj.nY_Min / nCaseSize;
 				if(_oObj.nX_Max  < _nXCaseNo * nCaseSize + nCaseSize){
@@ -184,24 +169,21 @@
 						}
 					}
 				}
+				*/
 				
 				///////////
+				if( fAddCase(_oObj, nCaseSize, 0, 0, 0) == false ) {
+				if( fAddCase(_oObj, _nL2_CaseSize, nCaseSize, 0, nLay1_H) == false ) {
+				if( fAddCase(_oObj, _nL3_CaseSize, 0, nLay2_W, nLay1_H) == false ) {
 				
-				var _nL2_XCaseNo : Int = (_oObj.nX_Min+nCaseSize) / _nL2_CaseSize;
-				var _nL2_YCaseNo : Int = (_oObj.nY_Min+nCaseSize) / _nL2_CaseSize;
-				if( (_oObj.nX_Max + nCaseSize )  < _nL2_XCaseNo * _nL2_CaseSize + _nL2_CaseSize){
-					if( (_oObj.nY_Max + nCaseSize )  < _nL2_YCaseNo * _nL2_CaseSize + _nL2_CaseSize){
-				
-						var _nCase : UInt = (_nL2_YCaseNo + nLay1_H  ) * oImg.nWidth + _nL2_XCaseNo  ; 
-						
-					
-						if(_nCase <  nMax_L2_ArraySize  ){
-							aArray[ _nCase] += 0x00FF;
-						}
-					}
 				}
-
+				}
+				}
+			
 			}
+			
+			Debug.fTrace("Total: " + _aObj.nSize + " Placed: " + nPlaced);
+			
 			/*
 			for(var i: Int = 0; i < oImg.nHeight ; i++){
 				var _nCase : UInt = (i ) * oImg.nWidth  ; 
@@ -210,6 +192,26 @@
 			}*/
 			
 		}
+		
+		public function fAddCase( _oObj : Shape, _nCaseSize: Float, _nOffsetCase: Float, _nOffsetX: Float, _nOffsetY: Float):Bool {
+			var _nXCaseNo : Int = (_oObj.nX_Min+_nOffsetCase) / _nCaseSize;
+			var _nYCaseNo : Int = (_oObj.nY_Min+_nOffsetCase) / _nCaseSize;
+				
+			if( (_oObj.nX_Max + _nOffsetCase )  < _nXCaseNo * _nCaseSize + _nCaseSize){
+				if( (_oObj.nY_Max + _nOffsetCase )  < _nYCaseNo * _nCaseSize + _nCaseSize){
+					var _nCase : UInt = (_nYCaseNo + _nOffsetY  ) * oImg.nWidth + _nXCaseNo + _nOffsetX; 
+					//if(_nCase <  nMax_L2_ArraySize  ){
+					if(_nCase <  nFullArraySize  ){ //Temp?
+						aArray[ _nCase] += 0x00FF;
+						nPlaced++;
+						return true;
+					}
+				}
+			}
+			return false;
+		}
+		
+		
 		
 		public function fGpuDraw():Bool {
 			oImg.fGpuLoad(true);
