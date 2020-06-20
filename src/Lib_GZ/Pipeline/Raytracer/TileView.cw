@@ -33,29 +33,14 @@
 		public var nFullArraySize : Int;
 		
 		
-				
-		//public var nL2_ArraySize : Int;
-		//public var nMax_L2_ArraySize : Int;
 		
-		
-		public var oUvScreen_L1: UnVec2;
-		public var nLay1_W : Float;
-		public var nLay1_H : Float;
-		
-		public var oUvScreen_L2: UnVec2;
-		public var oUvOffset_L2: UnVec2;
-		public var nLay2_W : Float;
-		public var nLay2_H : Float;
-		
-		public var oUvScreen_L3: UnVec2;
-		public var oUvOffset_L3: UnVec2;
-		public var nLay3_W : Float;
-		public var nLay3_H : Float;
+
 		public var nPlaced : Int;
 		
 		public var oLay1 : Layer;
 		public var oLay2 : Layer;
 		public var oLay3 : Layer;
+		public var oLay4 : Layer;
 	
 		
 		public wvar oProgram : ProgramShader;
@@ -90,6 +75,14 @@
 			oLay3 = new Layer(this, 3, nCaseSize*4,  oLay2.nWidth / 2, oLay2.nHeight / 2);
 			oLay3.fSetOffset(oLay2.nWidth, oLay1.nHeight);
 
+			//Lay4 Positionned at bottom of Lay3
+			//1:OO
+			//2:Oo
+			// :ox
+			oLay4 = new Layer(this, 4, nCaseSize*8,  oLay3.nWidth / 2, oLay3.nHeight / 2);
+			//oLay4.fSetOffset(oLay2.nWidth, oLay1.nHeight + oLay3.nHeight);
+			oLay4.fSetOffset(oLay2.nWidth + oLay3.nWidth, oLay1.nHeight );
+			
 			
 			oImg.nHeight += oLay2.nHeight;
 			
@@ -132,13 +125,21 @@
 			for(var i: Int = 0; i < _aObj.nSize; i++){
 				var _oObj : Shape = _aObj.fUnsafe_Get(i);
 
+				//if( fAddCase(_oObj, oLay4.nCaseSize, oLay4.nOffsetCase, oLay4.nOff_X, oLay4.nOff_Y) == false ) {
+				
+				//}
+				
+				
 				if( fAddCase(_oObj, oLay1.nCaseSize, oLay1.nOffsetCase, oLay1.nOff_X, oLay1.nOff_Y) == false ) {
 				if( fAddCase(_oObj, oLay2.nCaseSize, oLay2.nOffsetCase, oLay2.nOff_X, oLay2.nOff_Y) == false ) {
 				if( fAddCase(_oObj, oLay3.nCaseSize, oLay3.nOffsetCase, oLay3.nOff_X, oLay3.nOff_Y) == false ) {
+				if( fAddCase(_oObj, oLay4.nCaseSize, oLay4.nOffsetCase, oLay4.nOff_X, oLay4.nOff_Y) == false ) {
 				
 				}
 				}
 				}
+				}
+				
 			}
 			
 			Debug.fTrace("Total: " + _aObj.nSize + " Placed: " + nPlaced);

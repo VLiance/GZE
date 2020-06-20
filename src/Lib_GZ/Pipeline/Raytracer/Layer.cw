@@ -49,11 +49,31 @@
 		public function fSetOffset(_nX:Float, _nY:Float):Void{
 		
 			var _nCaseOff : Float = nOffsetCase/nCaseSize;
-			nOff_X = _nX;
-			nOff_Y = _nY;
 			
-			oUvOffset.vVal.nX = _nX + _nCaseOff;
-			oUvOffset.vVal.nY = _nY + _nCaseOff;
+			
+			var _nScale : Float = nCaseSize / 32;
+			var _nX_IntOff : Int = _nX /  _nScale;
+			var _nY_IntOff : Int = _nY /  _nScale;
+			
+			var _nIntXComp : Int = _nX;
+			var _nIntYComp : Int = _nY;
+			
+			if(_nX_IntOff *  _nScale !=  _nIntXComp){
+				_nX_IntOff++;
+			}
+			if(_nY_IntOff *  _nScale !=  _nIntYComp){
+				_nY_IntOff++;
+			}
+			
+			 nOff_X = _nX_IntOff *  _nScale;
+			 nOff_Y = _nY_IntOff *  _nScale;
+			
+			
+			//nOff_X = _nX;
+			//nOff_Y = _nY;
+			
+			oUvOffset.vVal.nX = nOff_X + _nCaseOff;
+			oUvOffset.vVal.nY = nOff_Y + _nCaseOff;
 			oUvOffset.fSend();
 		}
 		

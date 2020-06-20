@@ -59,6 +59,8 @@ uniform vec2 vOffset_L2;
 uniform vec2 vScreen_L3;
 uniform vec2 vOffset_L3;
 
+uniform vec2 vScreen_L4;
+uniform vec2 vOffset_L4;
 
 ////////////
 
@@ -201,8 +203,12 @@ void main(){
 		uint _nObjId_L3   = (fUTexelFetch(ID_ITexID,  ivec2( vScreen_L3 * sh_uv + vOffset_L3  ) )).r;
 		float _nL3 = float(_nObjId_L3) /625.0;	
 		
+			
+		uint _nObjId_L4   = (fUTexelFetch(ID_ITexID,  ivec2( vScreen_L4 * sh_uv + vOffset_L4  ) )).r;
+		float _nL4 = float(_nObjId_L4) /625.0;
 		
-		pixTex = vec4( _nL1,_nL2, _nL3, 0.5) ;
+		pixTex = vec4( _nL1 + _nL4,_nL2, _nL3, 0.5) ;
+		//pixTex = vec4(_nL4,0, 0, 0.5) ;
 		
 		
 	//	pixTex = vec4( 1.0, 1.0, 1.0, 1.0) ;
