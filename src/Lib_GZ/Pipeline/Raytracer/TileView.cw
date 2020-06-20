@@ -7,7 +7,8 @@
 	import GZ.Gpu.ShaderModel.AtModel.Attribute_Quad;
 	import GZ.Gpu.ShaderModel.GzModel.GzShModel;
 	import GZ.Gpu.Base.UnVec2;
-		
+	import GZ.Pipeline.Raytracer.Layer;
+	import GZ.Gpu.ShaderBase.ProgramShader;
 	import GZ.Gpu.GpuObj.GpuRcImg;
 		
 	public class TileView  {
@@ -51,11 +52,18 @@
 		public var nLay3_W : Float;
 		public var nLay3_H : Float;
 		public var nPlaced : Int;
+		
+		public var oLay1 : Layer;
+		public var oLay2 : Layer;
+		public var oLay3 : Layer;
 	
+		
+		public wvar oProgram : ProgramShader;
 		
 		
 		public function TileView(_oItf : Interface, _oGzShModel : GzShModel):Void {
 			oItf = _oItf;
+			oProgram = _oGzShModel.oProgram;
 			
 			oUvScreen_L1 = new UnVec2(_oGzShModel.oProgram, "vScreen_L1");
 			oUvScreen_L1.vVal.nX = nSceneResW / nCaseSize;
@@ -75,6 +83,13 @@
 			oUvScreen_L3.fSend();
 			
 			
+			
+		
+			
+			
+			
+			
+			
 			nXTotalCase = nSceneResW / nCaseSize  + 1; //TODO (+1  to simulate ceil and keep fraction)
 			nYTotalCase = nSceneResH / nCaseSize + 1; //TODO (+1  to simulate ceil and keep fraction)
 			nArraySize = nYTotalCase * nXTotalCase;
@@ -90,26 +105,39 @@
 			//Positionned at bottom of Lay1
 			//1:0
 			//2:X
+			oLay2 = new Layer(this, 2, nCaseSize*2,  nLay1_W / 2, nLay1_H / 2 + 1);
+			oLay2.fSetOffsetCase(nCaseSize);
+			
+			oLay2.fSetOffset(0, nLay1_H );
+			
+			
+			/*
 			nLay2_W = nLay1_W / 2;
 			nLay2_H = nLay1_H / 2 + 1; //+ 1 to get the bottom one
 			oUvOffset_L2.vVal.nX = 0.5;			//+ 0.5offset to interlace
 			oUvOffset_L2.vVal.nY = nLay1_H + 0.5; //+ 0.5 offset to interlace
 			oUvOffset_L2.fSend();
+			*/
 			
-			//Positionned at right of Lay2
+			//Lay3 Positionned at right of Lay2
 			//1:OO
 			//2:Ox
+			oLay3 = new Layer(this, 3, nCaseSize*4,  oLay2.nWidth / 2, oLay2.nHeight / 2);
+			oLay3.fSetOffset(oLay2.nWidth, nLay1_H);
+			
+		/*
 			nLay3_W = nLay2_W / 2;
 			nLay3_H = nLay2_H / 2;
 			oUvOffset_L3.vVal.nX = nLay2_W;
 			oUvOffset_L3.vVal.nY = nLay1_H;
 			oUvOffset_L3.fSend();
-			
+	*/		
 			//nL2_ArraySize = nLay2_W * nLay2_H;
 			//nMax_L2_ArraySize =  oImg.nWidth *  oImg.nHeight ;
 			
 			
-			oImg.nHeight += nLay2_H;
+			//oImg.nHeight += nLay2_H;
+			oImg.nHeight += oLay2.nHeight;
 			
 			//Img setup
 			nFullArraySize = oImg.nWidth *  oImg.nHeight ;
@@ -173,8 +201,11 @@
 				
 				///////////
 				if( fAddCase(_oObj, nCaseSize, 0, 0, 0) == false ) {
-				if( fAddCase(_oObj, _nL2_CaseSize, nCaseSize, 0, nLay1_H) == false ) {
-				if( fAddCase(_oObj, _nL3_CaseSize, 0, nLay2_W, nLay1_H) == false ) {
+				//if( fAddCase(_oObj, _nL2_CaseSize, nCaseSize, 0, nLay1_H) == false ) {
+				//if( fAddCase(_oObj, _nL3_CaseSize, 0, nLay2_W, nLay1_H) == false ) {
+				if( fAddCase(_oObj, oLay2.nCaseSize, oLay2.nOffsetCase, oLay2.nOff_X, oLay2.nOff_Y) == false ) {
+				if( fAddCase(_oObj, oLay3.nCaseSize, oLay3.nOffsetCase, oLay3.nOff_X, oLay3.nOff_Y) == false ) {
+				
 				
 				}
 				}
