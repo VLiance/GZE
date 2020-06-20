@@ -28,11 +28,12 @@
 	
 		
 		
-		public function Layer(_oTileView : TileView, _nLayer:Int, _nCaseSize:Float, _nWidth: Float, _nHeight : Float):Void {
+		public function Layer(_oTileView : TileView, _nLayer:Int, _nCaseSize:Float, _nWidth: Float, _nHeight : Float, _nOffsetCase:Float = 0):Void {
 			nLayer =  _nLayer;
 			nWidth = _nWidth;
 			nHeight = _nHeight;
 			nCaseSize = _nCaseSize;
+			nOffsetCase = _nOffsetCase;
 			
 			oUvScreen = new UnVec2(_oTileView.oProgram, "vScreen_L" + _nLayer);
 			oUvOffset = new UnVec2(_oTileView.oProgram, "vOffset_L" + _nLayer);
@@ -40,31 +41,19 @@
 			oUvScreen.vVal.nX = _oTileView.nSceneResW / (_nCaseSize);
 			oUvScreen.vVal.nY = _oTileView.nSceneResH / (_nCaseSize);
 			oUvScreen.fSend();
-			
-			/*
-			//Positionned at right of Lay2
-			//1:OO
-			//2:Ox
-			nLay3_W = nLay2_W / 2;
-			nLay3_H = nLay2_H / 2;
-			oUvOffset_L3.vVal.nX = nLay2_W;
-			oUvOffset_L3.vVal.nY = nLay1_H;
-			oUvOffset_L3.fSend();
-		*/
+
 		}
 		
-		public function fSetOffsetCase(_nOffsetCase:Float):Void{
-			nOffsetCase = _nOffsetCase;
-		}
+	
 		
 		public function fSetOffset(_nX:Float, _nY:Float):Void{
 		
-			var _nOff : Float = nOffsetCase/nCaseSize;
+			var _nCaseOff : Float = nOffsetCase/nCaseSize;
 			nOff_X = _nX;
 			nOff_Y = _nY;
 			
-			oUvOffset.vVal.nX = _nX + _nOff;
-			oUvOffset.vVal.nY = _nY + _nOff;
+			oUvOffset.vVal.nX = _nX + _nCaseOff;
+			oUvOffset.vVal.nY = _nY + _nCaseOff;
 			oUvOffset.fSend();
 		}
 		

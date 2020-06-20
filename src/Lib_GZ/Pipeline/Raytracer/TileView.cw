@@ -65,30 +65,7 @@
 			oItf = _oItf;
 			oProgram = _oGzShModel.oProgram;
 			
-			oUvScreen_L1 = new UnVec2(_oGzShModel.oProgram, "vScreen_L1");
-			oUvScreen_L1.vVal.nX = nSceneResW / nCaseSize;
-			oUvScreen_L1.vVal.nY = nSceneResH / nCaseSize;
-			oUvScreen_L1.fSend();
-			
-			oUvScreen_L2 = new UnVec2(_oGzShModel.oProgram, "vScreen_L2");
-			oUvOffset_L2 = new UnVec2(_oGzShModel.oProgram, "vOffset_L2");
-			oUvScreen_L2.vVal.nX = nSceneResW / (nCaseSize*2);
-			oUvScreen_L2.vVal.nY = nSceneResH / (nCaseSize*2);
-			oUvScreen_L2.fSend();
-			
-			oUvScreen_L3 = new UnVec2(_oGzShModel.oProgram, "vScreen_L3");
-			oUvOffset_L3 = new UnVec2(_oGzShModel.oProgram, "vOffset_L3");
-			oUvScreen_L3.vVal.nX = nSceneResW / (nCaseSize*4);
-			oUvScreen_L3.vVal.nY = nSceneResH / (nCaseSize*4);
-			oUvScreen_L3.fSend();
-			
-			
-			
-		
-			
-			
-			
-			
+
 			
 			nXTotalCase = nSceneResW / nCaseSize  + 1; //TODO (+1  to simulate ceil and keep fraction)
 			nYTotalCase = nSceneResH / nCaseSize + 1; //TODO (+1  to simulate ceil and keep fraction)
@@ -97,46 +74,23 @@
 			oImg = new RcImg("");
 			oImg.nWidth =  nXTotalCase;
 			oImg.nHeight = nYTotalCase;	
-			
-			
-			nLay1_W = nXTotalCase ;
-			nLay1_H = nYTotalCase ;
+		
+			//First Layer
+			oLay1 = new Layer(this, 1, nCaseSize,  nXTotalCase, nYTotalCase);
 			
 			//Positionned at bottom of Lay1
 			//1:0
 			//2:X
-			oLay2 = new Layer(this, 2, nCaseSize*2,  nLay1_W / 2, nLay1_H / 2 + 1);
-			oLay2.fSetOffsetCase(nCaseSize);
-			
-			oLay2.fSetOffset(0, nLay1_H );
-			
-			
-			/*
-			nLay2_W = nLay1_W / 2;
-			nLay2_H = nLay1_H / 2 + 1; //+ 1 to get the bottom one
-			oUvOffset_L2.vVal.nX = 0.5;			//+ 0.5offset to interlace
-			oUvOffset_L2.vVal.nY = nLay1_H + 0.5; //+ 0.5 offset to interlace
-			oUvOffset_L2.fSend();
-			*/
+			oLay2 = new Layer(this, 2, nCaseSize*2,  oLay1.nWidth / 2, oLay1.nHeight / 2 + 1, nCaseSize);
+			oLay2.fSetOffset(0, oLay1.nHeight );
 			
 			//Lay3 Positionned at right of Lay2
 			//1:OO
 			//2:Ox
 			oLay3 = new Layer(this, 3, nCaseSize*4,  oLay2.nWidth / 2, oLay2.nHeight / 2);
-			oLay3.fSetOffset(oLay2.nWidth, nLay1_H);
+			oLay3.fSetOffset(oLay2.nWidth, oLay1.nHeight);
+
 			
-		/*
-			nLay3_W = nLay2_W / 2;
-			nLay3_H = nLay2_H / 2;
-			oUvOffset_L3.vVal.nX = nLay2_W;
-			oUvOffset_L3.vVal.nY = nLay1_H;
-			oUvOffset_L3.fSend();
-	*/		
-			//nL2_ArraySize = nLay2_W * nLay2_H;
-			//nMax_L2_ArraySize =  oImg.nWidth *  oImg.nHeight ;
-			
-			
-			//oImg.nHeight += nLay2_H;
 			oImg.nHeight += oLay2.nHeight;
 			
 			//Img setup
@@ -169,58 +123,26 @@
 		
 			var _bOne : Bool = false;
 			nPlaced = 0;
-			//nOffset += 1;
+			
 			for(var i:Int = 0; i < nFullArraySize; i++;){
-				//aArray[i] = i  + nOffset;
 				aArray[i] = 0;
 				//aArray[i] = 0xFFFFFFFF;
 			}
-			//if(nOffset > nArraySize){
-			//	nOffset = 0;
-		//}
-			
-			var _nL2_CaseSize : Int = nCaseSize*2;
-			var _nL3_CaseSize : Int = _nL2_CaseSize*2;
-			
-		
 			
 			for(var i: Int = 0; i < _aObj.nSize; i++){
 				var _oObj : Shape = _aObj.fUnsafe_Get(i);
-				/*
-				var _nXCaseNo : Int = _oObj.nX_Min / nCaseSize;
-				var _nYCaseNo : Int = _oObj.nY_Min / nCaseSize;
-				if(_oObj.nX_Max  < _nXCaseNo * nCaseSize + nCaseSize){
-					if(_oObj.nY_Max  < _nYCaseNo * nCaseSize + nCaseSize){
-						var _nCase : UInt = _nYCaseNo * oImg.nWidth  + _nXCaseNo;
-						if(_nCase < nArraySize){
-							aArray[_nCase] += 0x00FF;
-						}
-					}
-				}
-				*/
-				
-				///////////
-				if( fAddCase(_oObj, nCaseSize, 0, 0, 0) == false ) {
-				//if( fAddCase(_oObj, _nL2_CaseSize, nCaseSize, 0, nLay1_H) == false ) {
-				//if( fAddCase(_oObj, _nL3_CaseSize, 0, nLay2_W, nLay1_H) == false ) {
+
+				if( fAddCase(_oObj, oLay1.nCaseSize, oLay1.nOffsetCase, oLay1.nOff_X, oLay1.nOff_Y) == false ) {
 				if( fAddCase(_oObj, oLay2.nCaseSize, oLay2.nOffsetCase, oLay2.nOff_X, oLay2.nOff_Y) == false ) {
 				if( fAddCase(_oObj, oLay3.nCaseSize, oLay3.nOffsetCase, oLay3.nOff_X, oLay3.nOff_Y) == false ) {
 				
-				
 				}
 				}
 				}
-			
 			}
 			
 			Debug.fTrace("Total: " + _aObj.nSize + " Placed: " + nPlaced);
-			
-			/*
-			for(var i: Int = 0; i < oImg.nHeight ; i++){
-				var _nCase : UInt = (i ) * oImg.nWidth  ; 
-				aArray[ _nCase] += 0x00FF;
-				
-			}*/
+		
 			
 		}
 		
