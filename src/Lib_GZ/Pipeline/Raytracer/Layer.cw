@@ -58,12 +58,12 @@
 			var _nIntXComp : Int = _nX;
 			var _nIntYComp : Int = _nY;
 			
-			if(_nX_IntOff *  _nScale !=  _nIntXComp){
-				_nX_IntOff++;
-			}
-			if(_nY_IntOff *  _nScale !=  _nIntYComp){
-				_nY_IntOff++;
-			}
+			//if(_nX_IntOff *  _nScale !=  _nIntXComp){
+				_nX_IntOff++; //Keep some space between
+			//}
+		//	if(_nY_IntOff *  _nScale !=  _nIntYComp){
+				_nY_IntOff++; //Keep some space between
+		//	}
 			
 			 nOff_X = _nX_IntOff *  _nScale;
 			 nOff_Y = _nY_IntOff *  _nScale;

@@ -52,8 +52,8 @@
 			
 
 			
-			nXTotalCase = nSceneResW / nCaseSize  + 1; //TODO (+1  to simulate ceil and keep fraction)
-			nYTotalCase = nSceneResH / nCaseSize + 1; //TODO (+1  to simulate ceil and keep fraction)
+			nXTotalCase = nSceneResW / nCaseSize  + 10; //TODO (+1  to simulate ceil and keep fraction)
+			nYTotalCase = nSceneResH / nCaseSize + 10; //TODO (+1  to simulate ceil and keep fraction)
 			nArraySize = nYTotalCase * nXTotalCase;
 			
 			oImg = new RcImg("");
@@ -79,9 +79,11 @@
 			//1:OO
 			//2:Oo
 			// :ox
-			oLay4 = new Layer(this, 4, nCaseSize*8,  oLay3.nWidth / 2, oLay3.nHeight / 2);
-			//oLay4.fSetOffset(oLay2.nWidth, oLay1.nHeight + oLay3.nHeight);
-			oLay4.fSetOffset(oLay2.nWidth + oLay3.nWidth, oLay1.nHeight );
+			oLay4 = new Layer(this, 4, nCaseSize*8,  oLay3.nWidth / 2, oLay3.nHeight / 2, nCaseSize  * 4);
+		//	oLay4 = new Layer(this, 4, nCaseSize*8,  oLay3.nWidth / 2, oLay3.nHeight / 2);
+			oLay4.fSetOffset(oLay2.nWidth, oLay1.nHeight + oLay3.nHeight);
+			//oLay4.fSetOffset(oLay2.nWidth + oLay3.nWidth  + 6 , oLay1.nHeight  + 6);
+			
 			
 			
 			oImg.nHeight += oLay2.nHeight;
