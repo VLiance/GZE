@@ -86,19 +86,6 @@ typedef int tLS ;
 
 
 
-//#include "Lib_GZ/Delegate.h"
-
-
-
-#ifdef __cplusplus
-  //  #include "Math.h" //Math
-
-    //#include "Str.h"
- //   #include "Easing.h"
- //   #include "Macro.h"
-  //  #include "Lib_GZ/Debug.h"
-#endif
-
 #include "Lib_GZ/Base/SmartPtr/SmartPtr.h"
 
 
@@ -130,20 +117,8 @@ namespace Dlg_r_void_p_No{
     };
 }
 #endif
-/*
-#ifndef GZ_r_void_p_gzStr
-#define GZ_r_void_p_gzStr
-GZ_mIComp(_r_void_p_gzStr);
-namespace Dlg_r_void_p_gzStr{
-   GZ_mDlgIni(void, GZ_PARAM, gzPStr){return ;};
-   class Dlg { GZ_mDlgClass(_r_void_p_gzStr)
-        inline  void fCall(gzPStr _sStr) const{
-            GZ_mDlgCall(GZ_PARAM, _sStr);
-         }
-    };
-}
-#endif
-*/
+
+
 #ifndef GZ_r_void_p_gzPtr
 #define GZ_r_void_p_gzPtr
 GZ_mIComp(_r_void_p_gzPtr);
@@ -158,8 +133,6 @@ namespace Dlg_r_void_p_gzPtr{
 #endif
 }//namespace Lib_GZ
 
-
-//#include "Lib_GZ/Embed.h"
 
 #include "Lib_GZ/Base/Thread/StThread.h"
 //////////////////////////////////////////////////////////
